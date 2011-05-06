@@ -1,0 +1,149 @@
+/* line 1, ../../app/stylesheets/admin.sass */
+* {
+  font-family: helvetica; }
+
+/* line 4, ../../app/stylesheets/admin.sass */
+#content,
+#header {
+  margin: 20px;
+  clear: both;
+  overflow: hidden; }
+
+/* line 10, ../../app/stylesheets/admin.sass */
+ul.nav {
+  list-style-type: none;
+  overflow: hidden;
+  float: left;
+  margin: 0;
+  padding: 0; }
+  /* line 16, ../../app/stylesheets/admin.sass */
+  ul.nav li {
+    float: left;
+    margin-right: 15px; }
+
+/* line 21, ../../app/stylesheets/admin.sass */
+h1 span {
+  font-size: 0.5em;
+  font-weight: normal; }
+
+/* line 25, ../../app/stylesheets/admin.sass */
+h2 {
+  background-color: #ececec;
+  padding: 5px; }
+
+/* line 30, ../../app/stylesheets/admin.sass */
+pre {
+  padding: 20px;
+  border: 1px solid #cccccc;
+  background-color: #ececec;
+  font-size: 0.8em;
+  line-height: 1.5em;
+  color: #444444;
+  overflow: auto; }
+  /* line 38, ../../app/stylesheets/admin.sass */
+  pre code {
+    font-family: Monaco, "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace; }
+
+/* line 41, ../../app/stylesheets/admin.sass */
+table {
+  width: 99%;
+  font-size: 0.9em;
+  margin: 20px 0;
+  border-collapse: collapse; }
+  /* line 47, ../../app/stylesheets/admin.sass */
+  table tr.new {
+    color: green; }
+  /* line 49, ../../app/stylesheets/admin.sass */
+  table tr.featured {
+    color: orange; }
+  /* line 51, ../../app/stylesheets/admin.sass */
+  table tr.incomplete {
+    color: red; }
+  /* line 54, ../../app/stylesheets/admin.sass */
+  table tr:nth-child(even) {
+    background: #fafafa; }
+  /* line 56, ../../app/stylesheets/admin.sass */
+  table th {
+    padding: 10px;
+    text-align: center; }
+    /* line 59, ../../app/stylesheets/admin.sass */
+    table th.name, table th.site, table th.url, table th.email {
+      text-align: left; }
+  /* line 64, ../../app/stylesheets/admin.sass */
+  table td {
+    padding: 6px 10px;
+    border: 1px solid #ededed; }
+    /* line 67, ../../app/stylesheets/admin.sass */
+    table td.number {
+      font-size: 1.2em; }
+    /* line 69, ../../app/stylesheets/admin.sass */
+    table td.number, table td.bool {
+      text-align: center; }
+    /* line 72, ../../app/stylesheets/admin.sass */
+    table td.date {
+      text-align: right;
+      font-size: 0.8em; }
+    /* line 76, ../../app/stylesheets/admin.sass */
+    table td.url {
+      font-size: 0.9em; }
+
+/* line 81, ../../app/stylesheets/admin.sass */
+dl dt {
+  font-weight: bold; }
+/* line 83, ../../app/stylesheets/admin.sass */
+dl dd {
+  margin: 5px 0 20px 0; }
+
+/* line 87, ../../app/stylesheets/admin.sass */
+div.input {
+  margin: 20px 0; }
+
+/* line 90, ../../app/stylesheets/admin.sass */
+.error {
+  color: red; }
+
+/* line 93, ../../app/stylesheets/admin.sass */
+div.input.boolean {
+  margin-top: 0; }
+
+/* line 96, ../../app/stylesheets/admin.sass */
+input#deal_name {
+  font-size: 30px; }
+
+/* line 100, ../../app/stylesheets/admin.sass */
+label.text, label.string {
+  display: block; }
+
+/* line 103, ../../app/stylesheets/admin.sass */
+a {
+  background-color: none;
+  color: #333333;
+  padding: 1px 3px; }
+  /* line 107, ../../app/stylesheets/admin.sass */
+  a:hover {
+    text-decoration: none;
+    background-color: #333333;
+    color: white; }
+
+/* line 114, ../../app/stylesheets/admin.sass */
+.right {
+  float: right; }
+
+/* line 117, ../../app/stylesheets/admin.sass */
+input.string.url {
+  width: 60%;
+  font-size: 1em;
+  padding: 5px; }
+
+/* line 122, ../../app/stylesheets/admin.sass */
+ul.images li {
+  list-style-type: none; }
+
+/* line 126, ../../app/stylesheets/admin.sass */
+li.upload {
+  clear: both; }
+/* line 128, ../../app/stylesheets/admin.sass */
+li.image {
+  list-style-type: none;
+  float: left;
+  margin: 5px; }

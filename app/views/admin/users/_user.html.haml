@@ -1,0 +1,15 @@
+%tr.user{:id => dom_id(user), :class => row_classes(user) }
+  %td= image_tag user.photo.url(:admin)
+  %td= user.name
+  %td
+    = user.email
+    = mail_to user.email, "Email"
+    
+  %td= user.city
+  %td= user.country
+
+  %td.number= user.deals.size
+  %td.number= user.comments.size
+  
+  %td.date="#{time_ago_in_words user.created_at} ago"
+  %td.date="#{time_ago_in_words user.updated_at} ago"

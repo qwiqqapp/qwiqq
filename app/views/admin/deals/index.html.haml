@@ -1,0 +1,22 @@
+%h1= @title
+
+%ul.nav
+  %li= link_to_unless_current 'All', admin_deals_url
+  - @categories.each do |c|
+    %li= link_to_unless_current c.titleize, admin_category_deals_url(c)
+%br
+
+- unless @deals.blank?
+  %table#deals
+    %tr
+      %th
+      %th.name Name
+      %th Category
+      %th Location
+      %th Price
+      %th Percent
+      %th Comments
+      %th.date Created
+      %th.date Updated
+    =render @deals
+

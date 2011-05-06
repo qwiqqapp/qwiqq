@@ -9,6 +9,13 @@ Qwiqq::Application.routes.draw do
   
   resources :users
   resources :sessions
+  
+  match "/admin", :to => redirect("/admin/users")  
+  namespace "admin" do
+    get 'deals/category/:category_name' => "deals#index", :as => :category_deals, :filter => /\D+/
+    
+    resources :users, :deals, :comments, :locations
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

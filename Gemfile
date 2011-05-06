@@ -7,6 +7,8 @@ gem 'mysql2', '0.2.7'
 
 gem "rails3-generators"
 
+gem "compass"
+
 # views
 gem "haml-rails"
 gem 'sass'

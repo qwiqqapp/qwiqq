@@ -1,0 +1,15 @@
+%h1= @title
+
+- unless @users.blank?
+  %table#deals
+    %tr
+      %th
+      %th.name Name
+      %th Email
+      %th City
+      %th Country
+      %th Deals
+      %th Comments
+      %th.date Created
+      %th.date Updated
+    =render @users

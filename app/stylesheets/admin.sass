@@ -1,0 +1,131 @@
+*
+  font-family: helvetica
+
+#content,
+#header
+  margin: 20px
+  clear: both
+  overflow: hidden
+  
+ul.nav
+  list-style-type: none
+  overflow: hidden
+  float: left
+  margin: 0
+  padding: 0
+  li
+    float: left
+    margin-right: 15px
+
+h1
+  span
+    font-size: 0.5em
+    font-weight: normal
+  
+h2
+  background-color: #ececec
+  padding: 5px
+ 
+ 
+pre
+  padding: 20px
+  border: 1px solid #ccc
+  background-color: #ececec
+  font-size: 0.8em
+  line-height: 1.5em
+  color: #444
+  overflow: auto
+  code
+    font-family: Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace
+  
+table
+  width: 99%
+  font-size: 0.9em
+  margin: 20px 0
+  border-collapse: collapse
+  tr
+    &.new
+      color: green
+    &.featured
+      color: orange
+    &.incomplete
+      color: red
+      
+    &:nth-child(even) 
+      background: #fafafa
+  th
+    padding: 10px
+    text-align: center
+    &.name,
+    &.site,
+    &.url,
+    &.email
+      text-align: left
+  td
+    padding: 6px 10px
+    border: 1px solid #ededed
+    &.number
+      font-size: 1.2em
+    &.number,
+    &.bool
+      text-align: center
+    &.date
+      text-align: right
+      font-size: 0.8em
+
+    &.url
+      font-size: 0.9em
+  
+  
+dl
+  dt
+    font-weight: bold
+  dd
+    margin: 5px 0 20px 0
+  
+
+div.input
+  margin: 20px 0
+
+.error
+  color: red
+
+div.input.boolean
+  margin-top: 0
+
+input#deal_name
+  font-size: 30px
+
+label
+  &.text, &.string
+    display: block
+    
+a
+  background-color: none
+  color: #333
+  padding: 1px 3px
+  &:hover
+    text-decoration: none
+    background-color: #333
+    color: white
+  
+
+
+.right
+  float: right
+
+input.string.url
+  width: 60%
+  font-size: 1em
+  padding: 5px
+
+ul.images li
+  list-style-type: none
+
+li
+  &.upload
+    clear: both
+  &.image
+    list-style-type: none
+    float: left
+    margin: 5px

@@ -1,0 +1,16 @@
+%tr.deal{:id => dom_id(deal), :class => row_classes(deal) }
+  %td= image_tag deal.photo.url(:admin)
+  %td= deal.name
+  
+  %td= deal.category.name
+  %td= deal.location.address
+  
+  %td.number= number_to_currency deal.price/10
+  %td.number= number_to_percentage(deal.percent, :precision => 0)
+  
+  %td.number= deal.comments.size
+  
+  %td.date="#{time_ago_in_words deal.created_at} ago"
+  %td.date="#{time_ago_in_words deal.updated_at} ago"
+  
+      
