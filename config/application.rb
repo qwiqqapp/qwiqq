@@ -11,7 +11,6 @@ module Qwiqq
       
     config.generators do |g|
       g.stylesheets false
-      g.test_framework :shoulda
       g.fixture_replacement :factory_girl
       g.template_engine :haml
     end
