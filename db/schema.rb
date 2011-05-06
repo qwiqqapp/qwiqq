@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20110506020109) do
     t.string   "address"
     t.string   "city"
     t.string   "state"
+    t.string   "country"
     t.string   "postcode"
     t.float    "lat"
     t.float    "long"

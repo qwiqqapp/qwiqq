@@ -1,0 +1,16 @@
+%h1= @title
+
+- unless @locations.blank?
+  %table#deals
+    %tr
+      %th.name Name
+      %th Address
+      %th City
+      %th State
+      %th Postcode
+      %th Lat
+      %th Long
+      %th Deals
+      %th.date Created
+      %th.date Updated
+    =render @locations

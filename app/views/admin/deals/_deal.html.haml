@@ -1,6 +1,6 @@
 %tr.deal{:id => dom_id(deal), :class => row_classes(deal) }
-  %td= image_tag deal.photo.url(:admin)
-  %td= deal.name
+  %td= image_tag(deal.photo.url(:admin))
+  %td= link_to deal.name, [:admin, deal]
   
   %td= deal.category.name
   %td= deal.location.address

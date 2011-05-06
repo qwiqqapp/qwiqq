@@ -1,0 +1,12 @@
+%tr.location{:id => dom_id(location), :class => row_classes(location) }
+  %td= location.name
+  %td= location.address
+  %td= location.city
+  %td= location.state
+  %td= location.postcode
+  %td= location.lat
+  %td= location.long
+  %td= location.deals.size 
+
+  %td.date="#{time_ago_in_words location.created_at} ago"
+  %td.date="#{time_ago_in_words location.updated_at} ago"

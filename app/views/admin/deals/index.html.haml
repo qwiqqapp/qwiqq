@@ -2,7 +2,7 @@
 %h1= @title
 
 %ul.nav
-  %li= link_to_unless_current 'All', admin_deals_url
+  %li= link_to_unless_current 'Recent', admin_deals_url
   - @categories.each do |c|
     %li
       = link_to_unless_current c.first.titleize, admin_category_deals_url(c.first)

@@ -5,6 +5,7 @@ class CreateLocations < ActiveRecord::Migration
       t.string  :address
       t.string  :city
       t.string  :state
+      t.string  :country
       t.string  :postcode
       t.float   :lat
       t.float   :long
