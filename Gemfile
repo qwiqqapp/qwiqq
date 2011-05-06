@@ -18,14 +18,10 @@ gem "json"
 gem "paperclip"
 gem "aws-s3"
 
-group :test do
-  gem "ffaker"
-  gem 'factory_girl_rails'
-end
+gem 'factory_girl_rails'
+gem "ffaker"
 
 group :development do
   gem "wirble"
-  gem "ffaker"
-  gem 'factory_girl_rails'
 end
 
