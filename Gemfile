@@ -1,7 +1,6 @@
 source 'http://rubygems.org'
 
 gem 'heroku'
-
 gem 'rails', '3.0.7'
 
 # fix on 0.2.7 requried as of 3.0.7 and until 3.1
