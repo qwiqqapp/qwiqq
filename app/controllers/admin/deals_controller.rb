@@ -17,5 +17,4 @@ class Admin::DealsController < Admin::AdminController
   def load_categories
     @categories = Category.all.map(&:name)
   end
-  
 end

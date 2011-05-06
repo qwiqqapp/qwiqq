@@ -19,7 +19,7 @@ end
 end
 
 # setup locations
-500.times.each do 
+10.times.each do 
   locations << Factory(:location) 
 end
 
@@ -32,7 +32,7 @@ end
 5.times.each_with_index do |i|
   user  = Factory(:user, :photo => user_image)
   
-  20.times.each_with_index do |i|
+  2.times.each_with_index do |i|
     location  = locations.shuffle.first
     category  = categories.shuffle.first
     
