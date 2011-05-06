@@ -15,6 +15,6 @@ class Admin::DealsController < Admin::AdminController
   
   private
   def load_categories
-    @categories = Category.all.map(&:name)
+    @categories ||= Category.all.map{|c| [c.name, c.deals.size] }
   end
 end

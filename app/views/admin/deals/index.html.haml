@@ -1,9 +1,12 @@
+= link_to 'Data', deals_url(:format => :json), :class => 'right'
 %h1= @title
 
 %ul.nav
   %li= link_to_unless_current 'All', admin_deals_url
   - @categories.each do |c|
-    %li= link_to_unless_current c.titleize, admin_category_deals_url(c)
+    %li
+      = link_to_unless_current c.first.titleize, admin_category_deals_url(c.first)
+      %small= "(#{c.last})"
 %br
 
 - unless @deals.blank?

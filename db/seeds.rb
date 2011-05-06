@@ -19,7 +19,7 @@ end
 end
 
 # setup locations
-10.times.each do 
+100.times.each do 
   locations << Factory(:location) 
 end
 
@@ -29,16 +29,16 @@ end
 end
 
 # create users, deals and comments
-5.times.each_with_index do |i|
+40.times.each do
   user  = Factory(:user, :photo => user_image)
   
-  2.times.each_with_index do |i|
+  8.times.each do
     location  = locations.shuffle.first
     category  = categories.shuffle.first
     
     deal = Factory(:deal, :user => user, :location => location, :category => category, :photo => product_image)
     
-    5.times.each do
+    3.times.each do
       Factory(:comment, :deal => deal, :user => commenters.shuffle.first)
     end
   end

@@ -1,14 +1,8 @@
 Qwiqq::Application.routes.draw do
   
+  root :to => "deals#index"
   
-  get "log_out" => "sessions#destroy", :as => "log_out"
-  get "log_in" => "sessions#new", :as => "log_in"
-  get "sign_up" => "users#new", :as => "sign_up"
-  
-  root :to => "admin/deals#index"
-  
-  resources :users
-  resources :sessions
+  resources :deals
   
   match "/admin", :to => redirect("/admin/users")  
   namespace "admin" do
