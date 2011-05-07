@@ -5,11 +5,11 @@ locations   = []
 commenters  = []
 
 def user_image
-  File.new("test/fixtures/users/#{rand(4)}.jpg")
+  File.new("test/fixtures/users/#{rand(5)}.jpg")
 end
 
 def product_image
-  File.new("test/fixtures/products/#{rand(21)}.jpg")
+  File.new("test/fixtures/products/#{rand(22)}.jpg")
 end
 
 

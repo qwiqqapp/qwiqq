@@ -4,9 +4,7 @@
   %td= location.city
   %td= location.state
   %td= location.postcode
-  %td= location.lat
-  %td= location.long
   %td= location.deals.size 
-
   %td.date="#{time_ago_in_words location.created_at} ago"
   %td.date="#{time_ago_in_words location.updated_at} ago"
+  %td=link_to "Map", "http://maps.google.com/maps?q=#{location.lat},#{location.long}"  
