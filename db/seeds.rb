@@ -42,8 +42,8 @@ end
       Factory(:comment, :deal => deal, :user => commenters.shuffle.first)
     end
     
-    5.times.each do
-      Factory(:comment, :deal => deal, :body => nil, :user => commenters.shuffle.first)
-    end
+    # 5.times.each do
+    #   Factory(:comment, :deal => deal, :body => nil, :user => commenters.shuffle.first)
+    # end
   end
 end
