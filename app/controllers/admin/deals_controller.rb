@@ -7,7 +7,7 @@ class Admin::DealsController < Admin::AdminController
       @deals = Category.find_by_name(params[:category_name]).deals
       @title = "#{@deals.size} #{params[:category_name].titleize} Deals"
     else
-      @deals = Deal.limit(50).order(:created_at => 'desc')
+      @deals = Deal.limit(50)
       @title = "50 Recent Deals"
     end
   end
