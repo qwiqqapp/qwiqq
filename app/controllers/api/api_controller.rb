@@ -2,7 +2,7 @@ class Api::ApiController < ActionController::Base
   
   respond_to :json
   
-  before_filter :require_user
+  # before_filter :require_user
   
   helper_method :current_user
   
