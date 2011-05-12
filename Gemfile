@@ -20,6 +20,8 @@ gem "aws-s3"
 gem 'factory_girl_rails'
 gem "ffaker"
 
+gem "bcrypt-ruby", :require => "bcrypt"
+
 group :development do
   gem "wirble"
 end

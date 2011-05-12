@@ -2,7 +2,7 @@ Qwiqq::Application.routes.draw do
   
   root :to => "deals#index"
   
-  resources :deals
+  resources :deals, :only => [:index, :show]
   
   match "/admin", :to => redirect("/admin/users")  
   namespace "admin" do

@@ -1,0 +1,15 @@
+= link_to 'Qwiqq logo here', root_url
+= link_to 'Download App!', '/'
+
+%h1= @deal.name.titleize
+= image_tag @deal.photo.url(:iphone2x)
+= link_to "Map", "http://maps.google.com/maps?q=#{@deal.location.lat},#{@deal.location.long}"    
+
+%h4= "#{@deal.comments.size} Comments"
+%ul.comments
+  = render @deal.comments
+  
+%h4= @deal.user.name.titleize
+="#{@deal.user.deals.size} Deals"
+="#{@deal.user.comments.size} Comments"  
+
