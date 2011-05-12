@@ -10,6 +10,10 @@ Qwiqq::Application.routes.draw do
     
     resources :users, :deals, :comments, :locations
   end
+  
+  namespace "api" do
+    resources :users, :deals, :sessions
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
