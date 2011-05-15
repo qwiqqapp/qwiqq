@@ -5,13 +5,11 @@ class Api::UsersController < Api::ApiController
   # will raise RecordNotFound if user not found
   # will render 401 if email does not match
   def create
-    user = User.create(params[:user])
-    if user
+    user = User.new(params[:user])
+    if user.save
       session[:user_id] = user.id
-      render :json => user
-    else
-      render :json => {:message  => 'Not Authorized'}, :status => 401
     end
+    respond_with :api, user
   end
   
 end
