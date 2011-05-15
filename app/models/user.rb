@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
       :created_at => created_at,
       :created_at => updated_at,
       :photo      => photo.url(:iphone),
-      :photo2x    => photo.url(:iphone2x)
+      :photo_2x   => photo.url(:iphone2x)
     }
   end
   
