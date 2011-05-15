@@ -2,15 +2,15 @@ class Api::ApiController < ActionController::Base
   
   respond_to :json
   
-  # before_filter :require_user
+  before_filter :require_user
   
   helper_method :current_user
   
   # Method Not Allowed
-  rescue_from NoMethodError do |e|
-    Rails.logger.error "ApplicationController error#405: #{e.message}"
-    render :json => {:message => 'Method Not Allowed' }, :status => 405
-  end
+  # rescue_from NoMethodError do |e|
+  #   Rails.logger.error "ApplicationController error#405: #{e.message}"
+  #   render :json => {:message => 'Method Not Allowed' }, :status => 405
+  # end
   
   # Not Found
   rescue_from ActiveRecord::RecordNotFound do |e|

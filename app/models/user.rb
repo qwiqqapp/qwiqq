@@ -6,12 +6,12 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation
 
   attr_accessor :password
-  before_save :encrypt_password
+  before_save   :encrypt_password
 
   validates_confirmation_of :password
-  validates_presence_of :password, :on => :create
-  validates_presence_of :email
-  validates_uniqueness_of :email
+  validates_presence_of     :password, :on => :create
+  validates_presence_of     :email
+  validates_uniqueness_of   :email
   
   has_attached_file :photo, 
                     {:styles => { :admin    => ["50x50#", :jpg],
@@ -36,5 +36,21 @@ class User < ActiveRecord::Base
       self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
     end
   end
+  
+  def as_json(options={})
+    {
+      :email      => email,
+      :name       => name,
+      :city       => city,
+      :country    => country,
+      :created_at => created_at,
+      :created_at => updated_at,
+      :photo      => photo.url(:iphone),
+      :photo2x    => photo.url(:iphone2x)
+    }
+  end
+  
+  
+  
   
 end

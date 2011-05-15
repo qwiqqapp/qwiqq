@@ -1,11 +1,11 @@
-class Api::SessionsController < Api::ApiController
+class Api::UsersController < Api::ApiController
 
   skip_before_filter :require_user
 
   # will raise RecordNotFound if user not found
   # will render 401 if email does not match
-  def create    
-    user = User.authenticate!(params[:user][:email], params[:user][:password])
+  def create
+    user = User.create!(params[:email], params[:password])
     if user
       session[:user_id] = user.id
       render :json => user
@@ -14,8 +14,4 @@ class Api::SessionsController < Api::ApiController
     end
   end
   
-  def destroy
-    reset_session
-    render :json => {}
-  end
 end

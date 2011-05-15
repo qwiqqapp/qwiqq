@@ -1,5 +1,8 @@
 class Api::DealsController < Api::ApiController
   
+  skip_before_filter :require_user
+  
+  
   def index
     @deals = Deal.limit(20)
     raise RecordNotFound unless @deals
