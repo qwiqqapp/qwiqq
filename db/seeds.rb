@@ -41,11 +41,11 @@ end
 end
 
 # create users, deals and comments
-40.times.each do
+20.times.each do
   puts '+ creating user'
   user  = Factory(:user, :photo => user_image)
   
-  8.times.each do
+  5.times.each do
     puts ' + creating deal'
     location  = locations.shuffle.first
     category  = categories.shuffle.first
