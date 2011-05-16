@@ -6,5 +6,5 @@ if Rails.env.production?
                                                       :secret_access_key => ENV['S3_SECRET'] } 
                               }
 else
-  PAPERCLIP_STORAGE_OPTIONS = {:url => "http://localhost:3000/system/:attachment/:id/:style/:filename"}
+  PAPERCLIP_STORAGE_OPTIONS = {}
 end

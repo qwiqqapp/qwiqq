@@ -1,5 +1,24 @@
 ActiveAdmin::Dashboards.build do
 
+  section "Recent Deals", :priority => 1 do
+    table_for Deal.order("created_at desc").limit(10) do
+        column("") {|deal| link_to(image_tag(deal.photo.url(:admin)), admin_deals_path(deal))}
+        column("Name", :sortable => :name) {|deal|  link_to deal.name, admin_deal_path(deal)}
+        column("Category") {|deal| status_tag(deal.try(:category).try(:name)) }
+        column("User", :sortable => :user_id) {|deal| link_to(deal.user.name, admin_user_path(deal.user))}
+        column("Price", :sortable => :price) {|deal| number_to_currency deal.price }
+    end
+  end
+
+  section "New Users", :priority => 2 do
+    table_for User.order("created_at desc").limit(10).each do
+      column(:name) {|u| link_to(u.name, admin_user_path(u)) }
+      column(:email)
+      column(:city)
+    end
+  end
+
+
   # Define your dashboard sections here. Each block will be
   # rendered on the dashboard in the context of the view. So just
   # return the content which you would like to display.
@@ -7,12 +26,13 @@ ActiveAdmin::Dashboards.build do
   # == Simple Dashboard Section
   # Here is an example of a simple dashboard section
   #
-  #   section "Recent Posts" do
+  # section "Recent Posts" do
   #   ul do
-  #     Post.recent(5).collect do |post|
-  #       li link_to(post.title, admin_post_path(post)))
+  #     Deal.order("created_at desc").limit(5).collect do |deal|
+  #       li link_to(deal.name, admin_deal_path(deal)))
   #     end
   #   end
+  # end
   
   # == Render Partial Section
   # The block is rendererd within the context of the view, so you can
