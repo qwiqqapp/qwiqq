@@ -1,5 +1,17 @@
 Factory.find_definitions
 
+puts '+ creating admin accounts'
+# gtl admins
+AdminUser.create!(:email => 'adam@gastownlabs.com', :password => 'texasbbq', :password_confirmation => 'texasbbq')
+AdminUser.create!(:email => 'brian@gastownlabs.com', :password => 'texasbbq', :password_confirmation => 'texasbbq')
+AdminUser.create!(:email => 'melanie@gastownlabs.com', :password => 'texasbbq', :password_confirmation => 'texasbbq')
+
+# qwiqq admins
+AdminUser.create!(:email => 'john@qwiqq.me', :password => 'texasbbq', :password_confirmation => 'texasbbq')
+AdminUser.create!(:email => 'jack@qwiqq.me', :password => 'texasbbq', :password_confirmation => 'texasbbq')
+
+
+
 categories  = []
 locations   = []
 commenters  = []
@@ -30,15 +42,18 @@ end
 
 # create users, deals and comments
 40.times.each do
+  puts '+ creating user'
   user  = Factory(:user, :photo => user_image)
   
   8.times.each do
+    puts ' + creating deal'
     location  = locations.shuffle.first
     category  = categories.shuffle.first
     
     deal = Factory(:deal, :user => user, :location => location, :category => category, :photo => product_image)
     
     3.times.each do
+      puts '  + creating comment'
       Factory(:comment, :deal => deal, :user => commenters.shuffle.first)
     end
     
@@ -47,3 +62,7 @@ end
     # end
   end
 end
+
+
+
+

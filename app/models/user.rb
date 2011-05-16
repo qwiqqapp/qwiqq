@@ -3,7 +3,9 @@ class User < ActiveRecord::Base
   has_many :deals
   has_many :comments
   
-  attr_accessible :name, :email, :password, :password_confirmation
+  scope :today, lambda{ where('DATE(created_at) = ?', Date.today)}
+  
+  attr_accessible :name, :email, :password, :password_confirmation, :photo, :country, :city
 
   attr_accessor :password
   before_save   :encrypt_password
@@ -14,7 +16,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email
   
   has_attached_file :photo, 
-                    {:styles => { :admin    => ["50x50#", :jpg],
+                    {:styles => { :admin    => ["30x30#", :jpg],
                                   :iphone   => ["75x75#", :jpg],
                                   :iphone2x => ["150x150#", :jpg]}
                     }.merge(PAPERCLIP_STORAGE_OPTIONS)

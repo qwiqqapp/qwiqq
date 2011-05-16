@@ -6,7 +6,6 @@ gem 'rails', '3.0.7'
 # fix on 0.2.7 requried as of 3.0.7 and until 3.1
 gem 'mysql2', '0.2.7'
 gem "rails3-generators"
-gem "compass"
 
 # views
 gem "haml-rails"
@@ -16,6 +15,8 @@ gem "simple_form"
 gem "json"
 gem "paperclip"
 gem "aws-s3"
+
+gem 'activeadmin'
 
 gem 'factory_girl_rails'
 gem "ffaker"

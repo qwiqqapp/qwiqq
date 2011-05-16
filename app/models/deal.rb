@@ -5,8 +5,13 @@ class Deal < ActiveRecord::Base
   
   has_many :comments
   
+  validates_presence_of :name, :category_id, :price, :location_id
+  
+  scope :today, lambda{ where('DATE(created_at) = ?', Date.today)}
+  
+  
   has_attached_file :photo, 
-                    {:styles => { :admin    => ["50x50#", :jpg],
+                    {:styles => { :admin    => ["30x30#", :jpg],
                                   :iphone   => ["75x75#", :jpg],
                                   :iphone2x => ["150x150#", :jpg]}
                     }.merge(PAPERCLIP_STORAGE_OPTIONS)
