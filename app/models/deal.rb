@@ -5,6 +5,9 @@ class Deal < ActiveRecord::Base
   
   has_many :comments
   
+  scope :today, lambda{ where('DATE(created_at) = ?', Date.today)}
+  
+  
   has_attached_file :photo, 
                     {:styles => { :admin    => ["50x50#", :jpg],
                                   :iphone   => ["75x75#", :jpg],

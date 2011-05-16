@@ -1,15 +1,12 @@
 Qwiqq::Application.routes.draw do
   
+  ActiveAdmin.routes(self)
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+
+  # public
   root :to => "deals#index"
-  
   resources :deals, :only => [:index, :show]
-  
-  match "/admin", :to => redirect("/admin/users")  
-  namespace "admin" do
-    get 'deals/category/:category_name' => "deals#index", :as => :category_deals, :filter => /\D+/
-    
-    resources :users, :deals, :comments, :locations
-  end
   
   namespace "api" do
     resources :users, :deals, :sessions

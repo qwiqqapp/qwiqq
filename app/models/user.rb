@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   has_many :deals
   has_many :comments
   
+  scope :today, lambda{ where('DATE(created_at) = ?', Date.today)}
+  
   attr_accessible :name, :email, :password, :password_confirmation
 
   attr_accessor :password
