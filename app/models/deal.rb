@@ -11,9 +11,11 @@ class Deal < ActiveRecord::Base
   
   
   has_attached_file :photo, 
-                    {:styles => { :admin    => ["30x30#", :jpg],
-                                  :iphone   => ["75x75#", :jpg],
-                                  :iphone2x => ["150x150#", :jpg]}
+                    {:styles => { :admin_sml    => ["30x30#", :jpg],
+                                  :admin_med    => ["50x50#", :jpg],
+                                  :admin_lrg    => ["240x", :jpg],
+                                  :iphone       => ["75x75#", :jpg],
+                                  :iphone2x     => ["150x150#", :jpg]}
                     }.merge(PAPERCLIP_STORAGE_OPTIONS)
   
 

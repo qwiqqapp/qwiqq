@@ -2,7 +2,7 @@ ActiveAdmin::Dashboards.build do
 
   section "Recent Deals", :priority => 1 do
     table_for Deal.order("created_at desc").limit(10) do
-        column("") {|deal| link_to(image_tag(deal.photo.url(:admin)), admin_deals_path(deal))}
+        column("") {|deal| link_to(image_tag(deal.photo.url(:admin_sml)), admin_deals_path(deal))}
         column("Name", :sortable => :name) {|deal|  link_to deal.name, admin_deal_path(deal)}
         column("Category") {|deal| status_tag(deal.try(:category).try(:name)) }
         column("User", :sortable => :user_id) {|deal| link_to(deal.user.name, admin_user_path(deal.user))}

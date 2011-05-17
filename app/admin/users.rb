@@ -10,8 +10,14 @@ ActiveAdmin.register User do
   filter :created_at
   
   index do
-    column("") {|user| link_to(image_tag(user.photo.url(:admin)), admin_users_path(user))}
-    column("Name", :sortable => :name) {|user|  link_to user.name, admin_user_path(user)}
+    column("") do |user| 
+      link_to(image_tag(user.photo.url(:admin_sml)), [:admin, user])
+    end
+    
+    column("Name", :sortable => :name) do |user|  
+      link_to(user.name, [:admin, user])
+    end
+    
     column :email
     column :country
     column :city
@@ -20,18 +26,27 @@ ActiveAdmin.register User do
   end
   
   show :title => :name do
-      panel "Deal History" do
+      panel "Deal History (#{user.deals.size})" do
         table_for(user.deals) do
-          column("") {|deal| link_to(image_tag(deal.photo.url(:admin)), admin_deals_path(deal))}
-          column("Name", :sortable => :name) {|deal| link_to deal.name, admin_deal_path(deal) }
-          column("Date", :sortable => :created_at ){|deal| pretty_format(deal.created_at) }
-          column("Price")                   {|deal| number_to_currency deal.price }
+          column("") do |deal| 
+            link_to(image_tag(deal.photo.url(:admin_med)), [:admin, deal])
+          end
+          column("Name", :sortable => :name) do |deal|  
+            link_to(deal.name, [:admin, deal])
+          end
+          column("Category") {|deal| status_tag(deal.try(:category).try(:name)) }
+          column("Date", :sortable => :created_at){|deal| deal.created_at.to_s(:short) }
+          column("Price", :sortable => :price) {|deal| number_to_currency deal.price }
         end
       end
       
-      panel "Comment History" do
+      panel "Comment History (#{user.comments.size})" do
         table_for(user.comments) do
-          column("Comment") {|comment| comment.body }
+          column("") do |c| 
+            link_to(image_tag(c.deal.photo.url(:admin_med)), [:admin, c.deal])
+          end
+          column("Deal") {|c| link_to c.deal.name, [:admin, c.deal] }
+          column("Comment") {|c| c.body }
           column("Date", :sortable => :created_at ){|deal| pretty_format(deal.created_at) }
         end
       end
@@ -39,7 +54,11 @@ ActiveAdmin.register User do
       active_admin_comments
     end
 
-  sidebar "User Details", :only => :show do
+  sidebar "Photo", :only => :show do
+    image_tag(user.photo.url(:admin_lrg))
+  end
+
+  sidebar "Details", :only => :show do
     attributes_table_for user, :name, :email, :country, :city, :created_at
   end
   

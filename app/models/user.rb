@@ -6,22 +6,22 @@ class User < ActiveRecord::Base
   scope :today, lambda{ where('DATE(created_at) = ?', Date.today)}
   
   attr_accessible :name, :email, :password, :password_confirmation, :photo, :country, :city
-
+  
   attr_accessor :password
   before_save   :encrypt_password
-
+  
   validates_confirmation_of :password
   validates_presence_of     :password, :on => :create
   validates_presence_of     :email
   validates_uniqueness_of   :email
   
   has_attached_file :photo, 
-                    {:styles => { :admin    => ["30x30#", :jpg],
-                                  :iphone   => ["75x75#", :jpg],
-                                  :iphone2x => ["150x150#", :jpg]}
+                    {:styles => { :admin_sml    => ["30x30#", :jpg],
+                                  :admin_med    => ["50x50#", :jpg],
+                                  :admin_lrg    => ["240x", :jpg],
+                                  :iphone       => ["75x75#", :jpg],
+                                  :iphone2x     => ["150x150#", :jpg]}
                     }.merge(PAPERCLIP_STORAGE_OPTIONS)
-  
-  
   
   def self.authenticate!(email, password)
     user = find_by_email(email)
@@ -51,8 +51,4 @@ class User < ActiveRecord::Base
       :photo_2x   => photo.url(:iphone2x)
     }
   end
-  
-  
-  
-  
 end

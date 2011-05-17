@@ -1,8 +1,12 @@
+/* changes */
+
+
+
 /* Active Admin CSS */
 /* line 1, ../../../../../../.rvm/gems/ruby-1.9.2-head/gems/activeadmin-0.2.1/lib/active_admin/stylesheets/active_admin/mixins/_icons.scss */
 span.icon {
   vertical-align: middle;
-  display: inline-block;
+  display: none;
 }
 
 /* line 2, ../../../../../../.rvm/gems/ruby-1.9.2-head/gems/activeadmin-0.2.1/lib/active_admin/stylesheets/active_admin/mixins/_icons.scss */
