@@ -49,7 +49,7 @@ ActiveAdmin.register Deal do
     end
     
     
-  sidebar "Photo", :only => :show do
+  sidebar "Photo", :only => [:show, :edit] do
     image_tag(deal.photo.url(:admin_lrg))
   end
     
