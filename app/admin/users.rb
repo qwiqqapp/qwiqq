@@ -19,10 +19,12 @@ ActiveAdmin.register User do
     end
     
     column :email
-    column :country
-    column :city
+    
+    column('Location') do |l|
+      "#{l.country}, #{l.city}" unless l.country.blank? or l.city.blank?
+    end
+
     column("Joined", :sortable => :created_at){|user| user.created_at.to_s(:short) }
-    column("Edited", :sortable => :updated_at){|user| user.updated_at.to_s(:short) }
   end
   
   show :title => :name do

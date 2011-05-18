@@ -14,4 +14,7 @@ ActiveAdmin.register Location do
     column :postcode
     column('Map') {|l| link_to 'Map', "http://maps.google.com/maps?q=#{l.name}@#{l.lat},#{l.long}"}
   end
+  
+  
+  
 end

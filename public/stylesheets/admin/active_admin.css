@@ -1,6 +1,23 @@
 /* changes */
 
+#content table.index_table{
+  display:inline-table;
+}
 
+/*#content .paginated_collection_contents,
+#content .index_footer{
+  float: none;
+}
+
+#content .pagination_information{
+  float: none;
+}
+
+.paginated_collection_contents{
+  overflow:hidden;
+  width: 100%;
+}
+*/
 
 /* Active Admin CSS */
 /* line 1, ../../../../../../.rvm/gems/ruby-1.9.2-head/gems/activeadmin-0.2.1/lib/active_admin/stylesheets/active_admin/mixins/_icons.scss */
@@ -1132,7 +1149,7 @@ body {
 /* line 63, ../../../../../../.rvm/gems/ruby-1.9.2-head/gems/activeadmin-0.2.1/lib/active_admin/stylesheets/active_admin.scss */
 #content #main_content_wrapper {
   float: left;
-  width: 100%;
+  width: 100%;  
 }
 /* line 67, ../../../../../../.rvm/gems/ruby-1.9.2-head/gems/activeadmin-0.2.1/lib/active_admin/stylesheets/active_admin.scss */
 #content #main_content_wrapper #main_content {
