@@ -56,10 +56,10 @@ ActiveAdmin.register User do
       active_admin_comments
     end
 
-  sidebar "Photo", :only => :show do
+  sidebar "Photo", :only => [:show, :edit] do
     image_tag(user.photo.url(:admin_lrg))
   end
-
+  
   sidebar "Details", :only => :show do
     attributes_table_for user, :name, :email, :country, :city, :created_at
   end
