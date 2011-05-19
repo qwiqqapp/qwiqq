@@ -24,9 +24,13 @@ class Deal < ActiveRecord::Base
         :id         => id,
         :name       => name,
         :category   => category.try(:name),
-        :location   => location.try(:address),
         :photo      => photo.url(:iphone),
-        :photo_2x   => photo.url(:iphone2x)
+        :photo_2x   => photo.url(:iphone2x),
+        :price      => price,
+        :location   => location.try(:name),
+        :address    => location.try(:address),
+        :lat        => location.try(:lat),
+        :lon       => location.try(:lon)
       }
     end
 
