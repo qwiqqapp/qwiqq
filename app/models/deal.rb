@@ -29,8 +29,8 @@ class Deal < ActiveRecord::Base
         :price      => price,
         :location   => location.try(:name),
         :address    => location.try(:address),
-        :lat        => location.try(:lat),
-        :lon       => location.try(:lon)
+        :lat        => location.try(:lat).try(:to_s),
+        :lon       => location.try(:lon).try(:to_s)
       }
     end
 
