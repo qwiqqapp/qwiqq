@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110516010938) do
+ActiveRecord::Schema.define(:version => 20110519150816) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(:version => 20110516010938) do
     t.string   "country"
     t.string   "postcode"
     t.float    "lat"
-    t.float    "long"
+    t.float    "lon"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
