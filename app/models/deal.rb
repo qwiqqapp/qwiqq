@@ -21,7 +21,7 @@ class Deal < ActiveRecord::Base
 
     def as_json(options={})
       {
-        :id         => id,
+        :deal_id    => id.try(:to_s),
         :name       => name,
         :category   => category.try(:name),
         :photo      => photo.url(:iphone),
