@@ -16,5 +16,4 @@ ActiveAdmin.register Location do
   end
   
   
-  
 end

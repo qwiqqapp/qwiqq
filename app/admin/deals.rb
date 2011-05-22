@@ -30,6 +30,7 @@ ActiveAdmin.register Deal do
      f.input :category
      f.input :location
      f.input :photo, :as => :file
+     f.input :premium
    end
    
    f.buttons
@@ -54,6 +55,6 @@ ActiveAdmin.register Deal do
   end
     
   sidebar "Details", :only => :show do
-    attributes_table_for deal, :name, :price, :location, :created_at
+    attributes_table_for deal, :name, :price, :location, :created_at, :updated_at, :premium
   end
 end

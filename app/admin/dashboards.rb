@@ -1,16 +1,15 @@
 ActiveAdmin::Dashboards.build do
 
-  section "Recent Deals", :priority => 1 do
-    table_for Deal.order("created_at desc").limit(10) do
+  section "Recent Deals", :priority => 2 do
+    table_for Deal.order("created_at desc").limit(5) do
       column("") {|deal| link_to(image_tag(deal.photo.url(:admin_sml)), [:admin, deal])}
       column("") {|deal|  link_to deal.name, admin_deal_path(deal)}
       column("") {|deal| status_tag(deal.try(:category).try(:name)) }
     end
   end
   
-  
-  section "New Users", :priority => 2 do
-    table_for User.order("created_at desc").limit(10).each do
+  section "New Users", :priority => 3 do
+    table_for User.order("created_at desc").limit(5).each do
       column("") {|u| link_to(image_tag(u.photo.url(:admin_sml)), [:admin, u])}
       column("") {|u| link_to(u.email, admin_user_path(u)) }
     end
