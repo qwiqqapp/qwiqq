@@ -1,5 +1,14 @@
 ActiveAdmin::Dashboards.build do
 
+  section "Premium Deals", :priority => 1 do
+    table_for Deal.premium.limit(5) do
+      column("") {|deal| link_to(image_tag(deal.photo.url(:admin_sml)), [:admin, deal])}
+      column("") {|deal|  link_to deal.name, admin_deal_path(deal)}
+      column("") {|deal| status_tag(deal.try(:category).try(:name)) }
+    end
+  end
+
+
   section "Recent Deals", :priority => 2 do
     table_for Deal.order("created_at desc").limit(5) do
       column("") {|deal| link_to(image_tag(deal.photo.url(:admin_sml)), [:admin, deal])}

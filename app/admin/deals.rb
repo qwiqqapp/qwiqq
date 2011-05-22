@@ -18,6 +18,8 @@ ActiveAdmin.register Deal do
     end
     
     column("Category") {|deal| status_tag(deal.try(:category).try(:name)) }
+    column("Premium", :sortable => :premium){|deal| deal.premium ? status_tag("Premium") : nil  }
+    
     column("Date", :sortable => :created_at){|deal| deal.created_at.to_s(:short) }
     column("User", :sortable => :user_id) {|deal| link_to(deal.user.name, admin_user_path(deal.user))}
     column("Price", :sortable => :price) {|deal| number_to_currency deal.price }
