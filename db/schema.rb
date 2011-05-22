@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(:version => 20110520232944) do
     t.string   "country"
     t.string   "postcode"
     t.float    "lat"
-    t.float    "long"
+    t.float    "lon"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

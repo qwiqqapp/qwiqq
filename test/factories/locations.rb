@@ -1,7 +1,7 @@
 Factory.define :location do |f|
   f.name      { Faker::Company.name }
   f.lat       { Faker::Geolocation.lat }
-  f.long      { Faker::Geolocation.lng }
+  f.lon       { Faker::Geolocation.lng }
   f.address   { Faker::Address.street_address }
   f.city      { Faker::Address.city }
   f.country   "US"
