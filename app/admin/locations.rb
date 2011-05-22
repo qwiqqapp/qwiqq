@@ -12,7 +12,7 @@ ActiveAdmin.register Location do
     column :state
     column :city
     column :postcode
-    column('Map') {|l| link_to 'Map', "http://maps.google.com/maps?q=#{l.name}@#{l.lat},#{l.long}"}
+    column('Map') {|l| link_to 'Map', "http://maps.google.com/maps?q=#{l.name}@#{l.lat},#{l.lon}"}
   end
   
   
