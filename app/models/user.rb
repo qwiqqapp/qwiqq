@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   
-  has_many :deals
-  has_many :comments
-  has_many :likes
+  has_many :deals,    :dependent => :destroy
+  has_many :comments, :dependent => :destroy
+  has_many :likes,    :dependent => :destroy
   
   scope :today, lambda{ where('DATE(created_at) = ?', Date.today)}
   
