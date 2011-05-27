@@ -32,6 +32,7 @@ ActiveAdmin.register Deal do
      f.input :name
      f.input :price
      f.input :category
+     f.input :user
      f.input :lat
      f.input :long
      f.input :photo, :as => :file

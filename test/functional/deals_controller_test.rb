@@ -25,5 +25,14 @@ class Api::DealsControllerTest < ActionController::TestCase
     
     assert_equal 200, @response.status
   end
+  
+  
+  test "should create deal from valid hash" do
+    @deal_hash = Factory.attributes_for(:deal)
+    
+    post :create, 
+    
+    assert_equal 200, @response.status
+  end
 
 end
