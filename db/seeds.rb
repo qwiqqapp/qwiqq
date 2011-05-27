@@ -13,7 +13,6 @@ AdminUser.create!(:email => 'jack@qwiqq.me', :password => 'texasbbq', :password_
 
 
 categories  = []
-locations   = []
 commenters  = []
 
 def user_image
@@ -30,11 +29,6 @@ end
   categories << Factory(:category, :name => c)
 end
 
-# setup locations
-100.times.each do 
-  locations << Factory(:location) 
-end
-
 # setup commenters
 10.times.each do
   commenters << Factory(:user, :photo => user_image)
@@ -47,19 +41,18 @@ end
   
   5.times.each do
     puts ' + creating deal'
-    location  = locations.shuffle.first
     category  = categories.shuffle.first
     
-    deal = Factory(:deal, :user => user, :location => location, :category => category, :photo => product_image)
+    deal = Factory(:deal, :user => user, :category => category, :photo => product_image)
     
     3.times.each do
       puts '  + creating comment'
       Factory(:comment, :deal => deal, :user => commenters.shuffle.first)
     end
     
-    # 5.times.each do
-    #   Factory(:comment, :deal => deal, :body => nil, :user => commenters.shuffle.first)
-    # end
+    12.times.each do
+      Like.create(:user => commenters.shuffle.first, :deal => deal)
+    end
   end
 end
 

@@ -1,12 +1,12 @@
 class Deal < ActiveRecord::Base
 
   belongs_to :user
-  belongs_to :location
   belongs_to :category
   
   has_many :comments
+  has_many :likes
   
-  validates_presence_of :name, :category_id, :price, :location_id
+  validates_presence_of :name, :category_id, :price
   
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   scope :premium, where(:premium => true)
@@ -29,10 +29,8 @@ class Deal < ActiveRecord::Base
         :photo_2x   => photo.url(:iphone2x),
         :premium    => premium,
         :price      => price,
-        :location   => location.try(:name),
-        :address    => location.try(:address),
-        :lat        => location.try(:lat).try(:to_s),
-        :lon        => location.try(:lon).try(:to_s)
+        :lat        => lat.try(:to_s),
+        :lon        => long.try(:to_s)
       }
     end
 end

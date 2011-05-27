@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   
   has_many :deals
   has_many :comments
+  has_many :likes
   
   scope :today, lambda{ where('DATE(created_at) = ?', Date.today)}
   

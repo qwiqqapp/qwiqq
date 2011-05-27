@@ -4,6 +4,11 @@
   display:inline-table;
 }
 
+span.premium{
+  background-color: orange;
+}
+
+
 /*#content .paginated_collection_contents,
 #content .index_footer{
   float: none;
