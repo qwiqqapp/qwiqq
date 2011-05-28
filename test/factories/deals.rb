@@ -5,4 +5,5 @@ Factory.define :deal do |f|
   
   f.lat       { Faker::Geolocation.lat }
   f.long      { Faker::Geolocation.lng }
+  f.category  { Factory(:category) }
 end

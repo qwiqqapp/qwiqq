@@ -10,6 +10,11 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_routing('/api/deals/1', {:controller => "api/deals", :action => "show", :id => '1'})
   end
   
+  test "should route to deals#create" do
+    assert_routing({:method => 'post', :path => '/api/deals'}, {:controller => 'api/deals', :action => 'create'})
+  end
+  
+  
   test "should render deals" do
     @deals = [Factory(:deal), Factory(:deal), Factory(:deal)]
     get :index, :format => 'json'
@@ -25,14 +30,4 @@ class Api::DealsControllerTest < ActionController::TestCase
     
     assert_equal 200, @response.status
   end
-  
-  
-  test "should create deal from valid hash" do
-    @deal_hash = Factory.attributes_for(:deal)
-    
-    post :create, 
-    
-    assert_equal 200, @response.status
-  end
-
 end

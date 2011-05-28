@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
                     }.merge(PAPERCLIP_STORAGE_OPTIONS)
   
   def self.authenticate!(email, password)
-    user = find_by_email(email)
+    user = find_by_email!(email)
     if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
       user
     else
