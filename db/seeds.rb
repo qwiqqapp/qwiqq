@@ -11,7 +11,6 @@ AdminUser.create!(:email => 'john@qwiqq.me', :password => 'texasbbq', :password_
 AdminUser.create!(:email => 'jack@qwiqq.me', :password => 'texasbbq', :password_confirmation => 'texasbbq')
 
 
-
 categories  = []
 commenters  = []
 
@@ -25,7 +24,7 @@ end
 
 
 # setup categories
-%w(food a&e beauty sports house travel fashion tech).each do |c|
+%w(food ae beauty sport house travel fashion tech).each do |c|
   categories << Factory(:category, :name => c)
 end
 
