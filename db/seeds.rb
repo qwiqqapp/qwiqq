@@ -3,28 +3,29 @@ Factory.find_definitions
 categories  = []
 users       = []
 
-def user_image
-  File.new("test/fixtures/users/#{rand(5)}.jpg")
+def user_image(name=rand(5))
+  File.new("test/fixtures/users/#{name}.jpg")
 end
 
-def product_image
-  File.new("test/fixtures/products/#{rand(22)}.jpg")
+def product_image(name=rand(22))
+  File.new("test/fixtures/products/#{name}.jpg")
 end
 
 puts '+ creating admin accounts'
-# gtl and qwiqq admins
+
 AdminUser.create!(:email => 'adam@gastownlabs.com',     :password => 'texasbbq', :password_confirmation => 'texasbbq')
 AdminUser.create!(:email => 'brian@gastownlabs.com',    :password => 'texasbbq', :password_confirmation => 'texasbbq')
 AdminUser.create!(:email => 'melanie@gastownlabs.com',  :password => 'texasbbq', :password_confirmation => 'texasbbq')
 AdminUser.create!(:email => 'john@qwiqq.me',            :password => 'texasbbq', :password_confirmation => 'texasbbq')
 AdminUser.create!(:email => 'jack@qwiqq.me',            :password => 'texasbbq', :password_confirmation => 'texasbbq')
 
-# gtl and qwiqq users
-users << User.create(:email => 'adam@test.com',     :password => 'tester', :password_confirmation => 'tester')
-users << User.create(:email => 'brian@test.com',    :password => 'tester', :password_confirmation => 'tester')
-users << User.create(:email => 'melanie@test.com',  :password => 'tester', :password_confirmation => 'tester')
-users << User.create(:email => 'john@test.com',     :password => 'tester', :password_confirmation => 'tester')
-users << User.create(:email => 'jack@test.com',     :password => 'tester', :password_confirmation => 'tester')
+puts '+ creating user accounts'
+
+users << User.create(:country => 'ca', :city => 'vancouver',  :photo => user_image,    :name => 'adam',     :email => 'adam@test.com',     :password => 'tester', :password_confirmation => 'tester')
+users << User.create(:country => 'ca', :city => 'vancouver',  :photo => user_image,    :name => 'brian',    :email => 'brian@test.com',    :password => 'tester', :password_confirmation => 'tester')
+users << User.create(:country => 'ca', :city => 'vancouver',  :photo => user_image,    :name => 'melanie',  :email => 'melanie@test.com',  :password => 'tester', :password_confirmation => 'tester')
+users << User.create(:country => 'us', :city => 'texas',      :photo => user_image(4), :name => 'john',     :email => 'john@test.com',     :password => 'tester', :password_confirmation => 'tester')
+users << User.create(:country => 'us', :city => 'texas',      :photo => user_image,    :name => 'jack',     :email => 'jack@test.com',     :password => 'tester', :password_confirmation => 'tester')
 
 # setup categories
 %w(food ae beauty sport house travel fashion tech).each do |c|
@@ -44,9 +45,7 @@ users.each do |user|
   
   rand(10).times.each do
     puts ' + creating deal for user'
-    category  = categories.shuffle.first
-    
-    deal = Factory(:deal, :user => user, :category => category, :photo => product_image)
+    deal = Factory(:deal, :user => user, :category => categories.shuffle.first, :photo => product_image)
     
     rand(5).times.each do
       puts '  + creating comment for user'
