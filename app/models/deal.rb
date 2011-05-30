@@ -1,5 +1,6 @@
 class Deal < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
+  
   belongs_to :user
   belongs_to :category
   
@@ -7,7 +8,7 @@ class Deal < ActiveRecord::Base
   has_many :likes
   
   #TODO update to 3.1 and use role based attr_accessible for premium
-  attr_accessible :name, :category_id, :price, :lat, :long, :photo, :premium
+  attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium
   
   validates_presence_of :name, :category_id, :price
   
