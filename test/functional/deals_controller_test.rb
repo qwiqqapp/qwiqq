@@ -15,23 +15,33 @@ class Api::DealsControllerTest < ActionController::TestCase
   end
   
   
-  test "should render deals" do
-    @deals = [Factory(:deal), Factory(:deal), Factory(:deal)]
+  test "should render current_user deals" do
+    @public_deal = Factory(:deal)
+    @user = Factory(:user, :deals => [Factory(:deal), Factory(:deal)])
+    sign_in(@user)
+    
     get :index, :format => 'json'
     
     assert_equal 200,   @response.status
     assert_equal Array, json_response.class
-    assert_equal 3,     json_response.size
+    assert_equal 2,     json_response.size
   end
-
-  test "should render deal details" do
-    @deal = Factory(:deal)
-    get :show, :id => @deal.id, :format => 'json'
+  
+  
+  test "should render recent public deals" do
+    @public_deal = Factory(:deal)
+    @user = Factory(:user, :deals => [Factory(:deal), Factory(:deal), Factory(:deal)])
+    sign_in(@user)
     
-    assert_equal 200, @response.status
+    get :feed, :format => 'json'
+    
+    assert_equal 200,   @response.status
+    assert_equal Array, json_response.class
+    assert_equal 4,     json_response.size
   end
-
-  test "should create deal from valid hash" do
+  
+  
+  test "should create deal for user" do
     @user   = Factory(:user)
     @params = Factory.attributes_for(:deal, :category_id => Factory(:category).id)
     sign_in(@user)
@@ -40,4 +50,12 @@ class Api::DealsControllerTest < ActionController::TestCase
     
     assert_equal 201, @response.status
   end
+  
+
+  test "should render deal details" do
+    @deal = Factory(:deal)
+    get :show, :id => @deal.id, :format => 'json'
+    assert_equal 200, @response.status
+  end
+
 end

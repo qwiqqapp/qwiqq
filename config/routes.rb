@@ -9,7 +9,11 @@ Qwiqq::Application.routes.draw do
   resources :deals, :only => [:index, :show]
   
   namespace "api" do
-    resources :users, :deals, :sessions
+    resources :users, :sessions
+    
+    resources :deals do
+      get 'feed', :on => :collection
+    end
   end
 
   # The priority is based upon order of creation:
