@@ -44,14 +44,22 @@ class Api::DealsControllerTest < ActionController::TestCase
   
   
   # deals#create
-  test "should create deal for user" do
+  test "should create deal for user with price" do
     @user   = Factory(:user)
+    @category = Factory(:category)
     sign_in(@user)
-    @params = Factory.attributes_for(:deal, :category_id => Factory(:category).id)
+    
+    @params = { :name           => 'rainbow unicorn tshirt',
+                :price          => 899,                       #integer cents
+                :category_name  => @category.name,
+                :photo          => File.new("test/fixtures/products/#{rand(22)}.jpg"),
+                :lat            => '49.282784',
+                :lon            => '-123.109617' }
     
     post :create, :deal => @params, :format => 'json'
     
     assert_equal 201, @response.status
+    assert_equal @params[:name], json_response['name']
   end
   
 
