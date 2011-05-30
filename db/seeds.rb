@@ -40,7 +40,7 @@ end
 
 # create deals and comments for users
 users.each do |user|
-  other_users = users - user
+  other_users = users - [user]
   
   rand(10).times.each do
     puts ' + creating deal for user'
