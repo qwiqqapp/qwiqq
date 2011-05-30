@@ -3,7 +3,7 @@ require 'test_helper'
 class Api::CategoriesControllerTest < ActionController::TestCase
   
   test "should route to categories#show" do
-    assert_routing({:format => 'json', :path => '/api/categories/travel'}, {:controller => "api/categories", :action => "show", :name => 'travel'})
+    assert_routing('/api/categories/travel', {:controller => "api/categories", :action => "show", :name => 'travel', :format => 'json'})
   end
   
   test "should return deals for category" do
