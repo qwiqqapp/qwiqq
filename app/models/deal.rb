@@ -34,7 +34,7 @@ class Deal < ActiveRecord::Base
         :lat        => lat.try(:to_s),
         :lon        => long.try(:to_s),
         :comment_count => comment_count,
-        :like_count => like_count
+        :like_count => like_count,
         :age        => (created_at ? time_ago_in_words(created_at) : "")
       }
     end
