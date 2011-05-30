@@ -1,5 +1,16 @@
 class Api::DealsController < Api::ApiController
   
+  skip_before_filter :require_user, :only => [:popular]
+  
+  
+  # ------------------
+  # no auth required
+  
+  def popular
+    @deals = Deal.order("like_count desc, comment_count desc").limit(30).includes(:category)
+    respond_with @deals
+  end
+  
   # ------------------
   # public scope
   
@@ -18,6 +29,7 @@ class Api::DealsController < Api::ApiController
     @deal = Deal.find(params[:id])
     respond_with @deal
   end
+  
   
   # -----------------
   # scoped to user

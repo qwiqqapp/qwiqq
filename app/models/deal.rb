@@ -32,7 +32,9 @@ class Deal < ActiveRecord::Base
         :premium    => premium,
         :price      => price,
         :lat        => lat.try(:to_s),
-        :lon        => long.try(:to_s)
+        :lon        => long.try(:to_s),
+        :comment_count => comment_count,
+        :like_count => like_count
       }
     end
 end
