@@ -17,7 +17,7 @@ ActiveAdmin.register Deal do
       link_to(deal.name, [:admin, deal])
     end
     
-    column('Map') {|d| link_to 'Map', "http://maps.google.com/maps?q=#{d.name}@#{d.lat},#{d.long}"}
+    column('Map') {|d| link_to 'Map', "http://maps.google.com/maps?q=#{d.name}@#{d.lat},#{d.lon}"}
     
     column("Category") {|deal| status_tag(deal.try(:category).try(:name)) }
     column("Premium", :sortable => :premium){|deal| deal.premium ? status_tag("Premium") : nil  }
@@ -34,7 +34,7 @@ ActiveAdmin.register Deal do
      f.input :category
      f.input :user
      f.input :lat
-     f.input :long
+     f.input :lon
      f.input :photo, :as => :file
      f.input :premium
    end
@@ -70,6 +70,6 @@ ActiveAdmin.register Deal do
   end
     
   sidebar "Details", :only => :show do
-    attributes_table_for deal, :name, :price, :lat, :long, :created_at, :updated_at, :premium
+    attributes_table_for deal, :name, :price, :lat, :lon, :created_at, :updated_at, :premium
   end
 end

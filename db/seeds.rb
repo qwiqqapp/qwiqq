@@ -10,7 +10,6 @@ AdminUser.create!(:email => 'melanie@gastownlabs.com', :password => 'texasbbq', 
 AdminUser.create!(:email => 'john@qwiqq.me', :password => 'texasbbq', :password_confirmation => 'texasbbq')
 AdminUser.create!(:email => 'jack@qwiqq.me', :password => 'texasbbq', :password_confirmation => 'texasbbq')
 
-
 categories  = []
 commenters  = []
 
@@ -21,7 +20,6 @@ end
 def product_image
   File.new("test/fixtures/products/#{rand(22)}.jpg")
 end
-
 
 # setup categories
 %w(food ae beauty sport house travel fashion tech).each do |c|

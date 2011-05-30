@@ -6,7 +6,7 @@ Factory.define :deal do |f|
   f.percent   0 #{ Random.new.rand(0..99) }
   
   f.lat       { Faker::Geolocation.lat }
-  f.long      { Faker::Geolocation.lng }
+  f.lon       { Faker::Geolocation.lng }
   
   f.category {|f| f.association(:category)}
 end
