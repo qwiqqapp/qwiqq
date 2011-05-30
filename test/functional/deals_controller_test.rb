@@ -15,10 +15,12 @@ class Api::DealsControllerTest < ActionController::TestCase
   end
   
   
+  # deals#index
   test "should render current_user deals" do
-    @public_deal = Factory(:deal)
     @user = Factory(:user, :deals => [Factory(:deal), Factory(:deal)])
     sign_in(@user)
+    
+    @public_deal = Factory(:deal)
     
     get :index, :format => 'json'
     
@@ -28,10 +30,12 @@ class Api::DealsControllerTest < ActionController::TestCase
   end
   
   
+  # deals#feed
   test "should render recent public deals" do
-    @public_deal = Factory(:deal)
     @user = Factory(:user, :deals => [Factory(:deal), Factory(:deal), Factory(:deal)])
     sign_in(@user)
+    
+    @public_deal = Factory(:deal)
     
     get :feed, :format => 'json'
     
@@ -41,10 +45,12 @@ class Api::DealsControllerTest < ActionController::TestCase
   end
   
   
+  # deals#create
   test "should create deal for user" do
     @user   = Factory(:user)
-    @params = Factory.attributes_for(:deal, :category_id => Factory(:category).id)
     sign_in(@user)
+    
+    @params = Factory.attributes_for(:deal, :category_id => Factory(:category).id)
     
     post :create, :deal => @params, :format => 'json'
     
@@ -52,10 +58,17 @@ class Api::DealsControllerTest < ActionController::TestCase
   end
   
 
+  # deals#show
   test "should render deal details" do
+    @user = Factory(:user)
+    sign_in(@user)
+    
     @deal = Factory(:deal)
     get :show, :id => @deal.id, :format => 'json'
     assert_equal 200, @response.status
   end
+  
+  
+  # deals#
 
 end

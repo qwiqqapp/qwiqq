@@ -14,6 +14,8 @@ Qwiqq::Application.routes.draw do
     resources :deals do
       get 'feed', :on => :collection
     end
+    
+    resources :categories, :only => [:show, :index]
   end
 
   # The priority is based upon order of creation:

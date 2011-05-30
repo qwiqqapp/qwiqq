@@ -1,7 +1,5 @@
 class Api::DealsController < Api::ApiController
   
-  skip_before_filter :require_user, :only => [:feed, :show]
-  
   # ------------------
   # public scope
   
