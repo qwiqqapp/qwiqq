@@ -16,9 +16,8 @@ Qwiqq::Application.routes.draw do
       get 'popular', :on => :collection
     end
     
-    resources :categories, :only => [:show, :index]
+    get 'categories/:name' => "categories#show", :name => /\D+/
   end
-  
   
   
   # The priority is based upon order of creation:

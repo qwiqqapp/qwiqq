@@ -1,13 +1,12 @@
 class Api::CategoriesController < Api::ApiController
   
-  def index
-    respond_with Category.all
-  end
+  skip_before_filter :require_user
   
   
   def show
-    @category = Category.find(params[:id])
-    @deals    = @category.deals
-    respond_with [@category, @deals]
+    @category = Category.find_by_name!(params[:name])
+    @deals = @category.deals.order("created_at desc")
+    
+    render :json => @deals
   end
 end
