@@ -6,6 +6,8 @@ class Deal < ActiveRecord::Base
   has_many :comments
   has_many :likes
   
+  attr_accessible :name, :category_id, :price, :lat, :long, :photo
+  
   validates_presence_of :name, :category_id, :price
   
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}

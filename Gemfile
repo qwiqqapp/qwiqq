@@ -27,3 +27,7 @@ group :development do
   gem "wirble"
 end
 
+group :test do
+  gem "mocha"
+end
+
