@@ -16,7 +16,7 @@ Qwiqq::Application.routes.draw do
       get 'popular', :on => :collection
     end
     
-    get 'categories/:name' => "categories#show", :name => /\D+/
+    get 'categories/:name' => "categories#show", :name => /\D+/, :format => 'json'
   end
   
   
