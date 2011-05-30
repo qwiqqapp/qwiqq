@@ -6,7 +6,8 @@ class Deal < ActiveRecord::Base
   has_many :comments
   has_many :likes
   
-  attr_accessible :name, :category_id, :price, :lat, :long, :photo
+  #TODO update to 3.1 and use role based attr_accessible for premium
+  attr_accessible :name, :category_id, :price, :lat, :long, :photo, :premium
   
   validates_presence_of :name, :category_id, :price
   

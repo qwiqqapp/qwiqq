@@ -5,13 +5,12 @@ class Api::UsersController < Api::ApiController
   # will raise RecordNotFound if user not found
   # will render 401 if email does not match
   def create
-    user = User.new(params[:user])
-    if user.save
-      session[:user_id] = user.id
+    @user = User.new(params[:user])
+    if @user.save
+      session[:user_id] = @user.id
     end
-    respond_with :api, user
+    respond_with :api, @user
   end
-  
   
   # phase 1: return full details
   # phase 2: return full for friends and limited for non friends
@@ -24,5 +23,4 @@ class Api::UsersController < Api::ApiController
   def current
     respond_with current_user
   end
-  
 end
