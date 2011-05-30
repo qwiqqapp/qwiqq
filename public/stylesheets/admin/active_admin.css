@@ -8,6 +8,17 @@ span.premium{
   background-color: orange;
 }
 
+#site_title {
+  display:block;
+  float:left;
+  width:48px;
+  height:29px;
+  margin-top: -5px;
+  background-image:url("/images/admin-icon.png");
+  background-repeat:no-repeat;
+  text-indent: -999px;
+}
+
 
 /*#content .paginated_collection_contents,
 #content .index_footer{

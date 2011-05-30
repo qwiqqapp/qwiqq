@@ -12,15 +12,19 @@ def product_image(name=rand(22))
 end
 
 puts '+ creating admin accounts'
-
 AdminUser.create!(:email => 'adam@gastownlabs.com',     :password => 'texasbbq', :password_confirmation => 'texasbbq')
 AdminUser.create!(:email => 'brian@gastownlabs.com',    :password => 'texasbbq', :password_confirmation => 'texasbbq')
 AdminUser.create!(:email => 'melanie@gastownlabs.com',  :password => 'texasbbq', :password_confirmation => 'texasbbq')
 AdminUser.create!(:email => 'john@qwiqq.me',            :password => 'texasbbq', :password_confirmation => 'texasbbq')
 AdminUser.create!(:email => 'jack@qwiqq.me',            :password => 'texasbbq', :password_confirmation => 'texasbbq')
 
-puts '+ creating user accounts'
+# create users
+30.times.each do
+  puts '+ creating user'  
+  users << Factory(:user, :photo => user_image)
+end
 
+puts '+ creating user accounts'
 users << User.create(:country => 'ca', :city => 'vancouver',  :photo => user_image,    :name => 'adam',     :email => 'adam@test.com',     :password => 'tester', :password_confirmation => 'tester')
 users << User.create(:country => 'ca', :city => 'vancouver',  :photo => user_image,    :name => 'brian',    :email => 'brian@test.com',    :password => 'tester', :password_confirmation => 'tester')
 users << User.create(:country => 'ca', :city => 'vancouver',  :photo => user_image,    :name => 'melanie',  :email => 'melanie@test.com',  :password => 'tester', :password_confirmation => 'tester')
@@ -33,11 +37,6 @@ users << User.create(:country => 'us', :city => 'texas',      :photo => user_ima
   categories << Factory(:category, :name => c)
 end
 
-# create users
-30.times.each do
-  puts '+ creating user'  
-  users << Factory(:user, :photo => user_image)
-end
 
 # create deals and comments for users
 users.each do |user|
