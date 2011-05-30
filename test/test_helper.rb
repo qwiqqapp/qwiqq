@@ -10,4 +10,13 @@ class ActiveSupport::TestCase
   end
 end
 
+def sign_in(user)
+  @controller.stubs(:current_user).returns(user)
+end
+
+def sign_out
+  @controller.stubs(:current_user).returns(nil)
+end
+
+
 Factory.find_definitions

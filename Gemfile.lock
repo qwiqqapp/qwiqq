@@ -93,6 +93,7 @@ GEM
       activesupport (~> 3.0.2)
       arel (~> 2.0.2)
     mime-types (1.16)
+    mocha (0.9.12)
     mysql2 (0.2.7)
     orm_adapter (0.0.5)
     paperclip (2.3.11)
@@ -148,6 +149,7 @@ DEPENDENCIES
   haml-rails
   heroku
   json
+  mocha
   mysql2 (= 0.2.7)
   paperclip
   rails (= 3.0.7)
