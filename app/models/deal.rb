@@ -1,5 +1,5 @@
 class Deal < ActiveRecord::Base
-
+  include ActionView::Helpers::DateHelper
   belongs_to :user
   belongs_to :category
   
@@ -32,7 +32,8 @@ class Deal < ActiveRecord::Base
         :premium    => premium,
         :price      => price,
         :lat        => lat.try(:to_s),
-        :lon        => long.try(:to_s)
+        :lon        => long.try(:to_s),
+        :age        => (created_at ? time_ago_in_words(created_at) : "")
       }
     end
 end
