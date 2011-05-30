@@ -1,5 +1,5 @@
 class Deal < ActiveRecord::Base
-
+  include ActionView::Helpers::DateHelper
   belongs_to :user
   belongs_to :category
   
@@ -35,6 +35,7 @@ class Deal < ActiveRecord::Base
         :lon        => long.try(:to_s),
         :comment_count => comment_count,
         :like_count => like_count
+        :age        => (created_at ? time_ago_in_words(created_at) : "")
       }
     end
 end
