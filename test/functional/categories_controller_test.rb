@@ -3,7 +3,8 @@ require 'test_helper'
 class Api::CategoriesControllerTest < ActionController::TestCase
   
   test "should route to categories#show" do
-    assert_routing('/api/categories/travel', {:controller => "api/categories", :action => "show", :name => 'travel', :format => 'json'})
+    assert_routing( '/api/categories/travel', 
+                    {:controller => "api/categories", :action => "show", :name => 'travel', :format => 'json'})
   end
   
   test "should return deals for category" do
@@ -15,7 +16,7 @@ class Api::CategoriesControllerTest < ActionController::TestCase
     Factory(:deal, :category => @category)
     Factory(:deal, :category => @category)
     
-    get :show, :name => @category.name #json format fixed in routes
+    get :show, :name => @category.name, :format => 'json'
     
     assert_equal 200,   @response.status
     assert_equal Array, json_response.class

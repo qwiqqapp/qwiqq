@@ -9,7 +9,12 @@ Qwiqq::Application.routes.draw do
   resources :deals, :only => [:index, :show]
   
   namespace "api" do
-    resources :users, :sessions
+
+    resources :users, :only => [:create, :show] do
+      get 'current', :on => :collection #not really but makes cleaner as no id required
+    end
+    
+    resources :sessions, :only => [:create, :destroy]
     
     resources :deals do
       get 'feed', :on => :collection

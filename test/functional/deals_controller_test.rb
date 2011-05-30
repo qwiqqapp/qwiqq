@@ -3,15 +3,15 @@ require 'test_helper'
 class Api::DealsControllerTest < ActionController::TestCase
 
   test "should route to deals#index" do
-    assert_routing('/api/deals', {:controller => "api/deals", :action => "index"})
+    assert_routing('/api/deals.json', {:format => 'json', :controller => "api/deals", :action => "index"})
   end
   
   test "should route to deals#show" do
-    assert_routing('/api/deals/1', {:controller => "api/deals", :action => "show", :id => '1'})
+    assert_routing('/api/deals/1.json', {:format => 'json', :controller => "api/deals", :action => "show", :id => '1'})
   end
   
   test "should route to deals#create" do
-    assert_routing({:method => 'post', :path => '/api/deals'}, {:controller => 'api/deals', :action => 'create'})
+    assert_routing({:method => 'post', :path => '/api/deals.json'}, {:format => 'json', :controller => 'api/deals', :action => 'create'})
   end
   
   # deals#index
@@ -62,7 +62,6 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_equal @params[:name], json_response['name']
   end
   
-
   # deals#show
   test "should render deal details" do
     @user = Factory(:user)

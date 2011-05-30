@@ -4,8 +4,8 @@ class Api::CategoriesController < Api::ApiController
   
   def show
     @category = Category.find_by_name!(params[:name])
-    @deals    = @category.deals.order("created_at desc")
+    @deals    = @category.deals.order("created_at desc").includes(:category)
     
-    render :json => @deals
+    respond_with @deals
   end
 end

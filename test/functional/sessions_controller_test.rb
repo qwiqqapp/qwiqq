@@ -3,13 +3,13 @@ require 'test_helper'
 class Api::SessionsControllerTest < ActionController::TestCase
 
   test "should route to sessions#create" do
-    assert_routing({:method => 'post', :path => '/api/sessions'}, 
-                   {:controller => "api/sessions", :action => "create"})
+    assert_routing({:method => 'post', :path => '/api/sessions.json'}, 
+                   {:format => 'json', :controller => "api/sessions", :action => "create"})
   end
   
   test "should route to sessions#destroy" do
-    assert_routing({:method => 'delete', :path => '/api/sessions/1'}, 
-                   {:controller => "api/sessions", :action => "destroy", :id => '1'})
+    assert_routing({:method => 'delete', :path => '/api/sessions/1.json'}, 
+                   {:format => 'json', :controller => "api/sessions", :action => "destroy", :id => '1'})
   end
   
   test "should sign in valid user" do

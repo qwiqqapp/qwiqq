@@ -19,12 +19,10 @@ class Api::ApiController < ActionController::Base
   end
   
   # Bad request
-  # rescue_from ActiveRecord::RecordInvalid do |e|
-  #   Rails.logger.error "ApplicationController error#400: #{e.message}"
-  #   render :json => {:message => 'Bad Request' }, :status => 400
-  # end
-  
-  
+  rescue_from ActiveRecord::RecordInvalid do |e|
+    Rails.logger.error "ApplicationController error#400: #{e.message}"
+    render :json => {:message => 'Bad Request' }, :status => 400
+  end
   
   private
   def require_user
