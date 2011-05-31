@@ -6,6 +6,7 @@ ActiveAdmin.register Deal do
   filter :name
   filter :price
   filter :created_at
+  filter :premium  
   filter :category, :as => :check_boxes, :collection => proc { Category.all }
   
   index do
@@ -18,6 +19,9 @@ ActiveAdmin.register Deal do
     end
     
     column('Map') {|d| link_to 'Map', "http://maps.google.com/maps?q=#{d.name}@#{d.lat},#{d.lon}"}
+    
+    column("Likes", :sortable => :like_count) {|d| d.like_count }
+    
     
     column("Category") {|deal| status_tag(deal.try(:category).try(:name)) }
     column("Premium", :sortable => :premium){|deal| deal.premium ? status_tag("Premium") : nil  }
@@ -70,6 +74,6 @@ ActiveAdmin.register Deal do
   end
     
   sidebar "Details", :only => :show do
-    attributes_table_for deal, :name, :price, :lat, :lon, :created_at, :updated_at, :premium
+    attributes_table_for deal, :name, :price, :lat, :lon,  :like_count, :comment_count, :premium, :created_at, :updated_at
   end
 end

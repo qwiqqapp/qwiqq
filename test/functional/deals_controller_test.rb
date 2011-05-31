@@ -60,6 +60,8 @@ class Api::DealsControllerTest < ActionController::TestCase
     
     assert_equal 201, @response.status
     assert_equal @params[:name], json_response['name']
+    assert_equal @params[:lat], json_response['lat']
+    assert_equal @params[:lon], json_response['lon']    
   end
   
   # deals#show
