@@ -1,6 +1,7 @@
 Factory.find_definitions
 
 categories  = []
+deals       = []
 users       = []
 
 def user_image(name=rand(5))
@@ -19,12 +20,12 @@ AdminUser.create!(:email => 'john@qwiqq.me',            :password => 'texasbbq',
 AdminUser.create!(:email => 'jack@qwiqq.me',            :password => 'texasbbq', :password_confirmation => 'texasbbq')
 
 # create users
+puts '+ creating user accounts'
 30.times.each do
   puts '+ creating user'  
   users << Factory(:user, :photo => user_image)
 end
 
-puts '+ creating user accounts'
 users << User.create(:country => 'ca', :city => 'vancouver',  :photo => user_image,    :name => 'adam',     :email => 'adam@test.com',     :password => 'tester', :password_confirmation => 'tester')
 users << User.create(:country => 'ca', :city => 'vancouver',  :photo => user_image,    :name => 'brian',    :email => 'brian@test.com',    :password => 'tester', :password_confirmation => 'tester')
 users << User.create(:country => 'ca', :city => 'vancouver',  :photo => user_image,    :name => 'melanie',  :email => 'melanie@test.com',  :password => 'tester', :password_confirmation => 'tester')
@@ -44,7 +45,7 @@ users.each do |user|
   
   rand(10).times.each do
     puts ' + creating deal for user'
-    deal = Factory(:deal, :user => user, :category => categories.shuffle.first, :photo => product_image)
+    deals << deal = Factory(:deal, :user => user, :category => categories.shuffle.first, :photo => product_image)
     
     rand(5).times.each do
       puts '  + creating comment for user'
@@ -56,6 +57,13 @@ users.each do |user|
       Like.create(:user => other_users.shuffle.first, :deal => deal)
     end
   end
+end
+
+
+# set 5 deals to premium
+5.times.each do
+  puts ' set deal to premium'
+  deals.shuffle.first.update_attribute(:premium, true)
 end
 
 
