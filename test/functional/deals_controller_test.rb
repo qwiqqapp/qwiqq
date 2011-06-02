@@ -29,7 +29,9 @@ class Api::DealsControllerTest < ActionController::TestCase
   
   # deals#feed
   test "should render recent public deals" do
-    @user = Factory(:user, :deals => [Factory(:deal), Factory(:deal), Factory(:deal)])
+    @user = Factory(:user, :deals => [  Factory(:deal, :premium => false),
+                                        Factory(:deal, :premium => true),
+                                        Factory(:deal, :premium => false)])
     sign_in(@user)
     @public_deal = Factory(:deal)
     
@@ -38,6 +40,7 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_equal 200,   @response.status
     assert_equal Array, json_response.class
     assert_equal 4,     json_response.size
+    assert_equal true,  json_response.first['premium']
   end
   
   # deals#popular

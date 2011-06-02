@@ -20,7 +20,7 @@ class Api::DealsController < Api::ApiController
   # phase 2: add location order
   # phase 3: only deals from friends
   def feed
-    @deals = Deal.order("created_at desc").limit(30)
+    @deals = Deal.order("created_at, premium desc").limit(30)
     raise RecordNotFound unless @deals
     respond_with @deals
   end
