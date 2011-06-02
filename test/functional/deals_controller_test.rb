@@ -35,7 +35,7 @@ class Api::DealsControllerTest < ActionController::TestCase
                  Factory(:deal, :premium => false, :created_at => Time.now - 3.days)]
     
     sign_in(@user)
-
+    
     get :feed, :format => 'json'
     
     assert_equal 200,   @response.status

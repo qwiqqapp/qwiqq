@@ -10,7 +10,7 @@ class Deal < ActiveRecord::Base
   #TODO update to 3.1 and use role based attr_accessible for premium
   attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium
   
-  validates_presence_of :name, :category_id, :price
+  validates_presence_of :name, :category_id
   
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   scope :premium, where(:premium => true)
