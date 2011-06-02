@@ -42,6 +42,20 @@ ActiveAdmin.register User do
         end
       end
       
+      panel "Liked Deals (#{user.liked_deals.size})" do
+        table_for(user.liked_deals) do
+          column("") do |deal| 
+            link_to(image_tag(deal.photo.url(:admin_med)), [:admin, deal])
+          end
+          column("Name", :sortable => :name) do |deal|  
+            link_to(deal.name, [:admin, deal])
+          end
+          column("Category") {|deal| status_tag(deal.try(:category).try(:name)) }
+          column("Date", :sortable => :created_at){|deal| deal.created_at.to_s(:short) }
+          column("Price", :sortable => :price) {|deal| number_to_currency deal.price }
+        end
+      end
+      
       panel "Comment History (#{user.comments.size})" do
         table_for(user.comments) do
           column("") do |c| 
@@ -52,6 +66,11 @@ ActiveAdmin.register User do
           column("Date", :sortable => :created_at ){|deal| pretty_format(deal.created_at) }
         end
       end
+      
+
+      
+      
+      
       
       active_admin_comments
     end

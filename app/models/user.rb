@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :deals,    :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :likes,    :dependent => :destroy
+  has_many :liked_deals, :through => :likes, :source => :deal
   
   scope :today, lambda{ where('DATE(created_at) = ?', Date.today)}
   
@@ -42,14 +43,16 @@ class User < ActiveRecord::Base
   
   def as_json(options={})
     {
-      :email      => email,
-      :name       => name,
-      :city       => city,
-      :country    => country,
-      :created_at => created_at,
-      :created_at => updated_at,
-      :photo      => photo.url(:iphone),
-      :photo_2x   => photo.url(:iphone2x)
+      :email        => email,
+      :name         => name,
+      :city         => city,
+      :country      => country,
+      :created_at   => created_at,
+      :created_at   => updated_at,
+      :photo        => photo.url(:iphone),
+      :photo_2x     => photo.url(:iphone2x),
+      :deals        => deals,
+      :liked_deals  => liked_deals
     }
   end
 end

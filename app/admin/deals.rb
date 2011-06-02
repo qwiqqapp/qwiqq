@@ -6,7 +6,7 @@ ActiveAdmin.register Deal do
   filter :name
   filter :price
   filter :created_at
-  filter :premium  
+  filter :premium
   filter :category, :as => :check_boxes, :collection => proc { Category.all }
   
   index do
@@ -14,7 +14,7 @@ ActiveAdmin.register Deal do
       link_to(image_tag(deal.photo.url(:admin_sml)), [:admin, deal])
     end
     
-    column("Name", :sortable => :name) do |deal|  
+    column("Name", :sortable => :name) do |deal|
       link_to(deal.name, [:admin, deal])
     end
     
@@ -63,7 +63,6 @@ ActiveAdmin.register Deal do
           column :created_at
         end
       end
-      
       
       active_admin_comments
     end
