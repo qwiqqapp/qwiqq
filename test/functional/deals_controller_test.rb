@@ -94,7 +94,7 @@ class Api::DealsControllerTest < ActionController::TestCase
       Factory(:deal, :name => "High Heels"),
       Factory(:deal, :name => "Red High Heels") ]
 
-    get "search", :q => "High Heels", :format => "json"
+    get "search", :q => "high heels", :format => "json"
 
     assert_equal 200, @response.status
     assert_equal Array, json_response.class
