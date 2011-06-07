@@ -19,6 +19,8 @@ Qwiqq::Application.routes.draw do
     resources :deals do
       get 'feed', :on => :collection
       get 'popular', :on => :collection
+      
+      resources :likes, :only => [ :create, :index ]
     end
     
     get 'categories/:name' => "categories#show", :name => /\D+/, :format => 'json'
