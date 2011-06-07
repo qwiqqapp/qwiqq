@@ -22,6 +22,8 @@ Qwiqq::Application.routes.draw do
     end
     
     get 'categories/:name' => "categories#show", :name => /\D+/, :format => 'json'
+
+    match 'search', :to => "deals#search"
   end
   
   

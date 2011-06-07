@@ -13,6 +13,10 @@ class Api::DealsControllerTest < ActionController::TestCase
   test "should route to deals#create" do
     assert_routing({:method => 'post', :path => '/api/deals.json'}, {:format => 'json', :controller => 'api/deals', :action => 'create'})
   end
+
+  test "should route to deals#search" do
+    assert_routing({:method => 'get', :path => '/api/search.json'}, {:format => 'json', :controller => 'api/deals', :action => 'search'})
+  end
   
   # deals#index
   test "should render current_user deals" do
@@ -79,4 +83,38 @@ class Api::DealsControllerTest < ActionController::TestCase
     get :show, :id => @deal.id, :format => 'json'
     assert_equal 200, @response.status
   end
+
+  # deals#search
+  test "should render deals with names matched by query" do
+    @user = Factory(:user)
+    sign_in(@user)
+
+    @deals =  [ 
+      Factory(:deal, :name => "iPod"),
+      Factory(:deal, :name => "High Heels"),
+      Factory(:deal, :name => "Red High Heels") ]
+
+    get "search", :q => "High Heels", :format => "json"
+
+    assert_equal 200, @response.status
+    assert_equal Array, json_response.class
+    assert_equal 2, json_response.size
+  end
+
+  test "should render an empty array when query matches no deals" do
+    @user = Factory(:user)
+    sign_in(@user)
+
+    @deals =  [ 
+      Factory(:deal, :name => "iPod"),
+      Factory(:deal, :name => "High Heels"),
+      Factory(:deal, :name => "Red High Heels") ]
+
+    get "search", :q => "Bacon", :format => "json"
+
+    assert_equal 200, @response.status
+    assert_equal Array, json_response.class
+    assert_equal 0, json_response.size
+  end
 end
+
