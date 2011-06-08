@@ -29,7 +29,12 @@ class Api::DealsController < Api::ApiController
     @deal = Deal.find(params[:id])
     respond_with @deal
   end
-  
+
+  def search
+    query = params[:q]
+    @deals = Deal.search(query)
+    respond_with @deals
+  end
   
   # -----------------
   # scoped to user
@@ -51,5 +56,5 @@ class Api::DealsController < Api::ApiController
     
     respond_with @deal
   end
-  
+
 end
