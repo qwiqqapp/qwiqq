@@ -1,6 +1,5 @@
 class Notifications < ActionMailer::Base
   default :from => "hello@qwiqq.me"
-  default_url_options[:host] = "qwiqq.gastownlabs.com"
 
   def deal_liked(like)
     @deal = like.deal
