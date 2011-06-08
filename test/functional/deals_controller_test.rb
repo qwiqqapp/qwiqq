@@ -35,7 +35,7 @@ class Api::DealsControllerTest < ActionController::TestCase
   test "should render recent public deals" do
     @user = Factory(:user)
     @deals =  [  Factory(:deal, :premium => false, :created_at => Time.now - 1.days, :user => @user),
-                 Factory(:deal, :premium => true,  :created_at => Time.now - 2.days),    #should be first
+                 Factory(:deal, :premium => true,  :created_at => Time.now - 2.days),
                  Factory(:deal, :premium => false, :created_at => Time.now - 3.days)]
     
     sign_in(@user)
@@ -55,7 +55,7 @@ class Api::DealsControllerTest < ActionController::TestCase
   
   # deals#create
   test "should create deal for user with price" do
-    @user   = Factory(:user)
+    @user     = Factory(:user)
     @category = Factory(:category)
     sign_in(@user)
     
@@ -65,13 +65,19 @@ class Api::DealsControllerTest < ActionController::TestCase
                 :photo          => File.new("test/fixtures/products/#{rand(22)}.jpg"),
                 :lat            => '49.282784',
                 :lon            => '-123.109617' }
+
+    # mock Deal#geodecode_location_name
+    location_name = 'Comox Street, Vancouver'
+    lat, lon = @params[:lat].to_f, @params[:lon].to_f
+    Deal.expects(:geodecode_location_name).with(lat, lon).returns(location_name)
     
     post :create, :deal => @params, :format => 'json'
     
     assert_equal 201, @response.status
     assert_equal @params[:name], json_response['name']
     assert_equal @params[:lat], json_response['lat']
-    assert_equal @params[:lon], json_response['lon']    
+    assert_equal @params[:lon], json_response['lon']
+    assert_equal location_name, json_response['location_name']
   end
   
   # deals#show
@@ -94,7 +100,7 @@ class Api::DealsControllerTest < ActionController::TestCase
       Factory(:deal, :name => "High Heels"),
       Factory(:deal, :name => "Red High Heels") ]
 
-    get "search", :q => "High Heels", :format => "json"
+    get "search", :q => "high heels", :format => "json"
 
     assert_equal 200, @response.status
     assert_equal Array, json_response.class
