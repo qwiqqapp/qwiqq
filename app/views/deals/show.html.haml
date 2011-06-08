@@ -3,7 +3,7 @@
 
 %h1= @deal.name.titleize
 = image_tag @deal.photo.url(:iphone2x)
-= link_to "Map", "http://maps.google.com/maps?q=#{@deal.location.lat},#{@deal.location.long}"    
+= link_to "Map", "http://maps.google.com/maps?q=#{@deal.lat},#{@deal.lon}"    
 
 %h4= "#{@deal.comments.size} Comments"
 %ul.comments
