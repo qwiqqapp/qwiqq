@@ -56,6 +56,7 @@ class User < ActiveRecord::Base
       :deals        => options[:deals] ? deals : nil,
       :liked_deals  => options[:deals] ? liked_deals : nil,
       :like_count   => liked_deals.count,
+      :deal_count   => deals.count,
       :comment_count => comments.count,
       :user_id      => id
     }
