@@ -53,7 +53,7 @@ ActiveAdmin.register Deal do
           column("") {|c| link_to(image_tag(c.user.photo.url(:admin_med)), admin_user_path(c.user))}
           column("User") {|c| link_to(c.user.name, [:admin, c.user])}
           column('Comment'){|c| c.body}
-          column :created_at
+          column(:created_at)
         end
       end
       
