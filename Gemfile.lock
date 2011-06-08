@@ -59,6 +59,7 @@ GEM
       actionpack (>= 2.3.7)
       activesupport (>= 2.3.7)
       i18n (~> 0.4)
+    geokit (1.5.0)
     haml (3.1.1)
     haml-rails (0.3.4)
       actionpack (~> 3.0)
@@ -146,6 +147,7 @@ DEPENDENCIES
   bcrypt-ruby
   factory_girl_rails
   ffaker
+  geokit
   haml-rails
   heroku
   json

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110530234314) do
+ActiveRecord::Schema.define(:version => 20110607232642) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20110530234314) do
     t.float    "lon"
     t.integer  "comment_count",      :default => 0
     t.integer  "like_count",         :default => 0
+    t.string   "location_name"
   end
 
   create_table "likes", :force => true do |t|
