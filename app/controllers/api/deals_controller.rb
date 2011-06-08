@@ -30,8 +30,7 @@ class Api::DealsController < Api::ApiController
   end
 
   def search
-    query = params[:q]
-    @deals = Deal.search(query)
+    @deals = Deal.search_by_name(params[:q])
     respond_with @deals
   end
   
@@ -51,7 +50,6 @@ class Api::DealsController < Api::ApiController
     @deal.category = category
     @deal.user = current_user
     @deal.save!
-    
     respond_with @deal
   end
 

@@ -22,4 +22,5 @@ class Api::CategoriesControllerTest < ActionController::TestCase
     assert_equal Array, json_response.class
     assert_equal 3,     json_response.size
   end
+
 end

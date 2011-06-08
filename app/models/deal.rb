@@ -17,7 +17,7 @@ class Deal < ActiveRecord::Base
   default_scope :order => 'created_at desc'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   scope :premium, where(:premium => true)
-  scope :search, lambda { |query| where([ 'UPPER(name) like ?', "%#{query.upcase}%" ]) }
+  scope :search_by_name, lambda { |query| where([ 'UPPER(name) like ?', "%#{query.upcase}%" ]) }
 
   has_attached_file :photo,
                     {:styles => { :admin_sml    => ["30x30#", :jpg],
