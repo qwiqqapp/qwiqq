@@ -53,7 +53,9 @@ class User < ActiveRecord::Base
       :photo        => photo.url(:iphone),
       :photo_2x     => photo.url(:iphone2x),
       :deals        => options[:deals] ? deals : nil,
-      :liked_deals  => options[:deals] ? liked_deals : nil
+      :liked_deals  => options[:deals] ? liked_deals : nil,
+      :like_count   => liked_deals.count,
+      :comment_count => comments.count
     }
   end
 end
