@@ -31,7 +31,7 @@ class Api::DealsControllerTest < ActionController::TestCase
   test "should render recent public deals" do
     @user = Factory(:user)
     @deals =  [  Factory(:deal, :premium => false, :created_at => Time.now - 1.days, :user => @user),
-                 Factory(:deal, :premium => true,  :created_at => Time.now - 2.days),    #should be first
+                 Factory(:deal, :premium => true,  :created_at => Time.now - 2.days),
                  Factory(:deal, :premium => false, :created_at => Time.now - 3.days)]
     
     sign_in(@user)
