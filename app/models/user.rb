@@ -41,7 +41,8 @@ class User < ActiveRecord::Base
     end
   end
   
-  def as_json(options={:deals => true})
+  def as_json(options={})
+    options.reverse_merge!(:deals => true)
     {
       :email        => email,
       :name         => name,
@@ -55,7 +56,8 @@ class User < ActiveRecord::Base
       :deals        => options[:deals] ? deals : nil,
       :liked_deals  => options[:deals] ? liked_deals : nil,
       :like_count   => liked_deals.count,
-      :comment_count => comments.count
+      :comment_count => comments.count,
+      :user_id      => id
     }
   end
 end
