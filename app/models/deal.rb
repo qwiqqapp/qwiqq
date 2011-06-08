@@ -46,7 +46,8 @@ class Deal < ActiveRecord::Base
       :like_count     => like_count,
       :age            => (created_at ? time_ago_in_words(created_at) : ""),
       :short_age      => short_created_at,
-      :location_name  => location_name
+      :location_name  => location_name,
+      :user           => user.try(:as_json, :deals => false)
     }
   end
 

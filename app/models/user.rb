@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
     end
   end
   
-  def as_json(options={})
+  def as_json(options={:deals => true})
     {
       :email        => email,
       :name         => name,
@@ -51,8 +51,8 @@ class User < ActiveRecord::Base
       :created_at   => updated_at,
       :photo        => photo.url(:iphone),
       :photo_2x     => photo.url(:iphone2x),
-      :deals        => deals,
-      :liked_deals  => liked_deals
+      :deals        => options[:deals] ? deals : nil,
+      :liked_deals  => options[:deals] ? liked_deals : nil
     }
   end
 end
