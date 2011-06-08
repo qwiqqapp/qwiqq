@@ -1,5 +1,4 @@
 ActiveAdmin.register Like do
-  
   scope :all, :default => true
   scope :today
 
@@ -14,7 +13,5 @@ ActiveAdmin.register Like do
 
     column(:created_at)
     default_actions
-    
   end
-  
 end

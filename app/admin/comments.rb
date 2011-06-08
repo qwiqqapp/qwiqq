@@ -3,8 +3,6 @@ ActiveAdmin.register Comment, :as => "DealComment" do
   scope :all, :default => true
   scope :today
 
-  filter :user
-
   index do
     column("User", :sortable => :name) do |like|  
       link_to(like.user.name, [ :admin, like.user ])
