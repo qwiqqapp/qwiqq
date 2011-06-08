@@ -5,4 +5,6 @@ class Comment < ActiveRecord::Base
 
   validates_presence_of :body, :deal, :user
   
+  default_scope :order => 'created_at desc'
+
 end

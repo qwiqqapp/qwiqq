@@ -14,6 +14,7 @@ class Deal < ActiveRecord::Base
 
   before_create :geodecode_location_name!
   
+  default_scope :order => 'created_at desc'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   scope :premium, where(:premium => true)
   scope :search, lambda { |query| where([ 'UPPER(name) like ?', "%#{query.upcase}%" ]) }
@@ -50,8 +51,6 @@ class Deal < ActiveRecord::Base
       :user           => user.try(:as_json, :deals => false)
     }
   end
-
-
 
   def short_created_at
     from_time = created_at
