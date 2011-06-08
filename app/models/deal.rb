@@ -28,7 +28,7 @@ class Deal < ActiveRecord::Base
   
   def self.geodecode_location_name(lat, lon)
     loc = GeoKit::Geocoders::MultiGeocoder.reverse_geocode([ lat, lon ])
-    "#{loc.street}, #{loc.city}" if loc.success?
+    "#{loc.street_name}, #{loc.city}" if loc.success?
   end
                     
   def as_json(options={})
