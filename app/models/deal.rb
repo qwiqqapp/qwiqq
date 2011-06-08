@@ -10,7 +10,7 @@ class Deal < ActiveRecord::Base
   #TODO update to 3.1 and use role based attr_accessible for premium
   attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium
   
-  validates_presence_of :name, :category_id, :lat, :lon
+  validates_presence_of :user, :category, :name, :lat, :lon
 
   before_create :geodecode_location_name!
   
