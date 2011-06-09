@@ -81,13 +81,21 @@ class Api::DealsControllerTest < ActionController::TestCase
   end
   
   
+  # deals#create validation
+  test "should not create deal from invalid post" do
+    @user     = Factory(:user)
+    @category = Factory(:category)
+    sign_in(@user)
+    
+    @params = { :category_name  => @category.name,
+                :photo          => File.new("test/fixtures/products/#{rand(22)}.jpg")}
 
-  
-  
-  
-  
-  
-  
+    post :create, :deal => @params, :format => 'json'
+    
+    assert_equal 422, @response.status
+    assert_match /required/i, json_response['name'].first
+    assert_match /price/i, json_response['base'].first
+  end
   
   # deals#show
   test "should render deal details" do
