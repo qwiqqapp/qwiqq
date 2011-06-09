@@ -8,9 +8,19 @@ class Like < ActiveRecord::Base
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   
   after_create :deliver_notification
+  after_create :increment_like_count
+  after_destroy :decrement_like_count
   
   private
   def deliver_notification
     Notifications.deal_liked(self).deliver
+  end
+
+  def increment_like_count
+    Deal.increment_counter(:like_count, user_id)
+  end
+   
+  def decrement_like_count
+    Deal.decrement_counter(:like_count, user_id)
   end
 end
