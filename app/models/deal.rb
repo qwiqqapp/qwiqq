@@ -61,7 +61,7 @@ class Deal < ActiveRecord::Base
       :lon            => lon.try(:to_s),
       :comment_count  => comment_count,
       :like_count     => like_count,
-      :age            => (created_at ? time_ago_in_words(created_at) : ""),
+      :age            => (created_at ? time_ago_in_words(created_at).gsub("about ", "") : ""),
       :short_age      => short_created_at,
       :location_name  => location_name,
       :user           => user.try(:as_json, :deals => false)
