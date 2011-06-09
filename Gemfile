@@ -21,6 +21,7 @@ gem "activeadmin"
 
 gem "factory_girl_rails"
 gem "ffaker"
+gem "mocha"
 
 gem "bcrypt-ruby", :require => "bcrypt"
 

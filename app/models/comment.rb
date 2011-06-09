@@ -14,5 +14,4 @@ class Comment < ActiveRecord::Base
   def deliver_notification
     Notifications.deal_commented(self).deliver
   end
-
 end

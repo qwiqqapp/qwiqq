@@ -1,5 +1,9 @@
 Factory.find_definitions
 
+# avoid sending emails, IMPORTANT
+Comment.any_instance.stubs(:deliver_notification).returns(:true)
+Like.any_instance.stubs(:deliver_notification).returns(:true)
+
 categories  = []
 deals       = []
 users       = []
@@ -45,6 +49,9 @@ users.each do |user|
   
   rand(10).times.each do
     puts ' + creating deal for user'
+    
+    Comment.any_instance.stubs(:deliver_notification).returns(:true)
+    
     deals << deal = Factory(:deal, :user => user, :category => categories.shuffle.first, :photo => product_image)
     
     rand(5).times.each do

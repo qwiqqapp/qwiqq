@@ -29,8 +29,9 @@ class Deal < ActiveRecord::Base
                                   :iphone_grid_2x    => ["150x150#", :jpg],
                                   
                                   # feed, browse, search list views
-                                  :iphone_list       => ["110x110#", :jpg],
-                                  :iphone_list_2x    => ["220x220#", :jpg]}
+                                  :iphone_list       => ["55x55#", :jpg],
+                                  :iphone_list_2x    => ["110x110#", :jpg],
+                                  }
                     }.merge(PAPERCLIP_STORAGE_OPTIONS)
   
   def self.geodecode_location_name(lat, lon)
@@ -44,6 +45,11 @@ class Deal < ActiveRecord::Base
       :name           => name,
       :category       => category.try(:name),
       
+      # TODO legacy image name, remove once iphone has been updated
+      :photo          => photo.url(:iphone_grid),
+      :photo_2x       => photo.url(:iphone_grid_2x),
+      
+      # new image names
       :photo_grid     => photo.url(:iphone_grid),
       :photo_grid_2x  => photo.url(:iphone_grid_2x),
       :photo_list     => photo.url(:iphone_list),
