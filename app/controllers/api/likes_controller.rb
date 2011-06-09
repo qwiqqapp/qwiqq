@@ -16,9 +16,7 @@ class Api::LikesController < Api::ApiController
   def destroy
     @like = @deal.likes.find_by_user_id(current_user.id)
     @like.destroy if @like
-    respond_with(@deal) do |format|
-      format.json { render :json => {}, :status => :ok }
-    end
+    render :json => {}, :status => :ok 
   end
 
   private
