@@ -20,8 +20,15 @@ class Deal < ActiveRecord::Base
                     {:styles => { :admin_sml    => ["30x30#", :jpg],
                                   :admin_med    => ["50x50#", :jpg],
                                   :admin_lrg    => ["240x", :jpg],
-                                  :iphone       => ["75x75#", :jpg],
-                                  :iphone2x     => ["150x150#", :jpg]}
+                                  
+                                  # popular
+                                  :iphone_grid       => ["75x75#", :jpg],
+                                  :iphone_grid2x     => ["150x150#", :jpg],
+                                  
+                                  # feed, browse, search list views
+                                  :iphone_list       => ["110x110#", :jpg],
+                                  :iphone_list2x     => ["220x220#", :jpg]}
+                                  
                     }.merge(PAPERCLIP_STORAGE_OPTIONS)
                     
   def as_json(options={})
