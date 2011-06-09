@@ -27,7 +27,7 @@ ActiveAdmin.register Deal do
     
     column("Date", :sortable => :created_at){|deal| deal.created_at.to_s(:short) }
     column("User", :sortable => :user_id) {|deal| link_to(deal.user.name, admin_user_path(deal.user))}
-    column("Price", :sortable => :price) {|deal| "$#{(deal.price.to_f/100)}" }
+    column("Price", :sortable => :price) {|deal| number_to_currency(deal.price.to_f/100) }
   end
   
   form(:html => {:multipart => true}) do |f|
