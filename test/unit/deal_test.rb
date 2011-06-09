@@ -10,9 +10,9 @@ class DealTest < ActiveSupport::TestCase
   end
   
   test "invalid deal" do
-    invalid_name = (0..80).map{ "a"}.join  
+    invalid_name = (0..80).map{"a"}.join
     assert_raise(ActiveRecord::RecordInvalid) {
-      Factory(:deal, :name => invalid_name)    
+      Factory(:deal, :name => invalid_name)
     }
   end
 end
