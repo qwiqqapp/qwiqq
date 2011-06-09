@@ -4,7 +4,7 @@ class Like < ActiveRecord::Base
   
   validates_presence_of :deal, :user
   
-  default_scope :order => 'created_at desc'
+  default_scope :order => 'likes.created_at desc'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   
   after_create :deliver_notification

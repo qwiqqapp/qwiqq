@@ -25,7 +25,7 @@ class Api::DealsController < Api::ApiController
   
   def show
     @deal = Deal.find(params[:id])
-    respond_with @deal
+    render :json => @deal.as_json(:current_user => current_user)
   end
 
   def search
