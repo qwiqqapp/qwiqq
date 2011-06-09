@@ -22,7 +22,8 @@ class Deal < ActiveRecord::Base
   scope :search_by_name, lambda { |query| where([ 'UPPER(name) like ?', "%#{query.upcase}%" ]) }
 
   has_attached_file :photo,
-                    {:styles => { :admin_sml    => ["30x30#", :jpg],
+                    {:styles => { #admin
+                                  :admin_sml    => ["30x30#", :jpg],
                                   :admin_med    => ["50x50#", :jpg],
                                   :admin_lrg    => ["240x", :jpg],
                                   
@@ -33,6 +34,10 @@ class Deal < ActiveRecord::Base
                                   # feed, browse, search list views
                                   :iphone_list       => ["55x55#", :jpg],
                                   :iphone_list_2x    => ["110x110#", :jpg],
+                                  
+                                  # zoomed image size
+                                  :iphone_zoom       => ["300x440>", :jpg],
+                                  :iphone_zoom_2x    => ["600x880>", :jpg]
                                   }
                     }.merge(PAPERCLIP_STORAGE_OPTIONS)
   
@@ -49,15 +54,17 @@ class Deal < ActiveRecord::Base
       :name           => name,
       :category       => category.try(:name),
       
-      # TODO legacy image name, remove once iphone has been updated
-      :photo          => photo.url(:iphone_grid),
-      :photo_2x       => photo.url(:iphone_grid_2x),
-      
-      # new image names
+      # popular
       :photo_grid     => photo.url(:iphone_grid),
       :photo_grid_2x  => photo.url(:iphone_grid_2x),
+      
+      # feed, browse and search
       :photo_list     => photo.url(:iphone_list),
       :photo_list_2x  => photo.url(:iphone_list_2x),
+      
+      # deal detail zoom
+      :photo_zoom     => photo.url(:iphone_zoom),
+      :photo_zoom_2x  => photo.url(:iphone_zoom_2x),            
       
       :premium        => premium,
       :price          => price,
