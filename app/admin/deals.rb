@@ -1,5 +1,7 @@
 ActiveAdmin.register Deal do
   
+  actions :index, :show, :edit, :update, :destroy
+  
   scope :all, :default => true
   scope :today
   
@@ -8,7 +10,7 @@ ActiveAdmin.register Deal do
   filter :created_at
   filter :premium
   filter :category, :as => :check_boxes, :collection => proc { Category.all }
-  
+    
   index do
     column("") do |deal| 
       link_to(image_tag(deal.photo.url(:admin_sml)), [:admin, deal])
@@ -18,17 +20,14 @@ ActiveAdmin.register Deal do
       link_to(deal.name, [:admin, deal])
     end
     
-    column('Map') {|d| link_to 'Map', "http://maps.google.com/maps?q=#{d.name}@#{d.lat},#{d.lon}"}
-    
-    column("Likes", :sortable => :like_count) {|d| d.like_count }
-    
+    column('Location') {|d| link_to d.location_name, "http://maps.google.com/maps?q=#{d.name}@#{d.lat},#{d.lon}"}
     
     column("Category") {|deal| status_tag(deal.try(:category).try(:name)) }
     column("Premium", :sortable => :premium){|deal| deal.premium ? status_tag("Premium") : nil  }
     
     column("Date", :sortable => :created_at){|deal| deal.created_at.to_s(:short) }
     column("User", :sortable => :user_id) {|deal| link_to(deal.user.name, admin_user_path(deal.user))}
-    column("Price", :sortable => :price) {|deal| number_to_currency deal.price }
+    column("Price", :sortable => :price) {|deal| number_to_currency(deal.price.to_f/100) }
   end
   
   form(:html => {:multipart => true}) do |f|
@@ -36,13 +35,12 @@ ActiveAdmin.register Deal do
      f.input :name
      f.input :price
      f.input :category
-     f.input :user
      f.input :lat
      f.input :lon
      f.input :photo, :as => :file
      f.input :premium
    end
-   
+
    f.buttons
   end
   
