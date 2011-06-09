@@ -20,7 +20,8 @@ Qwiqq::Application.routes.draw do
       get 'feed', :on => :collection
       get 'popular', :on => :collection
       
-      resources :likes, :only => [ :create, :index ]
+      resources :likes, :only => [ :index ]
+      resource :like, :only => [ :create, :destroy ]
       resources :comments, :only => [ :create, :index ]
     end
     

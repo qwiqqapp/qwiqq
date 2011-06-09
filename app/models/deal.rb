@@ -8,13 +8,13 @@ class Deal < ActiveRecord::Base
   has_many :likes
   
   #TODO update to 3.1 and use role based attr_accessible for premium
-  attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium
+  attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent
   
   validates_presence_of :user, :category, :name, :lat, :lon
 
   before_create :geodecode_location_name!
   
-  default_scope :order => 'created_at desc'
+  default_scope :order => 'deals.created_at desc'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   scope :premium, where(:premium => true)
   scope :search_by_name, lambda { |query| where([ 'UPPER(name) like ?', "%#{query.upcase}%" ]) }
@@ -45,7 +45,7 @@ class Deal < ActiveRecord::Base
   end
                     
   def as_json(options={})
-    {
+    json = {
       :deal_id        => id.try(:to_s),
       :name           => name,
       :category       => category.try(:name),
@@ -64,15 +64,23 @@ class Deal < ActiveRecord::Base
       
       :premium        => premium,
       :price          => price,
+      :percent        => percent,
       :lat            => lat.try(:to_s),
       :lon            => lon.try(:to_s),
       :comment_count  => comment_count,
       :like_count     => like_count,
-      :age            => (created_at ? time_ago_in_words(created_at) : ""),
+      :age            => (created_at ? time_ago_in_words(created_at).gsub("about ", "") : ""),
       :short_age      => short_created_at,
       :location_name  => location_name,
       :user           => user.try(:as_json, :deals => false)
     }
+
+    current_user = options[:current_user] if options
+    if current_user
+      json[:liked] = current_user.liked_deals.include?(self)
+    end
+
+    json
   end
 
   def short_created_at

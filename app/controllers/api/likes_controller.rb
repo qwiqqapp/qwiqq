@@ -13,6 +13,12 @@ class Api::LikesController < Api::ApiController
     respond_with @deal
   end
 
+  def destroy
+    @like = @deal.likes.find_by_user_id(current_user.id)
+    @like.destroy if @like
+    render :json => {}, :status => :ok 
+  end
+
   private
   def find_deal
     @deal = Deal.find(params[:deal_id])
