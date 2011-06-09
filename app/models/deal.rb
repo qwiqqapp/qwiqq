@@ -20,7 +20,7 @@ class Deal < ActiveRecord::Base
   scope :search_by_name, lambda { |query| where([ 'UPPER(name) like ?', "%#{query.upcase}%" ]) }
 
   has_attached_file :photo,
-                    # {:styles => { admin
+                    {:styles => { #admin
                                   :admin_sml    => ["30x30#", :jpg],
                                   :admin_med    => ["50x50#", :jpg],
                                   :admin_lrg    => ["240x", :jpg],
