@@ -7,7 +7,12 @@ class Api::LikesControllerTest < ActionController::TestCase
   end
   
   test "should route to likes#create" do
-    assert_routing({:method => 'post', :path => '/api/deals/1/likes.json'}, {:format => 'json', :controller => 'api/likes', :action => 'create', :deal_id => '1'})
+    assert_routing({:method => 'post', :path => '/api/deals/1/like.json'}, {:format => 'json', :controller => 'api/likes', :action => 'create', :deal_id => '1'})
+  end
+  
+  test "should route to likes#destroy" do
+    assert_routing({:method => 'delete', :path => '/api/deals/1/like.json'}, 
+                   {:format => 'json', :controller => "api/likes", :action => "destroy", :deal_id => '1'})
   end
 
   test "should render all likes for a deal" do
@@ -33,6 +38,17 @@ class Api::LikesControllerTest < ActionController::TestCase
     post :create, :deal_id => @deal.id, :format => "json"
 
     assert_equal 201, @response.status
+  end
+
+  test "should destroy a like for the current user and specified deal" do
+    @user = Factory(:user)
+    @deal = Factory(:deal)
+    sign_in(@user)
+
+    @like = @deal.likes.create(:user => @user)
+    post :destroy, :deal_id => @deal.id, :format => "json"
+
+    assert_equal 200, @response.status
   end
 
 end
