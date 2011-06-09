@@ -47,14 +47,13 @@ class Api::DealsController < Api::ApiController
     respond_with @deals
   end
   
-  # move this logic to model once finalized
+  # TODO move this logic to model once finalized
   def create
     category = Category.find_by_name!(params[:deal][:category_name])
     @deal = Deal.new(params[:deal])
     @deal.category = category
     @deal.user = current_user
-    @deal.save!
+    @deal.save
     respond_with @deal
   end
-
 end
