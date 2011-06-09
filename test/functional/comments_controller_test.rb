@@ -33,9 +33,12 @@ class Api::CommentsControllerTest < ActionController::TestCase
     sign_in(@user)
 
     params = { :body => "This is the best deal ever." }
+
+    Deal.expects(:increment_counter).once.with(:comment_count, @deal.id)
     post :create, :deal_id => @deal.id, :comment => params, :format => "json"
 
     assert_equal 201, @response.status
+    Deal.unstub(:increment_counter)
   end
 
   test "should fail to create an invalid comment" do
@@ -43,10 +46,12 @@ class Api::CommentsControllerTest < ActionController::TestCase
     @deal = Factory(:deal)
     sign_in(@user)
 
+    Deal.expects(:increment_counter).never
     post :create, :deal_id => @deal.id, :comment => {}, :format => "json"
 
     # TODO shouldn't an invalid entity result in a 422?
     assert_equal 400, @response.status
+    Deal.unstub(:increment_counter)
   end
 
 end

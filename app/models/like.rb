@@ -17,10 +17,10 @@ class Like < ActiveRecord::Base
   end
 
   def increment_like_count
-    Deal.increment_counter(:like_count, user_id)
+    Deal.increment_counter(:like_count, deal_id)
   end
    
   def decrement_like_count
-    Deal.decrement_counter(:like_count, user_id)
+    Deal.decrement_counter(:like_count, deal_id)
   end
 end
