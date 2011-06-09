@@ -80,6 +80,15 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_equal location_name, json_response['location_name']
   end
   
+  
+
+  
+  
+  
+  
+  
+  
+  
   # deals#show
   test "should render deal details" do
     @user0 = Factory(:user)

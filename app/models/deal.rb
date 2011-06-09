@@ -13,8 +13,11 @@ class Deal < ActiveRecord::Base
   attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent
   
   validates_presence_of :user, :category, :name, :lat, :lon
+  
   validates_length_of   :name, :maximum => 70, :message=> "max characters is 70"
-
+  
+  validate :has_price_or_percentage
+  
   before_create :geodecode_location_name!
   
   default_scope :order => 'deals.created_at desc'
@@ -115,4 +118,9 @@ class Deal < ActiveRecord::Base
   def geodecode_location_name!
     self[:location_name] = Deal.geodecode_location_name(lat, lon) if location_name.blank?
   end
+
+  def has_price_or_percentage
+    errors.add_to_base("You must specify a price or percentage") if price.blank? && percent.blank?
+  end
 end
+
