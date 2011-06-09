@@ -1,1 +1,9 @@
-%h1 Hi! Qwiqq user #{@user.name} liked your deal #{link_to(@deal.name, deal_url(@deal))}
+%style{ :type => "text/css" }
+  body { font-size: 14px };
+
+Yay! 
+<p/>
+#{@user.name} liked your #{link_to(@deal.name, deal_url(@deal), :style => "color: #ff7720;")} deal.
+<p/>
+%hr
+Qwiqq Notifications #{link_to("Unsubscribe", "#")}

@@ -1,5 +1,5 @@
 class Notifications < ActionMailer::Base
-  default :from => "hello@qwiqq.me"
+  default :from => "notifications@qwiqq.me"
 
   def deal_liked(like)
     @deal = like.deal
