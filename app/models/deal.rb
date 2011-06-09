@@ -13,8 +13,7 @@ class Deal < ActiveRecord::Base
   attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent
   
   validates_presence_of :user, :category, :name, :lat, :lon
-  
-  validates_length_of :name, :maximum => 70, :message=> "max characters is 70"
+  validates_length_of   :name, :maximum => 70, :message=> "max characters is 70"
 
   before_create :geodecode_location_name!
   
