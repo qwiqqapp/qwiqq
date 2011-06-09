@@ -6,6 +6,8 @@ class Deal < ActiveRecord::Base
   
   has_many :comments
   has_many :likes
+
+  has_many :liked_by_users, :through => :likes, :source => :user
   
   #TODO update to 3.1 and use role based attr_accessible for premium
   attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent
@@ -45,6 +47,8 @@ class Deal < ActiveRecord::Base
   end
                     
   def as_json(options={})
+    options ||= {}
+
     json = {
       :deal_id        => id.try(:to_s),
       :name           => name,
@@ -75,10 +79,15 @@ class Deal < ActiveRecord::Base
       :user           => user.try(:as_json, :deals => false)
     }
 
-    current_user = options[:current_user] if options
+    # add 'liked' for the current_user if requested
+    current_user = options[:current_user]
     if current_user
       json[:liked] = current_user.liked_deals.include?(self)
     end
+
+    # add comments and users who liked this deal if requested 
+    json[:comments] = comments if options[:comments]
+    json[:liked_by_users] = liked_by_users if options[:liked_by_users]
 
     json
   end
