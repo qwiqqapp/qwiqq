@@ -13,6 +13,7 @@ class Deal < ActiveRecord::Base
   attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent
   
   validates_presence_of :user, :category, :name, :lat, :lon
+  validate :has_price_or_percentage
 
   before_create :geodecode_location_name!
   
@@ -114,4 +115,9 @@ class Deal < ActiveRecord::Base
   def geodecode_location_name!
     self[:location_name] = Deal.geodecode_location_name(lat, lon) if location_name.blank?
   end
+
+  def has_price_or_percentage
+    errors.add_to_base("You must specify a price or percentage") if price.blank? && percent.blank?
+  end
 end
+
