@@ -82,15 +82,24 @@ class Api::DealsControllerTest < ActionController::TestCase
   
   # deals#show
   test "should render deal details" do
-    @user = Factory(:user)
-    sign_in(@user)
+    @user0 = Factory(:user)
+    sign_in(@user0)
 
     @deal = Factory(:deal)
-    @deal.likes.create(:user => @user)
+    @user1 = Factory(:user)
+    @comment = Factory(:comment, :user => @user1, :deal => @deal)
+    @like = @deal.likes.create(:user => @user0)
     
     get :show, :id => @deal.id, :format => 'json'
+
+    p json_response
+    
     assert_equal 200, @response.status
     assert_equal true, json_response['liked']
+    assert_equal Array, json_response['comments'].class
+    assert_equal Array, json_response['liked_by_users'].class
+    assert_equal 1, json_response['comments'].size
+    assert_equal 1, json_response['liked_by_users'].size
   end
 
   # deals#search
