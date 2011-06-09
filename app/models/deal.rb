@@ -23,12 +23,11 @@ class Deal < ActiveRecord::Base
                                   
                                   # popular
                                   :iphone_grid       => ["75x75#", :jpg],
-                                  :iphone_grid2x     => ["150x150#", :jpg],
+                                  :iphone_grid_2x    => ["150x150#", :jpg],
                                   
                                   # feed, browse, search list views
                                   :iphone_list       => ["110x110#", :jpg],
-                                  :iphone_list2x     => ["220x220#", :jpg]}
-                                  
+                                  :iphone_list_2x    => ["220x220#", :jpg]}
                     }.merge(PAPERCLIP_STORAGE_OPTIONS)
                     
   def as_json(options={})
@@ -36,8 +35,12 @@ class Deal < ActiveRecord::Base
       :deal_id        => id.try(:to_s),
       :name           => name,
       :category       => category.try(:name),
-      :photo          => photo.url(:iphone),
-      :photo_2x       => photo.url(:iphone2x),
+      
+      :photo_grid     => photo.url(:iphone_grid),
+      :photo_grid_2x  => photo.url(:iphone_grid_2x),
+      :photo_list     => photo.url(:iphone_list),
+      :photo_list_2x  => photo.url(:iphone_list_2x),
+      
       :premium        => premium,
       :price          => price,
       :lat            => lat.try(:to_s),
