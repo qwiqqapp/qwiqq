@@ -2,7 +2,7 @@
 = link_to 'Download App!', '/'
 
 %h1= @deal.name.titleize
-= image_tag @deal.photo.url(:iphone2x)
+= image_tag @deal.photo.url(:admin_lrg)
 = link_to "Map", "http://maps.google.com/maps?q=#{@deal.lat},#{@deal.lon}"    
 
 %h4= "#{@deal.comments.size} Comments"
