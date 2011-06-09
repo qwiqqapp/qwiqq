@@ -92,8 +92,6 @@ class Api::DealsControllerTest < ActionController::TestCase
     
     get :show, :id => @deal.id, :format => 'json'
 
-    p json_response
-    
     assert_equal 200, @response.status
     assert_equal true, json_response['liked']
     assert_equal Array, json_response['comments'].class
