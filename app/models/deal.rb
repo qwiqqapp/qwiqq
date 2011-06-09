@@ -57,6 +57,7 @@ class Deal < ActiveRecord::Base
       
       :premium        => premium,
       :price          => price,
+      :percent        => percent,
       :lat            => lat.try(:to_s),
       :lon            => lon.try(:to_s),
       :comment_count  => comment_count,
