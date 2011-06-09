@@ -42,17 +42,23 @@ class User < ActiveRecord::Base
   end
   
   def as_json(options={})
+    options.reverse_merge!(:deals => true)
     {
       :email        => email,
       :name         => name,
       :city         => city,
       :country      => country,
       :created_at   => created_at,
-      :created_at   => updated_at,
+      :updated_at   => updated_at,
+      :join_date    => created_at.to_date.to_s(:long),
       :photo        => photo.url(:iphone),
       :photo_2x     => photo.url(:iphone2x),
-      :deals        => deals,
-      :liked_deals  => liked_deals
+      :deals        => options[:deals] ? deals : nil,
+      :liked_deals  => options[:deals] ? liked_deals : nil,
+      :like_count   => liked_deals.count,
+      :deal_count   => deals.count,
+      :comment_count => comments.count,
+      :user_id      => id
     }
   end
 end

@@ -55,7 +55,7 @@ class Api::DealsControllerTest < ActionController::TestCase
   
   # deals#create
   test "should create deal for user with price" do
-    @user   = Factory(:user)
+    @user     = Factory(:user)
     @category = Factory(:category)
     sign_in(@user)
     
@@ -65,13 +65,19 @@ class Api::DealsControllerTest < ActionController::TestCase
                 :photo          => File.new("test/fixtures/products/#{rand(22)}.jpg"),
                 :lat            => '49.282784',
                 :lon            => '-123.109617' }
+
+    # mock Deal#geodecode_location_name
+    location_name = 'Comox Street, Vancouver'
+    lat, lon = @params[:lat].to_f, @params[:lon].to_f
+    Deal.expects(:geodecode_location_name).with(lat, lon).returns(location_name)
     
     post :create, :deal => @params, :format => 'json'
     
     assert_equal 201, @response.status
     assert_equal @params[:name], json_response['name']
     assert_equal @params[:lat], json_response['lat']
-    assert_equal @params[:lon], json_response['lon']    
+    assert_equal @params[:lon], json_response['lon']
+    assert_equal location_name, json_response['location_name']
   end
   
   # deals#show

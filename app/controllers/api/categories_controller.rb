@@ -4,7 +4,7 @@ class Api::CategoriesController < Api::ApiController
   
   def show
     @category = Category.find_by_name!(params[:name])
-    @deals    = @category.deals.order("created_at desc").includes(:category)
+    @deals    = @category.deals.includes(:category)
     
     respond_with @deals
   end

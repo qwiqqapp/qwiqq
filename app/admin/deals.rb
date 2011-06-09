@@ -48,12 +48,17 @@ ActiveAdmin.register Deal do
   
   
   show :title => :name do
-      panel "Comment History (#{deal.comments.size})" do
+      panel "Deal Comments (#{deal.comments.size})" do
         table_for(deal.comments) do
           column("") {|c| link_to(image_tag(c.user.photo.url(:admin_med)), admin_user_path(c.user))}
           column("User") {|c| link_to(c.user.name, [:admin, c.user])}
           column('Comment'){|c| c.body}
-          column :created_at
+          column(:created_at)
+          column("") do |comment| 
+            links  = link_to("View", admin_deal_comment_path(comment), :class => "member_link view_link")
+            links += link_to("Edit", edit_admin_deal_comment_path(comment))
+            links
+          end
         end
       end
       
