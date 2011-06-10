@@ -18,7 +18,7 @@ class Api::DealsController < Api::ApiController
   # phase 2: add location order
   # phase 3: only deals from friends
   def feed
-    @deals = Deal.unscoped.order("premium desc").order("created_at").limit(32).includes(:category)
+    @deals = Deal.limit(32).includes(:category)
     raise RecordNotFound unless @deals
     respond_with @deals
   end
@@ -27,10 +27,9 @@ class Api::DealsController < Api::ApiController
     @deal = Deal.find(params[:id])
     # TODO it would be better to use standard rails conventions here,
     # i.e. :include => [ :comments, :liked_by_users ]
-    render :json => @deal.as_json(
-      :current_user => current_user, 
-      :comments => true, 
-      :liked_by_users => true)
+    render :json => @deal.as_json(:current_user => current_user, 
+                                  :comments => true, 
+                                  :liked_by_users => true)
   end
 
   def search
