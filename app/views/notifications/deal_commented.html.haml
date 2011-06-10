@@ -1,2 +1,12 @@
-%h1 Hi! Qwiqq user #{@user.name} commented on your deal #{link_to(@deal.name, deal_url(@deal))}
-%h2 #{@comment.body}
+%style{ :type => "text/css" }
+  body { font-size: 14px };
+
+Yay! 
+<p/>
+#{@user.name} commented on your #{link_to(@deal.name, deal_url(@deal), :style => "color: #ff7720;")} deal.
+<p/>
+.comment{ :style => "color: #67d140;" }
+  "#{@comment.body}"
+<p/>
+%hr
+Qwiqq Notifications #{link_to("Unsubscribe", "#")}
