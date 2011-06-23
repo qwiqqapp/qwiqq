@@ -52,7 +52,12 @@ users.each do |user|
     
     Comment.any_instance.stubs(:deliver_notification).returns(:true)
     
-    deals << deal = Factory(:deal, :user => user, :category => categories.shuffle.first, :photo => product_image)
+    deals << deal = Factory(:deal, 
+                            :user => user, 
+                            :category => categories.shuffle.first, 
+                            :photo => product_image,
+                            :like_count => 0,
+                            :comment_count => 0)
     
     rand(3).times.each do
       puts '  + creating comment for user'
