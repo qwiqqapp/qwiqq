@@ -66,7 +66,7 @@ class Deal < ActiveRecord::Base
       
       # deal detail zoom
       :photo_zoom     => photo.url(:iphone_zoom),
-      :photo_zoom_2x  => photo.url(:iphone_zoom_2x),            
+      :photo_zoom_2x  => photo.url(:iphone_zoom_2x),
       
       :premium        => premium,
       :price          => price,
@@ -81,16 +81,17 @@ class Deal < ActiveRecord::Base
       :user           => user.try(:as_json, :deals => false)
     }
 
+    # TODO move this to device, which should know current user and likes
     # add 'liked' for the current_user if requested
     current_user = options[:current_user]
     if current_user
       json[:liked] = current_user.liked_deals.include?(self)
     end
-
+    
     # add comments and users who liked this deal if requested 
-    json[:comments] = comments if options[:comments]
-    json[:liked_by_users] = liked_by_users if options[:liked_by_users]
-
+    json[:comments] = comments.limit(3) if options[:comments]
+    json[:liked_by_users] = liked_by_users.limit(6) if options[:liked_by_users]
+    
     json
   end
 

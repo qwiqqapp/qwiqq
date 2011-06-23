@@ -15,12 +15,12 @@ class Api::UsersController < Api::ApiController
   # phase 1: return full details
   # phase 2: return full for friends and limited for non friends
   def show
-    @user = User.find(params[:id])
-    respond_with @user
+    @user = User.find(params[:id])    
+    render :json => @user.as_json(:deals => true, :comments => true)
   end
   
   # return full details
   def current
-    respond_with current_user
+    render :json => current_user.as_json(:deals => true, :comments => true)
   end
 end

@@ -1,6 +1,6 @@
 class Api::DealsController < Api::ApiController
   
-  skip_before_filter :require_user, :only => [:popular, :feed]
+  skip_before_filter :require_user, :only => [:popular, :feed, :show]
   
   # ------------------
   # no auth required
@@ -27,9 +27,12 @@ class Api::DealsController < Api::ApiController
     @deal = Deal.find(params[:id])
     # TODO it would be better to use standard rails conventions here,
     # i.e. :include => [ :comments, :liked_by_users ]
-    render :json => @deal.as_json(:current_user => current_user, 
+    render :json => @deal.as_json(:current_user => current_user,
                                   :comments => true, 
                                   :liked_by_users => true)
+
+
+
   end
 
   def search
