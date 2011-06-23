@@ -3,7 +3,9 @@ ActiveAdmin.register User do
   scope :all, :default => true
   scope :today
   
-  filter :name
+  filter :first_name
+  filter :last_name
+  filter :username
   filter :email
   filter :city
   filter :country
@@ -14,8 +16,8 @@ ActiveAdmin.register User do
       link_to(image_tag(user.photo.url(:admin_sml)), [:admin, user])
     end
     
-    column("Name", :sortable => :name) do |user|  
-      link_to(user.name, [:admin, user])
+    column("Name", :sortable => :last_name) do |user|  
+      link_to("#{user.first_name} #{user.last_name}", [:admin, user])
     end
     
     column :email
@@ -67,11 +69,6 @@ ActiveAdmin.register User do
         end
       end
       
-
-      
-      
-      
-      
       active_admin_comments
     end
 
@@ -80,13 +77,15 @@ ActiveAdmin.register User do
   end
   
   sidebar "Details", :only => :show do
-    attributes_table_for user, :name, :email, :country, :city, :created_at
+    attributes_table_for user, :first_name, :last_name, :username, :email, :country, :city, :created_at
   end
   
   
   form(:html => {:multipart => true}) do |f|
    f.inputs "Details" do
-     f.input :name
+     f.input :first_name
+     f.input :last_name
+     f.input :username
      f.input :email
      f.input :password
      f.input :password_confirmation

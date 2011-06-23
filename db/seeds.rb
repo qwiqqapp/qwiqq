@@ -25,16 +25,16 @@ AdminUser.create!(:email => 'jack@qwiqq.me',            :password => 'texasbbq',
 
 # create users
 puts '+ creating user accounts'
-30.times.each do
+10.times.each do
   puts '+ creating user'  
   users << Factory(:user, :photo => user_image)
 end
 
-users << User.create(:country => 'ca', :city => 'vancouver',  :photo => user_image,    :name => 'adam',     :email => 'adam@test.com',     :password => 'tester', :password_confirmation => 'tester')
-users << User.create(:country => 'ca', :city => 'vancouver',  :photo => user_image,    :name => 'brian',    :email => 'brian@test.com',    :password => 'tester', :password_confirmation => 'tester')
-users << User.create(:country => 'ca', :city => 'vancouver',  :photo => user_image,    :name => 'melanie',  :email => 'melanie@test.com',  :password => 'tester', :password_confirmation => 'tester')
-users << User.create(:country => 'us', :city => 'texas',      :photo => user_image(4), :name => 'john',     :email => 'john@test.com',     :password => 'tester', :password_confirmation => 'tester')
-users << User.create(:country => 'us', :city => 'texas',      :photo => user_image,    :name => 'jack',     :email => 'jack@test.com',     :password => 'tester', :password_confirmation => 'tester')
+users << User.create(:country => 'ca', :city => 'vancouver',  :photo => user_image,    :first_name => 'adam',   :last_name => 'maddox',   :username => 'adammaddox',    :email => 'adam@gastownlabs.com',     :password => 'tester', :password_confirmation => 'tester')
+users << User.create(:country => 'ca', :city => 'vancouver',  :photo => user_image,    :first_name => 'brian',  :last_name => 'collins',  :username => 'briancollins',  :email => 'brian@gastownlabs.com',    :password => 'tester', :password_confirmation => 'tester')
+users << User.create(:country => 'ca', :city => 'vancouver',  :photo => user_image,    :first_name => 'melanie',:last_name => 'shave',    :username => 'melanieshave',  :email => 'melanie@gastownlabs.com',  :password => 'tester', :password_confirmation => 'tester')
+users << User.create(:country => 'us', :city => 'texas',      :photo => user_image(4), :first_name => 'john',   :last_name => 'phan',     :username => 'john',          :email => 'john@qwiqq.me',            :password => 'tester', :password_confirmation => 'tester')
+users << User.create(:country => 'us', :city => 'texas',      :photo => user_image,    :first_name => 'jack',   :last_name => 'wrigley',  :username => 'jack',          :email => 'jack@qwiqq.me',            :password => 'tester', :password_confirmation => 'tester')
 
 # setup categories
 %w(food ae beauty sport house travel fashion tech).each do |c|
@@ -47,19 +47,19 @@ end
 users.each do |user|
   other_users = users - [user]
   
-  rand(10).times.each do
+  rand(8).times.each do
     puts ' + creating deal for user'
     
     Comment.any_instance.stubs(:deliver_notification).returns(:true)
     
     deals << deal = Factory(:deal, :user => user, :category => categories.shuffle.first, :photo => product_image)
     
-    rand(5).times.each do
+    rand(3).times.each do
       puts '  + creating comment for user'
       Factory(:comment, :deal => deal, :user => other_users.shuffle.first)
     end
     
-    rand(10).times.each do
+    rand(5).times.each do
       puts ' + creating like for user'
       Like.create(:user => other_users.shuffle.first, :deal => deal)
     end
