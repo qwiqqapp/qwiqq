@@ -1,4 +1,4 @@
-if Rails.env.production?
+if !Rails.env.development?
   PAPERCLIP_STORAGE_OPTIONS = {  :storage   => :s3, 
                                  :bucket    => ENV['S3_BUCKET'],
                                  :path      => ':class/:id/:style.:extension',
