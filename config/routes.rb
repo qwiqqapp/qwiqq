@@ -12,6 +12,10 @@ Qwiqq::Application.routes.draw do
 
     resources :users, :only => [:create, :show] do
       get 'current', :on => :collection #not really but makes cleaner as no id required
+      
+      get 'deals'     => 'deals#index'
+      get 'comments'  => 'comments#index'
+      get 'likes'     => 'likes#index'
     end
     
     resources :sessions, :only => [:create, :destroy]
@@ -21,7 +25,8 @@ Qwiqq::Application.routes.draw do
       get 'popular', :on => :collection
       
       resources :likes, :only => [ :index ]
-      resource :like, :only => [ :create, :destroy ]
+      resource :like, :only => [ :create, :destroy ] #should merge this with above resource likes
+      
       resources :comments, :only => [ :create, :index ]
     end
     
