@@ -31,8 +31,6 @@ class Api::DealsController < Api::ApiController
                                   :comments => true, 
                                   :liked_by_users => true)
 
-
-
   end
 
   def search

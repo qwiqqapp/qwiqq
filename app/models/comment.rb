@@ -1,4 +1,6 @@
 class Comment < ActiveRecord::Base
+  include ActionView::Helpers::DateHelper
+
   belongs_to :deal
   belongs_to :user
 
@@ -12,37 +14,27 @@ class Comment < ActiveRecord::Base
   after_destroy :decrement_comment_count
   
   
+  # TODO replace with use of super(options) to allow for controller to override defaults
   def as_json(options={})
     {
       :comment_id   => id.try(:to_s),
       :body         => body,
-      :short_age    => short_created_at,
-      :name         => user.name
+      :age          => (created_at ? time_ago_in_words(created_at).gsub("about ", "") : ""),
+      :user         => { :user_id   => user.id.try(:to_s),
+                         :name      => user.name,
+                         :photo     => user.photo.url(:iphone),
+                         :photo_2x  => user.photo.url(:iphone2x)},
+      :deal         => { :deal_id => deal.id.try(:to_s),
+                         :name    => deal.name,
+                         :photo_grid     => deal.photo.url(:iphone_grid),
+                         :photo_grid_2x  => deal.photo.url(:iphone_grid_2x)}
+      
     }
   end
-  
+
   
   
   private
-  def short_created_at
-    from_time = created_at
-    to_time = Time.now
-    distance_in_minutes = (((to_time - from_time).abs)/60).round
-    distance_in_seconds = ((to_time - from_time).abs).round
-
-    case distance_in_minutes
-    when 0..1
-      "#{distance_in_seconds}s"
-    when 2..44           then "#{distance_in_minutes}m"
-    when 45..1439        then "#{(distance_in_minutes.to_f / 60.0).round}hr"
-    when 1440..43199     then "#{(distance_in_minutes.to_f / 1440.0).round}d"
-    when 43200..525599   then "#{(distance_in_minutes.to_f / 43200.0).round}mo"
-    else
-      "#{distance_in_minutes / 525600}y"
-    end
-  end
-  
-  
   def deliver_notification
     Notifications.deal_commented(self).deliver
   end

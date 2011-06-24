@@ -2,30 +2,62 @@ require 'test_helper'
 
 class Api::CommentsControllerTest < ActionController::TestCase
 
-  test "should route to comments#index" do
+  test "should route to comments#index for deals" do
     assert_routing("/api/deals/1/comments.json", {
       :format => "json", :controller => "api/comments", :action => "index", :deal_id => "1" })
+  end
+  
+  test "should route to comments#index for users" do
+    assert_routing("/api/users/1/comments.json", {
+      :format => "json", :controller => "api/comments", :action => "index", :user_id => "1" })
   end
   
   test "should route to comments#create" do
     assert_routing({ :method => "post", :path => "/api/deals/1/comments.json" }, {
       :format => "json", :controller => "api/comments", :action => "create", :deal_id => "1" })
   end
-
-  test "should render all comments for the specified deal" do
+  
+  test "should return comments for a deal" do
     @user = Factory(:user)
     @deal = Factory(:deal)
     sign_in(@user)
-
+    
     @comment0 = Factory(:comment, :deal => @deal, :user => @user)
     @comment1 = Factory(:comment, :deal => @deal, :user => @user)
-
+    
     get :index, :deal_id => @deal.id, :format => "json"
-
+    
     assert_equal 200, @response.status
     assert_equal Array, json_response.class
     assert_equal 2, json_response.size
+    
+    # content
+    assert_equal @comment0.id.to_s, json_response.first['comment_id']
+    assert_equal @user.id.to_s, json_response.first['user']['user_id']
   end
+  
+  test "should return comments from a user" do
+    @user = Factory(:user)
+    sign_in(@user)
+    
+    @deal0 = Factory(:deal)
+    @deal1 = Factory(:deal)
+
+    @comment0 = Factory(:comment, :deal => @deal0, :user => @user)
+    @comment1 = Factory(:comment, :deal => @deal1, :user => @user)
+
+    get :index, :user_id => @user.id, :format => "json"
+    
+    assert_equal 200, @response.status
+    assert_equal Array, json_response.class
+    assert_equal 2, json_response.size
+    
+    # content
+    assert_equal @comment0.id.to_s, json_response.first['comment_id']
+  end
+  
+  
+  
 
   test "should create a comment on a deal for the current user" do
     @user = Factory(:user)
