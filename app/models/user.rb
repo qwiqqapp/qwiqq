@@ -65,7 +65,6 @@ class User < ActiveRecord::Base
       :created_at     => created_at,
       :updated_at     => updated_at,
       :join_date      => created_at.to_date.to_s(:long),
-      :age            => (created_at ? time_ago_in_words(created_at).gsub("about ", "") : ""),
       
       # user detail photo
       :photo          => photo.url(:iphone),
