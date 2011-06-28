@@ -112,10 +112,6 @@ class Api::DealsControllerTest < ActionController::TestCase
   end
   
   
-  
-  
-  
-  
   # deals#show
   test "should render deal details" do
     @user0 = Factory(:user)
