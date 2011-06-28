@@ -81,13 +81,16 @@ class Api::DealsControllerTest < ActionController::TestCase
   
   
   # deals#create validation
-  test "should not create deal from invalid post" do
+  test "should not create deal from post missing name and price" do
     @user     = Factory(:user)
     @category = Factory(:category)
     sign_in(@user)
     
     @params = { :category_name  => @category.name,
-                :photo          => File.new("test/fixtures/products/#{rand(22)}.jpg")}
+                :photo          => File.new("test/fixtures/products/#{rand(22)}.jpg"),
+                :lat            => '49.282784',
+                :lon            => '-123.109617' }
+                
 
     post :create, :deal => @params, :format => 'json'
     
@@ -95,6 +98,23 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_match /required/i, json_response['name'].first
     assert_match /price/i, json_response['base'].first
   end
+  
+  # deals#create validation 2
+  test "should not create deal from post with only name" do
+    @user     = Factory(:user)
+    sign_in(@user)
+    
+    @params = { :name => 'rainbow unicorn tshirt' }
+    
+    post :create, :deal => @params, :format => 'json'
+    assert_equal 422, @response.status
+    assert_match /required/i, json_response['category'].first
+  end
+  
+  
+  
+  
+  
   
   # deals#show
   test "should render deal details" do

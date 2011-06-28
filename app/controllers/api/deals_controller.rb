@@ -49,7 +49,8 @@ class Api::DealsController < Api::ApiController
   
   # TODO move this logic to model once finalized
   def create
-    category = Category.find_by_name!(params[:deal][:category_name])
+    category = Category.find_by_name(params[:deal][:category_name])
+    
     @deal = Deal.new(params[:deal])
     @deal.category = category
     @deal.user = current_user
