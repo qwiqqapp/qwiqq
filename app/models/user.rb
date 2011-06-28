@@ -21,8 +21,13 @@ class User < ActiveRecord::Base
                     {:styles => { :admin_sml    => ["30x30#", :jpg],
                                   :admin_med    => ["50x50#", :jpg],
                                   :admin_lrg    => ["240x", :jpg],
+                                  
                                   :iphone       => ["75x75#", :jpg],
-                                  :iphone2x     => ["150x150#", :jpg]}
+                                  :iphone2x     => ["150x150#", :jpg],
+                                  
+                                  :iphone_zoom       => ["300x300#", :jpg],
+                                  :iphone_zoom_2x    => ["600x600#", :jpg]
+                                  }
                     }.merge(PAPERCLIP_STORAGE_OPTIONS)
   
   def self.authenticate!(email, password)
@@ -59,8 +64,16 @@ class User < ActiveRecord::Base
       :created_at     => created_at,
       :updated_at     => updated_at,
       :join_date      => created_at.to_date.to_s(:long),
+      
+      # user detail photo
       :photo          => photo.url(:iphone),
       :photo_2x       => photo.url(:iphone2x),
+      
+      # user detail photo zoom
+      :photo_zoom     => photo.url(:iphone_zoom),
+      :photo_zoom_2x  => photo.url(:iphone_zoom_2x),
+      
+      # counts
       :like_count     => liked_deals.count,
       :deal_count     => deals.count,
       :comment_count  => comments.count,
