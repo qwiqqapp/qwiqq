@@ -23,6 +23,7 @@ class Deal < ActiveRecord::Base
   scope :premium, where(:premium => true)
   scope :search_by_name, lambda { |query| where([ 'UPPER(name) like ?', "%#{query.upcase}%" ]) }
 
+  # all images are cropped
   has_attached_file :photo,
                     {:styles => { #admin
                                   :admin_sml    => ["30x30#", :jpg],
@@ -38,8 +39,8 @@ class Deal < ActiveRecord::Base
                                   :iphone_list_2x    => ["110x110#", :jpg],
                                   
                                   # zoomed image size
-                                  :iphone_zoom       => ["300x440>", :jpg],
-                                  :iphone_zoom_2x    => ["600x880>", :jpg]
+                                  :iphone_zoom       => ["300x300#", :jpg],
+                                  :iphone_zoom_2x    => ["600x600#", :jpg]
                                   }
                     }.merge(PAPERCLIP_STORAGE_OPTIONS)
   
