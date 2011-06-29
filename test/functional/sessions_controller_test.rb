@@ -25,6 +25,7 @@ class Api::SessionsControllerTest < ActionController::TestCase
     assert_equal 401, @response.status
   end
   
+  
   test "should not find invalid user" do
     post :create, :user => { :email => 'invalid', :password => 'invalid'}, :format => 'json'
     assert_equal 404, @response.status

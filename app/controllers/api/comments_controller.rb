@@ -29,6 +29,13 @@ class Api::CommentsController < Api::ApiController
     @comment.save!
     respond_with(@comment, :location => false)
   end
+  
+  def destroy
+    @comment = Comment.find(params[:id])
+    
+    
+  end
+  
 
   private
   def find_deal

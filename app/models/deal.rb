@@ -12,7 +12,9 @@ class Deal < ActiveRecord::Base
   #TODO update to 3.1 and use role based attr_accessible for premium
   attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent
   
-  validates_presence_of :user, :category, :name, :lat, :lon, :message => "is required"
+  
+  # TODO update to 3.0 validates method
+  validates_presence_of :user, :category, :name, :message => "is required"
   validates_length_of   :name, :maximum => 70, :message=> "max characters is 70"
   validate :has_price_or_percentage
   

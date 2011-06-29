@@ -87,11 +87,8 @@ class Api::DealsControllerTest < ActionController::TestCase
     sign_in(@user)
     
     @params = { :category_name  => @category.name,
-                :photo          => File.new("test/fixtures/products/#{rand(22)}.jpg"),
-                :lat            => '49.282784',
-                :lon            => '-123.109617' }
-                
-
+                :photo          => File.new("test/fixtures/products/#{rand(22)}.jpg")}
+    
     post :create, :deal => @params, :format => 'json'
     
     assert_equal 422, @response.status
@@ -99,16 +96,36 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_match /price/i, json_response['base'].first
   end
   
-  # deals#create validation 2
-  test "should not create deal from post with only name" do
-    @user     = Factory(:user)
+  # deals#create validation only name
+  test "should not create deal from post missing category and price" do
+    @user = Factory(:user)
     sign_in(@user)
     
-    @params = { :name => 'rainbow unicorn tshirt' }
+    @params = {:name => 'bacon brand tshirt' }
     
     post :create, :deal => @params, :format => 'json'
+    
     assert_equal 422, @response.status
+
     assert_match /required/i, json_response['category'].first
+    assert_match /price/i, json_response['base'].first    
+  end
+  
+  
+  # deals#create validation empty strings
+  test "should not create deal from post with empty strings" do
+    @user = Factory(:user)
+    sign_in(@user)
+    
+    @params = { :name => '', :category => '', :price => '', :photo => '' }
+    
+    post :create, :deal => @params, :format => 'json'
+    
+    assert_equal 422, @response.status
+    
+    assert_match /required/i, json_response['name'].first
+    assert_match /required/i, json_response['category'].first
+    assert_match /price/i,    json_response['base'].first
   end
   
   
