@@ -16,6 +16,12 @@ Qwiqq::Application.routes.draw do
       get 'deals'     => 'deals#index'
       get 'comments'  => 'comments#index'
       get 'likes'     => 'likes#index'
+
+      resources :friends, :only => [:index,:create] do
+        get :pending, :on => :collection
+        post :accept, :on => :member
+        post :reject, :on => :member
+      end
     end
     
     resources :sessions, :only => [:create, :destroy]

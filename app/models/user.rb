@@ -5,6 +5,22 @@ class User < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   has_many :likes,    :dependent => :destroy
   has_many :liked_deals, :through => :likes, :source => :deal
+
+  has_many :friendships, :dependent => :destroy 
+
+  # friendship is bi-directional, TODO this can be cleaned up and optimized
+  has_many :friends, :class_name => "User", 
+    :finder_sql => proc {
+      "SELECT users.* FROM users WHERE users.id IN (
+         SELECT friendships.user_id AS user_id FROM friendships WHERE (friendships.friend_id = #{id} AND friendships.status = #{Friendship::ACCEPTED}) UNION
+         SELECT friendships.friend_id AS user_id FROM friendships WHERE (friendships.user_id = #{id} AND friendships.status = #{Friendship::ACCEPTED}))" },
+    :counter_sql => proc {
+      "SELECT COUNT(*) FROM users WHERE users.id IN (
+         SELECT friendships.user_id AS user_id FROM friendships WHERE (friendships.friend_id = #{id} AND friendships.status = #{Friendship::ACCEPTED}) UNION
+         SELECT friendships.friend_id AS user_id FROM friendships WHERE (friendships.user_id = #{id} AND friendships.status = #{Friendship::ACCEPTED}))" }
+
+  has_many :pending_friends, :through => :friendships, :source => :friend, :conditions => "friendships.status = #{Friendship::PENDING}"
+  has_many :rejected_friends, :through => :friendships, :source => :friend, :conditions => "friendships.status = #{Friendship::REJECTED}"
   
   scope :today, lambda{ where('DATE(created_at) = ?', Date.today)}
   

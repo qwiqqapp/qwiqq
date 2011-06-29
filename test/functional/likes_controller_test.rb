@@ -25,8 +25,8 @@ class Api::LikesControllerTest < ActionController::TestCase
     sign_in(@user0)
 
     @deal = Factory(:deal)
-    @deal.likes.create(:user => @user0)
-    @deal.likes.create(:user => @user1)
+    @deal.likes.create(:user => @user0, :created_at => Time.now - 1.hour)
+    @deal.likes.create(:user => @user1, :created_at => Time.now - 2.hours)
 
     get :index, :deal_id => @deal.id, :format => "json"
 
@@ -42,8 +42,8 @@ class Api::LikesControllerTest < ActionController::TestCase
     @deal0 = Factory(:deal)
     @deal1 = Factory(:deal)
             
-    @user.likes.create(:deal => @deal0)
-    @user.likes.create(:deal => @deal1)
+    @user.likes.create(:deal => @deal0, :created_at => Time.now - 1.hour)
+    @user.likes.create(:deal => @deal1, :created_at => Time.now - 2.hours)
     
     get :index, :user_id => @user.id, :format => "json"
     

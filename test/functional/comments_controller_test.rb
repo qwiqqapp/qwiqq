@@ -22,8 +22,8 @@ class Api::CommentsControllerTest < ActionController::TestCase
     @deal = Factory(:deal)
     sign_in(@user)
     
-    @comment0 = Factory(:comment, :deal => @deal, :user => @user)
-    @comment1 = Factory(:comment, :deal => @deal, :user => @user)
+    @comment0 = Factory(:comment, :deal => @deal, :user => @user, :created_at => Time.now - 1.hour)
+    @comment1 = Factory(:comment, :deal => @deal, :user => @user, :created_at => Time.now - 2.hours)
     
     get :index, :deal_id => @deal.id, :format => "json"
     
@@ -43,8 +43,8 @@ class Api::CommentsControllerTest < ActionController::TestCase
     @deal0 = Factory(:deal)
     @deal1 = Factory(:deal)
 
-    @comment0 = Factory(:comment, :deal => @deal0, :user => @user)
-    @comment1 = Factory(:comment, :deal => @deal1, :user => @user)
+    @comment0 = Factory(:comment, :deal => @deal0, :user => @user, :created_at => Time.now - 1.hour)
+    @comment1 = Factory(:comment, :deal => @deal1, :user => @user, :created_at => Time.now - 2.hours)
 
     get :index, :user_id => @user.id, :format => "json"
     
@@ -55,9 +55,6 @@ class Api::CommentsControllerTest < ActionController::TestCase
     # content
     assert_equal @comment0.id.to_s, json_response.first['comment_id']
   end
-  
-  
-  
 
   test "should create a comment on a deal for the current user" do
     @user = Factory(:user)
