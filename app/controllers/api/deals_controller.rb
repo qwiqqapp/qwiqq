@@ -38,6 +38,13 @@ class Api::DealsController < Api::ApiController
     respond_with @deals
   end
   
+  def categories
+    @category = Category.find_by_name!(params[:name])
+    @deals    = @category.deals.includes(:category)
+    
+    respond_with @deals
+  end
+  
   # -----------------
   # scoped to user
   
