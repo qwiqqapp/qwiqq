@@ -6,8 +6,8 @@ class Api::FriendsController < Api::ApiController
   end
 
   def create
-    @friendship = current_user.friendships.build(:friend_id => params[:friend_id])
-    @friendship.save!
+    @friend = User.find(params[:friend_id])
+    @friendship = current_user.create_friendship(@friend)
     respond_with(@friendship, :location => false)
   end
 

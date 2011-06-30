@@ -8,16 +8,9 @@ class User < ActiveRecord::Base
 
   has_many :friendships, :dependent => :destroy 
 
-  # friendship is bi-directional, TODO this can be cleaned up and optimized
   has_many :friends, :class_name => "User", 
-    :finder_sql => proc {
-      "SELECT users.* FROM users WHERE users.id IN (
-         SELECT friendships.user_id AS user_id FROM friendships WHERE (friendships.friend_id = #{id} AND friendships.status = #{Friendship::ACCEPTED}) UNION
-         SELECT friendships.friend_id AS user_id FROM friendships WHERE (friendships.user_id = #{id} AND friendships.status = #{Friendship::ACCEPTED}))" },
-    :counter_sql => proc {
-      "SELECT COUNT(*) FROM users WHERE users.id IN (
-         SELECT friendships.user_id AS user_id FROM friendships WHERE (friendships.friend_id = #{id} AND friendships.status = #{Friendship::ACCEPTED}) UNION
-         SELECT friendships.friend_id AS user_id FROM friendships WHERE (friendships.user_id = #{id} AND friendships.status = #{Friendship::ACCEPTED}))" }
+    :finder_sql  => proc { "SELECT users.*  FROM users WHERE users.id IN (#{select_friend_ids_sql})" },
+    :counter_sql => proc { "SELECT COUNT(*) FROM users WHERE users.id IN (#{select_friend_ids_sql})" }
 
   has_many :pending_friends, :through => :friendships, :source => :friend, :conditions => "friendships.status = #{Friendship::PENDING}"
   has_many :rejected_friends, :through => :friendships, :source => :friend, :conditions => "friendships.status = #{Friendship::REJECTED}"
@@ -67,6 +60,9 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}".titleize
   end  
   
+  def create_friendship(friend)
+    friendships.create(:friend_id => friend.id)
+  end
   
   def as_json(options={})
     options.reverse_merge!(:deals => false, :comments => false)
@@ -101,4 +97,14 @@ class User < ActiveRecord::Base
       :comments       => options[:comments] ? comments.limit(3)     : nil
     }
   end
+
+  private
+    def select_friend_ids_sql(status = Friendship::ACCEPTED)
+      # friendship is bi-directional through a single entry in friendships
+      "SELECT friendships.user_id AS user_id FROM friendships 
+         WHERE (friendships.friend_id = #{id} AND friendships.status = #{status}) UNION
+       SELECT friendships.friend_id AS user_id FROM friendships 
+         WHERE (friendships.user_id = #{id} AND friendships.status = #{status})"
+    end
 end
+
