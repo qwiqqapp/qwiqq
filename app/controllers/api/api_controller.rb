@@ -32,4 +32,8 @@ class Api::ApiController < ActionController::Base
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
+
+  def find_user(id)
+    id == "current" ? current_user : User.find(id)
+  end
 end

@@ -1,31 +1,37 @@
 class Api::FriendsController < Api::ApiController
 
+  before_filter :find_user
+
   def index
-    @friends = current_user.friends
+    @friends = @user.friends
     respond_with @friends
   end
 
   def create
-    @friendship = current_user.friendships.build(:friend_id => params[:friend_id])
+    @friendship = @user.friendships.build(:friend_id => params[:friend_id])
     @friendship.save!
     respond_with(@friendship, :location => false)
   end
 
   def pending
-    @friends = current_user.pending_friends
+    @friends = @user.pending_friends
     respond_with @friends
   end
 
   def accept
-    @friendship = current_user.friendships.find_by_friend_id(params[:id])
+    @friendship = @user.friendships.find_by_friend_id(params[:id])
     @friendship.accept!
     render :json => @friendship
   end
 
   def reject
-    @friendship = current_user.friendships.find_by_friend_id(params[:id])
+    @friendship = @user.friendships.find_by_friend_id(params[:id])
     @friendship.reject!
     render :json => @friendship
   end
 
+  private
+    def find_user
+      @user = super(params[:user_id])
+    end
 end

@@ -3,11 +3,11 @@ require 'test_helper'
 class Api::DealsControllerTest < ActionController::TestCase
 
   test "should route to deals#index" do
-    assert_routing('/api/deals.json', {:format => 'json', :controller => "api/deals", :action => "index"})
+    assert_routing('/api/users/1/deals.json', {:format => 'json', :controller => 'api/deals', :action => 'index', :user_id => "1"})
   end
-  
+
   test "should route to deals#show" do
-    assert_routing('/api/deals/1.json', {:format => 'json', :controller => "api/deals", :action => "show", :id => '1'})
+    assert_routing('/api/deals/1.json', {:format => 'json', :controller => 'api/deals', :action => 'show', :id => '1'})
   end
   
   test "should route to deals#create" do
@@ -15,16 +15,21 @@ class Api::DealsControllerTest < ActionController::TestCase
   end
 
   test "should route to deals#search" do
-    assert_routing({:method => 'get', :path => '/api/search.json'}, {:format => 'json', :controller => 'api/deals', :action => 'search'})
+    assert_routing({:method => 'get', :path => '/api/deals/search.json'}, {:format => 'json', :controller => 'api/deals', :action => 'search'})
+  end
+  
+  test "should route to deals#category" do
+    assert_routing('/api/categories/travel/deals', 
+                   {:controller => 'api/deals', :action => 'category', :name => 'travel', :format => 'json'})
   end
   
   # deals#index
-  test "should render current_user deals" do
+  test "should render deals for the current user" do
     @user = Factory(:user, :deals => [Factory(:deal), Factory(:deal)])
     sign_in(@user)
     @public_deal = Factory(:deal)
     
-    get :index, :format => 'json'
+    get :index, :format => 'json', :user_id => 'current'
     
     assert_equal 200,   @response.status
     assert_equal Array, json_response.class
@@ -50,7 +55,6 @@ class Api::DealsControllerTest < ActionController::TestCase
     # check premium order
     assert_equal deals.map(&:id),  json_response.map{|d| d['deal_id'].to_i}
   end
-  
   
   # deals#create
   test "should create deal for user with price" do
@@ -78,7 +82,6 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_equal @params[:lon], json_response['lon']
     assert_equal location_name, json_response['location_name']
   end
-  
   
   # deals#create validation
   test "should not create deal from post missing name and price" do
@@ -111,7 +114,6 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_match /price/i, json_response['base'].first    
   end
   
-  
   # deals#create validation empty strings
   test "should not create deal from post with empty strings" do
     @user = Factory(:user)
@@ -127,7 +129,6 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_match /required/i, json_response['category'].first
     assert_match /price/i,    json_response['base'].first
   end
-  
   
   # deals#show
   test "should render deal details" do
@@ -159,7 +160,7 @@ class Api::DealsControllerTest < ActionController::TestCase
       Factory(:deal, :name => "High Heels"),
       Factory(:deal, :name => "Red High Heels") ]
 
-    get "search", :q => "high heels", :format => "json"
+    get :search, :q => "high heels", :format => "json"
 
     assert_equal 200, @response.status
     assert_equal Array, json_response.class
@@ -175,11 +176,29 @@ class Api::DealsControllerTest < ActionController::TestCase
       Factory(:deal, :name => "High Heels"),
       Factory(:deal, :name => "Red High Heels") ]
 
-    get "search", :q => "Bacon", :format => "json"
+    get :search, :q => "Bacon", :format => "json"
 
     assert_equal 200, @response.status
     assert_equal Array, json_response.class
     assert_equal 0, json_response.size
   end
+
+  # deals#category
+  test "should return deals for category" do
+    @user = Factory(:user)
+    sign_in(@user)
+    
+    @category = Factory(:category)
+    Factory(:deal, :category => @category)
+    Factory(:deal, :category => @category)
+    Factory(:deal, :category => @category)
+    
+    get :category, :name => @category.name, :format => 'json'
+    
+    assert_equal 200,   @response.status
+    assert_equal Array, json_response.class
+    assert_equal 3,     json_response.size
+  end
+
 end
 

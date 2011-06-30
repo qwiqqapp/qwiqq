@@ -9,14 +9,13 @@ Qwiqq::Application.routes.draw do
   resources :deals, :only => [:index, :show]
   
   namespace "api" do
-
     resources :users, :only => [:create, :show] do
-      
       get :search,   :on => :collection
-      get :deals,    :on => :collection
-      get :comments, :on => :collection
-      get :likes,    :on => :collection
       
+      resources :likes, :only => [:index]
+      resources :deals, :only => [:index]
+      resources :comments,  :only => [:index]
+
       resources :friends, :only => [:index,:create] do
         get :pending, :on => :collection
         post :accept, :on => :member
@@ -26,18 +25,17 @@ Qwiqq::Application.routes.draw do
     
     resources :sessions, :only => [:create, :destroy]
     
-    resources :deals, :only => [:show, :index, :create] do
-      
+    resources :deals, :only => [:show, :create] do
       get :search,  :on => :collection
       get :feed,    :on => :collection
       get :popular, :on => :collection
       
-      resources :likes,     :only => [ :index ]
-      resource :like,       :only => [ :create, :destroy ] #should merge this with above resource likes
-      resources :comments,  :only => [ :create, :index ]
+      resources :likes,     :only => [:index]
+      resource :like,       :only => [:create, :destroy] #should merge this with above resource likes
+      resources :comments,  :only => [:create, :index]
     end
     
-    get 'categories/:name/deals' => "deals#category", :name => /\D+/, :format => 'json'
+    get "categories/:name/deals" => "deals#category", :name => /\D+/, :format => "json", :as => :category_deals
   end
   
   

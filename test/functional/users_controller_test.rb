@@ -9,14 +9,13 @@ class Api::UsersControllerTest < ActionController::TestCase
   
   test "should route to users#show" do
     assert_routing('/api/users/1.json', 
-                   {:format => 'json', :controller => "api/users", :action => "show", :id => '1'})
+                   {:format => 'json', :controller => "api/users", :action => "show", :id => "1"})
   end
   
-  test "should route to users#current" do
+  test "should route with special case current user id to users#show" do
     assert_routing('/api/users/current.json', 
-                   {:format => 'json', :controller => "api/users", :action => "current"})
+                   {:format => 'json', :controller => "api/users", :action => "show", :id => "current"})
   end
-  
   
   test "user registration" do
     @user_params = Factory.attributes_for(:user)
@@ -35,7 +34,6 @@ class Api::UsersControllerTest < ActionController::TestCase
     assert_equal ["can't be blank"], json_response['email']
   end
   
-  
   # users#show
   test "should render users details" do
     @user = Factory(:user)
@@ -45,14 +43,13 @@ class Api::UsersControllerTest < ActionController::TestCase
     assert_equal 200, @response.status
   end
   
-  
-  # users#current
+  # users#show with current
   test 'should render current_users details' do
     @user = Factory(:user)
     @deals = [Factory(:deal, :user => @user), Factory(:deal, :user => @user)]
     sign_in(@user)
     
-    get :current, :format => 'json'
+    get :show, :id => "current", :format => 'json'
     assert_equal 200, @response.status
     assert_equal 2, json_response['deals'].size
   end

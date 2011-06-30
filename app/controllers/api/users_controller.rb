@@ -15,7 +15,7 @@ class Api::UsersController < Api::ApiController
   # phase 1: return full details
   # phase 2: return full for friends and limited for non friends
   def show
-    @user = User.find(params[:id])    
+    @user = find_user(params[:id])
     render :json => @user.as_json(:deals => true, :comments => true)
   end
   

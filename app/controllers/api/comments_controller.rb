@@ -1,7 +1,7 @@
 class Api::CommentsController < Api::ApiController
 
   before_filter :require_user, :only => [:create]
-  before_filter :find_deal, :only => [:create]
+  before_filter :find_parent, :only => [:index]
 
   # return list of comments for deal or user:
   # - api/users/:user_id/comments => returns comments
@@ -9,21 +9,13 @@ class Api::CommentsController < Api::ApiController
   # - return 404 if neither deal_id or user_id provided
   
   def index
-    if params[:deal_id]
-      @deal         = Deal.find(params[:deal_id])
-      @collection   = @deal.comments.includes(:user, :deal)
-    elsif params[:user_id]
-      @user         = User.find(params[:user_id])
-      @collection   = @user.comments.includes(:user, :deal)
-    else
-      raise RecordNotFound
-    end
-    
-    respond_with(@collection, :include => [:user])
+    @comments = @parent.comments.includes(:user, :deal)
+    respond_with(@comments, :include => [:user])
   end
 
   # auth required
   def create
+    @deal = Deal.find(params[:deal_id])
     @comment = @deal.comments.build(params[:comment])
     @comment.user = current_user
     @comment.save!
@@ -31,14 +23,19 @@ class Api::CommentsController < Api::ApiController
   end
   
   def destroy
-    @comment = Comment.find(params[:id])
-    
-    
+    @deal = Deal.find(params[:deal_id])
+    @comment = @deal.comments.find(params[:id])
   end
   
-
   private
-  def find_deal
-    @deal = Deal.find(params[:deal_id])
+  def find_parent
+    @parent = 
+      if params[:deal_id]
+        Deal.find(params[:deal_id])
+      elsif params[:user_id]
+        find_user(params[:user_id])
+      else
+        raise RecordNotFound
+      end
   end
 end
