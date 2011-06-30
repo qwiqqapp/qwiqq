@@ -12,7 +12,7 @@ class Api::LikesController < Api::ApiController
       @deal         = Deal.find(params[:deal_id])
       @collection   = @deal.liked_by_users
     elsif params[:user_id]
-      @user         = User.find(params[:user_id])
+      @user         = find_user(params[:user_id])
       @collection   = @user.liked_deals
     else
       raise RecordNotFound
@@ -21,13 +21,11 @@ class Api::LikesController < Api::ApiController
     respond_with @collection
   end
   
-  
   # auth required
   def create
     @deal.likes.create(:user => current_user)
     respond_with @deal
   end
-
 
   # auth required
   def destroy

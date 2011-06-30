@@ -56,6 +56,26 @@ class Api::CommentsControllerTest < ActionController::TestCase
     assert_equal @comment0.id.to_s, json_response.first['comment_id']
   end
 
+  test "should return comments from the current user" do
+    @user = Factory(:user)
+    sign_in(@user)
+    
+    @deal0 = Factory(:deal)
+    @deal1 = Factory(:deal)
+
+    @comment0 = Factory(:comment, :deal => @deal0, :user => @user, :created_at => Time.now - 1.hour)
+    @comment1 = Factory(:comment, :deal => @deal1, :user => @user, :created_at => Time.now - 2.hours)
+
+    get :index, :user_id => "current", :format => "json"
+    
+    assert_equal 200, @response.status
+    assert_equal Array, json_response.class
+    assert_equal 2, json_response.size
+    
+    # content
+    assert_equal @comment0.id.to_s, json_response.first['comment_id']
+  end
+
   test "should create a comment on a deal for the current user" do
     @user = Factory(:user)
     @deal = Factory(:deal)

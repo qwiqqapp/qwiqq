@@ -30,7 +30,6 @@ class Api::DealsController < Api::ApiController
     render :json => @deal.as_json(:current_user => current_user,
                                   :comments => true, 
                                   :liked_by_users => true)
-
   end
 
   def search
@@ -38,15 +37,22 @@ class Api::DealsController < Api::ApiController
     respond_with @deals
   end
   
-  # -----------------
-  # scoped to user
+  def category
+    @category = Category.find_by_name!(params[:name])
+    @deals    = @category.deals.includes(:category)
+    
+    respond_with @deals
+  end
   
   def index
-    @deals = current_user.deals
+    @deals = find_user(params[:user_id]).deals
     raise RecordNotFound unless @deals
     respond_with @deals
   end
   
+  # -----------------
+  # scoped to user
+
   # TODO move this logic to model once finalized
   def create
     category = Category.find_by_name(params[:deal][:category_name])
