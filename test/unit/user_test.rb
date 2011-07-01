@@ -10,19 +10,16 @@ class UserTest < ActiveSupport::TestCase
     assert_equal @user, @auth_user
   end
 
-  test "friendship is bidirectional" do
+  test "a user can follow another user" do
     @user0 = Factory(:user)
     @user1 = Factory(:user)
-    @user2 = Factory(:user)
-    @user3 = Factory(:user)
     
-    @user0.create_friendship(@user1).accept!
-    @user2.create_friendship(@user1).accept!
+    @user0.follow!(@user1)
 
-    assert_equal 1, @user0.friends.size
-    assert_equal 2, @user1.friends.size
-    assert_equal 1, @user2.friends.size
-    assert_equal 0, @user3.friends.size
+    assert_equal 1, @user0.following.size
+    assert_equal 0, @user0.followers.size
+    assert_equal 0, @user1.following.size
+    assert_equal 1, @user1.followers.size
   end
   
 end

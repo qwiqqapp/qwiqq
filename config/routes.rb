@@ -10,17 +10,16 @@ Qwiqq::Application.routes.draw do
   
   namespace "api" do
     resources :users, :only => [:create, :show] do
-      get :search,   :on => :collection
-      
-      resources :likes, :only => [:index]
-      resources :deals, :only => [:index]
-      resources :comments,  :only => [:index]
+      get :search, :on => :collection
 
-      resources :friends, :only => [:index,:create] do
-        get :pending, :on => :collection
-        post :accept, :on => :member
-        post :reject, :on => :member
-      end
+      get "followers", :on => :member
+      get "following", :on => :member
+      post "following" => "relationships#create"
+      delete "following/:target_id" => "relationships#destroy"
+      
+      resources :likes,     :only => [:index]
+      resources :deals,     :only => [:index]
+      resources :comments,  :only => [:index]
     end
     
     resources :sessions, :only => [:create, :destroy]

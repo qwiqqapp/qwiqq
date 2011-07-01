@@ -6,14 +6,10 @@ class User < ActiveRecord::Base
   has_many :likes,    :dependent => :destroy
   has_many :liked_deals, :through => :likes, :source => :deal
 
-  has_many :friendships, :dependent => :destroy 
-
-  has_many :friends, :class_name => "User", 
-    :finder_sql  => proc { "SELECT users.*  FROM users WHERE users.id IN (#{select_friend_ids_sql})" },
-    :counter_sql => proc { "SELECT COUNT(*) FROM users WHERE users.id IN (#{select_friend_ids_sql})" }
-
-  has_many :pending_friends, :through => :friendships, :source => :friend, :conditions => "friendships.status = #{Friendship::PENDING}"
-  has_many :rejected_friends, :through => :friendships, :source => :friend, :conditions => "friendships.status = #{Friendship::REJECTED}"
+  has_many :relationships, :dependent => :destroy
+  has_many :inverse_relationships, :class_name => "Relationship", :foreign_key => "target_id"
+  has_many :followers, :through => :inverse_relationships, :source => :user
+  has_many :following, :through => :relationships, :source => :target
   
   scope :today, lambda{ where('DATE(created_at) = ?', Date.today)}
   
@@ -58,10 +54,10 @@ class User < ActiveRecord::Base
   
   def name
     "#{first_name} #{last_name}".titleize
-  end  
-  
-  def create_friendship(friend)
-    friendships.create(:friend_id => friend.id)
+  end
+
+  def follow!(target)
+    relationships.create(:target => target)
   end
   
   def as_json(options={})
@@ -97,14 +93,5 @@ class User < ActiveRecord::Base
       :comments       => options[:comments] ? comments.limit(3)     : nil
     }
   end
-
-  private
-    def select_friend_ids_sql(status = Friendship::ACCEPTED)
-      # friendship is bi-directional through a single entry in friendships
-      "SELECT friendships.user_id AS user_id FROM friendships 
-         WHERE (friendships.friend_id = #{id} AND friendships.status = #{status}) UNION
-       SELECT friendships.friend_id AS user_id FROM friendships 
-         WHERE (friendships.user_id = #{id} AND friendships.status = #{status})"
-    end
 end
 

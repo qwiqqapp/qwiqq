@@ -18,9 +18,17 @@ class Api::UsersController < Api::ApiController
     @user = find_user(params[:id])
     render :json => @user.as_json(:deals => true, :comments => true)
   end
-  
-  # return full details
-  def current
-    render :json => current_user.as_json(:deals => true, :comments => true)
+
+  def followers
+    @user = find_user(params[:id])
+    @followers = @user.followers
+    respond_with @followers
   end
+
+  def following
+    @user = find_user(params[:id])
+    @following = @user.following
+    respond_with @following
+  end
+  
 end
