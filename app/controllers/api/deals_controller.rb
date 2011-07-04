@@ -63,4 +63,10 @@ class Api::DealsController < Api::ApiController
     @deal.save
     respond_with @deal
   end
+
+  def destroy
+    @deal = current_user.deals.find(params[:id])
+    @deal.destroy
+    respond_with @deal
+  end
 end

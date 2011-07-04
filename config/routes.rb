@@ -24,7 +24,7 @@ Qwiqq::Application.routes.draw do
     
     resources :sessions, :only => [:create, :destroy]
     
-    resources :deals, :only => [:show, :create] do
+    resources :deals, :only => [:show, :create, :destroy] do
       get :search,  :on => :collection
       get :feed,    :on => :collection
       get :popular, :on => :collection

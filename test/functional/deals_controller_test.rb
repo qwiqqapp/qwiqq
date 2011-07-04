@@ -22,6 +22,11 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_routing('/api/categories/travel/deals', 
                    {:controller => 'api/deals', :action => 'category', :name => 'travel', :format => 'json'})
   end
+ 
+  test "should routes to deals#destroy" do
+    assert_routing({ :method => "delete", :path => "/api/deals/1.json" }, {
+      :format => "json", :controller => "api/deals", :action => "destroy", :id => "1"})
+  end
   
   # deals#index
   test "should render deals for the current user" do
@@ -200,5 +205,15 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_equal 3,     json_response.size
   end
 
+  # deals #destroy
+  test "should delete a deal that belongs to the current user" do
+    @user = Factory(:user)
+    @deal = Factory(:deal, :user => @user)
+    sign_in(@user)
+
+    delete :destroy, :id => @deal.id, :format => "json"
+
+    assert_equal 200,   @response.status
+  end
 end
 

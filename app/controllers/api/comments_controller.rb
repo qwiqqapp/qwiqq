@@ -24,7 +24,7 @@ class Api::CommentsController < Api::ApiController
   
   def destroy
     @comment = current_user.comments.find(params[:id])
-    @comment.destroy if @comment
+    @comment.destroy
     respond_with(@comment, :location => false)
   end
   
