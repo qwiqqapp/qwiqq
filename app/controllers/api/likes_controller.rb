@@ -32,6 +32,6 @@ class Api::LikesController < Api::ApiController
     @deal = Deal.find(params[:deal_id])
     @like = @deal.likes.find_by_user_id(current_user.id)
     @like.destroy if @like
-    respond_with(@like)
+    respond_with @like
   end
 end

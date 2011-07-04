@@ -112,7 +112,6 @@ class Api::CommentsControllerTest < ActionController::TestCase
     @user = Factory(:user)
     @deal = Factory(:deal)
     @comment = Factory(:comment, :user => @user, :deal => @deal)
-
     sign_in(@user)
 
     delete :destroy, :id => @comment.id, :format => "json"

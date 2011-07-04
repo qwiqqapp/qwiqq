@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110630230820) do
+ActiveRecord::Schema.define(:version => 20110704192359) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(:version => 20110630230820) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "username"
+    t.string   "facebook_access_token"
   end
 
 end

@@ -9,7 +9,7 @@ Qwiqq::Application.routes.draw do
   resources :deals, :only => [:index, :show]
   
   namespace "api" do
-    resources :users, :only => [:create, :show] do
+    resources :users, :only => [:create, :show, :update] do
       get :search, :on => :collection
 
       get "followers", :on => :member

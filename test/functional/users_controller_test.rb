@@ -7,6 +7,11 @@ class Api::UsersControllerTest < ActionController::TestCase
                    {:format => "json", :controller => "api/users", :action => "create"})
   end
   
+  test "should route to users#update" do
+    assert_routing({:method => "put", :path => "/api/users/current.json"}, 
+                   {:format => "json", :controller => "api/users", :action => "update", :id => "current"})
+  end
+
   test "should route to users#show" do
     assert_routing("/api/users/1.json", 
                    {:format => "json", :controller => "api/users", :action => "show", :id => "1"})
@@ -77,7 +82,7 @@ class Api::UsersControllerTest < ActionController::TestCase
   end
 
   # users#following
-  test "should render the users a user is following" do
+  test "should render the users a user follows" do
     @user0 = Factory(:user)
     sign_in(@user0)
 
@@ -91,6 +96,33 @@ class Api::UsersControllerTest < ActionController::TestCase
     assert_equal 200, @response.status
     assert_equal Array, json_response.class
     assert_equal 2, json_response.size
+  end
+  
+  # users#update
+  test "should allow the current user to be updated" do
+    @user = Factory(:user)
+    sign_in(@user)
+
+    @user_params = {
+      :first_name => "Bilbo",
+      :last_name => "Baggins",
+      :username => "bilbo",
+      :email => "bilbo@theshire.com", 
+      :country => "Middle Earth", 
+      :city => "The Shire", 
+      :facebook_access_token => "token"
+    }
+ 
+    put :update, :id => "current", :user => @user_params, :format => "json"
+
+    assert_equal 200, @response.status
+    assert_equal "Bilbo", @user.first_name
+    assert_equal "Baggins", @user.last_name
+    assert_equal "bilbo", @user.username
+    assert_equal "bilbo@theshire.com", @user.email
+    assert_equal "Middle Earth", @user.country
+    assert_equal "The Shire", @user.city
+    assert_equal "token", @user.facebook_access_token
   end
   
 end

@@ -69,4 +69,5 @@ class Api::DealsController < Api::ApiController
     @deal.destroy
     respond_with @deal
   end
+
 end

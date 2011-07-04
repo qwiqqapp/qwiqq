@@ -24,8 +24,8 @@ class Api::DealsControllerTest < ActionController::TestCase
   end
  
   test "should routes to deals#destroy" do
-    assert_routing({ :method => "delete", :path => "/api/deals/1.json" }, {
-      :format => "json", :controller => "api/deals", :action => "destroy", :id => "1"})
+    assert_routing({ :method => "delete", :path => "/api/deals/1.json" }, 
+                   { :format => "json", :controller => "api/deals", :action => "destroy", :id => "1"})
   end
   
   # deals#index
@@ -198,7 +198,7 @@ class Api::DealsControllerTest < ActionController::TestCase
     Factory(:deal, :category => @category)
     Factory(:deal, :category => @category)
     
-    get :category, :name => @category.name, :format => 'json'
+    get :category, :name => @category.name, :format => "json"
     
     assert_equal 200,   @response.status
     assert_equal Array, json_response.class
@@ -213,7 +213,7 @@ class Api::DealsControllerTest < ActionController::TestCase
 
     delete :destroy, :id => @deal.id, :format => "json"
 
-    assert_equal 200,   @response.status
+    assert_equal 200, @response.status
   end
 end
 

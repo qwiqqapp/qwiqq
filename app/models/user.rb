@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   
   scope :today, lambda{ where('DATE(created_at) = ?', Date.today)}
   
-  attr_accessible :first_name, :last_name, :username, :email, :password, :password_confirmation, :photo, :country, :city
+  attr_accessible :first_name, :last_name, :username, :email, :password, :password_confirmation, :photo, :country, :city, :facebook_access_token
   
   attr_accessor :password
   before_save   :encrypt_password
