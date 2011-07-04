@@ -215,5 +215,25 @@ class Api::DealsControllerTest < ActionController::TestCase
 
     assert_equal 200, @response.status
   end
+
+  test "should allow a deal to be shared to facebook and twitter" do
+    @user = Factory(:user)
+    @deal = Factory(:deal, :user => @user)
+    sign_in(@user)
+
+    @deal_params = {
+      :share_to_facebook => true,
+      :share_to_twitter => true
+    }
+
+    Qwiqq::Facebook.expects(:share_deal).once
+    Qwiqq::Twitter.expects(:share_deal).once
+    
+    put :update, :id => @deal.id, :deal => @deal_params, :format => "json"
+    assert_equal 200, @response.status
+
+    Qwiqq::Facebook.unstub(:share_deal)
+    Qwiqq::Twitter.unstub(:share_deal)
+  end
 end
 

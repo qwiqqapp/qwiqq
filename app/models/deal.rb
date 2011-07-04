@@ -10,8 +10,9 @@ class Deal < ActiveRecord::Base
   has_many :liked_by_users, :through => :likes, :source => :user
   
   #TODO update to 3.1 and use role based attr_accessible for premium
-  attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent
+  attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent, :share_to_facebook, :share_to_twitter
   
+  attr_accessor :share_to_facebook, :share_to_twitter
   
   # TODO update to 3.0 validates method
   validates_presence_of :user, :category, :name, :message => "is required"
@@ -19,6 +20,7 @@ class Deal < ActiveRecord::Base
   validate :has_price_or_percentage
   
   before_create :geodecode_location_name!
+  after_save :share_deal
   
   default_scope :order => 'deals.created_at desc'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
@@ -119,6 +121,12 @@ class Deal < ActiveRecord::Base
   private
   def geodecode_location_name!
     self[:location_name] = Deal.geodecode_location_name(lat, lon) if location_name.blank?
+  end
+
+  def share_deal
+    # TODO these will eventually be async jobs
+    Qwiqq::Facebook.share_deal(self) if share_to_facebook
+    Qwiqq::Twitter.share_deal(self) if share_to_twitter
   end
 
   def has_price_or_percentage
