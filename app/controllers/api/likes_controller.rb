@@ -1,7 +1,6 @@
 class Api::LikesController < Api::ApiController
   
   before_filter :require_user, :only => [:create, :destroy]
-  before_filter :find_deal, :only => [:create, :destroy]
   
   # return list of likes for deal or user:
   # - api/users/:user_id/likes => returns deals
@@ -23,19 +22,16 @@ class Api::LikesController < Api::ApiController
   
   # auth required
   def create
+    @deal = Deal.find(params[:deal_id])
     @deal.likes.create(:user => current_user)
     respond_with @deal
   end
 
   # auth required
   def destroy
+    @deal = Deal.find(params[:deal_id])
     @like = @deal.likes.find_by_user_id(current_user.id)
     @like.destroy if @like
-    render :json => {}, :status => :ok 
-  end
-
-  private
-  def find_deal
-    @deal = Deal.find(params[:deal_id])
+    respond_with(@like)
   end
 end

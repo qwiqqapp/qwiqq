@@ -16,6 +16,11 @@ class Api::CommentsControllerTest < ActionController::TestCase
     assert_routing({ :method => "post", :path => "/api/deals/1/comments.json" }, {
       :format => "json", :controller => "api/comments", :action => "create", :deal_id => "1" })
   end
+
+  test "should routes to comments#destroy" do
+    assert_routing({ :method => "delete", :path => "/api/comments/1.json" }, {
+      :format => "json", :controller => "api/comments", :action => "destroy", :id => "1"})
+  end
   
   test "should return comments for a deal" do
     @user = Factory(:user)
@@ -103,4 +108,16 @@ class Api::CommentsControllerTest < ActionController::TestCase
     Deal.unstub(:increment_counter)
   end
 
+  test "should delete a comment if it belongs to the current user" do
+    @user = Factory(:user)
+    @deal = Factory(:deal)
+    @comment = Factory(:comment, :user => @user, :deal => @deal)
+
+    sign_in(@user)
+
+    delete :destroy, :id => @comment.id, :format => "json"
+
+    assert_equal 200, @response.status
+  end
+  
 end

@@ -72,7 +72,7 @@ class Api::LikesControllerTest < ActionController::TestCase
     Deal.expects(:decrement_counter).once.with(:like_count, @deal.id)
     @like = @deal.likes.create(:user => @user)
 
-    post :destroy, :deal_id => @deal.id, :format => "json"
+    delete :destroy, :deal_id => @deal.id, :format => "json"
 
     assert_equal 200, @response.status
     Deal.unstub(:decrement_counter)

@@ -33,6 +33,8 @@ Qwiqq::Application.routes.draw do
       resource :like,       :only => [:create, :destroy] #should merge this with above resource likes
       resources :comments,  :only => [:create, :index]
     end
+
+    resources :comments, :only => [:destroy]
     
     get "categories/:name/deals" => "deals#category", :name => /\D+/, :format => "json", :as => :category_deals
   end

@@ -23,8 +23,9 @@ class Api::CommentsController < Api::ApiController
   end
   
   def destroy
-    @deal = Deal.find(params[:deal_id])
-    @comment = @deal.comments.find(params[:id])
+    @comment = current_user.comments.find(params[:id])
+    @comment.destroy if @comment
+    respond_with(@comment, :location => false)
   end
   
   private
