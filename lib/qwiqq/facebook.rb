@@ -10,7 +10,7 @@ module Qwiqq
         "link" => deal_url(deal),
         "picture" => deal.photo.url(:admin_med))
 
-      deal.update_attributes(:shared_to_facebook_at, Time.now)
+      deal.update_attribute(:shared_to_facebook_at, Time.now)
     end
 
     def self.client_for_user(user)
@@ -18,7 +18,7 @@ module Qwiqq
     end
 
     def self.deal_url(deal)
-      Rails.application.routes.url_helpers.deal_url(deal, :host => "production.qwiqq.com")
+      Rails.application.routes.url_helpers.deal_url(deal, :host => "qwiqq.com")
     end
   end
 end
