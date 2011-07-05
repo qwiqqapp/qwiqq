@@ -73,6 +73,7 @@ class User < ActiveRecord::Base
       :created_at     => created_at,
       :updated_at     => updated_at,
       :join_date      => created_at.to_date.to_s(:long),
+      :send_notifications => send_notifications,
       
       # user detail photo
       :photo          => photo.url(:iphone),
