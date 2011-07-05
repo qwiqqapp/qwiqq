@@ -116,13 +116,9 @@ class Api::UsersControllerTest < ActionController::TestCase
     put :update, :id => "current", :user => @user_params, :format => "json"
 
     assert_equal 200, @response.status
-    assert_equal "Bilbo", @user.first_name
-    assert_equal "Baggins", @user.last_name
-    assert_equal "bilbo", @user.username
-    assert_equal "bilbo@theshire.com", @user.email
-    assert_equal "Middle Earth", @user.country
-    assert_equal "The Shire", @user.city
     assert_equal "token", @user.facebook_access_token
+    assert_equal "Bilbo", json_response["first_name"]
+    assert_equal "Baggins", json_response["last_name"]
   end
   
 end

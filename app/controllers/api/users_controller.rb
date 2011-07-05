@@ -16,7 +16,7 @@ class Api::UsersController < Api::ApiController
     # only the current user can be updated
     raise ActiveRecord::RecordNotFound unless params[:id] == "current"
     current_user.update_attributes(params[:user])
-    respond_with :api, current_user
+    render :json => current_user.as_json
   end
   
   # phase 1: return full details
