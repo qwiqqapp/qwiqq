@@ -63,35 +63,37 @@ class User < ActiveRecord::Base
   def as_json(options={})
     options.reverse_merge!(:deals => false, :comments => false)
     {
-      :user_id        => id.try(:to_s),
-      :email          => email,
-      :first_name     => first_name,
-      :last_name      => last_name,
-      :user_name      => username,
-      :city           => city,
-      :country        => country,
-      :created_at     => created_at,
-      :updated_at     => updated_at,
-      :join_date      => created_at.to_date.to_s(:long),
-      :send_notifications => send_notifications,
-      
+      :user_id             => id.try(:to_s),
+      :email               => email,
+      :first_name          => first_name,
+      :last_name           => last_name,
+      :user_name           => username,
+      :city                => city,
+      :country             => country,
+      :created_at          => created_at,
+      :updated_at          => updated_at,
+      :join_date           => created_at.to_date.to_s(:long),
+      :send_notifications  => send_notifications,
+      :facebook_authorized => !facebook_access_token.blank?,
+      :twitter_authorized  => !twitter_access_token.blank?,
+
       # user detail photo
-      :photo          => photo.url(:iphone),
-      :photo_2x       => photo.url(:iphone2x),
+      :photo               => photo.url(:iphone),
+      :photo_2x            => photo.url(:iphone2x),
       
       # user detail photo zoom
-      :photo_zoom     => photo.url(:iphone_zoom),
-      :photo_zoom_2x  => photo.url(:iphone_zoom_2x),
+      :photo_zoom          => photo.url(:iphone_zoom),
+      :photo_zoom_2x       => photo.url(:iphone_zoom_2x),
       
       # counts
-      :like_count     => liked_deals.count,
-      :deal_count     => deals.count,
-      :comment_count  => comments.count,
+      :like_count          => liked_deals.count,
+      :deal_count          => deals.count,
+      :comment_count       => comments.count,
       
       # conditional
-      :deals          => options[:deals]    ? deals.limit(6)        : nil,
-      :liked_deals    => options[:deals]    ? liked_deals.limit(6)  : nil,
-      :comments       => options[:comments] ? comments.limit(3)     : nil
+      :deals               => options[:deals]    ? deals.limit(6)        : nil,
+      :liked_deals         => options[:deals]    ? liked_deals.limit(6)  : nil,
+      :comments            => options[:comments] ? comments.limit(3)     : nil
     }
   end
 end
