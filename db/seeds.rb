@@ -22,6 +22,7 @@ AdminUser.create!(:email => 'brian@gastownlabs.com',    :password => 'texasbbq',
 AdminUser.create!(:email => 'melanie@gastownlabs.com',  :password => 'texasbbq', :password_confirmation => 'texasbbq')
 AdminUser.create!(:email => 'john@qwiqq.me',            :password => 'texasbbq', :password_confirmation => 'texasbbq')
 AdminUser.create!(:email => 'jack@qwiqq.me',            :password => 'texasbbq', :password_confirmation => 'texasbbq')
+AdminUser.create!(:email => 'eoin@gastownlabs.com',     :password => 'texasbbq', :password_confirmation => 'texasbbq')
 
 # create users
 puts '+ creating user accounts'
@@ -35,6 +36,7 @@ users << User.create(:country => 'ca', :city => 'vancouver',  :photo => user_ima
 users << User.create(:country => 'ca', :city => 'vancouver',  :photo => user_image,    :first_name => 'melanie',:last_name => 'shave',    :username => 'melanieshave',  :email => 'melanie@gastownlabs.com',  :password => 'tester', :password_confirmation => 'tester')
 users << User.create(:country => 'us', :city => 'texas',      :photo => user_image(4), :first_name => 'john',   :last_name => 'phan',     :username => 'john',          :email => 'john@qwiqq.me',            :password => 'tester', :password_confirmation => 'tester')
 users << User.create(:country => 'us', :city => 'texas',      :photo => user_image,    :first_name => 'jack',   :last_name => 'wrigley',  :username => 'jack',          :email => 'jack@qwiqq.me',            :password => 'tester', :password_confirmation => 'tester')
+users << User.create(:country => 'ca', :city => 'texas',      :photo => user_image,    :first_name => 'eoin',   :last_name => 'hennessy', :username => 'eoin',          :email => 'eoin@gastownlabs.com',     :password => 'tester', :password_confirmation => 'tester')
 
 # setup categories
 %w(food ae beauty sport house travel fashion tech).each do |c|
