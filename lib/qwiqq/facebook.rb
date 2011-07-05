@@ -18,7 +18,7 @@ module Qwiqq
     end
 
     def self.deal_url(deal)
-      Rails.application.routes.url_helpers.deal_url(deal, :host => "qwiqq.me")
+      Rails.application.routes.url_helpers.deal_url(deal, :host => "production.qwiqq.com")
     end
   end
 end
