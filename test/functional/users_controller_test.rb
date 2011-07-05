@@ -26,7 +26,12 @@ class Api::UsersControllerTest < ActionController::TestCase
     assert_routing("/api/users/1/following.json", 
                    {:format => "json", :controller => "api/users", :action => "following", :id => "1"})
   end
-
+  
+  test "should route to users#friends" do
+    assert_routing("/api/users/1/friends.json", 
+                   {:format => "json", :controller => "api/users", :action => "friends", :id => "1"})
+  end
+  
   test "user registration" do
     @user_params = Factory.attributes_for(:user)
     post :create, :user => @user_params, :format => 'json'
@@ -96,6 +101,22 @@ class Api::UsersControllerTest < ActionController::TestCase
     assert_equal 200, @response.status
     assert_equal Array, json_response.class
     assert_equal 2, json_response.size
+  end
+
+  # users#friends
+  test "should render a users friends" do
+    @user0 = Factory(:user)
+    @user1 = Factory(:user)
+
+    sign_in(@user0)
+
+    @user0.follow!(@user1)
+    @user1.follow!(@user0)
+    
+    get :following, :id => @user0.id, :format => 'json'
+    assert_equal 200, @response.status
+    assert_equal Array, json_response.class
+    assert_equal 1, json_response.size
   end
   
   # users#update

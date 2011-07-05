@@ -8,10 +8,13 @@ class User < ActiveRecord::Base
 
   has_many :relationships, :dependent => :destroy
   has_many :inverse_relationships, :class_name => "Relationship", :foreign_key => "target_id"
-  has_many :followers, :through => :inverse_relationships, :source => :user
+    
   has_many :following, :through => :relationships, :source => :target
+  has_many :followers, :through => :inverse_relationships, :source => :user
+  has_many :friends, :class_name => "User", :finder_sql => proc { 
+    "SELECT * FROM users WHERE id IN (SELECT r1.target_id FROM relationships r1 JOIN relationships r2 ON r2.user_id = r1.target_id WHERE r1.user_id = #{id})" }
   
-  scope :today, lambda{ where('DATE(created_at) = ?', Date.today)}
+  scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   
   attr_accessible :first_name, :last_name, :username, :email, :password, :password_confirmation, :photo, :country, :city, :facebook_access_token, :twitter_access_token, :send_notifications
   
@@ -58,6 +61,10 @@ class User < ActiveRecord::Base
 
   def follow!(target)
     relationships.create(:target => target)
+  end
+
+  def unfollow!(target)
+    relationships.find_by_target_id(target.id).try(:destroy)
   end
   
   def as_json(options={})

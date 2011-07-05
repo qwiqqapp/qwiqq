@@ -37,5 +37,11 @@ class Api::UsersController < Api::ApiController
     @following = @user.following
     respond_with @following
   end
+
+  def friends
+    @user = find_user(params[:id])
+    @friends = @user.friends
+    respond_with @friends
+  end
   
 end
