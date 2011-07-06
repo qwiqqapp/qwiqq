@@ -71,6 +71,14 @@ class User < ActiveRecord::Base
     relationships.exists?(:target_id => target.id)
   end
   
+  def friends?(target)
+    # TODO do this by extending #friends
+    User.find_by_sql(
+      "SELECT 1 FROM users WHERE id = #{target.id} AND id IN (
+        SELECT r1.target_id FROM relationships r1 
+        JOIN relationships r2 ON r2.user_id = r1.target_id WHERE r1.user_id = #{id})").any?
+  end
+  
   def as_json(options={})
     options.reverse_merge!(:deals => false, :comments => false)
     json = {
@@ -87,6 +95,9 @@ class User < ActiveRecord::Base
       :send_notifications  => send_notifications,
       :facebook_authorized => !facebook_access_token.blank?,
       :twitter_authorized  => !twitter_access_token.blank?,
+      :followers_count     => followers_count,
+      :following_count     => following_count,
+      :friends_count       => friends_count,
 
       # user detail photo
       :photo               => photo.url(:iphone),
