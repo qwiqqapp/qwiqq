@@ -21,6 +21,7 @@ class Deal < ActiveRecord::Base
   
   before_create :geodecode_location_name!
   after_save :share_deal
+  after_create :send_to_index_tank
   
   default_scope :order => 'deals.created_at desc'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
@@ -136,6 +137,11 @@ class Deal < ActiveRecord::Base
     share_to_facebook! if @share_to_facebook
     share_to_twitter! if @share_to_twitter
   end
+
+  def send_to_index_tank
+    Qwiqq::IndexTank.add(self)
+  end
+  
 
   def has_price_or_percentage
     errors.add(:base, "You must specify a price or percentage") if price.blank? && percent.blank?
