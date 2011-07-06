@@ -14,11 +14,11 @@ class User < ActiveRecord::Base
   has_many :friends, :class_name => "User", 
     :finder_sql => proc { 
       "SELECT users.* FROM users WHERE id IN (
-         SELECT r1.target_id FROM relationships r1 JOIN relationships r2 
+         SELECT r1.target_id FROM relationships r1, relationships r2 
          WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id AND r1.user_id = #{id})" },
     :counter_sql => proc { 
-      "SELECT COUNT(*) FROM relationships r1 JOIN relationships r2 
-         WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id AND r1.user_id = #{id}" }
+      "SELECT COUNT(*) FROM relationships r1, relationships r2 
+       WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id AND r1.user_id = #{id}" }
   
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   
@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
   def friends?(target)
     # TODO do this by extending #friends
     Relationship.find_by_sql(
-        "SELECT r1.* FROM relationships r1 JOIN relationships r2 
+        "SELECT r1.* FROM relationships r1, relationships r2 
          WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id 
            AND r1.user_id = #{id} AND r1.target_id = #{target.id}").any?
   end
