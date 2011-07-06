@@ -67,9 +67,13 @@ class User < ActiveRecord::Base
     relationships.find_by_target_id(target.id).try(:destroy)
   end
   
+  def following?(target)
+    relationships.exists?(:target_id => target.id)
+  end
+  
   def as_json(options={})
     options.reverse_merge!(:deals => false, :comments => false)
-    {
+    json = {
       :user_id             => id.try(:to_s),
       :email               => email,
       :first_name          => first_name,
@@ -102,6 +106,13 @@ class User < ActiveRecord::Base
       :liked_deals         => options[:deals]    ? liked_deals.limit(6)  : nil,
       :comments            => options[:comments] ? comments.limit(3)     : nil
     }
+    
+    # add is_following if possible
+    if current_user = options[:current_user]
+      json[:is_following] = current_user.following?(self)
+    end
+
+    json
   end
 end
 

@@ -57,7 +57,7 @@ class Api::UsersControllerTest < ActionController::TestCase
     get :show, :id => @user.id, :format => 'json'
     assert_equal 200, @response.status
   end
-  
+
   # users#show for current user
   test "should render current_users details" do
     @user = Factory(:user)
