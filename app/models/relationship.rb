@@ -3,7 +3,7 @@ class Relationship < ActiveRecord::Base
   belongs_to :target, :class_name => "User"
 
   after_create :update_counts_create
-  after_destroy :update_counts_destroy
+  before_destroy :update_counts_destroy
 
   private
     def update_counts_create
