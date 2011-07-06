@@ -13,6 +13,8 @@ class Relationship < ActiveRecord::Base
         user.increment(:friends_count)
         target.increment(:friends_count)
       end
+      user.save
+      target.save
     end
 
     def update_counts_destroy
@@ -22,5 +24,7 @@ class Relationship < ActiveRecord::Base
         user.decrement(:friends_count)
         target.decrement(:friends_count)
       end
+      user.save
+      target.save
     end
 end
