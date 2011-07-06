@@ -5,10 +5,10 @@ module Qwiqq
       
       client = client_for_user(deal.user)
       client.put_wall_post( 
-        "I shared a deal on Qwiqq - #{deal.name}",
+        "I shared a deal on Qwiqq!",
         "name" => deal.name,
         "link" => deal_url(deal),
-        "picture" => deal.photo.url(:admin_med))
+        "picture" => deal.photo.url(:iphone_grid))
 
       deal.update_attribute(:shared_to_facebook_at, Time.now)
     end
@@ -18,7 +18,7 @@ module Qwiqq
     end
 
     def self.deal_url(deal)
-      Rails.application.routes.url_helpers.deal_url(deal, :host => "qwiqq.com")
+      Rails.application.routes.url_helpers.deal_url(deal, :host => "production.qwiqq.com")
     end
   end
 end
