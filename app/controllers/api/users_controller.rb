@@ -24,7 +24,7 @@ class Api::UsersController < Api::ApiController
   def show
     @user = find_user(params[:id])
     render :json => @user.as_json(
-      :current_user => current_user,
+      :current_user => params[:id] == "current" ? false : current_user,
       :deals => true, 
       :comments => true)
   end

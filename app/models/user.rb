@@ -118,9 +118,10 @@ class User < ActiveRecord::Base
       :comments            => options[:comments] ? comments.limit(3)     : nil
     }
     
-    # add is_following if possible
-    if current_user = options[:current_user]
+    # add is_following and is_followed if possible
+    if current_user = options[:current_user] 
       json[:is_following] = current_user.following?(self)
+      json[:is_followed] = self.following?(current_user)
     end
 
     json

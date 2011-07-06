@@ -63,8 +63,10 @@ class Api::UsersControllerTest < ActionController::TestCase
     @user = Factory(:user)
     @deals = [Factory(:deal, :user => @user), Factory(:deal, :user => @user)]
     sign_in(@user)
-    
+
+
     get :show, :id => "current", :format => 'json'
+
     assert_equal 200, @response.status
     assert_equal 2, json_response['deals'].size
   end
