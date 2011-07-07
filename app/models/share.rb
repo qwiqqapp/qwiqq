@@ -4,6 +4,8 @@ class Share < ActiveRecord::Base
 
   after_create :share_deal!
 
+  validates :service, :inclusion => [ "email", "twitter", "facebook" ]
+
   private
     def share_deal!
       case service
@@ -12,7 +14,7 @@ class Share < ActiveRecord::Base
       when "twitter" 
         Qwiqq::Twitter.share_deal(deal)
       when "email"
-        Mailer.share_deal(deal, email)
+        Mailer.share_deal(deal, email).deliver
       end
     end
 end
