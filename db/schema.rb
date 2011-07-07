@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110707205007) do
+ActiveRecord::Schema.define(:version => 20110707215918) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -72,14 +72,12 @@ ActiveRecord::Schema.define(:version => 20110707205007) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.boolean  "premium",               :default => false
+    t.boolean  "premium",            :default => false
     t.float    "lat"
     t.float    "lon"
-    t.integer  "comment_count",         :default => 0
-    t.integer  "like_count",            :default => 0
+    t.integer  "comment_count",      :default => 0
+    t.integer  "like_count",         :default => 0
     t.string   "location_name"
-    t.datetime "shared_to_facebook_at"
-    t.datetime "shared_to_twitter_at"
   end
 
   create_table "likes", :force => true do |t|
