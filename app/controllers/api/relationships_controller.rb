@@ -4,14 +4,20 @@ class Api::RelationshipsController < Api::ApiController
     @user = find_user(params[:user_id])
     @target = User.find(params[:target_id])
     @relationship = @user.follow!(@target)
-    respond_with(@relationship, :location => false)
+    render :status => :created, :json => {
+      :followers_count => @target.followers_count,
+      :following_count => @target.following_count,
+      :friends_count =>   @target.friends_count }
   end
 
   def destroy
     @user = find_user(params[:user_id])
     @relationship = @user.relationships.find_by_target_id(params[:target_id])
     @relationship.destroy
-    render :status => :ok, :json => {}
+    render :status => :ok, :json => {
+      :followers_count => @relationship.target.followers_count,
+      :following_count => @relationship.target.following_count,
+      :friends_count =>   @relationship.target.friends_count }
   end
 
 end
