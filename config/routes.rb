@@ -20,8 +20,11 @@ Qwiqq::Application.routes.draw do
       delete "following/:target_id" => "relationships#destroy"
       
       resources :likes,     :only => [:index]
-      resources :deals,     :only => [:index]
       resources :comments,  :only => [:index]
+      
+      resources :deals, :only => [:index] do
+        resources :shares, :only => [:create]
+      end
     end
     
     resources :sessions, :only => [:create, :destroy]
