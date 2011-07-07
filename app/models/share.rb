@@ -16,5 +16,6 @@ class Share < ActiveRecord::Base
       when "email"
         Mailer.share_deal(deal, email).deliver
       end
+      update_attribute(:shared_at, Time.now)
     end
 end
