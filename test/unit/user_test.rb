@@ -62,4 +62,19 @@ class UserTest < ActiveSupport::TestCase
     assert @user0.following?(@user1)
   end
 
+  test "#following_deals" do
+    @user0 = Factory(:user)
+    @user1 = Factory(:user)
+    @user2 = Factory(:user)
+
+    @user0.follow!(@user1)
+    @user0.follow!(@user2)
+
+    @deal0 = Factory(:deal, :user => @user1)
+    @deal1 = Factory(:deal, :user => @user2)
+
+    assert_equal 2, @user0.following_deals.count
+    assert_equal [@deal0, @deal1], @user0.following_deals
+  end
+
 end

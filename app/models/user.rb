@@ -19,6 +19,12 @@ class User < ActiveRecord::Base
     :counter_sql => proc { 
       "SELECT COUNT(*) FROM relationships r1, relationships r2 
        WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id AND r1.user_id = #{id}" }
+
+  # added using AREL so that the query can more easily be extended;
+  #   e.g user.following_deals.include(:category)
+  def following_deals
+    Deal.joins("INNER JOIN relationships ON relationships.target_id = deals.user_id").where("relationships.user_id = #{id}")
+  end
   
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   
