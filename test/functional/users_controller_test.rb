@@ -140,8 +140,22 @@ class Api::UsersControllerTest < ActionController::TestCase
 
     assert_equal 200, @response.status
     assert_equal "token", @user.facebook_access_token
+
+    # the response should contain the updated user
     assert_equal "Bilbo", json_response["first_name"]
     assert_equal "Baggins", json_response["last_name"]
+  end
+
+  # users#update
+  test "should return validation errors when updating the user failed" do
+    @user = Factory(:user)
+    sign_in(@user)
+
+    @user_params = { :email => "" }
+    put :update, :id => "current", :user => @user_params, :format => "json"
+
+    assert_equal 422, @response.status
+    assert_match /blank/i, json_response["email"].first
   end
   
 end
