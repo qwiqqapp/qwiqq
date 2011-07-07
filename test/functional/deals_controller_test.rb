@@ -45,12 +45,20 @@ class Api::DealsControllerTest < ActionController::TestCase
   test "should render recent public deals" do
     @user = Factory(:user)
     sign_in(@user)
-    
-    deals = [ Factory(:deal, :premium => false, :created_at => Time.now - 1.minutes),
-              Factory(:deal, :premium => false, :created_at => Time.now - 40.minutes),
-              Factory(:deal, :premium => true,  :created_at => Time.now - 2.hours),                     
-              Factory(:deal, :premium => true,  :created_at => Time.now - 5.days)]
-    
+
+    # feed deals come from followed users
+    following_deals = [ 
+      Factory(:deal, :premium => false, :created_at => Time.now - 1.minutes),
+      Factory(:deal, :premium => false, :created_at => Time.now - 40.minutes),
+      Factory(:deal, :premium => true,  :created_at => Time.now - 2.hours),
+      Factory(:deal, :premium => true,  :created_at => Time.now - 5.days)]
+    following_deals.each {|d| @user.follow!(d.user)}
+
+    # add some deals from other users
+    non_following_deals = [
+      Factory(:deal),
+      Factory(:deal) ]
+
     get :feed, :format => 'json'
     
     assert_equal 200,   @response.status
@@ -58,7 +66,7 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_equal 4,     json_response.size
     
     # check premium order
-    assert_equal deals.map(&:id),  json_response.map{|d| d['deal_id'].to_i}
+    assert_equal following_deals.map(&:id),  json_response.map{|d| d['deal_id'].to_i}
   end
   
   # deals#create
