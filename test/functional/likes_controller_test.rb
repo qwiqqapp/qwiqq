@@ -61,7 +61,6 @@ class Api::LikesControllerTest < ActionController::TestCase
     post :create, :deal_id => @deal.id, :format => "json"
 
     assert_equal 201, @response.status
-    Deal.unstub(:increment_counter)
   end
 
   test "should destroy a like for the current user and specified deal" do
@@ -75,7 +74,6 @@ class Api::LikesControllerTest < ActionController::TestCase
     delete :destroy, :deal_id => @deal.id, :format => "json"
 
     assert_equal 200, @response.status
-    Deal.unstub(:decrement_counter)
   end
 
 end
