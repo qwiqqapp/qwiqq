@@ -19,5 +19,10 @@ class Mailer < ActionMailer::Base
     @user = deal.user
     mail :to => email, :subject => "#{@user.name} shared a Qwiqq deal with you!"
   end
+
+  def invitation(user, email)
+    @user = user
+    mail :to => email, :subject => "#{@user.name} has invited you to Qwiqq!"
+  end
 end
 

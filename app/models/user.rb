@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
 
   has_many :shares, :dependent => :destroy
   has_many :shared_deals, :through => :shares, :source => :deal, :uniq => true
+
+  has_many :invitations_sent, :class_name => "Invitation"
   
   # added using AREL so that the query can more easily be extended;
   #   e.g user.following_deals.include(:category).limit(20)

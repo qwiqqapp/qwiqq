@@ -19,8 +19,9 @@ Qwiqq::Application.routes.draw do
       post "following" => "relationships#create"
       delete "following/:target_id" => "relationships#destroy"
       
-      resources :likes,     :only => [:index]
-      resources :comments,  :only => [:index]
+      resources :likes, :only => [:index]
+      resources :comments, :only => [:index]
+      resources :invitations, :only => [:index,:create]
       
       resources :deals, :only => [:index] do
         resources :shares, :only => [:create]
@@ -30,13 +31,13 @@ Qwiqq::Application.routes.draw do
     resources :sessions, :only => [:create, :destroy]
     
     resources :deals, :only => [:show, :create, :destroy, :update] do
-      get :search,  :on => :collection
-      get :feed,    :on => :collection
+      get :search, :on => :collection
+      get :feed, :on => :collection
       get :popular, :on => :collection
       
-      resources :likes,     :only => [:index]
-      resource :like,       :only => [:create, :destroy] #should merge this with above resource likes
-      resources :comments,  :only => [:create, :index]
+      resources :likes, :only => [:index]
+      resource :like, :only => [:create, :destroy] #should merge this with above resource likes
+      resources :comments, :only => [:create, :index]
     end
 
     resources :comments, :only => [:destroy]
