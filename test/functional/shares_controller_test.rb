@@ -17,8 +17,8 @@ class Api::SharesControllerTest < ActionController::TestCase
 
     Qwiqq::Facebook.expects(:share_deal).once.with(@deal)
     Qwiqq::Twitter.expects(:share_deal).once.with(@deal)
-    Mailer.expects(:share_deal).once.with(@deal, "eoin@gastownlabs.com")
-    Mailer.expects(:share_deal).once.with(@deal, "adam@gastownlabs.com")
+    Mailer.expects(:share_deal).once.with(@deal, "eoin@gastownlabs.com").returns(mock(:deliver => true))
+    Mailer.expects(:share_deal).once.with(@deal, "adam@gastownlabs.com").returns(mock(:deliver => true))
 
     post :create,
       :user_id => "current",
