@@ -131,7 +131,7 @@ class Deal < ActiveRecord::Base
   end
   
   def indextank_doc
-    @doc ||= Qwiqq::IndexTank::Document.new(self)
+    @doc ||= IndexTank::Document.new(self)
   end
   
   private

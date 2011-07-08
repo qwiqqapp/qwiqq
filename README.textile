@@ -4,6 +4,15 @@ h1. Qwiqq Web
 * json API
 * admin
 
+
+h2. Dev Environment
+
+* rvm = 1.6.22
+* ruby = 1.9.2 p180
+* gemset = qwiqq
+* db = postgresql
+* hosting (staging/production) = heroku
+
 h2. useful Heroku commands
 
 replace staging with production below for production env
@@ -23,14 +32,11 @@ h3. checking data and process
 * heroku logs --remote staging --tail
 
 
-
-
-h2. ENV notes
+h2. postgresql notes
 
 * postgresql db required to match staging and production
 * install with brew install postgresql
 
-h3. postgresql tips
 
 * cli = psql qwiqq_development
 * list tables = \dt
