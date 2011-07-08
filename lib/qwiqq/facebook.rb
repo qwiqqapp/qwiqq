@@ -9,8 +9,6 @@ module Qwiqq
         "name" => deal.name,
         "link" => deal_url(deal),
         "picture" => deal.photo.url(:iphone_grid))
-
-      deal.update_attribute(:shared_to_facebook_at, Time.now)
     end
 
     def self.client_for_user(user)
