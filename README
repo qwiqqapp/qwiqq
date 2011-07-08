@@ -1,4 +1,0 @@
-API notes
-
-* return all ids as string using .try(:to_s)
-* prefix id with model, eg user_id 

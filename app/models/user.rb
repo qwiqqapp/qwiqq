@@ -32,8 +32,7 @@ class User < ActiveRecord::Base
                                   :iphone2x     => ["150x150#", :jpg],
                                   
                                   :iphone_zoom       => ["300x300#", :jpg],
-                                  :iphone_zoom_2x    => ["600x600#", :jpg]
-                                  }
+                                  :iphone_zoom_2x    => ["600x600#", :jpg] }
                     }.merge(PAPERCLIP_STORAGE_OPTIONS)
   
   def self.authenticate!(email, password)

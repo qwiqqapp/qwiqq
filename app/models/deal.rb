@@ -21,7 +21,10 @@ class Deal < ActiveRecord::Base
   
   before_create :geodecode_location_name!
   after_save :share_deal
-  after_create :send_to_index_tank
+  
+  # indextank updates
+  after_create   { indextank_doc.add }
+  before_destroy { indextank_doc.remove }
   
   default_scope :order => 'deals.created_at desc'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
@@ -127,6 +130,10 @@ class Deal < ActiveRecord::Base
     Qwiqq::Twitter.share_deal(self)
   end
   
+  def indextank_doc
+    @doc ||= Qwiqq::IndexTank::Document.new(self)
+  end
+  
   private
   def geodecode_location_name!
     self[:location_name] = Deal.geodecode_location_name(lat, lon) if location_name.blank?
@@ -137,12 +144,9 @@ class Deal < ActiveRecord::Base
     share_to_facebook! if @share_to_facebook
     share_to_twitter! if @share_to_twitter
   end
-
-  def send_to_index_tank
-    Qwiqq::IndexTank.add(self)
-  end
   
 
+  
   def has_price_or_percentage
     errors.add(:base, "You must specify a price or percentage") if price.blank? && percent.blank?
   end

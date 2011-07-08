@@ -109,11 +109,11 @@ GEM
     mime-types (1.16)
     mocha (0.9.12)
     multipart-post (1.1.2)
-    mysql2 (0.2.7)
     orm_adapter (0.0.5)
     paperclip (2.3.11)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
+    pg (0.11.0)
     polyglot (0.3.1)
     rack (1.2.2)
     rack-mount (0.6.14)
@@ -140,7 +140,19 @@ GEM
     rest-client (1.6.1)
       mime-types (>= 1.16)
     sass (3.1.1)
+    sequel (3.20.0)
     simple_form (1.3.1)
+    sinatra (1.0)
+      rack (>= 1.0)
+    sqlite3 (1.3.3)
+    sqlite3-ruby (1.3.3)
+      sqlite3 (>= 1.3.3)
+    taps (0.3.23)
+      rack (>= 1.0.1)
+      rest-client (>= 1.4.0, < 1.7.0)
+      sequel (~> 3.20.0)
+      sinatra (~> 1.0.0)
+      sqlite3-ruby (~> 1.2)
     term-ansicolor (1.0.5)
     thor (0.14.6)
     treetop (1.4.9)
@@ -169,10 +181,11 @@ DEPENDENCIES
   json
   koala
   mocha
-  mysql2 (= 0.2.7)
   paperclip
+  pg
   rails (= 3.0.7)
   rails3-generators
   sass
   simple_form
+  taps
   wirble
