@@ -36,14 +36,18 @@ class Deal < ActiveRecord::Base
                                   :iphone_grid       => ["75x75#", :jpg],
                                   :iphone_grid_2x    => ["150x150#", :jpg],
                                   
+                                  # deal detail view
+                                  :profile      => ["85x85#", :jpg],
+                                  :profile_2x   => ["170x170#", :jpg],
+                                  
                                   # feed, browse, search list views
                                   :iphone_list       => ["55x55#", :jpg],
                                   :iphone_list_2x    => ["110x110#", :jpg],
                                   
                                   # zoomed image size
                                   :iphone_zoom       => ["300x300#", :jpg],
-                                  :iphone_zoom_2x    => ["600x600#", :jpg]
-                                  }
+                                  :iphone_zoom_2x    => ["600x600#", :jpg] 
+                                }
                     }.merge(PAPERCLIP_STORAGE_OPTIONS)
   
   def self.geodecode_location_name(lat, lon)
