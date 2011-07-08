@@ -26,6 +26,8 @@ Qwiqq::Application.routes.draw do
       resources :deals, :only => [:index] do
         resources :shares, :only => [:create]
       end
+
+      post "find_friends" => "friends#find"
     end
     
     resources :sessions, :only => [:create, :destroy]

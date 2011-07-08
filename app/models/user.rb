@@ -95,6 +95,10 @@ class User < ActiveRecord::Base
          WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id 
            AND r1.user_id = #{id} AND r1.target_id = #{target.id}").any?
   end
+
+  def email_invitation_sent?(email)
+    invitations_sent.exists?(:service => "email", :email => email)
+  end
   
   def as_json(options={})
     options.reverse_merge!(:deals => false, :comments => false)
