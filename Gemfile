@@ -4,7 +4,8 @@ gem "heroku"
 gem "rails", "3.0.7"
 
 # fix on 0.2.7 requried as of 3.0.7 and until 3.1
-gem "mysql2", "0.2.7"
+# gem "mysql2", "0.2.7"
+gem "pg"
 gem "rails3-generators"
 
 # views

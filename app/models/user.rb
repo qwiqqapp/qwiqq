@@ -51,8 +51,8 @@ class User < ActiveRecord::Base
                                   :iphone       => ["75x75#", :jpg],
                                   :iphone2x     => ["150x150#", :jpg],
                                   
-                                  :profile      => ["85x85#", :jpg],
-                                  :profile_2x   => ["170x170#", :jpg],
+                                  :iphone_profile      => ["85x85#", :jpg],
+                                  :iphone_profile_2x   => ["170x170#", :jpg],
                                   
                                   :iphone_zoom       => ["300x300#", :jpg],
                                   :iphone_zoom_2x    => ["600x600#", :jpg] }
@@ -125,6 +125,10 @@ class User < ActiveRecord::Base
       # user detail photo zoom
       :photo_zoom          => photo.url(:iphone_zoom),
       :photo_zoom_2x       => photo.url(:iphone_zoom_2x),
+      
+      # user detail photo zoom
+      :photo_profile          => photo.url(:iphone_profile),
+      :photo_profile_2x       => photo.url(:iphone_profile_2x),      
       
       # counts
       :like_count          => liked_deals.count,

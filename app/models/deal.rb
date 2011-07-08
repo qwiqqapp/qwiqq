@@ -26,6 +26,7 @@ class Deal < ActiveRecord::Base
   scope :search_by_name, lambda { |query| where([ 'UPPER(name) like ?', "%#{query.upcase}%" ]) }
 
   # all images are cropped
+  #  TODO review all image sizes, need to reduce/reuse
   has_attached_file :photo,
                     {:styles => { #admin
                                   :admin_sml    => ["30x30#", :jpg],
@@ -37,8 +38,8 @@ class Deal < ActiveRecord::Base
                                   :iphone_grid_2x    => ["150x150#", :jpg],
                                   
                                   # deal detail view
-                                  :profile      => ["85x85#", :jpg],
-                                  :profile_2x   => ["170x170#", :jpg],
+                                  :iphone_profile      => ["85x85#", :jpg],
+                                  :iphone_profile_2x   => ["170x170#", :jpg],
                                   
                                   # feed, browse, search list views
                                   :iphone_list       => ["55x55#", :jpg],
@@ -66,6 +67,10 @@ class Deal < ActiveRecord::Base
       # popular
       :photo_grid     => photo.url(:iphone_grid),
       :photo_grid_2x  => photo.url(:iphone_grid_2x),
+      
+      # profile image on deal detail screen
+      :photo_profile     => photo.url(:iphone_profile),
+      :photo_profile_2x  => photo.url(:iphone_profile_2x),      
       
       # feed, browse and search
       :photo_list     => photo.url(:iphone_list),
