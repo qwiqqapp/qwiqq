@@ -6,6 +6,7 @@ require 'factory_girl'
 
 # there's an issue with psych failing to parse dates on 1.9.2 
 # so force the use of syck until the issue has been resolved
+require 'yaml'
 YAML::ENGINE.yamler= 'syck'
 
 class ActiveSupport::TestCase
