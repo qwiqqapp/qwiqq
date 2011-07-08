@@ -1,8 +1,6 @@
 module Qwiqq
   module Facebook
     def self.share_deal(deal)
-      return unless deal.shared_to_facebook_at.blank?
-      
       client = client_for_user(deal.user)
       client.put_wall_post( 
         "I shared a deal on Qwiqq!",
