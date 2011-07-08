@@ -143,5 +143,17 @@ class User < ActiveRecord::Base
 
     json
   end
+
+  def facebook_client
+    @facebook_client ||= Koala::Facebook::GraphAPI.new(facebook_access_token)
+  end
+
+  def twitter_client
+    @twitter_client ||= TwitterOAuth::Client.new(
+      :consumer_key => Qwiqq.twitter_consumer_key, 
+      :consumer_secret => Qwiqq.twitter_consumer_secret,
+      :token => twitter_access_token,
+      :secret => twitter_access_secret)
+  end
 end
 

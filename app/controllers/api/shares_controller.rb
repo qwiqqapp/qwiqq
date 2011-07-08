@@ -16,3 +16,4 @@ class Api::SharesController < Api::ApiController
     head :ok
   end
 end
+
