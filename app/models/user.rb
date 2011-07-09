@@ -36,8 +36,10 @@ class User < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :username, :email, :password, :password_confirmation, :photo, :country, :city, :facebook_access_token, :twitter_access_token, :twitter_access_secret, :send_notifications
   
   attr_accessor :password
-  before_save   :encrypt_password
-  before_save   :update_twitter_id
+
+  before_save :encrypt_password
+  before_save :update_twitter_id
+  before_save :update_facebook_id
   
   validates_confirmation_of :password
   validates_presence_of     :password, :on => :create
@@ -52,11 +54,9 @@ class User < ActiveRecord::Base
                                   :iphone       => ["75x75#", :jpg],
                                   :iphone2x     => ["150x150#", :jpg],
                                   
-                                  :iphone_profile      => ["85x85#", :jpg],
-                                  :iphone_profile_2x   => ["170x170#", :jpg],
-                                  
                                   :iphone_zoom       => ["300x300#", :jpg],
-                                  :iphone_zoom_2x    => ["600x600#", :jpg] }
+                                  :iphone_zoom_2x    => ["600x600#", :jpg]
+                                  }
                     }.merge(PAPERCLIP_STORAGE_OPTIONS)
   
   def self.authenticate!(email, password)
@@ -131,10 +131,6 @@ class User < ActiveRecord::Base
       :photo_zoom          => photo.url(:iphone_zoom),
       :photo_zoom_2x       => photo.url(:iphone_zoom_2x),
       
-      # user detail photo zoom
-      :photo_profile          => photo.url(:iphone_profile),
-      :photo_profile_2x       => photo.url(:iphone_profile_2x),      
-      
       # counts
       :like_count          => liked_deals.count,
       :deal_count          => deals.count,
@@ -175,6 +171,17 @@ class User < ActiveRecord::Base
         self.twitter_id = twitter_client.info["id"] 
       else
         self.twitter_id = ""
+      end
+    end
+
+    def update_facebook_id
+      return unless facebook_access_token_changed?
+      if !facebook_access_token.blank?
+        account = facebook_client.get_object("me") rescue nil
+        return false unless account
+        self.facebook_id = account["id"] 
+      else
+        self.facebook_id = ""
       end
     end
 end
