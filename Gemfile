@@ -18,20 +18,17 @@ gem "paperclip"
 gem "aws-s3"
 gem "geokit"
 gem "koala"
+gem "twitter_oauth"
 
 gem "activeadmin"
 
 gem "factory_girl_rails"
 gem "ffaker"
-gem "mocha"
+gem "mocha", :require => false
 
 gem "bcrypt-ruby", :require => "bcrypt"
 
 group :development do
   gem "wirble"
-end
-
-group :test do
-  gem "mocha"
 end
 

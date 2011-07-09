@@ -1,0 +1,16 @@
+production:
+  consumer_key: KYzR7FWIf4uJT3e3qx0Sqw
+  consumer_secret: kXQlyUoRoW0r1634PqcBPatmDttYYkg8DfmDp8I1Jvc
+
+staging:
+  consumer_key: KYzR7FWIf4uJT3e3qx0Sqw
+  consumer_secret: kXQlyUoRoW0r1634PqcBPatmDttYYkg8DfmDp8I1Jvc
+
+development:
+  consumer_key: KYzR7FWIf4uJT3e3qx0Sqw
+  consumer_secret: kXQlyUoRoW0r1634PqcBPatmDttYYkg8DfmDp8I1Jvc
+
+test: 
+  consumer_key: invalid
+  consumer_secret: invalid
+

@@ -1,8 +1,13 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'mocha'
 require 'factory_girl'
-require 'mocha/integration/test_unit'
+
+# there's an issue with psych failing to parse dates on 1.9.2 
+# so force the use of syck until the issue has been resolved
+require 'yaml'
+YAML::ENGINE.yamler= 'syck'
 
 class ActiveSupport::TestCase
   def json_response

@@ -1,5 +1,8 @@
 Factory.find_definitions
 
+# mocha is not required by default
+require "mocha"
+
 # avoid sending emails, IMPORTANT
 Comment.any_instance.stubs(:deliver_notification).returns(:true)
 Like.any_instance.stubs(:deliver_notification).returns(:true)
@@ -51,8 +54,6 @@ users.each do |user|
   
   rand(8).times.each do
     puts ' + creating deal for user'
-    
-    Comment.any_instance.stubs(:deliver_notification).returns(:true)
     
     deals << deal = Factory(:deal, 
                             :user => user, 

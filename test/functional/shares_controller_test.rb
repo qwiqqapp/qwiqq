@@ -15,8 +15,8 @@ class Api::SharesControllerTest < ActionController::TestCase
     @deal = Factory(:deal, :user => @user)
     sign_in(@user)
 
-    Qwiqq::Facebook.expects(:share_deal).once.with(@deal)
-    Qwiqq::Twitter.expects(:share_deal).once.with(@deal)
+    Deal.any_instance.expects(:share_to_twitter).once
+    Deal.any_instance.expects(:share_to_facebook).once
     Mailer.expects(:share_deal).once.with(@deal, "eoin@gastownlabs.com").returns(mock(:deliver => true))
     Mailer.expects(:share_deal).once.with(@deal, "adam@gastownlabs.com").returns(mock(:deliver => true))
 

@@ -9,12 +9,13 @@ class Share < ActiveRecord::Base
   def deliver!
     case service
     when "facebook" 
-      Qwiqq::Facebook.share_deal(deal)
+      deal.share_to_facebook
     when "twitter" 
-      Qwiqq::Twitter.share_deal(deal)
+      deal.share_to_twitter
     when "email"
       Mailer.share_deal(deal, email).deliver
     end
     update_attribute(:shared_at, Time.now)
   end
 end
+

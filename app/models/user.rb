@@ -97,6 +97,10 @@ class User < ActiveRecord::Base
          WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id 
            AND r1.user_id = #{id} AND r1.target_id = #{target.id}").any?
   end
+
+  def email_invitation_sent?(email)
+    invitations_sent.exists?(:service => "email", :email => email)
+  end
   
   def as_json(options={})
     options.reverse_merge!(:deals => false, :comments => false)
@@ -148,6 +152,18 @@ class User < ActiveRecord::Base
     end
 
     json
+  end
+
+  def facebook_client
+    @facebook_client ||= Koala::Facebook::GraphAPI.new(facebook_access_token)
+  end
+
+  def twitter_client
+    @twitter_client ||= TwitterOAuth::Client.new(
+      :consumer_key => Qwiqq.twitter_consumer_key, 
+      :consumer_secret => Qwiqq.twitter_consumer_secret,
+      :token => twitter_access_token,
+      :secret => twitter_access_secret)
   end
 end
 
