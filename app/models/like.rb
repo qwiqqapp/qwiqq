@@ -13,7 +13,7 @@ class Like < ActiveRecord::Base
   
   private
   def deliver_notification
-    Notifications.deal_liked(self).deliver
+    Mailer.deal_liked(self).deliver
   end
 
   def increment_like_count

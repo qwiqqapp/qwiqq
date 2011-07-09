@@ -1,18 +1,20 @@
 class Deal < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
+
+  include Qwiqq::Facebook
+  include Qwiqq::Twitter
   
   belongs_to :user
   belongs_to :category
   
   has_many :comments
   has_many :likes
+  has_many :shares
 
   has_many :liked_by_users, :through => :likes, :source => :user
   
   #TODO update to 3.1 and use role based attr_accessible for premium
-  attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent, :share_to_facebook, :share_to_twitter
-  
-  attr_writer :share_to_facebook, :share_to_twitter
+  attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent
   
   # TODO update to 3.0 validates method
   validates_presence_of :user, :category, :name, :message => "is required"
@@ -20,7 +22,6 @@ class Deal < ActiveRecord::Base
   validate :has_price_or_percentage
   
   before_create :geodecode_location_name!
-  after_save :share_deal
   
   # indextank updates
   after_create   { indextank_doc.add }
@@ -32,6 +33,7 @@ class Deal < ActiveRecord::Base
   scope :search_by_name, lambda { |query| where([ 'UPPER(name) like ?', "%#{query.upcase}%" ]) }
 
   # all images are cropped
+  #  TODO review all image sizes, need to reduce/reuse
   has_attached_file :photo,
                     {:styles => { #admin
                                   :admin_sml    => ["30x30#", :jpg],
@@ -42,14 +44,18 @@ class Deal < ActiveRecord::Base
                                   :iphone_grid       => ["75x75#", :jpg],
                                   :iphone_grid_2x    => ["150x150#", :jpg],
                                   
+                                  # deal detail view
+                                  :iphone_profile      => ["85x85#", :jpg],
+                                  :iphone_profile_2x   => ["170x170#", :jpg],
+                                  
                                   # feed, browse, search list views
                                   :iphone_list       => ["55x55#", :jpg],
                                   :iphone_list_2x    => ["110x110#", :jpg],
                                   
                                   # zoomed image size
                                   :iphone_zoom       => ["300x300#", :jpg],
-                                  :iphone_zoom_2x    => ["600x600#", :jpg]
-                                  }
+                                  :iphone_zoom_2x    => ["600x600#", :jpg] 
+                                }
                     }.merge(PAPERCLIP_STORAGE_OPTIONS)
   
   def self.geodecode_location_name(lat, lon)
@@ -68,6 +74,10 @@ class Deal < ActiveRecord::Base
       # popular
       :photo_grid     => photo.url(:iphone_grid),
       :photo_grid_2x  => photo.url(:iphone_grid_2x),
+      
+      # profile image on deal detail screen
+      :photo_profile     => photo.url(:iphone_profile),
+      :photo_profile_2x  => photo.url(:iphone_profile_2x),      
       
       # feed, browse and search
       :photo_list     => photo.url(:iphone_list),
@@ -122,6 +132,7 @@ class Deal < ActiveRecord::Base
     end
   end
 
+
   def share_to_facebook!
     Qwiqq::Facebook.share_deal(self)
   end
@@ -134,6 +145,7 @@ class Deal < ActiveRecord::Base
     @doc ||= IndexTank::Document.new(self)
   end
   
+
   private
   def geodecode_location_name!
     self[:location_name] = Deal.geodecode_location_name(lat, lon) if location_name.blank?
@@ -144,8 +156,6 @@ class Deal < ActiveRecord::Base
     share_to_facebook! if @share_to_facebook
     share_to_twitter! if @share_to_twitter
   end
-  
-
   
   def has_price_or_percentage
     errors.add(:base, "You must specify a price or percentage") if price.blank? && percent.blank?

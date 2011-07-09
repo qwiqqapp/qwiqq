@@ -16,6 +16,9 @@ class Api::RelationshipsControllerTest < ActionController::TestCase
 
     assert_equal 201, @response.status
     assert_equal [@target], @user.following
+    assert_equal 1, json_response["followers_count"]
+    assert_equal 0, json_response["following_count"]
+    assert_equal 0, json_response["friends_count"]
   end
 
   test "should destroy a relationship" do
@@ -29,6 +32,9 @@ class Api::RelationshipsControllerTest < ActionController::TestCase
 
     assert_equal 200, @response.status
     assert_equal [], @user.following
+    assert_equal 0, json_response["followers_count"]
+    assert_equal 0, json_response["following_count"]
+    assert_equal 0, json_response["friends_count"]
   end
 
 end

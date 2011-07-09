@@ -92,7 +92,6 @@ class Api::CommentsControllerTest < ActionController::TestCase
     post :create, :deal_id => @deal.id, :comment => params, :format => "json"
 
     assert_equal 201, @response.status
-    Deal.unstub(:increment_counter)
   end
 
   test "should fail to create an invalid comment" do
@@ -105,7 +104,6 @@ class Api::CommentsControllerTest < ActionController::TestCase
 
     # TODO shouldn't an invalid entity result in a 422?
     assert_equal 400, @response.status
-    Deal.unstub(:increment_counter)
   end
 
   test "should delete a comment if it belongs to the current user" do

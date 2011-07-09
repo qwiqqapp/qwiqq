@@ -26,7 +26,12 @@ class Api::UsersControllerTest < ActionController::TestCase
     assert_routing("/api/users/1/following.json", 
                    {:format => "json", :controller => "api/users", :action => "following", :id => "1"})
   end
-
+  
+  test "should route to users#friends" do
+    assert_routing("/api/users/1/friends.json", 
+                   {:format => "json", :controller => "api/users", :action => "friends", :id => "1"})
+  end
+  
   test "user registration" do
     @user_params = Factory.attributes_for(:user)
     post :create, :user => @user_params, :format => 'json'
@@ -52,14 +57,16 @@ class Api::UsersControllerTest < ActionController::TestCase
     get :show, :id => @user.id, :format => 'json'
     assert_equal 200, @response.status
   end
-  
+
   # users#show for current user
   test "should render current_users details" do
     @user = Factory(:user)
     @deals = [Factory(:deal, :user => @user), Factory(:deal, :user => @user)]
     sign_in(@user)
-    
+
+
     get :show, :id => "current", :format => 'json'
+
     assert_equal 200, @response.status
     assert_equal 2, json_response['deals'].size
   end
@@ -97,6 +104,22 @@ class Api::UsersControllerTest < ActionController::TestCase
     assert_equal Array, json_response.class
     assert_equal 2, json_response.size
   end
+
+  # users#friends
+  test "should render a users friends" do
+    @user0 = Factory(:user)
+    @user1 = Factory(:user)
+
+    sign_in(@user0)
+
+    @user0.follow!(@user1)
+    @user1.follow!(@user0)
+    
+    get :following, :id => @user0.id, :format => 'json'
+    assert_equal 200, @response.status
+    assert_equal Array, json_response.class
+    assert_equal 1, json_response.size
+  end
   
   # users#update
   test "should allow the current user to be updated" do
@@ -116,13 +139,23 @@ class Api::UsersControllerTest < ActionController::TestCase
     put :update, :id => "current", :user => @user_params, :format => "json"
 
     assert_equal 200, @response.status
-    assert_equal "Bilbo", @user.first_name
-    assert_equal "Baggins", @user.last_name
-    assert_equal "bilbo", @user.username
-    assert_equal "bilbo@theshire.com", @user.email
-    assert_equal "Middle Earth", @user.country
-    assert_equal "The Shire", @user.city
     assert_equal "token", @user.facebook_access_token
+
+    # the response should contain the updated user
+    assert_equal "Bilbo", json_response["first_name"]
+    assert_equal "Baggins", json_response["last_name"]
+  end
+
+  # users#update
+  test "should return validation errors when updating the user failed" do
+    @user = Factory(:user)
+    sign_in(@user)
+
+    @user_params = { :email => "" }
+    put :update, :id => "current", :user => @user_params, :format => "json"
+
+    assert_equal 422, @response.status
+    assert_match /blank/i, json_response["email"].first
   end
   
 end

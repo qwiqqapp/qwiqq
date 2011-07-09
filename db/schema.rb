@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110704235551) do
+ActiveRecord::Schema.define(:version => 20110708185149) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -72,14 +72,20 @@ ActiveRecord::Schema.define(:version => 20110704235551) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.boolean  "premium",               :default => false
+    t.boolean  "premium",            :default => false
     t.float    "lat"
     t.float    "lon"
-    t.integer  "comment_count",         :default => 0
-    t.integer  "like_count",            :default => 0
+    t.integer  "comment_count",      :default => 0
+    t.integer  "like_count",         :default => 0
     t.string   "location_name"
-    t.datetime "shared_to_facebook_at"
-    t.datetime "shared_to_twitter_at"
+  end
+
+  create_table "invitations", :force => true do |t|
+    t.integer  "user_id",      :null => false
+    t.string   "service",      :null => false
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "delivered_at"
   end
 
   create_table "likes", :force => true do |t|
@@ -99,6 +105,15 @@ ActiveRecord::Schema.define(:version => 20110704235551) do
   add_index "relationships", ["user_id", "target_id"], :name => "index_relationships_on_user_id_and_target_id", :unique => true
   add_index "relationships", ["user_id"], :name => "index_relationships_on_user_id"
 
+  create_table "shares", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.integer  "deal_id",    :null => false
+    t.string   "service",    :null => false
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "shared_at"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email"
     t.string   "city"
@@ -115,6 +130,12 @@ ActiveRecord::Schema.define(:version => 20110704235551) do
     t.string   "last_name"
     t.string   "username"
     t.string   "facebook_access_token"
+    t.string   "twitter_access_token"
+    t.boolean  "send_notifications",    :default => true
+    t.integer  "followers_count",       :default => 0,    :null => false
+    t.integer  "following_count",       :default => 0,    :null => false
+    t.integer  "friends_count",         :default => 0,    :null => false
+    t.string   "twitter_access_secret"
   end
 
 end

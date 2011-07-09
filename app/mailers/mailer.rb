@@ -1,4 +1,4 @@
-class Notifications < ActionMailer::Base
+class Mailer < ActionMailer::Base
   default :from => "notifications@qwiqq.me"
 
   def deal_liked(like)
@@ -12,6 +12,17 @@ class Notifications < ActionMailer::Base
     @deal = comment.deal
     @user = comment.user
     mail :to => @deal.user.email, :subject => "Someone commented on your Qwiqq deal!"
+  end
+  
+  def share_deal(deal, email)
+    @deal = deal
+    @user = deal.user
+    mail :to => email, :subject => "#{@user.name} shared a Qwiqq deal with you!"
+  end
+
+  def invitation(user, email)
+    @user = user
+    mail :to => email, :subject => "#{@user.name} has invited you to Qwiqq!"
   end
 end
 

@@ -8,12 +8,32 @@ class User < ActiveRecord::Base
 
   has_many :relationships, :dependent => :destroy
   has_many :inverse_relationships, :class_name => "Relationship", :foreign_key => "target_id"
-  has_many :followers, :through => :inverse_relationships, :source => :user
+    
   has_many :following, :through => :relationships, :source => :target
+  has_many :followers, :through => :inverse_relationships, :source => :user
+  has_many :friends, :class_name => "User", 
+    :finder_sql => proc { 
+      "SELECT users.* FROM users WHERE id IN (
+         SELECT r1.target_id FROM relationships r1, relationships r2 
+         WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id AND r1.user_id = #{id})" },
+    :counter_sql => proc { 
+      "SELECT COUNT(*) FROM relationships r1, relationships r2 
+       WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id AND r1.user_id = #{id}" }
+
+  has_many :shares, :dependent => :destroy
+  has_many :shared_deals, :through => :shares, :source => :deal, :uniq => true
+
+  has_many :invitations_sent, :class_name => "Invitation"
   
-  scope :today, lambda{ where('DATE(created_at) = ?', Date.today)}
+  # added using AREL so that the query can more easily be extended;
+  #   e.g user.following_deals.include(:category).limit(20)
+  def following_deals
+    Deal.joins("INNER JOIN relationships ON relationships.target_id = deals.user_id").where("relationships.user_id = #{id}")
+  end
   
-  attr_accessible :first_name, :last_name, :username, :email, :password, :password_confirmation, :photo, :country, :city, :facebook_access_token
+  scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
+  
+  attr_accessible :first_name, :last_name, :username, :email, :password, :password_confirmation, :photo, :country, :city, :facebook_access_token, :twitter_access_token, :twitter_access_secret, :send_notifications
   
   attr_accessor :password
   before_save   :encrypt_password
@@ -30,6 +50,9 @@ class User < ActiveRecord::Base
                                   
                                   :iphone       => ["75x75#", :jpg],
                                   :iphone2x     => ["150x150#", :jpg],
+                                  
+                                  :iphone_profile      => ["85x85#", :jpg],
+                                  :iphone_profile_2x   => ["170x170#", :jpg],
                                   
                                   :iphone_zoom       => ["300x300#", :jpg],
                                   :iphone_zoom_2x    => ["600x600#", :jpg] }
@@ -58,39 +81,89 @@ class User < ActiveRecord::Base
   def follow!(target)
     relationships.create(:target => target)
   end
+
+  def unfollow!(target)
+    relationships.find_by_target_id(target.id).try(:destroy)
+  end
+  
+  def following?(target)
+    relationships.exists?(:target_id => target.id)
+  end
+  
+  def friends?(target)
+    # TODO do this by extending #friends
+    Relationship.find_by_sql(
+        "SELECT r1.* FROM relationships r1, relationships r2 
+         WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id 
+           AND r1.user_id = #{id} AND r1.target_id = #{target.id}").any?
+  end
+
+  def email_invitation_sent?(email)
+    invitations_sent.exists?(:service => "email", :email => email)
+  end
   
   def as_json(options={})
     options.reverse_merge!(:deals => false, :comments => false)
-    {
-      :user_id        => id.try(:to_s),
-      :email          => email,
-      :first_name     => first_name,
-      :last_name      => last_name,
-      :user_name      => username,
-      :city           => city,
-      :country        => country,
-      :created_at     => created_at,
-      :updated_at     => updated_at,
-      :join_date      => created_at.to_date.to_s(:long),
-      
+    json = {
+      :user_id             => id.try(:to_s),
+      :email               => email,
+      :first_name          => first_name,
+      :last_name           => last_name,
+      :user_name           => username,
+      :city                => city,
+      :country             => country,
+      :created_at          => created_at,
+      :updated_at          => updated_at,
+      :join_date           => created_at.to_date.to_s(:long),
+      :send_notifications  => send_notifications,
+      :facebook_authorized => !facebook_access_token.blank?,
+      :twitter_authorized  => !twitter_access_token.blank?,
+      :followers_count     => followers_count,
+      :following_count     => following_count,
+      :friends_count       => friends_count,
+
       # user detail photo
-      :photo          => photo.url(:iphone),
-      :photo_2x       => photo.url(:iphone2x),
+      :photo               => photo.url(:iphone),
+      :photo_2x            => photo.url(:iphone2x),
       
       # user detail photo zoom
-      :photo_zoom     => photo.url(:iphone_zoom),
-      :photo_zoom_2x  => photo.url(:iphone_zoom_2x),
+      :photo_zoom          => photo.url(:iphone_zoom),
+      :photo_zoom_2x       => photo.url(:iphone_zoom_2x),
+      
+      # user detail photo zoom
+      :photo_profile          => photo.url(:iphone_profile),
+      :photo_profile_2x       => photo.url(:iphone_profile_2x),      
       
       # counts
-      :like_count     => liked_deals.count,
-      :deal_count     => deals.count,
-      :comment_count  => comments.count,
+      :like_count          => liked_deals.count,
+      :deal_count          => deals.count,
+      :comment_count       => comments.count,
       
       # conditional
-      :deals          => options[:deals]    ? deals.limit(6)        : nil,
-      :liked_deals    => options[:deals]    ? liked_deals.limit(6)  : nil,
-      :comments       => options[:comments] ? comments.limit(3)     : nil
+      :deals               => options[:deals]    ? deals.limit(6)        : nil,
+      :liked_deals         => options[:deals]    ? liked_deals.limit(6)  : nil,
+      :comments            => options[:comments] ? comments.limit(3)     : nil
     }
+    
+    # add is_following and is_followed if possible
+    if current_user = options[:current_user] 
+      json[:is_following] = current_user.following?(self)
+      json[:is_followed] = self.following?(current_user)
+    end
+
+    json
+  end
+
+  def facebook_client
+    @facebook_client ||= Koala::Facebook::GraphAPI.new(facebook_access_token)
+  end
+
+  def twitter_client
+    @twitter_client ||= TwitterOAuth::Client.new(
+      :consumer_key => Qwiqq.twitter_consumer_key, 
+      :consumer_secret => Qwiqq.twitter_consumer_secret,
+      :token => twitter_access_token,
+      :secret => twitter_access_secret)
   end
 end
 

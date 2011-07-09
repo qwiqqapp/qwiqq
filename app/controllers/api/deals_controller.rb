@@ -1,6 +1,6 @@
 class Api::DealsController < Api::ApiController
   
-  skip_before_filter :require_user, :only => [:popular, :feed, :show]
+  skip_before_filter :require_user, :only => [:popular, :show]
   
   # ------------------
   # no auth required
@@ -18,7 +18,7 @@ class Api::DealsController < Api::ApiController
   # phase 2: add location order
   # phase 3: only deals from friends
   def feed
-    @deals = Deal.limit(32).includes(:category)
+    @deals = current_user.following_deals.limit(32).includes(:category)
     raise RecordNotFound unless @deals
     respond_with @deals
   end
