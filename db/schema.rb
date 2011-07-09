@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110708185149) do
+ActiveRecord::Schema.define(:version => 20110709001316) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(:version => 20110708185149) do
     t.integer  "following_count",       :default => 0,    :null => false
     t.integer  "friends_count",         :default => 0,    :null => false
     t.string   "twitter_access_secret"
+    t.string   "twitter_id"
   end
 
 end

@@ -19,6 +19,7 @@ class Api::FriendsControllerTest < ActionController::TestCase
     @user0.follow!(@user1)
 
     post :find, 
+      :format => "json",
       :user_id => @user0.id, 
       :service => "email", 
       :emails => [ 
@@ -36,4 +37,31 @@ class Api::FriendsControllerTest < ActionController::TestCase
     assert_equal({ "email" => "user3@gastownlabs.com", "state" => "not_invited" }, json_response[2])
     assert_equal({ "email" => "user4@gastownlabs.com", "state" => "invited" }, json_response[3])
   end
+
+  test "should by friends on twitter" do
+    @user0 = Factory(:user)
+    sign_in(@user0)
+
+    @user1 = Factory(:user, :twitter_id => "1", :email => "user1@gastownlabs.com") # following
+    @user2 = Factory(:user, :twitter_id => "2", :email => "user2@gastownlabs.com") # not_following
+    @user3 = Factory(:user, :twitter_id => "3", :email => "user3@gastownlabs.com") 
+
+    @user0.follow!(@user1)
+
+    twitter_client = mock({ :friends => [ { "id" => "1" }, { "id" => "2" } ] })
+    User.any_instance.stubs(:twitter_client).returns(twitter_client)
+
+    post :find,
+      :format => "json",
+      :user_id => @user0.id,
+      :service => "twitter"
+
+    assert_equal 200, @response.status
+    assert_equal Array, json_response.class
+    assert_equal 2, json_response.size
+
+    assert_equal({ "email" => "user1@gastownlabs.com", "state" => "following", "user_id" => @user1.id }, json_response[0])
+    assert_equal({ "email" => "user2@gastownlabs.com", "state" => "not_following", "user_id" => @user2.id }, json_response[1])
+  end
 end
+
