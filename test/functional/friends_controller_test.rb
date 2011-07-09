@@ -9,7 +9,7 @@ class Api::FriendsControllerTest < ActionController::TestCase
       :user_id => "1" })
   end
   
-  test "should find friends by email" do
+  test "finds friends by email" do
     @user0 = Factory(:user)
     sign_in(@user0)
 
@@ -32,23 +32,23 @@ class Api::FriendsControllerTest < ActionController::TestCase
     assert_equal Array, json_response.class
     assert_equal 4, json_response.size
 
-    assert_equal({ "email" => "user1@gastownlabs.com", "state" => "following", "user_id" => @user1.id }, json_response[0])
-    assert_equal({ "email" => "user2@gastownlabs.com", "state" => "not_following", "user_id" => @user2.id }, json_response[1])
+    assert_equal({ "email" => "user1@gastownlabs.com", "user_id" => @user1.id, "name" => @user1.name, "state" => "following" }, json_response[0])
+    assert_equal({ "email" => "user2@gastownlabs.com", "user_id" => @user2.id, "name" => @user2.name, "state" => "not_following" }, json_response[1])
     assert_equal({ "email" => "user3@gastownlabs.com", "state" => "not_invited" }, json_response[2])
     assert_equal({ "email" => "user4@gastownlabs.com", "state" => "invited" }, json_response[3])
   end
 
-  test "should by friends on twitter" do
+  test "finds by friends on twitter" do
     @user0 = Factory(:user)
     sign_in(@user0)
 
-    @user1 = Factory(:user, :twitter_id => "1", :email => "user1@gastownlabs.com") # following
-    @user2 = Factory(:user, :twitter_id => "2", :email => "user2@gastownlabs.com") # not_following
-    @user3 = Factory(:user, :twitter_id => "3", :email => "user3@gastownlabs.com") 
+    @user1 = Factory(:user, :twitter_id => "1", :first_name => "a", :last_name => "a") # following
+    @user2 = Factory(:user, :twitter_id => "2", :first_name => "b", :last_name => "b") # not_following
+    @user3 = Factory(:user, :twitter_id => "3") 
 
     @user0.follow!(@user1)
 
-    twitter_client = mock({ :friends => [ { "id" => "1" }, { "id" => "2" } ] })
+    twitter_client = mock({ :friends => [ { "id" => "1" }, { "id" => "2" }, { "id" => "4" } ] })
     User.any_instance.stubs(:twitter_client).returns(twitter_client)
 
     post :find,
@@ -60,8 +60,44 @@ class Api::FriendsControllerTest < ActionController::TestCase
     assert_equal Array, json_response.class
     assert_equal 2, json_response.size
 
-    assert_equal({ "email" => "user1@gastownlabs.com", "state" => "following", "user_id" => @user1.id }, json_response[0])
-    assert_equal({ "email" => "user2@gastownlabs.com", "state" => "not_following", "user_id" => @user2.id }, json_response[1])
+    assert_equal({ "user_id" => @user1.id, "name" => @user1.name, "state" => "following" }, json_response[0])
+    assert_equal({ "user_id" => @user2.id, "name" => @user2.name, "state" => "not_following" }, json_response[1])
+  end
+
+  test "finds by friends on facebook" do
+    @user0 = Factory(:user)
+    sign_in(@user0)
+
+    @user1 = Factory(:user, :facebook_id => "1", :first_name => "a", :last_name => "a") # following
+    @user2 = Factory(:user, :facebook_id => "2", :first_name => "b", :last_name => "b") # not_following
+    @user3 = Factory(:user, :facebook_id => "3") 
+
+    @user0.follow!(@user1)
+
+    facebook_client = mock()
+    facebook_client.expects(:get_connections).with("me", "friends").returns([ { "id" => "1" }, { "id" => "2" }, { "id" => "4" } ])
+    User.any_instance.stubs(:facebook_client).returns(facebook_client)
+
+    post :find,
+      :format => "json",
+      :user_id => @user0.id,
+      :service => "facebook"
+
+    assert_equal 200, @response.status
+    assert_equal Array, json_response.class
+    assert_equal 2, json_response.size
+
+    assert_equal({ "user_id" => @user1.id, "name" => @user1.name, "state" => "following" }, json_response[0])
+    assert_equal({ "user_id" => @user2.id, "name" => @user2.name, "state" => "not_following" }, json_response[1])
+  end
+
+  test "fails when no service is provided" do
+    @user0 = Factory(:user)
+    sign_in(@user0)
+
+    post :find, :format => "json", :user_id => @user0.id
+
+    assert_equal 406, @response.status
   end
 end
 
