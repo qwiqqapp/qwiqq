@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
   
   attr_accessor :password
   before_save   :encrypt_password
+  before_save   :update_twitter_id
   
   validates_confirmation_of :password
   validates_presence_of     :password, :on => :create
@@ -159,5 +160,16 @@ class User < ActiveRecord::Base
       :token => twitter_access_token,
       :secret => twitter_access_secret)
   end
+
+  private
+    def update_twitter_id
+      return unless twitter_access_token_changed?
+      if !twitter_access_token.blank?
+        return false unless twitter_client.authorized?
+        self.twitter_id = twitter_client.info["id"] 
+      else
+        self.twitter_id = ""
+      end
+    end
 end
 

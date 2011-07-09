@@ -77,4 +77,15 @@ class UserTest < ActiveSupport::TestCase
     assert_equal [@deal0, @deal1], @user0.following_deals
   end
 
+  test "should update twitter_id when twitter_access_token changes" do
+    @user = Factory(:user)
+
+    twitter_client = mock(:authorized? => true, :info => { "id" => "1" })
+    @user.stubs(:twitter_client).returns(twitter_client)
+    @user.update_attributes(
+      :twitter_access_token => "token",
+      :twitter_access_secret => "secret")
+
+    assert_equal "1", @user.twitter_id 
+  end
 end
