@@ -29,13 +29,19 @@ module Qwiqq
         @deal = deal
       end
       
+      # will raise exception if fails to add document
       def add
         index.document(deal.id).add(fields, :variables => variables)
-        index.document(deal.id).update_categories(categories)        
+        index.document(deal.id).update_categories(categories)
+        deal.update_attribute(:indexed_at, Time.now)
+        
+      rescue IndexTank::InvalidArgument => e
+        puts "Unable to add deal #{deal.id} to indextank: #{e.message}"
       end
       
       def remove
-        index.document(deal.id).remove
+        index.document(deal.id).delete
+        deal.update_attribute(:indexed_at, nil)
       end
       
       def sync_variables
