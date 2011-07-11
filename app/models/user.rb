@@ -25,13 +25,17 @@ class User < ActiveRecord::Base
 
   has_many :shares, :dependent => :destroy
   has_many :shared_deals, :through => :shares, :source => :deal, :uniq => true
+  has_many :reposted_deals
 
   has_many :invitations_sent, :class_name => "Invitation"
+
   
-  # added using AREL so that the query can more easily be extended;
-  #   e.g user.following_deals.include(:category).limit(20)
-  def following_deals
-    Deal.joins("INNER JOIN relationships ON relationships.target_id = deals.user_id").where("relationships.user_id = #{id}")
+  # queried using AREL so that it can be more easily extended;
+  #   e.g user.feed_deals.include(:category).limit(20)
+  def feed_deals
+    Deal.
+      joins("LEFT OUTER JOIN relationships ON relationships.target_id = deals.user_id").
+      where("relationships.user_id = #{id} OR deals.user_id = #{id}")
   end
   
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
@@ -113,6 +117,10 @@ class User < ActiveRecord::Base
         "SELECT r1.* FROM relationships r1, relationships r2 
          WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id 
            AND r1.user_id = #{id} AND r1.target_id = #{target.id}").any?
+  end
+
+  def repost_deal!(deal)
+    reposted_deals.create(:deal => deal)
   end
 
   def email_invitation_sent?(email)

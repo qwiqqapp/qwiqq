@@ -42,31 +42,33 @@ class Api::DealsControllerTest < ActionController::TestCase
   end
   
   # deals#feed
-  test "should render recent public deals" do
-    @user = Factory(:user)
-    sign_in(@user)
+  test "should render a users deals feed" do
+    @user0 = Factory(:user)
+    @user1 = Factory(:user)
+    @user2 = Factory(:user)
+    
+    sign_in(@user0)
 
-    # feed deals come from followed users
-    following_deals = [ 
-      Factory(:deal, :premium => false, :created_at => Time.now - 1.minutes),
-      Factory(:deal, :premium => false, :created_at => Time.now - 40.minutes),
-      Factory(:deal, :premium => true,  :created_at => Time.now - 2.hours),
-      Factory(:deal, :premium => true,  :created_at => Time.now - 5.days)]
-    following_deals.each {|d| @user.follow!(d.user)}
+    # deals from the current user and the users they follow
+    feed_deals = [
+      Factory(:deal, :user => @user0, :created_at => 30.seconds.ago),
+      Factory(:deal, :user => @user1, :created_at => 1.minutes.ago),
+      Factory(:deal, :user => @user2, :created_at => 40.minutes.ago),
+      Factory(:deal, :user => @user2, :created_at => 2.hours.ago),
+      Factory(:deal, :user => @user1, :created_at => 3.days.ago),
+      Factory(:deal, :user => @user0, :created_at => 5.days.ago) ]
 
-    # add some deals from other users
-    non_following_deals = [
-      Factory(:deal),
-      Factory(:deal) ]
+    @user0.follow!(@user1)
+    @user0.follow!(@user2)
 
     get :feed, :format => 'json'
     
     assert_equal 200,   @response.status
     assert_equal Array, json_response.class
-    assert_equal 4,     json_response.size
+    assert_equal 6,     json_response.size
     
-    # check premium order
-    assert_equal following_deals.map(&:id),  json_response.map{|d| d['deal_id'].to_i}
+    # check order
+    assert_equal feed_deals.map(&:id), json_response.map{|d| d["deal_id"].to_i}
   end
   
   # deals#create

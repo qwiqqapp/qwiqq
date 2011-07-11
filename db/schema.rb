@@ -10,7 +10,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110709014339) do
+ActiveRecord::Schema.define(:version => 20110711215235) do
+
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
     t.string   "resource_type", :null => false
@@ -103,6 +104,12 @@ ActiveRecord::Schema.define(:version => 20110709014339) do
   add_index "relationships", ["target_id"], :name => "index_relationships_on_target_id"
   add_index "relationships", ["user_id", "target_id"], :name => "index_relationships_on_user_id_and_target_id", :unique => true
   add_index "relationships", ["user_id"], :name => "index_relationships_on_user_id"
+
+  create_table "reposted_deals", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.integer  "deal_id",    :null => false
+    t.datetime "created_at"
+  end
 
   create_table "shares", :force => true do |t|
     t.integer  "user_id",    :null => false
