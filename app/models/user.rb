@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
+
+  include Qwiqq::FacebookSharing
+  include Qwiqq::TwitterSharing
   
   has_many :deals,    :dependent => :destroy
   has_many :comments, :dependent => :destroy

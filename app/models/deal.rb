@@ -1,9 +1,6 @@
 class Deal < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
 
-  include Qwiqq::Facebook
-  include Qwiqq::Twitter
-  
   belongs_to :user
   belongs_to :category
   
