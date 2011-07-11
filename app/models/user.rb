@@ -25,8 +25,10 @@ class User < ActiveRecord::Base
 
   has_many :shares, :dependent => :destroy
   has_many :shared_deals, :through => :shares, :source => :deal, :uniq => true
+  has_many :reposted_deals
 
   has_many :invitations_sent, :class_name => "Invitation"
+
   
   # queried using AREL so that it can be more easily extended;
   #   e.g user.feed_deals.include(:category).limit(20)
@@ -115,6 +117,10 @@ class User < ActiveRecord::Base
         "SELECT r1.* FROM relationships r1, relationships r2 
          WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id 
            AND r1.user_id = #{id} AND r1.target_id = #{target.id}").any?
+  end
+
+  def repost_deal!(deal)
+    reposted_deals.create(:deal => deal)
   end
 
   def email_invitation_sent?(email)
