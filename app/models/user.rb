@@ -28,10 +28,12 @@ class User < ActiveRecord::Base
 
   has_many :invitations_sent, :class_name => "Invitation"
   
-  # added using AREL so that the query can more easily be extended;
-  #   e.g user.following_deals.include(:category).limit(20)
-  def following_deals
-    Deal.joins("INNER JOIN relationships ON relationships.target_id = deals.user_id").where("relationships.user_id = #{id}")
+  # queried using AREL so that it can be more easily extended;
+  #   e.g user.feed_deals.include(:category).limit(20)
+  def feed_deals
+    Deal.
+      joins("LEFT OUTER JOIN relationships ON relationships.target_id = deals.user_id").
+      where("relationships.user_id = #{id} OR deals.user_id = #{id}")
   end
   
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
