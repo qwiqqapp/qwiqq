@@ -42,7 +42,7 @@ class Api::FriendsController < Api::ApiController
 
     def find_friends_on_twitter(user)
       # retrieve ids
-      twitter_ids = user.twitter_client.friends.map {|f| f["id"] }
+      twitter_ids = user.twitter_client.friends.map {|f| f["id"].to_s }
 
       # find twitter friends 
       friends = User.where(:twitter_id => twitter_ids).order("first_name, last_name DESC")

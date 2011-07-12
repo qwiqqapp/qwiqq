@@ -50,7 +50,7 @@ class Api::FriendsControllerTest < ActionController::TestCase
 
     @user0.follow!(@user1)
 
-    twitter_client = mock({ :friends => [ { "id" => "1" }, { "id" => "2" }, { "id" => "4" } ] })
+    twitter_client = mock({ :friends => [ { "id" => 1 }, { "id" => 2 }, { "id" => 4 } ] })
     User.any_instance.stubs(:twitter_client).returns(twitter_client)
 
     post :find,
