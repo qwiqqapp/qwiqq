@@ -4,7 +4,7 @@ class Api::SearchController < Api::ApiController
   def users
   end
   
-  # api/search/deals          << default currently redirected to newest
+  # api/search/deals          << considered like current, a symlink to default
   # api/search/deals/:newest
   # api/search/deals/:nearby
   # api/search/deals/:popular
