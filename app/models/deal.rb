@@ -4,10 +4,10 @@ class Deal < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
   
-  has_many :comments
-  has_many :likes
+  has_many :comments, :dependent => :destroy
+  has_many :likes, :dependent => :destroy
   has_many :shares
-  has_many :reposts, :class_name => "RepostedDeal"
+  has_many :reposts, :dependent => :destroy, :class_name => "RepostedDeal"
 
   has_many :liked_by_users, :through => :likes, :source => :user
   has_many :reposted_by_users, :through => :reposts, :source => :user
