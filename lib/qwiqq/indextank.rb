@@ -19,18 +19,21 @@
 
 module Qwiqq
   module Indextank
+    extend ActiveSupport::Concern
     
-    # attach document class to owner
-    def indexed_doc
-      @doc = Document.new(self)
+    module ClassMethods
+      def indextank
+        Document
+      end
     end
     
-    def self.indextank
-      Document
+    module InstanceMethods
+      def indexed_doc
+        Document.new(self)
+      end
     end
     
     # -----------------------
-    
     class Document
       attr_accessor :deal
       
@@ -40,7 +43,7 @@ module Qwiqq
       
       # will raise exception if fails to add document
       def add
-        index.document(deal.id).add(fields, :variables => variables)
+        self.index.document(deal.id).add(fields, :variables => variables)
         deal.update_attribute(:indexed_at, Time.now)
         
       rescue IndexTank::InvalidArgument => e
@@ -48,12 +51,12 @@ module Qwiqq
       end
       
       def remove
-        index.document(deal.id).delete
+        self.index.document(deal.id).delete
         deal.update_attribute(:indexed_at, nil)
       end
       
       def sync_variables
-        index.document(deal.id).update_variables(variables)
+        self.index.document(deal.id).update_variables(variables)
       end
       
       def fields
@@ -71,14 +74,12 @@ module Qwiqq
          fields
       end
       
-      
       def variables
         { 0 => deal.lat,
           1 => deal.lon,
           2 => deal.like_count }
       end
       
-      # allow deal to browse, and search
       def self.browse(category, lat, long)
         search('browse', {:q => "category:#{category}", :lat => lat, :long => long})
       end
@@ -94,15 +95,8 @@ module Qwiqq
       def self.popular(q)
         search('popular', {:q => q})
       end
-      
-      
-      def self.add_functions
-        index.functions(0, '-age * relevance').add                  # Newest: newest and most relevant
-        index.functions(1, "-miles(d[0], d[1], q[0], q[1])").add    # Nearby: location
-        index.functions(2, "log(doc.var[2]) - age/86400").add       # Popular: like_count with age
-      end
-      
-      # class method
+
+      private
       def self.search(type, opts={})
         q = opts[:q]
         base = {:fetch => "text,image,image_2x,price,percent,premium"}
@@ -117,8 +111,7 @@ module Qwiqq
         
         index.search(q, base.merge(function))['results']
       end
-
-      private
+      
       def self.client
         @client = IndexTank::Client.new(ENV['INDEXTANK_API_URL'])
       end
