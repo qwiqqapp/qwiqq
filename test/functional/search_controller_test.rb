@@ -3,17 +3,25 @@ require 'test_helper'
 class Api::SearchControllerTest < ActionController::TestCase
 
   test "should route to search#deals" do
-    assert_routing({:method => 'get', :path => '/api/search/deals.json'}, {:format => 'json', :controller => 'api/search', :action => 'deals'})
+    assert_routing(
+      {:method => 'get', :path => '/api/search/deals/nearby.json'}, 
+      {:format => 'json', :controller => 'api/search', :action => 'deals', :filter => 'nearby'}
+    )
   end
   
   test "should route to search#users" do
-    assert_routing({:method => 'get', :path => '/api/search/users.json'}, {:format => 'json', :controller => 'api/search', :action => 'users'})
+    assert_routing(
+      {:method => 'get', :path => '/api/search/users.json'}, 
+      {:format => 'json', :controller => 'api/search', :action => 'users'}
+    )
   end
   
   test 'should route to search#category' do
-    assert_routing({:method => 'get', :path => '/api/search/categories/food/deals'}, {:format => 'json', :controller => 'api/search', :action => 'category'})
+    assert_routing(
+      {:method => 'get', :path => '/api/search/categories/food/deals.json'}, 
+      {:format => 'json', :controller => 'api/search', :action => 'category', :name => 'food'}
+    )
   end
-  
 
   # test "should route to search#users" do
   #   assert_routing('/api/categories/travel/deals', 

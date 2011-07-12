@@ -129,6 +129,7 @@ class User < ActiveRecord::Base
   end
   
   def as_json(options={})
+    options ||= {}
     options.reverse_merge!(:deals => false, :comments => false)
     json = {
       :user_id             => id.try(:to_s),

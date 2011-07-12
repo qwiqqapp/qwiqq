@@ -4,10 +4,11 @@ Qwiqq::Application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
 
-  # public
+  # public web
   root :to => "deals#index"
   resources :deals, :only => [:index, :show]
   
+  # api
   namespace "api" do
     resources :users, :only => [:create, :show, :update] do
 
@@ -44,9 +45,8 @@ Qwiqq::Application.routes.draw do
     
     # search controller custom methods
     get "search/users"                  => "search#users",    :as => 'search_users'
-    get "search/deals/:filter"          => "search#deals",    :as => 'search_deals',    :filter => /\D+/
-    get "search/categories/:name/deals" => "search#category", :as => 'search_category', :name   => /\D+/
-    match "search/deals"                => redirect("/api/search/deals/newest")
+    get "search/deals/:filter"          => "search#deals",    :as => 'search_deals'   #,    :constraints => { :filter => /\D+/ }
+    get "search/categories/:name/deals" => "search#category", :as => 'search_category'#, :constraints => { :name   => /\D+/ }
   end
   
   
