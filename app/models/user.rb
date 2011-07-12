@@ -25,19 +25,12 @@ class User < ActiveRecord::Base
 
   has_many :shares, :dependent => :destroy
   has_many :shared_deals, :through => :shares, :source => :deal, :uniq => true
-  has_many :reposted_deals
+  
+  has_many :reposted_deals, :dependent => :destroy
+  has_many :reposts, :class_name => "Deal", :through => :reposted_deals, :source => :user
 
   has_many :invitations_sent, :class_name => "Invitation"
 
-  
-  # queried using AREL so that it can be more easily extended;
-  #   e.g user.feed_deals.include(:category).limit(20)
-  def feed_deals
-    Deal.
-      joins("LEFT OUTER JOIN relationships ON relationships.target_id = deals.user_id").
-      where("relationships.user_id = #{id} OR deals.user_id = #{id}")
-  end
-  
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   
   attr_accessible :first_name, 
@@ -112,11 +105,10 @@ class User < ActiveRecord::Base
   end
   
   def friends?(target)
-    # TODO do this by extending #friends
     Relationship.find_by_sql(
-        "SELECT r1.* FROM relationships r1, relationships r2 
-         WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id 
-           AND r1.user_id = #{id} AND r1.target_id = #{target.id}").any?
+      "SELECT r1.* FROM relationships r1, relationships r2 
+       WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id 
+         AND r1.user_id = #{id} AND r1.target_id = #{target.id}").any?
   end
 
   def repost_deal!(deal)
@@ -127,6 +119,17 @@ class User < ActiveRecord::Base
     invitations_sent.exists?(:service => "email", :email => email)
   end
   
+  def feed_deals
+    # finds the users deals, reposts, followed user deals and followed user reposts
+    Deal.joins("LEFT OUTER JOIN relationships ON relationships.target_id = deals.user_id").
+         joins("LEFT OUTER JOIN reposted_deals ON reposted_deals.deal_id = deals.id").
+         where("relationships.user_id = #{id} OR 
+                deals.user_id = #{id} OR 
+                reposted_deals.user_id = #{id} OR 
+                reposted_deals.user_id IN(
+                  SELECT relationships.target_id FROM relationships WHERE relationships.user_id = #{id})")
+  end
+
   def as_json(options={})
     options.reverse_merge!(:deals => false, :comments => false)
     json = {
