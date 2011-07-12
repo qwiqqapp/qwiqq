@@ -19,7 +19,7 @@ gem "paperclip"
 gem "aws-s3"
 gem "geokit"
 gem "koala"
-gem "twitter_oauth"
+gem "twitter"
 
 gem "activeadmin"
 

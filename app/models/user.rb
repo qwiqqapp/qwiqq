@@ -184,11 +184,31 @@ class User < ActiveRecord::Base
   end
 
   def twitter_client
-    @twitter_client ||= TwitterOAuth::Client.new(
+    @twitter_client ||= Twitter::Client.new(
       :consumer_key => Qwiqq.twitter_consumer_key, 
-      :consumer_secret => Qwiqq.twitter_consumer_secret,
-      :token => twitter_access_token,
-      :secret => twitter_access_secret)
+      :consumer_secret => Qwiqq.twitter_consumer_secret, 
+      :oauth_token => twitter_access_token, 
+      :oauth_token_secret => twitter_access_secret)
+  end
+
+  def twitter_friend_ids
+    twitter_ids = []
+    begin
+      result = twitter_client.friends(:cursor => (cursor ||= -1))
+      cursor = result.next_cursor
+      twitter_ids << result.users.map {|f| f["id"].to_s } if result.users
+    end while cursor != 0
+    twitter_ids.flatten
+  end
+
+  def facebook_friend_ids
+    facebook_ids = []
+    friends = facebook_client.get_connections("me", "friends")
+    begin
+      facebook_ids = friends.map {|f| f["id"].to_s }
+      friends = friends.next_page
+    end while friends
+    facebook_ids.flatten
   end
 
   private

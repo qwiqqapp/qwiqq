@@ -41,10 +41,8 @@ class Api::FriendsController < Api::ApiController
     end
 
     def find_friends_on_twitter(user)
-      # retrieve ids
-      twitter_ids = user.twitter_client.friends.map {|f| f["id"].to_s }
-
       # find twitter friends 
+      twitter_ids = user.twitter_friend_ids
       friends = User.where(:twitter_id => twitter_ids).order("first_name, last_name DESC")
       friends.map do |friend|
         friend.as_json.merge({
@@ -55,10 +53,8 @@ class Api::FriendsController < Api::ApiController
     end
 
     def find_friends_on_facebook(user)
-      # retrieve ids
-      facebook_ids = user.facebook_client.get_connections("me", "friends").map {|f| f["id"] }
-
       # find facebook friends
+      facebook_ids = user.facebook_friend_ids
       friends = User.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
       friends.map do |friend|
         friend.as_json.merge({

@@ -47,11 +47,9 @@ class Api::FriendsControllerTest < ActionController::TestCase
     @user1 = Factory(:user, :twitter_id => "1", :email => "user1@gastownlabs.com", :first_name => "a", :last_name => "a") # following
     @user2 = Factory(:user, :twitter_id => "2", :email => "user2@gastownlabs.com", :first_name => "b", :last_name => "b") # not_following
     @user3 = Factory(:user, :twitter_id => "3", :email => "user3@gastownlabs.com", :first_name => "c", :last_name => "c") 
-
     @user0.follow!(@user1)
 
-    twitter_client = mock({ :friends => [ { "id" => 1 }, { "id" => 2 }, { "id" => 4 } ] })
-    User.any_instance.stubs(:twitter_client).returns(twitter_client)
+    User.any_instance.expects(:twitter_friend_ids).returns([ "1", "2", "4" ])
 
     post :find,
       :format => "json",
@@ -75,12 +73,9 @@ class Api::FriendsControllerTest < ActionController::TestCase
     @user1 = Factory(:user, :facebook_id => "1", :email => "user1@gastownlabs.com", :first_name => "a", :last_name => "a") # following
     @user2 = Factory(:user, :facebook_id => "2", :email => "user2@gastownlabs.com", :first_name => "b", :last_name => "b") # not_following
     @user3 = Factory(:user, :facebook_id => "3", :email => "user3@gastownlabs.com", :first_name => "c", :last_name => "c") 
-
     @user0.follow!(@user1)
 
-    facebook_client = mock()
-    facebook_client.expects(:get_connections).with("me", "friends").returns([ { "id" => "1" }, { "id" => "2" }, { "id" => "4" } ])
-    User.any_instance.stubs(:facebook_client).returns(facebook_client)
+    User.any_instance.stubs(:facebook_friend_ids).returns([ "1", "2", "4" ])
 
     post :find,
       :format => "json",
