@@ -28,6 +28,10 @@ class Api::DealsControllerTest < ActionController::TestCase
                    { :format => "json", :controller => "api/deals", :action => "destroy", :id => "1"})
   end
   
+  test "should route to deals#repost" do
+    assert_routing({:method => 'post', :path => '/api/deals/1/repost.json'}, {:format => 'json', :controller => 'api/deals', :action => 'repost', :id => '1' })
+  end
+  
   # deals#index
   test "should render deals for the current user" do
     @user = Factory(:user, :deals => [Factory(:deal), Factory(:deal)])
@@ -215,7 +219,7 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_equal 3,     json_response.size
   end
 
-  # deals #destroy
+  # deals#destroy
   test "should delete a deal that belongs to the current user" do
     @user = Factory(:user)
     @deal = Factory(:deal, :user => @user)
@@ -224,6 +228,18 @@ class Api::DealsControllerTest < ActionController::TestCase
     delete :destroy, :id => @deal.id, :format => "json"
 
     assert_equal 200, @response.status
+  end
+
+  # deals#repost
+  test "should allow a deal to be reposted" do
+    @user = Factory(:user)
+    @deal = Factory(:deal)
+    sign_in(@user)
+    
+    post :repost, :id => @deal.id, :user_id => @user.id, :format => "json"
+
+    assert_equal 201, @response.status
+    assert_equal 1, @user.reposted_deals.count
   end
   
 end

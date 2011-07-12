@@ -36,6 +36,7 @@ Qwiqq::Application.routes.draw do
       get :search, :on => :collection
       get :feed, :on => :collection
       get :popular, :on => :collection
+      post :repost, :on => :member
       
       resources :likes, :only => [:index]
       resource :like, :only => [:create, :destroy] #should merge this with above resource likes
