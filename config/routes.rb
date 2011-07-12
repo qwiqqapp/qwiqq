@@ -10,7 +10,7 @@ Qwiqq::Application.routes.draw do
   
   namespace "api" do
     resources :users, :only => [:create, :show, :update] do
-      get :search, :on => :collection
+      get "search", :on => :collection
 
       get "followers", :on => :member
       get "following", :on => :member
@@ -33,10 +33,10 @@ Qwiqq::Application.routes.draw do
     resources :sessions, :only => [:create, :destroy]
     
     resources :deals, :only => [:show, :create, :destroy, :update] do
-      get :search, :on => :collection
-      get :feed, :on => :collection
-      get :popular, :on => :collection
-      post :repost, :on => :member
+      get "search", :on => :collection
+      get "feed", :on => :collection
+      get "popular", :on => :collection
+      post "repost", :on => :member
       
       resources :likes, :only => [:index]
       resource :like, :only => [:create, :destroy] #should merge this with above resource likes

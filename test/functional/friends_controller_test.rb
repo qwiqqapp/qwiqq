@@ -32,8 +32,10 @@ class Api::FriendsControllerTest < ActionController::TestCase
     assert_equal Array, json_response.class
     assert_equal 4, json_response.size
 
-    assert_equal({ "email" => "user1@gastownlabs.com", "user_id" => @user1.id, "name" => @user1.name, "state" => "following" }, json_response[0])
-    assert_equal({ "email" => "user2@gastownlabs.com", "user_id" => @user2.id, "name" => @user2.name, "state" => "not_following" }, json_response[1])
+    assert_equal "user1@gastownlabs.com", json_response[0]["email"]
+    assert_equal "following", json_response[0]["state"]
+    assert_equal "user2@gastownlabs.com", json_response[1]["email"]
+    assert_equal "not_following", json_response[1]["state"]
     assert_equal({ "email" => "user3@gastownlabs.com", "state" => "not_invited" }, json_response[2])
     assert_equal({ "email" => "user4@gastownlabs.com", "state" => "invited" }, json_response[3])
   end
@@ -42,9 +44,9 @@ class Api::FriendsControllerTest < ActionController::TestCase
     @user0 = Factory(:user)
     sign_in(@user0)
 
-    @user1 = Factory(:user, :twitter_id => "1", :first_name => "a", :last_name => "a") # following
-    @user2 = Factory(:user, :twitter_id => "2", :first_name => "b", :last_name => "b") # not_following
-    @user3 = Factory(:user, :twitter_id => "3") 
+    @user1 = Factory(:user, :twitter_id => "1", :email => "user1@gastownlabs.com", :first_name => "a", :last_name => "a") # following
+    @user2 = Factory(:user, :twitter_id => "2", :email => "user2@gastownlabs.com", :first_name => "b", :last_name => "b") # not_following
+    @user3 = Factory(:user, :twitter_id => "3", :email => "user3@gastownlabs.com", :first_name => "c", :last_name => "c") 
 
     @user0.follow!(@user1)
 
@@ -60,17 +62,19 @@ class Api::FriendsControllerTest < ActionController::TestCase
     assert_equal Array, json_response.class
     assert_equal 2, json_response.size
 
-    assert_equal({ "user_id" => @user1.id, "name" => @user1.name, "state" => "following" }, json_response[0])
-    assert_equal({ "user_id" => @user2.id, "name" => @user2.name, "state" => "not_following" }, json_response[1])
+    assert_equal "user1@gastownlabs.com", json_response[0]["email"]
+    assert_equal "following", json_response[0]["state"]
+    assert_equal "user2@gastownlabs.com", json_response[1]["email"]
+    assert_equal "not_following", json_response[1]["state"]
   end
 
   test "finds by friends on facebook" do
     @user0 = Factory(:user)
     sign_in(@user0)
 
-    @user1 = Factory(:user, :facebook_id => "1", :first_name => "a", :last_name => "a") # following
-    @user2 = Factory(:user, :facebook_id => "2", :first_name => "b", :last_name => "b") # not_following
-    @user3 = Factory(:user, :facebook_id => "3") 
+    @user1 = Factory(:user, :facebook_id => "1", :email => "user1@gastownlabs.com", :first_name => "a", :last_name => "a") # following
+    @user2 = Factory(:user, :facebook_id => "2", :email => "user2@gastownlabs.com", :first_name => "b", :last_name => "b") # not_following
+    @user3 = Factory(:user, :facebook_id => "3", :email => "user3@gastownlabs.com", :first_name => "c", :last_name => "c") 
 
     @user0.follow!(@user1)
 
@@ -87,16 +91,16 @@ class Api::FriendsControllerTest < ActionController::TestCase
     assert_equal Array, json_response.class
     assert_equal 2, json_response.size
 
-    assert_equal({ "user_id" => @user1.id, "name" => @user1.name, "state" => "following" }, json_response[0])
-    assert_equal({ "user_id" => @user2.id, "name" => @user2.name, "state" => "not_following" }, json_response[1])
+    assert_equal "user1@gastownlabs.com", json_response[0]["email"]
+    assert_equal "following", json_response[0]["state"]
+    assert_equal "user2@gastownlabs.com", json_response[1]["email"]
+    assert_equal "not_following", json_response[1]["state"]
   end
 
   test "fails when no service is provided" do
     @user0 = Factory(:user)
     sign_in(@user0)
-
     post :find, :format => "json", :user_id => @user0.id
-
     assert_equal 406, @response.status
   end
 end
