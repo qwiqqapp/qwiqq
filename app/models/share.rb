@@ -9,9 +9,9 @@ class Share < ActiveRecord::Base
   def deliver!
     case service
     when "facebook" 
-      deal.share_to_facebook
+      user.share_deal_to_facebook(deal)
     when "twitter" 
-      deal.share_to_twitter
+      user.share_deal_to_twitter(deal)
     when "email"
       Mailer.share_deal(deal, email).deliver
     end

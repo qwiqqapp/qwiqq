@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
+
+  include Qwiqq::FacebookSharing
+  include Qwiqq::TwitterSharing
   
   has_many :deals,    :dependent => :destroy
   has_many :comments, :dependent => :destroy
@@ -22,22 +25,42 @@ class User < ActiveRecord::Base
 
   has_many :shares, :dependent => :destroy
   has_many :shared_deals, :through => :shares, :source => :deal, :uniq => true
+  has_many :reposted_deals
 
   has_many :invitations_sent, :class_name => "Invitation"
+
   
-  # added using AREL so that the query can more easily be extended;
-  #   e.g user.following_deals.include(:category).limit(20)
-  def following_deals
-    Deal.joins("INNER JOIN relationships ON relationships.target_id = deals.user_id").where("relationships.user_id = #{id}")
+  # queried using AREL so that it can be more easily extended;
+  #   e.g user.feed_deals.include(:category).limit(20)
+  def feed_deals
+    Deal.
+      joins("LEFT OUTER JOIN relationships ON relationships.target_id = deals.user_id").
+      where("relationships.user_id = #{id} OR deals.user_id = #{id}")
   end
   
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   scope :search_by_username, lambda { |query| where([ 'UPPER(username) like ?', "%#{query.upcase}%" ]) }
   
-  attr_accessible :first_name, :last_name, :username, :email, :password, :password_confirmation, :photo, :country, :city, :facebook_access_token, :twitter_access_token, :twitter_access_secret, :send_notifications
+  attr_accessible :first_name, 
+                  :last_name, 
+                  :username, 
+                  :email, 
+                  :password, 
+                  :password_confirmation, 
+                  :photo, 
+                  :country, 
+                  :city, 
+                  :facebook_access_token, 
+                  :twitter_access_token, 
+                  :twitter_access_secret, 
+                  :send_notifications, 
+                  :bio
   
   attr_accessor :password
-  before_save   :encrypt_password
+
+  before_save :encrypt_password
+  before_save :update_twitter_id
+  before_save :update_facebook_id
   
   validates_confirmation_of :password
   validates_presence_of     :password, :on => :create
@@ -52,11 +75,9 @@ class User < ActiveRecord::Base
                                   :iphone       => ["75x75#", :jpg],
                                   :iphone2x     => ["150x150#", :jpg],
                                   
-                                  :iphone_profile      => ["85x85#", :jpg],
-                                  :iphone_profile_2x   => ["170x170#", :jpg],
-                                  
                                   :iphone_zoom       => ["300x300#", :jpg],
-                                  :iphone_zoom_2x    => ["600x600#", :jpg] }
+                                  :iphone_zoom_2x    => ["600x600#", :jpg]
+                                  }
                     }.merge(PAPERCLIP_STORAGE_OPTIONS)
   
   def self.authenticate!(email, password)
@@ -99,6 +120,10 @@ class User < ActiveRecord::Base
            AND r1.user_id = #{id} AND r1.target_id = #{target.id}").any?
   end
 
+  def repost_deal!(deal)
+    reposted_deals.create(:deal => deal)
+  end
+
   def email_invitation_sent?(email)
     invitations_sent.exists?(:service => "email", :email => email)
   end
@@ -112,6 +137,7 @@ class User < ActiveRecord::Base
       :last_name           => last_name,
       :user_name           => username,
       :city                => city,
+      :bio                 => bio,
       :country             => country,
       :created_at          => created_at,
       :updated_at          => updated_at,
@@ -130,10 +156,6 @@ class User < ActiveRecord::Base
       # user detail photo zoom
       :photo_zoom          => photo.url(:iphone_zoom),
       :photo_zoom_2x       => photo.url(:iphone_zoom_2x),
-      
-      # user detail photo zoom
-      :photo_profile          => photo.url(:iphone_profile),
-      :photo_profile_2x       => photo.url(:iphone_profile_2x),      
       
       # counts
       :like_count          => liked_deals.count,
@@ -166,5 +188,27 @@ class User < ActiveRecord::Base
       :token => twitter_access_token,
       :secret => twitter_access_secret)
   end
+
+  private
+    def update_twitter_id
+      return unless twitter_access_token_changed?
+      if !twitter_access_token.blank?
+        return false unless twitter_client.authorized?
+        self.twitter_id = twitter_client.info["id"] 
+      else
+        self.twitter_id = ""
+      end
+    end
+
+    def update_facebook_id
+      return unless facebook_access_token_changed?
+      if !facebook_access_token.blank?
+        account = facebook_client.get_object("me") rescue nil
+        return false unless account
+        self.facebook_id = account["id"] 
+      else
+        self.facebook_id = ""
+      end
+    end
 end
 

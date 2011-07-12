@@ -11,12 +11,13 @@ class Api::SharesControllerTest < ActionController::TestCase
   end
 
   test "should share a deal to multiple services on creation" do
-    @user = Factory(:user)
-    @deal = Factory(:deal, :user => @user)
-    sign_in(@user)
+    @owner = Factory(:user)
+    @sharer = Factory(:user)
+    @deal = Factory(:deal, :user => @owner)
+    sign_in(@sharer)
 
-    Deal.any_instance.expects(:share_to_twitter).once
-    Deal.any_instance.expects(:share_to_facebook).once
+    User.any_instance.expects(:share_deal_to_twitter).once.with(@deal)
+    User.any_instance.expects(:share_deal_to_facebook).once.with(@deal)
     Mailer.expects(:share_deal).once.with(@deal, "eoin@gastownlabs.com").returns(mock(:deliver => true))
     Mailer.expects(:share_deal).once.with(@deal, "adam@gastownlabs.com").returns(mock(:deliver => true))
 
@@ -29,8 +30,8 @@ class Api::SharesControllerTest < ActionController::TestCase
       :format => "json"
 
     assert_equal 200, @response.status
-    assert_equal 4, @user.shares.count
-    assert_equal 1, @user.shared_deals.count
+    assert_equal 4, @sharer.shares.count
+    assert_equal 1, @sharer.shared_deals.count
   end
 end
 

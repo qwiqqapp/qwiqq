@@ -1,8 +1,5 @@
 class Deal < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
-
-  include Qwiqq::Facebook
-  include Qwiqq::Twitter
   include Qwiqq::Indextank
   
   belongs_to :user
@@ -11,8 +8,10 @@ class Deal < ActiveRecord::Base
   has_many :comments
   has_many :likes
   has_many :shares
+  has_many :reposts, :class_name => "RepostedDeal"
 
   has_many :liked_by_users, :through => :likes, :source => :user
+  has_many :reposted_by_users, :through => :reposts, :source => :user
   
   #TODO update to 3.1 and use role based attr_accessible for premium
   attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent
