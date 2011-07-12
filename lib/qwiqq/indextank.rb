@@ -43,7 +43,7 @@ module Qwiqq
       
       # will raise exception if fails to add document
       def add
-        self.index.document(deal.id).add(fields, :variables => variables)
+        Document.index.document(deal.id).add(fields, :variables => variables)
         deal.update_attribute(:indexed_at, Time.now)
         
       rescue IndexTank::InvalidArgument => e
@@ -51,12 +51,12 @@ module Qwiqq
       end
       
       def remove
-        self.index.document(deal.id).delete
+        Document.index.document(deal.id).delete
         deal.update_attribute(:indexed_at, nil)
       end
       
       def sync_variables
-        self.index.document(deal.id).update_variables(variables)
+        Document.index.document(deal.id).update_variables(variables)
       end
       
       def fields
@@ -80,12 +80,17 @@ module Qwiqq
           2 => deal.like_count }
       end
       
-      def self.browse(category, lat, long)
-        search('browse', {:q => "category:#{category}", :lat => lat, :long => long})
+      def self.browse(category, opts={})
+        if opts[:lat] && opts[:long]
+          search('browse-nearby', {:q => "category:#{category}", :lat => opts[:lat], :long => opts[:long]})
+        else
+          search('browse-newest', {:q => "category:#{category}"})
+        end
       end
-
-      def self.nearby(q, lat, long)
-        search('nearby', {:q => q, :lat => lat, :long => long})
+      
+      def self.nearby(q, opts={})
+        raise 'location required, both lat and long' unless opts[:lat] && opts[:long]
+        search('nearby', opts.merge({:q => q}))
       end
 
       def self.newest(q)
@@ -95,15 +100,21 @@ module Qwiqq
       def self.popular(q)
         search('popular', {:q => q})
       end
+      
+      def self.sync_functions
+        index.functions(0, '-age * relevance').add                  # Newest: newest and most relevant
+        index.functions(1, "-miles(d[0], d[1], q[0], q[1])").add    # Nearby: location
+        index.functions(2, "log(d.var[2]) - age/86400").add         # Popular: like_count with age
+      end
 
       private
       def self.search(type, opts={})
         q = opts[:q]
-        base = {:fetch => "text,image,image_2x,price,percent,premium"}
+        base = {:fetch => "text,image,image_2x,price,percent,premium,timestamp"}
         
         function = case type
-          when 'newest'         then {:function => 0}
-          when /browse|nearby/  then {:function => 1, :var0 => opts[:lat], :var1 => opts[:long]}
+          when /nearby/         then {:function => 1, :var0 => opts[:lat], :var1 => opts[:long]}
+          when /newest/         then {:function => 0}
           when 'popular'        then {:function => 2}
           else  
             {}
