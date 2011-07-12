@@ -22,6 +22,7 @@ class Comment < ActiveRecord::Base
       :age          => (created_at ? time_ago_in_words(created_at).gsub("about ", "") : ""),
       :user         => { :user_id   => user.id.try(:to_s),
                          :name      => user.name,
+                         :user_name => user.username,
                          :photo     => user.photo.url(:iphone),
                          :photo_2x  => user.photo.url(:iphone2x)},
       :deal         => { :deal_id => deal.id.try(:to_s),
