@@ -215,8 +215,9 @@ class User < ActiveRecord::Base
     def update_twitter_id
       return unless twitter_access_token_changed?
       if !twitter_access_token.blank?
-        return false unless twitter_client.authorized?
-        self.twitter_id = twitter_client.info["id"] 
+        user = twitter_client.user rescue nil
+        return false unless user
+        self.twitter_id = user.id.to_s
       else
         self.twitter_id = ""
       end
