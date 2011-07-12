@@ -45,9 +45,8 @@ Qwiqq::Application.routes.draw do
     # search controller custom methods
     get "search/users"                  => "search#users",    :as => 'search_users'
     get "search/deals/:filter"          => "search#deals",    :as => 'search_deals',    :filter => /\D+/
-    get "search/categories/:name/deals" => "search#category", :as => 'search_category', :filter => /\D+/
-    
-    match "search/deals" => redirect("/api/search/deals/newest")
+    get "search/categories/:name/deals" => "search#category", :as => 'search_category', :name   => /\D+/
+    match "search/deals"                => redirect("/api/search/deals/newest")
   end
   
   

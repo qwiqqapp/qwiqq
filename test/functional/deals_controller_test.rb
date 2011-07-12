@@ -156,22 +156,6 @@ class Api::DealsControllerTest < ActionController::TestCase
 
 
 
-  test "should render an empty array when query matches no deals" do
-    @user = Factory(:user)
-    sign_in(@user)
-
-    @deals =  [ 
-      Factory(:deal, :name => "iPod"),
-      Factory(:deal, :name => "High Heels"),
-      Factory(:deal, :name => "Red High Heels") ]
-
-    get :search, :q => "Bacon", :format => "json"
-
-    assert_equal 200, @response.status
-    assert_equal Array, json_response.class
-    assert_equal 0, json_response.size
-  end
-
 
   # deals #destroy
   test "should delete a deal that belongs to the current user" do
