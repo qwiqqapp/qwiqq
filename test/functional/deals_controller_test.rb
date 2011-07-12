@@ -13,15 +13,6 @@ class Api::DealsControllerTest < ActionController::TestCase
   test "should route to deals#create" do
     assert_routing({:method => 'post', :path => '/api/deals.json'}, {:format => 'json', :controller => 'api/deals', :action => 'create'})
   end
-
-  test "should route to deals#search" do
-    assert_routing({:method => 'get', :path => '/api/deals/search.json'}, {:format => 'json', :controller => 'api/deals', :action => 'search'})
-  end
-  
-  test "should route to deals#category" do
-    assert_routing('/api/categories/travel/deals', 
-                   {:controller => 'api/deals', :action => 'category', :name => 'travel', :format => 'json'})
-  end
  
   test "should routes to deals#destroy" do
     assert_routing({ :method => "delete", :path => "/api/deals/1.json" }, 
@@ -163,22 +154,7 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_equal 1, json_response['liked_by_users'].size
   end
 
-  # deals#search
-  test "should render deals with names matched by query" do
-    @user = Factory(:user)
-    sign_in(@user)
 
-    @deals =  [ 
-      Factory(:deal, :name => "iPod"),
-      Factory(:deal, :name => "High Heels"),
-      Factory(:deal, :name => "Red High Heels") ]
-
-    get :search, :q => "high heels", :format => "json"
-
-    assert_equal 200, @response.status
-    assert_equal Array, json_response.class
-    assert_equal 2, json_response.size
-  end
 
   test "should render an empty array when query matches no deals" do
     @user = Factory(:user)
@@ -196,22 +172,6 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_equal 0, json_response.size
   end
 
-  # deals#category
-  test "should return deals for category" do
-    @user = Factory(:user)
-    sign_in(@user)
-    
-    @category = Factory(:category)
-    Factory(:deal, :category => @category)
-    Factory(:deal, :category => @category)
-    Factory(:deal, :category => @category)
-    
-    get :category, :name => @category.name, :format => "json"
-    
-    assert_equal 200,   @response.status
-    assert_equal Array, json_response.class
-    assert_equal 3,     json_response.size
-  end
 
   # deals #destroy
   test "should delete a deal that belongs to the current user" do

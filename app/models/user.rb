@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
   end
   
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
+  scope :search_by_name, lambda { |query| where([ 'UPPER(username) like ?', "%#{query.upcase}%" ]) }
   
   attr_accessible :first_name, :last_name, :username, :email, :password, :password_confirmation, :photo, :country, :city, :facebook_access_token, :twitter_access_token, :twitter_access_secret, :send_notifications
   

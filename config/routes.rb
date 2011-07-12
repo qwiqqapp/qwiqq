@@ -10,11 +10,10 @@ Qwiqq::Application.routes.draw do
   
   namespace "api" do
     resources :users, :only => [:create, :show, :update] do
-      get :search, :on => :collection
 
       get "followers", :on => :member
       get "following", :on => :member
-      get "friends", :on => :member
+      get "friends",   :on => :member
       
       post "following" => "relationships#create"
       delete "following/:target_id" => "relationships#destroy"
@@ -26,25 +25,29 @@ Qwiqq::Application.routes.draw do
       resources :deals, :only => [:index] do
         resources :shares, :only => [:create]
       end
-
+      
       post "find_friends" => "friends#find"
     end
     
     resources :sessions, :only => [:create, :destroy]
     
     resources :deals, :only => [:show, :create, :destroy, :update] do
-      get :search, :on => :collection
-      get :feed, :on => :collection
+      get :feed,    :on => :collection
       get :popular, :on => :collection
       
-      resources :likes, :only => [:index]
-      resource :like, :only => [:create, :destroy] #should merge this with above resource likes
-      resources :comments, :only => [:create, :index]
+      resources :likes,     :only => [:index]
+      resource :like,       :only => [:create, :destroy] #should merge this with above resource likes
+      resources :comments,  :only => [:create, :index]
     end
 
     resources :comments, :only => [:destroy]
     
-    get "categories/:name/deals" => "deals#category", :name => /\D+/, :format => "json", :as => :category_deals
+    # search controller custom methods
+    get "search/users"                  => "search#users",    :as => 'search_users'
+    get "search/deals/:filter"          => "search#deals",    :as => 'search_deals',    :filter => /\D+/
+    get "search/categories/:name/deals" => "search#category", :as => 'search_category', :filter => /\D+/
+    
+    match "search/deals" => redirect("/api/search/deals/newest")
   end
   
   
