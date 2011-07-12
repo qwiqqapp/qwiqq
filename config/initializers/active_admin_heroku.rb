@@ -1,4 +1,4 @@
-if Rails.env.production?
+if Rails.env.production? || Rails.env.staging?
   require 'fileutils'
   FileUtils.mkdir_p(Rails.root.join("tmp", "stylesheets", "admin"))
 
