@@ -22,13 +22,27 @@ class Api::SearchControllerTest < ActionController::TestCase
       {:format => 'json', :controller => 'api/search', :action => 'category', :name => 'food'}
     )
   end
-
-  # test "should route to search#users" do
-  #   assert_routing('/api/categories/travel/deals', 
-  #                  {:controller => 'api/deals', :action => 'category', :name => 'travel', :format => 'json'})
-  # end
-
-
+  
+  #  ------------
+  #  users
+  
+  test "should return user for valid username search" do
+    %w(john jack mark peter mary).each do |username|
+      Factory(:user, :username => username)
+    end
+    q = 'mark'
+    
+    get :users, :q => q, :format => "json"
+    
+    assert_equal Array, json_response.class
+    assert_equal 1,     json_response.size
+    assert_equal q,     json_response.first['user_name']
+  end
+  
+  
+  
+  
+  
   # deals#search
   # test "should render deals with names matched by query" do
   #   @user = Factory(:user)

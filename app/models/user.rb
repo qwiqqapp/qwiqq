@@ -38,9 +38,10 @@ class User < ActiveRecord::Base
       where("relationships.user_id = #{id} OR deals.user_id = #{id}")
   end
   
+  # unable to use search due to meta_search in active admin
+  scope :search_by_username, lambda { |query| where([ 'UPPER(username) like ?', "%#{query.upcase}%" ]) }  
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
-  scope :search_by_username, lambda { |query| where([ 'UPPER(username) like ?', "%#{query.upcase}%" ]) }
-  
+    
   attr_accessible :first_name, 
                   :last_name, 
                   :username, 
@@ -95,7 +96,7 @@ class User < ActiveRecord::Base
       self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
     end
   end
-  
+
   def name
     "#{first_name} #{last_name}".titleize
   end

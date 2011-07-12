@@ -22,13 +22,13 @@ module Qwiqq
     extend ActiveSupport::Concern
     
     module ClassMethods
-      def indextank
-        Document
+      def indextank_search(query,type,opts={})
+        Document.search(query,type,opts)
       end
     end
     
     module InstanceMethods
-      def indexed_doc
+      def indextank_doc
         Document.new(self)
       end
     end
@@ -79,48 +79,44 @@ module Qwiqq
           1 => deal.lon,
           2 => deal.like_count }
       end
-      
-      def self.browse(category, opts={})
-        if opts[:lat] && opts[:long]
-          search('browse-nearby', {:q => "category:#{category}", :lat => opts[:lat], :long => opts[:long]})
-        else
-          search('browse-newest', {:q => "category:#{category}"})
+
+
+      def self.search(query,type,opts={})
+        # change query for search by category
+        search_opts = {:fetch => "text,image,image_2x,price,percent,premium,timestamp"}
+        
+        # select function based on type, assign lat and long
+        search_opts[:function] = case type
+          when 'nearby' 
+            raise 'Location required, both lat and long' unless opts[:lat] && opts[:long]
+            search_opts[:var0], search_opts[:var1] = opts[:lat], opts[:long]            
+            1
+          when 'category'
+            query = "category:#{query}"
+            if opts[:lat] && opts[:long]
+              search_opts[:var0], search_opts[:var1] = opts[:lat], opts[:long]
+              1
+            else
+              0
+            end
+          when 'popular'
+            2
+          else
+            0
         end
-      end
-      
-      def self.nearby(q, opts={})
-        raise 'location required, both lat and long' unless opts[:lat] && opts[:long]
-        search('nearby', opts.merge({:q => q}))
-      end
-
-      def self.newest(q)
-        search('newest', {:q => q})
-      end
-
-      def self.popular(q)
-        search('popular', {:q => q})
+        
+        index.search(query, search_opts)['results']
       end
       
       def self.sync_functions
-        index.functions(0, '-age * relevance').add                  # Newest: newest and most relevant
-        index.functions(1, "-miles(d[0], d[1], q[0], q[1])").add    # Nearby: location
-        index.functions(2, "log(d.var[2]) - age/86400").add         # Popular: like_count with age
+        functions.each_with_index{|f, i| index.functions(i, f).add }
       end
-
-      private
-      def self.search(type, opts={})
-        q = opts[:q]
-        base = {:fetch => "text,image,image_2x,price,percent,premium,timestamp"}
-        
-        function = case type
-          when /nearby/         then {:function => 1, :var0 => opts[:lat], :var1 => opts[:long]}
-          when /newest/         then {:function => 0}
-          when 'popular'        then {:function => 2}
-          else  
-            {}
-        end
-        
-        index.search(q, base.merge(function))['results']
+      
+      private      
+      def self.functions
+        ["-age * relevance",                      # 0 Newest: newest and most relevant
+         "-miles(d[0], d[1], q[0], q[1])",        # 1 Nearby: location
+         "relevance * log(doc.var[2])" ]  # 2 Popular: like_count with age
       end
       
       def self.client
