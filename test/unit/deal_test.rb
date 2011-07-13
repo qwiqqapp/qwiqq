@@ -22,4 +22,10 @@ class DealTest < ActiveSupport::TestCase
     }
   end
 
+  test "validates price" do
+    assert_raise(ActiveRecord::RecordInvalid) {
+      Factory(:deal, :price => "", :percent => nil)
+    }
+  end
+
 end

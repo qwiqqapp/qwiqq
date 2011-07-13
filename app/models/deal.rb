@@ -143,7 +143,7 @@ class Deal < ActiveRecord::Base
   end
 
   def has_price_or_percentage
-    errors.add(:base, "You must specify a price or percentage") if price.blank? && percent.blank?
+    errors.add(:base, "Price or percent required") if price.blank? && percent.blank?
   end
 end
 
