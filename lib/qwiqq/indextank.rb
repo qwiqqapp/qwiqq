@@ -141,7 +141,7 @@ module Qwiqq
       end
 
       def self.index
-        @index = self.client.indexes('deals')
+        @index = client.indexes('deals')
       end
     end
   end
