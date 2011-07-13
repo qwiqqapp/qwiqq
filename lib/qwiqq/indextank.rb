@@ -16,10 +16,9 @@
 # scoring fucntions/relevance
 # distance
 
-
 module Qwiqq
   module Indextank
-    extend ActiveSupport::Concern
+    extend ActiveSupport::Concern 
     
     module ClassMethods
       def indextank_search(query,type,opts={})
@@ -35,6 +34,8 @@ module Qwiqq
     
     # -----------------------
     class Document
+      extend ActionView::Helpers::DateHelper
+      
       attr_accessor :deal
       
       def initialize(deal)
@@ -70,7 +71,6 @@ module Qwiqq
          fields[:price]   = deal.price    if deal.price
          fields[:percent] = deal.percent  if deal.percent
          fields[:premium] = deal.premium  if deal.premium
-         
          fields
       end
       
@@ -105,14 +105,31 @@ module Qwiqq
             0
         end
         
-        index.search(query, search_opts)['results']
+        clean(index.search(query, search_opts)['results'])
       end
       
       def self.sync_functions
         functions.each_with_index{|f, i| index.functions(i, f).add }
       end
       
-      private      
+      private
+      # replace indextank result keys with qwiqq keys
+      def self.clean(results)
+        results.map do |r| 
+          { :deal_id    => r['docid'],
+            :name       => r['text'],
+            :image      => r['image'],
+            :image_2x   => r['image_2x'],
+            :price      => r['price'],
+            :percent    => r['percent'],
+            :premium    => r['premium'],
+            :age        => (r['timestamp'] ? distance_of_time_in_words(Time.now.to_i, r['timestamp'].to_i) : ""),
+            :score      => r['query_relevance_score']
+          }
+        end
+      end
+      
+   
       def self.functions
         ["-age * relevance",                      # 0 Newest: newest and most relevant
          "-miles(d[0], d[1], q[0], q[1])",        # 1 Nearby: location
