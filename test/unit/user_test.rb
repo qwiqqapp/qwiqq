@@ -121,7 +121,8 @@ class UserTest < ActiveSupport::TestCase
   test "should update twitter_id when twitter_access_token changes" do
     @user = Factory(:user)
 
-    twitter_client = mock(:authorized? => true, :info => { "id" => "1" })
+    twitter_user = mock(:id => 1)
+    twitter_client = mock(:user => twitter_user)
     @user.stubs(:twitter_client).returns(twitter_client)
     @user.update_attributes(
       :twitter_access_token => "token",
