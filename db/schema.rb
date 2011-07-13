@@ -142,9 +142,9 @@ ActiveRecord::Schema.define(:version => 20110711215235) do
     t.integer  "following_count",       :default => 0,    :null => false
     t.integer  "friends_count",         :default => 0,    :null => false
     t.string   "twitter_access_secret"
+    t.string   "bio"
     t.string   "twitter_id"
     t.string   "facebook_id"
-    t.string   "bio"
   end
 
 end

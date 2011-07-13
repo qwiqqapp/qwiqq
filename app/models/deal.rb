@@ -20,6 +20,8 @@ class Deal < ActiveRecord::Base
   validates_presence_of :user, :category, :name, :message => "is required"
   validates_length_of   :name, :maximum => 70, :message=> "max characters is 70"
   validate :has_price_or_percentage
+  validates :percent, :numericality => true, :inclusion => { :in => 0..100 }, :if => :has_percentage?
+  validates :price, :numericality => true, :if => :has_price?
   
   before_create :geodecode_location_name!
   
@@ -137,9 +139,16 @@ class Deal < ActiveRecord::Base
     self[:location_name] = Deal.geodecode_location_name(lat, lon) if location_name.blank?
   end
 
-  
+  def has_percentage?
+    !percent.blank?
+  end
+
+  def has_price?
+    !price.blank?
+  end
+
   def has_price_or_percentage
-    errors.add(:base, "You must specify a price or percentage") if price.blank? && percent.blank?
+    errors.add(:base, "Price or percent required") if price.blank? && percent.blank?
   end
 end
 
