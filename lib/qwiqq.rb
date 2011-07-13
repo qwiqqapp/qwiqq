@@ -1,5 +1,3 @@
 require "qwiqq/facebook_sharing"
 require "qwiqq/twitter_sharing"
-
-module Qwiqq
-end
+require "active_record_strip_attrs_extension"

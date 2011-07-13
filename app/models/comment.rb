@@ -12,8 +12,9 @@ class Comment < ActiveRecord::Base
   after_create :deliver_notification
   after_create :increment_comment_count
   after_destroy :decrement_comment_count
-  
-  
+
+  strip_attrs :body
+
   # TODO replace with use of super(options) to allow for controller to override defaults
   def as_json(options={})
     {

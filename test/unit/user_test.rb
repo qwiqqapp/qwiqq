@@ -141,4 +141,23 @@ class UserTest < ActiveSupport::TestCase
 
     assert_equal "1", @user.facebook_id 
   end
+
+  test "should strip text attributes before saving" do
+    @user = Factory(:user,
+      :email => "    eoin@gastownlabs.com     ",
+      :city => "     Vancouver    ",
+      :country => "     Canada    ",
+      :first_name => " Eoin    ",
+      :last_name => "    Hennessy   ",
+      :username => "     eoin    ",
+      :bio => "          ")
+
+    assert_equal "eoin@gastownlabs.com", @user.email
+    assert_equal "Vancouver", @user.city
+    assert_equal "Canada", @user.country
+    assert_equal "Eoin", @user.first_name
+    assert_equal "Hennessy", @user.last_name
+    assert_equal "eoin", @user.username
+    assert_equal "", @user.bio
+  end
 end

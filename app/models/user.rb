@@ -71,6 +71,9 @@ class User < ActiveRecord::Base
                                   :iphone_zoom_2x    => ["600x600#", :jpg]
                                   }
                     }.merge(PAPERCLIP_STORAGE_OPTIONS)
+
+
+  strip_attrs :email, :city, :country, :first_name, :last_name, :username, :bio
   
   def self.authenticate!(email, password)
     user = find_by_email!(email)
