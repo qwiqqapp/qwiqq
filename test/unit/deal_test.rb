@@ -15,4 +15,11 @@ class DealTest < ActiveSupport::TestCase
       Factory(:deal, :name => invalid_name)
     }
   end
+
+  test "validates percent is a percentage" do
+    assert_raise(ActiveRecord::RecordInvalid) {
+      Factory(:deal, :percent => 101)
+    }
+  end
+
 end
