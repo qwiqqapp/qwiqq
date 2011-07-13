@@ -1,8 +1,4 @@
-
 namespace :indextank do
-  
-  
-  
   
   desc 'batch add all deals to indextank'
   task :batch_add => :environment do
