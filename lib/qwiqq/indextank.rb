@@ -118,8 +118,8 @@ module Qwiqq
         results.map do |r| 
           { :deal_id          => r['docid'],
             :name             => r['text'],
-            :iphone_list      => r['image'],
-            :iphone_list_2x   => r['image_2x'],
+            :photo_list       => r['image'],
+            :photo_list_2x    => r['image_2x'],
             :price            => r['price'],
             :percent          => r['percent'],
             :premium          => r['premium'],
