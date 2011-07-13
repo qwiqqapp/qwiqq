@@ -26,8 +26,8 @@ class Deal < ActiveRecord::Base
   before_create :geodecode_location_name!
   
   # indextank updates
-  # after_create   { indextank_add }
-  # before_destroy { indextank_remove }
+  after_create   { indextank_doc.add }
+  before_destroy { indextank_doc.remove }
   
   default_scope :order => 'deals.created_at desc'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
