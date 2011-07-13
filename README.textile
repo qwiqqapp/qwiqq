@@ -1,0 +1,70 @@
+h1. Qwiqq Web
+
+* web app
+* json API
+* admin
+
+
+h2. Dev Environment
+
+* rvm = 1.6.22
+* ruby = 1.9.2 p180
+* gemset = qwiqq
+* db = postgresql
+* hosting (staging/production) = heroku
+
+h2. useful Heroku commands
+
+replace staging with production below for production env
+
+h3. deploy
+
+* git push staging master
+
+h3. rake
+
+* heroku rake db:migrate --remote staging
+
+h3. checking data and process
+
+* heroku console --remote staging
+* heroku ps --remote staging
+* heroku logs --remote staging --tail
+
+
+h2. postgresql notes
+
+* postgresql db required to match staging and production
+* install with brew install postgresql
+
+
+* cli = psql qwiqq_development
+* list tables = \dt
+* list databases = \l
+* exit = \q
+
+h2. Sync Development with Staging
+
+h3. Data
+
+* run heroku db:pull --remote staging
+* confirm but typing db name
+* be-careful of push it will clear the staging/production db
+
+h3. Images
+
+* run heroku config for AWS creds
+* download images from s3, suggest Transmit or similar
+* put deals and users folders into public/system/
+
+
+
+
+
+h2. API notes
+
+* return all ids as string using .try(:to_s)
+* prefix id with model, eg user_id
+* current user is a valid option for user_id or id for users collection
+
+

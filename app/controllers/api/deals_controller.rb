@@ -31,17 +31,6 @@ class Api::DealsController < Api::ApiController
                                   :comments => true, 
                                   :liked_by_users => true)
   end
-
-  def search
-    @deals = Deal.search_by_name(params[:q])
-    respond_with @deals
-  end
-  
-  def category
-    @category = Category.find_by_name!(params[:name])
-    @deals    = @category.deals.includes(:category)
-    respond_with @deals
-  end
   
   def index
     @deals = find_user(params[:user_id]).deals
