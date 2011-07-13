@@ -12,9 +12,9 @@ class Api::SearchController < Api::ApiController
     respond_with @users
   end
   
-  # api/search/deals/:newest
-  # api/search/deals/:nearby
-  # api/search/deals/:popular
+  # api/search/deals/newest
+  # api/search/deals/nearby
+  # api/search/deals/popular
   def deals
     @deals = Deal.indextank_search(params[:q], params[:filter], {:lat => params[:lat],:long => params[:long]})                                
     respond_with @deals
@@ -22,7 +22,7 @@ class Api::SearchController < Api::ApiController
   
   # api/search/category/:name/deals
   def category
-    @deals = Deal.indextank_search(params[:name],'browse', {:lat => params[:lat], :long => params[:long]})                
+    @deals = Deal.indextank_search(params[:name],'category', {:lat => params[:lat], :long => params[:long]})                
     respond_with @deals
   end
 end

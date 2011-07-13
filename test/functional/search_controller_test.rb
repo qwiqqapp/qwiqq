@@ -27,71 +27,40 @@ class Api::SearchControllerTest < ActionController::TestCase
   #  users
   
   test "should return user for valid username search" do
-    %w(john jack mark peter mary).each do |username|
-      Factory(:user, :username => username)
+    %w(john jack mark peter mary).each do |name|
+      Factory(:user, :username => name)
     end
-    q = 'mark'
+    get :users, :q => 'mark', :format => "json"
     
-    get :users, :q => q, :format => "json"
-    
-    assert_equal Array, json_response.class
-    assert_equal 1,     json_response.size
-    assert_equal q,     json_response.first['user_name']
+    assert_equal Array,  json_response.class
+    assert_equal 1,      json_response.size
+    assert_equal 'mark', json_response.first['user_name']
   end
   
   
+  test "should call indextank and request newest" do
+    results = [{:deal_id => 34, :name => 'carson', :image => 'http://url.com/image.jpg'},
+               {:deal_id => 31, :name => 'cars',    :image => 'http://url.com/image2.jpg'}]    
+
+    Qwiqq::Indextank::Document.expects(:search).with('car', 'newest', {:lat => nil, :long => nil}).returns(results)
+    
+    get :deals, :q => 'car', :filter => 'newest', :format => 'json'
+    
+    assert_equal Array, json_response.class
+    assert_equal 2,     json_response.size
+  end
   
   
-  
-  # deals#search
-  # test "should render deals with names matched by query" do
-  #   @user = Factory(:user)
-  #   sign_in(@user)
-  # 
-  #   @deals =  [ 
-  #     Factory(:deal, :name => "iPod"),
-  #     Factory(:deal, :name => "High Heels"),
-  #     Factory(:deal, :name => "Red High Heels") ]
-  # 
-  #   get :search, :q => "high heels", :format => "json"
-  # 
-  #   assert_equal 200, @response.status
-  #   assert_equal Array, json_response.class
-  #   assert_equal 2, json_response.size
-  # end
-  
-  # deals#category
-  # test "should return deals for category" do
-  #   @user = Factory(:user)
-  #   sign_in(@user)
-  #   
-  #   @category = Factory(:category)
-  #   Factory(:deal, :category => @category)
-  #   Factory(:deal, :category => @category)
-  #   Factory(:deal, :category => @category)
-  #   
-  #   get :category, :name => @category.name, :format => "json"
-  #   
-  #   assert_equal 200,   @response.status
-  #   assert_equal Array, json_response.class
-  #   assert_equal 3,     json_response.size
-  # end
-  
-  
-  # test "should render an empty array when query matches no deals" do
-  #   @user = Factory(:user)
-  #   sign_in(@user)
-  #   
-  #   @deals =  [ 
-  #     Factory(:deal, :name => "iPod"),
-  #     Factory(:deal, :name => "High Heels"),
-  #     Factory(:deal, :name => "Red High Heels") ]
-  # 
-  #   get :search, :q => "Bacon", :format => "json"
-  # 
-  #   assert_equal 200, @response.status
-  #   assert_equal Array, json_response.class
-  #   assert_equal 0, json_response.size
-  # end
+  test "should render deals for food category" do
+    results = [{:deal_id => 34, :name => 'carson', :image => 'http://url.com/image.jpg'},
+               {:deal_id => 31, :name => 'cars', :image => 'http://url.com/image2.jpg'}]
+    
+    Qwiqq::Indextank::Document.expects(:search).with('food', 'category', {:lat => nil, :long => nil}).returns(results)
+    
+    get :category, :name => 'food', :format => 'json'
+    
+    assert_equal Array, json_response.class
+    assert_equal 2,     json_response.size    
+  end
 
 end
