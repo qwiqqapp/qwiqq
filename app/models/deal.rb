@@ -1,6 +1,7 @@
 class Deal < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
-
+  include Qwiqq::Indextank
+  
   belongs_to :user
   belongs_to :category
   
@@ -21,6 +22,10 @@ class Deal < ActiveRecord::Base
   validate :has_price_or_percentage
   
   before_create :geodecode_location_name!
+  
+  # indextank updates
+  # after_create   { indextank_add }
+  # before_destroy { indextank_remove }
   
   default_scope :order => 'deals.created_at desc'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
@@ -126,12 +131,13 @@ class Deal < ActiveRecord::Base
       "#{distance_in_minutes / 525600}y"
     end
   end
-
+  
   private
   def geodecode_location_name!
     self[:location_name] = Deal.geodecode_location_name(lat, lon) if location_name.blank?
   end
 
+  
   def has_price_or_percentage
     errors.add(:base, "You must specify a price or percentage") if price.blank? && percent.blank?
   end

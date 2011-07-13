@@ -64,7 +64,6 @@ ActiveRecord::Schema.define(:version => 20110711215235) do
     t.integer  "price"
     t.integer  "percent"
     t.integer  "user_id"
-    t.integer  "location_id"
     t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -78,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20110711215235) do
     t.integer  "comment_count",      :default => 0
     t.integer  "like_count",         :default => 0
     t.string   "location_name"
+    t.datetime "indexed_at"
   end
 
   create_table "invitations", :force => true do |t|

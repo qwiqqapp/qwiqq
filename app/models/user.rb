@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
-
   include Qwiqq::FacebookSharing
   include Qwiqq::TwitterSharing
   
@@ -31,8 +30,18 @@ class User < ActiveRecord::Base
 
   has_many :invitations_sent, :class_name => "Invitation"
 
-  scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
+  # queried using AREL so that it can be more easily extended;
+  #   e.g user.feed_deals.include(:category).limit(20)
+  def feed_deals
+    Deal.
+      joins("LEFT OUTER JOIN relationships ON relationships.target_id = deals.user_id").
+      where("relationships.user_id = #{id} OR deals.user_id = #{id}")
+  end
   
+  # unable to use search due to meta_search in active admin
+  scope :search_by_username, lambda { |query| where([ 'UPPER(username) like ?', "%#{query.upcase}%" ]) }  
+  scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
+    
   attr_accessible :first_name, 
                   :last_name, 
                   :username, 
@@ -90,7 +99,7 @@ class User < ActiveRecord::Base
       self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
     end
   end
-  
+
   def name
     "#{first_name} #{last_name}".titleize
   end
@@ -134,6 +143,7 @@ class User < ActiveRecord::Base
   end
 
   def as_json(options={})
+    options ||= {}
     options.reverse_merge!(:deals => false, :comments => false)
     json = {
       :user_id             => id.try(:to_s),
