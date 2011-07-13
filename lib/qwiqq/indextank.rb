@@ -116,15 +116,15 @@ module Qwiqq
       # replace indextank result keys with qwiqq keys
       def self.clean(results)
         results.map do |r| 
-          { :deal_id    => r['docid'],
-            :name       => r['text'],
-            :image      => r['image'],
-            :image_2x   => r['image_2x'],
-            :price      => r['price'],
-            :percent    => r['percent'],
-            :premium    => r['premium'],
-            :age        => (r['timestamp'] ? distance_of_time_in_words(Time.now.to_i, r['timestamp'].to_i) : ""),
-            :score      => r['query_relevance_score']
+          { :deal_id          => r['docid'],
+            :name             => r['text'],
+            :iphone_list      => r['image'],
+            :iphone_list_2x   => r['image_2x'],
+            :price            => r['price'],
+            :percent          => r['percent'],
+            :premium          => r['premium'],
+            :age              => (r['timestamp'] ? distance_of_time_in_words(Time.now.to_i, r['timestamp'].to_i) : ""),
+            :score            => r['query_relevance_score']
           }
         end
       end
