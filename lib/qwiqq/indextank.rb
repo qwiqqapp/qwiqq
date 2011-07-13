@@ -84,7 +84,8 @@ module Qwiqq
       def self.search(query,type,opts={})
         # change query for search by category
         search_opts = {:fetch => "text,image,image_2x,price,percent,premium,timestamp",     #selected fields to return
-                       :fetch_variables => true}                                            # return all variables as variable_#
+                       :fetch_variables => true,                                            # return all variables as variable_#
+                       :len => 40}                                                          # max results returned
         
         # select function based on type, assign lat and long
         search_opts[:function] = case type
