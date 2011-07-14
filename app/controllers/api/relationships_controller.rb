@@ -3,11 +3,17 @@ class Api::RelationshipsController < Api::ApiController
   def create
     @user = find_user(params[:user_id])
     @target = User.find(params[:target_id])
-    @relationship = @user.follow!(@target)
-    render :status => :created, :json => {
-      :followers_count => @target.followers_count,
-      :following_count => @target.following_count,
-      :friends_count =>   @target.friends_count }
+    
+    # dont allow self follow
+    if @user == @target
+      render :json => {:message => 'Unable to follow yourself' }, :status => 405
+    else  
+      @relationship = @user.follow!(@target)
+      render :status => :created, :json => {
+        :followers_count => @target.followers_count,
+        :following_count => @target.following_count,
+        :friends_count =>   @target.friends_count }
+    end
   end
 
   def destroy

@@ -27,6 +27,5 @@ class DealTest < ActiveSupport::TestCase
       Factory(:deal, :price => "", :percent => nil)
     }
   end
-  
 
 end
