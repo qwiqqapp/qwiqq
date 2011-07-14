@@ -5,7 +5,9 @@ gem "rails", "3.0.7"
 gem "rake", "0.8.7"
 
 gem "rails3-generators"
-gem "pg" #postgresql to match staging and production
+
+#postgresql to match staging and production
+gem "pg"      
 
 # views
 gem "haml-rails"
@@ -25,11 +27,14 @@ gem "indextank"
 
 gem "activeadmin"
 
-gem "factory_girl_rails"
-gem "ffaker"
-gem "mocha", :require => false
-
 gem "bcrypt-ruby", :require => "bcrypt"
+
+
+group :test do
+  gem "factory_girl_rails"
+  gem "ffaker"
+  gem "mocha", :require => false
+end
 
 group :development do
   gem "wirble"
