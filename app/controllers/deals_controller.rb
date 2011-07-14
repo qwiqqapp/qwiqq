@@ -1,7 +1,6 @@
 class DealsController < ApplicationController
-    
   def index
-    @deals = Deal.limit(10)
+    @deals = Deal.limit(15)
     respond_with @deals
   end
   
@@ -9,6 +8,4 @@ class DealsController < ApplicationController
     @deal = Deal.find(params[:id])
     respond_with @deal
   end
-  
-  
 end

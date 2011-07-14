@@ -49,6 +49,13 @@ Qwiqq::Application.routes.draw do
     get "search/deals/:filter"          => "search#deals",    :as => 'search_deals'   #,    :constraints => { :filter => /\D+/ }
     get "search/categories/:name/deals" => "search#category", :as => 'search_category'#, :constraints => { :name   => /\D+/ }
   end
+
+  # home routes
+  match "about", :to => "home#about", :as => :about
+  match "terms", :to => "home#terms", :as => :terms
+  match "privacy", :to => "home#privacy", :as => :privacy
+  match "blog", :to => "home#blog", :as => :blog
+  match "download", :to => "home#download", :as => :download
   
   
   # The priority is based upon order of creation:

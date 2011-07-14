@@ -1,9 +1,98 @@
-= link_to 'Qwiqq logo here', root_url
-= link_to 'Download App!', '/'
+#navigation
+  #sections
+    %ul
+      %li 
+        %a#app{ :href => "#app" } iPhone App
+      %li
+        %a#deals{ :href => "#deals" } Deals
+      %li
+        %a#contact{ :href => "#contact" } Contact
 
-%h1 Qwiqq
+  #corner.left
+    %ul
+      %li
+        %a#top{ :href => "#top" }
+          .image
+          Top
 
-%h2 Popular Deals
-%ul
-  = render @deals
+  #corner.right
+    %ul
+      %li
+        %a{ :href => about_url } About
+      |
+      %li
+        %a#blog{ :href => blog_url }
+          Blog
+          .image
 
+#home.section
+  %img.logo{ :src => "/images/logo-tagline.png" }
+  %br
+  %img.iphone{ :src => "images/iphone.png" }
+  %br
+  %a{ :href => download_url }
+    %img.download{ :src => "/images/download-green.png" }
+
+#app.section
+  %h1 The Revolution Starts Here
+  %h2 The Deal sharing community where you ...
+  #steps-container
+    #steps
+      #step1.step  
+        %img{ :src => "/images/1.png" }
+        %h3 See a deal
+        Blowout sale, favorite happy hour, designer sample sale, daily lunch special? Deals are all around you.
+
+      #step2.step
+        %img{ :src => "/images/2.png" }
+        %h3 Post a deal
+        Take a photo or scan a product. Write a quick note and we do the rest. Remember sharing is caring.
+      
+      #step3.step
+        %img{ :src => "/images/3.png" }
+        %h3 Discover deals
+        Browse, see what's popular, search or check out what your friends are sharing. Local deals that matter to you.
+      
+  %a{ :href => download_url }
+    %img.download{ :src => "/images/download-orange.png" }
+
+#deals.section
+  #nearby
+    %h1 Popular deals near you
+  %h2 Sign up with Qwiqq to start sharing and discovering deals that matter to you!
+  #grid
+    - @deals.each do |deal|
+      .deal
+        .image
+        .details
+
+#contact.section
+  %img.contact{ :src => "/images/contact.png" }
+  #methods
+    .method.twitter
+      %a{ :href => "#" }
+        .icon
+      Twitter
+    .method.facebook
+      %a{ :href => "#" }
+        .icon
+      Facebook
+    .method.email
+      %a{ :href => "#" }
+        .icon
+      Email
+  %br
+  %img.communication{ :src => "/images/communication.png" }
+
+#footer
+  %a{ :href => download_url }
+    %img{ :src => "/images/download-white.png" }
+  %ul#links
+    %li= link_to "About Qwiqq", about_url
+    |
+    %li= link_to "Privacy Policy", privacy_url
+    |
+    %li= link_to "Terms and Services", terms_url
+
+  #copyright
+    &copy; 2011, Qwiqq Inc

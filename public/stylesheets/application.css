@@ -1,0 +1,316 @@
+@font-face {
+    font-family: 'Museo300';
+    src: url('/fonts/museo300-regular-webfont.eot');
+    src: url('/fonts/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/museo300-regular-webfont.woff') format('woff'),
+         url('/fonts/museo300-regular-webfont.ttf') format('truetype'),
+         url('/fonts/museo300-regular-webfont.svg#Museo300') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Museo500';
+    src: url('/fonts/museo500-regular-webfont.eot');
+    src: url('/fonts/museo500-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/museo500-regular-webfont.woff') format('woff'),
+         url('/fonts/museo500-regular-webfont.ttf') format('truetype'),
+         url('/fonts/museo500-regular-webfont.svg#Museo500') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body {
+  height: 100%
+}
+
+body { 
+  font-family: 'Museo300';
+  font-size: 16px;
+  background-color: #eee;
+}
+
+a {
+  text-decoration: none;
+}
+
+#navigation {
+  position: fixed;
+  height: 45px;
+  width: 100%;
+  background-color: white;
+  font-size: 20px;
+  z-index: 1;
+  box-shadow: 0 0 2px 1px #888;
+  -moz-box-shadow: 0 0 2px 1px #888;
+  -webkit-box-shadow: 0 0 2px 1px #888;
+}
+
+#navigation #sections {
+  text-align: center;
+  padding-top: 12px;
+}
+
+#navigation #sections a {
+  color: #666;
+}
+
+#navigation a#app:hover {
+  color: #ff7720;
+}
+
+#navigation a#deals:hover {
+  color: #13c3ff;
+}
+
+#navigation a#contact:hover {
+  color: #67d140;
+}
+
+#navigation #sections li {
+  margin: 0 15px;
+}
+
+#navigation #corner.left {
+  float: left;
+}
+
+#navigation #corner.right {
+  float: right;
+}
+
+#navigation #corner {
+  color: #bbb;
+  position: relative;
+  top: -20px;
+  margin: 0 10px;
+}
+
+#navigation #corner a {
+  color: #bbb;
+}
+
+#navigation #corner a:hover {
+  color: #666;
+}
+
+#navigation a#top .image {
+  background: url("/images/toparrow.png") no-repeat 0 0;
+  position: relative;
+  top: -7px;
+  padding-right: 5px;
+  width: 28px;
+  height: 35px;
+  float: left;
+}
+
+#navigation a:hover#top .image {
+  background: url("/images/toparrow-mouseover.png") no-repeat 0 0;
+}
+
+#navigation a#blog .image {
+  background: url("/images/awayarrow.png") no-repeat 0 0;
+  position: relative;
+  top: -20px;
+  margin-left: 10px;
+  width: 29px;
+  height: 27px;
+  float: right;
+}
+
+#navigation a:hover#blog .image {
+  background: url("/images/awayarrow-mouseover.png") no-repeat 0 0;
+}
+
+#navigation li {
+  display: inline;
+}
+
+.section {
+  text-align: center;
+}
+
+#home {
+  padding-top: 90px;
+  height: 755px;
+}
+
+#home img.iphone {
+  margin-top: 20px;
+}
+
+#home img.download {
+  position: relative;
+  top: -190px;
+  left: 300px;
+}
+
+#app {
+  height: 755px;
+}
+
+#app h1 {
+  font-family: 'Museo500';
+  font-size: 60px;
+  color: #ff7720;
+  margin-top: 80px;
+}
+
+#app h2 {
+  font-size: 35px;
+  color: #ff7720;
+  margin-top: 20px;
+}
+
+#app h3 {
+  font-size: 35px;
+  margin-top: 15px;
+  margin-bottom: 8px;
+}
+
+#app #steps-container {
+  padding: 30px;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  border-top: 1px solid #afafaf;
+  border-bottom: 1px solid #afafaf;
+}
+
+#app #steps {
+  margin-left: auto;
+  margin-right: auto;
+  height: 125px;
+  width: 840px; 
+  color: #868686;
+  position: relative;
+  top: -60px;
+}
+
+#app .step {
+  width: 240px;
+  float: left;
+  padding: 0 20px;
+}
+
+#deals {
+  height: 755px;
+}
+
+#deals h1 {
+  font-family: 'Museo500';
+  font-size: 60px;
+  color: #13c3ff;
+  margin-top: 80px;
+}
+
+#deals h2 {
+  font-size: 20px;
+  color: #13c3ff;
+  margin-top: 10px;
+}
+
+#deals #grid {
+  width: 885px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+}
+
+#deals .deal {
+  float: left;
+  margin: 10px;
+  width: 155px;
+  height: 155px;
+  border: 1px solid #868686;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+#contact {
+  height: 755px;
+}
+
+#contact img.contact {
+  margin-top: 80px;
+}
+
+#contact #methods {
+  margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 680px;
+}
+
+#contact .method {
+  float: left;
+  padding: 20px;
+  font-size: 25px;
+  color: #868686;
+}
+
+#contact .method .icon {
+  width: 184px;
+  height: 184px;
+  margin-bottom: 40px;
+}
+
+#contact .method.twitter .icon {
+  background: url("/images/twitter.png") no-repeat 0 0; 
+}
+
+#contact .method.twitter .icon:hover {
+  background: url("/images/twitter-mouseover.png") no-repeat 0 0; 
+}
+
+#contact .method.facebook .icon {
+  background: url("/images/facebook.png") no-repeat 0 0;
+}
+
+#contact .method.facebook .icon:hover {
+  background: url("/images/facebook-mouseover.png") no-repeat 0 0;
+}
+
+#contact .method.email .icon {
+  background: url("/images/email.png") no-repeat 0 0;
+}
+
+#contact .method.email .icon:hover {
+  background: url("/images/email-mouseover.png") no-repeat 0 0;
+}
+
+#contact img.communication {
+  margin-top: 80px;
+}
+
+#footer {
+  font-family: "Museo500";
+  background-color: #868686;
+  height: 110px;
+  color: white;
+}
+
+#footer a {
+  color: white;
+}
+
+#footer img {
+  float: left;
+  margin: 16px;
+}
+
+#footer ul#links {
+  float: left;
+  margin-top: 60px;
+  margin-left: 20px;
+}
+
+#footer ul#links li {
+  display: inline;
+}
+
+#footer #copyright {
+  float: right;
+  margin-top: 60px;
+  margin-right: 20px;
+}
