@@ -213,21 +213,32 @@ a {
 }
 
 #deals #grid {
-  width: 885px;
+  width: 860px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 40px;
 }
 
 #deals .deal {
+  overflow: hidden;
   float: left;
   margin: 10px;
-  width: 155px;
-  height: 155px;
+  width: 150px;
+  height: 150px;
   border: 1px solid #868686;
   border-radius: 10px;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
+}
+
+#deals .deal .details {
+  background-color: #13c3ff;
+  padding: 10px;
+  width: 130px;
+  height: 130px;
+  color: white;
+  font-family: "Museo500";
+  font-size: 18px;
 }
 
 #contact {

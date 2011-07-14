@@ -57,28 +57,31 @@
     %img.download{ :src => "/images/download-orange.png" }
 
 #deals.section
-  #nearby
-    %h1 Popular deals near you
+  #popular
+    %h1 Popular deals 
   %h2 Sign up with Qwiqq to start sharing and discovering deals that matter to you!
   #grid
     - @deals.each do |deal|
       .deal
-        .image
-        .details
+        %a{ :href => deal_url(deal) }
+          .image
+            %img{ :src => deal.photo.url(:iphone_grid_2x) }
+          .details
+            = deal.name.truncate(100)
 
 #contact.section
   %img.contact{ :src => "/images/contact.png" }
   #methods
     .method.twitter
-      %a{ :href => "#" }
+      %a{ :href => "http://twitter.com/share?text=Checkout Qwiqq!" }
         .icon
       Twitter
     .method.facebook
-      %a{ :href => "#" }
+      %a{ :href => "http://www.facebook.com/sharer/sharer.php?u=http://qwiqq.me" }
         .icon
       Facebook
     .method.email
-      %a{ :href => "#" }
+      %a{ :href => "mailto:?subject=Checkout Qwiqq!&body=http://qwiqq.me" }
         .icon
       Email
   %br

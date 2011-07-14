@@ -1,6 +1,6 @@
 class DealsController < ApplicationController
   def index
-    @deals = Deal.limit(15)
+    @deals = Deal.unscoped.order("like_count desc, comment_count desc").limit(15)
     respond_with @deals
   end
   
