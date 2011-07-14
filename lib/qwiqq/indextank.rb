@@ -77,13 +77,15 @@ module Qwiqq
       def variables
         { 0 => deal.lat,
           1 => deal.lon,
-          2 => deal.like_count }
+          2 => deal.like_count.to_i }
       end
 
 
       def self.search(query,type,opts={})
         # change query for search by category
-        search_opts = {:fetch => "text,image,image_2x,price,percent,premium,timestamp"}
+        search_opts = {:fetch => "text,image,image_2x,price,percent,premium,timestamp",     #selected fields to return
+                       :fetch_variables => true,                                            # return all variables as variable_#
+                       :len => 40}                                                          # max results returned
         
         # select function based on type, assign lat and long
         search_opts[:function] = case type
@@ -116,15 +118,16 @@ module Qwiqq
       # replace indextank result keys with qwiqq keys
       def self.clean(results)
         results.map do |r| 
-          { :deal_id    => r['docid'],
-            :name       => r['text'],
-            :image      => r['image'],
-            :image_2x   => r['image_2x'],
-            :price      => r['price'],
-            :percent    => r['percent'],
-            :premium    => r['premium'],
-            :age        => (r['timestamp'] ? distance_of_time_in_words(Time.now.to_i, r['timestamp'].to_i) : ""),
-            :score      => r['query_relevance_score']
+          { :deal_id          => r['docid'],
+            :name             => r['text'],
+            :photo_list       => r['image'],
+            :photo_list_2x    => r['image_2x'],
+            :price            => r['price'],
+            :percent          => r['percent'],
+            :premium          => r['premium'],
+            :age              => (r['timestamp'] ? distance_of_time_in_words(Time.now.to_i, r['timestamp'].to_i) : ""),
+            :score            => r['query_relevance_score'],
+            :like_count       => r['variable_2'].to_i
           }
         end
       end

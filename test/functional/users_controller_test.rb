@@ -153,7 +153,7 @@ class Api::UsersControllerTest < ActionController::TestCase
 
     @user_params = { :email => "" }
     put :update, :id => "current", :user => @user_params, :format => "json"
-
+    
     assert_equal 422, @response.status
     assert_match /blank/i, json_response["email"].first
   end

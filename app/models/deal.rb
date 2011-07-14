@@ -26,8 +26,8 @@ class Deal < ActiveRecord::Base
   before_create :geodecode_location_name!
   
   # indextank updates
-  # after_create   { indextank_add }
-  # before_destroy { indextank_remove }
+  after_create   { indextank_doc.add }
+  before_destroy { indextank_doc.remove }
   
   default_scope :order => 'deals.created_at desc'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
@@ -35,9 +35,11 @@ class Deal < ActiveRecord::Base
   scope :search_by_name, lambda { |query| where([ 'UPPER(name) like ?', "%#{query.upcase}%" ]) }
 
   # all images are cropped
+  # see initializers/auto_orient.rb for new processor
   #  TODO review all image sizes, need to reduce/reuse
   has_attached_file :photo,
-                    {:styles => { #admin
+                    { :processors => [:auto_orient, :thumbnail], 
+                      :styles => { #admin
                                   :admin_sml    => ["30x30#", :jpg],
                                   :admin_med    => ["50x50#", :jpg],
                                   :admin_lrg    => ["240x", :jpg],
@@ -101,7 +103,7 @@ class Deal < ActiveRecord::Base
       :location_name  => location_name,
       :user           => user.try(:as_json, :deals => false)
     }
-
+    
     # TODO move this to device, which should know current user and likes
     # add 'liked' for the current_user if requested
     current_user = options[:current_user]

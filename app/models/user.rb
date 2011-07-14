@@ -65,27 +65,34 @@ class User < ActiveRecord::Base
   
   validates_confirmation_of :password
   validates_presence_of     :password, :on => :create
-  validates_presence_of     :email
+  validates_presence_of     :email, :username
   validates_uniqueness_of   :email, :username
   
-  has_attached_file :photo, 
-                    {:styles => { :admin_sml    => ["30x30#", :jpg],
+  # see initializers/auto_orient.rb for new processor
+  has_attached_file :photo,
+                    { :processors => [:auto_orient, :thumbnail],
+                      :styles => { 
+                                  :admin_sml    => ["30x30#", :jpg],
                                   :admin_med    => ["50x50#", :jpg],
                                   :admin_lrg    => ["240x", :jpg],
                                   
                                   :iphone       => ["75x75#", :jpg],
                                   :iphone2x     => ["150x150#", :jpg],
                                   
+                                  # user detail view
+                                  :iphone_profile      => ["85x85#", :jpg],
+                                  :iphone_profile_2x   => ["170x170#", :jpg],                                  
+                                  
+                                  # large image for zoom
                                   :iphone_zoom       => ["300x300#", :jpg],
-                                  :iphone_zoom_2x    => ["600x600#", :jpg]
-                                  }
+                                  :iphone_zoom_2x    => ["600x600#", :jpg]}
                     }.merge(PAPERCLIP_STORAGE_OPTIONS)
 
 
   strip_attrs :email, :city, :country, :first_name, :last_name, :username, :bio
   
-  def self.authenticate!(email, password)
-    user = find_by_email!(email)
+  def self.authenticate(email, password)
+    user = find_by_email(email)
     if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
       user
     else
@@ -171,6 +178,10 @@ class User < ActiveRecord::Base
       # user detail photo zoom
       :photo_zoom          => photo.url(:iphone_zoom),
       :photo_zoom_2x       => photo.url(:iphone_zoom_2x),
+      
+      # profile image on deal detail screen
+      :photo_profile     => photo.url(:iphone_profile),
+      :photo_profile_2x  => photo.url(:iphone_profile_2x),      
       
       # counts
       :like_count          => liked_deals.count,

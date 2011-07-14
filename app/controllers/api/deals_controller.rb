@@ -6,7 +6,7 @@ class Api::DealsController < Api::ApiController
   # no auth required
   
   def popular
-    @deals = Deal.unscoped.order("like_count desc, comment_count desc").limit(32).includes(:category)
+    @deals = Deal.unscoped.order("like_count desc, comment_count desc").limit(64).includes(:category)
     respond_with @deals
   end
   
@@ -18,7 +18,7 @@ class Api::DealsController < Api::ApiController
   # phase 2: add location order
   # phase 3: only deals from friends
   def feed
-    @deals = current_user.feed_deals.limit(32).includes(:category)
+    @deals = current_user.feed_deals.limit(40).includes(:category)
     raise RecordNotFound unless @deals
     respond_with @deals
   end
