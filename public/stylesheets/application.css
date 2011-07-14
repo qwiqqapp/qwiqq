@@ -55,15 +55,18 @@ a {
   color: #666;
 }
 
-#navigation a#app:hover {
+#navigation a#app:hover, 
+#navigation a#app.active {
   color: #ff7720;
 }
 
-#navigation a#deals:hover {
+#navigation a#deals:hover, 
+#navigation a#deals.active {
   color: #13c3ff;
 }
 
-#navigation a#contact:hover {
+#navigation a#contact:hover, 
+#navigation a#contact.active {
   color: #67d140;
 }
 
