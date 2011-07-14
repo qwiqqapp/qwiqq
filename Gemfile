@@ -12,8 +12,11 @@ gem "haml-rails"
 gem "sass"
 gem "simple_form"
 
-gem "json"
+# images
 gem "paperclip"
+gem "rmagick", :require => false
+
+gem "json"
 gem "aws-s3"
 gem "geokit"
 gem "koala"

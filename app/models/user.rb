@@ -68,8 +68,10 @@ class User < ActiveRecord::Base
   validates_presence_of     :email, :username
   validates_uniqueness_of   :email, :username
   
-  has_attached_file :photo, 
-                    {:styles => { :admin_sml    => ["30x30#", :jpg],
+  # see initializers/auto_orient.rb for new processor
+  has_attached_file :photo,
+                    { :processors => [:auto_orient, :thumbnail],
+                      :styles => { :admin_sml    => ["30x30#", :jpg],
                                   :admin_med    => ["50x50#", :jpg],
                                   :admin_lrg    => ["240x", :jpg],
                                   
@@ -77,8 +79,7 @@ class User < ActiveRecord::Base
                                   :iphone2x     => ["150x150#", :jpg],
                                   
                                   :iphone_zoom       => ["300x300#", :jpg],
-                                  :iphone_zoom_2x    => ["600x600#", :jpg]
-                                  }
+                                  :iphone_zoom_2x    => ["600x600#", :jpg]}
                     }.merge(PAPERCLIP_STORAGE_OPTIONS)
 
 
