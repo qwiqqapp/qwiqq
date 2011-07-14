@@ -40,7 +40,7 @@ class Comment < ActiveRecord::Base
   def deliver_notification
     Mailer.deal_commented(self).deliver
   end
-
+  
   def increment_comment_count
     Deal.increment_counter(:comment_count, deal_id)
   end

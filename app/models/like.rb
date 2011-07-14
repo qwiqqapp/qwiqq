@@ -16,11 +16,15 @@ class Like < ActiveRecord::Base
     Mailer.deal_liked(self).deliver
   end
 
+  #  TODO offload sync variables to job
   def increment_like_count
-    Deal.increment_counter(:like_count, deal_id)
+    deal.increment!(:like_count)
+    deal.indextank_doc.sync_variables
   end
-   
+
+  #  TODO offload sync variables to job   
   def decrement_like_count
-    Deal.decrement_counter(:like_count, deal_id)
+    deal.decrement!(:like_count)
+    deal.indextank_doc.sync_variables
   end
 end
