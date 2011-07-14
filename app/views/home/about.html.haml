@@ -1,0 +1,50 @@
+#navigation
+  #corner.left
+    %ul
+      %li
+        %a#back{ :href => root_url }
+          .image
+          Back
+
+  #corner.right
+    %img.download-small{ :src => "/images/download-green-small.png" }
+
+#about.page
+  %img.logo{ :src => "/images/logo-mid.png" }
+
+  %h1 About Us
+  %span
+    Qwiqq is a mobile platform that lets you instantly share local deals with your friends and find personalized deals that matter to you from your iPhone. We empower the community to search and find great local deals that others are posting. By allowing the community to “look over the shoulder” of friends sharing deals, the Qwiqq platform creates engagement, discovery and enjoyment within a community of savvy shoppers.
+
+  #team.area
+    %h1 The Team
+    %ul.team
+      %li.first
+        %h2 John Phan, Co-founder    
+        %span
+          %span.quote “Shopping should be a very social experience.” 
+          I have always believed in the power of creating a social platform that enables people to shop more efficiently by leveraging their network of friends. Qwiqq is about empowering friends to find and share deals that are personal and relevant to them.
+
+      %li
+        %h2 Jack Wrigley, Co-founder
+        %span
+          %span.quote "Humans are far more interesting than algorithms.” 
+          Search powered by algorithms falls short because people’s lives are constantly in motion. Most people have a good friend or two that knows a lot about them. Empowering friends to share information delivers a more personal, relevant deal.
+
+  #faq.area
+    %h1 FAQs
+
+    %h2 What is Qwiqq?    %span Qwiqq is a mobile platform that lets you instantly share local deals with your friends and find personalized deals that matter to you from your iPhone. 
+        %h2 How much does your app cost?    %span Qwiqq is available for FREE in the iTunes App Store. 
+        %h2 Who can use Qwiqq?    %span Anyone can use Qwiqq. Qwiqq is as powerful between two friends as it is between a group of people.
+        %h2 Can I use Qwiqq without adding Friends?    %span Yes! You do not need to add Friends to take advantage of great deals in your area. Simply search for local deals and enjoy the savings!
+        %h2 Can local merchants use Qwiqq?    %span Absolutely! Qwiqq empowers local merchants to post timely, highly relevant flash deals directly to their customers. And best of all, it’s free! With Qwiqq, there is no coupon redemption, no outrageous revenue sharing, and no monthly plan. Qwiqq is fast, social and easy to use.
+        %h2 How does privacy work?    %span At Qwiqq, we take your privacy seriously. Like you, we love deals but hate being tracked and followed by big companies. Your personal information is only shared with your individual friends in the Qwiqq network.
+    %h2 Will there be an Android app?    %span We are currently working on making the iPhone experience as solid as possible. We love Android users and plan to release an Android app in the near future. Please check our website for announcements on when our Android app will be ready.
+        %h2 What versions of the iPhone are you compatible with?    %span Anyone with an iPhone or iPod Touch running iOS 4.2 and above can use Qwiqq.
+        %h2 Do you have an iPad app?    %span Our iPhone app also works on an iPad.
+        %h2 Who are the Qwiqq investors?    %span Qwiqq is funded by an experienced group of investors and entrepreneurs who have a proven track record in the mobile and consumer Internet space.
+        %h2 Is Qwiqq hiring?    %span Absolutely. We’re looking for passionate people who share our vision for changing the way people shop. We’re more interested in what motivates you than where you attended college. If you want to be part of the Qwiqq revolution, send us an email at #{mail_to("hello@qwiqq.me")} and tell us why.
+        %h2 How do I contact Qwiqq for support or suggestions?    %span The best way to get in touch with us is to email us at hello@qwiqq.me. We promise to respond to your inquiry as quickly as possible.
+
+= render "footer"

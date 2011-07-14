@@ -125,6 +125,20 @@ a {
   background: url("/images/awayarrow-mouseover.png") no-repeat 0 0;
 }
 
+#navigation a#back .image {
+  background: url("/images/backarrow.png") no-repeat 0 0;
+  position: relative;
+  top: -3px;
+  padding-right: 5px;
+  width: 29px;
+  height: 27px;
+  float: left;
+}
+
+#navigation a:hover#back .image {
+  background: url("/images/backarrow-mouseover.png") no-repeat 0 0;
+}
+
 #navigation li {
   display: inline;
 }
@@ -327,4 +341,90 @@ a {
   float: right;
   margin-top: 60px;
   margin-right: 20px;
+}
+
+/* about, terms and privacy */
+
+#navigation a#back {
+  position: relative;
+  top: 32px;
+  float: left;
+}
+
+#navigation img.download-small {
+  position: relative;
+  top: 23px;
+  right: -7px;
+}
+
+.page {
+  line-height: 18px;
+  width: 630px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 80px;
+  padding-bottom: 50px;
+}
+
+.page img.logo {
+  padding-left: 220px;
+  margin-bottom: 10px;
+}
+
+#about h1 {
+  font-size: 25px;
+  margin-bottom: 10px;
+  color: #ff7720;
+}
+
+#about h2 {
+  font-size: 20px;
+  color: #868686;
+  padding-bottom: 5px;
+}
+
+#about span {
+  font-size: 16px;
+  color: #868686;
+}
+
+#about span.quote {
+  font-family: "Museo500";
+}
+
+#about #team h1 {
+  color: #13c3ff;
+}
+
+#about ul.team {
+  overflow: hidden;
+}
+
+#about ul.team li {
+  float: left;
+  width: 300px;
+}
+
+#about ul.team li.first {
+  margin-right: 20px;
+}
+
+#about #team {
+  margin-top: 30px;
+}
+
+#about #faq h1 {
+  color: #67d140;
+}
+
+#about #faq {
+  margin-top: 40px;
+}
+
+#about #faq h2 {
+  margin-top: 20px;
+}
+
+#about #faq a {
+  color: #868686;
 }

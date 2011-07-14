@@ -87,15 +87,4 @@
   %br
   %img.communication{ :src => "/images/communication.png" }
 
-#footer
-  %a{ :href => download_url }
-    %img{ :src => "/images/download-white.png" }
-  %ul#links
-    %li= link_to "About Qwiqq", about_url
-    |
-    %li= link_to "Privacy Policy", privacy_url
-    |
-    %li= link_to "Terms and Services", terms_url
-
-  #copyright
-    &copy; 2011, Qwiqq Inc
+= render "home/footer"
