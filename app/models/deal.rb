@@ -101,7 +101,7 @@ class Deal < ActiveRecord::Base
       :location_name  => location_name,
       :user           => user.try(:as_json, :deals => false)
     }
-
+    
     # TODO move this to device, which should know current user and likes
     # add 'liked' for the current_user if requested
     current_user = options[:current_user]
