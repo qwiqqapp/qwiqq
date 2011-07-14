@@ -9,7 +9,7 @@ class Api::SearchController < Api::ApiController
   # api/search/users
   def users
     @users = User.search_by_username(params[:q])
-    respond_with @users
+    render :json => @users.as_json(:current_user => current_user)
   end
   
   # api/search/deals/newest
