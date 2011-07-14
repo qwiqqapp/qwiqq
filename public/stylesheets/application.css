@@ -343,7 +343,7 @@ a {
   margin-right: 20px;
 }
 
-/* about, terms and privacy */
+/* about */
 
 #navigation a#back {
   position: relative;
@@ -428,3 +428,31 @@ a {
 #about #faq a {
   color: #868686;
 }
+
+/* terms and privacy */
+
+#terms, #privacy {
+  color: #868686;
+}
+
+#terms h1, #privacy h1 {
+  font-size: 20px;
+  color: #ff7720;
+  padding-bottom: 10px;
+}
+
+#terms p, #privacy p {
+  padding-bottom: 10px;
+}
+
+#terms ul, #privacy ul {
+  list-style-type: circle;
+  list-style-position: outside;
+  padding-bottom: 10px;
+}
+
+#terms li, #privacy li {
+  margin-left: 20px;
+}
+
+
