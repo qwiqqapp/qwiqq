@@ -7,6 +7,7 @@ class Api::ApiController < ActionController::Base
   helper_method :current_user
   
   # Method Not Allowed
+  # comment this out when debugging API
   rescue_from NoMethodError do |e|
     Rails.logger.error "ApplicationController error#405: #{e.message}"
     render :json => {:message => 'Method Not Allowed' }, :status => 405

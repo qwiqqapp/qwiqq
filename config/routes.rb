@@ -31,6 +31,7 @@ Qwiqq::Application.routes.draw do
     end
     
     resources :sessions, :only => [:create, :destroy]
+    resources :password_resets, :only => [:create, :update]
     
     resources :deals, :only => [:show, :create, :destroy, :update] do
       get "feed", :on => :collection
@@ -49,6 +50,8 @@ Qwiqq::Application.routes.draw do
     get "search/deals/:filter"          => "search#deals",    :as => 'search_deals'   #,    :constraints => { :filter => /\D+/ }
     get "search/categories/:name/deals" => "search#category", :as => 'search_category'#, :constraints => { :name   => /\D+/ }
   end
+
+  match "facebook", :to => "facebook#index", :as => :facebook
 
   # home routes
   match "about", :to => "home#about", :as => :about

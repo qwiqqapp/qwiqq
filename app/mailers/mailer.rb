@@ -24,5 +24,11 @@ class Mailer < ActionMailer::Base
     @user = user
     mail :to => email, :subject => "#{@user.name} has invited you to Qwiqq!"
   end
+  
+  def password_reset(user, email)
+    @user = user
+    mail :to => email, :subject => "Your password reset instructions for Qwiqq"
+  end
+  
 end
 

@@ -13,6 +13,7 @@ class Api::UsersController < Api::ApiController
   end
 
   def update
+    
     # only the current user can be updated
     raise ActiveRecord::RecordNotFound unless params[:id] == "current"
     @user = current_user
@@ -22,8 +23,6 @@ class Api::UsersController < Api::ApiController
     end
   end
   
-  # phase 1: return full details
-  # phase 2: return full for friends and limited for non friends
   def show
     @user = find_user(params[:id])
     render :json => @user.as_json(
