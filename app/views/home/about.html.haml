@@ -1,17 +1,19 @@
-#navigation
-  #corner.left
-    %ul
-      %li
-        %a#back{ :href => root_url }
-          .image
-          Back
+- unless iphone?
+  #navigation
+    #corner.left
+      %ul
+        %li
+          %a#back{ :href => root_url }
+            .image
+            Back
 
-  #corner.right
-    %a{ :href => download_url }
-      %img.download-small{ :src => "/images/download-green-small.png" }
+    #corner.right
+      %a{ :href => download_url }
+        %img.download-small{ :src => "/images/download-green-small.png" }
 
 #about.page
-  %img.logo{ :src => "/images/logo-mid.png" }
+  %a{ :href => root_url }
+    %img.logo{ :src => "/images/logo-mid.png" }
 
   %h1 About Us
   %span
@@ -25,18 +27,20 @@
         %span
           %span.quote “Shopping should be a very social experience.” 
           I have always believed in the power of creating a social platform that enables people to shop more efficiently by leveraging their network of friends. Qwiqq is about empowering friends to find and share deals that are personal and relevant to them.
-        - @johns_deals.each do |deal|
-          %a.deal{ :href => deal_url(deal) }
-            %img{ :src => deal.photo.url(:iphone_profile) }
+        - unless iphone?
+          - @johns_deals.each do |deal|
+            %a.deal{ :href => deal_url(deal) }
+              %img{ :src => deal.photo.url(:iphone_profile) }
 
       %li
         %h2 Jack Wrigley, Co-founder
         %span
           %span.quote "Humans are far more interesting than algorithms.” 
           Search powered by algorithms falls short because people’s lives are constantly in motion. Most people have a good friend or two that knows a lot about them. Empowering friends to share information delivers a more personal, relevant deal.
-        - @jacks_deals.each do |deal|
-          %a.deal{ :href => deal_url(deal) }
-            %img{ :src => deal.photo.url(:iphone_profile) }
+        - unless iphone?
+          - @jacks_deals.each do |deal|
+            %a.deal{ :href => deal_url(deal) }
+              %img{ :src => deal.photo.url(:iphone_profile) }
 
   #faq.area
     %h1 FAQs
@@ -52,6 +56,7 @@
         %h2 Do you have an iPad app?    %span Our iPhone app also works on an iPad.
         %h2 Who are the Qwiqq investors?    %span Qwiqq is funded by an experienced group of investors and entrepreneurs who have a proven track record in the mobile and consumer Internet space.
         %h2 Is Qwiqq hiring?    %span Absolutely. We’re looking for passionate people who share our vision for changing the way people shop. We’re more interested in what motivates you than where you attended college. If you want to be part of the Qwiqq revolution, send us an email at #{mail_to("hello@qwiqq.me")} and tell us why.
-        %h2 How do I contact Qwiqq for support or suggestions?    %span The best way to get in touch with us is to email us at hello@qwiqq.me. We promise to respond to your inquiry as quickly as possible.
+        %h2 How do I contact Qwiqq for support or suggestions?    %span The best way to get in touch with us is to email us at #{mail_to("hello@qwiqq.me")}. We promise to respond to your inquiry as quickly as possible.
 
-= render "shared/footer"
+- unless iphone?
+  = render "shared/footer"
