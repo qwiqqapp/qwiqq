@@ -36,5 +36,14 @@ class Api::RelationshipsControllerTest < ActionController::TestCase
     assert_equal 0, json_response["following_count"]
     assert_equal 0, json_response["friends_count"]
   end
+  
+  test "should now allow self follow" do
+    @user = Factory(:user)
+    sign_in(@user)
 
+    post :create, :user_id => @user.id , :target_id => @user.id, :format => "json"
+
+    assert_equal 405,       @response.status
+    assert_match /unable to follow/i, json_response['message']
+  end
 end

@@ -24,8 +24,6 @@ class Deal < ActiveRecord::Base
   validates :price, :numericality => true, :if => :has_price?
   
   before_create :geodecode_location_name!
-  
-  # indextank updates
   after_create   { indextank_doc.add }
   before_destroy { indextank_doc.remove }
   

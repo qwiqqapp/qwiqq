@@ -60,6 +60,10 @@ module Qwiqq
         Document.index.document(deal.id).update_variables(variables)
       end
       
+      def sync_categories
+        Document.index.document(deal.id).update_categories(categories)
+      end
+      
       def fields
         fields = { :text         => deal.name,
                    :category     => deal.category.name,
@@ -79,8 +83,7 @@ module Qwiqq
           1 => deal.lon,
           2 => deal.like_count.to_i }
       end
-
-
+      
       def self.search(query,type,opts={})
         # change query for search by category
         search_opts = {:fetch => "text,image,image_2x,price,percent,premium,timestamp",     #selected fields to return

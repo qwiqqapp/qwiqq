@@ -54,26 +54,29 @@ class Api::LikesControllerTest < ActionController::TestCase
   
   test "should create a like for the current user and specified deal" do
     @user = Factory(:user)
-    @deal = Factory(:deal)
+    @deal = Factory(:deal, :like_count => 0)
     sign_in(@user)
     
-    Deal.expects(:increment_counter).once.with(:like_count, @deal.id)
+    Qwiqq::Indextank::Document.any_instance.expects(:sync_variables).once
+    
     post :create, :deal_id => @deal.id, :format => "json"
-
+    
     assert_equal 201, @response.status
+    assert_equal 1, Deal.find(@deal.id).like_count
   end
 
   test "should destroy a like for the current user and specified deal" do
     @user = Factory(:user)
-    @deal = Factory(:deal)
+    @deal = Factory(:deal, :like_count => 0)
+    @like = @deal.likes.create(:user => @user)
+    
     sign_in(@user)
 
-    Deal.expects(:decrement_counter).once.with(:like_count, @deal.id)
-    @like = @deal.likes.create(:user => @user)
-
+    Qwiqq::Indextank::Document.any_instance.expects(:sync_variables).once
+    
     delete :destroy, :deal_id => @deal.id, :format => "json"
 
     assert_equal 200, @response.status
+    assert_equal 0, Deal.find(@deal.id).like_count    
   end
-
 end
