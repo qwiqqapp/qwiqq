@@ -9,7 +9,7 @@ module Qwiqq
           :host => "production.qwiqq.com")
 
         # post caption
-        caption = Qwiqq.share_deal_message(self, deal)
+        caption = Qwiqq.share_deal_message(deal, self)
         
         # post to the users wall
         facebook_client.put_wall_post(
