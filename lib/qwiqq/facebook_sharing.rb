@@ -9,12 +9,7 @@ module Qwiqq
           :host => "production.qwiqq.com")
 
         # post caption
-        caption = 
-          if deal.user == self
-            "I shared a deal on Qwiqq!"
-          else
-            "I found a deal on Qwiqq!"
-          end
+        caption = Qwiqq.share_deal_message(self, deal)
         
         # post to the users wall
         facebook_client.put_wall_post(

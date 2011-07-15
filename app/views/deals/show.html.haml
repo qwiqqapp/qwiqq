@@ -10,7 +10,7 @@
       %img.photo{ :src => @deal.user.photo.url(:admin_med) }
       %span.username #{@deal.user.username} posted this #{@deal.created_at.strftime("%B %d, %Y")}
     #share
-      %a.twitter{ :href => "http://twitter.com/share?text=Checkout this deal!" }
+      %a.twitter{ :href => "http://twitter.com/share?text=#{Qwiqq.share_deal_message(@deal)}" }
         .button
       %a.facebook{ :href => "http://www.facebook.com/sharer/sharer.php?u=#{deal_url(@deal)}" }
         .button
