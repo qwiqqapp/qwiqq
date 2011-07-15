@@ -18,6 +18,8 @@ class Api::FriendsController < Api::ApiController
 
   private
     def find_friends_by_email(user, emails)
+      # make sure current user isn't in the list of emails
+      emails.delete(user.email)
       friends = User.where(:email => emails)
       friends.map! do |friend|
         # friend found, remove email and check if the user is following them
