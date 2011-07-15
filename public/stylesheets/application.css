@@ -655,8 +655,10 @@ a {
 
 #deal .comment .body {
   font-family: "Museo300";
+  margin-top: 5px;
   margin-left: 5px;
-  float: left;
+  display: block;
+  padding-left: 55px;
 }
 
 #deal .comment .from {
