@@ -52,38 +52,34 @@ class Api::PasswordResetsControllerTest < ActionController::TestCase
   
   test "should accept update password for valid reset token" do
     token       = 'Ckx5dawt9eOl5Le4gIhKyv18'
-    new_email   = 'adam@test.com'
     @user       = Factory(:user, :reset_password_token => token)
     
-    put :update, :id => token, :email => new_email, :format => 'json'
+    put :update, :id => token, :password => 'acmecafe', :format => 'json'
     
-    assert_equal 200,       @response.status
-    assert_equal new_email, json_response['email']
-    assert_equal @user.id,  session[:user_id]
+    assert_equal 200,                              @response.status
+    assert_equal @user.id,                         session[:user_id]
+    assert_not_equal assigns(:user).password_hash, @user.password_hash
   end
   
-  test "should NOT user for invalid password reset token" do
+  test "should NOT allow password update for invalid password reset token" do
     token = 'Ckx5dawt9eOl5Le4gIhKyv18'
     @user = Factory(:user, :reset_password_token => token)
     
-    get :update, :id => 'invalid', :format => 'json'
+    get :update, :id => 'invalid', :password => 'acmecafe', :format => 'json'
     
     assert_equal 404,                 @response.status
     assert_match /no longer valid/i,  json_response['message']
-    assert_equal nil,                 session[:user_id]
+    assert_equal nil,                 session[:user_id] 
   end
   
-  test "should return errors for invalid email address" do
-    token       = 'Ckx5dawt9eOl5Le4gIhKyv18'
-    new_email   = 'adam@test.com'
-    @user0      = Factory(:user, :email => new_email)
-    @user1      = Factory(:user, :reset_password_token => token)
+  test "should NOT allow password update for invalid password (too short)" do
+    token = 'Ckx5dawt9eOl5Le4gIhKyv18'
+    @user = Factory(:user, :reset_password_token => token)
     
-    put :update, :id => token, :email => new_email, :format => 'json'
+    put :update, :id => token, :password => 'abc', :format => 'json'
     
-    assert_equal 422,                   @response.status
-    assert_equal nil,                   session[:user_id]
-    assert_match /already been taken/i, json_response['email'].first
+    assert_equal 422,      @response.status
+    assert_equal nil,      session[:user_id]
+    assert_match /short/i, json_response['password'].first
   end
-  
 end

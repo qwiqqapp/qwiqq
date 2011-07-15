@@ -18,8 +18,8 @@ class Api::PasswordResetsController < Api::ApiController
     @user = User.validate_password_reset(params[:id])
     
     if @user
-      @user.update_attributes(:email => params[:email])     #update with posted email
-      session[:user_id] = @user.id if @user.valid?          #login if @user is valid
+      @user.update_attributes(:password => params[:password]) #update with posted password
+      session[:user_id] = @user.id if @user.valid?            #login if @user is valid
       respond_with(:api, @user) do
         render :json => @user.as_json and return if @user.valid?
       end
