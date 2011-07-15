@@ -7,7 +7,9 @@
       %li= image_tag "facebook/image4.png"
   %ul#things
     %li#coming-soon.box
-      .left= image_tag "facebook/comingsoon.png"
+      .left
+        =link_to "http://qwiqq.com" do
+          = image_tag "facebook/comingsoon.png"
       .right
         %h2 Coming Soon
         %p
@@ -18,7 +20,9 @@
         %p
           Another great way to stay in touch, follow us on 
           = link_to "Twitter", "http://twitter.com/qwiqq"
-      .right= image_tag "facebook/twitter.png"
+      .right
+        =link_to "http://twitter.com/qwiqq" do
+          =image_tag "facebook/twitter.png"
     %li#like-us.box
       .left= image_tag "facebook/likeus.png"
       .right
