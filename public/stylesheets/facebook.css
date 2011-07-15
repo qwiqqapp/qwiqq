@@ -26,6 +26,14 @@ body, html {
   color: #666;
 }
 
+a {
+  color: #666;
+}
+
+a:visited {
+  color: #666;
+}
+
 #facebook {
   width: 520px;
   margin: 0;
