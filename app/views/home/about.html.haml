@@ -7,7 +7,8 @@
           Back
 
   #corner.right
-    %img.download-small{ :src => "/images/download-green-small.png" }
+    %a{ :href => download_url }
+      %img.download-small{ :src => "/images/download-green-small.png" }
 
 #about.page
   %img.logo{ :src => "/images/logo-mid.png" }
@@ -24,12 +25,18 @@
         %span
           %span.quote “Shopping should be a very social experience.” 
           I have always believed in the power of creating a social platform that enables people to shop more efficiently by leveraging their network of friends. Qwiqq is about empowering friends to find and share deals that are personal and relevant to them.
+        - @johns_deals.each do |deal|
+          %a.deal{ :href => deal_url(deal) }
+            %img{ :src => deal.photo.url(:iphone_profile) }
 
       %li
         %h2 Jack Wrigley, Co-founder
         %span
           %span.quote "Humans are far more interesting than algorithms.” 
           Search powered by algorithms falls short because people’s lives are constantly in motion. Most people have a good friend or two that knows a lot about them. Empowering friends to share information delivers a more personal, relevant deal.
+        - @jacks_deals.each do |deal|
+          %a.deal{ :href => deal_url(deal) }
+            %img{ :src => deal.photo.url(:iphone_profile) }
 
   #faq.area
     %h1 FAQs
@@ -47,4 +54,4 @@
         %h2 Is Qwiqq hiring?    %span Absolutely. We’re looking for passionate people who share our vision for changing the way people shop. We’re more interested in what motivates you than where you attended college. If you want to be part of the Qwiqq revolution, send us an email at #{mail_to("hello@qwiqq.me")} and tell us why.
         %h2 How do I contact Qwiqq for support or suggestions?    %span The best way to get in touch with us is to email us at hello@qwiqq.me. We promise to respond to your inquiry as quickly as possible.
 
-= render "footer"
+= render "shared/footer"

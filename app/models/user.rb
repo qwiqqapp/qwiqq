@@ -153,12 +153,11 @@ class User < ActiveRecord::Base
   end
   
   def feed_deals
-    # finds the users deals, reposts, followed user deals and followed user reposts
-    Deal.joins("LEFT OUTER JOIN relationships ON relationships.target_id = deals.user_id").
+    # finds deals and reposted deals from followed users
+    Deal.select("DISTINCT deals.*").
+         joins("LEFT OUTER JOIN relationships ON relationships.target_id = deals.user_id").
          joins("LEFT OUTER JOIN reposted_deals ON reposted_deals.deal_id = deals.id").
          where("relationships.user_id = #{id} OR 
-                deals.user_id = #{id} OR 
-                reposted_deals.user_id = #{id} OR 
                 reposted_deals.user_id IN(
                   SELECT relationships.target_id FROM relationships WHERE relationships.user_id = #{id})")
   end

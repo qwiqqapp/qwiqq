@@ -66,22 +66,6 @@ class UserTest < ActiveSupport::TestCase
     @user0 = Factory(:user)
     @user1 = Factory(:user)
     @user2 = Factory(:user)
-
-    @user0.follow!(@user1)
-    @user0.follow!(@user2)
-
-    @deal0 = Factory(:deal, :user => @user1, :created_at => 1.hour.ago)
-    @deal1 = Factory(:deal, :user => @user2, :created_at => 2.hours.ago)
-    @deal2 = Factory(:deal, :user => @user0, :created_at => 3.hours.ago)
-
-    assert_equal 3, @user0.feed_deals.count
-    assert_equal [@deal0, @deal1, @deal2], @user0.feed_deals
-  end
-
-  test "#feed_deals with reposts" do
-    @user0 = Factory(:user)
-    @user1 = Factory(:user)
-    @user2 = Factory(:user)
     @user3 = Factory(:user)
 
     @user0.follow!(@user1)
@@ -94,8 +78,8 @@ class UserTest < ActiveSupport::TestCase
 
     @user0.repost_deal!(@deal3)
 
-    assert_equal 4, @user0.feed_deals.count
-    assert_equal [@deal0, @deal1, @deal2, @deal3], @user0.feed_deals 
+    assert_equal 2, @user0.feed_deals.count
+    assert_equal [@deal0, @deal1], @user0.feed_deals 
   end
   
   test "#feed_deals with reposts from followed users" do
@@ -114,8 +98,8 @@ class UserTest < ActiveSupport::TestCase
 
     @user1.repost_deal!(@deal3)
 
-    assert_equal 4, @user0.feed_deals.count
-    assert_equal [@deal0, @deal1, @deal2, @deal3], @user0.feed_deals 
+    assert_equal 3, @user0.feed_deals.count
+    assert_equal [@deal0, @deal1, @deal3], @user0.feed_deals 
   end
 
   test "should update twitter_id when twitter_access_token changes" do

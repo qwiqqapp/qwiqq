@@ -44,14 +44,12 @@ class Api::DealsControllerTest < ActionController::TestCase
     
     sign_in(@user0)
 
-    # deals from the current user and the users they follow
+    # deals from users followed by current user
     feed_deals = [
-      Factory(:deal, :user => @user0, :created_at => 30.seconds.ago),
       Factory(:deal, :user => @user1, :created_at => 1.minutes.ago),
       Factory(:deal, :user => @user2, :created_at => 40.minutes.ago),
       Factory(:deal, :user => @user2, :created_at => 2.hours.ago),
-      Factory(:deal, :user => @user1, :created_at => 3.days.ago),
-      Factory(:deal, :user => @user0, :created_at => 5.days.ago) ]
+      Factory(:deal, :user => @user1, :created_at => 3.days.ago) ]
 
     @user0.follow!(@user1)
     @user0.follow!(@user2)
@@ -60,7 +58,7 @@ class Api::DealsControllerTest < ActionController::TestCase
     
     assert_equal 200,   @response.status
     assert_equal Array, json_response.class
-    assert_equal 6,     json_response.size
+    assert_equal 4,     json_response.size
     
     # check order
     assert_equal feed_deals.map(&:id), json_response.map{|d| d["deal_id"].to_i}
