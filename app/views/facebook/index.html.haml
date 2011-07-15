@@ -1,0 +1,28 @@
+#facebook
+  #gallery-scroller
+    %ul#gallery
+      %li= image_tag "facebook/image1.png"
+      %li= image_tag "facebook/image2.png"
+      %li= image_tag "facebook/image3.png"
+      %li= image_tag "facebook/image4.png"
+  %ul#things
+    %li#coming-soon.box
+      .left= image_tag "facebook/comingsoon.png"
+      .right
+        %h2 Coming Soon
+        %p
+          Stay in the loop and be the first to know when we launch!
+    %li#follow-us.box
+      .left
+        %h2 Follow Us
+        %p
+          Another great way to stay in touch, follow us on 
+          = link_to "Twitter", "http://twitter.com/qwiqq"
+      .right= image_tag "facebook/twitter.png"
+    %li#like-us.box
+      .left= image_tag "facebook/likeus.png"
+      .right
+        %h2 Like Us
+        %p
+          Help us build the Qwiqq community and “Like Us” above
+

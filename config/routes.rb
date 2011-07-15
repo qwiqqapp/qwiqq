@@ -51,6 +51,8 @@ Qwiqq::Application.routes.draw do
     get "search/categories/:name/deals" => "search#category", :as => 'search_category'#, :constraints => { :name   => /\D+/ }
   end
 
+  match "facebook", :to => "facebook#index", :as => :facebook
+
   # home routes
   match "about", :to => "home#about", :as => :about
   match "terms", :to => "home#terms", :as => :terms

@@ -1,0 +1,146 @@
+@font-face {
+    font-family: 'Museo300';
+    src: url('/fonts/museo300-regular-webfont.eot');
+    src: url('/fonts/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/museo300-regular-webfont.woff') format('woff'),
+         url('/fonts/museo300-regular-webfont.ttf') format('truetype'),
+         url('/fonts/museo300-regular-webfont.svg#Museo300') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Museo500';
+    src: url('/fonts/museo500-regular-webfont.eot');
+    src: url('/fonts/museo500-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/museo500-regular-webfont.woff') format('woff'),
+         url('/fonts/museo500-regular-webfont.ttf') format('truetype'),
+         url('/fonts/museo500-regular-webfont.svg#Museo500') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body, html {
+  padding: 0;
+  margin: 0;
+  color: #666;
+}
+
+a {
+  color: #666;
+}
+
+a:visited {
+  color: #666;
+}
+
+#facebook {
+  width: 520px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+#gallery {
+  display: block;
+  height: 339px;
+  width: 2080px;
+  margin: 0;
+  padding: 0;
+}
+
+#gallery-scroller {
+  width: 520px;
+  height: 339px;
+  overflow: hidden;
+}
+
+#gallery li {
+  list-style: none;
+  margin: 0;
+  float: left;
+}
+
+#things {
+  display: table;
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+}
+
+.box {
+  list-style: none;
+  display: table-row;
+  width: 520px;
+  height: 150px;
+}
+
+.box .left {
+  display: table-cell;
+  vertical-align: middle;
+  height: 150px;
+  text-align: right;
+  width: 250px;
+  padding-right: 10px;
+}
+
+.box .right {
+  display: table-cell;
+  vertical-align: middle;
+  height: 150px;
+  text-align: left;
+  width: 250px;
+  padding-left: 10px;
+}
+
+
+h2 {
+  font-family: 'Museo500';
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  font-size: 110%;
+}
+
+p {
+  margin: 0;
+  margin-top: 5px;
+  padding: 0;
+  font-family: 'Museo300';
+}
+
+#follow-us {
+  background: #eee;
+}
+
+#follow-us .left, #follow-us .right {
+  border-top: 1px solid #c5c5c5;
+  border-bottom: 1px solid #c5c5c5;
+}
+
+#follow-us .right {
+  background: transparent url(../images/facebook/arrow1.png) 200px top no-repeat;
+}
+
+#like-us .left {
+  background: transparent url(../images/facebook/arrow2.png) 10px top no-repeat;
+}
+
+.arrow {
+  display: block;
+  position: absolute;
+  top: 143px;
+  width: 23px;
+  height: 52px;
+}
+
+#left-arrow {
+  left: 0;
+  background: transparent url(../images/facebook/left-scroll.png) top left no-repeat;
+}
+
+#right-arrow {
+  right: 0;
+  background: transparent url(../images/facebook/right-scroll.png) top left no-repeat;
+}
+
