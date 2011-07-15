@@ -162,6 +162,17 @@ a {
   left: 300px;
 }
 
+#home #phone {
+  margin-top: 20px;
+}
+
+#home #screenshots {
+  z-index: -1;
+  display: inline;
+  left: -232px;
+  top: -409px;
+}
+
 #app {
   height: 755px;
 }

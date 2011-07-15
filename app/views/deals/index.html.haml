@@ -27,9 +27,13 @@
 
 #home.section
   %img.logo{ :src => "/images/logo-tagline.png" }
-  %br
-  %img.iphone{ :src => "images/iphone.png" }
-  %br
+  #phone
+    %img#frame{ :src => "images/iphone.png" }
+    #screenshots
+      %img#screen1{ :src => "images/screen1.png" }
+      %img#screen2{ :src => "images/screen2.png" }
+      %img#screen3{ :src => "images/screen3.png" }
+    
   %a{ :href => download_url }
     %img.download{ :src => "/images/download-green.png" }
 

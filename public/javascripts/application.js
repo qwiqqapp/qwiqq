@@ -29,8 +29,8 @@ $(function() {
   });
 
   $(document).scroll(function() {
-    var top = $(document).scrollTop();
     $("#navigation a").removeClass("active");  
+    var top = $(document).scrollTop();
     if (top >= positions.contact) {
       $("#navigation a#contact").addClass("active");
     }
@@ -41,6 +41,9 @@ $(function() {
       $("#navigation a#app").addClass("active");
     }
   });
+
+  // cycle screenshots
+  $("#screenshots").cycle("fade");
 
   // deals
   $(".deal").hover(
