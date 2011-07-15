@@ -12,8 +12,8 @@ class Like < ActiveRecord::Base
   after_destroy :decrement_like_count
   
   private
-  def deliver_notification
-    Mailer.deal_liked(deal.user, self).deliver
+  def deliver_notification    
+    Mailer.deal_liked(deal.user, self).deliver if deal.user.send_notifications
   end
 
   #  TODO offload sync variables to job

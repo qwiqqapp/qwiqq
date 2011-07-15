@@ -53,8 +53,9 @@ class Api::LikesControllerTest < ActionController::TestCase
   end
   
   test "should create a like for the current user and specified deal" do
-    @user = Factory(:user)
-    @deal = Factory(:deal, :like_count => 0)
+    @user   = Factory(:user)
+    @owner  = Factory(:user, :send_notifications => false)    
+    @deal   = Factory(:deal, :like_count => 0, :user => @owner)
     sign_in(@user)
     
     Qwiqq::Indextank::Document.any_instance.expects(:sync_variables).once

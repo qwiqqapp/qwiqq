@@ -6,16 +6,16 @@ class RelationshipTest < ActiveSupport::TestCase
   # email notifcations 
   
   test "sends follower email notification" do
+    @target = Factory(:user, :send_notifications => true)
     @user = Factory(:user)
-    @target = Factory(:user)
     Mailer.expects(:new_follower).once.with(@target, @user).returns(mock(:deliver => true))
     
     Relationship.create(:user => @user, :target => @target)
   end
   
   test "sends friend email notification" do
+    @target = Factory(:user, :send_notifications => true)
     @user = Factory(:user)
-    @target = Factory(:user)
     
     User.any_instance.expects(:friends?).returns(true)
     Mailer.expects(:new_friend).once.with(@target, @user).returns(mock(:deliver => true))    
@@ -23,14 +23,15 @@ class RelationshipTest < ActiveSupport::TestCase
     Relationship.create(:user => @user, :target => @target)
   end
   
-  test "follower email should have following in content" do
+  test "should not send follower email notification" do
+    @target = Factory(:user, :send_notifications => false)
     @user = Factory(:user)
-    @target = Factory(:user)
-    Relationship.create(:user => @user, :target => @target)
     
-    email = ActionMailer::Base.deliveries.last.to_s
-    assert_match /now following you/i, email
+    Mailer.expects(:new_follower).never
+    
+    Relationship.create(:user => @user, :target => @target)
   end
+  
   
   test "updates follower and following counts when created" do
     @user = Factory(:user)

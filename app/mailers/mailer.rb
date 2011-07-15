@@ -21,16 +21,12 @@ class Mailer < ActionMailer::Base
 
   # send if recipient notification settings allows
   def deal_liked(target, like)
-    return unless target.send_notifications
-    
     @user = target
     @deal = like.deal
     mail :to => target.email, :subject => "Someone liked your Qwiqq deal!"
   end
   
   def deal_commented(target, comment)
-    return unless target.send_notifications    
-    
     @comment  = comment
     @deal     = comment.deal
     @user     = comment.user
@@ -38,15 +34,11 @@ class Mailer < ActionMailer::Base
   end
   
   def new_follower(target, follower)
-    return unless target.send_notifications    
-    
     @user = follower
     mail :to => target.email, :subject => "#{@user.name} is now following you."
   end
   
   def new_friend(target, friend)
-    return unless target.send_notifications
-    
     @user = friend
     mail :to => target.email, :subject => "You and #{@user.name} are now friends."
   end
