@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
   
   validates_confirmation_of :password
   validates_presence_of     :password, :on => :create
-  validates_length_of       :password, :minimum => 5
+  validates_length_of       :password, :minimum => 5, :allow_nil => true
   validates_presence_of     :email, :username
   validates_uniqueness_of   :email, :username
   
