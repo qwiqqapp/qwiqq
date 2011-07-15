@@ -127,6 +127,7 @@ class UserTest < ActiveSupport::TestCase
     twitter_user = mock(:id => 1)
     twitter_client = mock(:user => twitter_user)
     @user.stubs(:twitter_client).returns(twitter_client)
+    
     @user.update_attributes(
       :twitter_access_token => "token",
       :twitter_access_secret => "secret")
@@ -144,4 +145,5 @@ class UserTest < ActiveSupport::TestCase
     
     assert_equal "1", @user.facebook_id
   end
+  
 end
