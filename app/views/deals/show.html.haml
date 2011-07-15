@@ -1,15 +1,62 @@
-= link_to 'Qwiqq logo here', root_url
-= link_to 'Download App!', '/'
+#deal-header
+  %a.logo{ :href => root_url }
+    %img{ :src => "/images/logo.png" }
+  %a.download{ :href => download_url }
+    %img{ :src => "/images/download-green-mid.png" }
 
-%h1= @deal.name.titleize
-= image_tag @deal.photo.url(:admin_lrg)
-= link_to "Map", "http://maps.google.com/maps?q=#{@deal.lat},#{@deal.lon}"    
+#deal
+  #top
+    #user
+      %img.photo{ :src => @deal.user.photo.url(:admin_med) }
+      %span.username #{@deal.user.username} posted this #{@deal.created_at.strftime("%B %d, %Y")}
+    #share
+      %a.twitter{ :href => "http://twitter.com/share?text=Checkout this deal!" }
+        .button
+      %a.facebook{ :href => "http://www.facebook.com/sharer/sharer.php?u=#{deal_url(@deal)}" }
+        .button
+  #shadow
+  #main
+    #info
+      %img#image{ :src => @deal.photo.url(:iphone_zoom_2x) } 
+      #details
+        #name= @deal.name
+        .price_or_percent
+          - if @deal.price
+            \$ #{@deal.price}
+          - else
+            \% #{@deal.percent}
 
-%h4= "#{@deal.comments.size} Comments"
-%ul.comments
-  = render @deal.comments
+      #map
+        %a{ :href => "http://maps.google.com/?q=#{@deal.lat},#{@deal.lon}" }
+          %img{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=385x244&sensor=false&markers=color:red|#{@deal.lat},#{@deal.lon}" }
+
+    - unless @deal.likes.empty?
+      #likes
+        #count
+          %img{ :src => "/images/like.png" }
+          #{pluralize(@deal.like_count, "Like")}
+        - @deal.likes.each do |like|
+          .like
+            %img.user{ :src => like.user.photo.url(:admin_med) }
+
+    - unless @deal.comments.empty?
+      #comments
+        #count
+          %img{ :src => "/images/like.png" }
+          #{pluralize(@deal.comment_count, "Comment")}
+        - @deal.comments.each do |comment|
+          .comment
+            %img.user{ :src => comment.user.photo.url(:admin_med) }
+            %span.body 
+              "#{comment.body}"
+              %span.from
+                from #{comment.user.name} #{comment.created_at.strftime("%B %d, %Y")}
+
+#deal-footer
+  %ul#links
+    %li= link_to "Home", root_url
+    |
+    %li= link_to "Get the App", download_url
+    |
+    %li= link_to "About Qwiqq", about_url
   
-%h4= @deal.user.name.titleize
-="#{@deal.user.deals.size} Deals"
-="#{@deal.user.comments.size} Comments"  
-

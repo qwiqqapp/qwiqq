@@ -369,7 +369,6 @@ a {
 }
 
 .page {
-  line-height: 18px;
   width: 630px;
   margin-left: auto;
   margin-right: auto;
@@ -395,6 +394,7 @@ a {
 }
 
 #about span {
+  line-height: 18px;
   font-size: 16px;
   color: #868686;
 }
@@ -479,4 +479,199 @@ a {
   margin-left: 20px;
 }
 
+/* deal */
+#deal-header {
+  margin: 0 auto;
+  padding: 25px 0;
+  overflow: hidden;
+  width: 830px;
+}
 
+#deal-header a.logo {
+  float: left;
+}
+
+#deal-header a.download {
+  float: right;
+}
+
+#deal {
+  margin: 0 auto;
+  text-align: center;
+  width: 830px;
+  background-color: white;
+  border: 1px solid #bbb;
+}
+
+#deal #top {
+  overflow: hidden;
+  margin: 15px 20px;
+}
+
+#deal #user {
+  float: left;
+}
+
+#deal #user img.photo {
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+#deal .username {
+  font-size: 16px;
+  color: #868686;
+  position: relative;
+  top: -5px;
+  left: 10px;
+}
+
+#deal #share {
+  float: right;
+  width: 385px;
+}
+
+#deal #share .button {
+  width: 184px;
+  height: 54px;
+}
+
+#deal #share a.twitter .button {
+  background: url("/images/share-twitter.png") no-repeat 0 0;
+  float: left;
+}
+
+#deal #share a:hover.twitter .button {
+  background: url("/images/share-twitter-mouseover.png") no-repeat 0 0;
+}
+
+#deal #share a.facebook .button {
+  background: url("/images/share-facebook.png") no-repeat 0 0;
+  float: right;
+}
+
+#deal #share a:hover.facebook .button {
+  background: url("/images/share-facebook-mouseover.png") no-repeat 0 0;
+}
+
+#deal #shadow {
+  background: url("/images/shadow-slice.png") repeat-x 0 0;
+  height: 11px;
+}
+
+#deal #main {
+  padding: 10px 20px 20px 20px;
+  overflow: hidden;
+}
+
+#deal #main img#image {
+  float: left;
+  width: 385px;
+  height: 385px;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+#deal #info {
+  overflow: hidden;
+}
+
+#deal #details {
+  text-align: left;
+  padding: 20px;
+  font-size: 18px;
+  color: #868686;
+  float: right;
+  height: 80px;
+  width: 345px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+#deal #details .price_or_percent {
+  padding-top: 10px;
+  font-family: "Museo500";
+  color: #67d140
+}
+
+#deal #map {
+  margin-top: 18px;
+  float: right;
+  height: 243px;
+  width: 383px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  overflow: hidden;
+}
+
+#deal #likes,
+#deal #comments {
+  float: left;
+  overflow: hidden;
+  width: 385px;
+  margin-top: 20px;
+  text-align: left;
+}
+
+#deal #count {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #ff7720;
+}
+
+#deal img.user {
+  margin-right: 5px;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+#deal #likes .like {
+  float: left;
+}
+
+#deal #comments {
+  margin-left: 20px;
+}
+
+#deal .comment {
+  overflow: hidden;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+#deal .comment .user {
+  float: left;
+}
+
+#deal .comment .body {
+  font-family: "Museo300";
+  margin-left: 5px;
+  float: left;
+}
+
+#deal .comment .from {
+  margin-top: 5px;
+  display: block;
+  color: #868686;
+}
+
+#deal-footer a {
+  color: #868686;
+}
+
+#deal-footer ul#links {
+  color: #868686;
+  margin-top: 40px;
+  text-align: center;
+}
+
+#deal-footer ul#links li {
+  display: inline;
+  font-size: 16px;
+}
