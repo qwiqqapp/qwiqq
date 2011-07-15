@@ -30,5 +30,14 @@ class Mailer < ActionMailer::Base
     mail :to => email, :subject => "Your password reset instructions for Qwiqq"
   end
   
+  def new_follower(user, email)
+    @user = user
+    mail :to => email, :subject => "#{user.name} is now following you."
+  end
+  
+  def new_friend(user, email)
+    @user = user
+    mail :to => email, :subject => "You and #{user.name} are now friends."
+  end
 end
 
