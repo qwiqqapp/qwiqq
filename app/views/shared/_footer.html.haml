@@ -1,6 +1,4 @@
-#footer
-  %a{ :href => download_url }
-    %img{ :src => "/images/download-white.png" }
+#footer.section
   %ul#links
     %li= link_to "About Qwiqq", about_url
     |
@@ -8,6 +6,10 @@
     |
     %li= link_to "Terms of Service", terms_url
 
-  #copyright
-    &copy; 2011, Qwiqq Inc
+  #container
+    %a#download{ :href => download_url }
+      %img{ :src => "/images/download-white.png" }
+
+    #copyright
+      &copy; 2011, Qwiqq Inc
 

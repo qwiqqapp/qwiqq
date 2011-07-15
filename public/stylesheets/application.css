@@ -324,8 +324,7 @@ a {
 
 #footer {
   font-family: "Museo500";
-  background-color: #868686;
-  height: 110px;
+  text-align: center;
   color: white;
 }
 
@@ -333,15 +332,19 @@ a {
   color: white;
 }
 
-#footer img {
+#footer a#download {
   float: left;
   margin: 16px;
 }
 
+#footer #container {
+  background-color: #868686;
+  height: 110px;
+}
+
 #footer ul#links {
-  float: left;
-  margin-top: 60px;
-  margin-left: 20px;
+  position: relative;
+  top: 76px;
 }
 
 #footer ul#links li {
