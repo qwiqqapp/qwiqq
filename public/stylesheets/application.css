@@ -420,6 +420,19 @@ a {
   margin-right: 20px;
 }
 
+#about .deal {
+  float: left;
+  width: 85px;
+  height: 85px;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  margin-top: 20px;
+  margin-right: 10px;
+  overflow: hidden;
+  border: 1px solid #868686;
+}
+
 #about #team {
   margin-top: 30px;
 }

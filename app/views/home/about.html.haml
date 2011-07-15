@@ -25,12 +25,18 @@
         %span
           %span.quote “Shopping should be a very social experience.” 
           I have always believed in the power of creating a social platform that enables people to shop more efficiently by leveraging their network of friends. Qwiqq is about empowering friends to find and share deals that are personal and relevant to them.
+        - @johns_deals.each do |deal|
+          %a.deal{ :href => deal_url(deal) }
+            %img{ :src => deal.photo.url(:iphone_profile) }
 
       %li
         %h2 Jack Wrigley, Co-founder
         %span
           %span.quote "Humans are far more interesting than algorithms.” 
           Search powered by algorithms falls short because people’s lives are constantly in motion. Most people have a good friend or two that knows a lot about them. Empowering friends to share information delivers a more personal, relevant deal.
+        - @jacks_deals.each do |deal|
+          %a.deal{ :href => deal_url(deal) }
+            %img{ :src => deal.photo.url(:iphone_profile) }
 
   #faq.area
     %h1 FAQs
