@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   layout :pick_layout
-  helper_method :iphone?
-  
+  helper_method :mobile?
+
   def about
     @jacks_deals = recent_deals("jack@qwiqq.me")
     @johns_deals = recent_deals("john@qwiqq.me")
@@ -23,12 +23,13 @@ class HomeController < ApplicationController
       user.nil? ? [] : user.deals.limit(3)
     end
 
-    def iphone?
-      @iphone
+    def mobile?
+      @mobile
     end
 
     def pick_layout
-      @iphone = request.path =~ /iphone/
-      @iphone ? "iphone" : "application"
+      # TODO we could just use the user agent
+      @mobile = request.path =~ /iphone/
+      @mobile ? "mobile" : "application"
     end
 end
