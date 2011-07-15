@@ -14,13 +14,17 @@ class Api::PasswordResetsController < Api::ApiController
     end
   end
   
-  def show
+  def update
     @user = User.validate_password_reset(params[:id])
+    
     if @user
-      respond_with(@user)
-    else  
-      render :json => {:message  => "That password reset token is no longer valid, please request another."}, 
-             :status => 404
+      @user.update_attributes(:email => params[:email])     #update with posted email
+      session[:user_id] = @user.id if @user.valid?          #login if @user is valid
+      respond_with(:api, @user) do
+        render :json => @user.as_json and return if @user.valid?
+      end
+    else
+      render :json => {:message  => "That password reset token is no longer valid, please request another."}, :status => 404
     end
     
   end

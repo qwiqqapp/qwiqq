@@ -31,7 +31,7 @@ Qwiqq::Application.routes.draw do
     end
     
     resources :sessions, :only => [:create, :destroy]
-    resources :password_resets, :only => [:create, :show]
+    resources :password_resets, :only => [:create, :update]
     
     resources :deals, :only => [:show, :create, :destroy, :update] do
       get "feed", :on => :collection

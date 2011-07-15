@@ -9,10 +9,12 @@ class Api::PasswordResetsControllerTest < ActionController::TestCase
   end
   
   test "should route to password_resets#show" do
-    assert_routing("/api/password_resets/Ckx5dawt9eOl5Le4gIhKyv18.json", {
-      :format => "json", :controller => "api/password_resets", :action => "show", :id => "Ckx5dawt9eOl5Le4gIhKyv18" })
+    assert_routing({:method => :put, :path => "/api/password_resets/Ckx5dawt9eOl5Le4gIhKyv18.json"}, {
+      :format => "json", :controller => "api/password_resets", :action => "update", :id => "Ckx5dawt9eOl5Le4gIhKyv18" })
   end
   
+  # ----------------------
+  # create
   
   test "should set password reset attributes for valid user" do
     @user = Factory(:user, :reset_password_token => nil)
@@ -45,23 +47,43 @@ class Api::PasswordResetsControllerTest < ActionController::TestCase
     assert_match /unable to find/i, json_response['message']
   end
   
-  test "should return user for valid password reset token" do
-    token = 'Ckx5dawt9eOl5Le4gIhKyv18'
-    @user = Factory(:user, :reset_password_token => token)
+  # ----------------------
+  # update
+  
+  test "should accept update password for valid reset token" do
+    token       = 'Ckx5dawt9eOl5Le4gIhKyv18'
+    new_email   = 'adam@test.com'
+    @user       = Factory(:user, :reset_password_token => token)
     
-    get :show, :id => token, :format => 'json'
+    put :update, :id => token, :email => new_email, :format => 'json'
     
-    assert_equal 200, @response.status
-    assert_equal @user.email, json_response['email']
+    assert_equal 200,       @response.status
+    assert_equal new_email, json_response['email']
+    assert_equal @user.id,  session[:user_id]
   end
   
   test "should NOT user for invalid password reset token" do
     token = 'Ckx5dawt9eOl5Le4gIhKyv18'
     @user = Factory(:user, :reset_password_token => token)
     
-    get :show, :id => 'invalid', :format => 'json'
+    get :update, :id => 'invalid', :format => 'json'
     
-    assert_equal 404, @response.status
-    assert_match /no longer valid/i, json_response['message']
+    assert_equal 404,                 @response.status
+    assert_match /no longer valid/i,  json_response['message']
+    assert_equal nil,                 session[:user_id]
   end
+  
+  test "should return errors for invalid email address" do
+    token       = 'Ckx5dawt9eOl5Le4gIhKyv18'
+    new_email   = 'adam@test.com'
+    @user0      = Factory(:user, :email => new_email)
+    @user1      = Factory(:user, :reset_password_token => token)
+    
+    put :update, :id => token, :email => new_email, :format => 'json'
+    
+    assert_equal 422,                   @response.status
+    assert_equal nil,                   session[:user_id]
+    assert_match /already been taken/i, json_response['email'].first
+  end
+  
 end
