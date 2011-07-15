@@ -13,6 +13,7 @@ class Api::UsersController < Api::ApiController
   end
 
   def update
+    
     # only the current user can be updated
     raise ActiveRecord::RecordNotFound unless params[:id] == "current"
     @user = current_user

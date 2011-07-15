@@ -52,16 +52,16 @@ class User < ActiveRecord::Base
                   :country, 
                   :city, 
                   :facebook_access_token, 
+                  :facebook_id,
                   :twitter_access_token, 
-                  :twitter_access_secret, 
+                  :twitter_access_secret,
+                  :twitter_id, 
                   :send_notifications, 
                   :bio
   
   attr_accessor :password
 
   before_save :encrypt_password
-  before_save :update_twitter_id
-  before_save :update_facebook_id
   
   validates_confirmation_of :password
   validates_presence_of     :password, :on => :create
@@ -104,15 +104,12 @@ class User < ActiveRecord::Base
     update_attribute(:reset_password_token, ActiveSupport::SecureRandom.base64(20).gsub(/[^0-9a-z"]/i, ''))
     Mailer.password_reset(self, self.email).deliver
     update_attribute(:reset_password_sent_at, Time.now)
-  end  
+  end
   
-
   # TODO check for token age, should be younger than 24.hours
   def self.validate_password_reset(token)
     self.find_by_reset_password_token(token)
   end
-  
-  
   
   def encrypt_password
     if password.present?
@@ -227,7 +224,7 @@ class User < ActiveRecord::Base
       :oauth_token => twitter_access_token, 
       :oauth_token_secret => twitter_access_secret)
   end
-
+  
   def twitter_friend_ids
     twitter_ids = []
     begin
@@ -248,27 +245,6 @@ class User < ActiveRecord::Base
     facebook_ids.flatten
   end
 
-  private
-    def update_twitter_id
-      return unless twitter_access_token_changed?
-      if !twitter_access_token.blank?
-        user = twitter_client.user rescue nil
-        return false unless user
-        self.twitter_id = user.id.to_s
-      else
-        self.twitter_id = ""
-      end
-    end
 
-    def update_facebook_id
-      return unless facebook_access_token_changed?
-      if !facebook_access_token.blank?
-        account = facebook_client.get_object("me") rescue nil
-        return false unless account
-        self.facebook_id = account["id"] 
-      else
-        self.facebook_id = ""
-      end
-    end
 end
 
