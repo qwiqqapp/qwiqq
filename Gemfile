@@ -21,7 +21,7 @@ gem "json"
 gem "aws-s3"
 gem "geokit"
 gem "koala" # facebook
-gem "twitter"
+gem "twitter", "1.6.0"
 gem "indextank"
 
 gem "activeadmin"

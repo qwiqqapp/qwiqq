@@ -459,6 +459,10 @@ a {
   color: #868686;
 }
 
+#terms a, #privacy a{
+  color: #13c3ff;
+}
+
 #terms h1, #privacy h1 {
   font-size: 20px;
   color: #ff7720;
