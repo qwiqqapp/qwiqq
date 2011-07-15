@@ -1,15 +1,14 @@
 require 'test_helper'
 
 class RelationshipTest < ActiveSupport::TestCase
- 
- 
+  
   # ---------
   # email notifcations 
   
   test "sends follower email notification" do
     @user = Factory(:user)
     @target = Factory(:user)
-    Mailer.expects(:new_follower).once.with(@user, @target.email).returns(mock(:deliver => true))
+    Mailer.expects(:new_follower).once.with(@target, @user).returns(mock(:deliver => true))
     
     Relationship.create(:user => @user, :target => @target)
   end
@@ -19,7 +18,7 @@ class RelationshipTest < ActiveSupport::TestCase
     @target = Factory(:user)
     
     User.any_instance.expects(:friends?).returns(true)
-    Mailer.expects(:new_friend).once.with(@user, @target.email).returns(mock(:deliver => true))    
+    Mailer.expects(:new_friend).once.with(@target, @user).returns(mock(:deliver => true))    
     
     Relationship.create(:user => @user, :target => @target)
   end

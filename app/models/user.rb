@@ -104,7 +104,7 @@ class User < ActiveRecord::Base
   
   def deliver_password_reset!
     update_attribute(:reset_password_token, ActiveSupport::SecureRandom.base64(20).gsub(/[^0-9a-z"]/i, ''))
-    Mailer.password_reset(self, self.email).deliver
+    Mailer.password_reset(self).deliver
     update_attribute(:reset_password_sent_at, Time.now)
   end
   

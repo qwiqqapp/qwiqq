@@ -31,15 +31,5 @@ class Api::InvitationsControllerTest < ActionController::TestCase
     assert_equal 1, json_response.size 
   end 
 
-  test "should deliver an email invitations on creation" do
-    @user = Factory(:user)
-    sign_in(@user)
 
-    Mailer.expects(:invitation).once.with(@user, "eoin@gastownlabs.com").returns(mock(:deliver => true))
-
-    post :create, :user_id => @user.id, :service => "email", :email => "eoin@gastownlabs.com", :format => "json"
-
-    assert_equal 201, @response.status
-    assert_equal 1, @user.invitations_sent.count
-  end
 end

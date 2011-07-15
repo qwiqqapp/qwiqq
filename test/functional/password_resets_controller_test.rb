@@ -18,7 +18,7 @@ class Api::PasswordResetsControllerTest < ActionController::TestCase
   
   test "should set password reset attributes for valid user" do
     @user = Factory(:user, :reset_password_token => nil)
-    Mailer.expects(:password_reset).with(@user, @user.email).returns(mock(:deliver => true)).once
+    Mailer.expects(:password_reset).with(@user).returns(mock(:deliver => true)).once
     
     post :create, :email => @user.email, :format => 'json'
   
@@ -65,7 +65,7 @@ class Api::PasswordResetsControllerTest < ActionController::TestCase
     token = 'Ckx5dawt9eOl5Le4gIhKyv18'
     @user = Factory(:user, :reset_password_token => token)
     
-    get :update, :id => 'invalid', :password => 'acmecafe', :format => 'json'
+    put :update, :id => 'invalid', :password => 'acmecafe', :format => 'json'
     
     assert_equal 404,                 @response.status
     assert_match /no longer valid/i,  json_response['message']

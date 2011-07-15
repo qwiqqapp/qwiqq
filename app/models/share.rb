@@ -13,7 +13,7 @@ class Share < ActiveRecord::Base
     when "twitter" 
       user.share_deal_to_twitter(deal)
     when "email"
-      Mailer.share_deal(deal, email).deliver
+      Mailer.share_deal(email, self).deliver
     end
     update_attribute(:shared_at, Time.now)
   end

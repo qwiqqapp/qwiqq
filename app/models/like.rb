@@ -13,7 +13,7 @@ class Like < ActiveRecord::Base
   
   private
   def deliver_notification
-    Mailer.deal_liked(self).deliver
+    Mailer.deal_liked(deal.user, self).deliver
   end
 
   #  TODO offload sync variables to job

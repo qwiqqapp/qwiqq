@@ -8,7 +8,7 @@ class Invitation < ActiveRecord::Base
   def deliver!
     case service
     when "email"
-      Mailer.invitation(user, email).deliver
+      Mailer.invitation(email, user).deliver
     end
     update_attribute(:delivered_at, Time.now)
   end

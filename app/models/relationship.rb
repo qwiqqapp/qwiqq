@@ -35,9 +35,9 @@ class Relationship < ActiveRecord::Base
     
     def deliver_notifications
       if friends?
-        Mailer.new_friend(user, target.email).deliver
+        Mailer.new_friend(target, user).deliver
       else
-        Mailer.new_follower(user, target.email).deliver
+        Mailer.new_follower(target, user).deliver
       end
     end
 end
