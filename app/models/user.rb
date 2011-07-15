@@ -99,7 +99,21 @@ class User < ActiveRecord::Base
       nil
     end
   end
+  
+  def deliver_password_reset!
+    update_attribute(:reset_password_token, ActiveSupport::SecureRandom.base64(20).gsub(/[^0-9a-z"]/i, ''))
+    Mailer.password_reset(self, self.email).deliver
+    update_attribute(:reset_password_sent_at, Time.now)
+  end  
+  
 
+  # TODO check for token age, should be younger than 24.hours
+  def self.validate_password_reset(token)
+    self.find_by_reset_password_token(token)
+  end
+  
+  
+  
   def encrypt_password
     if password.present?
       self.password_salt = BCrypt::Engine.generate_salt
