@@ -1,17 +1,19 @@
-#navigation
-  #corner.left
-    %ul
-      %li
-        %a#back{ :href => root_url }
-          .image
-          Back
+- unless mobile?
+  #navigation
+    #corner.left
+      %ul
+        %li
+          %a#back{ :href => root_url }
+            .image
+            Back
 
-  #corner.right
-    %a{ :href => download_url }
-      %img.download-small{ :src => "/images/download-green-small.png" }
+    #corner.right
+      %a{ :href => download_url }
+        %img.download-small{ :src => "/images/download-green-small.png" }
 
 #terms.page
-  %img.logo{ :src => "/images/logo-mid.png" }
+  %a{ :href => root_url }
+    %img.logo{ :src => "/images/logo-mid.png" }
 
   %h1 Terms of Service
   %p Last Updated: July 7, 2011    %p QWIQQ TERMS OF USE  %p PLEASE READ THESE TERMS OF USE CAREFULLY BEFORE USING THE SERVICES OFFERED BY QWIQQ, INC., A DELAWARE CORPORATION ("QWIQQ"). THESE TERMS OF USE SET FORTH THE LEGALLY BINDING TERMS AND CONDITIONS FOR YOUR USE OF THE WEBSITE AT HTTP://QWIQQ.ME (THE "SITE") AND THE SERVICES, FEATURES, CONTENT, APPLICATIONS OR WIDGETS OFFERED BY QWIQQ (COLLECTIVELY WITH THE SITE, THE "SERVICE").
@@ -63,4 +65,5 @@
     
   %h1 Contact.  %p If you have any questions or concerns regarding these Terms of Use, please send a detailed message to: #{mail_to("hello@qwiqq.me")}. You may contact Qwiqq at the following address: 1202 Seagler Road, Suite 83, Houston, TX 77042. We will make every effort to resolve your concerns.
 
-= render "shared/footer"
+- unless mobile?
+  = render "shared/footer"

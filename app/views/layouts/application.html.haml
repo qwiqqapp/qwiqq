@@ -3,11 +3,10 @@
   %head
     %title Qwiqq
     = stylesheet_link_tag "reset", "application"
+    = javascript_include_tag "jquery", "jquery.scrollto", "jquery.cycle", "application"
     = csrf_meta_tag
   %body
     = yield
-    = javascript_include_tag "jquery", "jquery.scrollto", "jquery.cycle", "application"
     - if Rails.env.production?
       = render "shared/google_analytics"
-    
-    
+

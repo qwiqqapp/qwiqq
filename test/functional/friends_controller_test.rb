@@ -10,7 +10,7 @@ class Api::FriendsControllerTest < ActionController::TestCase
   end
   
   test "finds friends by email" do
-    @user0 = Factory(:user)
+    @user0 = Factory(:user, :email => "user0@gastownlabs.com")
     sign_in(@user0)
 
     @user1 = Factory(:user, :email => "user1@gastownlabs.com")
@@ -23,6 +23,7 @@ class Api::FriendsControllerTest < ActionController::TestCase
       :user_id => @user0.id, 
       :service => "email", 
       :emails => [ 
+        "user0@gastownlabs.com",  # found, self
         "user1@gastownlabs.com",  # found, following
         "user2@gastownlabs.com",  # found, not following
         "user3@gastownlabs.com",  # not found, not invited

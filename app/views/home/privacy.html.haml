@@ -1,17 +1,19 @@
-#navigation
-  #corner.left
-    %ul
-      %li
-        %a#back{ :href => root_url }
-          .image
-          Back
+- unless mobile?
+  #navigation
+    #corner.left
+      %ul
+        %li
+          %a#back{ :href => root_url }
+            .image
+            Back
 
-  #corner.right
-    %a{ :href => download_url }
-      %img.download-small{ :src => "/images/download-green-small.png" }
+    #corner.right
+      %a{ :href => download_url }
+        %img.download-small{ :src => "/images/download-green-small.png" }
 
 #privacy.page
-  %img.logo{ :src => "/images/logo-mid.png" }
+  %a{ :href => root_url }
+    %img.logo{ :src => "/images/logo-mid.png" }
 
   %h1 Privacy Policy
   %p Last Updated: July 7, 2011  %p Qwiqq Privacy Policy  %p Qwiqq, Inc. (“We”, “Us,” “Our,” or “Qwiqq”) provides you with this Privacy Policy to inform you of the collection and use policies and practices that apply to information collected on our website at Qwiqq.com and our mobile applications available for via download from the Web Site or from another source (our “Service”). We are committed to giving you transparency of our privacy practices and control over your data in connection with Qwiqq's Service. “You” or “Your” means the person, company or other legal entity which is accepting this Privacy Policy.  %p This Privacy Policy covers Qwiqq's treatment of personally identifiable information ("Personal Information") and other data that Qwiqq gathers when you are accessing Qwiqq's Service. If you do not accept this Privacy Policy or you do not meet or comply with these provisions, you may not use the Service. The Service is not available to individuals who are younger than 13 years old.  
@@ -61,6 +63,7 @@
   %h1 Information and Account Removal   %p After termination of your account , we shall have no obligation to maintain or provide any of your account information or posts and may thereafter, unless legally prohibited, delete all of your account information and posts in our systems or otherwise in our possession or under our control.    %p Even after removal of information from your account or profile, copies of that information may remain viewable elsewhere, to the extent it has been shared with others, it was otherwise distributed pursuant to your privacy settings, or it was copied or stored by other users. Removed and deleted information may remain on backup media for up to ninety (90) days prior to being deleted from our systems.  
   %h1 Changes To Privacy Policy  %p Qwiqq may amend this Privacy Policy from time to time. Use of information we collect now is subject to the Privacy Policy in effect at the time such information is used. If we make material changes in the way we use Personal Information, we will notify registered users by posting an announcement on our Service or sending them an email. Users are bound by any changes to the Privacy Policy when they use the Service after such changes have been first posted.  
   %h1 Questions Or Concerns?  %p If you have any questions or concerns regarding privacy using the Service, please send a detailed message to: #{mail_to("hello@qwiqq.me")}. We will make every effort to resolve your concerns.
-    
-= render "shared/footer"
+
+- unless mobile?
+  = render "shared/footer"
  
