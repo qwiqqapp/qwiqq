@@ -120,4 +120,28 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "eoin", @user.username
     assert_equal "", @user.bio
   end
+  
+  test "should update twitter_id when twitter_access_token changes" do
+    @user = Factory(:user)
+
+    twitter_user = mock(:id => 1)
+    twitter_client = mock(:user => twitter_user)
+    @user.stubs(:twitter_client).returns(twitter_client)
+    @user.update_attributes(
+      :twitter_access_token => "token",
+      :twitter_access_secret => "secret")
+      
+    assert_equal "1", @user.twitter_id
+  end
+  
+  test "should update facebook_id when facebook_access_token changes" do
+    @user = Factory(:user)
+    
+    facebook_client = mock()
+    facebook_client.expects(:get_object).with("me").returns({ "id" => "1"})
+    @user.stubs(:facebook_client).returns(facebook_client)
+    @user.update_attributes(:facebook_access_token => "token")
+    
+    assert_equal "1", @user.facebook_id
+  end
 end
