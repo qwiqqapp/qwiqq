@@ -2,8 +2,7 @@
 %html
   %head
   %body
-    %img.logo{ :src => "/images/email/email-logo.png" }
+    %img= image_tag attachments['logo.png'].url
     = yield
-    
-    %table style="color: #666666; font-family: Arial,sans-serif; font-size: 12px; line-height: 20px; background: #e3e3e3;" border="0" cellspacing="0" cellpadding="0" width="626" align="center">
+
     

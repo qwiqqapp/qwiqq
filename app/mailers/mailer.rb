@@ -2,12 +2,6 @@ class Mailer < ActionMailer::Base
   layout 'mailer'
   default :from => "notifications@qwiqq.me"
   
-  # always send
-  def password_reset(target)
-    @user = target
-    mail :to => target.email, :subject => "Your password reset instructions for Qwiqq"
-  end
-  
   # always send if direct to mail
   def share_deal(target_email, share)
     @deal = share.deal
@@ -19,9 +13,17 @@ class Mailer < ActionMailer::Base
     @user = from
     mail :to => target_email, :subject => "#{@user.name} has invited you to Qwiqq!"
   end
+  
+  # has target
+  def password_reset(target)
+    @user = target
+    mail :to => target.email, :subject => "Your password reset instructions for Qwiqq"
+  end
 
   # send if recipient notification settings allows
   def deal_liked(target, like)
+    attachments["logo.png"] = File.read("#{Rails.root}/public/images/email/email-logo.png") 
+    
     @user = target
     @deal = like.deal
     mail :to => target.email, :subject => "Someone liked your Qwiqq deal!"
