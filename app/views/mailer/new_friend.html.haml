@@ -6,4 +6,4 @@ Yay! You and #{@user.name} are now friends
 Qwiqq Facts: A friendship is created when you and another Qwiqq user follow each other.
 <p/>
 %hr
-Qwiqq Notifications #{link_to("Unsubscribe", "#")}
+Qwiqq Notifications #{link_to("Unsubscribe", update_user_notifications_url(@target))}

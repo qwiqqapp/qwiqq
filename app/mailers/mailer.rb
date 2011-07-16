@@ -1,5 +1,7 @@
 class Mailer < ActionMailer::Base
   default :from => "notifications@qwiqq.me"
+
+  helper :application
   
   # always send
   def password_reset(target)
@@ -27,6 +29,7 @@ class Mailer < ActionMailer::Base
   end
   
   def deal_commented(target, comment)
+    @target   = target
     @comment  = comment
     @deal     = comment.deal
     @user     = comment.user
@@ -34,11 +37,13 @@ class Mailer < ActionMailer::Base
   end
   
   def new_follower(target, follower)
+    @target = target
     @user = follower
     mail :to => target.email, :subject => "#{@user.name} is now following you."
   end
   
   def new_friend(target, friend)
+    @target = target
     @user = friend
     mail :to => target.email, :subject => "You and #{@user.name} are now friends."
   end

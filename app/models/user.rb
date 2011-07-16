@@ -59,10 +59,10 @@ class User < ActiveRecord::Base
   
   attr_accessor :password
 
-  before_save  :encrypt_password
-  before_save  :update_twitter_id
-  before_save  :update_facebook_id
-  
+  before_save :encrypt_password
+  before_save :update_twitter_id
+  before_save :update_facebook_id
+  before_save :update_notifications_token
   
   validates_confirmation_of :password
   validates_presence_of     :password, :on => :create
@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
   end
   
   def deliver_password_reset!
-    update_attribute(:reset_password_token, ActiveSupport::SecureRandom.base64(20).gsub(/[^0-9a-z"]/i, ''))
+    update_attribute(:reset_password_token, Qwiqq.friendly_token)
     Mailer.password_reset(self).deliver
     update_attribute(:reset_password_sent_at, Time.now)
   end
@@ -266,6 +266,10 @@ class User < ActiveRecord::Base
         fb_account = facebook_client.get_object("me") rescue nil
         self.facebook_id = fb_account["id"] if fb_account
       end
+    end
+
+    def update_notifications_token
+      self.notifications_token = Qwiqq.friendly_token
     end
 end
 

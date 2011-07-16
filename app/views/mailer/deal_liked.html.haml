@@ -6,4 +6,4 @@ Yay!
 #{@user.name} liked your #{link_to(@deal.name, deal_url(@deal), :style => "color: #ff7720;")} deal.
 <p/>
 %hr
-Qwiqq Notifications #{link_to("Unsubscribe", "#")}
+Qwiqq Notifications #{link_to("Unsubscribe", update_user_notifications_url(@user))}

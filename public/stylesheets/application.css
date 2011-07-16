@@ -684,3 +684,21 @@ a {
   display: inline;
   font-size: 16px;
 }
+
+#update_notifications {
+  text-align: center;
+}
+
+#update_notifications .logo {
+  margin-top: 100px;
+}
+
+#update_notifications p {
+  color: #868686;
+  margin-top: 60px;
+}
+
+#update_notifications img.enable {
+  margin-top: 60px;
+}
+

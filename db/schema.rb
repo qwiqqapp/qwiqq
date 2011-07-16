@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110715012111) do
+ActiveRecord::Schema.define(:version => 20110715235100) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -142,11 +142,12 @@ ActiveRecord::Schema.define(:version => 20110715012111) do
     t.integer  "following_count",        :default => 0,    :null => false
     t.integer  "friends_count",          :default => 0,    :null => false
     t.string   "twitter_access_secret"
+    t.string   "bio"
     t.string   "twitter_id"
     t.string   "facebook_id"
-    t.string   "bio"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
+    t.string   "notifications_token"
   end
 
 end

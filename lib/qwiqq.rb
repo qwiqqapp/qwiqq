@@ -24,5 +24,9 @@ module Qwiqq
       end
     "#{random_sharing_prefix} #{message}"
   end
+
+  def self.friendly_token(size = 20)
+    ActiveSupport::SecureRandom.base64(size).gsub(/[^0-9a-z"]/i, '')
+  end
 end
 
