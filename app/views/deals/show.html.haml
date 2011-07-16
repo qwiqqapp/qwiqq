@@ -24,7 +24,7 @@
           - if @deal.price
             \$ #{@deal.price_as_string}
           - else
-            \% #{@deal.percent}
+            #{@deal.percent} %
 
       #map
         %a{ :href => "http://maps.google.com/?q=#{@deal.lat},#{@deal.lon}" }
