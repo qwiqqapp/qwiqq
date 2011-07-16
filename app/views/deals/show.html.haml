@@ -22,7 +22,7 @@
         #name= @deal.name
         .price_or_percent
           - if @deal.price
-            \$ #{@deal.price.to_f / 100}
+            \$ #{@deal.price_as_string}
           - else
             \% #{@deal.percent}
 
