@@ -133,6 +133,10 @@ class Deal < ActiveRecord::Base
       "#{distance_in_minutes / 525600}y"
     end
   end
+
+  def price_as_string
+    sprintf("%.2f", price.to_f / 100) if has_price?
+  end
   
   private
   def geodecode_location_name!

@@ -23,7 +23,7 @@ class Mailer < ActionMailer::Base
 
   # send if recipient notification settings allows
   def deal_liked(target, like)
-    @user = target
+    @user = like.user
     @deal = like.deal
     mail :to => target.email, :subject => "Someone liked your Qwiqq deal!"
   end
