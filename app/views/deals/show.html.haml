@@ -8,7 +8,7 @@
   #top
     #user
       %img.photo{ :src => @deal.user.photo.url(:admin_med) }
-      %span.username #{@deal.user.username} posted this #{@deal.created_at.strftime("%B %d, %Y")}
+      %span.username #{@deal.user.username} posted this #{@deal.age} ago
     #share
       %a.twitter{ :href => "http://twitter.com/share?text=#{Qwiqq.share_deal_message(@deal)}" }
         .button
@@ -50,7 +50,7 @@
             %span.body 
               "#{comment.body}"
               %span.from
-                from #{comment.user.username} #{comment.created_at.strftime("%B %d, %Y")}
+                from #{comment.user.username} #{comment.age} ago
 
 #deal-footer
   %ul#links
