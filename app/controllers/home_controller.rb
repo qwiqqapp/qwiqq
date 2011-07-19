@@ -13,8 +13,10 @@ class HomeController < ApplicationController
   def privacy
   end
 
+
+  # download.qwiqq.me
+  # display coming soon image until in store
   def download
-    redirect_to "http://store"
   end
 
   private

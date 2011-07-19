@@ -369,7 +369,7 @@ a {
 
 #navigation img.download-small {
   position: relative;
-  top: 23px;
+  top: 24px;
   right: -7px;
 }
 
@@ -384,6 +384,13 @@ a {
 .page img.logo {
   padding-left: 220px;
   margin-bottom: 10px;
+}
+
+#download.soon{
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 80px;
+  width: 350px;
 }
 
 #about h1 {
