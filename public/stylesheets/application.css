@@ -322,6 +322,8 @@ a {
   margin-top: 80px;
 }
 
+
+
 #footer {
   font-family: "Museo500";
   text-align: center;
@@ -454,6 +456,10 @@ a {
 
 #about #faq a {
   color: #868686;
+}
+
+#about #faq span a{
+  color: #13C3FF;
 }
 
 /* terms and privacy */
