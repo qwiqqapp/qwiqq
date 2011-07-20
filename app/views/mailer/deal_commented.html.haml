@@ -1,12 +1,15 @@
-%style{ :type => "text/css" }
-  body { font-size: 14px };
+%table{:style => "border-collapse:collapse;width:608px; margin-top: 45px; margin-left: 50px;border-spacing:0"}
+  %tr
+    %td{:style => "height:20px;padding:0", :colspan => "3"}
+      = image_tag "email/speech-bubble-top.png"
+  %tr
+    %td{:style => "width:2px;padding:0;background-image:url(#{url_for "images/email/speech-bubble-left.png"})"}
+    %td{:style => "color:#38d038"}
+      = @comment.body
+    %td{:style => "width:6px", :background => "http://localhost:3000/images/email/speech-bubble-right.png"}
+  %tr
+    %td{:style => "height:38px", :colspan => "3"}
+      = image_tag "email/speech-bubble-bottom.png"
 
-Yay! 
-<p/>
+
 #{@user.name} commented on your #{link_to(@deal.name, deal_url(@deal), :style => "color: #ff7720;")} deal.
-<p/>
-.comment{ :style => "color: #67d140;" }
-  "#{@comment.body}"
-<p/>
-%hr
-Qwiqq Notifications #{link_to("Unsubscribe", "#")}

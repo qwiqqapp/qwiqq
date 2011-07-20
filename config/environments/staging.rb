@@ -49,5 +49,6 @@ Qwiqq::Application.configure do
 
   # Production url
   config.action_mailer.default_url_options = { :host => 'staging.qwiqq.com' }
+  config.action_mailer.asset_host = "http://staging.qwiqq.com"
   
 end

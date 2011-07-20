@@ -1,8 +1,14 @@
 !!!
 %html
   %head
-  %body
-    %img= image_tag attachments['logo.png'].url
-    = yield
-
-    
+  %body{:style => "background-color:#efefef"}
+    %table{:style => "width:700px;margin:auto;border-collapse:collapse"}
+      %tr
+        %td
+          = image_tag "email/email-logo.png"
+      %tr
+        %td{:style => "background-color:#fff;border:1px solid #b5b5b5"}
+          = yield
+      %tr
+        %td{:style => "color:#858585; font-size:8pt; font-family: 'Arial'; padding: 50px; padding-top: 10px"}
+          #{link_to("Unsubscribe", "#")} to all Qwiqq notifications. If you would like to resubscribe you can change Notification settings directly from your Qwiqq iPhone App.  

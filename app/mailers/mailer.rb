@@ -22,8 +22,6 @@ class Mailer < ActionMailer::Base
 
   # send if recipient notification settings allows
   def deal_liked(target, like)
-    attachments["logo.png"] = File.read("#{Rails.root}/public/images/email/email-logo.png") 
-    
     @user = target
     @deal = like.deal
     mail :to => target.email, :subject => "Someone liked your Qwiqq deal!"
