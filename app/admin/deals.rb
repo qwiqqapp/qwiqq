@@ -27,7 +27,9 @@ ActiveAdmin.register Deal do
     
     column("Date", :sortable => :created_at){|deal| deal.created_at.to_s(:short) }
     column("User", :sortable => :user_id) {|deal| link_to(deal.user.name, admin_user_path(deal.user))}
-    column("Price", :sortable => :price) {|deal| number_to_currency(deal.price.to_f/100) }
+
+    column("Price", :sortable => :price) {|deal| deal.price ? number_to_currency(deal.price.to_f/100) : "" }
+    column("Percent", :sortable => :percent) {|deal| deal.percent ? number_to_percentage(deal.percent, :precision => 0) : "" }    
   end
   
   form(:html => {:multipart => true}) do |f|
@@ -75,7 +77,7 @@ ActiveAdmin.register Deal do
     image_tag(deal.photo.url(:admin_lrg))
   end
     
-  sidebar "Details", :only => :show do
-    attributes_table_for deal, :name, :price, :lat, :lon,  :like_count, :comment_count, :premium, :created_at, :updated_at
+  sidebar "Details (raw data)", :only => :show do
+    attributes_table_for deal, :name, :price, :percent, :lat, :lon,  :like_count, :comment_count, :premium, :created_at, :updated_at
   end
 end
