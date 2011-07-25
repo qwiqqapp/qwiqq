@@ -269,7 +269,7 @@ class User < ActiveRecord::Base
     end
 
     def update_notifications_token
-      self.notifications_token = Qwiqq.friendly_token
+      self.notifications_token ||= Qwiqq.friendly_token
     end
 end
 
