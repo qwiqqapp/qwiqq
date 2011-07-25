@@ -5,6 +5,7 @@ class DealsController < ApplicationController
   end
   
   def show
+    redirect_to "qwiqq:///deals/#{params[:id]}" and return if ios?
     @deal = Deal.find(params[:id])
     respond_with @deal
   end
