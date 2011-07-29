@@ -25,10 +25,12 @@
             #{@deal.price_as_string}
           - else
             #{@deal.percent}% Off
-
+      #map-title
+        %img{ :src => "/images/location.png" }
+        = @deal.location_name
       #map
         %a{ :href => "http://maps.google.com/?q=#{@deal.lat},#{@deal.lon}" }
-          %img{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=385x244&sensor=false&markers=color:red|#{@deal.lat},#{@deal.lon}" }
+          %img{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=385x220&sensor=false&markers=color:red|#{@deal.lat},#{@deal.lon}" }
 
     - unless @deal.likes.empty?
       #likes

@@ -618,9 +618,8 @@ a {
 }
 
 #deal #map {
-  margin-top: 18px;
   float: right;
-  height: 243px;
+  height: 220px;
   width: 383px;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -642,6 +641,16 @@ a {
   margin-bottom: 10px;
   font-size: 18px;
   color: #ff7720;
+}
+
+#map-title {
+  float: right;
+  width: 380px;
+  text-align: left;
+  padding-top: 13px;
+  padding-bottom: 5px;
+  font-size: 18px;
+  color: #FF7720;
 }
 
 #deal img.user {
