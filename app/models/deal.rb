@@ -1,6 +1,7 @@
 class Deal < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
   include Qwiqq::Indextank
+  include ActionView::Helpers::NumberHelper
   
   belongs_to :user
   belongs_to :category
@@ -115,6 +116,10 @@ class Deal < ActiveRecord::Base
     
     json
   end
+
+  def price_as_string
+    number_to_currency price.to_f / 100
+  end
   
   def age
     created_at ? time_ago_in_words(created_at) : ""
@@ -139,10 +144,6 @@ class Deal < ActiveRecord::Base
     end
   end
 
-  def price_as_string
-    sprintf("%.2f", price.to_f / 100) if has_price?
-  end
-  
   private
   def geodecode_location_name!
     self[:location_name] = Deal.geodecode_location_name(lat, lon) if location_name.blank?
