@@ -40,7 +40,7 @@ ActiveAdmin.register User do
           end
           column("Category") {|deal| status_tag(deal.try(:category).try(:name)) }
           column("Date", :sortable => :created_at){|deal| deal.created_at.to_s(:short) }
-          column("Price", :sortable => :price) {|deal| number_to_currency deal.price }
+          column("Price", :sortable => :price) {|deal| deal.price ? number_to_currency(deal.price.to_f/100) : "" }
         end
       end
       
