@@ -21,7 +21,7 @@
                   = link_to "http://www.facebook.com/sharer/sharer.php?u=http://qwiqq.me", :style => "text-decoration: none; border: none"  do
                     = image_tag "email/fb.png"
                   &nbsp;
-                  = link_to "http://twitter.com/share?text=I'm%20using%20Qwiqq%20to%20find%20great%20deals!", :style => "text-decoration: none; border: none"  do
+                  = link_to "http://twitter.com/share?text=I'm%20using%20Qwiqq%20to%20find%20great%20deals!%20http://qwiqq.me", :style => "text-decoration: none; border: none"  do
                     = image_tag "email/twitter.png"
                   &nbsp;
                   = link_to "mailto:?subject=Checkout Qwiqq!&body=http://qwiqq.me", :style => "text-decoration: none; border: none" do
@@ -31,4 +31,4 @@
       - if @target
         %tr
           %td{:style => "color:#858585; font-size:8pt; font-family: 'Arial'; padding: 50px; padding-top: 10px"}
-            #{link_to("Unsubscribe", update_user_notifications_url(@target))} to all Qwiqq notifications. If you would like to resubscribe you can change Notification settings directly from your Qwiqq iPhone App.  
+            #{link_to("Unsubscribe", update_user_notifications_url(@target))} to all Qwiqq notifications. If you would like to resubscribe you can change Notification settings directly from your Qwiqq iPhone App.
