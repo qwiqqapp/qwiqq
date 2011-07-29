@@ -3,6 +3,9 @@ ActiveAdmin.register Comment, :as => "DealComment" do
   scope :all, :default => true
   scope :today
   
+  filter :body
+  filter :created_at
+  
   actions :index, :show, :edit, :update, :destroy
 
   index do

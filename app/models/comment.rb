@@ -20,7 +20,7 @@ class Comment < ActiveRecord::Base
     {
       :comment_id   => id.try(:to_s),
       :body         => body,
-      :age          => (created_at ? time_ago_in_words(created_at).gsub("about ", "") : ""),
+      :age          => age.gsub("about ", ""),
       :user         => { :user_id   => user.id.try(:to_s),
                          :name      => user.name,
                          :user_name => user.username,
@@ -33,8 +33,11 @@ class Comment < ActiveRecord::Base
       
     }
   end
-
   
+  
+  def age
+    created_at ? time_ago_in_words(created_at) : ""
+  end
   
   private
   def deliver_notification

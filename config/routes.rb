@@ -8,6 +8,23 @@ Qwiqq::Application.routes.draw do
   root :to => "deals#index"
   resources :deals, :only => [:index, :show]
   
+  match "facebook", :to => "facebook#index", :as => :facebook
+
+  # home routes
+  match "about",    :to => "home#about",    :as => :about
+  match "terms",    :to => "home#terms",    :as => :terms
+  match "privacy",  :to => "home#privacy",  :as => :privacy
+  match "blog",     :to => "home#blog",     :as => :blog
+  match "download", :to => "home#download", :as => :download
+  
+  # iphone routes
+  match "iphone/about",   :to => "home#about",    :as => :iphone_about
+  match "iphone/terms",   :to => "home#terms",    :as => :iphone_terms
+  match "iphone/privacy", :to => "home#privacy",  :as => :iphone_privacy
+
+  # notifications
+  match "notifications/:token", :to => "users#update_notifications", :as => :update_notifications
+ 
   # api
   namespace "api" do
     resources :users, :only => [:create, :show, :update] do
@@ -51,18 +68,5 @@ Qwiqq::Application.routes.draw do
     get "search/categories/:name/deals" => "search#category", :as => 'search_category'#, :constraints => { :name   => /\D+/ }
   end
 
-  match "facebook", :to => "facebook#index", :as => :facebook
-
-  # home routes
-  match "about", :to => "home#about", :as => :about
-  match "terms", :to => "home#terms", :as => :terms
-  match "privacy", :to => "home#privacy", :as => :privacy
-  match "blog", :to => "home#blog", :as => :blog
-  match "download", :to => "home#download", :as => :download
-
-  # iphone routes
-  match "iphone/about", :to => "home#about", :as => :iphone_about
-  match "iphone/terms", :to => "home#terms", :as => :iphone_terms
-  match "iphone/privacy", :to => "home#privacy", :as => :iphone_privacy
-  
+ 
 end

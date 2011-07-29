@@ -1,15 +1,13 @@
-%table{:style => "border-collapse:collapse;width:608px; margin-top: 45px; margin-left: 50px;border-spacing:0"}
-  %tr
-    %td{:style => "height:20px;padding:0", :colspan => "3"}
-      = image_tag "email/speech-bubble-top.png"
-  %tr
-    %td{:style => "width:2px;padding:0;background-image:url(#{url_for "images/email/speech-bubble-left.png"})"}
-    %td{:style => "color:#38d038"}
-      = @comment.body
-    %td{:style => "width:6px", :background => "http://localhost:3000/images/email/speech-bubble-right.png"}
-  %tr
-    %td{:style => "height:38px", :colspan => "3"}
-      = image_tag "email/speech-bubble-bottom.png"
+%table{:style => "border-collapse:collapse;width:608px; height:122px; margin-top: 45px; margin-left: 50px;border-spacing:0"}
+  %td{:background => image_path("/images/email/comment-bg.png"), :style => "color: #38d038; font-family: Arial; font-size: 15pt; padding:10px; padding-bottom: 20px; padding-top:5px;text-align:center"}
+    = truncate(@comment.body, :length => 100)
 
+%div{:style => "background-color: #efefef; border: 1px solid #dedede; padding: 10px; border-radius: 10px; width: 608px; margin: 20px; font-size: 13pt; margin-left: 50px; min-height: 75px; line-height: 25px"}
+  = image_tag @user.photo(:iphone_profile), :width => 75, :height => 75, :align => "left", :style => "margin-right: 10px; border-radius:10px"
+  %strong{:style => "font-size:14pt; color:#000; font-weight: bold"}= @user.username
+  %span{:style => "color: #858585"}= @user.name
+  %br
+  %span{:style => "color: #555555"} Commented on your #{link_to(@deal.name, deal_url(@deal), :style => "color: #ff7720; text-decoration: underline")} deal.
+  %br
+  %span{:style => "color:#858585"}= @comment.created_at.to_s(:long_ordinal)
 
-#{@user.name} commented on your #{link_to(@deal.name, deal_url(@deal), :style => "color: #ff7720;")} deal.

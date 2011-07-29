@@ -1,9 +1,16 @@
-%style{ :type => "text/css" }
-  body { font-size: 14px };
+%div{:style => "margin:30px; margin-left: 50px; color: #00c2fe; font-size: 15pt"}
+  Yay! You and #{@user.name} are now friends
 
-Yay! You and #{@user.name} are now friends
-<p/>
-Qwiqq Facts: A friendship is created when you and another Qwiqq user follow each other.
-<p/>
-%hr
-Qwiqq Notifications #{link_to("Unsubscribe", "#")}
+%div{:style => "background-color: #efefef; border: 1px solid #dedede; padding: 10px; border-radius: 10px; width: 608px; margin: 20px; font-size: 13pt; margin-left: 30px; min-height: 75px; line-height: 25px"}
+  = image_tag @user.photo(:iphone_profile), :width => 75, :height => 75, :align => "left", :style => "margin-right: 10px; border-radius:10px"
+  %strong{:style => "font-size:14pt; color:#000; font-weight: bold"}= @user.username
+  %span{:style => "color: #858585"}= @user.name
+  %br
+  %span{:style => "color: #555555"}= @user.location
+
+%table{:style => "margin:20px; margin-left: 20px; color: #00c2fe; font-size: 11pt; border-collapse: collapse"}
+  %tr
+    %td
+      = image_tag "email/qwiqq-facts.png", :align => "center", :style => "padding-right: 5px"
+      %strong Qwiqq Facts:
+      A friendship is created when you and another Qwiqq user follow each other.

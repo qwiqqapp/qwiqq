@@ -322,6 +322,8 @@ a {
   margin-top: 80px;
 }
 
+
+
 #footer {
   font-family: "Museo500";
   text-align: center;
@@ -367,7 +369,7 @@ a {
 
 #navigation img.download-small {
   position: relative;
-  top: 23px;
+  top: 24px;
   right: -7px;
 }
 
@@ -382,6 +384,13 @@ a {
 .page img.logo {
   padding-left: 220px;
   margin-bottom: 10px;
+}
+
+#download.soon{
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 80px;
+  width: 350px;
 }
 
 #about h1 {
@@ -454,6 +463,10 @@ a {
 
 #about #faq a {
   color: #868686;
+}
+
+#about #faq span a{
+  color: #13C3FF;
 }
 
 /* terms and privacy */
@@ -684,3 +697,21 @@ a {
   display: inline;
   font-size: 16px;
 }
+
+#update_notifications {
+  text-align: center;
+}
+
+#update_notifications .logo {
+  margin-top: 100px;
+}
+
+#update_notifications p {
+  color: #868686;
+  margin-top: 60px;
+}
+
+#update_notifications img.enable {
+  margin-top: 60px;
+}
+

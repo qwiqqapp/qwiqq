@@ -1,11 +1,14 @@
 class Mailer < ActionMailer::Base
   layout 'mailer'
   default :from => "notifications@qwiqq.me"
+
+  helper :application
   
   # always send if direct to mail
   def share_deal(target_email, share)
     @deal = share.deal
     @user = share.user
+    @share = share
     mail :to => target_email, :subject => "#{@user.name} shared a Qwiqq deal with you!"
   end
   
@@ -22,12 +25,15 @@ class Mailer < ActionMailer::Base
 
   # send if recipient notification settings allows
   def deal_liked(target, like)
-    @user = target
+    @target = target
+    @user = like.user
     @deal = like.deal
+    @like = like
     mail :to => target.email, :subject => "Someone liked your Qwiqq deal!"
   end
   
   def deal_commented(target, comment)
+    @target   = target
     @comment  = comment
     @deal     = comment.deal
     @user     = comment.user
@@ -35,11 +41,13 @@ class Mailer < ActionMailer::Base
   end
   
   def new_follower(target, follower)
+    @target = target
     @user = follower
     mail :to => target.email, :subject => "#{@user.name} is now following you."
   end
   
   def new_friend(target, friend)
+    @target = target
     @user = friend
     mail :to => target.email, :subject => "You and #{@user.name} are now friends."
   end

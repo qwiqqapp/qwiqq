@@ -2,6 +2,9 @@ ActiveAdmin.register Like do
   scope :all, :default => true
   scope :today
   
+  filter :created_at
+  
+  
   actions :index, :destroy
 
   index do

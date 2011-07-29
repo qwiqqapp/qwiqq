@@ -45,6 +45,7 @@ module Qwiqq
       # will raise exception if fails to add document
       def add
         Document.index.document(deal.id).add(fields, :variables => variables)
+        sync_categories
         deal.update_attribute(:indexed_at, Time.now)
         
       rescue IndexTank::InvalidArgument => e
@@ -74,7 +75,7 @@ module Qwiqq
          # conditionals
          fields[:price]   = deal.price    if deal.price
          fields[:percent] = deal.percent  if deal.percent
-         fields[:premium] = deal.premium  if deal.premium
+         fields[:premium] = deal.premium  if deal.premium         
          fields
       end
       
@@ -82,6 +83,10 @@ module Qwiqq
         { 0 => deal.lat,
           1 => deal.lon,
           2 => deal.like_count.to_i }
+      end
+      
+      def categories
+        { 'premium' => deal.premium.to_s } 
       end
       
       def self.search(query,type,opts={})

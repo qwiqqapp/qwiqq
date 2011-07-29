@@ -8,9 +8,9 @@
   #top
     #user
       %img.photo{ :src => @deal.user.photo.url(:admin_med) }
-      %span.username #{@deal.user.username} posted this #{@deal.created_at.strftime("%B %d, %Y")}
+      %span.username #{@deal.user.username} posted this #{@deal.age} ago
     #share
-      %a.twitter{ :href => "http://twitter.com/share?text=Checkout this deal!" }
+      %a.twitter{ :href => "http://twitter.com/share?text=#{Qwiqq.share_deal_message(@deal)}" }
         .button
       %a.facebook{ :href => "http://www.facebook.com/sharer/sharer.php?u=#{deal_url(@deal)}" }
         .button
@@ -22,9 +22,9 @@
         #name= @deal.name
         .price_or_percent
           - if @deal.price
-            \$ #{@deal.price}
+            \$#{@deal.price_as_string}
           - else
-            \% #{@deal.percent}
+            #{@deal.percent}% Off
 
       #map
         %a{ :href => "http://maps.google.com/?q=#{@deal.lat},#{@deal.lon}" }
@@ -50,7 +50,7 @@
             %span.body 
               "#{comment.body}"
               %span.from
-                from #{comment.user.username} #{comment.created_at.strftime("%B %d, %Y")}
+                from #{comment.user.username} #{comment.age} ago
 
 #deal-footer
   %ul#links

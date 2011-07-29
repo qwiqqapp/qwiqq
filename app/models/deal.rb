@@ -96,7 +96,7 @@ class Deal < ActiveRecord::Base
       :lon            => lon.try(:to_s),
       :comment_count  => comment_count,
       :like_count     => like_count,
-      :age            => (created_at ? time_ago_in_words(created_at).gsub("about ", "") : ""),
+      :age            => age.gsub("about ", ""),
       :short_age      => short_created_at,
       :location_name  => location_name,
       :user           => user.try(:as_json, :deals => false)
@@ -115,6 +115,11 @@ class Deal < ActiveRecord::Base
     
     json
   end
+  
+  def age
+    created_at ? time_ago_in_words(created_at) : ""
+  end
+  
 
   def short_created_at
     from_time = created_at
@@ -132,6 +137,10 @@ class Deal < ActiveRecord::Base
     else
       "#{distance_in_minutes / 525600}y"
     end
+  end
+
+  def price_as_string
+    sprintf("%.2f", price.to_f / 100) if has_price?
   end
   
   private

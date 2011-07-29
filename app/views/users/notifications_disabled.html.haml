@@ -1,0 +1,11 @@
+#update_notifications
+  %a{ :href => root_url }
+    %img.logo{ :src => "/images/logo-mid.png" }
+
+  - if params[:enable]
+    %p Yay! You will continue to recieve notifications from Qwiqq.
+  - else
+    %p You have successfully changed your email preferences, you will no longer recieve notifications from Qwiqq.
+
+    %a{ :href => update_notifications_url(:token => @user.notifications_token, :enable => true)}
+      %img.enable{ :src => "/images/oops.png" }
