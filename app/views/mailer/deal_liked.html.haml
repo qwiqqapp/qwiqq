@@ -3,7 +3,6 @@
     %td{:style => "text-align: left; color:#00c2fe; font-family: Arial; font-size: 14pt"}
       Hurray!
       #{@user.username} liked your deal.
-      #{link_to(@deal.name, deal_url(@deal), :style => "color: #ff7720;")}
 
 %div{:style => "background-color: #efefef; border: 1px solid #dedede; padding: 10px; border-radius: 10px; width: 608px; margin: 20px; font-size: 13pt; margin-left: 30px; min-height: 75px; line-height: 25px"}
   = image_tag @user.photo(:iphone_profile), :width => 75, :height => 75, :align => "left", :style => "margin-right: 10px; border-radius:10px"
