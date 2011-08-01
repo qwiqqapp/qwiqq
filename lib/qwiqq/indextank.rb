@@ -75,7 +75,6 @@ module Qwiqq
          # conditionals
          fields[:price]   = deal.price    if deal.price
          fields[:percent] = deal.percent  if deal.percent
-         fields[:premium] = deal.premium  if deal.premium         
          fields
       end
       
