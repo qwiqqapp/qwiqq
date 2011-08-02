@@ -27,6 +27,7 @@ gem "indextank"
 gem "activeadmin"
 
 gem "bcrypt-ruby", :require => "bcrypt"
+gem 'htmlentities'
 
 
 group :test do
