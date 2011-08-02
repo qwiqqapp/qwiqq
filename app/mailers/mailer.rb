@@ -9,6 +9,7 @@ class Mailer < ActionMailer::Base
     @deal = share.deal
     @user = share.user
     @share = share
+    @show_footer = true
     mail :to => target_email, :subject => "#{@user.name} shared a Qwiqq deal with you!"
   end
   
@@ -29,6 +30,7 @@ class Mailer < ActionMailer::Base
     @user = like.user
     @deal = like.deal
     @like = like
+    @show_footer = true
     mail :to => target.email, :subject => "Someone liked your Qwiqq deal!"
   end
   
@@ -37,18 +39,21 @@ class Mailer < ActionMailer::Base
     @comment  = comment
     @deal     = comment.deal
     @user     = comment.user
+    @show_footer = true
     mail :to => target.email, :subject => "Someone commented on your Qwiqq deal!"
   end
   
   def new_follower(target, follower)
     @target = target
     @user = follower
+    @show_footer = true
     mail :to => target.email, :subject => "#{@user.name} is now following you."
   end
   
   def new_friend(target, friend)
     @target = target
     @user = friend
+    @show_footer = true
     mail :to => target.email, :subject => "You and #{@user.name} are now friends."
   end
 end
