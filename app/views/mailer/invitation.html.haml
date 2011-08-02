@@ -12,7 +12,7 @@
     %td{:background => image_path("/images/email/comment-bg.png"), :style => "color: #38d038; font-family: Arial; font-size: 15pt; text-align:center; vertical-align: top; padding-left: 20px; padding-right: 20px; padding-bottom:25px; vertical-align: middle"}
       Friends know friends best. Join me on Qwiqq and let's share great local deals together!
 
-%div{:style => "background-color: #efefef; border: 1px solid #dedede; padding: 10px; border-radius: 10px; width: 608px; margin: 20px; font-size: 13pt; margin-left: 30px; min-height: 75px; line-height: 25px"}
+%div{:style => "background-color: #efefef; border: 1px solid #dedede; padding: 10px; border-radius: 10px; width: 580px; margin: 20px; font-size: 13pt; margin-left: 50px; min-height: 75px; line-height: 25px"}
   = image_tag @user.photo(:iphone_profile), :width => 75, :height => 75, :align => "left", :style => "margin-right: 10px; border-radius:10px"
   %strong{:style => "font-size:14pt; color:#000; font-weight: bold"}= @user.username
   %span{:style => "color: #858585"}= @user.name
@@ -20,7 +20,7 @@
   %span{:style => "color: #555555"}= @user.location
 
 
-%table{:style => "border-collapse:collapse;width:608px; height:122px; margin-top: 25px; margin-left: 50px;border-spacing:0"}
+%table{:style => "border-collapse:collapse;width:580px; height:122px; margin-top: 25px; margin-left: 50px;border-spacing:0"}
   %td{:style => "text-align:center"}
     = link_to "http://beta.qwiqq.me/download", :style => "border: none" do
       = image_tag "email/app-store.png"
