@@ -19,7 +19,7 @@
     #info
       %img#image{ :src => @deal.photo.url(:iphone_zoom_2x) } 
       #details
-        #name= @deal.name
+        #name= emojify @deal.name
         .price_or_percent
           - if @deal.price
             #{@deal.price_as_string}
@@ -50,7 +50,7 @@
           .comment
             %img.user{ :src => comment.user.photo.url(:admin_med) }
             %span.body 
-              "#{comment.body}"
+              "#{emojify comment.body}"
               %span.from
                 from #{comment.user.username} #{comment.age} ago
 

@@ -71,7 +71,7 @@
           .image
             %img{ :src => deal.photo.url(:iphone_grid_2x) }
           .details
-            = deal.name.truncate(100)
+            = emojify deal.name.truncate(100)
 
 #contact.section
   %img.contact{ :src => "/images/contact.png" }
