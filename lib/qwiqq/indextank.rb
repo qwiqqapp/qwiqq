@@ -44,8 +44,7 @@ module Qwiqq
       
       # will raise exception if fails to add document
       def add
-        Document.index.document(deal.id).add(fields, :variables => variables)
-        sync_categories
+        Document.index.document(deal.id).add(fields, :variables => variables, :categories => categories)
         deal.update_attribute(:indexed_at, Time.now)
         
       rescue IndexTank::InvalidArgument => e
@@ -55,6 +54,11 @@ module Qwiqq
       def remove
         Document.index.document(deal.id).delete
         deal.update_attribute(:indexed_at, nil)
+      end
+      
+      def sync
+        sync_variables
+        sync_categories
       end
       
       def sync_variables
@@ -75,7 +79,6 @@ module Qwiqq
          # conditionals
          fields[:price]   = deal.price    if deal.price
          fields[:percent] = deal.percent  if deal.percent
-         fields[:premium] = deal.premium  if deal.premium         
          fields
       end
       
@@ -86,13 +89,14 @@ module Qwiqq
       end
       
       def categories
-        { 'premium' => deal.premium.to_s } 
+        { 'premium' => deal.premium.to_s }
       end
       
       def self.search(query,type,opts={})
         # change query for search by category
         search_opts = {:fetch => "text,image,image_2x,price,percent,premium,timestamp",     #selected fields to return
                        :fetch_variables => true,                                            # return all variables as variable_#
+                       :fetch_categories => true,                                           # return all categories as category_<NAME>
                        :len => 40}                                                          # max results returned
         
         # select function based on type, assign lat and long
@@ -114,7 +118,6 @@ module Qwiqq
           else
             0
         end
-        
         clean(index.search(query, search_opts)['results'])
       end
       
@@ -132,7 +135,7 @@ module Qwiqq
             :photo_list_2x    => r['image_2x'],
             :price            => r['price'],
             :percent          => r['percent'],
-            :premium          => r['premium'],
+            :premium          => r['category_premium'],
             :age              => (r['timestamp'] ? distance_of_time_in_words(Time.now.to_i, r['timestamp'].to_i) : ""),
             :score            => r['query_relevance_score'],
             :like_count       => r['variable_2'].to_i
@@ -144,7 +147,7 @@ module Qwiqq
       def self.functions
         ["-age * relevance",                      # 0 Newest: newest and most relevant
          "-miles(d[0], d[1], q[0], q[1])",        # 1 Nearby: location
-         "relevance * log(doc.var[2])" ]  # 2 Popular: like_count with age
+         "relevance * log(doc.var[2])" ]          # 2 Popular: like_count with age
       end
       
       def self.client

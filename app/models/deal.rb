@@ -26,6 +26,7 @@ class Deal < ActiveRecord::Base
   
   before_create :geodecode_location_name!
   after_create   { indextank_doc.add }
+  after_update   { indextank_doc.sync }
   before_destroy { indextank_doc.remove }
   
   default_scope :order => 'deals.created_at desc'
