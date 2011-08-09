@@ -15,8 +15,9 @@ class HomeController < ApplicationController
 
 
   # download.qwiqq.me
-  # display coming soon image until in store
+  # redirect user to download
   def download
+    redirect_to "http://itunes.apple.com/us/app/qwiqq/id453258253?ls=1&mt=8"
   end
 
   private
