@@ -1,6 +1,6 @@
 class Api::UsersController < Api::ApiController
 
-  skip_before_filter :require_user, :only => [:create, :show]
+  skip_before_filter :require_user, :only => [:create, :show, :followers, :following, :friends]
 
   # will raise RecordNotFound if user not found
   # will render 401 if email does not match
