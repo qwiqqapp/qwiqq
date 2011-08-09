@@ -6,7 +6,7 @@ module Qwiqq
       def share_deal_to_facebook(deal)
         # post url 
         deal_url = Rails.application.routes.url_helpers.deal_url(deal, 
-          :host => "beta.qwiqq.me")
+          :host => "www.qwiqq.me")
 
         # post caption
         caption = Qwiqq.share_deal_message(deal, self)

@@ -48,7 +48,7 @@ Qwiqq::Application.configure do
   config.active_support.deprecation = :notify
 
   # Production url
-  config.action_mailer.default_url_options = { :host => "beta.qwiqq.me" }
-  config.action_mailer.asset_host = "http://beta.qwiqq.me"
+  config.action_mailer.default_url_options = { :host => "www.qwiqq.me" }
+  config.action_mailer.asset_host = "http://www.qwiqq.me"
   
 end
