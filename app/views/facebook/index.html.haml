@@ -8,13 +8,13 @@
   %ul#things
     %li#coming-soon.box
       .left
-        =link_to "http://download.qwiqq.me", :target => "_top" do
+        =link_to download_url, :target => "_top" do
           = image_tag "facebook/download-green.png"
       .right
         %h2 Get Qwiqq
         %p
           Start sharind discovering local deals &mdash;
-          = link_to "download now", "http://download.qwiqq.me", :target => "_top"
+          = link_to "download now", download_url, :target => "_top"
     %li#follow-us.box
       .left
         %h2 Follow Us

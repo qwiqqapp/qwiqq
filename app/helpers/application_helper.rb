@@ -10,4 +10,8 @@ module ApplicationHelper
     end
     string.html_safe
   end
+
+  def download_url
+    "http://download.qwiqq.me"
+  end
 end
