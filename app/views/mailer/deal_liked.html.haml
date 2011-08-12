@@ -11,7 +11,7 @@
   %br
   %span{:style => "color: #555555"}
     Liked your
-    = link_to(@deal.name, deal_url(@deal), :style => "color: #ff7720; text-decoration: underline")
+    = link_to(strip_emoji(@deal.name), deal_url(@deal), :style => "color: #ff7720; text-decoration: underline")
     deal
   %br
   %span{:style => "color:#858585"}= @like.created_at.to_s(:long_ordinal)

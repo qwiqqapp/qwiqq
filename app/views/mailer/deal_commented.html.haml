@@ -1,7 +1,7 @@
 %table{:style => "border-collapse:collapse;width:608px; height:122px; margin-top: 45px; margin-left: 50px;border-spacing:0", :height => "122"}
   %tr
     %td{:background => image_path("/images/email/comment-bg.png"), :style => "color: #38d038; font-family: Arial; font-size: 15pt; text-align:center; vertical-align: top; padding-left: 20px; padding-right: 20px; padding-bottom:25px; vertical-align: middle"}
-      = truncate(@comment.body, :length => 100)
+      = strip_emoji(truncate(@comment.body, :length => 100))
       %br
 
 %div{:style => "background-color: #efefef; border: 1px solid #dedede; padding: 10px; border-radius: 10px; width: 580px; margin: 20px; font-size: 13pt; margin-left: 50px; min-height: 75px; line-height: 25px"}
@@ -9,7 +9,7 @@
   %strong{:style => "font-size:14pt; color:#000; font-weight: bold"}= @user.username
   %span{:style => "color: #858585"}= @user.name
   %br
-  %span{:style => "color: #555555"} Commented on your #{link_to(@deal.name, deal_url(@deal), :style => "color: #ff7720; text-decoration: underline")} deal.
+  %span{:style => "color: #555555"} Commented on your #{link_to(strip_emoji(@deal.name), deal_url(@deal), :style => "color: #ff7720; text-decoration: underline")} deal.
   %br
   %span{:style => "color:#858585"}= @comment.created_at.to_s(:long_ordinal)
 

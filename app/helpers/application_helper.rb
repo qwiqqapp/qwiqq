@@ -11,6 +11,11 @@ module ApplicationHelper
     string.html_safe
   end
 
+  def strip_emoji(string)
+    string = HTMLEntities.new.encode(string, :hexadecimal)
+    string.gsub(/&#xe([^;]+);/m, " ").html_safe
+  end
+
   def download_url
     "http://download.qwiqq.me"
   end
