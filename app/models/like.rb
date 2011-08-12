@@ -19,12 +19,10 @@ class Like < ActiveRecord::Base
   #  TODO offload sync variables to job
   def increment_like_count
     deal.increment!(:like_count)
-    deal.indextank_doc.sync_variables
   end
 
   #  TODO offload sync variables to job   
   def decrement_like_count
     deal.decrement!(:like_count)
-    deal.indextank_doc.sync_variables
   end
 end
