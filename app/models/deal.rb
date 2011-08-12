@@ -18,13 +18,19 @@ class Deal < ActiveRecord::Base
   attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent
   
   # TODO update to 3.0 validates method
-  validates_presence_of :user, :category, :name, :message => "is required"
-  validates_length_of   :name, :maximum => 70, :message=> "max characters is 70"
+  validates_presence_of   :user, :category, :name, :message => "is required"
+  validates_length_of     :name, :maximum => 70, :message=> "max characters is 70"
+
+  validates_uniqueness_of :unique_token
+  
   validate :has_price_or_percentage
+  
   validates :percent, :numericality => true, :inclusion => { :in => 0..100 }, :if => :has_percentage?
   validates :price, :numericality => true, :if => :has_price?
   
+  before_validation :store_unique_token!, :on => :create
   before_create :geodecode_location_name!
+
   after_create   { indextank_doc.add }
   after_update   { indextank_doc.sync }
   before_destroy { indextank_doc.remove }
@@ -117,7 +123,7 @@ class Deal < ActiveRecord::Base
     
     json
   end
-
+  
   def price_as_string
     number_to_currency price.to_f / 100
   end
@@ -149,15 +155,26 @@ class Deal < ActiveRecord::Base
   def geodecode_location_name!
     self[:location_name] = Deal.geodecode_location_name(lat, lon) if location_name.blank?
   end
-
+  
+  def store_unique_token!
+    input = ""
+    input << self.name              if self.price
+    input << self.price.to_s        if self.price
+    input << self.percent.to_s      if self.percent  
+    input << self.user_id.to_s      if self.user_id
+    input << self.category_id.to_s  if self.category_id
+    
+    self.unique_token = Digest::MD5.hexdigest(input)
+  end
+  
   def has_percentage?
     !percent.blank?
   end
-
+  
   def has_price?
     !price.blank?
   end
-
+  
   def has_price_or_percentage
     errors.add(:base, "Price or percent required") if price.blank? && percent.blank?
   end

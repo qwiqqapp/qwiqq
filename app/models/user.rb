@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   
   has_many :reposted_deals, :dependent => :destroy
   has_many :reposts, :class_name => "Deal", :through => :reposted_deals, :source => :user
-
+  
   has_many :invitations_sent, :class_name => "Invitation"
 
   # queried using AREL so that it can be more easily extended;
