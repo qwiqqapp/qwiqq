@@ -82,6 +82,9 @@ GEM
       launchy (>= 0.3.2)
       rest-client (~> 1.6.1)
       term-ansicolor (~> 1.0.5)
+    hoptoad_notifier (2.4.11)
+      activesupport
+      builder
     htmlentities (4.3.0)
     i18n (0.5.0)
     indextank (1.0.12)
@@ -185,6 +188,7 @@ DEPENDENCIES
   geokit
   haml-rails
   heroku
+  hoptoad_notifier
   htmlentities
   indextank
   json
