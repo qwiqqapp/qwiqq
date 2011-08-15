@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   end
   
   # unable to use search due to meta_search in active admin
-  scope :search_by_name, lambda { |query| where([ 'UPPER(username || \' \' || first_name || \' \' || last_name) like ?', "%#{query.upcase}%" ]) }  
+  scope :search_by_name, lambda { |query| where([ 'UPPER(CONCAT(username, \' \', first_name, \' \', last_name)) LIKE ?', "%#{query.upcase}%" ]) }  
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
     
   attr_accessible :first_name, 

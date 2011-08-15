@@ -6,8 +6,7 @@ gem "rake", "0.8.7"
 
 gem "rails3-generators"
 
-#postgresql to match staging and production
-gem "pg"      
+gem "mysql2", "~> 0.2.7"
 
 # views
 gem "haml-rails"
