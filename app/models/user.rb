@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   
   has_many :reposted_deals, :dependent => :destroy
   has_many :reposts, :class_name => "Deal", :through => :reposted_deals, :source => :user
-
+  
   has_many :invitations_sent, :class_name => "Invitation"
 
   # queried using AREL so that it can be more easily extended;
@@ -185,7 +185,7 @@ class User < ActiveRecord::Base
       :country             => country,
       :created_at          => created_at,
       :updated_at          => updated_at,
-      :join_date           => created_at.to_date.to_s(:long).gsub(/\s+/, " ")
+      :join_date           => created_at.to_date.to_s(:long).gsub(/\s+/, " "),
       :send_notifications  => send_notifications,
       :facebook_authorized => !facebook_access_token.blank?,
       :twitter_authorized  => !twitter_access_token.blank?,

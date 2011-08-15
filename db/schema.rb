@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110812115636) do
+ActiveRecord::Schema.define(:version => 20110812211812) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20110812115636) do
     t.integer  "like_count",         :default => 0
     t.string   "location_name"
     t.datetime "indexed_at"
+    t.string   "unique_token"
   end
 
   create_table "invitations", :force => true do |t|
@@ -142,9 +143,9 @@ ActiveRecord::Schema.define(:version => 20110812115636) do
     t.integer  "following_count",        :default => 0,    :null => false
     t.integer  "friends_count",          :default => 0,    :null => false
     t.string   "twitter_access_secret"
+    t.string   "bio"
     t.string   "twitter_id"
     t.string   "facebook_id"
-    t.string   "bio"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.string   "notifications_token"
