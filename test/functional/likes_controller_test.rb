@@ -20,8 +20,8 @@ class Api::LikesControllerTest < ActionController::TestCase
   end
 
   test "should render all users who like a deal" do
-    @user0 = Factory(:user)
-    @user1 = Factory(:user)
+    @user0 = Factory(:user, :username => "1")
+    @user1 = Factory(:user, :username => "2")
     sign_in(@user0)
 
     @deal = Factory(:deal)

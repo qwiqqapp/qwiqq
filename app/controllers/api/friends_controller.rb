@@ -39,7 +39,7 @@ class Api::FriendsController < Api::ApiController
             :not_invited }
       end
 
-      friends.sort_by {|f| f[:email] }
+      friends.sort_by {|f| f[:username] }
     end
 
     def find_friends_on_twitter(user)
