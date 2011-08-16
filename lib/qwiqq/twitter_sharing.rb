@@ -9,8 +9,7 @@ module Qwiqq
           :host => "www.qwiqq.me")
 
         # build the message
-        message = Qwiqq.share_deal_message(deal, self)
-        message = "#{message} "
+        message = Qwiqq.share_deal_message(deal, self).gsub(/qwiqq/i, "@Qwiqq") + " "
         remaining_length = 140 - (message.length + deal_url.length + 1)
         message += "#{deal.name.truncate(remaining_length)} #{deal_url}"
 
