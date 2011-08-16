@@ -10,7 +10,9 @@ module Qwiqq
 
         # build the message
         message = Qwiqq.share_deal_message(deal, self)
-        message = "#{message} #{deal_url}"
+        message = "#{message} "
+        remaining_length = 140 - (message.length + deal_url.length + 1)
+        message += "#{deal.name.truncate(remaining_length)} #{deal_url}"
 
         # post update
         twitter_client.update(message)
