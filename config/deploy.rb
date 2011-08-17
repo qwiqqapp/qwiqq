@@ -13,6 +13,7 @@ set :ssh_options, { :keys => [ File.join(ENV["EC2_KEY"]) ] }
 set :scm, :git
 set :branch, "production"
 set :deploy_via, :remote_cache
+set :use_sudo, false
 
 role :app, "ec2-50-18-179-179.us-west-1.compute.amazonaws.com" #, "app1.qwiqq.me"
 
@@ -25,11 +26,11 @@ namespace :deploy do
   end
 
   task :stop, :roles => :app do
-    run "kill -s QUIT `cat #{unicorn_pid_path}`" #if File.exists?(unicorn_pid_path)
+    run "if [ -e #{unicorn_pid_path} ]; then kill -s QUIT `cat #{unicorn_pid_path}`; fi"
   end
   
   task :reload, :roles => :app do
-    run "kill -s HUP `cat #{unicorn_pid_path}`" if File.exists?(unicorn_pid_path)
+    run "if [ -e #{unicorn_pid_path} ]; then kill -s HUP `cat #{unicorn_pid_path}`; fi"
   end
 
   task :restart, :roles => :app do
