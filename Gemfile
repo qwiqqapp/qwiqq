@@ -22,13 +22,12 @@ gem "geokit"
 gem "koala" # facebook
 gem "twitter", "1.6.0"
 gem "indextank"
-gem 'hoptoad_notifier'
-
+gem "hoptoad_notifier"
 
 gem "activeadmin"
 
 gem "bcrypt-ruby", :require => "bcrypt"
-gem 'htmlentities'
+gem "htmlentities"
 
 group :test do
   gem "factory_girl_rails"
@@ -37,6 +36,7 @@ group :test do
 end
 
 group :development do
+  gem "capistrano"
   gem "wirble"
 end
 

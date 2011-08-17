@@ -1,24 +1,20 @@
-set :application, "set your application name here"
-set :repository,  "set your repository location here"
+set :application, "qwiqq"
+set :repository,  "git@github.com:gastownlabs/qwiqq-web.git"
+set :deploy_to, "/var/www/qwiqq.me"
 
-set :scm, :subversion
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+set :scm, :git
+set :branch, "production"
+set :deploy_via, :remote_cache
 
-role :web, "your web-server here"                          # Your HTTP server, Apache/etc
-role :app, "your app-server here"                          # This may be the same as your `Web` server
-role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
-role :db,  "your slave db-server here"
+role :app, "ec2-204-236-148-102.us-west-1.compute.amazonaws.com" #, "app1.qwiqq.me"
 
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
+set :user, "ubuntu"
+set :ssh_options, { :keys => [ File.join(ENV["EC2_KEY"]) ] }
 
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
-        require './config/boot'
-        require 'hoptoad_notifier/capistrano'
+require "./config/boot"
+require "bundler/capistrano"
+require "hoptoad_notifier/capistrano"
+
+task :ssh do
+  ssh "ssh git@github.com"
+end
