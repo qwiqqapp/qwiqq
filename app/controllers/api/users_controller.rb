@@ -45,7 +45,7 @@ class Api::UsersController < Api::ApiController
 
   def friends
     @user = find_user(params[:id])
-    @friends = @user.friends.sorted
+    @friends = @user.friends
     respond_with @friends
   end
   
