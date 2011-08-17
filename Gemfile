@@ -1,11 +1,8 @@
 source 'http://rubygems.org'
 
-gem "heroku"
 gem "rails", "3.0.7"
 gem "rake", "0.8.7"
-
 gem "rails3-generators"
-
 gem "mysql2", "~> 0.2.7"
 
 # views
@@ -23,9 +20,7 @@ gem "koala" # facebook
 gem "twitter", "1.6.0"
 gem "indextank"
 gem "hoptoad_notifier"
-
 gem "activeadmin"
-
 gem "bcrypt-ruby", :require => "bcrypt"
 gem "htmlentities"
 
@@ -38,5 +33,9 @@ end
 group :development do
   gem "capistrano"
   gem "wirble"
+end
+
+group :production do
+  gem "unicorn", :require => false
 end
 
