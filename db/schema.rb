@@ -145,9 +145,9 @@ ActiveRecord::Schema.define(:version => 20110816140254) do
     t.integer  "following_count",        :default => 0,    :null => false
     t.integer  "friends_count",          :default => 0,    :null => false
     t.string   "twitter_access_secret"
+    t.string   "bio"
     t.string   "twitter_id"
     t.string   "facebook_id"
-    t.string   "bio"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.string   "notifications_token"

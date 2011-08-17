@@ -8,8 +8,6 @@ Qwiqq::Application.routes.draw do
   root :to => "deals#index"
   resources :deals, :only => [:index, :show]
   
-  match "facebook", :to => "facebook#index", :as => :facebook
-
   # home routes
   match "about",    :to => "home#about",    :as => :about
   match "terms",    :to => "home#terms",    :as => :terms
