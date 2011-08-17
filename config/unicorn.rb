@@ -18,8 +18,7 @@ working_directory APP_PATH + "/current" # available in 0.94.0+
 
 # listen on both a Unix domain socket and a TCP port,
 # we use a shorter backlog for quicker failover when busy
-listen "/tmp/.sock", :backlog => 64
-listen 4000, :tcp_nopush => true
+listen APP_PATH + "/current/tmp/sockets/unicorn.sock", :backlog => 64
 
 # nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 30
@@ -32,4 +31,20 @@ pid APP_PATH + "/shared/pids/unicorn.pid"
 # so prevent them from going to /dev/null when daemonized here:
 stderr_path APP_PATH + "/shared/log/unicorn.stderr.log"
 stdout_path APP_PATH + "/shared/log/unicorn.stdout.log"
+
+# Load the application in the master process before forking
+# worker processes
+preload_app true
+
+before_fork do |server, worker|
+  # Prevent the master process from holding a database connection
+  defined?(ActiveRecord::Base) and
+    ActiveRecord::Base.connection.disconnect!
+end
+
+after_fork do |server, worker|
+  # Establish the database connection after forking worker processes
+  defined?(ActiveRecord::Base) and
+    ActiveRecord::Base.establish_connection
+end
 
