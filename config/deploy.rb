@@ -14,11 +14,10 @@ set :scm, :git
 set :branch, "production"
 set :deploy_via, :remote_cache
 set :use_sudo, false
-
-role :app, "ec2-50-18-179-179.us-west-1.compute.amazonaws.com" #, "app1.qwiqq.me"
-
 set :unicorn_pid_path, "#{shared_path}/pids/unicorn.pid"
 set :unicorn, "unicorn"
+
+role :app, "ec2-50-18-179-179.us-west-1.compute.amazonaws.com", "ec2-50-18-179-224.us-west-1.compute.amazonaws.com" 
 
 namespace :deploy do
   task :start, :roles => :app do
