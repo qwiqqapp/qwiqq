@@ -22,11 +22,11 @@ namespace :deploy do
   end
 
   task :stop, :roles => :app do
-    run "kill `cat #{unicorn_pid}`" 
+    run "kill `cat #{unicorn_pid}`" if File.exists?(unicorn_pid)
   end
   
   task :reload, :roles => :app do
-    run "kill -s USR2 `cat #{unicorn_pid}`"
+    run "kill -s USR2 `cat #{unicorn_pid}`" if File.exists?(unicorn_pid)
   end
 
   task :restart, :roles => :app do
