@@ -14,23 +14,22 @@ set :scm, :git
 set :branch, "production"
 set :deploy_via, :remote_cache
 
-role :app, "ec2-204-236-148-102.us-west-1.compute.amazonaws.com" #, "app1.qwiqq.me"
+role :app, "ec2-50-18-179-179.us-west-1.compute.amazonaws.com" #, "app1.qwiqq.me"
 
 set :unicorn_pid_path, "#{shared_path}/pids/unicorn.pid"
-set :unicorn_rails, "unicorn_rails"
-
+set :unicorn, "unicorn"
 
 namespace :deploy do
   task :start, :roles => :app do
-    run "cd #{current_path} && bundle exec #{unicorn_rails} -c #{current_path}/config/unicorn.rb -D -E production"
+    run "cd #{current_path} && bundle exec #{unicorn} -c #{current_path}/config/unicorn.rb -D -E production"
   end
 
   task :stop, :roles => :app do
-    run "kill `cat #{unicorn_pid_path}`" #if File.exists?(unicorn_pid_path)
+    run "kill -s QUIT `cat #{unicorn_pid_path}`" #if File.exists?(unicorn_pid_path)
   end
   
   task :reload, :roles => :app do
-    run "kill -s USR2 `cat #{unicorn_pid_path}`" if File.exists?(unicorn_pid_path)
+    run "kill -s HUP `cat #{unicorn_pid_path}`" if File.exists?(unicorn_pid_path)
   end
 
   task :restart, :roles => :app do

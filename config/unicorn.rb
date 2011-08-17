@@ -1,5 +1,5 @@
 # application path
-APP_PATH = "/var/www/qwiqq.me"
+APP_PATH ||= "/var/www/qwiqq.me"
 
 # Use at least one worker per core if you're on a dedicated server,
 # more will usually help for _short_ waits on databases/caches.
