@@ -8,7 +8,7 @@ class Api::SearchController < Api::ApiController
 
   # api/search/users
   def users
-    @users = User.search_by_name(params[:q])
+    @users = User.sorted.search_by_name(params[:q])
     render :json => @users.as_json(:current_user => current_user)
   end
   
