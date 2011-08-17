@@ -2,6 +2,8 @@ require "./config/boot"
 require "bundler/capistrano"
 require "hoptoad_notifier/capistrano"
 
+raise "Environment variable 'EC2_KEY' is required." unless ENV["EC2_KEY"]
+
 set :application, "qwiqq"
 set :repository,  "git@github.com:gastownlabs/qwiqq-web.git"
 set :deploy_to, "/var/www/qwiqq.me"
@@ -18,7 +20,7 @@ set :unicorn_rails, "unicorn_rails"
 
 namespace :deploy do
   task :start, :roles => :app do
-    run "#{unicorn_rails} -c #{deploy_to}/current/config/unicorn.rb -D -E production"
+    run "bundle exec #{unicorn_rails} -c #{deploy_to}/current/config/unicorn.rb -D -E production"
   end
 
   task :stop, :roles => :app do
