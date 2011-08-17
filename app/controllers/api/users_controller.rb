@@ -33,19 +33,19 @@ class Api::UsersController < Api::ApiController
 
   def followers
     @user = find_user(params[:id])
-    @followers = @user.followers
+    @followers = @user.followers.sorted
     respond_with @followers
   end
 
   def following
     @user = find_user(params[:id])
-    @following = @user.following
+    @following = @user.following.sorted
     respond_with @following
   end
 
   def friends
     @user = find_user(params[:id])
-    @friends = @user.friends
+    @friends = @user.friends.sorted
     respond_with @friends
   end
   

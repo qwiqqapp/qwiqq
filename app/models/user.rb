@@ -29,7 +29,8 @@ class User < ActiveRecord::Base
   has_many :reposts, :class_name => "Deal", :through => :reposted_deals, :source => :user
   
   has_many :invitations_sent, :class_name => "Invitation"
-  default_scope :order => 'username ASC'
+  
+  scope :sorted, :order => 'username ASC'
 
   # queried using AREL so that it can be more easily extended;
   #   e.g user.feed_deals.include(:category).limit(20)
