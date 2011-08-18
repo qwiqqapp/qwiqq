@@ -13,13 +13,8 @@ class Api::DealsController < Api::ApiController
   # ------------------
   # public scope
   
-  # will develop this in phases
-  # phase 1: recent public deals
-  # phase 2: add location order
-  # phase 3: only deals from friends
   def feed
     @deals = current_user.feed_deals.sorted.limit(40).includes(:category)
-    raise RecordNotFound unless @deals
     respond_with @deals
   end
   
@@ -32,9 +27,11 @@ class Api::DealsController < Api::ApiController
                                   :liked_by_users => true)
   end
   
-  def index
+  
+  # return deals for a given user
+  # or return []
+  def index      
     @deals = find_user(params[:user_id]).deals.sorted
-    raise RecordNotFound unless @deals
     respond_with @deals
   end
   
