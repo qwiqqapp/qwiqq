@@ -213,8 +213,8 @@ class User < ActiveRecord::Base
       :comment_count       => comments.count,
       
       # conditional
-      :deals               => options[:deals]    ? deals.limit(6)        : nil,
-      :liked_deals         => options[:deals]    ? liked_deals.limit(6)  : nil,
+      :deals               => options[:deals]    ? deals.sorted.limit(6)        : nil,
+      :liked_deals         => options[:deals]    ? liked_deals.sorted.limit(6)  : nil,
       :comments            => options[:comments] ? comments.limit(3)     : nil
     }
     
