@@ -15,14 +15,13 @@ set :branch, "production"
 set :deploy_via, :remote_cache
 set :use_sudo, false
 set :unicorn_pid_path, "#{shared_path}/pids/unicorn.pid"
-set :unicorn, "unicorn"
 
 role :app, "ec2-50-18-179-179.us-west-1.compute.amazonaws.com", "ec2-50-18-179-224.us-west-1.compute.amazonaws.com" 
 role :worker, "ec2-50-18-179-225.us-west-1.compute.amazonaws.com"
 
 namespace :unicorn do
   task :start, :roles => :app do
-    run "cd #{current_path} && bundle exec #{unicorn} -c #{current_path}/config/unicorn.rb -D -E production"
+    run "cd #{current_path} && bundle exec unicorn -c #{current_path}/config/unicorn.rb -D -E production"
   end
 
   task :graceful_stop, :roles => :app do
