@@ -79,7 +79,7 @@ class Deal < ActiveRecord::Base
     json = {
       :deal_id        => id.try(:to_s),
       :name           => name,
-      :category       => category.try(:name),
+      :category       => options[:minimal] ? nil : category.try(:name),
       
       # popular
       :photo_grid     => photo.url(:iphone_grid),
@@ -107,8 +107,10 @@ class Deal < ActiveRecord::Base
       :age            => age.gsub("about ", ""),
       :short_age      => short_created_at,
       :location_name  => location_name,
-      :user           => user.try(:as_json, :deals => false)
+      :user           => options[:minimal] ? nil : user.try(:as_json, :deals => false)
     }
+
+    return json if options[:minimal]
     
     # TODO move this to device, which should know current user and likes
     # add 'liked' for the current_user if requested

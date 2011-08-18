@@ -6,8 +6,8 @@ class Api::DealsController < Api::ApiController
   # no auth required
   
   def popular
-    @deals = Deal.unscoped.order("like_count desc, comment_count desc").limit(64).includes(:category)
-    respond_with @deals
+    @deals = Deal.unscoped.order("like_count desc, comment_count desc").limit(64)
+    render :json => @deals.as_json(:minimal => true)
   end
   
   # ------------------
