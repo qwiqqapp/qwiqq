@@ -1,7 +1,7 @@
 class Comment < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
 
-  belongs_to :deal
+  belongs_to :deal, :counter_cache => true
   belongs_to :user
 
   validates_presence_of :deal, :user, :body
@@ -10,8 +10,9 @@ class Comment < ActiveRecord::Base
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
 
   after_create :deliver_notification
-  after_create :increment_comment_count
-  after_destroy :decrement_comment_count
+
+  after_create { deal.indextank_doc.sync_variables }
+  after_destroy { deal.indextank_doc.sync_variables }
 
   strip_attrs :body
 
@@ -42,13 +43,5 @@ class Comment < ActiveRecord::Base
   private
   def deliver_notification
     Mailer.deal_commented(deal.user, self).deliver if deal.user.send_notifications
-  end
-  
-  def increment_comment_count
-    Deal.increment_counter(:comment_count, deal_id)
-  end
-   
-  def decrement_comment_count
-    Deal.decrement_counter(:comment_count, deal_id)
   end
 end

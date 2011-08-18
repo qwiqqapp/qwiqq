@@ -88,7 +88,6 @@ class Api::CommentsControllerTest < ActionController::TestCase
 
     params = { :body => "This is the best deal ever." }
 
-    Deal.expects(:increment_counter).once.with(:comment_count, @deal.id)
     post :create, :deal_id => @deal.id, :comment => params, :format => "json"
 
     assert_equal 201, @response.status
@@ -99,7 +98,6 @@ class Api::CommentsControllerTest < ActionController::TestCase
     @deal = Factory(:deal)
     sign_in(@user)
 
-    Deal.expects(:increment_counter).never
     post :create, :deal_id => @deal.id, :comment => {}, :format => "json"
 
     # TODO shouldn't an invalid entity result in a 422?

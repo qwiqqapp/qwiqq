@@ -25,15 +25,19 @@ class Api::DealsControllerTest < ActionController::TestCase
   
   # deals#index
   test "should render deals for the current user" do
-    @user = Factory(:user, :deals => [Factory(:deal), Factory(:deal)])
+    @user = Factory(:user)
+    Factory(:deal)                    #public deal, different owner
+    Factory(:deal, :user => @user)
+    Factory(:deal, :user => @user)
+    Factory(:deal, :user => @user)
+    
     sign_in(@user)
-    @public_deal = Factory(:deal)
     
     get :index, :format => 'json', :user_id => 'current'
     
     assert_equal 200,   @response.status
     assert_equal Array, json_response.class
-    assert_equal 2,     json_response.size
+    assert_equal 3,     json_response.size
   end
   
   # deals#feed
@@ -95,7 +99,7 @@ class Api::DealsControllerTest < ActionController::TestCase
   end
   
   # deals#create validation
-  test "should not create deal from post missing name and price" do
+  test "should NOT create deal from post missing name and price" do
     @user     = Factory(:user)
     @category = Factory(:category)
     sign_in(@user)
@@ -115,7 +119,7 @@ class Api::DealsControllerTest < ActionController::TestCase
   end
   
   # deals#create validation only name
-  test "should not create deal from post missing category and price" do
+  test "should NOT create deal from post missing category and price" do
     @user = Factory(:user)
     sign_in(@user)
     
@@ -131,7 +135,7 @@ class Api::DealsControllerTest < ActionController::TestCase
   end
   
   # deals#create validation empty strings
-  test "should not create deal from post with empty strings" do
+  test "should NOT create deal from post with empty strings" do
     @user = Factory(:user)
     sign_in(@user)
     

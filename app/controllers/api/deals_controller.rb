@@ -6,25 +6,20 @@ class Api::DealsController < Api::ApiController
   # no auth required
   
   def popular
-    @deals = Deal.unscoped.order("like_count desc, comment_count desc").limit(64).includes(:category)
-    respond_with @deals
+    @deals = Deal.unscoped.order("likes_count desc, comments_count desc").limit(64)
+    render :json => @deals.as_json(:minimal => true)
   end
   
   # ------------------
   # public scope
   
-  # will develop this in phases
-  # phase 1: recent public deals
-  # phase 2: add location order
-  # phase 3: only deals from friends
   def feed
-    @deals = current_user.feed_deals.limit(40).includes(:category)
-    raise RecordNotFound unless @deals
+    @deals = current_user.feed_deals.sorted.limit(40).includes(:category)
     respond_with @deals
   end
   
   def show
-    @deal = Deal.find(params[:id])
+    @deal = Deal.includes(:category).includes(:user).find(params[:id])
     # TODO it would be better to use standard rails conventions here,
     # i.e. :include => [ :comments, :liked_by_users ]
     render :json => @deal.as_json(:current_user => current_user,
@@ -32,9 +27,11 @@ class Api::DealsController < Api::ApiController
                                   :liked_by_users => true)
   end
   
-  def index
-    @deals = find_user(params[:user_id]).deals
-    raise RecordNotFound unless @deals
+  
+  # return deals for a given user
+  # or return []
+  def index      
+    @deals = find_user(params[:user_id]).deals.sorted
     respond_with @deals
   end
   

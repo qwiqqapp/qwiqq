@@ -36,7 +36,7 @@
       #likes
         #count
           %img{ :src => "/images/like.png" }
-          #{pluralize(@deal.like_count, "Like")}
+          #{pluralize(@deal.likes_count, "Like")}
         - @deal.likes.each do |like|
           .like
             %img.user{ :src => like.user.photo.url(:admin_med) }
@@ -45,7 +45,7 @@
       #comments
         #count
           %img{ :src => "/images/like.png" }
-          #{pluralize(@deal.comment_count, "Comment")}
+          #{pluralize(@deal.comments_count, "Comment")}
         - @deal.comments.each do |comment|
           .comment
             %img.user{ :src => comment.user.photo.url(:admin_med) }
