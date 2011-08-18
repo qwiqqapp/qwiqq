@@ -9,17 +9,31 @@ class Api::SharesControllerTest < ActionController::TestCase
       :deal_id => "2",
       :user_id => "1" })
   end
-
-  test "should share a deal to multiple services on creation" do
+  
+  test "should share a deal on facebook" do
     @owner  = Factory(:user)
     @sharer = Factory(:user)
     @deal   = Factory(:deal, :user => @owner)
     sign_in(@sharer)
-
-    assert_queued(MyJob, 1)
-
-    User.any_instance.expects(:share_deal_to_twitter).once.with(@deal)
-    User.any_instance.expects(:share_deal_to_facebook).once.with(@deal)
+    
+    post :create,
+       :user_id => "current",
+       :deal_id => @deal.id,
+       :facebook => true,
+       :format => "json"
+    
+    @share = @sharer.shares.first
+    
+    assert_equal 200,         @response.status
+    assert_equal 'facebook',  @share.service
+  end
+  
+  
+  test "should share a deal to multiple services" do
+    @owner  = Factory(:user)
+    @sharer = Factory(:user)
+    @deal   = Factory(:deal, :user => @owner)
+    sign_in(@sharer)
     
     post :create,
       :user_id => "current",
@@ -28,10 +42,12 @@ class Api::SharesControllerTest < ActionController::TestCase
       :twitter => true,
       :emails => [ "eoin@gastownlabs.com", "adam@gastownlabs.com" ],
       :format => "json"
-
+  
     assert_equal 200, @response.status
     assert_equal 4, @sharer.shares.count
     assert_equal 1, @sharer.shared_deals.count
   end
+  
+
 end
 

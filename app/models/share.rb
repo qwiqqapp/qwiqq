@@ -9,6 +9,8 @@ class Share < ActiveRecord::Base
   after_commit :async_deliver, :if => :persisted?
   
   def deliver
+    return unless shared_at.nil?      # avoid double shares
+    
     case service
     when "facebook" 
       user.share_deal_to_facebook(deal)
@@ -24,4 +26,3 @@ class Share < ActiveRecord::Base
     Resque.enqueue(ShareDeliveryJob, self.id)
   end
 end
-

@@ -3,6 +3,6 @@ class ShareDeliveryJob
   
   def self.perform(share_id)
     share = Share.find(share_id)
-    share.deliver!
+    share.deliver
   end
 end
