@@ -24,7 +24,7 @@ class Api::DealsController < Api::ApiController
   end
   
   def show
-    @deal = Deal.find(params[:id])
+    @deal = Deal.find(params[:id]).includes(:category).includes(:user)
     # TODO it would be better to use standard rails conventions here,
     # i.e. :include => [ :comments, :liked_by_users ]
     render :json => @deal.as_json(:current_user => current_user,
