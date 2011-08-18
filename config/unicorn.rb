@@ -40,6 +40,17 @@ before_fork do |server, worker|
   # Prevent the master process from holding a database connection
   defined?(ActiveRecord::Base) and
     ActiveRecord::Base.connection.disconnect!
+
+  # Check from an old instance, and kill it if it exists
+  # From GitHub's config:
+  #   https://gist.github.com/206253
+  old_pid = RAILS_ROOT + "/tmp/pids/unicorn.pid.oldbin"
+  if File.exists?(old_pid) && server.pid != old_pid
+    begin
+      Process.kill("QUIT", File.read(old_pid).to_i)
+    rescue Errno::ENOENT, Errno::ESRCH
+    end
+  end
 end
 
 after_fork do |server, worker|
