@@ -16,6 +16,8 @@ class Api::SharesControllerTest < ActionController::TestCase
     @deal   = Factory(:deal, :user => @owner)
     sign_in(@sharer)
 
+    assert_queued(MyJob, 1)
+
     User.any_instance.expects(:share_deal_to_twitter).once.with(@deal)
     User.any_instance.expects(:share_deal_to_facebook).once.with(@deal)
     

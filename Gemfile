@@ -25,6 +25,7 @@ gem "twitter", "1.6.0"
 gem "indextank"
 gem 'hoptoad_notifier'
 
+gem "resque", :require => "resque/server"
 
 gem "activeadmin"
 
@@ -35,6 +36,7 @@ group :test do
   gem "factory_girl_rails"
   gem "ffaker"
   gem "mocha", :require => false
+  gem "resque_unit"  
 end
 
 group :development do

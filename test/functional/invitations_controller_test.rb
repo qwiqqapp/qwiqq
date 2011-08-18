@@ -29,7 +29,5 @@ class Api::InvitationsControllerTest < ActionController::TestCase
     assert_equal 200, @response.status
     assert_equal Array, json_response.class
     assert_equal 1, json_response.size 
-  end 
-
-
+  end
 end
