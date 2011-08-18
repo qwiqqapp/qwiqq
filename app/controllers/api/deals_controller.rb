@@ -33,7 +33,7 @@ class Api::DealsController < Api::ApiController
   end
   
   def index
-    @deals = find_user(params[:user_id]).deals
+    @deals = find_user(params[:user_id]).deals.sorted
     raise RecordNotFound unless @deals
     respond_with @deals
   end
