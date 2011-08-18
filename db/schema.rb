@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110818120030) do
+ActiveRecord::Schema.define(:version => 20110818122012) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -51,6 +51,8 @@ ActiveRecord::Schema.define(:version => 20110818120030) do
     t.datetime "updated_at"
   end
 
+  add_index "categories", ["name"], :name => "index_categories_on_name"
+
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
     t.integer  "deal_id"
@@ -58,6 +60,8 @@ ActiveRecord::Schema.define(:version => 20110818120030) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "deals", :force => true do |t|
     t.string   "name"
@@ -83,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20110818120030) do
 
   add_index "deals", ["like_count", "comment_count"], :name => "index_deals_on_like_count_and_comment_count"
   add_index "deals", ["unique_token"], :name => "index_deals_on_unique_token", :unique => true
+  add_index "deals", ["user_id"], :name => "index_deals_on_user_id"
 
   create_table "geo_blocks", :force => true do |t|
     t.integer "location_id", :limit => 8, :null => false
@@ -119,6 +124,9 @@ ActiveRecord::Schema.define(:version => 20110818120030) do
     t.integer  "user_id"
     t.datetime "created_at"
   end
+
+  add_index "likes", ["deal_id"], :name => "index_likes_on_deal_id"
+  add_index "likes", ["user_id"], :name => "index_likes_on_user_id"
 
   create_table "relationships", :force => true do |t|
     t.integer  "user_id"
