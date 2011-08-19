@@ -25,10 +25,12 @@ namespace :unicorn do
   end
 
   task :graceful_stop, :roles => :app do
+    # QUIT tells unicorn to wait for workers to complete and then dies
     run "if [ -e #{unicorn_pid_path} ]; then kill -s QUIT `cat #{unicorn_pid_path}`; fi"
   end
   
   task :reload, :roles => :app do
+    # USR2 tells unicorn to start a new master, renaming the original PID
     run "if [ -e #{unicorn_pid_path} ]; then kill -s USR2 `cat #{unicorn_pid_path}`; fi"
   end
 end
@@ -46,3 +48,4 @@ end
 after "deploy:symlink", "deploy:copy_config"
 after "deploy:symlink", "deploy:restart_workers"
 after "deploy:restart", "unicorn:reload"
+after "deploy:start", "unicorn:start"

@@ -41,7 +41,7 @@ before_fork do |server, worker|
   defined?(ActiveRecord::Base) and
     ActiveRecord::Base.connection.disconnect!
 
-  # Check from an old instance, and kill it if it exists
+  # Check for an old instance, and kill it if it exists
   # From GitHub's config:
   #   https://gist.github.com/206253
   old_pid = RAILS_ROOT + "/tmp/pids/unicorn.pid.oldbin"
