@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   has_many :likes,    :dependent => :destroy
   has_many :liked_deals, :through => :likes, :source => :deal
+  has_many :feedlets, :dependent => :destroy
+  has_many :feed_deals, :through => :feedlets, :source => :deal
 
   has_many :relationships, :dependent => :destroy
   has_many :inverse_relationships, :class_name => "Relationship", :foreign_key => "target_id"
@@ -25,20 +27,9 @@ class User < ActiveRecord::Base
   has_many :shares, :dependent => :destroy
   has_many :shared_deals, :through => :shares, :source => :deal, :uniq => true
   
-  has_many :reposted_deals, :dependent => :destroy
-  has_many :reposts, :class_name => "Deal", :through => :reposted_deals, :source => :user
-  
   has_many :invitations_sent, :class_name => "Invitation"
   
   scope :sorted, :order => 'users.username ASC'
-
-  # queried using AREL so that it can be more easily extended;
-  #   e.g user.feed_deals.include(:category).limit(20)
-  def feed_deals
-    Deal.
-      joins("LEFT OUTER JOIN relationships ON relationships.target_id = deals.user_id").
-      where("relationships.user_id = #{id} OR deals.user_id = #{id}")
-  end
   
   # unable to use search due to meta_search in active admin
   scope :search_by_name, lambda { |query| where([ 'UPPER(username || \' \' || first_name || \' \' || last_name) like ?', "%#{query.upcase}%" ]) }  
@@ -156,23 +147,13 @@ class User < ActiveRecord::Base
   end
 
   def repost_deal!(deal)
-    reposted_deals.create(:deal => deal)
+    deal.populate_feed(self, true)
   end
 
   def email_invitation_sent?(email)
     invitations_sent.exists?(:service => "email", :email => email)
   end
   
-  def feed_deals
-    # finds deals and reposted deals from followed users
-    Deal.select("DISTINCT deals.*").
-         joins("LEFT OUTER JOIN relationships ON relationships.target_id = deals.user_id").
-         joins("LEFT OUTER JOIN reposted_deals ON reposted_deals.deal_id = deals.id").
-         where("relationships.user_id = #{id} OR 
-                reposted_deals.user_id IN(
-                  SELECT relationships.target_id FROM relationships WHERE relationships.user_id = #{id})")
-  end
-
   def as_json(options={})
     options ||= {}
     options.reverse_merge!(:deals => false, :comments => false)

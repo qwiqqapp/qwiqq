@@ -32,6 +32,9 @@ GEM
       activesupport (= 3.0.7)
       arel (~> 2.0.2)
       tzinfo (~> 0.3.23)
+    activerecord-import (0.2.8)
+      activerecord (~> 3.0pre)
+      activerecord (~> 3.0pre)
     activeresource (3.0.7)
       activemodel (= 3.0.7)
       activesupport (= 3.0.7)
@@ -181,6 +184,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin
+  activerecord-import
   aws-s3
   bcrypt-ruby
   factory_girl_rails

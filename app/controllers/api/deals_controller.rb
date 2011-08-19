@@ -14,8 +14,8 @@ class Api::DealsController < Api::ApiController
   # public scope
   
   def feed
-    @deals = current_user.feed_deals.sorted.limit(40).includes(:category)
-    respond_with @deals
+    @deals = current_user.feed_deals.limit(40).order("feedlets.created_at DESC")
+    render :json => @deals.as_json(:minimal => true)
   end
   
   def show

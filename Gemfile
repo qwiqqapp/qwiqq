@@ -25,6 +25,7 @@ gem "twitter", "1.6.0"
 gem "indextank"
 gem 'hoptoad_notifier'
 
+gem 'activerecord-import'
 
 gem "activeadmin"
 

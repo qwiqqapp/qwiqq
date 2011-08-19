@@ -47,6 +47,8 @@ class Api::DealsControllerTest < ActionController::TestCase
     @user2 = Factory(:user)
     
     sign_in(@user0)
+    @user0.follow!(@user1)
+    @user0.follow!(@user2)
 
     # deals from users followed by current user
     feed_deals = [
@@ -55,8 +57,6 @@ class Api::DealsControllerTest < ActionController::TestCase
       Factory(:deal, :user => @user2, :created_at => 2.hours.ago),
       Factory(:deal, :user => @user1, :created_at => 3.days.ago) ]
 
-    @user0.follow!(@user1)
-    @user0.follow!(@user2)
 
     get :feed, :format => 'json'
     
@@ -194,7 +194,6 @@ class Api::DealsControllerTest < ActionController::TestCase
     post :repost, :id => @deal.id, :user_id => @user.id, :format => "json"
 
     assert_equal 201, @response.status
-    assert_equal 1, @user.reposted_deals.count
   end
   
 end
