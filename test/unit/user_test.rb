@@ -79,7 +79,7 @@ class UserTest < ActiveSupport::TestCase
     @user0.repost_deal!(@deal3)
 
     assert_equal 2, @user0.feed_deals.count
-    assert_equal [@deal0, @deal1], @user0.feed_deals 
+    assert_equal [@deal0, @deal1], @user0.feed_deals.sorted
   end
   
   test "#feed_deals with reposts from followed users" do
@@ -99,7 +99,7 @@ class UserTest < ActiveSupport::TestCase
     @user1.repost_deal!(@deal3)
 
     assert_equal 3, @user0.feed_deals.count
-    assert_equal [@deal0, @deal1, @deal3], @user0.feed_deals 
+    assert_equal [@deal0, @deal1, @deal3], @user0.feed_deals.sorted
   end
 
   test "should strip text attributes before saving" do

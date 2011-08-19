@@ -1,6 +1,8 @@
 class Like < ActiveRecord::Base
-  belongs_to :deal
+  belongs_to :deal, :counter_cache => true
   belongs_to :user
+  after_create { deal.indextank_doc.sync_variables }
+  after_destroy { deal.indextank_doc.sync_variables }
   
   validates_presence_of :deal, :user
   
@@ -8,21 +10,9 @@ class Like < ActiveRecord::Base
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   
   after_create :deliver_notification
-  after_create :increment_like_count
-  after_destroy :decrement_like_count
   
   private
-  def deliver_notification    
+  def deliver_notification
     Mailer.deal_liked(deal.user, self).deliver if deal.user.send_notifications
-  end
-
-  #  TODO offload sync variables to job
-  def increment_like_count
-    deal.increment!(:like_count)
-  end
-
-  #  TODO offload sync variables to job   
-  def decrement_like_count
-    deal.decrement!(:like_count)
   end
 end

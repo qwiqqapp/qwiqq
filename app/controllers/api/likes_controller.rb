@@ -12,7 +12,7 @@ class Api::LikesController < Api::ApiController
       @collection   = @deal.liked_by_users
     elsif params[:user_id]
       @user         = find_user(params[:user_id])
-      @collection   = @user.liked_deals
+      @collection   = @user.liked_deals.sorted
     else
       raise RecordNotFound
     end

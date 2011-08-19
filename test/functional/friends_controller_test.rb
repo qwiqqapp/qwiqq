@@ -13,8 +13,8 @@ class Api::FriendsControllerTest < ActionController::TestCase
     @user0 = Factory(:user, :email => "user0@gastownlabs.com")
     sign_in(@user0)
 
-    @user1 = Factory(:user, :email => "user1@gastownlabs.com")
-    @user2 = Factory(:user, :email => "user2@gastownlabs.com")
+    @user1 = Factory(:user, :email => "user1@gastownlabs.com", :username => "1")
+    @user2 = Factory(:user, :email => "user2@gastownlabs.com", :username => "2")
     Invitation.create(:user => @user0, :service => "email", :email => "user4@gastownlabs.com")
     @user0.follow!(@user1)
 
@@ -45,9 +45,9 @@ class Api::FriendsControllerTest < ActionController::TestCase
     @user0 = Factory(:user)
     sign_in(@user0)
 
-    @user1 = Factory(:user, :twitter_id => "1", :email => "user1@gastownlabs.com", :first_name => "a", :last_name => "a") # following
-    @user2 = Factory(:user, :twitter_id => "2", :email => "user2@gastownlabs.com", :first_name => "b", :last_name => "b") # not_following
-    @user3 = Factory(:user, :twitter_id => "3", :email => "user3@gastownlabs.com", :first_name => "c", :last_name => "c") 
+    @user1 = Factory(:user, :twitter_id => "1", :email => "user1@gastownlabs.com", :first_name => "a", :last_name => "a", :username => "1") # following
+    @user2 = Factory(:user, :twitter_id => "2", :email => "user2@gastownlabs.com", :first_name => "b", :last_name => "b", :username => "2") # not_following
+    @user3 = Factory(:user, :twitter_id => "3", :email => "user3@gastownlabs.com", :first_name => "c", :last_name => "c", :username => "3") 
     @user0.follow!(@user1)
 
     User.any_instance.expects(:twitter_friend_ids).returns([ "1", "2", "4" ])
@@ -71,9 +71,9 @@ class Api::FriendsControllerTest < ActionController::TestCase
     @user0 = Factory(:user)
     sign_in(@user0)
 
-    @user1 = Factory(:user, :facebook_id => "1", :email => "user1@gastownlabs.com", :first_name => "a", :last_name => "a") # following
-    @user2 = Factory(:user, :facebook_id => "2", :email => "user2@gastownlabs.com", :first_name => "b", :last_name => "b") # not_following
-    @user3 = Factory(:user, :facebook_id => "3", :email => "user3@gastownlabs.com", :first_name => "c", :last_name => "c") 
+    @user1 = Factory(:user, :facebook_id => "1", :email => "user1@gastownlabs.com", :first_name => "a", :last_name => "a", :username => "1") # following
+    @user2 = Factory(:user, :facebook_id => "2", :email => "user2@gastownlabs.com", :first_name => "b", :last_name => "b", :username => "2") # not_following
+    @user3 = Factory(:user, :facebook_id => "3", :email => "user3@gastownlabs.com", :first_name => "c", :last_name => "c", :username => "3") 
     @user0.follow!(@user1)
 
     User.any_instance.stubs(:facebook_friend_ids).returns([ "1", "2", "4" ])

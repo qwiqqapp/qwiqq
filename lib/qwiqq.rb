@@ -25,6 +25,16 @@ module Qwiqq
     "#{random_sharing_prefix} #{message}"
   end
 
+  def self.twitter_message(deal, sharer = nil)
+    deal_url = Rails.application.routes.url_helpers.deal_url(deal, 
+          :host => "www.qwiqq.me")
+    message = Qwiqq.share_deal_message(deal, sharer).gsub(/qwiqq/i, "@Qwiqq") + " "
+
+    remaining_length = 140 - (message.length + deal_url.length + 1)
+    message += "#{deal.name.truncate(remaining_length)} #{deal_url}"
+    message
+  end
+
   def self.friendly_token(size = 20)
     ActiveSupport::SecureRandom.base64(size).gsub(/[^0-9a-z"]/i, '')
   end

@@ -32,13 +32,13 @@ class Deal < ActiveRecord::Base
   before_create :geodecode_location_name!
 
   after_create   { indextank_doc.add }
-  after_update   { indextank_doc.sync }
   before_destroy { indextank_doc.remove }
+  after_update   { indextank_doc.sync }
   
-  default_scope :order => 'deals.created_at desc'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   scope :premium, where(:premium => true)
   scope :search_by_name, lambda { |query| where([ 'UPPER(name) like ?', "%#{query.upcase}%" ]) }
+  scope :sorted, :order => "created_at desc"
 
   # all images are cropped
   # see initializers/auto_orient.rb for new processor
@@ -72,14 +72,14 @@ class Deal < ActiveRecord::Base
     loc = GeoKit::Geocoders::MultiGeocoder.reverse_geocode([ lat, lon ])
     "#{loc.street_name}, #{loc.city}" if loc.success?
   end
-                    
+             
   def as_json(options={})
     options ||= {}
 
     json = {
       :deal_id        => id.try(:to_s),
       :name           => name,
-      :category       => category.try(:name),
+      :category       => options[:minimal] ? nil : category.try(:name),
       
       # popular
       :photo_grid     => photo.url(:iphone_grid),
@@ -102,13 +102,15 @@ class Deal < ActiveRecord::Base
       :percent        => percent,
       :lat            => lat.try(:to_s),
       :lon            => lon.try(:to_s),
-      :comment_count  => comment_count,
-      :like_count     => like_count,
+      :comment_count  => comments_count,
+      :like_count     => likes_count,
       :age            => age.gsub("about ", ""),
       :short_age      => short_created_at,
       :location_name  => location_name,
-      :user           => user.try(:as_json, :deals => false)
+      :user           => options[:minimal] ? nil : user.try(:as_json, :deals => false)
     }
+
+    return json if options[:minimal]
     
     # TODO move this to device, which should know current user and likes
     # add 'liked' for the current_user if requested

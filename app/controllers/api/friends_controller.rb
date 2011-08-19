@@ -20,7 +20,7 @@ class Api::FriendsController < Api::ApiController
     def find_friends_by_email(user, emails)
       # make sure current user isn't in the list of emails
       emails.delete(user.email)
-      friends = User.where(:email => emails)
+      friends = User.sorted.where(:email => emails)
       friends.map! do |friend|
         # friend found, remove email and check if the user is following them
         emails.delete(friend.email)
@@ -39,13 +39,13 @@ class Api::FriendsController < Api::ApiController
             :not_invited }
       end
 
-      friends.sort_by {|f| f[:email] }
+      friends.sort_by {|f| f[:username] }
     end
 
     def find_friends_on_twitter(user)
       # find twitter friends 
       twitter_ids = user.twitter_friend_ids
-      friends = User.where(:twitter_id => twitter_ids).order("first_name, last_name DESC")
+      friends = User.sorted.where(:twitter_id => twitter_ids).order("first_name, last_name DESC")
       friends.map do |friend|
         friend.as_json.merge({
           :state => user.following?(friend) ? 
@@ -57,7 +57,7 @@ class Api::FriendsController < Api::ApiController
     def find_friends_on_facebook(user)
       # find facebook friends
       facebook_ids = user.facebook_friend_ids
-      friends = User.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
+      friends = User.sorted.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
       friends.map do |friend|
         friend.as_json.merge({
           :state => user.following?(friend) ? 

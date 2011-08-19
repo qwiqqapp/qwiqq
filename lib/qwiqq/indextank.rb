@@ -85,7 +85,7 @@ module Qwiqq
       def variables
         { 0 => deal.lat,
           1 => deal.lon,
-          2 => deal.like_count.to_i }
+          2 => deal.likes_count.to_i }
       end
       
       def categories

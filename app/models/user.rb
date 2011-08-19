@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
     :finder_sql => proc { 
       "SELECT users.* FROM users WHERE id IN (
          SELECT r1.target_id FROM relationships r1, relationships r2 
-         WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id AND r1.user_id = #{id})" },
+         WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id AND r1.user_id = #{id}) order by users.username ASC" },
     :counter_sql => proc { 
       "SELECT COUNT(*) FROM relationships r1, relationships r2 
        WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id AND r1.user_id = #{id}" }
@@ -29,6 +29,8 @@ class User < ActiveRecord::Base
   has_many :reposts, :class_name => "Deal", :through => :reposted_deals, :source => :user
   
   has_many :invitations_sent, :class_name => "Invitation"
+  
+  scope :sorted, :order => 'users.username ASC'
 
   # queried using AREL so that it can be more easily extended;
   #   e.g user.feed_deals.include(:category).limit(20)
@@ -211,8 +213,8 @@ class User < ActiveRecord::Base
       :comment_count       => comments.count,
       
       # conditional
-      :deals               => options[:deals]    ? deals.limit(6)        : nil,
-      :liked_deals         => options[:deals]    ? liked_deals.limit(6)  : nil,
+      :deals               => options[:deals]    ? deals.sorted.limit(6)        : nil,
+      :liked_deals         => options[:deals]    ? liked_deals.sorted.limit(6)  : nil,
       :comments            => options[:comments] ? comments.limit(3)     : nil
     }
     

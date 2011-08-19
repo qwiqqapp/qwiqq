@@ -26,7 +26,6 @@ class Api::SessionsControllerTest < ActionController::TestCase
     assert_equal "Wrong email or password", json_response['message']
   end
   
-  
   test "should not find invalid user" do
     post :create, :user => { :email => 'invalid', :password => 'invalid'}, :format => 'json'
     assert_equal 401, @response.status

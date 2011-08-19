@@ -20,8 +20,8 @@ class Api::LikesControllerTest < ActionController::TestCase
   end
 
   test "should render all users who like a deal" do
-    @user0 = Factory(:user)
-    @user1 = Factory(:user)
+    @user0 = Factory(:user, :username => "1")
+    @user1 = Factory(:user, :username => "2")
     sign_in(@user0)
 
     @deal = Factory(:deal)
@@ -55,7 +55,7 @@ class Api::LikesControllerTest < ActionController::TestCase
   test "should create a like for the current user and specified deal" do
     @user   = Factory(:user)
     @owner  = Factory(:user, :send_notifications => false)    
-    @deal   = Factory(:deal, :like_count => 0, :user => @owner)
+    @deal   = Factory(:deal, :likes_count => 0, :user => @owner)
     sign_in(@user)
     
     Qwiqq::Indextank::Document.any_instance.expects(:sync_variables).once
@@ -63,12 +63,12 @@ class Api::LikesControllerTest < ActionController::TestCase
     post :create, :deal_id => @deal.id, :format => "json"
     
     assert_equal 201, @response.status
-    assert_equal 1, Deal.find(@deal.id).like_count
+    assert_equal 1, Deal.find(@deal.id).likes_count
   end
 
   test "should destroy a like for the current user and specified deal" do
     @user = Factory(:user)
-    @deal = Factory(:deal, :like_count => 0)
+    @deal = Factory(:deal, :likes_count => 0)
     @like = @deal.likes.create(:user => @user)
     
     sign_in(@user)
@@ -78,6 +78,6 @@ class Api::LikesControllerTest < ActionController::TestCase
     delete :destroy, :deal_id => @deal.id, :format => "json"
 
     assert_equal 200, @response.status
-    assert_equal 0, Deal.find(@deal.id).like_count    
+    assert_equal 0, Deal.find(@deal.id).likes_count    
   end
 end

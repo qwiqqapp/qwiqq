@@ -13,7 +13,6 @@ class Api::UsersController < Api::ApiController
   end
 
   def update
-    
     # only the current user can be updated
     raise ActiveRecord::RecordNotFound unless params[:id] == "current"
     @user = current_user
@@ -33,13 +32,13 @@ class Api::UsersController < Api::ApiController
 
   def followers
     @user = find_user(params[:id])
-    @followers = @user.followers
+    @followers = @user.followers.sorted
     respond_with @followers
   end
 
   def following
     @user = find_user(params[:id])
-    @following = @user.following
+    @following = @user.following.sorted
     respond_with @following
   end
 

@@ -20,6 +20,9 @@ gem "koala" # facebook
 gem "twitter", "1.6.0"
 gem "indextank"
 gem "hoptoad_notifier"
+
+gem "resque", :require => "resque/server"
+
 gem "activeadmin"
 gem "bcrypt-ruby", :require => "bcrypt"
 gem "htmlentities"
@@ -28,6 +31,7 @@ group :test do
   gem "factory_girl_rails"
   gem "ffaker"
   gem "mocha", :require => false
+  gem "resque_unit"  
 end
 
 group :development do
@@ -38,4 +42,3 @@ end
 group :production do
   gem "unicorn", :require => false
 end
-
