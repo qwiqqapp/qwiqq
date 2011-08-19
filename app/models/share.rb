@@ -12,9 +12,9 @@ class Share < ActiveRecord::Base
     return unless shared_at.nil?      # avoid double shares
     
     case service
-    when "facebook" 
+    when "facebook"
       user.share_deal_to_facebook(deal)
-    when "twitter" 
+    when "twitter"
       user.share_deal_to_twitter(deal)
     when "email"
       Mailer.share_deal(email, self).deliver
