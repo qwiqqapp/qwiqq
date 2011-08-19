@@ -1,23 +1,23 @@
 require "./config/boot"
 require "bundler/capistrano"
-require "hoptoad_notifier/capistrano"
 
 # an EC2 key is required
 raise "Environment variable 'EC2_KEY' is required." unless ENV["EC2_KEY"]
 
 set :application, "qwiqq"
 set :repository,  "git@github.com:gastownlabs/qwiqq-web.git"
+set :branch, "production"
 set :deploy_to, "/var/www/qwiqq.me"
 set :user, "ubuntu"
 set :ssh_options, { :keys => [ File.join(ENV["EC2_KEY"]) ] }
 set :scm, :git
-set :branch, "production"
 set :deploy_via, :remote_cache
 set :use_sudo, false
 set :unicorn_pid_path, "#{shared_path}/pids/unicorn.pid"
 
-role :app, "ec2-50-18-179-179.us-west-1.compute.amazonaws.com", "ec2-50-18-179-224.us-west-1.compute.amazonaws.com" 
-role :worker, "ec2-50-18-179-225.us-west-1.compute.amazonaws.com"
+role :app, "app1.qwiqq.me", "app2.qwiqq.me"
+role :worker, "worker1.qwiqq.me"
+role :db, "app1.qwiqq.me"
 
 namespace :unicorn do
   task :start, :roles => :app do
@@ -40,6 +40,10 @@ namespace :deploy do
     run "cp -pf #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   end
 
+  task :restart_papertrail, :roles => [ :app, :worker ] do
+    run "sudo /etc/init.d/papertrail restart"
+  end
+
   task :restart_workers, :roles => :worker do
     run "echo 'RESTARTING WORKERS!'"
   end
@@ -47,5 +51,6 @@ end
 
 after "deploy:symlink", "deploy:copy_config"
 after "deploy:symlink", "deploy:restart_workers"
-after "deploy:restart", "unicorn:reload"
+after "deploy:restart", "unicorn:reload", "deploy:restart_papertrail"
 after "deploy:start", "unicorn:start"
+

@@ -19,7 +19,7 @@ gem "geokit"
 gem "koala" # facebook
 gem "twitter", "1.6.0"
 gem "indextank"
-gem "hoptoad_notifier"
+#gem "hoptoad_notifier"
 
 gem "resque", :require => "resque/server"
 
