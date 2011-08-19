@@ -2,9 +2,6 @@ require 'test_helper'
 
 class ShareTest < ActiveSupport::TestCase
   
-  # to allow after_commit to run
-  self.use_transactional_fixtures = false
-  
   def setup
     Resque.reset!
   end

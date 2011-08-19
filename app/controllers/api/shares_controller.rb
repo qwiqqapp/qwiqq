@@ -10,7 +10,7 @@ class Api::SharesController < Api::ApiController
     # email
     emails = params[:emails] || []
     emails.each do |email|
-      @user.shares.create(:deal => @deal, :service => "email", :email => email) 
+      @user.shares.create(:deal => @deal, :service => "email", :email => email)
     end
 
     head :ok

@@ -32,8 +32,8 @@ class Deal < ActiveRecord::Base
   before_create :geodecode_location_name!
 
   after_create   { indextank_doc.add }
-  after_update   { indextank_doc.sync }
   before_destroy { indextank_doc.remove }
+  after_update   { indextank_doc.sync }
   
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   scope :premium, where(:premium => true)
@@ -72,7 +72,7 @@ class Deal < ActiveRecord::Base
     loc = GeoKit::Geocoders::MultiGeocoder.reverse_geocode([ lat, lon ])
     "#{loc.street_name}, #{loc.city}" if loc.success?
   end
-                    
+             
   def as_json(options={})
     options ||= {}
 

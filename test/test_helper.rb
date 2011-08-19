@@ -4,6 +4,9 @@ require 'rails/test_help'
 require 'mocha'
 require 'factory_girl'
 
+# allows after_commit to fire with transactional_fixtures = true
+require 'helpers/after_commit_with_transactional_fixtures'
+
 # there's an issue with psych failing to parse dates on 1.9.2 
 # so force the use of syck until the issue has been resolved
 require 'yaml'

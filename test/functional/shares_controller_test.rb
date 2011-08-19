@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class Api::SharesControllerTest < ActionController::TestCase
+
+  def setup
+    Resque.reset!
+  end
+  
   test "should route to shares#create" do
     assert_routing({ :method => "post", :path => "/api/users/1/deals/2/shares.json" }, { 
       :format => "json", 
@@ -22,10 +27,14 @@ class Api::SharesControllerTest < ActionController::TestCase
        :facebook => true,
        :format => "json"
     
-    @share = @sharer.shares.first
+    @share = Share.first
     
-    assert_equal 200,         @response.status
-    assert_equal 'facebook',  @share.service
+    assert_equal 200, @response.status
+    assert_equal 'facebook', @share.service
+    
+    # queues
+    assert_queued(ShareDeliveryJob, [@share.id])
+    assert_equal 1, Resque.queue(:shares).length
   end
   
   
@@ -43,9 +52,13 @@ class Api::SharesControllerTest < ActionController::TestCase
       :emails => [ "eoin@gastownlabs.com", "adam@gastownlabs.com" ],
       :format => "json"
   
+    # records
     assert_equal 200, @response.status
     assert_equal 4, @sharer.shares.count
     assert_equal 1, @sharer.shared_deals.count
+    
+    # queues
+    assert_equal 4, Resque.queue(:shares).length
   end
   
 
