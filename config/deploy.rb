@@ -37,7 +37,9 @@ end
 
 namespace :deploy do
   task :copy_config, :roles => [ :app, :worker ] do
-    run "cp -pf #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+    [ "env.rb", "database.yml" ].each do |name|
+      run "cp -pf #{shared_path}/config/#{name} #{release_path}/config/#{name}"
+    end
   end
 
   task :restart_papertrail, :roles => [ :app, :worker ] do
