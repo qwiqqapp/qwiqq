@@ -7,7 +7,8 @@ gem "rake", "0.8.7"
 gem "rails3-generators"
 
 #postgresql to match staging and production
-gem "pg"      
+# gem "pg"    
+gem "mysql2", "~> 0.2.7"
 
 # views
 gem "haml-rails"
@@ -24,7 +25,6 @@ gem "koala" # facebook
 gem "twitter", "1.6.0"
 gem "indextank"
 gem 'hoptoad_notifier'
-
 
 gem "activeadmin"
 
