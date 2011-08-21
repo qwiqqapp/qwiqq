@@ -12,7 +12,7 @@ class Like < ActiveRecord::Base
   after_create :deliver_notification
   
   private
-  def deliver_notification    
+  def deliver_notification
     Mailer.deal_liked(deal.user, self).deliver if deal.user.send_notifications
   end
 end
