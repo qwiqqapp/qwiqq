@@ -35,6 +35,7 @@ group :test do
   gem "factory_girl_rails"
   gem "ffaker"
   gem "mocha", :require => false
+  gem 'fakeweb'
 end
 
 group :development do

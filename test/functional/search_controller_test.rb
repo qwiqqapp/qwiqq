@@ -2,6 +2,10 @@ require 'test_helper'
 
 class Api::SearchControllerTest < ActionController::TestCase
 
+  setup do
+    stub_indextank
+  end
+
   test "should route to search#deals" do
     assert_routing(
       {:method => 'get', :path => '/api/search/deals/nearby.json'}, 

@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class CommentTest < ActiveSupport::TestCase
+  
+  setup do
+    stub_indextank
+  end
+  
   test "strips body before saving" do
     @comment = Factory(:comment, :body => "        body      ")
     assert_equal "body", @comment.body

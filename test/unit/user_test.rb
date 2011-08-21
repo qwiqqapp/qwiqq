@@ -2,6 +2,10 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   
+  setup do
+    stub_indextank
+  end
+  
   test "#authenticate" do
     @password   = 'tester'
     @user       = Factory(:user, :password => @password, :password_confirmation => @password)

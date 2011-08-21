@@ -2,6 +2,10 @@ require 'test_helper'
 
 class Api::CommentsControllerTest < ActionController::TestCase
 
+  setup do
+    stub_indextank
+  end
+
   test "should route to comments#index for deals" do
     assert_routing("/api/deals/1/comments.json", {
       :format => "json", :controller => "api/comments", :action => "index", :deal_id => "1" })

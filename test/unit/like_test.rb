@@ -2,6 +2,10 @@ require 'test_helper'
 
 class LikeTest < ActiveSupport::TestCase
   
+  setup do
+    stub_indextank
+  end
+  
   test "should send notification if enabled for user" do
     @owner  = Factory(:user, :send_notifications => true)
     @deal   = Factory(:deal, :user => @owner)
