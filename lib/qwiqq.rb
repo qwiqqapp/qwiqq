@@ -5,6 +5,9 @@ require "qwiqq/twitter_sharing"
 require "qwiqq/indextank"
 
 module Qwiqq
+  # application-wide redis client
+  mattr_accessor :redis
+  
   # TODO there might be a better place for this to live, it's currently used by;
   #  - mailer to construct the share_deal mail
   #  - twitter and facebook sharing messages via API

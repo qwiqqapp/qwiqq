@@ -19,6 +19,15 @@ role :app, "app1.qwiqq.me", "app2.qwiqq.me"
 role :worker, "worker1.qwiqq.me"
 role :db, "app1.qwiqq.me"
 
+# helpers
+def rake_task(name)
+  cmd, args = "", ENV["RAKE_ARGS"].to_s.split(",")
+  cmd << "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env, "production")} rake #{name}"
+  cmd << "['#{args.join("','")}']" unless args.empty?
+  cmd
+end
+
+# unicorn tasks
 namespace :unicorn do
   task :start, :roles => :app do
     run "cd #{current_path} && bundle exec unicorn -c #{current_path}/config/unicorn.rb -D -E production"
@@ -35,11 +44,10 @@ namespace :unicorn do
   end
 end
 
+# general tasks
 namespace :deploy do
   task :copy_config, :roles => [ :app, :worker ] do
-    [ "env.rb", "database.yml" ].each do |name|
-      run "cp -pf #{shared_path}/config/#{name} #{release_path}/config/#{name}"
-    end
+    run "cp -pf #{shared_path}/config/* #{current_path}/config/"
   end
 
   task :restart_papertrail, :roles => [ :app, :worker ] do
@@ -47,7 +55,7 @@ namespace :deploy do
   end
 
   task :restart_workers, :roles => :worker do
-    run "echo 'RESTARTING WORKERS!'"
+    run rake_task "resque:restart_workers"
   end
 end
 

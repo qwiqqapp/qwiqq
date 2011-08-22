@@ -14,7 +14,7 @@ gem "bcrypt-ruby", :require => "bcrypt"
 # views
 gem "haml-rails"
 gem "simple_form"
-gem 'htmlentities'
+gem "htmlentities"
 
 # images
 gem "paperclip"
@@ -22,6 +22,7 @@ gem "rmagick", :require => false
 
 # workers
 gem "resque"
+gem "resque-pool"
 
 # services
 gem "geokit"
@@ -36,7 +37,6 @@ gem "htmlentities"
 
 # admin
 gem "activeadmin"
-
 
 group :test do
   gem "factory_girl_rails"
