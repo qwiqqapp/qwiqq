@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RelationshipTest < ActiveSupport::TestCase
   
-  def teardown
+  def setup
     Resque.reset!
   end
   

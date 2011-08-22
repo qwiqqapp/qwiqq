@@ -5,11 +5,8 @@ class ShareTest < ActiveSupport::TestCase
   self.use_transactional_fixtures = false
   
   setup do
-    stub_indextank
-  end
-  
-  def teardown
     Resque.reset!
+    stub_indextank
   end
   
   # test queue is populated
