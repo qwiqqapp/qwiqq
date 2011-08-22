@@ -11,9 +11,6 @@ class Comment < ActiveRecord::Base
 
   after_create :deliver_notification
 
-  after_create { deal.indextank_doc.sync_variables }
-  after_destroy { deal.indextank_doc.sync_variables }
-
   strip_attrs :body
 
   # TODO replace with use of super(options) to allow for controller to override defaults
