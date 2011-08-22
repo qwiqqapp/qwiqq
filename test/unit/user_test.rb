@@ -2,6 +2,15 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   
+  test "should raise exception if username taken (ignore case)" do
+    Factory(:user, :username => 'Adam')
+    exception = assert_raise(ActiveRecord::RecordInvalid) {
+      Factory(:user, :username => 'adam')
+    }
+    assert_match /username/i, exception.message
+  end
+  
+  
   test "#authenticate" do
     @password   = 'tester'
     @user       = Factory(:user, :password => @password, :password_confirmation => @password)

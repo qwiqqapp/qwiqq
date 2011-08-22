@@ -40,14 +40,25 @@ class Api::UsersControllerTest < ActionController::TestCase
     assert_equal @user_params[:email], json_response['email']
   end
 
-  test "failed user registration" do
-    @user_params = Factory.attributes_for(:user)
-    @user_params.delete(:email)
+  test "failed user registration with blank email" do
+    @user_params = Factory.attributes_for(:user, :email => nil)
     post :create, :user => @user_params, :format => 'json'
     
     assert_equal 422, @response.status
     assert_equal ["can't be blank"], json_response['email']
   end
+  
+  test "failed user registration with taken username" do
+    @user = Factory(:user, :username => 'Adam')
+    @user_params = Factory.attributes_for(:user, :username => 'adam')
+    
+    post :create, :user => @user_params, :format => 'json'
+    
+    assert_equal 422, @response.status
+    assert_match /taken/i, json_response['username'].first
+  end
+  
+  
   
   # users#show
   test "should render users details" do
