@@ -1,10 +1,9 @@
 require File.expand_path('../boot', __FILE__)
-
-# Load env vars from local file
-env = File.join("config", "env.rb")
-load(env) if File.exists?(env)
-
 require 'rails/all'
+
+# Load env vars from local file if it exists
+env = File.join("config", "#{Rails.env}.rb")
+load(env) if File.exists?(env)
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
