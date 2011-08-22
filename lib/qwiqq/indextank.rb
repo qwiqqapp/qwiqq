@@ -74,8 +74,7 @@ module Qwiqq
                    :category     => deal.category.name,
                    :image        => deal.photo.url(:iphone_list),
                    :image_2x     => deal.photo.url(:iphone_list_2x),
-                   :timestamp    => deal.created_at.to_i,
-                   :comment_count => deal.comments_count.to_i}
+                   :timestamp    => deal.created_at.to_i}
          
          # conditionals
          fields[:price]   = deal.price    if deal.price
@@ -90,7 +89,8 @@ module Qwiqq
       end
       
       def categories
-        { 'premium' => deal.premium.to_s }
+        { 'premium' => deal.premium.to_s,
+          'comment_count' => deal.comments_count.to_s }
       end
       
       def self.search(query,type,opts={})
@@ -137,10 +137,10 @@ module Qwiqq
             :price            => r['price'],
             :percent          => r['percent'],
             :premium          => r['category_premium'],
+            :comment_count    => r['category_comment_count'],
             :age              => (r['timestamp'] ? distance_of_time_in_words(Time.now.to_i, r['timestamp'].to_i) : ""),
             :score            => r['query_relevance_score'],
-            :like_count       => r['variable_2'].to_i,
-            :comment_count    => r['comment_count'].to_i
+            :like_count       => r['variable_2'].to_i
           }
         end
       end
