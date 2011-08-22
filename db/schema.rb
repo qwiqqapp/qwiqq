@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110818124954) do
+ActiveRecord::Schema.define(:version => 20110821232513) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(:version => 20110818124954) do
     t.string   "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "notification_sent_at"
   end
 
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
@@ -101,6 +102,7 @@ ActiveRecord::Schema.define(:version => 20110818124954) do
     t.integer  "deal_id"
     t.integer  "user_id"
     t.datetime "created_at"
+    t.datetime "notification_sent_at"
   end
 
   add_index "likes", ["deal_id"], :name => "index_likes_on_deal_id"
@@ -111,6 +113,7 @@ ActiveRecord::Schema.define(:version => 20110818124954) do
     t.integer  "target_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "notification_sent_at"
   end
 
   add_index "relationships", ["target_id"], :name => "index_relationships_on_target_id"

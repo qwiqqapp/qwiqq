@@ -58,11 +58,9 @@ class Api::LikesControllerTest < ActionController::TestCase
   
   test "should create a like for the current user and specified deal" do
     @user   = Factory(:user)
-    @owner  = Factory(:user, :send_notifications => false)    
+    @owner  = Factory(:user, :send_notifications => false)
     @deal   = Factory(:deal, :likes_count => 0, :user => @owner)
     sign_in(@user)
-    
-    Qwiqq::Indextank::Document.any_instance.expects(:sync_variables).once
     
     post :create, :deal_id => @deal.id, :format => "json"
     
@@ -76,12 +74,10 @@ class Api::LikesControllerTest < ActionController::TestCase
     @like = @deal.likes.create(:user => @user)
     
     sign_in(@user)
-
-    Qwiqq::Indextank::Document.any_instance.expects(:sync_variables).once
     
     delete :destroy, :deal_id => @deal.id, :format => "json"
 
     assert_equal 200, @response.status
-    assert_equal 0, Deal.find(@deal.id).likes_count    
+    assert_equal 0, Deal.find(@deal.id).likes_count
   end
 end

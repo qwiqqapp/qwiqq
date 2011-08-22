@@ -40,7 +40,6 @@ class Comment < ActiveRecord::Base
     created_at ? time_ago_in_words(created_at) : ""
   end
   
-  private
   def deliver_notification
     Mailer.deal_commented(deal.user, self).deliver if deal.user.send_notifications
   end

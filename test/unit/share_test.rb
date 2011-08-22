@@ -5,20 +5,23 @@ class ShareTest < ActiveSupport::TestCase
   self.use_transactional_fixtures = false
   
   setup do
-    Resque.reset!
     stub_indextank
+  end
+  
+  def teardown
+    Resque.reset!
   end
   
   # test queue is populated
   test "should queue twitter share" do
-    @share = Share.create(:user => Factory(:user), :deal => Factory(:deal), :service => 'twitter')
+    @share = Factory(:twitter_share)
     assert_queued(ShareDeliveryJob, [@share.id])
   end
   
   # test result of queued jobs
   test "should deliver shared deal to email" do
     @target_email = 'adam@test.com'
-    @share = Share.create(:user => Factory(:user), :deal => Factory(:deal), :email => @target_email, :service => 'email')
+    @share = Factory(:email_share, :email => @target_email)
     assert_queued(ShareDeliveryJob, [@share.id])
     
     Mailer.expects(:share_deal).once.with(@target_email, @share).returns(mock(:deliver => true))
@@ -26,19 +29,15 @@ class ShareTest < ActiveSupport::TestCase
   end
   
   test "should send shared deal to facebook" do
-    @user  = Factory(:user)
-    @deal  = Factory(:deal)
-    @share = Share.create(:user => @user, :deal => @deal, :service => 'facebook', :shared_at => nil)
+    @share = Factory(:facebook_share)
     assert_queued(ShareDeliveryJob, [@share.id])
     
-    User.any_instance.expects(:share_deal_to_facebook).once.with(@deal)
+    User.any_instance.expects(:share_deal_to_facebook).once.with(@share.deal)
     Resque.run!
   end
   
   test "should NOT share deal to facebook twice" do 
-    @user  = Factory(:user)
-    @deal  = Factory(:deal)
-    @share = Share.create(:user => @user, :deal => @deal, :service => 'facebook', :shared_at => nil)
+    @share = Factory(:facebook_share)
     assert_queued(ShareDeliveryJob, [@share.id])
     
     # another process shares deal

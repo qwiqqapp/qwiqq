@@ -2,6 +2,11 @@ require 'test_helper'
 
 class RelationshipTest < ActiveSupport::TestCase
   
+  def teardown
+    Resque.reset!
+  end
+  
+  
   # ---------
   # email notifcations 
   

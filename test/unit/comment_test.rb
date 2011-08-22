@@ -6,6 +6,10 @@ class CommentTest < ActiveSupport::TestCase
     stub_indextank
   end
   
+  def teardown
+    Resque.reset!
+  end
+  
   test "strips body before saving" do
     @comment = Factory(:comment, :body => "        body      ")
     assert_equal "body", @comment.body
