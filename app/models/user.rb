@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_many :likes,    :dependent => :destroy
   has_many :liked_deals, :through => :likes, :source => :deal
   has_many :feedlets, :dependent => :destroy
+  has_many :posted_feedlets, :class_name => 'Feedlet', :foreign_key => 'posting_user_id', :dependent => :destroy
+
   has_many :feed_deals, :through => :feedlets, :source => :deal
 
   has_many :relationships, :dependent => :destroy
@@ -28,6 +30,7 @@ class User < ActiveRecord::Base
   has_many :shared_deals, :through => :shares, :source => :deal, :uniq => true
   
   has_many :invitations_sent, :class_name => "Invitation"
+  has_many :reposts, :dependent => :destroy
   
   scope :sorted, :order => 'users.username ASC'
   
@@ -129,9 +132,12 @@ class User < ActiveRecord::Base
 
   def follow!(target)
     relationships.create(:target => target)
+    Feedlet.import( target.deals.map { |d| self.feedlets.new(:posting_user_id => target.id, :deal_id => d.id, :created_at => d.created_at) } )
+    Feedlet.import( target.reposts.map { |r| self.feedlets.new(:posting_user_id => target.id, :deal_id => r.deal_id, :created_at => r.created_at, :repost => true, :reposted_by => target.username) } )
   end
 
   def unfollow!(target)
+    self.feedlets.where(:posting_user_id => target.id).delete_all
     relationships.find_by_target_id(target.id).try(:destroy)
   end
   
@@ -147,6 +153,7 @@ class User < ActiveRecord::Base
   end
 
   def repost_deal!(deal)
+    self.reposts.create(:deal => deal)
     deal.populate_feed(self, true)
   end
 

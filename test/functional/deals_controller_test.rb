@@ -47,10 +47,10 @@ class Api::DealsControllerTest < ActionController::TestCase
     @user2 = Factory(:user)
     
     sign_in(@user0)
+
     @user0.follow!(@user1)
     @user1.follow!(@user2)
     @user0.follow!(@user2)
-
     # deals from users followed by current user
     feed_deals = [
       Factory(:deal, :user => @user1, :created_at => 10.minutes.ago),
@@ -74,6 +74,45 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_equal @user2.username, Feedlet.last.reposted_by
     assert_equal @user2.username, json_response[0]["reposted_by"]
     assert_equal nil, json_response[1]["reposted_by"]
+  end
+
+  test "should see feed deals previously posted by a user after following" do
+    @user0 = Factory(:user)
+    @user1 = Factory(:user)
+    @user2 = Factory(:user)
+
+    sign_in(@user0)
+    Factory(:deal, :user => @user1, :created_at => 10.minutes.ago)
+    @deal2 = Factory(:deal, :user => @user2, :created_at => 10.minutes.ago)
+    @user1.repost_deal!(@deal2)
+
+    @user0.follow!(@user1)
+    
+    get :feed, :format => 'json'
+    assert_equal 200, @response.status
+    assert_equal Array, json_response.class
+    assert_equal 2, json_response.size
+  end
+  
+  test "should no longer see deals from a user after unfollowing" do
+    @user0 = Factory(:user)
+    @user1 = Factory(:user)
+    @user2 = Factory(:user)
+
+    sign_in(@user0)
+    @user0.follow!(@user1)
+    @user0.follow!(@user2)
+
+    @deal1 = Factory(:deal, :user => @user1, :created_at => 10.minutes.ago)
+    Factory(:deal, :user => @user2, :created_at => 10.minutes.ago)
+    @user2.repost_deal!(@deal1)
+
+    @user0.unfollow!(@user2)
+
+    get :feed, :format => 'json'
+    assert_equal 200, @response.status
+    assert_equal Array, json_response.class
+    assert_equal 1, json_response.size
   end
   
   # deals#create

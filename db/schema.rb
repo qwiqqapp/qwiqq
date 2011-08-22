@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110819175241) do
+ActiveRecord::Schema.define(:version => 20110822155718) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -94,9 +94,11 @@ ActiveRecord::Schema.define(:version => 20110819175241) do
     t.integer  "user_id"
     t.string   "reposted_by"
     t.datetime "created_at"
+    t.integer  "posting_user_id"
   end
 
   add_index "feedlets", ["created_at"], :name => "index_feedlets_on_created_at"
+  add_index "feedlets", ["posting_user_id"], :name => "index_feedlets_on_posting_user_id"
   add_index "feedlets", ["user_id"], :name => "index_feedlets_on_user_id"
 
   create_table "geo_blocks", :force => true do |t|
@@ -148,6 +150,15 @@ ActiveRecord::Schema.define(:version => 20110819175241) do
   add_index "relationships", ["target_id"], :name => "index_relationships_on_target_id"
   add_index "relationships", ["user_id", "target_id"], :name => "index_relationships_on_user_id_and_target_id", :unique => true
   add_index "relationships", ["user_id"], :name => "index_relationships_on_user_id"
+
+  create_table "reposts", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "deal_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reposts", ["user_id"], :name => "index_reposts_on_user_id"
 
   create_table "shares", :force => true do |t|
     t.integer  "user_id",    :null => false
