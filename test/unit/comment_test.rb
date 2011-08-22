@@ -39,7 +39,8 @@ class CommentTest < ActiveSupport::TestCase
     @comment   = Factory(:comment, :deal => @deal)
     
     Resque.run!
-    assert_not_nil Comment.find(@comment.id).notification_sent_at
+    @comment.reload
+    assert_not_nil @comment.notification_sent_at
   end
   
   
@@ -53,7 +54,7 @@ class CommentTest < ActiveSupport::TestCase
     
     Mailer.expects(:deal_commented).never
     Resque.run!
-    
+    @comment.reload
     assert_nil @comment.notification_sent_at
   end
   

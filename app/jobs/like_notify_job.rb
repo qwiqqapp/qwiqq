@@ -2,7 +2,7 @@ class LikeNotifyJob
   @queue = :notifications
   
   def self.perform(id)
-    like = Like.find(id)
-    like.deliver_notification
+    l = Like.find(id)
+    l.deliver_notification
   end
 end

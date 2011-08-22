@@ -38,7 +38,7 @@ class Comment < ActiveRecord::Base
   end
   
   def deliver_notification
-    return unless notification_sent_at.nil?       # avoid double shares
+    return unless notification_sent_at.nil?       # avoid double notification
     return unless deal.user.send_notifications    # only send if user has notifications enabled
     
     Mailer.deal_commented(deal.user, self).deliver

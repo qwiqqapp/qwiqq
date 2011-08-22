@@ -46,7 +46,8 @@ class LikeTest < ActiveSupport::TestCase
     @like   = Factory(:like, :deal => @deal)
     
     Resque.run!
-    assert_not_nil Like.find(@like.id).notification_sent_at
+    @like.reload
+    assert_not_nil @like.notification_sent_at
   end
   
   # -------------------
@@ -59,7 +60,7 @@ class LikeTest < ActiveSupport::TestCase
     
     Mailer.expects(:deal_liked).never
     Resque.run!
-    
+    @like.reload
     assert_nil @like.notification_sent_at
   end
   
