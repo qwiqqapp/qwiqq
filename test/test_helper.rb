@@ -3,6 +3,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'mocha'
 require 'factory_girl'
+require 'fakeweb'
 
 # allows after_commit to fire with transactional_fixtures = true
 require 'helpers/after_commit_with_transactional_fixtures'
@@ -12,10 +13,21 @@ require 'helpers/after_commit_with_transactional_fixtures'
 require 'yaml'
 YAML::ENGINE.yamler= 'syck'
 
+# stop all network requests,
+# will throw exception if network request is issued
+FakeWeb.allow_net_connect = false
+
+Factory.find_definitions
+
 class ActiveSupport::TestCase
-  def json_response
-    ActiveSupport::JSON.decode(@response.body)
-  end
+end
+
+
+# ------------
+# helper methods
+
+def json_response
+  ActiveSupport::JSON.decode(@response.body)
 end
 
 def sign_in(user)
@@ -26,4 +38,14 @@ def sign_out
   @controller.stubs(:current_user).returns(nil)
 end
 
-Factory.find_definitions
+# TODO implement fakeweb register with valid responses,
+# mocha stubs below are quick fix
+def stub_indextank
+  doc ||= Qwiqq::Indextank::Document.any_instance
+  doc.stubs(:add).returns(true)
+  doc.stubs(:remove).returns(true)
+  doc.stubs(:sync_variables).returns(true)
+  doc.stubs(:sync_categories).returns(true)
+end
+
+

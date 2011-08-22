@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class Api::DealsControllerTest < ActionController::TestCase
+  
+  setup do
+    stub_indextank
+  end
 
   test "should route to deals#index" do
     assert_routing('/api/users/1/deals.json', {:format => 'json', :controller => 'api/deals', :action => 'index', :user_id => "1"})

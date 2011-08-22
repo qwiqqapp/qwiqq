@@ -9,10 +9,7 @@ class Comment < ActiveRecord::Base
   default_scope :order => 'created_at desc'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
 
-  after_create :deliver_notification
-
-  after_create { deal.indextank_doc.sync_variables }
-  after_destroy { deal.indextank_doc.sync_variables }
+  after_commit :async_deliver_notification, :if => :persisted?
 
   strip_attrs :body
 
@@ -40,8 +37,15 @@ class Comment < ActiveRecord::Base
     created_at ? time_ago_in_words(created_at) : ""
   end
   
-  private
   def deliver_notification
-    Mailer.deal_commented(deal.user, self).deliver if deal.user.send_notifications
+    return unless notification_sent_at.nil?       # avoid double notification
+    return unless deal.user.send_notifications    # only send if user has notifications enabled
+    
+    Mailer.deal_commented(deal.user, self).deliver
+    update_attribute(:notification_sent_at, Time.now)
+  end
+  
+  def async_deliver_notification
+    Resque.enqueue(CommentNotifyJob, self.id)
   end
 end

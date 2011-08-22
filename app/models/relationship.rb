@@ -2,9 +2,28 @@ class Relationship < ActiveRecord::Base
   belongs_to :user
   belongs_to :target, :class_name => "User"
   
-  after_create :deliver_notifications
-  after_create :update_counts_create  
+  after_create :update_counts_create
   before_destroy :update_counts_destroy
+  
+  after_commit :async_deliver_notification, :if => :persisted?
+  
+  def deliver_notification
+    return unless notification_sent_at.nil?    # avoid double notification
+    return unless target.send_notifications    # only send if user has notifications enabled
+    
+    if friends?
+      Mailer.new_friend(target, user).deliver
+    else
+      Mailer.new_follower(target, user).deliver
+    end
+    
+    update_attribute(:notification_sent_at, Time.now)
+  end
+  
+  def async_deliver_notification
+    Resque.enqueue(RelationshipNotifyJob, self.id)
+  end
+  
   
   private
     def friends?
@@ -33,13 +52,5 @@ class Relationship < ActiveRecord::Base
       target.save
     end
     
-    def deliver_notifications
-      return unless target.send_notifications
-      
-      if friends?
-        Mailer.new_friend(target, user).deliver
-      else
-        Mailer.new_follower(target, user).deliver
-      end
-    end
+
 end

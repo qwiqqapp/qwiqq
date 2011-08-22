@@ -6,7 +6,7 @@ class DealTest < ActiveSupport::TestCase
     Qwiqq::Indextank::Document.any_instance.expects(:add).once.returns(true)
     
     assert_nothing_raised(){
-      @deal = Factory(:deal, :name => 'deal name here')         
+      @deal = Factory(:deal, :name => 'deal name here')
     }
     assert_equal true, @deal.valid?
   end
@@ -30,7 +30,7 @@ class DealTest < ActiveSupport::TestCase
 
   test "validates price" do
     Qwiqq::Indextank::Document.any_instance.expects(:add).never
-    
+
     assert_raise(ActiveRecord::RecordInvalid) {
       Factory(:deal, :price => "", :percent => nil)
     }
@@ -41,7 +41,7 @@ class DealTest < ActiveSupport::TestCase
     Qwiqq::Indextank::Document.any_instance.expects(:add).once.returns(true)
     
     assert_nothing_raised(){
-      @deal = Factory(:deal, :name => 'deal name here')         
+      @deal = Factory(:deal, :name => 'deal name here')
     }
     assert_not_nil @deal.unique_token
   end
