@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(:version => 20110819175241) do
   create_table "feedlets", :force => true do |t|
     t.integer  "deal_id"
     t.integer  "user_id"
-    t.boolean  "repost"
+    t.string   "reposted_by"
     t.datetime "created_at"
   end
 

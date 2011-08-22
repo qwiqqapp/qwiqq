@@ -11,11 +11,11 @@ class Deal < ActiveRecord::Base
   has_many :shares
 
   has_many :liked_by_users, :through => :likes, :source => :user
-  has_many :reposted_by_users, :through => :reposts, :source => :user
   has_many :feedlets, :dependent => :destroy
   
   #TODO update to 3.1 and use role based attr_accessible for premium
   attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent
+
   
   # TODO update to 3.0 validates method
   validates_presence_of   :user, :category, :name, :message => "is required"
@@ -44,7 +44,7 @@ class Deal < ActiveRecord::Base
 
   def populate_feed(posting_user = nil, repost = false)
     posting_user ||= self.user
-    Feedlet.import(posting_user.followers.map {|f| Feedlet.new(:user_id => f.id, :deal_id => self.id, :repost => repost)})
+    Feedlet.import(posting_user.followers.map {|f| Feedlet.new(:user_id => f.id, :deal_id => self.id, :reposted_by => repost ? posting_user.username : nil)})
   end
 
   # all images are cropped

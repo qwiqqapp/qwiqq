@@ -3,7 +3,7 @@ class CreateFeedlets < ActiveRecord::Migration
     create_table :feedlets do |t|
       t.integer :deal_id
       t.integer :user_id
-      t.boolean :repost
+      t.string :reposted_by
       t.timestamp :created_at
     end
 

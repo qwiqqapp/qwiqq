@@ -48,6 +48,7 @@ class Api::DealsControllerTest < ActionController::TestCase
     
     sign_in(@user0)
     @user0.follow!(@user1)
+    @user1.follow!(@user2)
     @user0.follow!(@user2)
 
     # deals from users followed by current user
@@ -57,15 +58,22 @@ class Api::DealsControllerTest < ActionController::TestCase
       Factory(:deal, :user => @user2, :created_at => 8.minutes.ago),
       Factory(:deal, :user => @user1, :created_at => 7.minutes.ago) ]
 
+    @user2.repost_deal!(feed_deals[0])
+
 
     get :feed, :format => 'json'
     
     assert_equal 200,   @response.status
     assert_equal Array, json_response.class
-    assert_equal 4,     json_response.size
+    assert_equal 5,     json_response.size
+    assert_equal 8,     Feedlet.count # user0 sees 4 deals and a repost, user1 sees 2 deals and a repost
     
     # check order
-    assert_equal feed_deals.map(&:id).reverse, json_response.map{|d| d["deal_id"].to_i}
+    assert_equal [feed_deals[0].id] + feed_deals.map(&:id).reverse, json_response.map{|d| d["deal_id"].to_i}
+
+    assert_equal @user2.username, Feedlet.last.reposted_by
+    assert_equal @user2.username, json_response[0]["reposted_by"]
+    assert_equal nil, json_response[1]["reposted_by"]
   end
   
   # deals#create
