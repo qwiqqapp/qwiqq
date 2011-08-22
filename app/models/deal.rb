@@ -9,7 +9,6 @@ class Deal < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   has_many :likes, :dependent => :destroy
   has_many :shares
-  has_many :reposts, :dependent => :destroy, :class_name => "RepostedDeal"
 
   has_many :liked_by_users, :through => :likes, :source => :user
   has_many :reposted_by_users, :through => :reposts, :source => :user

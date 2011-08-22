@@ -52,10 +52,10 @@ class Api::DealsControllerTest < ActionController::TestCase
 
     # deals from users followed by current user
     feed_deals = [
-      Factory(:deal, :user => @user1, :created_at => 1.minutes.ago),
-      Factory(:deal, :user => @user2, :created_at => 40.minutes.ago),
-      Factory(:deal, :user => @user2, :created_at => 2.hours.ago),
-      Factory(:deal, :user => @user1, :created_at => 3.days.ago) ]
+      Factory(:deal, :user => @user1, :created_at => 10.minutes.ago),
+      Factory(:deal, :user => @user2, :created_at => 9.minutes.ago),
+      Factory(:deal, :user => @user2, :created_at => 8.minutes.ago),
+      Factory(:deal, :user => @user1, :created_at => 7.minutes.ago) ]
 
 
     get :feed, :format => 'json'
@@ -65,7 +65,7 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_equal 4,     json_response.size
     
     # check order
-    assert_equal feed_deals.map(&:id), json_response.map{|d| d["deal_id"].to_i}
+    assert_equal feed_deals.map(&:id).reverse, json_response.map{|d| d["deal_id"].to_i}
   end
   
   # deals#create
