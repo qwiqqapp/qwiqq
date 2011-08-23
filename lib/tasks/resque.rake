@@ -3,7 +3,7 @@ require "resque/pool/tasks"
 # this task will get called before resque:pool:setup
 # and preload the rails environment in the pool manager
 task "resque:setup" => :environment do
-  # generic worker setup, e.g. Hoptoad for failed jobs
+  # worker setup
 end
 
 task "resque:pool:setup" do
@@ -21,7 +21,7 @@ task "resque:web:start" => :environment do
   require "vegas"
   Resque::Server.use Rack::Auth::Basic do |username, password|
     # TODO put credentials in config
-    [ username, password ] == [ "admin", "@1t@vist@" ] 
+    [ username, password ] == [ "admin", "bl4ckb3rry" ] 
   end
   Vegas::Runner.new(Resque::Server, "resque-web")
 end

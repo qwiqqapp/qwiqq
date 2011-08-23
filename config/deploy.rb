@@ -22,14 +22,6 @@ role :app, "app1.qwiqq.me", "app2.qwiqq.me"
 role :worker, "worker1.qwiqq.me"
 role :db, "app1.qwiqq.me", :primary => true
 
-# helpers
-def rake_task(name)
-  cmd, args = "", ENV["RAKE_ARGS"].to_s.split(",")
-  cmd << "cd #{current_path} && RAILS_ENV=#{fetch(:rails_env, "production")} rake #{name}"
-  cmd << "['#{args.join("','")}']" unless args.empty?
-  cmd
-end
-
 # unicorn tasks
 namespace :unicorn do
   task :start, :roles => :app do
@@ -47,6 +39,7 @@ namespace :unicorn do
   end
 end
 
+# resque tasks 
 namespace :resque do
   task :start, :roles => :worker do
     run "cd #{current_path} && bundle exec resque-pool --daemon --environment production"
@@ -63,6 +56,7 @@ namespace :resque do
   end
 end
 
+# papertrails tasks 
 namespace :papertrail do
   task :restart, :roles => [ :app, :worker ] do
     run "sudo /etc/init.d/papertrail restart"
@@ -80,7 +74,3 @@ after "deploy:symlink", "deploy:copy_config"
 after "deploy:restart", "unicorn:reload", "resque:restart", "papertrail:restart"
 after "deploy:start", "unicorn:start", "resque:start"
 
-
-
-        require './config/boot'
-        require 'hoptoad_notifier/capistrano'
