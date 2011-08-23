@@ -156,6 +156,7 @@ class User < ActiveRecord::Base
   def repost_deal!(deal)
     r = self.reposts.create :deal => deal
     deal.populate_feed(self, r)
+    deal
   end
 
   def email_invitation_sent?(email)

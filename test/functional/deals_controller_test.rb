@@ -240,10 +240,15 @@ class Api::DealsControllerTest < ActionController::TestCase
     @user = Factory(:user)
     @deal = Factory(:deal)
     sign_in(@user)
+
+    @follower = Factory(:user)
+    @follower.follow! @user
     
     post :repost, :id => @deal.id, :user_id => @user.id, :format => "json"
 
     assert_equal 201, @response.status
+    assert_equal 1, Repost.count
+    assert_equal 1, Feedlet.count
   end
   
 end
