@@ -52,9 +52,10 @@ h3. Rails console or MySQL acccess
 * either rails c from app root 
 * or mysql with creds in database.yml
 
-h3. SSH (example app1)
+h3. SSH + RAILS Console (example app1)
 
 * ssh -i ~/.ec2/qwiqq-us-west.pem ubuntu@app1.qwiqq.me
+* RAILS_ENV=production bundle exec rails c
 
 h3. Worker App
 
@@ -83,6 +84,15 @@ h3. Airbrake (errors)
 * pass: request reset
 
 h3. NewRelic (performance)
+
+Trial 14days (pro)
+
+* https://rpm.newrelic.com/
+* email: core@gastownlabs.com
+* pass: tester
+
+
+Free (basic) disabled
 
 * https://rpm.newrelic.com/accounts/36644/applications/233524
 * email: adam|brian|eoin@gastownlabs.com
