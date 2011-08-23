@@ -32,6 +32,15 @@ namespace :users do
   
   desc 'batch clean all usernames to be letters numbers and _ only'
   task :username_cleaner => :environment do
-    User.all.each {|u| puts clean(u)}
+    limit   = ENV['limit'].to_i || 1000
+    offset  = ENV['offset'].to_i || 0
+    
+    users = User.limit(limit).offset(offset)
+    puts "loaded #{users.size} starting at #{offset}"
+    
+    users.each {|u| puts clean(u)}
   end
+  
+  
+  
 end
