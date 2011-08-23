@@ -12,25 +12,86 @@ h2. Dev Environment
 * db = mysql
 * hosting (staging/production) = AWS
 
-
-h3. hosting
-
-* hosting (staging/production) = aws (ELB + EC2 + RDS)
-* cap deploy
-
-
-h2. Services used
-
-* logging     > https://papertrailapp.com
-* errors      > https://gastownlabs.hoptoadapp.com
-* performance > https://rpm.newrelic.com
-* emails      > https://postmarkapp.com
-
-
 h2. API notes
 
 * return all ids as string using .try(:to_s)
 * prefix id with model, eg user_id
 * current user is a valid option for user_id or id for users collection
+
+h2. Deploy Setup
+
+@$ mkdir ~/.ec2@
+
+@$ mv Dropbox/qwiqq\ db\ backups/qwiqq-us-west.pem .ec2/@
+
+@chmod og-rw .ec2/qwiqq-us-west.pem@
+
+@$ export EC2_KEY="~/.ec2/qwiqq-us-west.pem"@
+
+@...cd to qwiqq-web@
+
+@$ cap deploy@
+
+
+h2. Servers
+
+h3. Server DNS list
+
+* app1.qwiqq.me
+* app2.qwiqq.me
+* worker1.qwiqq.me:5678 (resque)
+* db1.qwiqq.me (rds)
+
+h3. App location (for app1, app2 and worker1)
+
+* application root = /var/www/qwiqq.me/current
+
+h3. Rails console or MySQL acccess
+
+* ssh onto app server
+* either rails c from app root 
+* or mysql with creds in database.yml
+
+h3. SSH (example app1)
+
+* ssh -i ~/.ec2/qwiqq-us-west.pem ubuntu@app1.qwiqq.me
+
+h3. Worker App
+
+* http://worker1.qwiqq.me:5678/
+* username: admin
+* pass: bl4ckb3rry
+
+h2. Services
+
+h3. Zerigo (DNS)
+
+* https://ns.zerigo.com/accounts/774730441/domains
+* email: adam|brian|eoin@gastownlabs.com 
+* pass: request reset
+
+h3. PaperTrail (logging)
+
+* https://papertrailapp.com
+* email: adam|brian|eoin@gastownlabs.com
+* pass: request reset
+
+h3. Airbrake (errors)
+
+* https://gastownlabs.airbrakeapp.com/login
+* email: adam|brian|eoin@gastownlabs.com
+* pass: request reset
+
+h3. NewRelic (performance)
+
+* https://rpm.newrelic.com/accounts/36644/applications/233524
+* email: adam|brian|eoin@gastownlabs.com
+* pass: request reset
+
+h3. PostmarkApp (email send)
+
+* https://postmarkapp.com/servers/24292/overview
+* email: adam@gastownlabs.com
+* pass: mrp1ckl3s
 
 
