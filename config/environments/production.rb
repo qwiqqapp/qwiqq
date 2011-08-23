@@ -50,6 +50,10 @@ Qwiqq::Application.configure do
   # Production url
   config.action_mailer.default_url_options = { :host => "www.qwiqq.me" }
   config.action_mailer.asset_host = "http://www.qwiqq.me"
+  
+  # https://postmarkapp.com/servers/24292/overview
+  config.action_mailer.delivery_method   = :postmark
+  config.action_mailer.postmark_settings = { :api_key => "a961c397-264d-47e5-aa2a-146c2aac575e" }
  
   # Nginx fix
   config.middleware.use "Nginx::ContentLengthFix"

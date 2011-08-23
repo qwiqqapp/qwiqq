@@ -141,6 +141,7 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     polyglot (0.3.1)
+    postmark-rails (0.4.0)
     rack (1.2.3)
     rack-mount (0.6.14)
       rack (>= 1.0.0)
@@ -241,6 +242,7 @@ DEPENDENCIES
   mysql2 (~> 0.2.7)
   newrelic_rpm
   paperclip
+  postmark-rails (= 0.4.0)
   rails (= 3.0.7)
   rails3-generators
   rake (= 0.8.7)
