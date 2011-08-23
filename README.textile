@@ -4,7 +4,6 @@ h1. Qwiqq Web
 * json API
 * admin
 
-
 h2. Dev Environment
 
 * rvm = 1.6.22
@@ -14,9 +13,18 @@ h2. Dev Environment
 * hosting (staging/production) = AWS
 
 
-h3. deploy
+h3. hosting
 
-* use cap, details to follow
+* hosting (staging/production) = aws (ELB + EC2 + RDS)
+* cap deploy
+
+
+h2. Services used
+
+* logging     > https://papertrailapp.com
+* errors      > https://gastownlabs.hoptoadapp.com
+* performance > https://rpm.newrelic.com
+* emails      > https://postmarkapp.com
 
 
 h2. API notes

@@ -89,7 +89,8 @@ module Qwiqq
       end
       
       def categories
-        { 'premium' => deal.premium.to_s }
+        { 'premium' => deal.premium.to_s,
+          'comment_count' => deal.comments_count.to_s }
       end
       
       def self.search(query,type,opts={})
@@ -136,6 +137,7 @@ module Qwiqq
             :price            => r['price'],
             :percent          => r['percent'],
             :premium          => r['category_premium'],
+            :comment_count    => r['category_comment_count'],
             :age              => (r['timestamp'] ? distance_of_time_in_words(Time.now.to_i, r['timestamp'].to_i) : ""),
             :score            => r['query_relevance_score'],
             :like_count       => r['variable_2'].to_i
@@ -147,7 +149,7 @@ module Qwiqq
       def self.functions
         ["-age * relevance",                      # 0 Newest: newest and most relevant
          "-miles(d[0], d[1], q[0], q[1])",        # 1 Nearby: location
-         "relevance * log(doc.var[2])" ]          # 2 Popular: like_count with age
+         "relevance * log(doc.var[2] + 1)" ]          # 2 Popular: like_count with age
       end
       
       def self.client
