@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110818124954) do
+ActiveRecord::Schema.define(:version => 20110823232108) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -89,6 +89,44 @@ ActiveRecord::Schema.define(:version => 20110818124954) do
   add_index "deals", ["unique_token"], :name => "index_deals_on_unique_token", :unique => true
   add_index "deals", ["user_id"], :name => "index_deals_on_user_id"
 
+<<<<<<< HEAD
+=======
+  create_table "feedlets", :force => true do |t|
+    t.integer  "deal_id"
+    t.integer  "user_id"
+    t.string   "reposted_by"
+    t.datetime "created_at"
+    t.integer  "posting_user_id"
+    t.datetime "timestamp"
+  end
+
+  add_index "feedlets", ["created_at"], :name => "index_feedlets_on_created_at"
+  add_index "feedlets", ["posting_user_id"], :name => "index_feedlets_on_posting_user_id"
+  add_index "feedlets", ["user_id"], :name => "index_feedlets_on_user_id"
+
+  create_table "geo_blocks", :force => true do |t|
+    t.integer "location_id", :limit => 8, :null => false
+    t.integer "ip_start",    :limit => 8, :null => false
+    t.integer "ip_end",      :limit => 8, :null => false
+    t.integer "index_geo",   :limit => 8, :null => false
+  end
+
+  add_index "geo_blocks", ["index_geo"], :name => "index_geo_blocks_on_index_geo"
+  add_index "geo_blocks", ["ip_end"], :name => "index_geo_blocks_on_ip_end"
+  add_index "geo_blocks", ["ip_start"], :name => "index_geo_blocks_on_ip_start"
+
+  create_table "geo_locations", :force => true do |t|
+    t.string "country"
+    t.string "region"
+    t.string "city"
+    t.string "postal_code"
+    t.float  "latitude"
+    t.float  "longitude"
+    t.string "metro_code"
+    t.string "area_code"
+  end
+
+>>>>>>> 295145e... cache counters for user
   create_table "invitations", :force => true do |t|
     t.integer  "user_id",      :null => false
     t.string   "service",      :null => false
@@ -154,12 +192,15 @@ ActiveRecord::Schema.define(:version => 20110818124954) do
     t.integer  "following_count",        :default => 0,    :null => false
     t.integer  "friends_count",          :default => 0,    :null => false
     t.string   "twitter_access_secret"
-    t.string   "bio"
     t.string   "twitter_id"
     t.string   "facebook_id"
+    t.string   "bio"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.string   "notifications_token"
+    t.integer  "likes_count",            :default => 0
+    t.integer  "comments_count",         :default => 0
+    t.integer  "deals_count",            :default => 0
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

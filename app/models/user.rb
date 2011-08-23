@@ -209,9 +209,9 @@ class User < ActiveRecord::Base
       :photo_profile_2x  => photo.url(:iphone_profile_2x),      
       
       # counts
-      :like_count          => liked_deals.count,
-      :deal_count          => deals.count,
-      :comment_count       => comments.count,
+      :like_count          => likes_count,
+      :deal_count          => deals_count,
+      :comment_count       => comments_count,
       
       # conditional
       :deals               => options[:deals]    ? deals.sorted.limit(6)        : nil,
