@@ -19,7 +19,7 @@ set :resque_pid_path, "#{shared_path}/pids/resque-pool.pid"
 
 role :app, "app1.qwiqq.me", "app2.qwiqq.me"
 role :worker, "worker1.qwiqq.me"
-role :db, "app1.qwiqq.me"
+role :db, "app1.qwiqq.me", :primary => true
 
 # helpers
 def rake_task(name)
