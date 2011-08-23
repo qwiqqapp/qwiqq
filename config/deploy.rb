@@ -1,5 +1,6 @@
 require "./config/boot"
 require "bundler/capistrano"
+require "hoptoad_notifier/capistrano"
 
 # an EC2 key is required
 raise "Environment variable 'EC2_KEY' is required." unless ENV["EC2_KEY"]
@@ -79,3 +80,7 @@ after "deploy:symlink", "deploy:copy_config"
 after "deploy:restart", "unicorn:reload", "resque:restart", "papertrail:restart"
 after "deploy:start", "unicorn:start", "resque:start"
 
+
+
+        require './config/boot'
+        require 'hoptoad_notifier/capistrano'

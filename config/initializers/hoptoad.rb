@@ -1,6 +1,3 @@
-# production: 390aeca598c8e84e439e67a4034dcdd2
-# staging: 0ff186f437e676f2c6f7047f854b527b
-
 HoptoadNotifier.configure do |config|
-  config.api_key = "0ff186f437e676f2c6f7047f854b527b"
+  config.api_key = '86705c05f03ee2d15597e55f843ca5e1'
 end
