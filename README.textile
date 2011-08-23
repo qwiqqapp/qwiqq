@@ -65,6 +65,12 @@ h3. Worker App
 
 h2. Services
 
+h3. Indextank
+
+* https://indextank.com/dashboard
+* email: adam@gastownlabs.com
+* pass: blu3b3rry
+
 h3. Zerigo (DNS)
 
 * https://ns.zerigo.com/accounts/774730441/domains
