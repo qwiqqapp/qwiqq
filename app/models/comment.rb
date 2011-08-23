@@ -9,6 +9,9 @@ class Comment < ActiveRecord::Base
   default_scope :order => 'created_at desc'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
 
+  after_create :indextank_sync
+  after_destroy :indextank_sync
+
   after_commit :async_deliver_notification, :if => :persisted?
 
   strip_attrs :body
@@ -35,6 +38,10 @@ class Comment < ActiveRecord::Base
   
   def age
     created_at ? time_ago_in_words(created_at) : ""
+  end
+  
+  def indextank_sync
+    deal.indextank_doc.sync_categories
   end
   
   def deliver_notification
