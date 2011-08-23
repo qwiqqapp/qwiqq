@@ -13,7 +13,9 @@ set :ssh_options, { :keys => [ File.join(ENV["EC2_KEY"]) ] }
 set :scm, :git
 set :deploy_via, :remote_cache
 set :use_sudo, false
+
 set :unicorn_pid_path, "#{shared_path}/pids/unicorn.pid"
+set :resque_pid_path, "#{shared_path}/pids/resque-pool.pid"
 
 role :app, "app1.qwiqq.me", "app2.qwiqq.me"
 role :worker, "worker1.qwiqq.me"
@@ -44,23 +46,36 @@ namespace :unicorn do
   end
 end
 
+namespace :resque do
+  task :start, :roles => :worker do
+    run "cd #{current_path} && bundle exec resque-pool --daemon --environment production"
+  end
+
+  task :restart, :roles => :worker do
+    # HUP tells resque-pool to restart workers
+    run "if [ -e #{resque_pid_path} ]; then kill -s HUP `cat #{resque_pid_path}`; fi"
+  end
+
+  task :stop, :roles => :worker do
+    # QUIT tells resque-pool to wait for workers to finish and quit
+    run "if [ -e #{resque_pid_path} ]; then kill -s QUIT `cat #{resque_pid_path}`; fi"
+  end
+end
+
+namespace :papertrail do
+  task :restart, :roles => [ :app, :worker ] do
+    run "sudo /etc/init.d/papertrail restart"
+  end
+end
+
 # general tasks
 namespace :deploy do
   task :copy_config, :roles => [ :app, :worker ] do
     run "cp -pf #{shared_path}/config/* #{current_path}/config/"
   end
-
-  task :restart_papertrail, :roles => [ :app, :worker ] do
-    run "sudo /etc/init.d/papertrail restart"
-  end
-
-  task :restart_workers, :roles => :worker do
-    run rake_task "resque:restart_workers"
-  end
 end
 
 after "deploy:symlink", "deploy:copy_config"
-after "deploy:symlink", "deploy:restart_workers"
-after "deploy:restart", "unicorn:reload", "deploy:restart_papertrail"
-after "deploy:start", "unicorn:start"
+after "deploy:restart", "unicorn:reload", "resque:restart", "papertrail:restart"
+after "deploy:start", "unicorn:start", "resque:start"
 
