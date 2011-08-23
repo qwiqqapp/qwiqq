@@ -33,6 +33,7 @@ gem "hoptoad_notifier"
 
 gem 'postmark'
 gem 'postmark-rails', '0.4.0'
+gem 'activerecord-import'
 
 gem "activeadmin"
 gem "bcrypt-ruby", :require => "bcrypt"
@@ -42,7 +43,7 @@ gem "htmlentities"
 gem "activeadmin"
 
 group :test do
-  gem "factory_girl_rails"
+  gem "factory_girl_rails", '1.0.1'
   gem "ffaker"
   gem "mocha", :require => false
   gem 'fakeweb'

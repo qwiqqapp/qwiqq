@@ -9,13 +9,13 @@ class Deal < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   has_many :likes, :dependent => :destroy
   has_many :shares
-  has_many :reposts, :dependent => :destroy, :class_name => "RepostedDeal"
 
   has_many :liked_by_users, :through => :likes, :source => :user
-  has_many :reposted_by_users, :through => :reposts, :source => :user
+  has_many :feedlets, :dependent => :destroy
   
   #TODO update to 3.1 and use role based attr_accessible for premium
   attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent
+
   
   # TODO update to 3.0 validates method
   validates_presence_of   :user, :category, :name, :message => "is required"
@@ -33,12 +33,20 @@ class Deal < ActiveRecord::Base
 
   after_create   { indextank_doc.add }
   before_destroy { indextank_doc.remove }
-  after_update   { indextank_doc.sync }
+
+  after_create :populate_feed
   
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   scope :premium, where(:premium => true)
   scope :search_by_name, lambda { |query| where([ 'UPPER(name) like ?', "%#{query.upcase}%" ]) }
   scope :sorted, :order => "created_at desc"
+
+  def populate_feed(posting_user = nil, repost = false)
+    posting_user ||= self.user
+    Feedlet.import(posting_user.followers.map {|f| 
+      Feedlet.new(:user_id => f.id, :deal_id => self.id, :posting_user_id => posting_user.id, 
+                  :reposted_by => repost ? posting_user.username : nil, :timestamp => repost ? repost.created_at : self.created_at)})
+  end
 
   # all images are cropped
   # see initializers/auto_orient.rb for new processor
