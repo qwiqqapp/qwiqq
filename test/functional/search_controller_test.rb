@@ -30,7 +30,7 @@ class Api::SearchControllerTest < ActionController::TestCase
   #  ------------
   #  users
   
-  test "should return user for valid username search" do
+  test "should return user for valid username search" do    
     %w(john jack mark peter mary).each do |name|
       Factory(:user, :username => name)
     end

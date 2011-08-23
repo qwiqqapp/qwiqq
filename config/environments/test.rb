@@ -36,17 +36,4 @@ Qwiqq::Application.configure do
   # test url
   config.action_mailer.default_url_options = { :host => "qwiqq.test" }
 
-  class Stub
-    def method_missing(x)
-      self
-    end
-  end
-  
-  module Faraday
-    class Connection
-      def run_request(method, url, body, headers)
-        Stub.new
-      end
-    end
-  end
 end

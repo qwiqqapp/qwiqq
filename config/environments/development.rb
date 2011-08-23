@@ -32,5 +32,6 @@ Qwiqq::Application.configure do
    :port => 1025,
    :domain => "qwiqq.me"
   }
+  
 end
 

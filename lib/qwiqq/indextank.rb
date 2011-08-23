@@ -157,8 +157,11 @@ module Qwiqq
       end
 
       def self.index
-        @index = client.indexes('deals')
+        @index = client.indexes(ENV['INDEXTANK_INDEX'])
       end
+      
+      
+      
     end
   end
 end
