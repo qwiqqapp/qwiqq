@@ -30,6 +30,8 @@ gem "koala" # facebook
 gem "twitter", "1.6.0"
 gem "indextank"
 gem "hoptoad_notifier"
+
+gem 'postmark'
 gem 'postmark-rails', '0.4.0'
 
 gem "activeadmin"
