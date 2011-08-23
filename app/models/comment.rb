@@ -2,7 +2,7 @@ class Comment < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
 
   belongs_to :deal, :counter_cache => true
-  belongs_to :user
+  belongs_to :user, :counter_cache => true
 
   validates_presence_of :deal, :user, :body
   

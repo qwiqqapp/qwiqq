@@ -1,6 +1,6 @@
 class Like < ActiveRecord::Base
   belongs_to :deal, :counter_cache => true
-  belongs_to :user
+  belongs_to :user, :counter_cache => true
   after_create { deal.indextank_doc.sync_variables }
   after_destroy { deal.indextank_doc.sync_variables }
   
