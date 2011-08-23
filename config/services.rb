@@ -1,15 +1,14 @@
 if Rails.env.test?
-  ENV['INDEXTANK_API_URL']      = 'http://127.0.0.1'
-  
+  ENV['INDEXTANK_API_URL'] = 'http://127.0.0.1'
 else 
-  #   s3
+  # s3
   ENV['S3_KEY']    = 'AKIAJOMG7WLZJME47VDQ'
   ENV['S3_SECRET'] = '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'
-  ENV['S3_BUCKET'] = "qwiqq.images.#{Rails.env}"
+  ENV['S3_BUCKET'] = "qwiqq.images.staging" #"qwiqq.images.#{Rails.env}"
 
-  #   indextank
+  # indextank
   ENV['INDEXTANK_API_URL']  = 'http://:ugsrn4tHabBmh+@dhqws.api.indextank.com'
-  ENV['INDEXTANK_INDEX']    = "#{Rails.env}_deals"
+  ENV['INDEXTANK_INDEX']    = "staging_deals" #"#{Rails.env}_deals"
 
   # twitter keys
   ENV['TWITTER_CONSUMER_KEY']     = "MYYVJCNWkUjA1sHlNQUHcA"
