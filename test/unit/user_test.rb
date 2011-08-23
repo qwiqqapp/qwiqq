@@ -10,6 +10,12 @@ class UserTest < ActiveSupport::TestCase
     assert_match /username/i, exception.message
   end
   
+  test "should raise expection if usename is not alphanumeric" do
+    exception = assert_raise(ActiveRecord::RecordInvalid) {
+      Factory(:user, :username => 'a b c')
+    }
+    assert_match /username/i, exception.message
+  end
   
   test "#authenticate" do
     @password   = 'tester'
@@ -18,7 +24,7 @@ class UserTest < ActiveSupport::TestCase
     
     assert_equal @user, @auth_user
   end
-
+  
   test "#following" do
     @user0 = Factory(:user)
     @user1 = Factory(:user)

@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   scope :sorted, :order => 'users.username ASC'
   
   # queried using AREL so that it can be more easily extended;
-  #   e.g user.feed_deals.include(:category).limit(20)
+  # e.g user.feed_deals.include(:category).limit(20)
   def feed_deals
     Deal.
       joins("LEFT OUTER JOIN relationships ON relationships.target_id = deals.user_id").
@@ -70,8 +70,8 @@ class User < ActiveRecord::Base
   validates_presence_of     :password, :on => :create
   validates_length_of       :password, :minimum => 5, :allow_nil => true
   validates_presence_of     :email, :username
-  
   validates_uniqueness_of   :email, :username, :case_sensitive => false
+  validates_format_of       :username, :with => /^[\w\d_]+$/, :message => "use only letters, numbers and '_'"
   
   # see initializers/auto_orient.rb for new processor
   has_attached_file :photo,
