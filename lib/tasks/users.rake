@@ -9,7 +9,7 @@
 namespace :users do
   
   def clean(u)
-    return "username clean, skipping: #{u.username}" if u.username == cleaner(u.username)
+    return "username clean, skipping #{u.id}: #{u.username}" if u.username == cleaner(u.username)
     
     puts "#{u.id}: #{u.username}"
     # cleaned
@@ -32,12 +32,13 @@ namespace :users do
   
   desc 'batch clean all usernames to be letters numbers and _ only'
   task :username_cleaner => :environment do
-    limit   = ENV['limit'].to_i || 1000
-    offset  = ENV['offset'].to_i || 0
+    limit   = ENV['limit'].to_i
+    offset  = ENV['offset'].to_i
     
     users = User.limit(limit).offset(offset)
-    puts "loaded #{users.size} starting at #{offset}"
-    
+    puts "Query #{users.to_sql}"
+    puts "loaded #{users.all.size} users, starting at #{offset}"
+    # 
     users.each {|u| puts clean(u)}
   end
   
