@@ -1,8 +1,8 @@
 require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 
-# Load env vars from local file if it exists
-env = File.join("config", "#{Rails.env}.rb")
+# Load services ENV vars from local file if it exists
+env = File.join("config", "services.rb")
 load(env) if File.exists?(env)
 
 # If you have a Gemfile, require the gems listed there, including any gems
@@ -17,7 +17,7 @@ module Qwiqq
       g.fixture_replacement :factory_girl
       g.template_engine :haml
     end
-
+    
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

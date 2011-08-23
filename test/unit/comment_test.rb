@@ -9,10 +9,6 @@ class CommentTest < ActiveSupport::TestCase
     stub_indextank
   end
   
-  teardown do
-    Comment.destroy_all
-  end
-  
   test "strips body before saving" do
     @comment = Factory(:comment, :body => "        body      ")
     assert_equal "body", @comment.body

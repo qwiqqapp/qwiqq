@@ -8,5 +8,4 @@ rerun.txt
 public/system
 db/sphinx
 config/development.sphinx.conf
-config/heroku_env.rb
 .rvmrc

@@ -41,6 +41,7 @@ class Relationship < ActiveRecord::Base
       target.save
     end
 
+    # TODO check for target = nil
     def update_counts_destroy
       user.decrement(:following_count)
       target.decrement(:followers_count)
