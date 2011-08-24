@@ -1,6 +1,7 @@
 require "./config/boot"
 require "bundler/capistrano"
 require "hoptoad_notifier/capistrano"
+require "capistrano/ext/multistage"
 
 # an EC2 key is required
 raise "Environment variable 'EC2_KEY' is required." unless ENV["EC2_KEY"]
@@ -18,14 +19,10 @@ set :use_sudo, false
 set :unicorn_pid_path, "#{shared_path}/pids/unicorn.pid"
 set :resque_pid_path, "#{shared_path}/pids/resque-pool.pid"
 
-role :app, "app1.qwiqq.me", "app2.qwiqq.me"
-role :worker, "worker1.qwiqq.me"
-role :db, "app1.qwiqq.me", :primary => true
-
 # unicorn tasks
 namespace :unicorn do
   task :start, :roles => :app do
-    run "cd #{current_path} && bundle exec unicorn -c #{current_path}/config/unicorn.rb -D -E production"
+    run "cd #{current_path} && bundle exec unicorn -c #{current_path}/config/unicorn.rb -D -E #{stage}"
   end
 
   task :graceful_stop, :roles => :app do
@@ -42,7 +39,7 @@ end
 # resque tasks 
 namespace :resque do
   task :start, :roles => :worker do
-    run "cd #{current_path} && bundle exec resque-pool --daemon --environment production"
+    run "cd #{current_path} && bundle exec resque-pool --daemon --environment #{stage}"
   end
 
   task :restart, :roles => :worker do
