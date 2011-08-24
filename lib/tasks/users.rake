@@ -9,7 +9,6 @@
 namespace :users do
   
   def clean(u)
-    return "username clean, skipping #{u.id}: #{u.username}" if u.username == cleaner(u.username)
     
     puts "#{u.id}: #{u.username}"
     # cleaned
