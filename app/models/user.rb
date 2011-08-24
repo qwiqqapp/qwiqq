@@ -68,25 +68,29 @@ class User < ActiveRecord::Base
   validates_format_of       :username, :with => /^[\w\d_]+$/, :message => "use only letters, numbers and '_'"
   
   # see initializers/auto_orient.rb for new processor
-  has_attached_file :photo,
-                    { :processors => [:auto_orient, :thumbnail],
-                      :styles => { 
-                                  :admin_sml    => ["30x30#", :jpg],
-                                  :admin_med    => ["50x50#", :jpg],
-                                  :admin_lrg    => ["240x", :jpg],
-                                  
-                                  :iphone       => ["75x75#", :jpg],
-                                  :iphone2x     => ["150x150#", :jpg],
-                                  
-                                  # user detail view
-                                  :iphone_profile      => ["85x85#", :jpg],
-                                  :iphone_profile_2x   => ["170x170#", :jpg],                                  
-                                  
-                                  # large image for zoom
-                                  :iphone_zoom       => ["300x300#", :jpg],
-                                  :iphone_zoom_2x    => ["600x600#", :jpg]}
-                    }.merge(PAPERCLIP_STORAGE_OPTIONS)
+  has_attached_file :photo, { 
+    :processors => [:auto_orient, :thumbnail],
+    :styles => { 
+      # admin
+      :admin_sml => ["30x30#", :jpg],
+      :admin_med => ["50x50#", :jpg],
+      :admin_lrg  => ["240x", :jpg],
 
+      # api
+      :iphone => ["75x75#", :jpg],
+      :iphone2x => ["150x150#", :jpg],
+                                  
+      # user detail view
+      :iphone_profile => ["85x85#", :jpg],
+      :iphone_profile_2x => ["170x170#", :jpg],                                  
+                                  
+      # large image for zoom
+      :iphone_zoom => ["300x300#", :jpg],
+      :iphone_zoom_2x => ["600x600#", :jpg]
+    }
+  }.merge(PAPERCLIP_STORAGE_OPTIONS)
+
+  process_in_background :photo
 
   strip_attrs :email, :city, :country, :first_name, :last_name, :username, :bio
 
@@ -198,9 +202,9 @@ class User < ActiveRecord::Base
       :photo_profile_2x  => photo.url(:iphone_profile_2x),      
       
       # counts
-      :like_count          => likes_count,
-      :deal_count          => deals_count,
-      :comment_count       => comments_count,
+      :like_count          => liked_deals.count,
+      :deal_count          => deals.count,
+      :comment_count       => comments.count,
       
       # conditional
       :deals               => options[:deals]    ? deals.sorted.limit(6)        : nil,
