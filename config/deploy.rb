@@ -38,18 +38,26 @@ end
 
 # resque tasks 
 namespace :resque do
-  task :start, :roles => :worker do
+  def start_resque
     run "cd #{current_path} && bundle exec resque-pool --daemon --environment #{stage}"
   end
 
+  def stop_resque
+    # QUIT tells resque-pool to wait for workers to finish and quit
+    run "if [ -e #{resque_pid_path} ]; then kill -s QUIT `cat #{resque_pid_path}`; fi"
+  end
+
+  task :start, :roles => :worker do
+    start_resque
+  end
+
   task :restart, :roles => :worker do
-    # HUP tells resque-pool to restart workers
-    run "if [ -e #{resque_pid_path} ]; then kill -s HUP `cat #{resque_pid_path}`; fi"
+    stop_resque
+    start_resque
   end
 
   task :stop, :roles => :worker do
-    # QUIT tells resque-pool to wait for workers to finish and quit
-    run "if [ -e #{resque_pid_path} ]; then kill -s QUIT `cat #{resque_pid_path}`; fi"
+    stop_resque
   end
 end
 
