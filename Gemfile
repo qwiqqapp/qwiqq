@@ -17,7 +17,6 @@ gem "htmlentities"
 
 # images
 gem "paperclip"
-gem "delayed_paperclip"
 gem "rmagick", :require => false
 
 # workers

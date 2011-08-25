@@ -1,7 +1,7 @@
 require "./config/boot"
 require "bundler/capistrano"
 require "hoptoad_notifier/capistrano"
-require 'new_relic/recipes'
+require "new_relic/recipes"
 require "capistrano/ext/multistage"
 
 # an EC2 key is required
@@ -53,7 +53,9 @@ namespace :resque do
   end
 
   task :restart, :roles => :worker do
+    # this is ugly, but resque-pool doesnt support master restarts
     stop_resque
+    sleep(30)
     start_resque
   end
 

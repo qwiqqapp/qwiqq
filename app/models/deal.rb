@@ -96,8 +96,6 @@ class Deal < ActiveRecord::Base
     }
   }.merge(PAPERCLIP_STORAGE_OPTIONS)
 
-  process_in_background :photo
-  
   def self.geodecode_location_name(lat, lon)
     loc = GeoKit::Geocoders::MultiGeocoder.reverse_geocode([ lat, lon ])
     "#{loc.street_name}, #{loc.city}" if loc.success?
