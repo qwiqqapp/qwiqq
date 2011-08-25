@@ -19,4 +19,14 @@ module ApplicationHelper
   def download_url
     "http://download.qwiqq.me"
   end
+
+  def price_string(deal)
+    if (deal.price && deal.price == 0) || (deal.percent && deal.percent == 0)
+      "FREE"
+    elsif deal.price
+      deal.price_as_string
+    else
+      "#{deal.percent}% OFF"
+    end
+  end
 end

@@ -21,10 +21,7 @@
       #details
         #name= emojify @deal.name
         .price_or_percent
-          - if @deal.price
-            #{@deal.price_as_string}
-          - else
-            #{@deal.percent}% Off
+          = price_string @deal
       #map-title
         %img{ :src => "/images/location.png" }
         = @deal.location_name
