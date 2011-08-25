@@ -45,15 +45,9 @@ module Qwiqq
       # will raise exception if fails to add document
       def add
         Document.index.document(deal.id).add(fields, :variables => variables, :categories => categories)
-        deal.update_attribute(:indexed_at, Time.now)
-        
+
       rescue IndexTank::InvalidArgument => e
         puts "Unable to add deal #{deal.id} to indextank: #{e.message}"
-      end
-      
-      def remove
-        Document.index.document(deal.id).delete
-        deal.update_attribute(:indexed_at, nil)
       end
       
       def sync
@@ -127,6 +121,10 @@ module Qwiqq
       end
       
       private
+      def self.remove_doc(doc_id)
+        index.document(deal.id).delete
+      end
+      
       # replace indextank result keys with qwiqq keys
       def self.clean(results)
         results.map do |r| 
@@ -156,7 +154,7 @@ module Qwiqq
         @client = IndexTank::Client.new(ENV['INDEXTANK_API_URL'])
       end
 
-      def self.index
+      def self.index        
         @index = client.indexes(ENV['INDEXTANK_INDEX'])
       end
       

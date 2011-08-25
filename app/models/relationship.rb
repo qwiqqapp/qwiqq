@@ -5,7 +5,7 @@ class Relationship < ActiveRecord::Base
   after_create :update_counts_create
   before_destroy :update_counts_destroy
   
-  after_commit :async_deliver_notification, :if => :persisted?
+  after_commit :async_deliver_notification, :on => :create
   
   def deliver_notification
     return unless notification_sent_at.nil?    # avoid double notification

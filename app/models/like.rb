@@ -10,7 +10,7 @@ class Like < ActiveRecord::Base
   after_create :indextank_sync
   after_destroy :indextank_sync
   
-  after_commit :async_deliver_notification, :if => :persisted?
+  after_commit :async_deliver_notification, :on => :create
   
   def indextank_sync
     deal.indextank_doc.sync_variables

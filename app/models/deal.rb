@@ -31,16 +31,37 @@ class Deal < ActiveRecord::Base
   before_validation :store_unique_token!, :on => :create
   before_create :geodecode_location_name!
 
-  after_create   { indextank_doc.add }
-  before_destroy { indextank_doc.remove }
-
   after_create :populate_feed
+  
+  # indextank
+  after_commit :async_indextank_add,    :on => :create
+  after_commit :async_indextank_remove, :on => :destroy
   
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   scope :premium, where(:premium => true)
   scope :search_by_name, lambda { |query| where([ 'UPPER(name) like ?', "%#{query.upcase}%" ]) }
   scope :sorted, :order => "created_at desc"
-
+  
+  def indextank_remove
+    return true if indexed_at.nil?   # avoid double remove
+    indextank_doc.remove
+    update_attribute(:indexed_at, nil)
+  end
+  
+  def async_indextank_remove
+    Resque.enqueue(IndextankRemoveJob, self.id)
+  end
+  
+  def indextank_add
+    return unless indexed_at.nil?   # avoid double add
+    indextank_doc.add
+    update_attribute(:indexed_at, Time.now)
+  end
+  
+  def async_indextank_add
+    Resque.enqueue(IndextankAddJob, self.id)
+  end
+  
   def populate_feed(posting_user = nil, repost = false)
     posting_user ||= self.user
     Feedlet.import(posting_user.followers.map {|f| 

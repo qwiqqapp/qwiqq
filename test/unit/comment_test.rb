@@ -39,7 +39,6 @@ class CommentTest < ActiveSupport::TestCase
     assert_not_nil @comment.notification_sent_at
   end
   
-  
   # -------------------
   # should not send
   
