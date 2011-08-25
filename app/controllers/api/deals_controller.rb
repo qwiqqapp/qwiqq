@@ -1,14 +1,10 @@
 class Api::DealsController < Api::ApiController
   
-  skip_before_filter :require_user, :only => [:popular, :show, :blank]
+  skip_before_filter :require_user, :only => [:popular, :show]
+  caches_action :popular, :expires_in => 10.minutes
   
   # ------------------
   # no auth required
-
-  def blank
-    render :json => []
-  end
-  
   def popular
     @deals = Deal.unscoped.order("likes_count desc, comments_count desc").limit(64)
     render :json => @deals.as_json(:minimal => true)

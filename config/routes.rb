@@ -40,7 +40,6 @@ Qwiqq::Application.routes.draw do
       
       resources :deals, :only => [:index] do
         resources :shares, :only => [:create]
-        get "blank", :on => :collection
       end
       
       post "find_friends" => "friends#find"
