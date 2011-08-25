@@ -1,0 +1,10 @@
+production:
+  host: worker1.qwiqq.me
+  port: 6379
+  password: LIM1GHehnrrz5r
+
+staging: 
+  host: staging-worker.qwiqq.me
+  port: 6379
+  password: LIM1GHehnrrz5r
+
