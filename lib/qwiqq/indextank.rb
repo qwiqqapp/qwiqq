@@ -128,7 +128,7 @@ module Qwiqq
       
       private
       def self.remove_doc(doc_id)
-        index.document(deal.id).delete
+        index.document(doc_id).delete
       end
       
       # replace indextank result keys with qwiqq keys
