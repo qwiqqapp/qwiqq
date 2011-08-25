@@ -42,19 +42,14 @@ class Deal < ActiveRecord::Base
   scope :search_by_name, lambda { |query| where([ 'UPPER(name) like ?', "%#{query.upcase}%" ]) }
   scope :sorted, :order => "created_at desc"
   
-  def indextank_remove
-    return true if indexed_at.nil?   # avoid double remove
-    indextank_doc.remove
-    update_attribute(:indexed_at, nil)
-  end
-  
+  # no sync method for remove
   def async_indextank_remove
     Resque.enqueue(IndextankRemoveJob, self.id)
   end
   
   def indextank_add
     return unless indexed_at.nil?   # avoid double add
-    indextank_doc.add
+    indextank_doc.add               # could raise exception
     update_attribute(:indexed_at, Time.now)
   end
   

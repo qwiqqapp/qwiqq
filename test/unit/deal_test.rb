@@ -39,8 +39,6 @@ class DealTest < ActiveSupport::TestCase
     Resque.run!
   end
   
-  
-  
   # TODO update tests to check for actual instance of deal being indexed
   test "should remove deal from indextank" do
     Deal.any_instance.stubs(:async_indextank_add).returns(:true)

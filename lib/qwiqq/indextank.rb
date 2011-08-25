@@ -47,7 +47,13 @@ module Qwiqq
         Document.index.document(deal.id).add(fields, :variables => variables, :categories => categories)
 
       rescue IndexTank::InvalidArgument => e
-        puts "Unable to add deal #{deal.id} to indextank: #{e.message}"
+        message = "Indextank::Document#add InvalidArgument error. Unable to add deal #{deal.id}: #{e.message}:"
+        message << "\n- fields: #{fields}"
+        message << "\n- variables: #{variables}"
+        message << "\n- categories: #{categories}"       
+        
+        Rails.logger.error message
+        raise IndexTank::InvalidArgument, message
       end
       
       def sync
