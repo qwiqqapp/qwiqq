@@ -54,30 +54,33 @@ class Deal < ActiveRecord::Base
   # all images are cropped
   # see initializers/auto_orient.rb for new processor
   #  TODO review all image sizes, need to reduce/reuse
-  has_attached_file :photo,
-                    { :processors => [:auto_orient, :thumbnail], 
-                      :styles => { #admin
-                                  :admin_sml    => ["30x30#", :jpg],
-                                  :admin_med    => ["50x50#", :jpg],
-                                  :admin_lrg    => ["240x", :jpg],
-                                  
-                                  # popular
-                                  :iphone_grid       => ["75x75#", :jpg],
-                                  :iphone_grid_2x    => ["150x150#", :jpg],
-                                  
-                                  # deal detail view
-                                  :iphone_profile      => ["85x85#", :jpg],
-                                  :iphone_profile_2x   => ["170x170#", :jpg],
-                                  
-                                  # feed, browse, search list views
-                                  :iphone_list       => ["55x55#", :jpg],
-                                  :iphone_list_2x    => ["110x110#", :jpg],
-                                  
-                                  # zoomed image size
-                                  :iphone_zoom       => ["300x300#", :jpg],
-                                  :iphone_zoom_2x    => ["600x600#", :jpg] 
-                                }
-                    }.merge(PAPERCLIP_STORAGE_OPTIONS)
+  has_attached_file :photo, { 
+    :processors => [:auto_orient, :thumbnail], 
+    :styles => { 
+      #admin
+      :admin_sml => ["30x30#", :jpg],
+      :admin_med => ["50x50#", :jpg],
+      :admin_lrg => ["240x", :jpg],
+
+      # popular
+      :iphone_grid => ["75x75#", :jpg],
+      :iphone_grid_2x => ["150x150#", :jpg],
+     
+      # deal detail view
+      :iphone_profile => ["85x85#", :jpg],
+      :iphone_profile_2x => ["170x170#", :jpg],
+      
+      # feed, browse, search list views
+      :iphone_list => ["55x55#", :jpg],
+      :iphone_list_2x => ["110x110#", :jpg],
+     
+      # zoomed image size
+      :iphone_zoom => ["300x300#", :jpg],
+      :iphone_zoom_2x => ["600x600#", :jpg] 
+    }
+  }.merge(PAPERCLIP_STORAGE_OPTIONS)
+
+  process_in_background :photo
   
   def self.geodecode_location_name(lat, lon)
     loc = GeoKit::Geocoders::MultiGeocoder.reverse_geocode([ lat, lon ])

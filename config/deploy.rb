@@ -2,6 +2,7 @@ require "./config/boot"
 require "bundler/capistrano"
 require "hoptoad_notifier/capistrano"
 require 'new_relic/recipes'
+require "capistrano/ext/multistage"
 
 # an EC2 key is required
 raise "Environment variable 'EC2_KEY' is required." unless ENV["EC2_KEY"]
@@ -19,14 +20,10 @@ set :use_sudo, false
 set :unicorn_pid_path, "#{shared_path}/pids/unicorn.pid"
 set :resque_pid_path, "#{shared_path}/pids/resque-pool.pid"
 
-role :app, "app1.qwiqq.me", "app2.qwiqq.me"
-role :worker, "worker1.qwiqq.me"
-role :db, "app1.qwiqq.me", :primary => true
-
 # unicorn tasks
 namespace :unicorn do
   task :start, :roles => :app do
-    run "cd #{current_path} && bundle exec unicorn -c #{current_path}/config/unicorn.rb -D -E production"
+    run "cd #{current_path} && bundle exec unicorn -c #{current_path}/config/unicorn.rb -D -E #{stage}"
   end
 
   task :graceful_stop, :roles => :app do
@@ -42,18 +39,26 @@ end
 
 # resque tasks 
 namespace :resque do
+  def start_resque
+    run "cd #{current_path} && bundle exec resque-pool --daemon --environment #{stage}"
+  end
+
+  def stop_resque
+    # QUIT tells resque-pool to wait for workers to finish and quit
+    run "if [ -e #{resque_pid_path} ]; then kill -s QUIT `cat #{resque_pid_path}`; fi"
+  end
+
   task :start, :roles => :worker do
-    run "cd #{current_path} && bundle exec resque-pool --daemon --environment production"
+    start_resque
   end
 
   task :restart, :roles => :worker do
-    # HUP tells resque-pool to restart workers
-    run "if [ -e #{resque_pid_path} ]; then kill -s HUP `cat #{resque_pid_path}`; fi"
+    stop_resque
+    start_resque
   end
 
   task :stop, :roles => :worker do
-    # QUIT tells resque-pool to wait for workers to finish and quit
-    run "if [ -e #{resque_pid_path} ]; then kill -s QUIT `cat #{resque_pid_path}`; fi"
+    stop_resque
   end
 end
 

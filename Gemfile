@@ -18,6 +18,7 @@ gem "htmlentities"
 
 # images
 gem "paperclip"
+gem "delayed_paperclip"
 gem "rmagick", :require => false
 
 # workers
@@ -57,6 +58,7 @@ end
 
 group :development do
   gem "capistrano"
+  gem "capistrano-ext"
   gem "wirble"
 end
 
