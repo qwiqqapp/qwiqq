@@ -1,6 +1,7 @@
 require "./config/boot"
 require "bundler/capistrano"
 require "hoptoad_notifier/capistrano"
+require 'new_relic/recipes'
 
 # an EC2 key is required
 raise "Environment variable 'EC2_KEY' is required." unless ENV["EC2_KEY"]
@@ -71,6 +72,7 @@ namespace :deploy do
 end
 
 after "deploy:update_code", "deploy:copy_config"
+after "deploy:update", "newrelic:notice_deployment"
 after "deploy:restart", "unicorn:reload", "resque:restart", "papertrail:restart"
 after "deploy:start", "unicorn:start", "resque:start"
 
