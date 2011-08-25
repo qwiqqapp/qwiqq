@@ -7,7 +7,7 @@
 #deal
   #top
     #user
-      %img.photo{ :src => @deal.user.photo.url(:admin_med) }
+      %img.photo{ :src => @deal.user.photo.url(:iphone), :width => 50, :height => 50 }
       %span.username #{@deal.user.username} posted this #{@deal.age} ago
     #share
       %a.twitter{ :href => "http://twitter.com/home?status=#{CGI::escape(Qwiqq.twitter_message(@deal))}" }
@@ -36,7 +36,7 @@
           #{pluralize(@deal.likes_count, "Like")}
         - @deal.likes.each do |like|
           .like
-            %img.user{ :src => like.user.photo.url(:admin_med) }
+            %img.user{ :src => like.user.photo.url(:iphone), :width => 50, :height => 50 }
 
     - unless @deal.comments.empty?
       #comments
@@ -45,7 +45,7 @@
           #{pluralize(@deal.comments_count, "Comment")}
         - @deal.comments.each do |comment|
           .comment
-            %img.user{ :src => comment.user.photo.url(:admin_med) }
+            %img.user{ :src => comment.user.photo.url(:iphone), :width => 50, :height => 50 }
             %span.body 
               "#{emojify comment.body}"
               %span.from

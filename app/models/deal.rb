@@ -57,11 +57,6 @@ class Deal < ActiveRecord::Base
   has_attached_file :photo, { 
     :processors => [:auto_orient, :thumbnail], 
     :styles => { 
-      #admin
-      :admin_sml => ["30x30#", :jpg],
-      :admin_med => ["50x50#", :jpg],
-      :admin_lrg => ["240x", :jpg],
-
       # popular
       :iphone_grid => ["75x75#", :jpg],
       :iphone_grid_2x => ["150x150#", :jpg],

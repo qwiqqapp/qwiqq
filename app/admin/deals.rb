@@ -13,7 +13,7 @@ ActiveAdmin.register Deal do
     
   index do
     column("") do |deal| 
-      link_to(image_tag(deal.photo.url(:admin_sml)), [:admin, deal])
+      link_to(image_tag(deal.photo.url(:iphone_grid)), [:admin, deal])
     end
     
     column("Name", :sortable => :name) do |deal|
@@ -50,7 +50,7 @@ ActiveAdmin.register Deal do
   show :title => :name do
       panel "Deal Comments (#{deal.comments.size})" do
         table_for(deal.comments) do
-          column("") {|c| link_to(image_tag(c.user.photo.url(:admin_med)), admin_user_path(c.user))}
+          column("") {|c| link_to(image_tag(c.user.photo.url(:iphone)), admin_user_path(c.user))}
           column("User") {|c| link_to(c.user.name, [:admin, c.user])}
           column('Comment'){|c| c.body}
           column(:created_at)
@@ -74,7 +74,7 @@ ActiveAdmin.register Deal do
     
     
   sidebar "Photo", :only => [:show, :edit] do
-    image_tag(deal.photo.url(:admin_lrg))
+    image_tag(deal.photo.url(:iphone_zoom))
   end
     
   sidebar "Details (raw data)", :only => :show do

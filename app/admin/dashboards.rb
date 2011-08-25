@@ -2,7 +2,7 @@ ActiveAdmin::Dashboards.build do
 
   section "Premium Deals" do
     table_for Deal.premium.limit(5) do
-      column("") {|deal| link_to(image_tag(deal.photo.url(:admin_sml)), [:admin, deal])}
+      column("") {|deal| link_to(image_tag(deal.photo.url(:iphone_grid)), [:admin, deal])}
       column("") {|deal|  link_to deal.name, admin_deal_path(deal)}
       column("") {|deal| status_tag(deal.try(:category).try(:name)) }
     end
@@ -11,7 +11,7 @@ ActiveAdmin::Dashboards.build do
 
   section "Recent Deals" do
     table_for Deal.order("created_at desc").limit(5) do
-      column("") {|deal| link_to(image_tag(deal.photo.url(:admin_sml)), [:admin, deal])}
+      column("") {|deal| link_to(image_tag(deal.photo.url(:iphone_grid)), [:admin, deal])}
       column("") {|deal|  link_to deal.name, admin_deal_path(deal)}
       column("") {|deal| status_tag(deal.try(:category).try(:name)) }
     end
@@ -19,7 +19,7 @@ ActiveAdmin::Dashboards.build do
   
   section "New Users" do
     table_for User.order("created_at desc").limit(5).each do
-      column("") {|u| link_to(image_tag(u.photo.url(:admin_sml)), [:admin, u])}
+      column("") {|u| link_to(image_tag(u.photo.url(:iphone_grid)), [:admin, u])}
       column("") {|u| link_to(u.email, admin_user_path(u)) }
     end
   end

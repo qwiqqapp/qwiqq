@@ -13,7 +13,7 @@ ActiveAdmin.register User do
   
   index do
     column("") do |user| 
-      link_to(image_tag(user.photo.url(:admin_sml)), [:admin, user])
+      link_to(image_tag(user.photo.url(:iphone)), [:admin, user])
     end
     
     column("Name", :sortable => :last_name) do |user|  
@@ -33,7 +33,7 @@ ActiveAdmin.register User do
       panel "Deal History (#{user.deals.size})" do
         table_for(user.deals) do
           column("") do |deal| 
-            link_to(image_tag(deal.photo.url(:admin_med)), [:admin, deal])
+            link_to(image_tag(deal.photo.url(:iphone_grid)), [:admin, deal])
           end
           column("Name", :sortable => :name) do |deal|  
             link_to(deal.name, [:admin, deal])
@@ -47,7 +47,7 @@ ActiveAdmin.register User do
       panel "Liked Deals (#{user.liked_deals.size})" do
         table_for(user.liked_deals) do
           column("") do |deal| 
-            link_to(image_tag(deal.photo.url(:admin_med)), [:admin, deal])
+            link_to(image_tag(deal.photo.url(:iphone_grid)), [:admin, deal])
           end
           column("Name", :sortable => :name) do |deal|  
             link_to(deal.name, [:admin, deal])
@@ -61,7 +61,7 @@ ActiveAdmin.register User do
       panel "Comment History (#{user.comments.size})" do
         table_for(user.comments) do
           column("") do |c| 
-            link_to(image_tag(c.deal.photo.url(:admin_med)), [:admin, c.deal])
+            link_to(image_tag(c.deal.photo.url(:iphone_grid)), [:admin, c.deal])
           end
           column("Deal") {|c| link_to c.deal.name, [:admin, c.deal] }
           column("Comment") {|c| c.body }
@@ -73,7 +73,7 @@ ActiveAdmin.register User do
     end
 
   sidebar "Photo", :only => [:show, :edit] do
-    image_tag(user.photo.url(:admin_lrg))
+    image_tag(user.photo.url(:iphone_zoom))
   end
   
   sidebar "Details", :only => :show do
