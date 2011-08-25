@@ -53,7 +53,9 @@ namespace :resque do
   end
 
   task :restart, :roles => :worker do
+    # this is ugly, but resque-pool doesnt support master restarts
     stop_resque
+    sleep(30)
     start_resque
   end
 
