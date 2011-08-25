@@ -246,7 +246,6 @@ DEPENDENCIES
   hoptoad_notifier
   htmlentities
   indextank
-  json
   koala
   mocha
   mysql2 (~> 0.2.7)
