@@ -4,7 +4,7 @@ class Api::FriendsController < Api::ApiController
     collection = 
       case params[:service]
         when "email"
-          find_friends_by_email(user, params[:emails])
+          params[:emails] ? find_friends_by_email(user, params[:emails]) : []
         when "twitter"
           find_friends_on_twitter(user)
         when "facebook"

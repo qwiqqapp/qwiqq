@@ -41,6 +41,18 @@ class Api::FriendsControllerTest < ActionController::TestCase
     assert_equal({ "email" => "user4@gastownlabs.com", "state" => "invited" }, json_response[3])
   end
 
+  test "finds friends by email with no emails" do
+    @user = Factory(:user)
+    sign_in(@user)
+    post :find,
+      :format => "json",
+      :user_id => @user.id,
+      :service => "email"
+    assert_equal 200, @response.status
+    assert_equal Array, json_response.class
+    assert_equal 0, json_response.size
+  end
+
   test "finds by friends on twitter" do
     @user0 = Factory(:user)
     sign_in(@user0)
