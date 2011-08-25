@@ -74,7 +74,7 @@ end
 # general tasks
 namespace :deploy do
   task :copy_config, :roles => [ :app, :worker ] do
-    run "cp -pf #{shared_path}/config/* #{release_path}/config/"
+    run "cp -pf #{release_path}/config/deploy/config* #{release_path}/config/"
   end
 end
 
