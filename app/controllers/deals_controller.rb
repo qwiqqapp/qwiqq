@@ -1,6 +1,6 @@
 class DealsController < ApplicationController
   caches_action :index, :expires_in => 10.minutes
-  # caches_action :show, :if => lambda {|c| !c.ios? }, :cache_path => lambda {|c| "home/#{c.find_deal.cache_key}" }
+  caches_action :show, :if => lambda {|c| !c.ios? }, :cache_path => lambda {|c| "home/#{c.find_deal.cache_key}" }
 
   def find_deal
     @deal ||= Deal.find(params[:id])
