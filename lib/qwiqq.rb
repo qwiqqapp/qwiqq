@@ -30,7 +30,7 @@ module Qwiqq
   end
 
   def self.twitter_message(deal, sharer = nil)
-    deal_url = Rails.application.routes.url_helpers.deal_path(deal, :host => "www.qwiqq.me")
+    deal_url = Rails.application.routes.url_helpers.deal_url(deal, :host => "www.qwiqq.me")
     message = Qwiqq.share_deal_message(deal, sharer).gsub(/qwiqq/i, "@Qwiqq") + " "
     
     remaining_length = 140 - (message.length + deal_url.length + 1)
