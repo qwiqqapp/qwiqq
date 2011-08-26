@@ -1,5 +1,5 @@
 class Relationship < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, :touch => true
   belongs_to :target, :class_name => "User"
   
   after_create :update_counts_create
