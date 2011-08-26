@@ -1,7 +1,7 @@
 #deal-header
-  %a.logo{ :href => root_url }
+  %a.logo{ :href => root_path }
     %img{ :src => "/images/logo.png" }
-  %a.download{ :href => download_url }
+  %a.download{ :href => download_path }
     %img{ :src => "/images/download-green-mid.png" }
 
 #deal
@@ -53,9 +53,9 @@
 
 #deal-footer
   %ul#links
-    %li= link_to "Home", root_url
+    %li= link_to "Home", root_path
     |
-    %li= link_to "Get the App", download_url
+    %li= link_to "Get the App", download_path
     |
-    %li= link_to "About Qwiqq", about_url
+    %li= link_to "About Qwiqq", about_path
   
