@@ -187,6 +187,8 @@ GEM
     resque_unit (0.4.0)
       json (>= 1.4.6)
     rmagick (2.13.1)
+    rpm_contrib (2.1.4)
+      newrelic_rpm (>= 3.1.1)
     sass (3.1.7)
     simple_form (1.4.2)
       actionpack (~> 3.0)
@@ -259,6 +261,7 @@ DEPENDENCIES
   resque-pool
   resque_unit
   rmagick
+  rpm_contrib
   simple_form
   twitter (= 1.6.0)
   unicorn
