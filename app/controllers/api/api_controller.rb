@@ -28,11 +28,11 @@ class Api::ApiController < ActionController::Base
     render :json => {:message => 'Bad Request' }, :status => 400
   end
   
-  private
   def require_user
     render :json => {:message  => 'Not Authorized'}, :status => 401 unless current_user
   end
-  
+
+  # this has to be a public method so that caching lambdas can access it
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end

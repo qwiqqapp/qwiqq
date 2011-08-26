@@ -2,7 +2,14 @@ class Api::DealsController < Api::ApiController
   
   skip_before_filter :require_user, :only => [:popular, :show]
   caches_action :popular, :expires_in => 10.minutes
-  
+  caches_action :show, :cache_path => lambda {|c|
+    (c.current_user.try(:cache_key) || "guest") + "/" + c.find_deal.cache_key
+  } # expires automatically when users cache key changes or deals cache key changes
+
+  def find_deal
+    @deal ||= Deal.find(params[:id])
+  end
+
   # ------------------
   # no auth required
   def popular
@@ -21,8 +28,7 @@ class Api::DealsController < Api::ApiController
   end
   
   def show
-    @deal = Deal.includes(:category).includes(:user).find(params[:id])
-    # TODO it would be better to use standard rails conventions here,
+    find_deal
     # i.e. :include => [ :comments, :liked_by_users ]
     render :json => @deal.as_json(:current_user => current_user,
                                   :comments => true, 

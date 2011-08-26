@@ -1,6 +1,18 @@
 class Api::UsersController < Api::ApiController
 
   skip_before_filter :require_user, :only => [:create, :show, :followers, :following, :friends]
+  caches_action :show, :cache_path => lambda {|c|
+    (c.current_user.try(:cache_key) || "guest") + "/" + c.requested_user.cache_key
+  } # expires automatically when users cache key changes or deals cache key changes
+
+  caches_action :followers, :cache_path => lambda {|c| "followers/#{c.requested_user.cache_key}" }
+  caches_action :following, :cache_path => lambda {|c| "following/#{c.requested_user.cache_key}" }
+  caches_action :friends, :cache_path => lambda {|c| "friends/#{c.requested_user.cache_key}" }
+
+  def requested_user
+    @user ||= find_user(params[:id])
+
+  end
 
   # will raise RecordNotFound if user not found
   # will render 401 if email does not match
@@ -23,7 +35,7 @@ class Api::UsersController < Api::ApiController
   end
   
   def show
-    @user = find_user(params[:id])
+    requested_user
     render :json => @user.as_json(
       :current_user => params[:id] == "current" ? false : current_user,
       :deals => true, 
@@ -31,19 +43,19 @@ class Api::UsersController < Api::ApiController
   end
 
   def followers
-    @user = find_user(params[:id])
+    requested_user
     @followers = @user.followers.sorted
     respond_with @followers
   end
 
   def following
-    @user = find_user(params[:id])
+    requested_user
     @following = @user.following.sorted
     respond_with @following
   end
 
   def friends
-    @user = find_user(params[:id])
+    requested_user
     @friends = @user.friends
     respond_with @friends
   end

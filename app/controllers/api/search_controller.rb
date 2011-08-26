@@ -5,6 +5,8 @@
 class Api::SearchController < Api::ApiController
 
   skip_before_filter :require_user
+  caches_action :category, :cache_path => lambda {|c| "search/categories/#{c.params[:name]}" }, :expires_in => 10.minutes
+  caches_action :users, :cache_path => lambda {|c| "search/users/#{c.params[:q]}" }, :expires_in => 20.minutes
 
   # api/search/users
   def users
