@@ -3,7 +3,7 @@ class Deal < ActiveRecord::Base
   include Qwiqq::Indextank
   include ActionView::Helpers::NumberHelper
   
-  belongs_to :user, :counter_cache => true
+  belongs_to :user, :counter_cache => true, :touch => true
   belongs_to :category
   
   has_many :comments, :dependent => :destroy
