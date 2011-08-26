@@ -41,6 +41,8 @@ gem "htmlentities"
 # admin
 gem "activeadmin"
 
+gem "dalli"
+
 group :test do
   gem "factory_girl_rails", '1.0.1'
   gem "ffaker"
