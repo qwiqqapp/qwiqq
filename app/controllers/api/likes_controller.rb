@@ -26,7 +26,7 @@ class Api::LikesController < Api::ApiController
       raise RecordNotFound
     end
     
-    respond_with @collection
+    render :json => @collection.as_json(:minimal => true)
   end
   
   # auth required
