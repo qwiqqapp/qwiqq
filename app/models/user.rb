@@ -85,8 +85,6 @@ class User < ActiveRecord::Base
     }
   }.merge(PAPERCLIP_STORAGE_OPTIONS)
 
-  process_in_background :photo
-
   strip_attrs :email, :city, :country, :first_name, :last_name, :username, :bio
 
   def location

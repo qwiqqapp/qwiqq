@@ -136,8 +136,6 @@ class Api::DealsControllerTest < ActionController::TestCase
     lat, lon = @params[:lat].to_f, @params[:lon].to_f
 
     Deal.expects(:geodecode_location_name).with(lat, lon).returns(location_name)
-    Qwiqq::Indextank::Document.any_instance.expects(:add).once
-    
     
     post :create, :deal => @params, :format => 'json'
     
@@ -157,10 +155,6 @@ class Api::DealsControllerTest < ActionController::TestCase
     @params = { :category_name  => @category.name,
                 :photo          => File.new("test/fixtures/products/#{rand(22)}.jpg")}
     
-    
-    # should not update indextank
-    Qwiqq::Indextank::Document.any_instance.expects(:add).never
-        
     post :create, :deal => @params, :format => 'json'
     
     assert_equal 422, @response.status
@@ -174,7 +168,6 @@ class Api::DealsControllerTest < ActionController::TestCase
     sign_in(@user)
     
     @params = {:name => 'bacon brand tshirt' }
-    Qwiqq::Indextank::Document.any_instance.expects(:add).never
     
     post :create, :deal => @params, :format => 'json'
     
@@ -190,8 +183,7 @@ class Api::DealsControllerTest < ActionController::TestCase
     sign_in(@user)
     
     @params = { :name => '', :category => '', :price => '', :photo => '' }
-    Qwiqq::Indextank::Document.any_instance.expects(:add).never  
-    
+
     post :create, :deal => @params, :format => 'json'
     
     assert_equal 422, @response.status

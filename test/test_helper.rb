@@ -1,12 +1,9 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'mocha'
 require 'factory_girl'
 require 'fakeweb'
-
-# allows after_commit to fire with transactional_fixtures = true
-require 'helpers/after_commit_with_transactional_fixtures'
+require 'mocha'
 
 # there's an issue with psych failing to parse dates on 1.9.2 
 # so force the use of syck until the issue has been resolved
