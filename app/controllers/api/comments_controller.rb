@@ -1,7 +1,7 @@
 class Api::CommentsController < Api::ApiController
 
   before_filter :require_user, :only => [:create]
-  before_filter :find_parent, :only => [:index]
+  caches_action :index, :cache_path => lambda {|c| "#{c.find_parent.cache_key}/comments" }
 
   # return list of comments for deal or user:
   # - api/users/:user_id/comments => returns comments
@@ -9,7 +9,7 @@ class Api::CommentsController < Api::ApiController
   # - return 404 if neither deal_id or user_id provided
   
   def index
-    @comments = @parent.comments.includes(:user, :deal)
+    @comments = find_parent.comments.includes(:user, :deal)
     respond_with(@comments, :include => [:user])
   end
 
@@ -28,9 +28,8 @@ class Api::CommentsController < Api::ApiController
     respond_with(@comment, :location => false)
   end
   
-  private
   def find_parent
-    @parent = 
+    @parent ||= 
       if params[:deal_id]
         Deal.find(params[:deal_id])
       elsif params[:user_id]
