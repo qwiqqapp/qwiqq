@@ -1,7 +1,16 @@
 class Api::LikesController < Api::ApiController
   
   before_filter :require_user, :only => [:create, :destroy]
-  
+  caches_action :index, :cache_path => lambda {|c| c.params[:deal_id] ? "#{requested_deal.cache_key}/likes" : "#{requested_user.cache_key}/likes" }
+
+  def requested_user
+    @user ||= find_user(params[:user_id])
+  end
+
+  def requested_deal
+    @deal ||= Deal.find(params[:deal_id])
+  end
+
   # return list of likes for deal or user:
   # - api/users/:user_id/likes => returns deals
   # - api/deals/:deal_id/likes => returns users

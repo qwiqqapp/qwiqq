@@ -1,13 +1,19 @@
 class Api::DealsController < Api::ApiController
   
-  skip_before_filter :require_user, :only => [:popular, :show]
+  skip_before_filter :require_user, :only => [:popular, :show, :index]
   caches_action :popular, :expires_in => 10.minutes
   caches_action :show, :cache_path => lambda {|c|
     (c.current_user.try(:cache_key) || "guest") + "/" + c.find_deal.cache_key
   } # expires automatically when users cache key changes or deals cache key changes
 
+  caches_action :index, :cache_path => lambda {|c| "#{requested_user.cache_key}/deals"}
+
   def find_deal
     @deal ||= Deal.find(params[:id])
+  end
+
+  def requested_user
+    @user ||= find_user(params[:user_id])
   end
 
   # ------------------
@@ -39,7 +45,7 @@ class Api::DealsController < Api::ApiController
   # return deals for a given user
   # or return []
   def index      
-    @deals = find_user(params[:user_id]).deals.sorted
+    @deals = requested_user.deals.sorted
     respond_with @deals
   end
   
