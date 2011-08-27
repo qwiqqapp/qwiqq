@@ -17,9 +17,6 @@ module Qwiqq
           "name" => deal.name,
           "link" => deal_url,
           "picture" => deal.photo.url(:iphone_grid))
-      rescue Koala::Facebook::APIError
-        facebook_access_token = nil
-        self.save
       end
     end
   end
