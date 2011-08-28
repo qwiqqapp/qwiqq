@@ -66,6 +66,5 @@ end
 
 group :production do
   gem "unicorn", :require => false
-  gem 'rpm_contrib'  
   gem "newrelic_rpm"
 end

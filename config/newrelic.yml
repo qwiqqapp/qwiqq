@@ -10,22 +10,6 @@
 # Here are the settings that are common to all environments:
 common: &default_settings
   
-  
-  # https://github.com/newrelic/rpm_contrib
-  # disabling extra frameworks with are ON by default in rpm_contrib (seems backwards)
-  disable_active_mq: true
-  disable_cassandra_instrumentation: true
-  disable_crack: true
-  disable_elastic_search_instrumentation: true
-  disable_mongodb: true
-  disable_sinatra_template: true
-  disable_typhoeus: true
-  disable_ultrasphinx: true
-  disable_workling: true
-  disable_yajl_instrumentation: true
-  
-  # enabled: paperclip, s3, resque, redis
-
   # ============================== LICENSE KEY ===============================
 
   # You must specify the license key associated with your New Relic
@@ -240,5 +224,5 @@ production:
 # here.  By default, the staging environment has the agent turned on.
 staging:
   <<: *default_settings
-  monitor_mode: true
+  monitor_mode: false
   app_name: Qwiqq (Staging)
