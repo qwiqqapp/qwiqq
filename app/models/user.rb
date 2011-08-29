@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   has_many :feed_deals, :through => :feedlets, :source => :deal
 
   has_many :relationships, :dependent => :destroy
-  has_many :inverse_relationships, :class_name => "Relationship", :foreign_key => "target_id"
+  has_many :inverse_relationships, :dependent => :destroy, :class_name => "Relationship", :foreign_key => "target_id"
     
   has_many :following, :through => :relationships, :source => :target
   has_many :followers, :through => :inverse_relationships, :source => :user
@@ -63,8 +63,9 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
   validates_presence_of     :password, :on => :create
   validates_length_of       :password, :minimum => 5, :allow_nil => true
-  validates_presence_of     :email, :username
-  validates_uniqueness_of   :email, :username, :case_sensitive => false
+  validates                 :email, :presence => true, :uniqueness => {:case_sensitive => false}, :email => true
+  validates_uniqueness_of   :username, :case_sensitive => false
+
   validates_format_of       :username, :with => /^[\w\d_]+$/, :message => "use only letters, numbers and '_'"
   
   # see initializers/auto_orient.rb for new processor

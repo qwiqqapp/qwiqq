@@ -30,7 +30,7 @@ class Api::DealsController < Api::ApiController
     @feedlets = current_user.feedlets.includes(:deal).limit(40).order("feedlets.timestamp DESC")
 
 
-    render :json => @feedlets.as_json(:minimal => true)
+    render :json => @feedlets.map {|f| f.as_json(:minimal => true) }.compact
   end
   
   def show
