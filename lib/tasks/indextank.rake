@@ -4,10 +4,14 @@ namespace :indextank do
   task :batch_add => :environment do
     deals = Deal.all
     puts "Adding #{deals.size} deals to indextank..."
-    
+
     deals.each_with_index do |deal,i|
-      puts "#{i}  + Deal #{deal.id} #{deal.name} added"
-      deal.indextank_doc.add
+      begin
+        puts "#{i}  + Deal #{deal.id} #{deal.name} added"
+        deal.indextank_doc.add
+      rescue Exception => e
+        puts "indextank exception for deal #{deal.id}: #{e.message}"
+      end
     end
   end
 
