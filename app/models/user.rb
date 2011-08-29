@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   has_many :feed_deals, :through => :feedlets, :source => :deal
 
   has_many :relationships, :dependent => :destroy
-  has_many :inverse_relationships, :class_name => "Relationship", :foreign_key => "target_id"
+  has_many :inverse_relationships, :dependent => :destroy, :class_name => "Relationship", :foreign_key => "target_id"
     
   has_many :following, :through => :relationships, :source => :target
   has_many :followers, :through => :inverse_relationships, :source => :user
