@@ -1,9 +1,9 @@
 class Relationship < ActiveRecord::Base
-  belongs_to :user, :touch => true
-  belongs_to :target, :class_name => "User"
+  belongs_to :user, :touch => true, :counter_cache => :following_count
+  belongs_to :target, :touch => true, :class_name => "User", :counter_cache => :followers_count
   
-  after_create :update_counts_create
-  before_destroy :update_counts_destroy
+  after_create :update_counts
+  after_destroy :update_counts
   
   after_commit :async_deliver_notification, :on => :create
   
@@ -30,28 +30,10 @@ class Relationship < ActiveRecord::Base
       @friends ||= user.friends?(target)
     end
     
-    def update_counts_create
-      user.increment(:following_count)
-      target.increment(:followers_count)
-      if friends?
-        user.increment(:friends_count)
-        target.increment(:friends_count)
-      end
+    def update_counts
+      user.friends_count = user.friends.count
+      target.friends_count = target.friends.count
       user.save
       target.save
     end
-
-    # TODO check for target = nil
-    def update_counts_destroy
-      user.decrement(:following_count)
-      target.decrement(:followers_count)
-      if friends?
-        user.decrement(:friends_count)
-        target.decrement(:friends_count)
-      end
-      user.save
-      target.save
-    end
-    
-
 end

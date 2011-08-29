@@ -10,7 +10,7 @@ class Api::RelationshipsController < Api::ApiController
     else  
       @relationship = @user.follow!(@target)
       render :status => :created, :json => {
-        :followers_count => @target.followers_count,
+        :followers_count => @target.followers_count + 1,
         :following_count => @target.following_count,
         :friends_count =>   @target.friends_count }
     end
@@ -21,7 +21,7 @@ class Api::RelationshipsController < Api::ApiController
     @relationship = @user.relationships.find_by_target_id(params[:target_id])
     @relationship.destroy
     render :status => :ok, :json => {
-      :followers_count => @relationship.target.followers_count,
+      :followers_count => @relationship.target.followers_count - 1,
       :following_count => @relationship.target.following_count,
       :friends_count =>   @relationship.target.friends_count }
   end
