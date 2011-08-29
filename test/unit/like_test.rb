@@ -6,21 +6,8 @@ class LikeTest < ActiveSupport::TestCase
   
   setup do
     Resque.reset!
-    stub_indextank
   end
   
-  # -------
-  # index tank
-  test "should sync deal with indextank on create" do
-    Qwiqq::Indextank::Document.any_instance.expects(:sync_variables).once
-    @like = Factory(:like)
-  end
-  
-  test "should sync deal with indextank on destroy" do
-    @like = Factory(:like)
-    Qwiqq::Indextank::Document.any_instance.expects(:sync_variables).once
-    @like.destroy
-  end
   
   # ------
   #  queues and execution

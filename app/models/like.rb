@@ -7,14 +7,7 @@ class Like < ActiveRecord::Base
   default_scope :order => 'likes.created_at desc'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   
-  after_create :indextank_sync
-  after_destroy :indextank_sync
-  
   after_commit :async_deliver_notification, :on => :create
-  
-  def indextank_sync
-    deal.indextank_doc.sync_variables
-  end
   
   def deliver_notification
     return unless notification_sent_at.nil?       # avoid double notification

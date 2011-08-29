@@ -35,14 +35,5 @@ def sign_out
   @controller.stubs(:current_user).returns(nil)
 end
 
-# TODO implement fakeweb register with valid responses,
-# mocha stubs below are quick fix
-def stub_indextank
-  doc ||= Qwiqq::Indextank::Document.any_instance
-  doc.stubs(:add).returns(true)
-  doc.stubs(:remove).returns(true)
-  doc.stubs(:sync_variables).returns(true)
-  doc.stubs(:sync_categories).returns(true)
-end
 
 

@@ -2,10 +2,6 @@ require 'test_helper'
 
 class Api::UsersControllerTest < ActionController::TestCase
 
-  setup do
-    stub_indextank
-  end
-
   test "should route to users#create" do
     assert_routing({:method => "post", :path => "/api/users.json"}, 
                    {:format => "json", :controller => "api/users", :action => "create"})

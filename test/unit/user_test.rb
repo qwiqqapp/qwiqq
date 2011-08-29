@@ -1,11 +1,8 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  
-  setup do
-    stub_indextank
-  end
 
+  
   test "should raise exception if username taken (ignore case)" do
     Factory(:user, :username => 'Adam')
     exception = assert_raise(ActiveRecord::RecordInvalid) {

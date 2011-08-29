@@ -5,11 +5,7 @@ else
   ENV["S3_KEY"] = "AKIAJOMG7WLZJME47VDQ"
   ENV["S3_SECRET"] = "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"
   ENV["S3_BUCKET"] = "qwiqq.images.#{Rails.env}"
-
-  # indextank
-  ENV["INDEXTANK_API_URL"] = "http://:ugsrn4tHabBmh+@dhqws.api.indextank.com"
-  ENV["INDEXTANK_INDEX"] = "#{Rails.env}_deals"
-
+  
   # twitter keys
   ENV["TWITTER_CONSUMER_KEY"] = "MYYVJCNWkUjA1sHlNQUHcA"
   ENV["TWITTER_CONSUMER_SECRET"] = "a2u0U4YtL37Sa8Gzpvubd4RhpMI6BBzMmarS1t8VsU"

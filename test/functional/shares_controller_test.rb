@@ -2,10 +2,6 @@ require 'test_helper'
 
 class Api::SharesControllerTest < ActionController::TestCase
 
-  def setup
-    stub_indextank
-  end
-    
   test "should route to shares#create" do
     assert_routing({ :method => "post", :path => "/api/users/1/deals/2/shares.json" }, { 
       :format => "json", 

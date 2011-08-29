@@ -5,7 +5,6 @@
 class Api::SearchController < Api::ApiController
 
   skip_before_filter :require_user
-  # caches_action :category, :cache_path => lambda {|c| "search/categories/#{c.params[:name]}" }, :expires_in => 10.minutes
   caches_action :users, :cache_path => lambda {|c| "#{c.current_user.try(:cache_key)}/search/users/#{c.params[:q]}" }, :expires_in => 20.minutes
 
   # api/search/users
@@ -17,14 +16,15 @@ class Api::SearchController < Api::ApiController
   # api/search/deals/newest
   # api/search/deals/nearby
   # api/search/deals/popular
+  #  option lat + long params
   def deals
-    @deals = Deal.indextank_search(params[:q], params[:filter], {:lat => params[:lat],:long => params[:long]})                                
+
     respond_with @deals
   end
   
   # api/search/category/:name/deals
+  #  option lat + long params
   def category
-    @deals = Deal.indextank_search(params[:name],'category', {:lat => params[:lat], :long => params[:long]})                
     respond_with @deals
   end
 end

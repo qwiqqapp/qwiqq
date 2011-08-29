@@ -6,7 +6,6 @@ class ShareTest < ActiveSupport::TestCase
   
   setup do
     Resque.reset!
-    stub_indextank
   end
   
   # test queue is populated

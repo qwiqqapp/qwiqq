@@ -1,6 +1,5 @@
 class Deal < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
-  include Qwiqq::Indextank
   include ActionView::Helpers::NumberHelper
   
   belongs_to :user, :counter_cache => true, :touch => true
@@ -33,29 +32,11 @@ class Deal < ActiveRecord::Base
 
   after_create :populate_feed
   
-  # indextank
-  after_commit :async_indextank_add,    :on => :create
-  after_commit :async_indextank_remove, :on => :destroy
-  
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   scope :premium, where(:premium => true)
   scope :search_by_name, lambda { |query| where([ 'UPPER(name) like ?', "%#{query.upcase}%" ]) }
   scope :sorted, :order => "created_at desc"
   
-  # no sync method for remove
-  def async_indextank_remove
-    Resque.enqueue(IndextankRemoveJob, self.id)
-  end
-  
-  def indextank_add
-    return unless indexed_at.nil?   # avoid double add
-    indextank_doc.add               # could raise exception
-    update_attribute(:indexed_at, Time.now)
-  end
-  
-  def async_indextank_add
-    Resque.enqueue(IndextankAddJob, self.id)
-  end
   
   def populate_feed(posting_user = nil, repost = false)
     posting_user ||= self.user

@@ -6,7 +6,6 @@ class CommentTest < ActiveSupport::TestCase
   
   setup do
     Resque.reset!
-    stub_indextank
   end
   
   test "strips body before saving" do
