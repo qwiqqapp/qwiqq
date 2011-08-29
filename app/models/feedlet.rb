@@ -4,6 +4,6 @@ class Feedlet < ActiveRecord::Base
   belongs_to :posting_user, :class_name => 'User'
 
   def as_json(options = {})
-    self.deal.as_json(options).merge(:reposted_by => self.reposted_by)
+    self.deal.try(:as_json, options).try(:merge, {:reposted_by => self.reposted_by})
   end
 end
