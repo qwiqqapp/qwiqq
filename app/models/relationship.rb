@@ -31,9 +31,14 @@ class Relationship < ActiveRecord::Base
     end
     
     def update_counts
-      user.friends_count = user.friends.count
-      target.friends_count = target.friends.count
-      user.save
-      target.save
+      if user
+        user.friends_count = user.friends.count
+        user.save
+      end
+      
+      if target
+        target.friends_count = target.friends.count
+        target.save
+      end
     end
 end
