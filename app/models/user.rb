@@ -63,8 +63,9 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
   validates_presence_of     :password, :on => :create
   validates_length_of       :password, :minimum => 5, :allow_nil => true
-  validates_presence_of     :email, :username
-  validates_uniqueness_of   :email, :username, :case_sensitive => false
+  validates                 :email, :presence => true, :uniqueness => {:case_sensitive => false}, :email => true
+  validates_uniqueness_of   :username, :case_sensitive => false
+
   validates_format_of       :username, :with => /^[\w\d_]+$/, :message => "use only letters, numbers and '_'"
   
   # see initializers/auto_orient.rb for new processor
