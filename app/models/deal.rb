@@ -2,6 +2,16 @@ class Deal < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
   include ActionView::Helpers::NumberHelper
   
+  searchable do
+    text :name              # fulltext search
+    location :coordinates   # geographic position indexing
+    time :created_at
+  end
+  
+  def coordinates
+    Sunspot::Util::Coordinates.new(self.lat, self.lon)
+  end
+  
   belongs_to :user, :counter_cache => true, :touch => true
   belongs_to :category
   
@@ -36,6 +46,12 @@ class Deal < ActiveRecord::Base
   scope :premium, where(:premium => true)
   scope :search_by_name, lambda { |query| where([ 'UPPER(name) like ?', "%#{query.upcase}%" ]) }
   scope :sorted, :order => "created_at desc"
+  
+  
+  
+  
+  
+
   
   
   def populate_feed(posting_user = nil, repost = false)

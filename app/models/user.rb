@@ -3,6 +3,12 @@ class User < ActiveRecord::Base
   include Qwiqq::FacebookSharing
   include Qwiqq::TwitterSharing
   
+  searchable do
+    text :first_name
+    text :last_name
+    text :username
+  end
+  
   has_many :deals,    :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :likes,    :dependent => :destroy

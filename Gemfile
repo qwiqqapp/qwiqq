@@ -30,7 +30,7 @@ gem "twitter", "1.6.0"
 gem "hoptoad_notifier"
 
 # search
-gem "sunspot"
+gem 'sunspot_rails'
 
 
 gem 'postmark'

@@ -9,21 +9,37 @@ class Api::SearchController < Api::ApiController
 
   # api/search/users
   def users
-    @users = User.sorted.search_by_name(params[:q])
+    def index
+    @search = User.search do
+      fulltext params[:q]
+    end
+    @users = @search.results
     render :json => @users.as_json(:current_user => current_user)
   end
   
-  # api/search/deals/newest
-  # api/search/deals/nearby
-  # api/search/deals/popular
-  #  option lat + long params
-  def deals
 
+
+  # path: api/search/deals/:filter
+  # required params:
+  # - params[:q]
+  # - params[:filter] (newest | nearby | popular)
+  # optional params
+  # - params[:lat]
+  # - params[:long]
+
+  def deals
+    @deals = Deal.search do
+      fulltext params[:q] unless params[:q].empty?
+      with(:coordinates).near(params[:lat], params[:long], :precision => 100) if (params[:lat].present? && params[:lng].present?)
+    end
     respond_with @deals
   end
+
   
-  # api/search/category/:name/deals
-  #  option lat + long params
+  # example: api/search/category/:name/deals
+  # required param: params[:name]
+  # optional params: params[:lat] + params[:long]
+  
   def category
     respond_with @deals
   end
