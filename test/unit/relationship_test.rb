@@ -4,11 +4,15 @@ class RelationshipTest < ActiveSupport::TestCase
   
   self.use_transactional_fixtures = false
   
-  def setup
+  setup do
     Resque.reset!
+    DatabaseCleaner.start
   end
   
-  
+  teardown do
+    DatabaseCleaner.clean
+  end
+
   # ---------
   # email notifcations
   

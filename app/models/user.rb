@@ -3,10 +3,10 @@ class User < ActiveRecord::Base
   include Qwiqq::FacebookSharing
   include Qwiqq::TwitterSharing
   
-  searchable do
-    text :first_name
-    text :last_name
-    text :username
+  define_index do
+    indexes first_name
+    indexes last_name
+    indexes username    
   end
   
   has_many :deals,    :dependent => :destroy
@@ -23,15 +23,15 @@ class User < ActiveRecord::Base
     
   has_many :following, :through => :relationships, :source => :target
   has_many :followers, :through => :inverse_relationships, :source => :user
-  has_many :friends, :class_name => "User", 
-    :finder_sql => proc { 
+  has_many :friends, :class_name => "User",
+    :finder_sql => proc {
       "SELECT users.* FROM users WHERE id IN (
          SELECT r1.target_id FROM relationships r1, relationships r2 
          WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id AND r1.user_id = #{id}) order by users.username ASC" },
-    :counter_sql => proc { 
+    :counter_sql => proc {
       "SELECT COUNT(*) FROM relationships r1, relationships r2 
        WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id AND r1.user_id = #{id}" }
-
+       
   has_many :shares, :dependent => :destroy
   has_many :shared_deals, :through => :shares, :source => :deal, :uniq => true
   

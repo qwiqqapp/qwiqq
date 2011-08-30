@@ -6,6 +6,11 @@ class ShareTest < ActiveSupport::TestCase
   
   setup do
     Resque.reset!
+    DatabaseCleaner.start
+  end
+  
+  teardown do
+    DatabaseCleaner.clean
   end
   
   # test queue is populated

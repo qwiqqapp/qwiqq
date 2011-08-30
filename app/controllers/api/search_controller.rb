@@ -9,12 +9,8 @@ class Api::SearchController < Api::ApiController
 
   # api/search/users
   def users
+    @users = User.search(params[:q])
 
-    @search = User.search do
-      fulltext params[:q]
-    end
-
-    @users = @search.results
     render :json => @users.as_json(:current_user => current_user)
   end
   

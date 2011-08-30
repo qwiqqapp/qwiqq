@@ -6,8 +6,12 @@ class LikeTest < ActiveSupport::TestCase
   
   setup do
     Resque.reset!
+    DatabaseCleaner.start
   end
   
+  teardown do
+    DatabaseCleaner.clean
+  end
   
   # ------
   #  queues and execution

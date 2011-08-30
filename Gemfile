@@ -30,8 +30,7 @@ gem "twitter", "1.6.0"
 gem "hoptoad_notifier"
 
 # search
-gem 'sunspot_rails'
-
+gem 'thinking-sphinx', '2.0.5'
 
 gem 'postmark'
 gem 'postmark-rails', '0.4.0'
@@ -53,6 +52,7 @@ group :test do
   gem "mocha", :require => false
   gem 'fakeweb'
   gem 'resque_unit'
+  gem 'database_cleaner'
   
   # autotest
   gem 'ZenTest'

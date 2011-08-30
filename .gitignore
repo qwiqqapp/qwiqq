@@ -9,4 +9,5 @@ rerun.txt
 public/system
 solr/*
 .rvmrc
+db/sphinx/*
 

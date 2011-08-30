@@ -2,15 +2,7 @@ class Deal < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
   include ActionView::Helpers::NumberHelper
   
-  searchable do
-    text :name              # fulltext search
-    time :created_at
-    
-    # geo search
-    double :lat, :as => "lat"
-    double :lon, :as => "lng"
-  end
-  
+
   belongs_to :user, :counter_cache => true, :touch => true
   belongs_to :category
   

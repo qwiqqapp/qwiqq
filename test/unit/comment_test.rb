@@ -6,6 +6,11 @@ class CommentTest < ActiveSupport::TestCase
   
   setup do
     Resque.reset!
+    DatabaseCleaner.start
+  end
+  
+  teardown do
+    DatabaseCleaner.clean
   end
   
   test "strips body before saving" do
