@@ -3,6 +3,15 @@ class Deal < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
   
 
+  define_index do
+    indexes name
+    
+    indexes category.name, :as => :category_name
+    
+    has "RADIANS(lat)", :as => :latitude,  :type => :float
+    has "RADIANS(lon)", :as => :longitude, :type => :float
+  end
+
   belongs_to :user, :counter_cache => true, :touch => true
   belongs_to :category
   

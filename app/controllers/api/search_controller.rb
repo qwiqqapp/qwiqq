@@ -10,7 +10,6 @@ class Api::SearchController < Api::ApiController
   # api/search/users
   def users
     @users = User.search(params[:q])
-
     render :json => @users.as_json(:current_user => current_user)
   end
   
@@ -36,7 +35,20 @@ class Api::SearchController < Api::ApiController
   # optional params: params[:lat] + params[:long]
   
   def category
+    @deals = Deal.search(:conditions => {:category_name => params[:name]})
     respond_with @deals
+  end
+  
+  
+  
+  private
+  # convert lat,long floats to radian lat/lon array for sphinx
+  def geo_params(lat, lon)
+    lat && lon : [radians(lat), radians(lon)] ? nil
+  end
+  
+  def radians(s)
+    (s.to_f / 180.0) * Math::PI
   end
 end
 
