@@ -9,16 +9,15 @@ class Api::SearchController < Api::ApiController
 
   # api/search/users
   def users
-    def index
+
     @search = User.search do
       fulltext params[:q]
     end
+
     @users = @search.results
     render :json => @users.as_json(:current_user => current_user)
   end
   
-
-
   # path: api/search/deals/:filter
   # required params:
   # - params[:q]
@@ -26,7 +25,7 @@ class Api::SearchController < Api::ApiController
   # optional params
   # - params[:lat]
   # - params[:long]
-
+  
   def deals
     @deals = Deal.search do
       fulltext params[:q] unless params[:q].empty?
@@ -44,3 +43,12 @@ class Api::SearchController < Api::ApiController
     respond_with @deals
   end
 end
+
+# 
+# @results = Model.search do
+#   order_by(:distance, :desc) # Order by distance from farthest to closest
+# 
+#   adjust_solr_params do |params|
+#     params[:q] = "{!spatial qtype=dismax boost=#{some_boost_val} circles=#{search_lat},#{search_lng},#{search_radius}}" + "#{params[:q]}"
+#   end
+# end

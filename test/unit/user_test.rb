@@ -2,6 +2,21 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
 
+  # , :lat => '49.269526', :lon => '-123.148655'
+  test "should return user for valid search" do
+    @user0 = Factory(:user, :first_name => 'mark')
+    @user1 = Factory(:user, :first_name => 'mary')    
+    @user2 = Factory(:user, :first_name => 'john')
+    
+    
+    @search = User.search do
+      fulltext 'john'
+    end    
+    
+    puts @search
+  end
+  
+  
   
   test "should raise exception if username taken (ignore case)" do
     Factory(:user, :username => 'Adam')

@@ -4,12 +4,11 @@ class Deal < ActiveRecord::Base
   
   searchable do
     text :name              # fulltext search
-    location :coordinates   # geographic position indexing
     time :created_at
-  end
-  
-  def coordinates
-    Sunspot::Util::Coordinates.new(self.lat, self.lon)
+    
+    # geo search
+    double :lat, :as => "lat"
+    double :lon, :as => "lng"
   end
   
   belongs_to :user, :counter_cache => true, :touch => true
@@ -24,7 +23,6 @@ class Deal < ActiveRecord::Base
   
   #TODO update to 3.1 and use role based attr_accessible for premium
   attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent
-
   
   # TODO update to 3.0 validates method
   validates_presence_of   :user, :category, :name, :message => "is required"
@@ -46,13 +44,6 @@ class Deal < ActiveRecord::Base
   scope :premium, where(:premium => true)
   scope :search_by_name, lambda { |query| where([ 'UPPER(name) like ?', "%#{query.upcase}%" ]) }
   scope :sorted, :order => "created_at desc"
-  
-  
-  
-  
-  
-
-  
   
   def populate_feed(posting_user = nil, repost = false)
     posting_user ||= self.user
