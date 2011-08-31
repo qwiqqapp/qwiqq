@@ -176,7 +176,7 @@ class Deal < ActiveRecord::Base
     end
   end
   
-  
+  # TODO merge this with filtered_search
   def self.category_search(name, lat, lon)
     # required
     opts          = {:conditions => {:category => name}}
@@ -202,7 +202,7 @@ class Deal < ActiveRecord::Base
       when 'nearby'
         raise NoMethodError, 'Coordinates required' if lat.blank? && lon.blank?
         
-        opts[:order]      = "@geodist ASC, @relevance DESC"        
+        opts[:order]      = "@geodist ASC, @relevance DESC"
         opts[:geo]        = geo_radians(lat, lon)
         opts[:with]       = {"@geodist" => 0.0..10_000.0}
     

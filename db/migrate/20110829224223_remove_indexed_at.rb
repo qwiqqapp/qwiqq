@@ -1,6 +1,6 @@
 class RemoveIndexedAt < ActiveRecord::Migration
   def self.up
-    remove_column :deals, :indexed_at
+    # remove_column :deals, :indexed_at
   end
 
   def self.down

@@ -12,13 +12,13 @@ class Api::SearchControllerTest < ActionController::TestCase
     DatabaseCleaner.clean
   end
   
-  def geo_deals_setup
+  def create_geo_deals
     @category = Factory(:category, :name => 'food')
     
-    @deal0 = Factory(:deal_at_seattle,     :name => 'space needle coffee', :category => @category, :created_at => Time.now - 1.days)
-    @deal1 = Factory(:deal_at_gastownlabs, :name => 'gastown beer',        :category => @category, :created_at => Time.now - 30.minutes)
-    @deal2 = Factory(:deal_at_thelocal,    :name => 'burger and beer',     :category => @category, :created_at => Time.now - 10.minutes)
-    @deal3 = Factory(:deal_at_sixacres,    :name => 'german beer',         :category => @category, :created_at => Time.now - 5.minutes)
+    @deal0 = Factory(:deal_at_seattle,     :name => 'space needle beer',:likes_count => 9, :comments_count => 4, :category => @category, :created_at => Time.now - 1.days)
+    @deal1 = Factory(:deal_at_gastownlabs, :name => 'used mac mini',    :likes_count => 5, :comments_count => 2, :category => @category, :created_at => Time.now - 30.minutes)
+    @deal2 = Factory(:deal_at_thelocal,    :name => 'burger and beer',  :likes_count => 85, :comments_count => 21, :category => @category, :created_at => Time.now - 10.minutes)
+    @deal3 = Factory(:deal_at_sixacres,    :name => 'german beer',      :likes_count => 23, :comments_count => 8, :category => @category, :created_at => Time.now - 5.minutes)
     
     # current location = centre of +victory+ square
     @lat = 49.282224
@@ -68,7 +68,7 @@ class Api::SearchControllerTest < ActionController::TestCase
   # category search
   
   test "should return two deals in category tech" do
-    geo_deals_setup
+    create_geo_deals
     @tech_deal = Factory(:deal, :category => Factory(:category, :name => 'tech'))    
     ThinkingSphinx::Test.index
     
@@ -83,7 +83,7 @@ class Api::SearchControllerTest < ActionController::TestCase
   
   
   test "should return food deals in geo order" do
-    geo_deals_setup
+    create_geo_deals
     ThinkingSphinx::Test.index
     
     ThinkingSphinx::Test.run do
@@ -98,7 +98,7 @@ class Api::SearchControllerTest < ActionController::TestCase
   end
   
   test "should return score/distance for geo deals" do
-    geo_deals_setup
+    create_geo_deals
     ThinkingSphinx::Test.index
     
     ThinkingSphinx::Test.run do
@@ -125,8 +125,8 @@ class Api::SearchControllerTest < ActionController::TestCase
   end
   
 
-  test "should return matching deals for query" do
-    geo_deals_setup
+  test "should return matching deals for newest query" do
+    create_geo_deals
     ThinkingSphinx::Test.index
 
     ThinkingSphinx::Test.run do
@@ -139,6 +139,31 @@ class Api::SearchControllerTest < ActionController::TestCase
   end
   
   
+  test "should return matching deals for nearby query" do
+    create_geo_deals
+    ThinkingSphinx::Test.index
+
+    ThinkingSphinx::Test.run do
+      get :deals, :q => 'beer', :filter => 'nearby', :lat => @lat, :long => @lon, :format => "json"
+      
+      assert_equal Array,       json_response.class
+      assert_equal 2,           json_response.size
+      assert_equal @deal3.name, json_response.first['name']
+    end
+  end
   
+  test "should return matching deals for popular query" do
+    create_geo_deals
+    ThinkingSphinx::Test.index
+
+    ThinkingSphinx::Test.run do
+      get :deals, :q => 'beer', :filter => 'popular', :format => "json"
+      
+      assert_equal Array,       json_response.class
+      assert_equal 3,           json_response.size
+      assert_equal @deal2.name, json_response.first['name']
+    end
+  end
+
 
 end
