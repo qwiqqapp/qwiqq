@@ -83,4 +83,5 @@ after "deploy:update_code", "deploy:copy_config"
 after "deploy:update", "newrelic:notice_deployment"
 after "deploy:restart", "unicorn:reload", "resque:restart", "papertrail:restart"
 after "deploy:start", "unicorn:start", "resque:start"
+after "deploy:setup", "thinking_sphinx:shared_sphinx_folder"
 
