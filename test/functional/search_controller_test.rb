@@ -52,31 +52,63 @@ class Api::SearchControllerTest < ActionController::TestCase
     end
   end
   
-  test "should return deals for a category" do
+  # ----------
+  # category search
+  
+  test "should return two deals in category tech" do
     @category0 = Factory(:category, :name => 'tech')
     @category1 = Factory(:category, :name => 'food')
-    @category2 = Factory(:category, :name => 'sports')    
     
     @deal0 = Factory(:deal, :category => @category0)
-    @deal1 = Factory(:deal, :category => @category1)
-    @deal2 = Factory(:deal, :category => @category2)  
-    @deal3 = Factory(:deal, :category => @category0)
+    @deal1 = Factory(:deal, :category => @category0)
+    @deal2 = Factory(:deal, :category => @category1)
     
     ThinkingSphinx::Test.index
     
     ThinkingSphinx::Test.run do
       get :category, :name => 'tech', :format => "json"
       
-      assert_equal Array,     json_response.class
-      assert_equal 2,         json_response.size
-      assert_equal @deal0.id, json_response.first['id']
+      puts json_response
+      
+      assert_equal Array,       json_response.class
+      assert_equal 2,           json_response.size
+      assert_equal @deal0.name, json_response.first['name']
     end
+  end
+  
+  
+  
+  test "should return two deals in category tech" do
+  
+    gtl       = [49.283846, -123.109905] 
+    gassyjack = [49.2834,   -123.104038]
+    kits      = [49.268197, -123.16678]
+    yaletown  = [49.274413, -123.127513]
+    seattle   = [47.62005,  -122.332077]
     
+    
+    @category0 = Factory(:category, :name => 'tech')
+    @category1 = Factory(:category, :name => 'food')
+    
+    @deal0 = Factory(:deal, :category => @category0, :lat => '', :lon => '')
+    @deal1 = Factory(:deal, :category => @category0, :lat => '', :lon => '')
+    @deal2 = Factory(:deal, :category => @category1, :lat => '', :lon => '')
+    
+    ThinkingSphinx::Test.index
+    
+    ThinkingSphinx::Test.run do
+      get :category, :name => 'tech', :format => "json"
+      
+      puts json_response
+      
+      assert_equal Array,       json_response.class
+      assert_equal 2,           json_response.size
+      assert_equal @deal0.name, json_response.first['name']
+    end
   end
   
   
   
   
-  
-  
+
 end

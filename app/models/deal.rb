@@ -80,10 +80,6 @@ class Deal < ActiveRecord::Base
     }
   }.merge(PAPERCLIP_STORAGE_OPTIONS)
 
-  def self.geodecode_location_name(lat, lon)
-    loc = GeoKit::Geocoders::MultiGeocoder.reverse_geocode([ lat, lon ])
-    "#{loc.street_name}, #{loc.city}" if loc.success?
-  end
              
   def as_json(options={})
     options ||= {}
@@ -164,8 +160,35 @@ class Deal < ActiveRecord::Base
       "#{distance_in_minutes / 525600}y"
     end
   end
+  
+  
+  def self.category_search(name, lat, lon)
+    # required
+    opts          = {:conditions => {:category_name => name}}
+    opts[:order]  = "@relevance DESC"
+    
+    # optional
+    if lat && lon
+      opts[:geo]    = geo_radians(lat, lon)
+      opts[:order]  = "@geodist ASC, @relevance DESC"
+      opts[:with]   = {"@geodist" => 0.0..10_000.0}
+    end
 
+    self.search(opts)
+  end
+  
+  
+  def self.geodecode_location_name(lat, lon)
+    loc = GeoKit::Geocoders::MultiGeocoder.reverse_geocode([ lat, lon ])
+    "#{loc.street_name}, #{loc.city}" if loc.success?
+  end
+  
   private
+  def self.geo_radians(lat, lon)
+    [ (lat.to_f / 180.0) * Math::PI, 
+      (lon.to_f / 180.0) * Math::PI] 
+  end
+  
   def geodecode_location_name!
     self[:location_name] = Deal.geodecode_location_name(lat, lon) if location_name.blank?
   end
