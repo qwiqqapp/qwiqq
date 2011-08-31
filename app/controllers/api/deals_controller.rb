@@ -18,6 +18,7 @@ class Api::DealsController < Api::ApiController
 
   # ------------------
   # no auth required
+  
   def popular
     @deals = Deal.unscoped.order("likes_count desc, comments_count desc").limit(64)
     render :json => @deals.as_json(:minimal => true)
@@ -28,8 +29,6 @@ class Api::DealsController < Api::ApiController
   
   def feed
     @feedlets = current_user.feedlets.includes(:deal).limit(40).order("feedlets.timestamp DESC")
-
-
     render :json => @feedlets.map {|f| f.as_json(:minimal => true) }.compact
   end
   

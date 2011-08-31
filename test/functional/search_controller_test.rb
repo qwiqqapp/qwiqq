@@ -33,7 +33,6 @@ class Api::SearchControllerTest < ActionController::TestCase
     )
   end
   
-  
   #  ------------
   #  users
   
@@ -68,8 +67,6 @@ class Api::SearchControllerTest < ActionController::TestCase
     ThinkingSphinx::Test.run do
       get :category, :name => 'tech', :format => "json"
       
-      puts json_response
-      
       assert_equal Array,       json_response.class
       assert_equal 2,           json_response.size
       assert_equal @deal0.name, json_response.first['name']
@@ -77,38 +74,29 @@ class Api::SearchControllerTest < ActionController::TestCase
   end
   
   
-  
-  test "should return two deals in category tech" do
-  
-    gtl       = [49.283846, -123.109905] 
-    gassyjack = [49.2834,   -123.104038]
-    kits      = [49.268197, -123.16678]
-    yaletown  = [49.274413, -123.127513]
-    seattle   = [47.62005,  -122.332077]
+  test "should return tech deals in geo order" do
+    @category = Factory(:category, :name => 'tech')
     
+    @deal0 = Factory(:deal_at_seattle,      :category => @category)
+    @deal1 = Factory(:deal_at_gastownlabs,  :category => @category)
+    @deal2 = Factory(:deal_at_thelocal,     :category => @category)
+    @deal3 = Factory(:deal_at_sixacres,     :category => @category)
     
-    @category0 = Factory(:category, :name => 'tech')
-    @category1 = Factory(:category, :name => 'food')
-    
-    @deal0 = Factory(:deal, :category => @category0, :lat => '', :lon => '')
-    @deal1 = Factory(:deal, :category => @category0, :lat => '', :lon => '')
-    @deal2 = Factory(:deal, :category => @category1, :lat => '', :lon => '')
+    # centre of +victory+ square
+    @lat = 49.282224
+    @lon = -123.110111
     
     ThinkingSphinx::Test.index
     
     ThinkingSphinx::Test.run do
-      get :category, :name => 'tech', :format => "json"
-      
-      puts json_response
+      get :category, :name => 'tech', :lat => @lat, :long => @lon, :format => "json"
       
       assert_equal Array,       json_response.class
-      assert_equal 2,           json_response.size
-      assert_equal @deal0.name, json_response.first['name']
+      assert_equal 3,           json_response.size           #dont include seattle deal
+      assert_equal @deal1.name, json_response[0]['name']     #gastownlabs deal should be first
+      assert_equal @deal3.name, json_response[1]['name']     #sixacres deal should be 2nd
+      assert_equal @deal2.name, json_response[2]['name']     #thelocal deal should be 3rd
     end
   end
   
-  
-  
-  
-
 end
