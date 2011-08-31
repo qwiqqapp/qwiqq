@@ -2,14 +2,14 @@ class Deal < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
   include ActionView::Helpers::NumberHelper
   
-
   define_index do
-    indexes name
-    
-    indexes category.name, :as => :category_name
+    indexes :name
+    indexes category(:name),  :as => :category
     
     has "RADIANS(lat)", :as => :latitude,  :type => :float
     has "RADIANS(lon)", :as => :longitude, :type => :float
+    
+    has created_at, likes_count, comments_count
   end
 
   belongs_to :user, :counter_cache => true, :touch => true
@@ -179,7 +179,7 @@ class Deal < ActiveRecord::Base
   
   def self.category_search(name, lat, lon)
     # required
-    opts          = {:conditions => {:category_name => name}}
+    opts          = {:conditions => {:category => name}}
     opts[:order]  = "@relevance DESC"
     
     # optional
@@ -188,10 +188,34 @@ class Deal < ActiveRecord::Base
       opts[:order]  = "@geodist ASC, @relevance DESC"
       opts[:with]   = {"@geodist" => 0.0..10_000.0}
     end
-
+    
     self.search(opts)
   end
   
+  def self.filtered_search(query, filter, lat, lon)
+    opts  = {:conditions => {:name => query}}
+
+    case filter
+      when 'newest'
+        opts[:order]      = "created_at DESC, @relevance DESC"
+        
+      when 'nearby'
+        raise NoMethodError, 'Coordinates required' if lat.blank? && lon.blank?
+        
+        opts[:order]      = "@geodist ASC, @relevance DESC"        
+        opts[:geo]        = geo_radians(lat, lon)
+        opts[:with]       = {"@geodist" => 0.0..10_000.0}
+    
+      when 'popular'
+        opts[:sort_mode]  = :expr
+        opts[:order]      = "@weight * likes_count * comments_count" 
+      
+      else
+        raise NoMethodError, 'Search filter not valid'  
+    end
+    
+    self.search(opts)
+  end
   
   def self.geodecode_location_name(lat, lon)
     loc = GeoKit::Geocoders::MultiGeocoder.reverse_geocode([ lat, lon ])

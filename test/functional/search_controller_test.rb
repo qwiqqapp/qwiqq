@@ -13,18 +13,17 @@ class Api::SearchControllerTest < ActionController::TestCase
   end
   
   def geo_deals_setup
-    @category = Factory(:category, :name => 'tech')
+    @category = Factory(:category, :name => 'food')
     
-    @deal0 = Factory(:deal_at_seattle,      :category => @category)
-    @deal1 = Factory(:deal_at_gastownlabs,  :category => @category)
-    @deal2 = Factory(:deal_at_thelocal,     :category => @category)
-    @deal3 = Factory(:deal_at_sixacres,     :category => @category)
+    @deal0 = Factory(:deal_at_seattle,     :name => 'space needle coffee', :category => @category, :created_at => Time.now - 1.days)
+    @deal1 = Factory(:deal_at_gastownlabs, :name => 'gastown beer',        :category => @category, :created_at => Time.now - 30.minutes)
+    @deal2 = Factory(:deal_at_thelocal,    :name => 'burger and beer',     :category => @category, :created_at => Time.now - 10.minutes)
+    @deal3 = Factory(:deal_at_sixacres,    :name => 'german beer',         :category => @category, :created_at => Time.now - 5.minutes)
     
     # current location = centre of +victory+ square
     @lat = 49.282224
     @lon = -123.110111
   end
-  
   
   test "should route to search#deals" do
     assert_routing(
@@ -69,31 +68,26 @@ class Api::SearchControllerTest < ActionController::TestCase
   # category search
   
   test "should return two deals in category tech" do
-    @category0 = Factory(:category, :name => 'tech')
-    @category1 = Factory(:category, :name => 'food')
-    
-    @deal0 = Factory(:deal, :category => @category0)
-    @deal1 = Factory(:deal, :category => @category0)
-    @deal2 = Factory(:deal, :category => @category1)
-    
+    geo_deals_setup
+    @tech_deal = Factory(:deal, :category => Factory(:category, :name => 'tech'))    
     ThinkingSphinx::Test.index
     
     ThinkingSphinx::Test.run do
       get :category, :name => 'tech', :format => "json"
       
-      assert_equal Array,       json_response.class
-      assert_equal 2,           json_response.size
-      assert_equal @deal0.name, json_response.first['name']
+      assert_equal Array,           json_response.class
+      assert_equal 1,               json_response.size
+      assert_equal @tech_deal.name, json_response.first['name']
     end
   end
   
   
-  test "should return tech deals in geo order" do
+  test "should return food deals in geo order" do
     geo_deals_setup
     ThinkingSphinx::Test.index
     
     ThinkingSphinx::Test.run do
-      get :category, :name => 'tech', :lat => @lat, :long => @lon, :format => "json"
+      get :category, :name => 'food', :lat => @lat, :long => @lon, :format => "json"
       
       assert_equal Array,       json_response.class
       assert_equal 3,           json_response.size           #dont include seattle deal
@@ -108,7 +102,7 @@ class Api::SearchControllerTest < ActionController::TestCase
     ThinkingSphinx::Test.index
     
     ThinkingSphinx::Test.run do
-      get :category, :name => 'tech', :lat => @lat, :long => @lon, :format => "json"
+      get :category, :name => 'food', :lat => @lat, :long => @lon, :format => "json"
        
       assert_equal 0.11, json_response[0]['score'].round(2)     #gastownlabs deal should be first
       assert_equal 0.26, json_response[1]['score'].round(2)     #sixacres deal should be 2nd
@@ -116,4 +110,35 @@ class Api::SearchControllerTest < ActionController::TestCase
     end
   end
   
+  # ------------
+  # filtered search
+  
+  test "should raise exception if filter not provided" do
+    assert_raise(ActionController::RoutingError) {
+      get :deals, :q => 'beer', :format => "json"
+    }
+  end
+  
+  test "should provide error message if lat/long not provided for nearby search" do
+    get :deals, :q => 'beer', :filter => 'nearby', :format => "json"
+    assert_match /not allowed/i, json_response['message']
+  end
+  
+
+  test "should return matching deals for query" do
+    geo_deals_setup
+    ThinkingSphinx::Test.index
+
+    ThinkingSphinx::Test.run do
+      get :deals, :q => 'beer', :filter => 'newest', :format => "json"
+      
+      assert_equal Array,       json_response.class
+      assert_equal 3,           json_response.size
+      assert_equal @deal3.name, json_response.first['name']       
+    end
+  end
+  
+  
+  
+
 end

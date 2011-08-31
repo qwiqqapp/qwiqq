@@ -8,11 +8,11 @@ class Api::ApiController < ActionController::Base
   
   # Method Not Allowed
   # comment this out when debugging API
-  # rescue_from NoMethodError do |e|
-  #   notify_hoptoad(e)
-  #   Rails.logger.error "ApplicationController error#405: #{e.message}"
-  #   render :json => {:message => 'Method Not Allowed' }, :status => 405
-  # end
+  rescue_from NoMethodError do |e|
+    notify_hoptoad(e)
+    Rails.logger.error "ApplicationController error#405: #{e.message}"
+    render :json => {:message => "Method Not Allowed: #{e.message}" }, :status => 405
+  end
   
   # Not Found
   rescue_from ActiveRecord::RecordNotFound do |e|

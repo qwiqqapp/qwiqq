@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   define_index do
     indexes first_name
     indexes last_name
-    indexes username    
+    indexes username
   end
   
   has_many :deals,    :dependent => :destroy

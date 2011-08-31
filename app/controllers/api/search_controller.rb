@@ -19,14 +19,14 @@ class Api::SearchController < Api::ApiController
   
   # path: api/search/deals/:filter
   # required params:
-  # - params[:q]
   # - params[:filter] = order (newest | nearby | popular)
+  # - params[:q]
   # optional params
   # - params[:lat]
   # - params[:long]
   
-  def deals
-    @users = Deal.search(params[:q])
+  def deals    
+    @deals = Deal.filtered_search(params[:q], params[:filter], params[:lat], params[:long])
     respond_with @deals
   end
   
