@@ -105,6 +105,9 @@ class Deal < ActiveRecord::Base
       :photo_zoom     => photo.url(:iphone_zoom),
       :photo_zoom_2x  => photo.url(:iphone_zoom_2x),
       
+      :distance       => sphinx_geo_distance(:miles),
+      :score          => sphinx_geo_distance(:miles),   #legacy attribute from indextank should be deprecated
+      
       :premium        => premium,
       :price          => price,
       :percent        => percent,
@@ -133,6 +136,18 @@ class Deal < ActiveRecord::Base
     
     json
   end
+  
+  
+  def sphinx_geo_distance(unit=nil)
+    return nil unless self.sphinx_attributes && sphinx_attributes['@geodist']
+    meters = self.sphinx_attributes['@geodist']
+    case unit
+      when :km    then meters / 1000
+      when :miles then meters * 0.000621371192
+      else
+        meters
+    end 
+  end  
   
   def price_as_string
     number_to_currency price.to_f / 100

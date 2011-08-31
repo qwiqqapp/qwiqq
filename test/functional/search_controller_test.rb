@@ -12,6 +12,20 @@ class Api::SearchControllerTest < ActionController::TestCase
     DatabaseCleaner.clean
   end
   
+  def geo_deals_setup
+    @category = Factory(:category, :name => 'tech')
+    
+    @deal0 = Factory(:deal_at_seattle,      :category => @category)
+    @deal1 = Factory(:deal_at_gastownlabs,  :category => @category)
+    @deal2 = Factory(:deal_at_thelocal,     :category => @category)
+    @deal3 = Factory(:deal_at_sixacres,     :category => @category)
+    
+    # current location = centre of +victory+ square
+    @lat = 49.282224
+    @lon = -123.110111
+  end
+  
+  
   test "should route to search#deals" do
     assert_routing(
       {:method => 'get', :path => '/api/search/deals/nearby.json'}, 
@@ -75,17 +89,7 @@ class Api::SearchControllerTest < ActionController::TestCase
   
   
   test "should return tech deals in geo order" do
-    @category = Factory(:category, :name => 'tech')
-    
-    @deal0 = Factory(:deal_at_seattle,      :category => @category)
-    @deal1 = Factory(:deal_at_gastownlabs,  :category => @category)
-    @deal2 = Factory(:deal_at_thelocal,     :category => @category)
-    @deal3 = Factory(:deal_at_sixacres,     :category => @category)
-    
-    # centre of +victory+ square
-    @lat = 49.282224
-    @lon = -123.110111
-    
+    geo_deals_setup
     ThinkingSphinx::Test.index
     
     ThinkingSphinx::Test.run do
@@ -96,6 +100,19 @@ class Api::SearchControllerTest < ActionController::TestCase
       assert_equal @deal1.name, json_response[0]['name']     #gastownlabs deal should be first
       assert_equal @deal3.name, json_response[1]['name']     #sixacres deal should be 2nd
       assert_equal @deal2.name, json_response[2]['name']     #thelocal deal should be 3rd
+    end
+  end
+  
+  test "should return score/distance for geo deals" do
+    geo_deals_setup
+    ThinkingSphinx::Test.index
+    
+    ThinkingSphinx::Test.run do
+      get :category, :name => 'tech', :lat => @lat, :long => @lon, :format => "json"
+       
+      assert_equal 0.11, json_response[0]['score'].round(2)     #gastownlabs deal should be first
+      assert_equal 0.26, json_response[1]['score'].round(2)     #sixacres deal should be 2nd
+      assert_equal 2.16, json_response[2]['score'].round(2)     #thelocal deal should be 3rd
     end
   end
   

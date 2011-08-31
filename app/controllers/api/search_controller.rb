@@ -29,7 +29,7 @@ class Api::SearchController < Api::ApiController
     @users = Deal.search(params[:q])
     respond_with @deals
   end
-
+  
   # example: api/search/category/:name/deals
   # required param: params[:name]
   # optional params: params[:lat] + params[:long]
