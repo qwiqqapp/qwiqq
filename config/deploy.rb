@@ -10,7 +10,7 @@ raise "Environment variable 'EC2_KEY' is required." unless ENV["EC2_KEY"]
 
 set :application, "qwiqq"
 set :repository,  "git@github.com:gastownlabs/qwiqq-web.git"
-set :branch, "aws-production"
+set :branch, "sphinx"
 set :deploy_to, "/var/www/qwiqq.me"
 set :user, "ubuntu"
 set :ssh_options, { :keys => [ File.join(ENV["EC2_KEY"]) ] }
