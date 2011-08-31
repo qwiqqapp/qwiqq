@@ -3,13 +3,14 @@ require "bundler/capistrano"
 require "hoptoad_notifier/capistrano"
 require "new_relic/recipes"
 require "capistrano/ext/multistage"
+require 'thinking_sphinx/deploy/capistrano'
 
 # an EC2 key is required
 raise "Environment variable 'EC2_KEY' is required." unless ENV["EC2_KEY"]
 
 set :application, "qwiqq"
 set :repository,  "git@github.com:gastownlabs/qwiqq-web.git"
-set :branch, "aws-production"
+set :branch, "sphinx"
 set :deploy_to, "/var/www/qwiqq.me"
 set :user, "ubuntu"
 set :ssh_options, { :keys => [ File.join(ENV["EC2_KEY"]) ] }
@@ -82,4 +83,5 @@ after "deploy:update_code", "deploy:copy_config"
 after "deploy:update", "newrelic:notice_deployment"
 after "deploy:restart", "unicorn:reload", "resque:restart", "papertrail:restart"
 after "deploy:start", "unicorn:start", "resque:start"
+after "deploy:setup", "thinking_sphinx:shared_sphinx_folder"
 
