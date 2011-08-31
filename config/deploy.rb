@@ -3,6 +3,7 @@ require "bundler/capistrano"
 require "hoptoad_notifier/capistrano"
 require "new_relic/recipes"
 require "capistrano/ext/multistage"
+require 'thinking_sphinx/deploy/capistrano'
 
 # an EC2 key is required
 raise "Environment variable 'EC2_KEY' is required." unless ENV["EC2_KEY"]
