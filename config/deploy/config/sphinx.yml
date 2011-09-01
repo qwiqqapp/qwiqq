@@ -1,7 +1,13 @@
-# required dir structure
-# - /var/www/qwiqq.me/shared/pids/
-# - /var/www/qwiqq.me/shared/sphinx/
+# required dirs under /var/www/qwiqq.me/shared/
+# - pids
+# - db/sphinx
+# - config
+# - log
 
 production:
-  pid_file: /var/www/qwiqq.me/shared/pids/searchd.pid
-  searchd_file_path: /var/www/qwiqq.me/shared/db/sphinx
+  pid_file:           /var/www/qwiqq.me/shared/pids/searchd.pid
+  searchd_file_path:  /var/www/qwiqq.me/shared/db/sphinx
+  config_file:        /var/www/qwiqq.me/shared/config/production.sphinx.conf
+  searchd_log_file:   /var/www/qwiqq.me/shared/log/searchd.log
+  query_log_file:     /var/www/qwiqq.me/shared/log/searchd.query.log
+  

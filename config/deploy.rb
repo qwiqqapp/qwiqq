@@ -79,21 +79,8 @@ namespace :deploy do
   end
 end
 
-namespace :thinking_sphinx do
-  task :update_index, :roles => [:app] do
-    symlink_sphinx_indexes
-    thinking_sphinx.configure
-    thinking_sphinx.start
-  end
-end
-
-
-before "deploy:update_code", "thinking_sphinx:stop"
-after "deploy:update_code", "thinking_sphinx:update_index"
-
 after "deploy:update_code", "deploy:copy_config"
-after "deploy:update", "newrelic:notice_deployment"
-after "deploy:restart", "unicorn:reload", "resque:restart", "papertrail:restart"
-after "deploy:start", "unicorn:start", "resque:start"
-after "deploy:setup", "thinking_sphinx:shared_sphinx_folder"
+after "deploy:update",      "newrelic:notice_deployment"
+after "deploy:restart",     "unicorn:reload", "resque:restart", "papertrail:restart"
+after "deploy:start",       "unicorn:start", "resque:start"
 
