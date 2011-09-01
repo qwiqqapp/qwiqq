@@ -1,0 +1,7 @@
+# required dir structure
+# - /var/www/qwiqq.me/shared/pids/
+# - /var/www/qwiqq.me/shared/sphinx/
+
+production:
+  pid_file: /var/www/qwiqq.me/shared/pids/searchd.pid
+  searchd_file_path: /var/www/qwiqq.me/shared/db/sphinx
