@@ -79,8 +79,10 @@ namespace :deploy do
   end
 end
 
-after "deploy:update_code", "deploy:copy_config"
-after "deploy:update",      "newrelic:notice_deployment"
-after "deploy:restart",     "unicorn:reload", "resque:restart", "papertrail:restart"
-after "deploy:start",       "unicorn:start", "resque:start"
+
+# TODO ts is issuing configure before stop and start, so 2x for each deploy
+after "deploy:update_code",   "deploy:copy_config"
+after "deploy:update",        "newrelic:notice_deployment"
+after "deploy:restart",       "unicorn:reload", "resque:restart", "papertrail:restart", "thinking_sphinx:restart"
+after "deploy:start",         "unicorn:start",  "resque:start"
 
