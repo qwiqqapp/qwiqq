@@ -62,9 +62,10 @@ namespace :resque do
   end
 end
 
-# sphinx tasks
-namespace :sphinx do
+# thinking sphinx tasks
+namespace :ts do
   task :configure, :roles => [ :search ] do
+    # Adjust the searchd config to bind to 0.0.0.0 on the worker server.
     run "sed -i 's/address:.*/address: 0.0.0.0/g' #{release_path}/config/sphinx.yml"
     run_task "thinking_sphinx:configure"
   end
@@ -76,6 +77,10 @@ namespace :sphinx do
   task :restart, :roles => [ :search ] do
     run_task "thinking_sphinx:restart"
   end
+
+  task :reindex, :roles => [ :search ] do
+    run_task "thinking_sphinx:reindex"
+  end 
 end
 
 # papertrails tasks 
@@ -102,8 +107,8 @@ def prompt(message, default)
   response.empty? ? default : response
 end
 
-after "deploy:update_code", "deploy:copy_config", "sphinx:configure"
+after "deploy:update_code", "deploy:copy_config", "ts:configure"
 after "deploy:update", "newrelic:notice_deployment"
-after "deploy:restart", "unicorn:reload", "resque:restart", "papertrail:restart", "sphinx:restart"
-after "deploy:start", "unicorn:start", "resque:start", "sphinx:start"
+after "deploy:restart", "unicorn:reload", "resque:restart", "papertrail:restart", "ts:restart"
+after "deploy:start", "unicorn:start", "resque:start", "ts:start"
 
