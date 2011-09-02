@@ -186,7 +186,7 @@ class Deal < ActiveRecord::Base
     if lat && lon
       opts[:geo]    = geo_radians(lat, lon)
       opts[:order]  = "@geodist ASC, @relevance DESC"
-      opts[:with]   = {"@geodist" => 0.0..10_000.0}
+      #opts[:with]   = {"@geodist" => 0.0..10_000.0}
     end
     
     self.search(opts)
@@ -204,7 +204,7 @@ class Deal < ActiveRecord::Base
         
         opts[:order]      = "@geodist ASC, @relevance DESC"
         opts[:geo]        = geo_radians(lat, lon)
-        opts[:with]       = {"@geodist" => 0.0..10_000.0}
+        #opts[:with]       = {"@geodist" => 0.0..10_000.0}
     
       when 'popular'
         opts[:sort_mode]  = :expr

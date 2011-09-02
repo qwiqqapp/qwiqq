@@ -90,7 +90,7 @@ class Api::SearchControllerTest < ActionController::TestCase
       get :category, :name => 'food', :lat => @lat, :long => @lon, :format => "json"
       
       assert_equal Array,       json_response.class
-      assert_equal 3,           json_response.size           #dont include seattle deal
+      assert_equal 4,           json_response.size           #include seattle deal (for now)
       assert_equal @deal1.name, json_response[0]['name']     #gastownlabs deal should be first
       assert_equal @deal3.name, json_response[1]['name']     #sixacres deal should be 2nd
       assert_equal @deal2.name, json_response[2]['name']     #thelocal deal should be 3rd
@@ -147,7 +147,7 @@ class Api::SearchControllerTest < ActionController::TestCase
       get :deals, :q => 'beer', :filter => 'nearby', :lat => @lat, :long => @lon, :format => "json"
       
       assert_equal Array,       json_response.class
-      assert_equal 2,           json_response.size
+      assert_equal 3,           json_response.size
       assert_equal @deal3.name, json_response.first['name']
     end
   end
