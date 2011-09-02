@@ -65,7 +65,7 @@ end
 # sphinx tasks
 namespace :sphinx do
   task :configure, :roles => [ :search ] do
-    run "sed -i 's/address:.*/address:0.0.0.0/g' #{release_path}/config/sphinx.yml"
+    run "sed -i 's/address:.*/address: 0.0.0.0/g' #{release_path}/config/sphinx.yml"
     run_task "thinking_sphinx:configure"
   end
   
