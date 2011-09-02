@@ -30,7 +30,7 @@ gem "twitter", "1.6.0"
 gem "hoptoad_notifier"
 
 # search
-gem 'thinking-sphinx', '2.0.5'
+gem "thinking-sphinx", "2.0.5"
 gem "whenever"
 
 gem 'postmark'
