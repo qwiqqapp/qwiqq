@@ -31,6 +31,7 @@ gem "hoptoad_notifier"
 
 # search
 gem 'thinking-sphinx', '2.0.5'
+gem "whenever"
 
 gem 'postmark'
 gem 'postmark-rails', '0.4.0'

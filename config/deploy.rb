@@ -95,6 +95,10 @@ namespace :deploy do
   task :copy_config, :roles => [ :app, :worker, :search ] do
     run "cp -pf #{release_path}/config/deploy/config/* #{release_path}/config/"
   end
+
+  task :update_crontab, :roles => [ :search ] do
+    run "cd #{release_path} && bundle exec whenever --update-crontab #{application}"
+  end
 end
 
 # utilities
@@ -107,7 +111,7 @@ def prompt(message, default)
   response.empty? ? default : response
 end
 
-after "deploy:update_code", "deploy:copy_config", "ts:configure"
+after "deploy:update_code", "deploy:copy_config", "ts:configure", "deploy:update_crontab"
 after "deploy:update", "newrelic:notice_deployment"
 after "deploy:restart", "unicorn:reload", "resque:restart", "papertrail:restart", "ts:restart"
 after "deploy:start", "unicorn:start", "resque:start", "ts:start"
