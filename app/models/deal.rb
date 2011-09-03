@@ -215,7 +215,7 @@ class Deal < ActiveRecord::Base
     end
     
     # compact to remove stale deals returned by TS
-    # TS has retry option but its time expensive
+    # TS has retry option but it's time expensive
     self.search(opts).compact
   end
   
