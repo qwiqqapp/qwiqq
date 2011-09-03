@@ -16,7 +16,7 @@ class Api::SearchControllerTest < ActionController::TestCase
     @category = Factory(:category, :name => 'food')
     
     @deal0 = Factory(:deal_at_seattle,     :name => 'space needle beer',:likes_count => 9, :comments_count => 4, :category => @category, :created_at => Time.now - 1.days)
-    @deal1 = Factory(:deal_at_gastownlabs, :name => 'used mac mini',    :likes_count => 5, :comments_count => 2, :category => @category, :created_at => Time.now - 30.minutes)
+    @deal1 = Factory(:deal_at_gastownlabs, :name => 'half a sandwhich', :likes_count => 5, :comments_count => 2, :category => @category, :created_at => Time.now - 30.minutes)
     @deal2 = Factory(:deal_at_thelocal,    :name => 'burger and beer',  :likes_count => 85, :comments_count => 21, :category => @category, :created_at => Time.now - 10.minutes)
     @deal3 = Factory(:deal_at_sixacres,    :name => 'german beer',      :likes_count => 23, :comments_count => 8, :category => @category, :created_at => Time.now - 5.minutes)
     
@@ -49,7 +49,7 @@ class Api::SearchControllerTest < ActionController::TestCase
   #  ------------
   #  users
   
-  test "should return user for valid username search" do   
+  test "should return matching result for full username search" do   
     %w(john jack mark peter mary).each do |name|
       Factory(:user, :username => name)
     end
@@ -64,20 +64,47 @@ class Api::SearchControllerTest < ActionController::TestCase
     end
   end
   
+  
+  # should match any elements allowing for q=grand result=grand_master_funk
+  # test "should return matching results for partial username search" do
+  #   %w(prince_edward prince_charles joe sarah tommy).each do |name|
+  #     Factory(:user, :username => name)
+  #   end
+  #   ThinkingSphinx::Test.index
+  #   
+  #   ThinkingSphinx::Test.run do
+  #     get :users, :q => 'prince', :format => "json"
+  #     
+  #     assert_equal Array,           json_response.class
+  #     assert_equal 2,               json_response.size
+  #     assert_equal ['prince_edward', 'prince_charles'], json_response.map(&:username)
+  #   end
+  # end
+  
   # ----------
   # category search
   
-  test "should return two deals in category tech" do
+  test "should return array of deals for category search" do
     create_geo_deals
-    @tech_deal = Factory(:deal, :category => Factory(:category, :name => 'tech'))    
     ThinkingSphinx::Test.index
     
     ThinkingSphinx::Test.run do
-      get :category, :name => 'tech', :format => "json"
-      
-      assert_equal Array,           json_response.class
-      assert_equal 1,               json_response.size
-      assert_equal @tech_deal.name, json_response.first['name']
+      get :category, :name => 'food', :format => "json"
+      assert_equal Array, json_response.class
+    end
+  end
+  
+  
+  test "should return 4 deals in category food" do
+    create_geo_deals
+    Factory(:deal, :category => Factory(:category, :name => 'tech'))    
+    ThinkingSphinx::Test.index
+    
+    ThinkingSphinx::Test.run do
+      get :category, :name => 'food', :format => "json"
+
+      assert_equal 4,           json_response.size
+      assert_equal @deal0.name, json_response.first['name']
     end
   end
   
@@ -89,11 +116,10 @@ class Api::SearchControllerTest < ActionController::TestCase
     ThinkingSphinx::Test.run do
       get :category, :name => 'food', :lat => @lat, :long => @lon, :format => "json"
       
-      assert_equal Array,       json_response.class
-      assert_equal 4,           json_response.size           #include seattle deal (for now)
       assert_equal @deal1.name, json_response[0]['name']     #gastownlabs deal should be first
       assert_equal @deal3.name, json_response[1]['name']     #sixacres deal should be 2nd
       assert_equal @deal2.name, json_response[2]['name']     #thelocal deal should be 3rd
+      assert_equal @deal0.name, json_response[3]['name']     #seattle space needle
     end
   end
   
@@ -110,6 +136,27 @@ class Api::SearchControllerTest < ActionController::TestCase
     end
   end
   
+  # TODO test stale deals using ThinkingSphinx
+  test "should not return nil deals" do
+    create_geo_deals
+    
+    name    = 'food'
+    results = [@deal0, @deal1, nil, @deal3]
+    opts    = {:conditions => {:category => name}, :order => "@relevance DESC"}
+    Deal.expects(:search).with(opts).returns(results)
+
+    
+    get :category, :name => name, :format => "json"
+    
+    assert_equal 3, json_response.size
+    
+    assert_not_nil json_response[0]
+    assert_not_nil json_response[1]
+    assert_not_nil json_response[2]
+  end
+  
+  
+  
   # ------------
   # filtered search
   
@@ -124,6 +171,18 @@ class Api::SearchControllerTest < ActionController::TestCase
     assert_match /not allowed/i, json_response['message']
   end
   
+  test "should return array of deals for search/newest" do
+    create_geo_deals
+    ThinkingSphinx::Test.index
+
+    ThinkingSphinx::Test.run do
+      get :deals, :q => 'beer', :filter => 'newest', :format => "json"
+      assert_equal Array, json_response.class
+      assert_equal 3,           json_response.size
+      assert_equal @deal3.name, json_response.first['name']       
+    end
+  end
+  
 
   test "should return matching deals for newest query" do
     create_geo_deals
@@ -132,7 +191,6 @@ class Api::SearchControllerTest < ActionController::TestCase
     ThinkingSphinx::Test.run do
       get :deals, :q => 'beer', :filter => 'newest', :format => "json"
       
-      assert_equal Array,       json_response.class
       assert_equal 3,           json_response.size
       assert_equal @deal3.name, json_response.first['name']       
     end
@@ -146,7 +204,7 @@ class Api::SearchControllerTest < ActionController::TestCase
     ThinkingSphinx::Test.run do
       get :deals, :q => 'beer', :filter => 'nearby', :lat => @lat, :long => @lon, :format => "json"
       
-      assert_equal Array,       json_response.class
+      
       assert_equal 3,           json_response.size
       assert_equal @deal3.name, json_response.first['name']
     end
@@ -159,11 +217,14 @@ class Api::SearchControllerTest < ActionController::TestCase
     ThinkingSphinx::Test.run do
       get :deals, :q => 'beer', :filter => 'popular', :format => "json"
       
-      assert_equal Array,       json_response.class
+
       assert_equal 3,           json_response.size
       assert_equal @deal2.name, json_response.first['name']
     end
   end
+  
+
+  
 
 
 end

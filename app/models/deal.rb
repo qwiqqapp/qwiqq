@@ -189,12 +189,12 @@ class Deal < ActiveRecord::Base
       #opts[:with]   = {"@geodist" => 0.0..10_000.0}
     end
     
-    self.search(opts)
+    self.search(opts).compact
   end
   
   def self.filtered_search(query, filter, lat, lon)
     opts  = {:conditions => {:name => query}}
-
+    
     case filter
       when 'newest'
         opts[:order]      = "created_at DESC, @relevance DESC"
@@ -205,7 +205,7 @@ class Deal < ActiveRecord::Base
         opts[:order]      = "@geodist ASC, @relevance DESC"
         opts[:geo]        = geo_radians(lat, lon)
         #opts[:with]       = {"@geodist" => 0.0..10_000.0}
-    
+        
       when 'popular'
         opts[:sort_mode]  = :expr
         opts[:order]      = "@weight * likes_count * comments_count" 
@@ -214,7 +214,9 @@ class Deal < ActiveRecord::Base
         raise NoMethodError, 'Search filter not valid'  
     end
     
-    self.search(opts)
+    # compact to remove stale deals returned by TS
+    # TS has retry option but its time expensive
+    self.search(opts).compact
   end
   
   def self.geodecode_location_name(lat, lon)

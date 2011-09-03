@@ -12,6 +12,8 @@ class Api::SearchController < Api::ApiController
   
     
   # api/search/users
+  # required param:
+  # - params[:q]
   def users
     @users = User.search(params[:q])
     render :json => @users.as_json(:current_user => current_user)
@@ -24,8 +26,7 @@ class Api::SearchController < Api::ApiController
   # optional params
   # - params[:lat]
   # - params[:long]
-  
-  def deals    
+  def deals
     @deals = Deal.filtered_search(params[:q], params[:filter], params[:lat], params[:long])
     respond_with @deals
   end
