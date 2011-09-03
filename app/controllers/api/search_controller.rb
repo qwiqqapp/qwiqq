@@ -27,7 +27,7 @@ class Api::SearchController < Api::ApiController
   
   def deals    
     @deals = Deal.filtered_search(params[:q], params[:filter], params[:lat], params[:long])
-    respond_with @deals
+    render :json => @deals.compact.as_json(:minimal => true)
   end
   
   # example: api/search/category/:name/deals
@@ -35,6 +35,6 @@ class Api::SearchController < Api::ApiController
   # optional params: params[:lat] + params[:long]
   def category
     @deals = Deal.category_search(params[:name], params[:lat], params[:long])
-    respond_with @deals
+    render :json => @deals.compact.as_json(:minimal => true)
   end
 end
