@@ -4,9 +4,10 @@
 
 class Api::SearchController < Api::ApiController
 
-  caches_action :users, 
-    :cache_path => lambda {|c| "#{c.current_user.try(:cache_key)}/search/users/#{c.params[:q]}" }, 
-    :expires_in => 10.minutes
+  # temp remove action cache for users
+  # caches_action :users, 
+  #   :cache_path => lambda {|c| "#{c.current_user.try(:cache_key)}/search/users/#{c.params[:q]}" }, 
+  #   :expires_in => 10.minutes
 
   skip_before_filter :require_user
   
