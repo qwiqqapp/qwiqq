@@ -1,0 +1,34 @@
+- unless mobile?
+  = render :partial => 'home/nav'
+
+#media.page
+  %h1 Media Downloads
+  %ul
+    %li
+      %h2 Guidelines
+      %ul
+        %li= link_to "Logo and color guidelines [PDF]", "/media/Qwiqq-branding-guidelines.pdf"
+
+    %li
+      %h2 Logo
+      %ul
+        %li= link_to "Logo on white", "/media/qwiqq-logo-white.png"
+        %li= link_to "Logo on transparent", "/media/qwiqq-logo-transparent.png"
+        %li= link_to "Logo vector AI file", "/media/qwiqq-logo-vector.ai"
+
+    %li
+      %h2 Square Icon
+      %ul
+        %li= link_to "Icon on transparent", "/media/qwiqq-icon-transparent.png"
+        %li= link_to "Large PSD of icon for print", "/media/qwiqq-icon-print.psd"
+
+    %li
+      %h2 Screenshots
+      %ul
+        %li= link_to "iPhone app screenshot collection [ZIP]", "/media/Qwiqq App Screenshots V1.1.zip"
+
+  %h1.inquiries Inquiries
+  Please contact us at #{link_to "media@qwiqq.me", "mailto:media@qwiqq.me"}
+
+- unless mobile?
+  = render "shared/footer"

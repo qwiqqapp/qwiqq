@@ -16,6 +16,9 @@ class HomeController < ApplicationController
   def privacy
   end
 
+  def media
+  end
+
 
   # download.qwiqq.me
   # redirect user to download

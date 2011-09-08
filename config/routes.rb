@@ -14,6 +14,7 @@ Qwiqq::Application.routes.draw do
   match "privacy",  :to => "home#privacy",  :as => :privacy
   match "blog",     :to => "home#blog",     :as => :blog
   match "download", :to => "home#download", :as => :download
+  match "media",    :to => "home#media",    :as => :media
   
   # iphone routes
   match "iphone/about",   :to => "home#about",    :as => :iphone_about

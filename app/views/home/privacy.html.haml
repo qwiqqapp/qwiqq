@@ -1,15 +1,5 @@
 - unless mobile?
-  #navigation
-    #corner.left
-      %ul
-        %li
-          %a#back{ :href => root_url }
-            .image
-            Back
-
-    #corner.right
-      %a{ :href => download_url }
-        %img.download-small{ :src => "/images/download-green-small.png" }
+  = render :partial => 'home/nav'
 
 #privacy.page
   %a{ :href => root_url }

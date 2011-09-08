@@ -400,13 +400,13 @@ a {
   width: 350px;
 }
 
-#about h1 {
+#about h1, #media h1 {
   font-size: 25px;
   margin-bottom: 10px;
   color: #ff7720;
 }
 
-#about h2 {
+#about h2, #media h2 {
   font-size: 20px;
   color: #868686;
   padding-bottom: 5px;
@@ -474,6 +474,38 @@ a {
 
 #about #faq span a{
   color: #13C3FF;
+}
+
+/* media */
+#media {
+  color: #666;
+}
+
+#media a {
+  text-decoration: underline;
+  color: #666;
+}
+
+#media a:hover {
+  color: #74c045;
+}
+
+#media h2 {
+  margin-top: 20px;
+}
+
+#media li {
+  margin-bottom: 10px;
+}
+
+#media h1.press {
+  margin-top: 25px;
+  color: #13c3ff;
+}
+
+#media h1.inquiries {
+  margin-top: 25px;
+  color: #74c045;
 }
 
 /* terms and privacy */
