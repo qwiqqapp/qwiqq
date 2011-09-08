@@ -508,6 +508,21 @@ a {
   color: #74c045;
 }
 
+#media .publication {
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+#media .publication strong {
+  font-size: 20px;
+}
+
+#media .press-links li {
+  margin-bottom: 25px;
+}
+
+
 /* terms and privacy */
 
 #terms, #privacy {

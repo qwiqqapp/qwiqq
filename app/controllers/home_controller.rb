@@ -17,6 +17,7 @@ class HomeController < ApplicationController
   end
 
   def media
+    @press_links = PressLink.order("published_at DESC")
   end
 
 

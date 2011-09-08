@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110829224223) do
+ActiveRecord::Schema.define(:version => 20110908112207) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -82,7 +82,6 @@ ActiveRecord::Schema.define(:version => 20110829224223) do
     t.integer  "comments_count",     :default => 0
     t.integer  "likes_count",        :default => 0
     t.string   "location_name"
-    t.datetime "indexed_at"
     t.string   "unique_token"
   end
 
@@ -103,6 +102,28 @@ ActiveRecord::Schema.define(:version => 20110829224223) do
   add_index "feedlets", ["posting_user_id"], :name => "index_feedlets_on_posting_user_id"
   add_index "feedlets", ["user_id"], :name => "index_feedlets_on_user_id"
 
+  create_table "geo_blocks", :force => true do |t|
+    t.integer "location_id", :limit => 8, :null => false
+    t.integer "ip_start",    :limit => 8, :null => false
+    t.integer "ip_end",      :limit => 8, :null => false
+    t.integer "index_geo",   :limit => 8, :null => false
+  end
+
+  add_index "geo_blocks", ["index_geo"], :name => "index_geo_blocks_on_index_geo"
+  add_index "geo_blocks", ["ip_end"], :name => "index_geo_blocks_on_ip_end"
+  add_index "geo_blocks", ["ip_start"], :name => "index_geo_blocks_on_ip_start"
+
+  create_table "geo_locations", :force => true do |t|
+    t.string "country"
+    t.string "region"
+    t.string "city"
+    t.string "postal_code"
+    t.float  "latitude"
+    t.float  "longitude"
+    t.string "metro_code"
+    t.string "area_code"
+  end
+
   create_table "invitations", :force => true do |t|
     t.integer  "user_id",      :null => false
     t.string   "service",      :null => false
@@ -120,6 +141,17 @@ ActiveRecord::Schema.define(:version => 20110829224223) do
 
   add_index "likes", ["deal_id"], :name => "index_likes_on_deal_id"
   add_index "likes", ["user_id"], :name => "index_likes_on_user_id"
+
+  create_table "press_links", :force => true do |t|
+    t.string   "publication_name"
+    t.text     "article_title"
+    t.datetime "published_at"
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "press_links", ["published_at"], :name => "index_press_links_on_published_at"
 
   create_table "relationships", :force => true do |t|
     t.integer  "user_id"
@@ -173,9 +205,9 @@ ActiveRecord::Schema.define(:version => 20110829224223) do
     t.integer  "following_count",        :default => 0,    :null => false
     t.integer  "friends_count",          :default => 0,    :null => false
     t.string   "twitter_access_secret"
-    t.string   "bio"
     t.string   "twitter_id"
     t.string   "facebook_id"
+    t.string   "bio"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.string   "notifications_token"

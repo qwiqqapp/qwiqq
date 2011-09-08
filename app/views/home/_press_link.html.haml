@@ -1,0 +1,9 @@
+%li
+  %div.publication
+    %strong
+      = press_link.publication_name
+    %span.date
+      &ndash;
+      = press_link.published_at.strftime("%B %e, %Y")
+  =link_to press_link.article_title, press_link.url
+

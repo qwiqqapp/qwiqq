@@ -27,6 +27,11 @@
       %ul
         %li= link_to "iPhone app screenshot collection [ZIP]", "/media/Qwiqq App Screenshots V1.1.zip"
 
+  - unless @press_links.blank?
+    %h1.press Recent Press
+
+    %ul.press-links= render :partial => "press_link", :collection => @press_links
+
   %h1.inquiries Inquiries
   Please contact us at #{link_to "media@qwiqq.me", "mailto:media@qwiqq.me"}
 
