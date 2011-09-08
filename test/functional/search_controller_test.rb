@@ -63,23 +63,23 @@ class Api::SearchControllerTest < ActionController::TestCase
       assert_equal 'mark', json_response.first['user_name']
     end
   end
-  
-  
-  # should match any elements allowing for q=grand result=grand_master_funk
-  # test "should return matching results for partial username search" do
-  #   %w(prince_edward prince_charles joe sarah tommy).each do |name|
-  #     Factory(:user, :username => name)
-  #   end
-  #   ThinkingSphinx::Test.index
-  #   
-  #   ThinkingSphinx::Test.run do
-  #     get :users, :q => 'prince', :format => "json"
-  #     
-  #     assert_equal Array,           json_response.class
-  #     assert_equal 2,               json_response.size
-  #     assert_equal ['prince_edward', 'prince_charles'], json_response.map(&:username)
-  #   end
-  # end
+    
+  # should match start of string allowing for q=grand result=grand_master_funk
+  test "should return matching results for partial username search" do
+    %w(prince_edward prince_charles joe sarah tommy).each do |name|
+      Factory(:user, :username => name)
+    end
+    ThinkingSphinx::Test.index
+    
+    ThinkingSphinx::Test.run do
+      get :users, :q => 'prince', :format => "json"
+    
+      assert_equal Array,           json_response.class
+      assert_equal 2,               json_response.size
+      assert_equal 'prince_edward',  json_response[0]['user_name'] 
+      assert_equal 'prince_charles', json_response[1]['user_name'] 
+  end
+  end
   
   # ----------
   # category search
@@ -97,7 +97,7 @@ class Api::SearchControllerTest < ActionController::TestCase
   
   test "should return 4 deals in category food" do
     create_geo_deals
-    Factory(:deal, :category => Factory(:category, :name => 'tech'))    
+    Factory(:deal, :category => Factory(:category, :name => 'tech')) #should not appear in results    
     ThinkingSphinx::Test.index
     
     ThinkingSphinx::Test.run do
@@ -145,7 +145,6 @@ class Api::SearchControllerTest < ActionController::TestCase
     opts    = {:conditions => {:category => name}, :order => "@relevance DESC"}
     Deal.expects(:search).with(opts).returns(results)
 
-    
     get :category, :name => name, :format => "json"
     
     assert_equal 3, json_response.size
@@ -222,9 +221,4 @@ class Api::SearchControllerTest < ActionController::TestCase
       assert_equal @deal2.name, json_response.first['name']
     end
   end
-  
-
-  
-
-
 end
