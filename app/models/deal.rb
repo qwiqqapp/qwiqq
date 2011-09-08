@@ -218,6 +218,12 @@ class Deal < ActiveRecord::Base
     # TS has retry option but it's time expensive
     self.search(opts).compact
   end
+
+  def self.nearby(lat, lon)
+    self.search(:order => "@geodist ASC, created_at DESC",
+                :geo => geo_radians(lat, lon),
+                :max_matches => 15).compact
+  end
   
   def self.geodecode_location_name(lat, lon)
     loc = GeoKit::Geocoders::MultiGeocoder.reverse_geocode([ lat, lon ])

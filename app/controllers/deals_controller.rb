@@ -1,5 +1,4 @@
 class DealsController < ApplicationController
-  caches_action :index, :expires_in => 10.minutes
   caches_action :show, :if => lambda {|c| !c.ios? }, :cache_path => lambda {|c| "home/#{c.find_deal.cache_key}" }
 
   def find_deal
@@ -7,7 +6,18 @@ class DealsController < ApplicationController
   end
 
   def index
-    @deals = Deal.unscoped.order("likes_count desc, comments_count desc").limit(15)
+    begin
+      if city = GEO_IP.try(:city, request.remote_ip)
+        @deals = Deal.nearby(city.latitude, city.longitude)
+        logger.error @deals.inspect
+      end
+    rescue
+    end
+
+    if @deals.blank?
+      @deals = Deal.unscoped.order("likes_count desc, comments_count desc").limit(15)
+    end
+
     respond_with @deals
   end
   

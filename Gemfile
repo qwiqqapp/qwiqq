@@ -47,6 +47,9 @@ gem "activeadmin"
 # memcached
 gem "dalli"
 
+# maxmind geo lookup
+gem "geoip", "1.1.1"
+
 group :test do
   gem "factory_girl_rails", '1.0.1'
   gem "ffaker"

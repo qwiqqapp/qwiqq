@@ -11,3 +11,4 @@ solr/*
 .rvmrc
 db/sphinx/*
 config/*.sphinx.conf
+db/geo.dat

@@ -86,6 +86,7 @@ GEM
       actionpack (>= 2.3.7)
       activesupport (>= 2.3.7)
       i18n (~> 0.4)
+    geoip (1.1.1)
     geokit (1.6.0)
     haml (3.1.2)
     haml-rails (0.3.4)
@@ -244,6 +245,7 @@ DEPENDENCIES
   factory_girl_rails (= 1.0.1)
   fakeweb
   ffaker
+  geoip (= 1.1.1)
   geokit
   haml-rails
   hoptoad_notifier

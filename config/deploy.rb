@@ -35,6 +35,17 @@ namespace :unicorn do
   end
 end
 
+namespace :geo_ip do
+  task :download_database, :roles => :app do
+    run "wget -O #{shared_path}/geo.dat.gz -N -q http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz"
+    run "gunzip -f #{shared_path}/geo.dat.gz"
+  end
+
+  task :symlink, :roles => :app do
+    run "ln -nfs #{shared_path}/geo.dat #{current_path}/db/geo.dat"
+  end
+end
+
 # resque tasks 
 namespace :resque do
   def start_resque
@@ -113,6 +124,7 @@ end
 
 after "deploy:update_code", "deploy:copy_config", "ts:configure", "deploy:update_crontab"
 after "deploy:update", "newrelic:notice_deployment"
+after "deploy:symlink", "geo_ip:symlink"
 after "deploy:restart", "unicorn:reload", "resque:restart", "papertrail:restart", "ts:restart"
 after "deploy:start", "unicorn:start", "resque:start", "ts:start"
 
