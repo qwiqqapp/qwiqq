@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
     indexes first_name
     indexes last_name
     indexes username
+    set_property :min_prefix_len => 3
   end
   
   has_many :deals,    :dependent => :destroy
