@@ -14,5 +14,4 @@ production:
   searchd_log_file: /var/www/qwiqq.me/shared/log/searchd.log
   query_log_file: /var/www/qwiqq.me/shared/log/searchd.query.log
   min_prefix_len: 3
-  min_infix_len: 3
 
