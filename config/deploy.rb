@@ -1,6 +1,6 @@
 require "./config/boot"
 require "bundler/capistrano"
-require "hoptoad_notifier/capistrano"
+require "airbrake/capistrano"
 require "new_relic/recipes"
 require "capistrano/ext/multistage"
 
