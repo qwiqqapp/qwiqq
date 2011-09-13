@@ -1,14 +1,13 @@
 class Api::FriendsController < Api::ApiController
   def find
-    user = find_user(params[:user_id])
     collection = 
       case params[:service]
         when "email"
-          params[:emails] ? find_friends_by_email(user, params[:emails]) : []
+          params[:emails] ? find_friends_by_email(current_user, params[:emails]) : []
         when "twitter"
-          find_friends_on_twitter(user)
+          find_friends_on_twitter(current_user)
         when "facebook"
-          find_friends_on_facebook(user)
+          find_friends_on_facebook(current_user)
         else
           head :not_acceptable and return
       end
