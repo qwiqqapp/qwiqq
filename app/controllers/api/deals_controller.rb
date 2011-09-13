@@ -69,7 +69,7 @@ class Api::DealsController < Api::ApiController
 
   def repost
     @deal = Deal.find(params[:id])
-    @user = find_user(params[:user_id])
+    @user = current_user
     @reposted_deal = @user.repost_deal!(@deal)
     respond_with @reposted_deal, :location => false
   end

@@ -27,7 +27,7 @@ gem "resque-pool"
 gem "geokit"
 gem "koala" # facebook
 gem "twitter", "1.6.0"
-gem "hoptoad_notifier"
+gem "airbrake"
 
 # search
 gem "thinking-sphinx", "2.0.5"
