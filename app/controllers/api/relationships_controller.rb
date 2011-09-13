@@ -1,7 +1,7 @@
 class Api::RelationshipsController < Api::ApiController
 
   def create
-    @user = find_user(params[:user_id])
+    @user = current_user
     @target = User.find(params[:target_id])
     
     # dont allow self follow
@@ -17,7 +17,7 @@ class Api::RelationshipsController < Api::ApiController
   end
 
   def destroy
-    @user = find_user(params[:user_id])
+    @user = current_user
     @relationship = @user.relationships.find_by_target_id(params[:target_id])
     @relationship.destroy
     render :status => :ok, :json => {
