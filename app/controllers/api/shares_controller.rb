@@ -1,6 +1,6 @@
 class Api::SharesController < Api::ApiController
   def create
-    @user = find_user(params[:user_id])
+    @user = current_user
     @deal = Deal.find(params[:deal_id])
 
     # facebook and twitter   
