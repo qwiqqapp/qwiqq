@@ -10,18 +10,25 @@ class Mailer < ActionMailer::Base
     @user = share.user
     @share = share
     @show_footer = true
-    mail :to => target_email, :subject => "#{@user.name} shared a Qwiqq deal with you!"
+    mail :to => target_email, 
+         :tag => 'share',
+         :subject => "#{@user.name} shared a Qwiqq deal with you!"
   end
   
   def invitation(target_email, from)
     @user = from
-    mail :to => target_email, :subject => "#{@user.name} has invited you to Qwiqq!"
+    mail :to => target_email, 
+         :tag => 'invitation',
+         :subject => "#{@user.name} has invited you to Qwiqq!"
+    
   end
   
   # has target
   def password_reset(target)
     @user = target
-    mail :to => target.email, :subject => "Your password reset instructions for Qwiqq"
+    mail :to => target.email, 
+         :tag => 'password',
+         :subject => "Your password reset instructions for Qwiqq"
   end
 
   # send if recipient notification settings allows
@@ -31,7 +38,9 @@ class Mailer < ActionMailer::Base
     @deal = like.deal
     @like = like
     @show_footer = true
-    mail :to => target.email, :subject => "Someone liked your Qwiqq deal!"
+    mail :to => target.email, 
+         :tag => 'like',
+         :subject => "Someone liked your Qwiqq deal!"
   end
   
   def deal_commented(target, comment)
@@ -40,21 +49,28 @@ class Mailer < ActionMailer::Base
     @deal     = comment.deal
     @user     = comment.user
     @show_footer = true
-    mail :to => target.email, :subject => "Someone commented on your Qwiqq deal!"
+    
+    mail :to => target.email, 
+         :tag => 'comment',
+         :subject => "Someone commented on your Qwiqq deal!"
   end
   
   def new_follower(target, follower)
     @target = target
     @user = follower
     @show_footer = true
-    mail :to => target.email, :subject => "#{@user.name} is now following you."
+    mail :to => target.email, 
+         :tag => 'follower',
+         :subject => "#{@user.name} is now following you."
   end
   
   def new_friend(target, friend)
     @target = target
     @user = friend
     @show_footer = true
-    mail :to => target.email, :subject => "You and #{@user.name} are now friends."
+    mail :to => target.email, 
+         :tag => 'friend',
+         :subject => "You and #{@user.name} are now friends."
   end
 end
 
