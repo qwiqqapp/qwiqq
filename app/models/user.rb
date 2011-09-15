@@ -260,7 +260,7 @@ class User < ActiveRecord::Base
 
   def send_push_notification(message, page = "")
     self.apn_devices.each do |device|
-      APN::Notification.create!(:device => device, :sound => true, :alert => message, :custom_properties => page)
+      APN::Notification.create!(:device => device, :sound => true, :alert => message, :custom_properties => {:page => page}, :badge => 0)
     end
   end
 
