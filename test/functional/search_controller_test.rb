@@ -165,6 +165,13 @@ class Api::SearchControllerTest < ActionController::TestCase
     }
   end
   
+  test "should NOT raise exception for empty query" do
+    assert_nothing_raised do
+      get :deals, :q => ' ', :filter => 'popular', :format => "json"
+    end
+    assert_equal [], json_response
+  end
+  
   test "should provide error message if lat/long not provided for nearby search" do
     get :deals, :q => 'beer', :filter => 'nearby', :format => "json"
     assert_match /not allowed/i, json_response['message']
@@ -202,7 +209,6 @@ class Api::SearchControllerTest < ActionController::TestCase
 
     ThinkingSphinx::Test.run do
       get :deals, :q => 'beer', :filter => 'nearby', :lat => @lat, :long => @lon, :format => "json"
-      
       
       assert_equal 3,           json_response.size
       assert_equal @deal3.name, json_response.first['name']

@@ -6,9 +6,9 @@ class DealTest < ActiveSupport::TestCase
   #  validation
   
   test "valid deal" do
-    assert_nothing_raised(){
+    assert_nothing_raised do
       @deal = Factory(:deal, :name => 'deal name here')
-    }
+    end
     assert_equal true, @deal.valid?
   end
   
@@ -33,9 +33,9 @@ class DealTest < ActiveSupport::TestCase
   
   
   test "unique token added to new deal" do
-    assert_nothing_raised(){
+    assert_nothing_raised do
       @deal = Factory(:deal, :name => 'deal name here')
-    }
+    end
     assert_not_nil @deal.unique_token
   end
   
@@ -44,9 +44,21 @@ class DealTest < ActiveSupport::TestCase
     @category = Factory(:category)
     params = {:name => 'test', :price => 5, :category_id => @category.id, :user_id => @user.id, :percent => nil}
     
-    @deal0 = Factory(:deal, params)       
+    @deal0 = Factory(:deal, params)
     assert_raise(ActiveRecord::RecordInvalid) {
       @deal1 = Factory(:deal, params)
     }
   end
+  
+  # -------------
+  # search
+  
+  test "filtered search without query should not raise" do
+    assert_nothing_raised do
+      @deals = Deal.filtered_search(' ', 'popular')
+    end
+    assert_equal [], @deals
+  end
+  
+  
 end
