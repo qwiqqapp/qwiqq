@@ -31,6 +31,7 @@ class Mailer < ActionMailer::Base
     @deal = like.deal
     @like = like
     @show_footer = true
+
     mail :to => target.email, :subject => "Someone liked your Qwiqq deal!"
   end
   

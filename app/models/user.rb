@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
   
   has_many :invitations_sent, :class_name => "Invitation"
   has_many :reposts, :dependent => :destroy
+  has_many :apn_devices, :class_name => 'APN::Device'
   
   scope :sorted, :order => 'users.username ASC'
   
@@ -58,14 +59,17 @@ class User < ActiveRecord::Base
                   :twitter_access_token, 
                   :twitter_access_secret,
                   :send_notifications, 
-                  :bio
-                  
+                  :bio,
+                  :push_token
+
+  attr_accessor :push_token
   attr_accessor :password
   
   before_save :encrypt_password
   before_save :update_twitter_id
   before_save :update_facebook_id
   before_save :update_notifications_token
+  after_save :update_push_token # may be called on create and we need user_id to create an APN::Device
   
   validates_confirmation_of :password
   validates_presence_of     :password, :on => :create
@@ -254,6 +258,12 @@ class User < ActiveRecord::Base
     facebook_ids.flatten
   end
 
+  def send_push_notification(message, page = "")
+    self.apn_devices.each do |device|
+      APN::Notification.create!(:device => device, :sound => true, :alert => message, :custom_properties => page)
+    end
+  end
+
   private
     def update_twitter_id
       return unless twitter_access_token_changed?
@@ -263,6 +273,13 @@ class User < ActiveRecord::Base
         twitter_user = twitter_client.user rescue nil
         self.twitter_id = twitter_user.id.to_s if twitter_user
       end
+    end
+
+    def update_push_token
+      return if push_token.blank?
+      APN::Device.where("token = ? AND user_id != ?", push_token, self.id).destroy_all
+      APN::Device.create(:token => push_token, :user_id => self.id)
+      push_token = nil
     end
   
     def update_facebook_id

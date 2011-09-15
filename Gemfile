@@ -50,6 +50,9 @@ gem "dalli"
 # maxmind geo lookup
 gem "geoip", "1.1.1"
 
+# apple push notifications
+gem 'apn_on_rails', :git => 'https://github.com/natescherer/apn_on_rails.git', :branch => 'rails3' 
+
 group :test do
   gem "factory_girl_rails", '1.0.1'
   gem "ffaker"
@@ -75,3 +78,4 @@ group :production do
   gem "unicorn", :require => false
   gem "newrelic_rpm"
 end
+

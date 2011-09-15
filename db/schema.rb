@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110908112207) do
+ActiveRecord::Schema.define(:version => 20110915183221) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -44,6 +44,32 @@ ActiveRecord::Schema.define(:version => 20110908112207) do
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
+
+  create_table "apn_devices", :force => true do |t|
+    t.string   "token",              :default => "", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "last_registered_at"
+    t.integer  "user_id"
+  end
+
+  add_index "apn_devices", ["token"], :name => "index_apn_devices_on_token", :unique => true
+  add_index "apn_devices", ["user_id"], :name => "index_apn_devices_on_user_id"
+
+  create_table "apn_notifications", :force => true do |t|
+    t.integer  "device_id",                        :null => false
+    t.integer  "errors_nb",         :default => 0
+    t.string   "device_language"
+    t.string   "sound"
+    t.string   "alert"
+    t.integer  "badge"
+    t.text     "custom_properties"
+    t.datetime "sent_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "apn_notifications", ["device_id"], :name => "index_apn_notifications_on_device_id"
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -101,6 +127,28 @@ ActiveRecord::Schema.define(:version => 20110908112207) do
   add_index "feedlets", ["created_at"], :name => "index_feedlets_on_created_at"
   add_index "feedlets", ["posting_user_id"], :name => "index_feedlets_on_posting_user_id"
   add_index "feedlets", ["user_id"], :name => "index_feedlets_on_user_id"
+
+  create_table "geo_blocks", :force => true do |t|
+    t.integer "location_id", :limit => 8, :null => false
+    t.integer "ip_start",    :limit => 8, :null => false
+    t.integer "ip_end",      :limit => 8, :null => false
+    t.integer "index_geo",   :limit => 8, :null => false
+  end
+
+  add_index "geo_blocks", ["index_geo"], :name => "index_geo_blocks_on_index_geo"
+  add_index "geo_blocks", ["ip_end"], :name => "index_geo_blocks_on_ip_end"
+  add_index "geo_blocks", ["ip_start"], :name => "index_geo_blocks_on_ip_start"
+
+  create_table "geo_locations", :force => true do |t|
+    t.string "country"
+    t.string "region"
+    t.string "city"
+    t.string "postal_code"
+    t.float  "latitude"
+    t.float  "longitude"
+    t.string "metro_code"
+    t.string "area_code"
+  end
 
   create_table "invitations", :force => true do |t|
     t.integer  "user_id",      :null => false
@@ -183,9 +231,9 @@ ActiveRecord::Schema.define(:version => 20110908112207) do
     t.integer  "following_count",        :default => 0,    :null => false
     t.integer  "friends_count",          :default => 0,    :null => false
     t.string   "twitter_access_secret"
-    t.string   "bio"
     t.string   "twitter_id"
     t.string   "facebook_id"
+    t.string   "bio"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.string   "notifications_token"

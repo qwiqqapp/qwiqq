@@ -10,6 +10,7 @@ class Like < ActiveRecord::Base
   after_commit :async_deliver_notification, :on => :create
   
   def deliver_notification
+    deal.user.send_push_notification("#{self.user.name} liked your deal #{deal.name}", "deals/#{deal.id}")
     return unless notification_sent_at.nil?       # avoid double notification
     return unless deal.user.send_notifications    # only send if user has notifications enabled
     

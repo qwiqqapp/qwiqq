@@ -8,6 +8,12 @@ class Relationship < ActiveRecord::Base
   after_commit :async_deliver_notification, :on => :create
   
   def deliver_notification
+    if friends?
+      target.send_push_notification("#{self.user.name} is now your friend", "users/#{self.user.id}")
+    else
+      target.send_push_notification("#{self.user.name} is now following you", "users/#{self.user.id}")
+    end
+
     return unless notification_sent_at.nil?    # avoid double notification
     return unless target.send_notifications    # only send if user has notifications enabled
     

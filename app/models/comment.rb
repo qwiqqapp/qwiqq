@@ -37,6 +37,7 @@ class Comment < ActiveRecord::Base
   end
   
   def deliver_notification
+    deal.user.send_push_notification("#{self.user.name} commented on your deal #{deal.name}", "comments/#{deal.id}")
     return unless notification_sent_at.nil?       # avoid double notification
     return unless deal.user.send_notifications    # only send if user has notifications enabled
     
