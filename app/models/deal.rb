@@ -192,7 +192,9 @@ class Deal < ActiveRecord::Base
     self.search(opts).compact
   end
   
-  def self.filtered_search(query, filter, lat, lon)
+  def self.filtered_search(query, filter, lat=nil, lon=nil)
+    return [] if query.blank?
+    
     opts  = {:conditions => {:name => query}}
     
     case filter

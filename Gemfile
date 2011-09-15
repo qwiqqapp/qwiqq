@@ -37,12 +37,11 @@ gem 'postmark'
 gem 'postmark-rails', '0.4.0'
 gem 'activerecord-import'
 
-gem "activeadmin"
 gem "bcrypt-ruby", :require => "bcrypt"
 gem "htmlentities"
 
 # admin
-gem "activeadmin"
+gem "activeadmin", '0.3.1'
 
 # memcached
 gem "dalli"

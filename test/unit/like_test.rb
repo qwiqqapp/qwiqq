@@ -30,6 +30,17 @@ class LikeTest < ActiveSupport::TestCase
     Mailer.expects(:deal_liked).once.with(@owner, @like).returns(mock(:deliver => true))
     Resque.run!
   end
+
+
+  test "should send notification" do
+    @owner  = Factory(:user, :send_notifications => true)
+    @deal   = Factory(:deal, :user => @owner)
+    @like   = Factory(:like, :deal => @deal)
+    
+    Resque.run!
+    email = ActionMailer::Base.deliveries.last
+    assert_match  /liked/i, email.subject
+  end
   
   test "should update sent_at" do
     @owner  = Factory(:user, :send_notifications => true)
@@ -43,7 +54,19 @@ class LikeTest < ActiveSupport::TestCase
   
   # -------------------
   # should not send
-  
+
+  test "should NOT raise exception for like+unlike record not found" do
+    @owner  = Factory(:user, :send_notifications => false)
+    @deal   = Factory(:deal, :user => @owner)
+    @like   = Factory(:like, :deal => @deal)
+    
+    #user unlikes deal
+    @like.destroy
+    assert_nothing_raised(ActiveRecord::RecordNotFound) do
+        Resque.run!
+    end
+  end
+
   test "should NOT send notification if DISABLED for user" do
     @owner  = Factory(:user, :send_notifications => false)
     @deal   = Factory(:deal, :user => @owner)

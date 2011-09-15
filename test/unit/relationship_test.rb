@@ -51,7 +51,15 @@ class RelationshipTest < ActiveSupport::TestCase
     assert_not_nil @relationship.notification_sent_at
   end
   
-
+  test "should NOT raise exception for follow+unfollow and record not found" do
+   @relationship = Factory(:relationship) 
+    
+    #user unfollows user    
+    @relationship.destroy
+    assert_nothing_raised(ActiveRecord::RecordNotFound) do
+        Resque.run!
+    end
+  end
 
   
   # -------

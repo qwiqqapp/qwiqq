@@ -40,4 +40,6 @@ class Api::ApiController < ActionController::Base
   def find_user(id)
     id == "current" ? current_user : User.find(id)
   end
+
+
 end
