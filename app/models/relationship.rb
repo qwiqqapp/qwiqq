@@ -9,9 +9,9 @@ class Relationship < ActiveRecord::Base
   
   def deliver_notification
     if friends?
-      target.send_push_notification("#{self.user.name} is now your friend", "users/#{self.user.id}")
+      target.send_push_notification("#{self.user.username} is now your friend", "users/#{self.user.id}")
     else
-      target.send_push_notification("#{self.user.name} is now following you", "users/#{self.user.id}")
+      target.send_push_notification("#{self.user.username} is now following you", "users/#{self.user.id}")
     end
 
     return unless notification_sent_at.nil?    # avoid double notification
