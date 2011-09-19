@@ -18,7 +18,7 @@ class ShareTest < ActiveSupport::TestCase
     @share = Factory(:twitter_share)
     assert_queued(ShareDeliveryJob, [@share.id])
   end
-  
+
   # test result of queued jobs
   test "should deliver shared deal to email" do
     @target_email = 'adam@test.com'
@@ -46,6 +46,15 @@ class ShareTest < ActiveSupport::TestCase
     @share.update_attribute(:shared_at, Time.now - 1.hour)
     
     User.any_instance.expects(:share_deal_to_facebook).never
+    Resque.run!
+  end
+
+  test "should deliver an sms share" do
+    @share = Factory(:sms_share)
+    assert_queued(ShareDeliveryJob, [@share.id])
+    @share.user.twilio_client
+    Twilio::REST::Messages.any_instance.expects(:create).once.returns(nil)
+
     Resque.run!
   end
 end

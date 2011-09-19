@@ -5,7 +5,12 @@ class Api::SharesController < Api::ApiController
 
     # facebook and twitter   
     @user.shares.create(:deal => @deal, :service => "facebook") if params[:facebook]
-    @user.shares.create(:deal => @deal, :service => "twitter") if params[:twitter]
+    @user.shares.create(:deal => @deal, :service => "twitter")  if params[:twitter]
+
+    numbers = params[:sms_numbers] || []
+    numbers.each do |number|
+      @user.shares.create(:deal => @deal, :service => "sms", :number => number)
+    end
 
     # email
     emails = params[:emails] || []

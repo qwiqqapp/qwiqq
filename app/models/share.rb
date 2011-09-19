@@ -2,7 +2,7 @@ class Share < ActiveRecord::Base
   belongs_to :user
   belongs_to :deal
 
-  validates :service, :inclusion => [ "email", "twitter", "facebook" ]
+  validates :service, :inclusion => [ "email", "twitter", "facebook", "sms" ]
 
   # avoids deliver being called before record has been persisted (possible with after_create)
   # ref: http://blog.nragaz.com/post/806739797/using-and-testing-after-commit-callbacks-in-rails-3
@@ -16,9 +16,12 @@ class Share < ActiveRecord::Base
       user.share_deal_to_facebook(deal)
     when "twitter"
       user.share_deal_to_twitter(deal)
+    when "sms"
+      user.share_deal_to_sms(deal, number)
     when "email"
       Mailer.share_deal(email, self).deliver
     end
+
     update_attribute(:shared_at, Time.now)
   end
   

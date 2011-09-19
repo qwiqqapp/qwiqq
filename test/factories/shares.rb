@@ -15,3 +15,8 @@ Factory.define :email_share, :parent => :share do |f|
   f.service 'email'
   f.email   'adam@test.com'
 end
+
+Factory.define :sms_share, :parent => :share do |f|
+  f.service 'sms'
+  f.number  '(604) 618-5421'
+end
