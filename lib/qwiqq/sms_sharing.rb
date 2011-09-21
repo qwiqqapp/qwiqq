@@ -8,7 +8,7 @@ module Qwiqq
         
 
         # build the message
-        message = Qwiqq.twitter_message(deal, self)
+        message = Qwiqq.twitter_message(deal, self, true)
         # post update
         twilio_client.account.sms.messages.create(:from => Qwiqq.twilio_from_number,
                                                   :to => number,
