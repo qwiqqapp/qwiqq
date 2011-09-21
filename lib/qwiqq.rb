@@ -1,8 +1,5 @@
 require "active_record_strip_attrs_extension"
 require "nginx_content_length_fix"
-require "qwiqq/facebook_sharing"
-require "qwiqq/twitter_sharing"
-require "qwiqq/sms_sharing"
 
 module Qwiqq
   # application-wide redis client

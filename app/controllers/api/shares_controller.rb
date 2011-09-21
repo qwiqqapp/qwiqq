@@ -3,10 +3,19 @@ class Api::SharesController < Api::ApiController
     @user = current_user
     @deal = Deal.find(params[:deal_id])
 
-    # facebook and twitter   
-    @user.shares.create(:deal => @deal, :service => "facebook") if params[:facebook]
+    # facebook
+    facebook_token_invalid =
+      begin
+        @user.shares.create(:deal => @deal, :service => "facebook") if params[:facebook]
+        false
+      rescue Koala::Facebook::APIError => e
+        e.message =~ /session has been invalidated/
+      end 
+
+    # twitter
     @user.shares.create(:deal => @deal, :service => "twitter")  if params[:twitter]
 
+    # sms
     numbers = params[:sms_numbers] || []
     numbers.each do |number|
       @user.shares.create(:deal => @deal, :service => "sms", :number => number)
@@ -18,7 +27,11 @@ class Api::SharesController < Api::ApiController
       @user.shares.create(:deal => @deal, :service => "email", :email => email)
     end
 
-    head :ok
+    if facebook_token_invalid
+      render :status => 422, :json => { :error => "Invalid Facebook access token." }
+    else
+      head :ok
+    end
   end
 end
 
