@@ -38,11 +38,11 @@ module Qwiqq
       remaining_length = 160
       message = "#{sharer.username}: #{message}"
     else
-      message.gsub!(/qwiqq/i, "@Qwiqq") + " "
+      message.gsub!(/qwiqq/i, "@Qwiqq")
     end
     
     remaining_length = remaining_length - (message.length + deal_url.length + 1)
-    message += "#{deal.name.truncate(remaining_length)} #{deal_url}"
+    message += " #{deal.name.truncate(remaining_length)} #{deal_url}"
     message
   end
 
