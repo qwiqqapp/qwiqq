@@ -1,8 +1,5 @@
 class User < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
-  include Qwiqq::FacebookSharing
-  include Qwiqq::TwitterSharing
-  include Qwiqq::SmsSharing
   
   define_index do
     indexes first_name
