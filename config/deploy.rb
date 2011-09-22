@@ -101,6 +101,21 @@ namespace :papertrail do
   end
 end
 
+# APN tasks
+namespace :apn do
+  task :start, :roles => [ :apn ] do
+    run_task "apn[start]"
+  end
+  
+  task :restart, :roles => [ :apn ] do
+    run_task "apn[restart]"
+  end
+
+  task :stop, :roles => [ :apn ] do
+    run_task "apn[stop]"
+  end
+end
+
 # general tasks
 namespace :deploy do
   task :copy_config, :roles => [ :app, :worker, :search ] do
@@ -114,7 +129,7 @@ end
 
 # utilities
 def run_task(name)
-  run "cd #{release_path} && RAILS_ENV=production bundle exec rake #{name}"
+  run "cd #{current_path} && RAILS_ENV=production bundle exec rake #{name}"
 end
 
 def prompt(message, default)
@@ -125,6 +140,6 @@ end
 after "deploy:update_code", "deploy:copy_config", "ts:configure", "deploy:update_crontab"
 after "deploy:update", "newrelic:notice_deployment"
 after "deploy:symlink", "geo_ip:symlink"
-after "deploy:restart", "unicorn:reload", "resque:restart", "papertrail:restart", "ts:restart"
-after "deploy:start", "unicorn:start", "resque:start", "ts:start"
+after "deploy:restart", "unicorn:reload", "resque:restart", "papertrail:restart", "ts:restart", "apn:restart"
+after "deploy:start", "unicorn:start", "resque:start", "ts:start", "apn:start"
 
