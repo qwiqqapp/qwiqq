@@ -76,6 +76,7 @@ GEM
     cocaine (0.2.0)
     configatron (2.8.2)
       yamler (>= 0.1.0)
+    daemons (1.1.4)
     dalli (1.0.5)
     database_cleaner (0.6.7)
     devise (1.4.2)
@@ -258,6 +259,7 @@ DEPENDENCIES
   bcrypt-ruby
   capistrano
   capistrano-ext
+  daemons
   dalli
   database_cleaner
   factory_girl_rails (= 1.0.1)
