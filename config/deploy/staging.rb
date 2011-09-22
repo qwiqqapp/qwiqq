@@ -12,6 +12,7 @@ end
 role :worker, ""
 role :search, ""
 role :db, ""
+role :apn, ""
 
 set_branch
 set_host

@@ -1,5 +1,5 @@
 class DealsController < ApplicationController
-  caches_action :show, :if => lambda {|c| !c.ios? }, :cache_path => lambda {|c| "home/#{c.find_deal.cache_key}" }
+  caches_action :show, :cache_path => lambda {|c| "home/#{c.find_deal.cache_key}/#{c.ios?}" }
 
   def find_deal
     @deal ||= Deal.find(params[:id])
@@ -22,7 +22,6 @@ class DealsController < ApplicationController
   end
   
   def show
-    redirect_to "qwiqq:///deals/#{params[:id]}" and return if ios?
     respond_with find_deal
   end
 end

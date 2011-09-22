@@ -175,7 +175,6 @@ class User < ActiveRecord::Base
     options.reverse_merge!(:deals => false, :comments => false)
     json = {
       :user_id             => id.try(:to_s),
-      :email               => email,
       :first_name          => first_name,
       :last_name           => last_name,
       :user_name           => username,
@@ -217,8 +216,12 @@ class User < ActiveRecord::Base
     
     # add is_following and is_followed if possible
     if current_user = options[:current_user] 
-      json[:is_following] = current_user.following?(self)
-      json[:is_followed] = self.following?(current_user)
+      if current_user == self
+        json[:email] = email
+      else
+        json[:is_following] = current_user.following?(self)
+        json[:is_followed] = self.following?(current_user)
+      end
     end
 
     json

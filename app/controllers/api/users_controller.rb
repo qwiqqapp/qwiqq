@@ -30,14 +30,14 @@ class Api::UsersController < Api::ApiController
     @user = current_user
     @user.update_attributes(params[:user])
     respond_with(:api, @user) do
-      render :json => @user.as_json and return if @user.valid?
+      render :json => @user.as_json(:current_user => current_user) and return if @user.valid?
     end
   end
   
   def show
     requested_user
     render :json => @user.as_json(
-      :current_user => params[:id] == "current" ? false : current_user,
+      :current_user => current_user,
       :deals => true, 
       :comments => true)
   end

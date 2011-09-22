@@ -26,12 +26,20 @@ module Qwiqq
     "#{random_sharing_prefix} #{message}"
   end
 
-  def self.twitter_message(deal, sharer = nil)
+  def self.twitter_message(deal, sharer = nil, sms = nil)
     deal_url = Rails.application.routes.url_helpers.deal_url(deal, :host => "www.qwiqq.me")
-    message = Qwiqq.share_deal_message(deal, sharer).gsub(/qwiqq/i, "@Qwiqq") + " "
+    message = Qwiqq.share_deal_message(deal, sharer)
     
-    remaining_length = 140 - (message.length + deal_url.length + 1)
-    message += "#{deal.name.truncate(remaining_length)} #{deal_url}"
+    remaining_length = 140
+    if sms && sharer # include sharer's username for SMS
+      remaining_length = 160
+      message = "#{sharer.username}: #{message}"
+    else
+      message.gsub!(/qwiqq/i, "@Qwiqq")
+    end
+    
+    remaining_length = remaining_length - (message.length + deal_url.length + 1)
+    message += " #{deal.name.truncate(remaining_length)} #{deal_url}"
     message
   end
 

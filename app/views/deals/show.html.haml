@@ -1,3 +1,9 @@
+- if ios?
+  #ios-header
+    Already have Qwiqq? 
+    = link_to "qwiqq:///deals/#{@deal.id}" do 
+      Go to this deal in the app!
+
 #deal-header
   %a.logo{ :href => root_path }
     %img{ :src => "/images/logo.png" }

@@ -57,7 +57,7 @@ class Share < ActiveRecord::Base
 
   def deliver_sms
     # build the message
-    message = Qwiqq.twitter_message(deal, user) 
+    message = Qwiqq.twitter_message(deal, user, true) 
 
     # post update
     twilio_client.account.sms.messages.create(

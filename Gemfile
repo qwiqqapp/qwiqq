@@ -28,6 +28,7 @@ gem "geokit"
 gem "koala" # facebook
 gem "twitter", "1.6.0"
 gem "airbrake"
+gem "daemons", :require => false
 
 # search
 gem "thinking-sphinx", "2.0.5"
