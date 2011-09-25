@@ -12,7 +12,9 @@ namespace :export do
     puts "Located #{objects.size} database objects"
     
     objects.each do |obj|
-      events << {:name => obj.class.to_s, :type => 'create', :time => obj.created_at.to_i, :owner => obj.user.username }
+      events << { :name => "#{obj.class.to_s.downcase} create",
+                  :time => obj.created_at.to_i,
+                  :owner => obj.user.username.downcase }
     end
     puts "Creating and writing events to db/events.json"
     
