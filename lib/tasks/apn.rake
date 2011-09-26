@@ -13,7 +13,9 @@ task :apn, [ :command ] do |task, args|
     :multiple => false,
     :backtrace => true,
     :log_dir => Rails.root.join("log"),
-    :log_output => true
+    :log_output => true,
+    :dir_mode => :normal,
+    :dir => Rails.root.join("tmp", "pids")
   }
 
   # run daemon
