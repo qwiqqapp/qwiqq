@@ -36,7 +36,7 @@ class Api::PasswordResetsControllerTest < ActionController::TestCase
     
     assert_equal 201, @response.status
     assert_not_nil token
-    assert_match Regexp.new(Regexp.escape("qwiqq:///password_reset/#{token}")), email
+    assert_match Regexp.new(Regexp.escape("to=qwiqq%3A%2F%2F%2Fpassword_reset%2F#{token}")), email
   end
   
   test "should NOT send password reset instructions for INVALID email" do

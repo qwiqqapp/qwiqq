@@ -20,6 +20,10 @@ class HomeController < ApplicationController
     @press_links = PressLink.order("published_at DESC")
   end
 
+  def redirect
+    redirect_to params[:to] if params[:to] =~ /^qwiqq:\/\//
+  end
+
 
   # download.qwiqq.me
   # redirect user to download

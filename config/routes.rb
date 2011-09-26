@@ -21,6 +21,8 @@ Qwiqq::Application.routes.draw do
   match "iphone/terms",   :to => "home#terms",    :as => :iphone_terms
   match "iphone/privacy", :to => "home#privacy",  :as => :iphone_privacy
 
+  match 'r', :to => 'home#redirect', :as => :iphone_redirect
+
   # notifications
   match "notifications/:token", :to => "users#update_notifications", :as => :update_notifications
  

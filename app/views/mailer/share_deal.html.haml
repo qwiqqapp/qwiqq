@@ -2,7 +2,7 @@
   %tr
     %td{:style => "text-align: left; color:#00c2fe; font-family: Arial; font-size: 14pt"}
       #{Qwiqq.random_sharing_prefix}
-      = link_to @user.username, "qwiqq:///users/#{@user.id}",  :style => "color: #ff7720; text-decoration: underline"
+      = link_to @user.username, iphone_redirect_url(:to => "qwiqq:///users/#{@user.id}"),  :style => "color: #ff7720; text-decoration: underline"
       shared a deal with you on Qwiqq!
 
 %div{:style => "background-color: #efefef; border: 1px solid #dedede; padding: 10px; border-radius: 10px; width: 580px; margin: 20px; font-size: 13pt; margin-left: 50px; min-height: 75px; line-height: 25px"}
