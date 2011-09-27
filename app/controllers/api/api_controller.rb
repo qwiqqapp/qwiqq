@@ -43,9 +43,10 @@ class Api::ApiController < ActionController::Base
 
   def paginate(collection)
     if params[:page]
-      response.headers["X-Pages"] = (collection.count / collection.per_page.to_f).ceil.to_s
+      result = collection.page(params[:page])
 
-      collection.paginate(:page => params[:page])
+      response.headers["X-Pages"] = (collection.count / result.default_per_page.to_f).ceil.to_s
+      result
     else
       collection
     end

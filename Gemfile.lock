@@ -242,7 +242,6 @@ GEM
     whenever (0.7.0)
       activesupport (>= 2.3.4)
       chronic (~> 0.6.3)
-    will_paginate (3.0.0)
     wirble (0.1.3)
     xml-simple (1.1.0)
     yamler (0.1.0)
@@ -273,6 +272,7 @@ DEPENDENCIES
   geokit
   haml-rails
   htmlentities
+  kaminari
   koala
   mocha
   mysql2 (~> 0.2.7)
@@ -293,5 +293,4 @@ DEPENDENCIES
   twitter (= 1.6.0)
   unicorn
   whenever
-  will_paginate
   wirble

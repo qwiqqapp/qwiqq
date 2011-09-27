@@ -19,8 +19,6 @@ gem "htmlentities"
 gem "paperclip"
 gem "rmagick", :require => false
 
-gem "will_paginate"
-
 # workers
 gem "resque"
 gem "resque-pool"
@@ -57,6 +55,8 @@ gem 'apn_on_rails', :git => 'https://github.com/natescherer/apn_on_rails.git', :
 
 # sms delivery with twilio
 gem 'twilio-ruby'
+
+gem 'kaminari'
 
 group :test do
   gem "factory_girl_rails", '1.0.1'
