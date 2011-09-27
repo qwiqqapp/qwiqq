@@ -22,15 +22,7 @@ class User < ActiveRecord::Base
     
   has_many :following, :through => :relationships, :source => :target
   has_many :followers, :through => :inverse_relationships, :source => :user
-  has_many :friends, :class_name => "User",
-    :finder_sql => proc {
-      "SELECT users.* FROM users WHERE id IN (
-         SELECT r1.target_id FROM relationships r1, relationships r2 
-         WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id AND r1.user_id = #{id}) order by users.username ASC" },
-    :counter_sql => proc {
-      "SELECT COUNT(*) FROM relationships r1, relationships r2 
-       WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id AND r1.user_id = #{id}" }
-       User.
+  has_many :friends, :through => :relationships, :source => :target, :conditions => ['friends = ?', true]
   has_many :shares, :dependent => :destroy
   has_many :shared_deals, :through => :shares, :source => :deal, :uniq => true
   
@@ -139,7 +131,14 @@ class User < ActiveRecord::Base
   end
 
   def follow!(target)
-    relationships.create(:target => target)
+    reciprocal = !target.relationships.where(:target_id => self).blank?
+    relationships.create(:target => target, :friends => reciprocal)
+    rel = target.relationships.where(:target_id => self)
+    rel.update_all(:friends => true)
+    rel.each do |r|
+      r.update_counts
+    end
+
     Feedlet.import( target.deals.map { |d| self.feedlets.new(:posting_user_id => target.id, :deal_id => d.id, :timestamp => d.created_at) } )
     Feedlet.import( target.reposts.map { |r| self.feedlets.new(:posting_user_id => target.id, :deal_id => r.deal_id, :timestamp => r.created_at, :reposted_by => target.username) } )
   end
@@ -147,6 +146,11 @@ class User < ActiveRecord::Base
   def unfollow!(target)
     self.feedlets.where(:posting_user_id => target.id).delete_all
     relationships.find_by_target_id(target.id).try(:destroy)
+    rel = target.relationships.where(:target_id => self)
+    rel.update_all(:friends => false)
+    rel.each do |r|
+      r.update_counts
+    end
   end
   
   def following?(target)

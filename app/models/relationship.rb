@@ -31,20 +31,21 @@ class Relationship < ActiveRecord::Base
   end
   
   
-  private
-    def friends?
-      @friends ||= user.friends?(target)
+  
+  def update_counts
+    if user
+      user.friends_count = user.friends.count
+      user.save
     end
     
-    def update_counts
-      if user
-        user.friends_count = user.friends.count
-        user.save
-      end
-      
-      if target
-        target.friends_count = target.friends.count
-        target.save
-      end
+    if target
+      target.friends_count = target.friends.count
+      target.save
     end
+  end
+
+  private
+  def friends?
+    @friends ||= user.friends?(target)
+  end
 end

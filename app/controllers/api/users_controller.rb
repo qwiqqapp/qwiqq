@@ -63,7 +63,7 @@ class Api::UsersController < Api::ApiController
   def friends
     requested_user
     @friends = @user.friends
-    respond_with paginate(@friends.all)
+    respond_with paginate(@friends)
   end
 
   

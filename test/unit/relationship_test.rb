@@ -82,8 +82,8 @@ class RelationshipTest < ActiveSupport::TestCase
       @user0 = Factory(:user)
       @user1 = Factory(:user)
     
-      Relationship.create(:user => @user0, :target => @user1)
-      Relationship.create(:user => @user1, :target => @user0)
+      @user0.follow!(@user1)
+      @user1.follow!(@user0)
     
       @user0.reload
       @user1.reload
@@ -117,8 +117,8 @@ class RelationshipTest < ActiveSupport::TestCase
       @user0 = Factory(:user)
       @user1 = Factory(:user)
     
-      @relationship = Relationship.create(:user => @user0, :target => @user1)
-      Relationship.create(:user => @user1, :target => @user0)
+      @user0.follow!(@user1)
+      @user1.follow!(@user0)
     
       @user0.reload
       @user1.reload
@@ -126,7 +126,7 @@ class RelationshipTest < ActiveSupport::TestCase
       assert_equal 1, @user0.friends_count
       assert_equal 1, @user1.friends_count
     
-      @relationship.destroy
+      @user0.unfollow!(@user1)
     
       @user0.reload
       @user1.reload
