@@ -13,7 +13,7 @@ else
   # twilio keys
   ENV["TWILIO_SID"] = "AC8a91db9d42184183a216192d91e13a3e"
   ENV["TWILIO_AUTH_TOKEN"] = "ad9648ce4c1e5d0d700cbab0b3cda845"
-  ENV["TWILIO_FROM_NUMBER"] = "(510) 3QWIQQ1" # this number must be verified with twilio
+  ENV["TWILIO_FROM_NUMBER"] = "(512) 948-3477" # this number must be verified with twilio
 
   # postmarkapp
   ENV["POSTMARK_API_KEY"] = "a961c397-264d-47e5-aa2a-146c2aac575e"
