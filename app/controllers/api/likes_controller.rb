@@ -1,7 +1,8 @@
 class Api::LikesController < Api::ApiController
   
   before_filter :require_user, :only => [:create, :destroy]
-  caches_action :index, :cache_path => lambda {|c| c.params[:deal_id] ? "#{requested_deal.cache_key}/likes/#{c.params[:page]}" : "#{requested_user.cache_key}/likes/#{c.params[:page]}" }
+  caches_action :index, :cache_path => lambda {|c| c.params[:deal_id] ? "#{requested_deal.cache_key}/likes" : "#{requested_user.cache_key}/likes" },
+    :unless => lambda {|c| c.params[:page] }
 
   def requested_user
     @user ||= find_user(params[:user_id])

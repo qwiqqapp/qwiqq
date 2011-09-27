@@ -1,7 +1,8 @@
 class Api::CommentsController < Api::ApiController
 
   before_filter :require_user, :only => [:create]
-  caches_action :index, :cache_path => lambda {|c| "#{c.find_parent.cache_key}/comments/#{c.params[:page]}" }
+  caches_action :index, :cache_path => lambda {|c| "#{c.find_parent.cache_key}/comments" },
+    :unless => lambda {|c| c.params[:page] }
 
   # return list of comments for deal or user:
   # - api/users/:user_id/comments => returns comments
