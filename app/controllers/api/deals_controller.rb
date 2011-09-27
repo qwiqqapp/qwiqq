@@ -45,7 +45,7 @@ class Api::DealsController < Api::ApiController
   # or return []
   def index      
     @deals = requested_user.deals.sorted
-    respond_with @deals
+    respond_with paginate(@deals)
   end
   
   # -----------------

@@ -26,7 +26,7 @@ class Api::LikesController < Api::ApiController
       raise RecordNotFound
     end
     
-    render :json => @collection.as_json(:minimal => true)
+    render :json => paginate(@collection).as_json(:minimal => true)
   end
   
   # auth required

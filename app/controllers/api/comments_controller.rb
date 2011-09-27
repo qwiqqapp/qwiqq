@@ -10,7 +10,7 @@ class Api::CommentsController < Api::ApiController
   
   def index
     @comments = find_parent.comments.includes(:user, :deal)
-    respond_with(@comments, :include => [:user])
+    respond_with(paginate(@comments), :include => [:user])
   end
 
   # auth required

@@ -19,6 +19,8 @@ gem "htmlentities"
 gem "paperclip"
 gem "rmagick", :require => false
 
+gem "will_paginate"
+
 # workers
 gem "resque"
 gem "resque-pool"
@@ -71,6 +73,7 @@ group :test do
 end
 
 group :development do
+  gem "faker"
   gem "capistrano"
   gem "capistrano-ext"
   gem "wirble"

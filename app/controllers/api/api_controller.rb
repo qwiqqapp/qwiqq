@@ -41,5 +41,13 @@ class Api::ApiController < ActionController::Base
     id == "current" ? current_user : User.find(id)
   end
 
+  def paginate(collection)
+    if params[:page]
+      response.headers["X-Page_count"] = (collection.count / collection.per_page.to_f).ceil.to_s
 
+      collection.paginate(:page => params[:page])
+    else
+      collection
+    end
+  end
 end

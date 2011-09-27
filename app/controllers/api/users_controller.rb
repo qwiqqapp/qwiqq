@@ -45,20 +45,21 @@ class Api::UsersController < Api::ApiController
   def followers
     requested_user
     @followers = @user.followers.sorted
-    respond_with @followers
+    respond_with paginate(@followers)
   end
 
   def following
     requested_user
     @following = @user.following.sorted
-    respond_with @following
+    respond_with paginate(@following)
   end
 
   def friends
     requested_user
     @friends = @user.friends
-    respond_with @friends
+    respond_with paginate(@friends)
   end
+
   
 end
 
