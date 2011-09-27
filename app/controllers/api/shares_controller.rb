@@ -9,8 +9,7 @@ class Api::SharesController < Api::ApiController
         @user.shares.create(:deal => @deal, :service => "facebook") if params[:facebook]
         false
       rescue Koala::Facebook::APIError => e
-        logger.info "#{current_user.email} has an invalid Facebook token."
-        e.message =~ /session has been invalidated/
+        e.message =~ /Error validating access token/
       end 
 
     # twitter
@@ -29,6 +28,7 @@ class Api::SharesController < Api::ApiController
     end
 
     if facebook_token_invalid
+      logger.info "#{current_user.email} has an invalid Facebook token."
       render :status => 422, :json => { :error => "Invalid Facebook access token." }
     else
       head :ok

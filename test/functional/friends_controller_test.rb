@@ -33,9 +33,9 @@ class Api::FriendsControllerTest < ActionController::TestCase
     assert_equal Array, json_response.class
     assert_equal 4, json_response.size
 
-    assert_equal "user1@gastownlabs.com", json_response[0]["email"]
+    assert_equal @user1.id, json_response[0]["user_id"].to_i
     assert_equal "following", json_response[0]["state"]
-    assert_equal "user2@gastownlabs.com", json_response[1]["email"]
+    assert_equal @user2.id, json_response[1]["user_id"].to_i
     assert_equal "not_following", json_response[1]["state"]
     assert_equal({ "email" => "user3@gastownlabs.com", "state" => "not_invited" }, json_response[2])
     assert_equal({ "email" => "user4@gastownlabs.com", "state" => "invited" }, json_response[3])
@@ -73,9 +73,9 @@ class Api::FriendsControllerTest < ActionController::TestCase
     assert_equal Array, json_response.class
     assert_equal 2, json_response.size
 
-    assert_equal "user1@gastownlabs.com", json_response[0]["email"]
+    assert_equal @user1.id, json_response[0]["user_id"].to_i
     assert_equal "following", json_response[0]["state"]
-    assert_equal "user2@gastownlabs.com", json_response[1]["email"]
+    assert_equal @user2.id, json_response[1]["user_id"].to_i
     assert_equal "not_following", json_response[1]["state"]
   end
 
@@ -99,9 +99,9 @@ class Api::FriendsControllerTest < ActionController::TestCase
     assert_equal Array, json_response.class
     assert_equal 2, json_response.size
 
-    assert_equal "user1@gastownlabs.com", json_response[0]["email"]
+    assert_equal @user1.id, json_response[0]["user_id"].to_i
     assert_equal "following", json_response[0]["state"]
-    assert_equal "user2@gastownlabs.com", json_response[1]["email"]
+    assert_equal @user2.id, json_response[1]["user_id"].to_i
     assert_equal "not_following", json_response[1]["state"]
   end
 
