@@ -29,8 +29,8 @@ class DatabaseDumper
     def mysql_options
       cmd = ""
       cmd += " -u #{@config[:username]}" unless @config[:username].nil?
-      cmd += " -p '#{@config[:password]}'" unless @config[:password].nil?
-      cmd += " -h '#{@config[:host]}'" unless @config[:host].nil?
+      cmd += " -p#{@config[:password]}" unless @config[:password].nil?
+      cmd += " -h #{@config[:host]}" unless @config[:host].nil?
       cmd += " #{@config[:database]}"
     end
 end
