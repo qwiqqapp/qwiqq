@@ -66,7 +66,7 @@ class BackupStore
 end
 
 namespace :db do
-  desc "Creates a dump of the current environments database and pushes it to S3"
+  desc "Creates a dump of the current environment's database and pushes it to S3"
   task :backup do
     name = "qwiqq-#{Time.now.utc.strftime("%Y%m%d%H%M")}.sql.gz"
     dumper = DatabaseDumper.new
@@ -74,7 +74,7 @@ namespace :db do
     store.save dumper.dump, name
   end
 
-  desc "Restores the current environments database from the most recent dump found in S3"
+  desc "Restores the current environment's database from the most recent dump found in S3"
   task :restore do
     raise "Not in production!" if Rails.env.production?
     dumper = DatabaseDumper.new

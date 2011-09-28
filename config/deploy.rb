@@ -123,7 +123,7 @@ namespace :deploy do
   end
 
   task :update_crontab, :roles => [ :search ] do
-    run "cd #{release_path} && bundle exec whenever --update-crontab #{application}"
+    run "cd #{current_path} && bundle exec whenever --write-crontab #{application}"
   end
 end
 
@@ -137,8 +137,8 @@ def prompt(message, default)
   response.empty? ? default : response
 end
 
-after "deploy:update_code", "deploy:copy_config", "ts:configure", "deploy:update_crontab"
-after "deploy:update", "newrelic:notice_deployment"
+after "deploy:update_code", "deploy:copy_config", "ts:configure"
+after "deploy:update", "newrelic:notice_deployment", "deploy:update_crontab"
 after "deploy:symlink", "geo_ip:symlink"
 after "deploy:restart", "unicorn:reload", "resque:restart", "papertrail:restart", "ts:restart", "apn:restart"
 after "deploy:start", "unicorn:start", "resque:start", "ts:start", "apn:start"
