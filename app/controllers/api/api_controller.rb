@@ -42,7 +42,10 @@ class Api::ApiController < ActionController::Base
   end
 
   def paginate(collection)
-    if params[:page]
+    if collection.is_a? ThinkingSphinx::Search
+      response.headers["X-Pages"] = collection.total_pages.to_s
+      collection
+    elsif params[:page]
       result = collection.page(params[:page])
 
       response.headers["X-Pages"] = (collection.count / result.default_per_page.to_f).ceil.to_s

@@ -6,7 +6,8 @@ class Api::DealsController < Api::ApiController
     (c.current_user.try(:cache_key) || "guest") + "/" + c.find_deal.cache_key
   } # expires automatically when users cache key changes or deals cache key changes
 
-  caches_action :index, :cache_path => lambda {|c| "#{requested_user.cache_key}/deals"}
+  caches_action :index, :cache_path => lambda {|c| "#{requested_user.cache_key}/deals"}, 
+    :unless => lambda {|c| c.params[:page] }
 
   def find_deal
     @deal ||= Deal.find(params[:id])
@@ -29,7 +30,7 @@ class Api::DealsController < Api::ApiController
   
   def feed
     @feedlets = current_user.feedlets.includes(:deal).limit(40).order("feedlets.timestamp DESC")
-    render :json => @feedlets.map {|f| f.as_json(:minimal => true) }.compact
+    render :json => paginate(@feedlets).map {|f| f.as_json(:minimal => true) }.compact
   end
   
   def show

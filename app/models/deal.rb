@@ -177,10 +177,11 @@ class Deal < ActiveRecord::Base
   end
   
   # TODO merge this with filtered_search
-  def self.category_search(name, lat, lon)
+  def self.category_search(name, lat, lon, opts = {})
     # required
-    opts          = {:conditions => {:category => name}}
+    opts.merge!({:conditions => {:category => name}})
     opts[:order]  = "@relevance DESC"
+    opts.delete(:page) if opts[:page].nil?
     
     # optional
     if lat && lon
@@ -189,13 +190,14 @@ class Deal < ActiveRecord::Base
       #opts[:with]   = {"@geodist" => 0.0..10_000.0}
     end
     
-    self.search(opts).compact
+    self.search(opts)
   end
   
-  def self.filtered_search(query, filter, lat=nil, lon=nil)
+  def self.filtered_search(query, filter, lat=nil, lon=nil, opts = {})
     return [] if query.blank?
     
-    opts  = {:conditions => {:name => query}}
+    opts.merge!({:conditions => {:name => query}})
+    opts.delete(:page) if opts[:page].nil?
     
     case filter
       when 'newest'
@@ -218,7 +220,7 @@ class Deal < ActiveRecord::Base
     
     # compact to remove stale deals returned by TS
     # TS has retry option but it's time expensive
-    self.search(opts).compact
+    self.search(opts)
   end
 
   def self.nearby(lat, lon)
