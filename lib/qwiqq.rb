@@ -1,5 +1,6 @@
 require "active_record_strip_attrs_extension"
 require "nginx_content_length_fix"
+require "foursquare"
 
 module Qwiqq
   # application-wide redis client
@@ -45,6 +46,12 @@ module Qwiqq
 
   def self.friendly_token(size = 20)
     ActiveSupport::SecureRandom.base64(size).gsub(/[^0-9a-z"]/i, '')
+  end
+  
+  def self.foursquare_client
+    Foursquare.new(
+      ENV["FOURSQUARE_CLIENT_ID"], 
+      ENV["FOURSQUARE_CLIENT_SECRET"])
   end
 end
 
