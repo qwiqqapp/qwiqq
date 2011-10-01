@@ -76,7 +76,6 @@ group :development do
   gem "faker"
   gem "capistrano"
   gem "capistrano-ext"
-  gem "wirble"
 end
 
 

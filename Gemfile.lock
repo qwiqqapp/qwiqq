@@ -242,7 +242,6 @@ GEM
     whenever (0.7.0)
       activesupport (>= 2.3.4)
       chronic (~> 0.6.3)
-    wirble (0.1.3)
     xml-simple (1.1.0)
     yamler (0.1.0)
 
@@ -293,4 +292,3 @@ DEPENDENCIES
   twitter (= 1.6.0)
   unicorn
   whenever
-  wirble

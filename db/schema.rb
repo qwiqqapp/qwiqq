@@ -108,8 +108,8 @@ ActiveRecord::Schema.define(:version => 20110927175608) do
     t.integer  "comments_count",     :default => 0
     t.integer  "likes_count",        :default => 0
     t.string   "location_name"
-    t.datetime "indexed_at"
     t.string   "unique_token"
+    t.datetime "indexed_at"
   end
 
   add_index "deals", ["likes_count", "comments_count"], :name => "index_deals_on_likes_count_and_comments_count"
