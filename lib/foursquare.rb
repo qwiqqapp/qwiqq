@@ -14,11 +14,6 @@ class Foursquare
       :ll => "#{lon},#{lat}", 
       :client_id => @client_id, 
       :client_secret => @client_secret } } )
-    
-    pp response.body
-    pp response.parsed_body
-    pp response
-      
     response["response"]
   end
 end
