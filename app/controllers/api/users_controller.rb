@@ -27,7 +27,9 @@ class Api::UsersController < Api::ApiController
     if @user.save
       session[:user_id] = @user.id
     end
-    respond_with :api, @user
+    respond_with :api, @user do
+      render :status => :created, :json => @user.as_json(:current_user => current_user) and return if @user.valid?
+    end
   end
 
   def update
@@ -36,7 +38,9 @@ class Api::UsersController < Api::ApiController
     @user = current_user
     @user.update_attributes(params[:user])
     respond_with(:api, @user) do
-      render :json => @user.as_json(:current_user => current_user) and return if @user.valid?
+      if @user.valid?
+        render :json => @user.as_json(:current_user => current_user) and return
+      end
     end
   end
   
