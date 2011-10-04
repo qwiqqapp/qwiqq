@@ -50,8 +50,8 @@ module Qwiqq
   
   def self.foursquare_client
     Foursquare.new(
-      ENV["FOURSQUARE_CLIENT_ID"], 
-      ENV["FOURSQUARE_CLIENT_SECRET"])
+      :client_id => ENV["FOURSQUARE_CLIENT_ID"], 
+      :client_secret => ENV["FOURSQUARE_CLIENT_SECRET"])
   end
 end
 

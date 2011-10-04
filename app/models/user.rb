@@ -48,6 +48,7 @@ class User < ActiveRecord::Base
                   :facebook_access_token,
                   :twitter_access_token, 
                   :twitter_access_secret,
+                  :foursquare_access_token,
                   :send_notifications, 
                   :bio,
                   :push_token
@@ -58,6 +59,7 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
   before_save :update_twitter_id
   before_save :update_facebook_id
+  before_save :update_foursquare_id
   before_save :update_notifications_token
   after_save :update_push_token # may be called on create and we need user_id to create an APN::Device
   
@@ -178,22 +180,23 @@ class User < ActiveRecord::Base
     options ||= {}
     options.reverse_merge!(:deals => false, :comments => false)
     json = {
-      :user_id             => id.try(:to_s),
-      :first_name          => first_name,
-      :last_name           => last_name,
-      :user_name           => username,
-      :city                => city,
-      :bio                 => bio,
-      :country             => country,
-      :created_at          => created_at,
-      :updated_at          => updated_at,
-      :join_date           => created_at.to_date.to_s(:long).gsub(/\s+/, " "),
-      :send_notifications  => send_notifications,
-      :facebook_authorized => !facebook_access_token.blank?,
-      :twitter_authorized  => !twitter_access_token.blank?,
-      :followers_count     => followers_count,
-      :following_count     => following_count,
-      :friends_count       => friends_count,
+      :user_id               => id.try(:to_s),
+      :first_name            => first_name,
+      :last_name             => last_name,
+      :user_name             => username,
+      :city                  => city,
+      :bio                   => bio,
+      :country               => country,
+      :created_at            => created_at,
+      :updated_at            => updated_at,
+      :join_date             => created_at.to_date.to_s(:long).gsub(/\s+/, " "),
+      :send_notifications    => send_notifications,
+      :facebook_authorized   => !facebook_access_token.blank?,
+      :twitter_authorized    => !twitter_access_token.blank?,
+      :foursquare_authorized => !foursquare_access_token.blank?,
+      :followers_count       => followers_count,
+      :following_count       => following_count,
+      :friends_count         => friends_count,
 
       # user detail photo
       :photo               => photo.url(:iphone),
@@ -241,6 +244,10 @@ class User < ActiveRecord::Base
       :consumer_secret => Qwiqq.twitter_consumer_secret, 
       :oauth_token => twitter_access_token, 
       :oauth_token_secret => twitter_access_secret)
+  end
+
+  def foursquare_client
+    @foursquare_client ||= Foursquare.new(:access_token => foursquare_access_token)
   end
   
   def twitter_friend_ids
@@ -292,8 +299,16 @@ class User < ActiveRecord::Base
       if facebook_access_token.blank?
         self.facebook_id = ""
       else
-        fb_account = facebook_client.get_object("me") rescue nil
-        self.facebook_id = fb_account["id"] if fb_account
+        me = facebook_client.get_object("me") rescue nil
+        self.facebook_id = me["id"] if me
+      end
+    end
+
+    def update_foursquare_id
+      return unless foursquare_access_token_changed?
+      unless foursquare_access_token.blank?
+        response = foursquare_client.users("self")
+        self.foursquare_id = response["user"]["id"]
       end
     end
 

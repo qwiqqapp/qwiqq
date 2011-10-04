@@ -4,9 +4,10 @@ class Foursquare
   base_uri "https://api.foursquare.com/v2"
   default_params :v => "20110930" # see http://bit.ly/lZx3NU
 
-  def initialize(client_id, client_secret)
-    @client_id = client_id
-    @client_secret = client_secret
+  def initialize(options)
+    @client_id = options[:client_id]
+    @client_secret = options[:client_secret]
+    @access_token = options[:access_token]
   end
   
   def search_venues(lon, lat)
@@ -14,6 +15,12 @@ class Foursquare
       :ll => "#{lon},#{lat}", 
       :client_id => @client_id, 
       :client_secret => @client_secret } } )
+    response["response"]
+  end
+
+  def users(user_id)
+    response = self.class.get("/users/#{user_id}", { :query => { 
+      :oauth_token => @access_token }})
     response["response"]
   end
 end
