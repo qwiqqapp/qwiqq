@@ -279,9 +279,7 @@ class User < ActiveRecord::Base
   private
     def update_twitter_id
       return unless twitter_access_token_changed?
-      if twitter_access_token.blank?
-         self.twitter_id = ""
-      else
+      unless twitter_access_token.blank?
         twitter_user = twitter_client.user rescue nil
         self.twitter_id = twitter_user.id.to_s if twitter_user
       end
@@ -296,9 +294,7 @@ class User < ActiveRecord::Base
   
     def update_facebook_id
       return unless facebook_access_token_changed?
-      if facebook_access_token.blank?
-        self.facebook_id = ""
-      else
+      unless facebook_access_token.blank?
         me = facebook_client.get_object("me") rescue nil
         self.facebook_id = me["id"] if me
       end
