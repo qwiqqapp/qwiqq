@@ -23,5 +23,22 @@ class Foursquare
       :oauth_token => @access_token }})
     response["response"]
   end
+
+  def checkin(venue_id, shout)
+    response = self.class.post("/checkins/add", { :query => { 
+      :venueId => venue_id,
+      :shout => shout,
+      :broadcast => "public",
+      :oauth_token => @access_token }})
+    response["response"]
+  end
+
+  def shout(shout)
+    response = self.class.post("/checkins/add", { :query => { 
+      :shout => shout,
+      :broadcast => "public",
+      :oauth_token => @access_token }})
+    response["response"]
+  end
 end
 

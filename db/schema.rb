@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111004203807) do
+ActiveRecord::Schema.define(:version => 20111005201734) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -182,13 +182,14 @@ ActiveRecord::Schema.define(:version => 20111004203807) do
   add_index "reposts", ["user_id"], :name => "index_reposts_on_user_id"
 
   create_table "shares", :force => true do |t|
-    t.integer  "user_id",    :null => false
-    t.integer  "deal_id",    :null => false
-    t.string   "service",    :null => false
+    t.integer  "user_id",             :null => false
+    t.integer  "deal_id",             :null => false
+    t.string   "service",             :null => false
     t.string   "email"
     t.datetime "created_at"
     t.datetime "shared_at"
     t.string   "number"
+    t.string   "foursquare_venue_id"
   end
 
   create_table "users", :force => true do |t|
