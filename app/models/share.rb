@@ -90,10 +90,6 @@ class Share < ActiveRecord::Base
     self.service == "facebook"
   end
 
-  def foursquare_share?
-    self.service == "foursquare"
-  end
-
   def async_deliver
     Resque.enqueue(ShareDeliveryJob, self.id)
   end
