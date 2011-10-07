@@ -5,7 +5,7 @@ class Api::VenuesController < Api::ApiController
     response = Qwiqq.foursquare_client.search_venues(params[:lon], params[:lat])
 
     venues = []
-    response["venues"].each do |venue|
+    (response["venues"] || []).each do |venue|
       #foursquare_category = venue["categories"].first {|c| c["primary"] }
       #category = convert_foursquare_category(foursquare_category) unless foursquare_category.nil? 
       venues << { 
