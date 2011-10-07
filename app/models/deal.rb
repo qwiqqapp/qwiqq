@@ -23,7 +23,7 @@ class Deal < ActiveRecord::Base
   has_many :feedlets, :dependent => :destroy
   
   #TODO update to 3.1 and use role based attr_accessible for premium
-  attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent
+  attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent, :foursquare_venue_id
   
   # TODO update to 3.0 validates method
   validates_presence_of   :user, :category, :name, :message => "is required"
