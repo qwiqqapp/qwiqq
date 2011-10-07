@@ -12,7 +12,7 @@ class Foursquare
   
   def search_venues(lon, lat)
     response = self.class.get("/venues/search", { :query => { 
-      :ll => "#{lon},#{lat}", 
+      :ll => "#{lat},#{lon}", 
       :client_id => @client_id, 
       :client_secret => @client_secret } } )
     response["response"]
