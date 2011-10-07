@@ -13,6 +13,8 @@ class Api::VenuesController < Api::ApiController
         name: venue["name"], 
         category: "", #category || "",
         icon: "", #foursquare_category["icon"]
+        address: venue["location"]["address"],
+        distance: venue["location"]["distance"]
       }
     end
 
