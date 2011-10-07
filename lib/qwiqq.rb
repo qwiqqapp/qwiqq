@@ -53,5 +53,13 @@ module Qwiqq
       :client_id => ENV["FOURSQUARE_CLIENT_ID"], 
       :client_secret => ENV["FOURSQUARE_CLIENT_SECRET"])
   end
+
+  def self.convert_foursquare_category(foursquare_category_name)
+    self.foursquare_categories[foursquare_category_name]
+  end
+
+  def self.foursquare_categories
+    @foursquare_categories ||= YAML.load_file(Rails.root.join("config", "foursquare_categories.yml"))
+  end
 end
 

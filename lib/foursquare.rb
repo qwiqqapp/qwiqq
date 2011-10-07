@@ -15,7 +15,14 @@ class Foursquare
       :ll => "#{lon},#{lat}", 
       :client_id => @client_id, 
       :client_secret => @client_secret } } )
-    response["response"]
+    response["response"]["venues"]
+  end
+
+  def categories
+    response = self.class.get("/venues/categories", { :query => {
+      :client_id => @client_id, 
+      :client_secret => @client_secret } } )
+    response["response"]["categories"]
   end
 
   def users(user_id)
