@@ -6,13 +6,13 @@ class Api::VenuesController < Api::ApiController
 
     venues = []
     response["venues"].each do |venue|
-      foursquare_category = venue["categories"].first {|c| c["primary"] }
-      category = convert_foursquare_category(foursquare_category) unless foursquare_category.nil? 
+      #foursquare_category = venue["categories"].first {|c| c["primary"] }
+      #category = convert_foursquare_category(foursquare_category) unless foursquare_category.nil? 
       venues << { 
         foursquare_id: venue["id"],
         name: venue["name"], 
-        category: category || "",
-        icon: foursquare_category["icon"]
+        category: "", #category || "",
+        icon: "", #foursquare_category["icon"]
       }
     end
 
