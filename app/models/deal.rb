@@ -137,7 +137,8 @@ class Deal < ActiveRecord::Base
       :age            => age.gsub("about ", ""),
       :short_age      => short_created_at,
       :location_name  => location_name,
-      :user           => options[:minimal] ? nil : user.try(:as_json, :deals => false)
+      :user           => options[:minimal] ? nil : user.try(:as_json, :deals => false),
+      :repost_count   => reposts_count
     }
 
     return json if options[:minimal]
