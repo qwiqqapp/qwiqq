@@ -10,9 +10,10 @@ class Foursquare
     @access_token = options[:access_token]
   end
   
-  def search_venues(lon, lat)
+  def search_venues(lat, lon, query = "")
     response = self.class.get("/venues/search", { :query => { 
       :ll => "#{lat},#{lon}", 
+      :query => query,
       :client_id => @client_id, 
       :client_secret => @client_secret } } )
     response["response"]["venues"]
