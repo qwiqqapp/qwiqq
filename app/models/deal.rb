@@ -38,6 +38,7 @@ class Deal < ActiveRecord::Base
   
   before_validation :store_unique_token!, :on => :create
   before_create :geodecode_location_name!
+  before_create :set_user_photo
 
   after_create :populate_feed
   
@@ -54,6 +55,12 @@ class Deal < ActiveRecord::Base
                   :posting_user_id => posting_user.id, 
                   :reposted_by => repost ? posting_user.username : nil, 
                   :timestamp => repost ? repost.created_at : self.created_at)})
+  end
+
+
+  def set_user_photo
+    self.user_photo = self.user.photo(:iphone_small)
+    self.user_photo_2x = self.user.photo(:iphone_small_2x)
   end
 
   # all images are cropped
@@ -109,6 +116,9 @@ class Deal < ActiveRecord::Base
       # deal detail zoom
       :photo_zoom     => photo.url(:iphone_zoom),
       :photo_zoom_2x  => photo.url(:iphone_zoom_2x),
+
+      :user_photo     => user_photo,
+      :user_photo_2x  => user_photo_2x,
       
       :distance       => sphinx_geo_distance(:miles),
       :score          => sphinx_geo_distance(:miles),   #legacy attribute from indextank should be deprecated
