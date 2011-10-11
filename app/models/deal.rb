@@ -117,6 +117,10 @@ class Deal < ActiveRecord::Base
       :photo_zoom     => photo.url(:iphone_zoom),
       :photo_zoom_2x  => photo.url(:iphone_zoom_2x),
 
+      # app v2
+      :photo_explore  => photo.url(:iphone_explore),
+      :photo_explore_2x => photo.url(:iphone_explore_2x),
+
       :user_photo     => user_photo,
       :user_photo_2x  => user_photo_2x,
       
