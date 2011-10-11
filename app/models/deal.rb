@@ -69,6 +69,7 @@ class Deal < ActiveRecord::Base
       # deal detail view
       :iphone_profile => ["85x85#", :jpg],
       :iphone_profile_2x => ["170x170#", :jpg],
+
       
       # feed, browse, search list views
       :iphone_list => ["55x55#", :jpg],
@@ -76,7 +77,11 @@ class Deal < ActiveRecord::Base
      
       # zoomed image size
       :iphone_zoom => ["300x300#", :jpg],
-      :iphone_zoom_2x => ["600x600#", :jpg] 
+      :iphone_zoom_2x => ["600x600#", :jpg] ,
+
+      # app v2
+      :iphone_explore => ['95x95#', :jpg],
+      :iphone_explore_2x => ['190x190#', :jpg]
     }
   }.merge(PAPERCLIP_STORAGE_OPTIONS)
 
