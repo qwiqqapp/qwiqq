@@ -173,9 +173,9 @@ class UserTest < ActiveSupport::TestCase
   test "should update #foursquare_id when #facebook_access_token changes" do
     @user = Factory(:user)
     
-    foursquare_response = { "user" => { "id" => "1" }}
+    foursquare_response = { "id" => "1" }
     foursquare_client = mock()
-    foursquare_client.expects(:users).with("self").returns(foursquare_response)
+    foursquare_client.expects(:user).with("self").returns(foursquare_response)
     @user.stubs(:foursquare_client).returns(foursquare_client)
     @user.update_attributes(:foursquare_access_token => "token")
     

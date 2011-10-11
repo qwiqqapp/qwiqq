@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111007212659) do
+ActiveRecord::Schema.define(:version => 20111011194126) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -102,14 +102,17 @@ ActiveRecord::Schema.define(:version => 20111007212659) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.boolean  "premium",             :default => false
+    t.boolean  "premium",              :default => false
     t.float    "lat"
     t.float    "lon"
-    t.integer  "comments_count",      :default => 0
-    t.integer  "likes_count",         :default => 0
+    t.integer  "comments_count",       :default => 0
+    t.integer  "likes_count",          :default => 0
     t.string   "location_name"
     t.string   "unique_token"
+    t.datetime "indexed_at"
     t.string   "foursquare_venue_id"
+    t.float    "foursquare_venue_lat"
+    t.float    "foursquare_venue_lon"
   end
 
   add_index "deals", ["likes_count", "comments_count"], :name => "index_deals_on_likes_count_and_comments_count"

@@ -23,7 +23,7 @@ class Deal < ActiveRecord::Base
   has_many :feedlets, :dependent => :destroy
   
   #TODO update to 3.1 and use role based attr_accessible for premium
-  attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent, :foursquare_venue_id
+  attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent, :foursquare_venue_id, :foursquare_venue_lat, :foursquare_venue_lon, :location_name
   
   # TODO update to 3.0 validates method
   validates_presence_of   :user, :category, :name, :message => "is required"
@@ -37,10 +37,9 @@ class Deal < ActiveRecord::Base
   validates :price, :numericality => true, :if => :has_price?
   
   before_validation :store_unique_token!, :on => :create
-  before_create :geodecode_location_name!
-
   after_create :populate_feed
-  
+  after_create :async_locate
+
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   scope :premium, where(:premium => true)
   scope :search_by_name, lambda { |query| where([ 'UPPER(name) like ?', "%#{query.upcase}%" ]) }
@@ -229,19 +228,43 @@ class Deal < ActiveRecord::Base
                 :max_matches => 15).compact
   end
   
-  def self.geodecode_location_name(lat, lon)
-    loc = GeoKit::Geocoders::MultiGeocoder.reverse_geocode([ lat, lon ])
-    "#{loc.street_name}, #{loc.city}" if loc.success?
+  def locate_via_foursquare!
+    venue = Qwiqq.foursquare_client.venue(foursquare_venue_id) if foursquare_venue_id
+    if venue
+      update_attributes(
+        :foursquare_venue_lat => venue["location"]["lat"],
+        :foursquare_venue_lon => venue["location"]["lng"],
+        :location_name => location_name || venue["name"])
+    end
   end
-  
+
+  def locate_via_coords!
+    return unless location_name.blank?
+    loc = GeoKit::Geocoders::MultiGeocoder.reverse_geocode([ lat, lon ])
+    if loc.success?
+      location_name = loc.city
+      location_name = "#{loc.street_name}, #{location_name}" if loc.street_name
+      update_attribute(:location_name, location_name)
+    end
+  end
+
+  def locate!
+    # locate using either foursquare, or coords
+    if foursquare_venue_id
+      locate_via_foursquare!
+    else
+      locate_via_coords!
+    end
+  end
+
+  def async_locate
+    Resque.enqueue(LocateDealJob, id)
+  end
+
   private
   def self.geo_radians(lat, lon)
     [ (lat.to_f / 180.0) * Math::PI, 
       (lon.to_f / 180.0) * Math::PI] 
-  end
-  
-  def geodecode_location_name!
-    self[:location_name] = Deal.geodecode_location_name(lat, lon) if location_name.blank?
   end
   
   def store_unique_token!
@@ -265,6 +288,6 @@ class Deal < ActiveRecord::Base
   
   def has_price_or_percentage
     errors.add(:base, "Price or percent required") if price.blank? && percent.blank?
-  end
+  end  
 end
 

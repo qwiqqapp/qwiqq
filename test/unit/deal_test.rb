@@ -59,6 +59,21 @@ class DealTest < ActiveSupport::TestCase
     end
     assert_equal [], @deals
   end
-  
-  
+
+  test "can be located via Foursquare" do
+    venue = { "name" => "Nuba", "location" => { "lat" => 49.282867, "lng" => -123.109587 } }
+    foursquare_client = mock
+    foursquare_client.expects(:venue).with("4aa7fe08f964a520914e20e3").returns(venue)
+    Qwiqq.expects(:foursquare_client).returns(foursquare_client)
+
+    @deal = Factory(:deal, :location_name => nil, :foursquare_venue_id => "4aa7fe08f964a520914e20e3")
+    @deal.locate_via_foursquare!
+    @deal.reload # reload to make sure changes were commmited
+
+    assert_in_delta 49.282867, @deal.foursquare_venue_lat, 0.01
+    assert_in_delta -123.109587, @deal.foursquare_venue_lon, 0.01
+    assert_equal "Nuba", @deal.location_name
+  end
+ 
 end
+

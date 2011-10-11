@@ -303,8 +303,8 @@ class User < ActiveRecord::Base
     def update_foursquare_id
       return unless foursquare_access_token_changed?
       unless foursquare_access_token.blank?
-        response = foursquare_client.users("self")
-        self.foursquare_id = response["user"]["id"]
+        user = foursquare_client.user("self")
+        self.foursquare_id = user["id"]
       end
     end
 

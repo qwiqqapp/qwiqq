@@ -9,6 +9,13 @@ class Foursquare
     @client_secret = options[:client_secret]
     @access_token = options[:access_token]
   end
+
+  def venue(venue_id)
+    response = self.class.get("/venues/#{venue_id}", { :query => {
+      :client_id => @client_id, 
+      :client_secret => @client_secret } } )
+    response["response"]["venue"]
+  end
   
   def search_venues(lat, lon, query = "")
     response = self.class.get("/venues/search", { :query => { 
@@ -26,10 +33,10 @@ class Foursquare
     response["response"]["categories"]
   end
 
-  def users(user_id)
+  def user(user_id)
     response = self.class.get("/users/#{user_id}", { :query => { 
       :oauth_token => @access_token }})
-    response["response"]
+    response["response"]["user"]
   end
 
   def checkin(venue_id, shout)
