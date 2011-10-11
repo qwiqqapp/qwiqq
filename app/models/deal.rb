@@ -138,7 +138,8 @@ class Deal < ActiveRecord::Base
       :short_age      => short_created_at,
       :location_name  => location_name,
       :user           => options[:minimal] ? nil : user.try(:as_json, :deals => false),
-      :repost_count   => reposts_count
+      :repost_count   => reposts_count,
+      :share_count    => shares_count
     }
 
     return json if options[:minimal]
