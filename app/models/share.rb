@@ -1,6 +1,6 @@
 class Share < ActiveRecord::Base
   belongs_to :user
-  belongs_to :deal
+  belongs_to :deal, :counter_cache => true, :touch => true
 
   validates :service, :inclusion => [ "email", "twitter", "facebook", "sms", "foursquare" ]
 

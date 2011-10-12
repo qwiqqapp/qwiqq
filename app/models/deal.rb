@@ -37,6 +37,8 @@ class Deal < ActiveRecord::Base
   validates :price, :numericality => true, :if => :has_price?
   
   before_validation :store_unique_token!, :on => :create
+
+  before_create :set_user_photo
   after_create :populate_feed
   after_create :async_locate
 
@@ -55,6 +57,12 @@ class Deal < ActiveRecord::Base
                   :timestamp => repost ? repost.created_at : self.created_at)})
   end
 
+
+  def set_user_photo
+    self.user_photo = self.user.photo(:iphone_small)
+    self.user_photo_2x = self.user.photo(:iphone_small_2x)
+  end
+
   # all images are cropped
   # see initializers/auto_orient.rb for new processor
   #  TODO review all image sizes, need to reduce/reuse
@@ -68,6 +76,7 @@ class Deal < ActiveRecord::Base
       # deal detail view
       :iphone_profile => ["85x85#", :jpg],
       :iphone_profile_2x => ["170x170#", :jpg],
+
       
       # feed, browse, search list views
       :iphone_list => ["55x55#", :jpg],
@@ -75,7 +84,11 @@ class Deal < ActiveRecord::Base
      
       # zoomed image size
       :iphone_zoom => ["300x300#", :jpg],
-      :iphone_zoom_2x => ["600x600#", :jpg] 
+      :iphone_zoom_2x => ["600x600#", :jpg] ,
+
+      # app v2
+      :iphone_explore => ['95x95#', :jpg],
+      :iphone_explore_2x => ['190x190#', :jpg]
     }
   }.merge(PAPERCLIP_STORAGE_OPTIONS)
 
@@ -103,6 +116,13 @@ class Deal < ActiveRecord::Base
       # deal detail zoom
       :photo_zoom     => photo.url(:iphone_zoom),
       :photo_zoom_2x  => photo.url(:iphone_zoom_2x),
+
+      # app v2
+      :photo_explore  => photo.url(:iphone_explore),
+      :photo_explore_2x => photo.url(:iphone_explore_2x),
+
+      :user_photo     => user_photo,
+      :user_photo_2x  => user_photo_2x,
       
       :distance       => sphinx_geo_distance(:miles),
       :score          => sphinx_geo_distance(:miles),   #legacy attribute from indextank should be deprecated
@@ -117,7 +137,9 @@ class Deal < ActiveRecord::Base
       :age            => age.gsub("about ", ""),
       :short_age      => short_created_at,
       :location_name  => location_name,
-      :user           => options[:minimal] ? nil : user.try(:as_json, :deals => false)
+      :user           => options[:minimal] ? nil : user.try(:as_json, :deals => false),
+      :repost_count   => reposts_count,
+      :share_count    => shares_count
     }
 
     return json if options[:minimal]

@@ -85,7 +85,11 @@ class User < ActiveRecord::Base
                                   
       # large image for zoom
       :iphone_zoom => ["300x300#", :jpg],
-      :iphone_zoom_2x => ["600x600#", :jpg]
+      :iphone_zoom_2x => ["600x600#", :jpg],
+
+      # app v2
+      :iphone_small => ["40x40#", :jpg],
+      :iphone_small_2x => ["80x80#", :jpg]
     }
   }.merge(PAPERCLIP_STORAGE_OPTIONS)
 
@@ -209,6 +213,9 @@ class User < ActiveRecord::Base
       # profile image on deal detail screen
       :photo_profile     => photo.url(:iphone_profile),
       :photo_profile_2x  => photo.url(:iphone_profile_2x),      
+
+      :photo_small => photo.url(:iphone_small),
+      :photo_small_2x => photo.url(:iphone_small_2x),
       
       # counts
       :like_count          => likes_count,
