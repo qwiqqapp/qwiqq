@@ -1,8 +1,8 @@
 class Share < ActiveRecord::Base
   belongs_to :user
-  belongs_to :deal
+  belongs_to :deal, :counter_cache => true, :touch => true
 
-  validates :service, :inclusion => [ "email", "twitter", "facebook", "sms" ]
+  validates :service, :inclusion => [ "email", "twitter", "facebook", "sms", "foursquare" ]
 
   # we share to facebook immediately so that we can provide the user with error messages
   before_create :deliver, :if => :facebook_share?
@@ -23,6 +23,8 @@ class Share < ActiveRecord::Base
       deliver_to_twitter
     when "sms"
       deliver_sms
+    when "foursquare"
+      deliver_to_foursquare
     when "email"
       Mailer.share_deal(email, self).deliver
     end
@@ -42,6 +44,21 @@ class Share < ActiveRecord::Base
       "picture" => deal.photo.url(:iphone_grid))
 
     self.shared_at = Time.now
+  end
+
+  def deliver_to_foursquare
+    # build the message (foursquare 'shouts' are also 140 chars)
+    message = Qwiqq.twitter_message(deal, user)
+    
+    # if a venue id is present, checkin otherwise 'shout'
+    if foursquare_venue_id.blank?
+      user.foursquare_client.shout(message)
+    else
+      user.foursquare_client.checkin(foursquare_venue_id, message)
+    end
+
+    # update
+    update_attribute(:shared_at, Time.now)
   end
 
   def deliver_to_twitter

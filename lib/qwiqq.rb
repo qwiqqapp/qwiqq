@@ -1,5 +1,6 @@
 require "active_record_strip_attrs_extension"
 require "nginx_content_length_fix"
+require "foursquare"
 
 module Qwiqq
   # application-wide redis client
@@ -45,6 +46,20 @@ module Qwiqq
 
   def self.friendly_token(size = 20)
     ActiveSupport::SecureRandom.base64(size).gsub(/[^0-9a-z"]/i, '')
+  end
+  
+  def self.foursquare_client
+    Foursquare.new(
+      :client_id => ENV["FOURSQUARE_CLIENT_ID"], 
+      :client_secret => ENV["FOURSQUARE_CLIENT_SECRET"])
+  end
+
+  def self.convert_foursquare_category(foursquare_category_name)
+    self.foursquare_categories[foursquare_category_name]
+  end
+
+  def self.foursquare_categories
+    @foursquare_categories ||= YAML.load_file(Rails.root.join("config", "foursquare_categories.yml"))
   end
 end
 

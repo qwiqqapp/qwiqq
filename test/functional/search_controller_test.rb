@@ -221,7 +221,6 @@ class Api::SearchControllerTest < ActionController::TestCase
 
     ThinkingSphinx::Test.run do
       get :deals, :q => 'beer', :filter => 'popular', :format => "json"
-      
 
       assert_equal 3,           json_response.size
       assert_equal @deal2.name, json_response.first['name']

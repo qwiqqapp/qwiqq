@@ -48,6 +48,7 @@ class User < ActiveRecord::Base
                   :facebook_access_token,
                   :twitter_access_token, 
                   :twitter_access_secret,
+                  :foursquare_access_token,
                   :send_notifications, 
                   :bio,
                   :push_token
@@ -58,6 +59,7 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
   before_save :update_twitter_id
   before_save :update_facebook_id
+  before_save :update_foursquare_id
   before_save :update_notifications_token
   after_save :update_push_token # may be called on create and we need user_id to create an APN::Device
   
@@ -83,7 +85,11 @@ class User < ActiveRecord::Base
                                   
       # large image for zoom
       :iphone_zoom => ["300x300#", :jpg],
-      :iphone_zoom_2x => ["600x600#", :jpg]
+      :iphone_zoom_2x => ["600x600#", :jpg],
+
+      # app v2
+      :iphone_small => ["40x40#", :jpg],
+      :iphone_small_2x => ["80x80#", :jpg]
     }
   }.merge(PAPERCLIP_STORAGE_OPTIONS)
 
@@ -178,22 +184,23 @@ class User < ActiveRecord::Base
     options ||= {}
     options.reverse_merge!(:deals => false, :comments => false)
     json = {
-      :user_id             => id.try(:to_s),
-      :first_name          => first_name,
-      :last_name           => last_name,
-      :user_name           => username,
-      :city                => city,
-      :bio                 => bio,
-      :country             => country,
-      :created_at          => created_at,
-      :updated_at          => updated_at,
-      :join_date           => created_at.to_date.to_s(:long).gsub(/\s+/, " "),
-      :send_notifications  => send_notifications,
-      :facebook_authorized => !facebook_access_token.blank?,
-      :twitter_authorized  => !twitter_access_token.blank?,
-      :followers_count     => followers_count,
-      :following_count     => following_count,
-      :friends_count       => friends_count,
+      :user_id               => id.try(:to_s),
+      :first_name            => first_name,
+      :last_name             => last_name,
+      :user_name             => username,
+      :city                  => city,
+      :bio                   => bio,
+      :country               => country,
+      :created_at            => created_at,
+      :updated_at            => updated_at,
+      :join_date             => created_at.to_date.to_s(:long).gsub(/\s+/, " "),
+      :send_notifications    => send_notifications,
+      :facebook_authorized   => !facebook_access_token.blank?,
+      :twitter_authorized    => !twitter_access_token.blank?,
+      :foursquare_authorized => !foursquare_access_token.blank?,
+      :followers_count       => followers_count,
+      :following_count       => following_count,
+      :friends_count         => friends_count,
 
       # user detail photo
       :photo               => photo.url(:iphone),
@@ -206,6 +213,9 @@ class User < ActiveRecord::Base
       # profile image on deal detail screen
       :photo_profile     => photo.url(:iphone_profile),
       :photo_profile_2x  => photo.url(:iphone_profile_2x),      
+
+      :photo_small => photo.url(:iphone_small),
+      :photo_small_2x => photo.url(:iphone_small_2x),
       
       # counts
       :like_count          => likes_count,
@@ -242,6 +252,10 @@ class User < ActiveRecord::Base
       :oauth_token => twitter_access_token, 
       :oauth_token_secret => twitter_access_secret)
   end
+
+  def foursquare_client
+    @foursquare_client ||= Foursquare.new(:access_token => foursquare_access_token)
+  end
   
   def twitter_friend_ids
     twitter_ids = []
@@ -272,9 +286,7 @@ class User < ActiveRecord::Base
   private
     def update_twitter_id
       return unless twitter_access_token_changed?
-      if twitter_access_token.blank?
-         self.twitter_id = ""
-      else
+      unless twitter_access_token.blank?
         twitter_user = twitter_client.user rescue nil
         self.twitter_id = twitter_user.id.to_s if twitter_user
       end
@@ -289,11 +301,17 @@ class User < ActiveRecord::Base
   
     def update_facebook_id
       return unless facebook_access_token_changed?
-      if facebook_access_token.blank?
-        self.facebook_id = ""
-      else
-        fb_account = facebook_client.get_object("me") rescue nil
-        self.facebook_id = fb_account["id"] if fb_account
+      unless facebook_access_token.blank?
+        me = facebook_client.get_object("me") rescue nil
+        self.facebook_id = me["id"] if me
+      end
+    end
+
+    def update_foursquare_id
+      return unless foursquare_access_token_changed?
+      unless foursquare_access_token.blank?
+        user = foursquare_client.user("self")
+        self.foursquare_id = user["id"]
       end
     end
 

@@ -23,7 +23,7 @@ class Deal < ActiveRecord::Base
   has_many :feedlets, :dependent => :destroy
   
   #TODO update to 3.1 and use role based attr_accessible for premium
-  attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent
+  attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent, :foursquare_venue_id, :foursquare_venue_lat, :foursquare_venue_lon, :location_name
   
   # TODO update to 3.0 validates method
   validates_presence_of   :user, :category, :name, :message => "is required"
@@ -37,10 +37,11 @@ class Deal < ActiveRecord::Base
   validates :price, :numericality => true, :if => :has_price?
   
   before_validation :store_unique_token!, :on => :create
-  before_create :geodecode_location_name!
 
+  before_create :set_user_photo
   after_create :populate_feed
-  
+  after_create :async_locate
+
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   scope :premium, where(:premium => true)
   scope :search_by_name, lambda { |query| where([ 'UPPER(name) like ?', "%#{query.upcase}%" ]) }
@@ -56,6 +57,12 @@ class Deal < ActiveRecord::Base
                   :timestamp => repost ? repost.created_at : self.created_at)})
   end
 
+
+  def set_user_photo
+    self.user_photo = self.user.photo(:iphone_small)
+    self.user_photo_2x = self.user.photo(:iphone_small_2x)
+  end
+
   # all images are cropped
   # see initializers/auto_orient.rb for new processor
   #  TODO review all image sizes, need to reduce/reuse
@@ -69,6 +76,7 @@ class Deal < ActiveRecord::Base
       # deal detail view
       :iphone_profile => ["85x85#", :jpg],
       :iphone_profile_2x => ["170x170#", :jpg],
+
       
       # feed, browse, search list views
       :iphone_list => ["55x55#", :jpg],
@@ -76,7 +84,11 @@ class Deal < ActiveRecord::Base
      
       # zoomed image size
       :iphone_zoom => ["300x300#", :jpg],
-      :iphone_zoom_2x => ["600x600#", :jpg] 
+      :iphone_zoom_2x => ["600x600#", :jpg] ,
+
+      # app v2
+      :iphone_explore => ['95x95#', :jpg],
+      :iphone_explore_2x => ['190x190#', :jpg]
     }
   }.merge(PAPERCLIP_STORAGE_OPTIONS)
 
@@ -104,6 +116,13 @@ class Deal < ActiveRecord::Base
       # deal detail zoom
       :photo_zoom     => photo.url(:iphone_zoom),
       :photo_zoom_2x  => photo.url(:iphone_zoom_2x),
+
+      # app v2
+      :photo_explore  => photo.url(:iphone_explore),
+      :photo_explore_2x => photo.url(:iphone_explore_2x),
+
+      :user_photo     => user_photo,
+      :user_photo_2x  => user_photo_2x,
       
       :distance       => sphinx_geo_distance(:miles),
       :score          => sphinx_geo_distance(:miles),   #legacy attribute from indextank should be deprecated
@@ -118,7 +137,9 @@ class Deal < ActiveRecord::Base
       :age            => age.gsub("about ", ""),
       :short_age      => short_created_at,
       :location_name  => location_name,
-      :user           => options[:minimal] ? nil : user.try(:as_json, :deals => false)
+      :user           => options[:minimal] ? nil : user.try(:as_json, :deals => false),
+      :repost_count   => reposts_count,
+      :share_count    => shares_count
     }
 
     return json if options[:minimal]
@@ -229,19 +250,43 @@ class Deal < ActiveRecord::Base
                 :max_matches => 15).compact
   end
   
-  def self.geodecode_location_name(lat, lon)
-    loc = GeoKit::Geocoders::MultiGeocoder.reverse_geocode([ lat, lon ])
-    "#{loc.street_name}, #{loc.city}" if loc.success?
+  def locate_via_foursquare!
+    venue = Qwiqq.foursquare_client.venue(foursquare_venue_id) if foursquare_venue_id
+    if venue
+      update_attributes(
+        :foursquare_venue_lat => venue["location"]["lat"],
+        :foursquare_venue_lon => venue["location"]["lng"],
+        :location_name => location_name || venue["name"])
+    end
   end
-  
+
+  def locate_via_coords!
+    return unless location_name.blank?
+    loc = GeoKit::Geocoders::MultiGeocoder.reverse_geocode([ lat, lon ])
+    if loc.success?
+      location_name = loc.city
+      location_name = "#{loc.street_name}, #{location_name}" if loc.street_name
+      update_attribute(:location_name, location_name)
+    end
+  end
+
+  def locate!
+    # locate using either foursquare, or coords
+    if foursquare_venue_id
+      locate_via_foursquare!
+    else
+      locate_via_coords!
+    end
+  end
+
+  def async_locate
+    Resque.enqueue(LocateDealJob, id)
+  end
+
   private
   def self.geo_radians(lat, lon)
     [ (lat.to_f / 180.0) * Math::PI, 
       (lon.to_f / 180.0) * Math::PI] 
-  end
-  
-  def geodecode_location_name!
-    self[:location_name] = Deal.geodecode_location_name(lat, lon) if location_name.blank?
   end
   
   def store_unique_token!
@@ -265,6 +310,6 @@ class Deal < ActiveRecord::Base
   
   def has_price_or_percentage
     errors.add(:base, "Price or percent required") if price.blank? && percent.blank?
-  end
+  end  
 end
 

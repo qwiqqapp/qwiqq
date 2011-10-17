@@ -1,0 +1,192 @@
+--- 
+Arts & Entertainment: ae
+Arcade: ae
+Art Gallery: ae
+Bowling Alley: ae
+Casino: ae
+Comedy Club: ae
+General Entertainment: ae
+Historic Site: ae
+Movie Theater: ae
+Indie Movie Theater: ae
+Multiplex: ae
+Museum: ae
+Art Museum: ae
+History Museum: ae
+Planetarium: ae
+Science Museum: ae
+Music Venue: food
+Concert Hall: food
+Jazz Club: food
+Piano Bar: food
+Rock Club: food
+Performing Arts Venue: ae
+Dance Studio: ae
+Indie or Off Broadway Theater: ae
+Opera House: ae
+Theater: ae
+Pool Hall: ae
+Racetrack: ae
+Stadium: ae
+Baseball Stadium: ae
+Basketball Stadium: ae
+Cricket Ground: ae
+Football Stadium: ae
+Hockey Stadium: ae
+Soccer Stadium: ae
+Tennis: ae
+Track: ae
+Strip Club: food
+Theme Park: ae
+Water Park: ae
+Zoo or Aquarium: ae
+Food: food
+African Restaurant: food
+American Restaurant: food
+Arepa Restaurant: food
+Argentinian Restaurant: food
+Asian Restaurant: food
+Australian Restaurant: food
+BBQ Joint: food
+Bagel Shop: food
+Bakery: food
+Brazilian Restaurant: food
+Breakfast Spot: food
+Brewery: food
+Burger Joint: food
+Burrito Place: food
+"Caf\xC3\xA9": food
+Cajun or Creole Restaurant: food
+Caribbean Restaurant: food
+Chinese Restaurant: food
+Coffee Shop: food
+Cuban Restaurant: food
+Cupcake Shop: food
+Deli or Bodega: food
+Dessert Shop: food
+Dim Sum Restaurant: food
+Diner: food
+Distillery: food
+Donut Shop: food
+Dumpling Restaurant: food
+Eastern European Restaurant: food
+Ethiopian Restaurant: food
+Falafel Restaurant: food
+Fast Food Restaurant: food
+Food Court: food
+Food Truck: food
+French Restaurant: food
+Fried Chicken Joint: food
+Gastropub: food
+German Restaurant: food
+Gluten-free Restaurant: food
+Greek Restaurant: food
+Hot Dog Joint: food
+Ice Cream Shop: food
+Indian Restaurant: food
+Indonesian Restaurant: food
+Italian Restaurant: food
+Japanese Restaurant: food
+Juice Bar: food
+Korean Restaurant: food
+Latin American Restaurant: food
+Mac & Cheese Joint: food
+Malaysian Restaurant: food
+Mediterranean Restaurant: food
+Mexican Restaurant: food
+Middle Eastern Restaurant: food
+Molecular Gastronomy Restaurant: food
+Moroccan Restaurant: food
+New American Restaurant: food
+Pizza Place: food
+Portuguese Restaurant: food
+Ramen or Noodle House: food
+Restaurant: food
+Salad Place: food
+Sandwich Place: food
+Scandinavian Restaurant: food
+Seafood Restaurant: food
+Snack Place: food
+Soup Place: food
+South American Restaurant: food
+Southern or Soul Food Restaurant: food
+Spanish Restaurant: food
+Paella Restaurant: food
+Steakhouse: food
+Sushi Restaurant: food
+Swiss Restaurant: food
+Taco Place: food
+Tapas Restaurant: food
+Tea Room: food
+Thai Restaurant: food
+Vegetarian or Vegan Restaurant: food
+Vietnamese Restaurant: food
+Winery: food
+Wings Joint: food
+Nightlife Spot: food
+Bar: food
+Beer Garden: food
+Cocktail Bar: food
+Dive Bar: food
+Gay Bar: food
+Hookah Bar: food
+Hotel Bar: food
+Karaoke Bar: food
+Lounge: food
+Nightclub: food
+Other Nightlife: food
+Pub: food
+Sake Bar: food
+Speakeasy: food
+Sports Bar: food
+Whisky Bar: food
+Wine Bar: food
+Antique Shop: used
+Arts & Crafts Store: family
+Bike Shop: sport
+Board Shop: sport
+Bookstore: ae
+Bridal Shop: fashion
+Candy Store: food
+Clothing Store: fashion
+Accessories Store: fashion
+Boutique: fashion
+Kids Store: fashion
+Lingerie Store: fashion
+Men's Store: fashion
+Shoe Store: fashion
+Women's Store: fashion
+Convenience Store: food
+Cosmetics Shop: beauty
+Department Store: house
+Drugstore or Pharmacy: house
+Electronics Store: tech
+Flea Market: used
+Flower Shop: family
+Food and Drink Shop: food
+Butcher: food
+Cheese Shop: food
+Farmers Market: food
+Fish Market: food
+Gourmet Shop: food
+Grocery Store: food
+Liquor Store: food
+Wine Shop: food
+Furniture or Home Store: home
+Gaming Cafe: ae
+Gift Shop: family
+Hardware Store: house
+Hobby Shop: ae
+Internet Cafe: ae
+Jewelry Store: fashion
+Laundromat or Dry Cleaner: house
+Mall: fashion
+Music Store: ae
+Record Shop: ae
+Salon or Barbershop: beauty
+Spa or Massage: beauty
+Tattoo Parlor: beauty
+Thrift or Vintage Store: used
+Toy or Game Store: ae
+Video Game Store: ae
+Video Store: ae

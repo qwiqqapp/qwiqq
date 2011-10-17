@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110927175608) do
+ActiveRecord::Schema.define(:version => 20111011232029) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -102,14 +102,20 @@ ActiveRecord::Schema.define(:version => 20110927175608) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.boolean  "premium",            :default => false
+    t.boolean  "premium",              :default => false
     t.float    "lat"
     t.float    "lon"
-    t.integer  "comments_count",     :default => 0
-    t.integer  "likes_count",        :default => 0
+    t.integer  "comments_count",       :default => 0
+    t.integer  "likes_count",          :default => 0
     t.string   "location_name"
     t.string   "unique_token"
-    t.datetime "indexed_at"
+    t.string   "foursquare_venue_id"
+    t.string   "user_photo"
+    t.string   "user_photo_2x"
+    t.integer  "reposts_count",        :default => 0
+    t.integer  "shares_count",         :default => 0
+    t.float    "foursquare_venue_lat"
+    t.float    "foursquare_venue_lon"
   end
 
   add_index "deals", ["likes_count", "comments_count"], :name => "index_deals_on_likes_count_and_comments_count"
@@ -182,13 +188,14 @@ ActiveRecord::Schema.define(:version => 20110927175608) do
   add_index "reposts", ["user_id"], :name => "index_reposts_on_user_id"
 
   create_table "shares", :force => true do |t|
-    t.integer  "user_id",    :null => false
-    t.integer  "deal_id",    :null => false
-    t.string   "service",    :null => false
+    t.integer  "user_id",             :null => false
+    t.integer  "deal_id",             :null => false
+    t.string   "service",             :null => false
     t.string   "email"
     t.datetime "created_at"
     t.datetime "shared_at"
     t.string   "number"
+    t.string   "foursquare_venue_id"
   end
 
   create_table "users", :force => true do |t|
@@ -208,10 +215,10 @@ ActiveRecord::Schema.define(:version => 20110927175608) do
     t.string   "username"
     t.string   "facebook_access_token"
     t.string   "twitter_access_token"
-    t.boolean  "send_notifications",     :default => true
-    t.integer  "followers_count",        :default => 0,    :null => false
-    t.integer  "following_count",        :default => 0,    :null => false
-    t.integer  "friends_count",          :default => 0,    :null => false
+    t.boolean  "send_notifications",      :default => true
+    t.integer  "followers_count",         :default => 0,    :null => false
+    t.integer  "following_count",         :default => 0,    :null => false
+    t.integer  "friends_count",           :default => 0,    :null => false
     t.string   "twitter_access_secret"
     t.string   "twitter_id"
     t.string   "facebook_id"
@@ -219,9 +226,11 @@ ActiveRecord::Schema.define(:version => 20110927175608) do
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.string   "notifications_token"
-    t.integer  "likes_count",            :default => 0
-    t.integer  "comments_count",         :default => 0
-    t.integer  "deals_count",            :default => 0
+    t.integer  "likes_count",             :default => 0
+    t.integer  "comments_count",          :default => 0
+    t.integer  "deals_count",             :default => 0
+    t.string   "foursquare_id"
+    t.string   "foursquare_access_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

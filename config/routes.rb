@@ -62,6 +62,7 @@ Qwiqq::Application.routes.draw do
     end
 
     resources :comments, :only => [:destroy]
+    resources :venues, :only => [:index]
     
     # search controller custom methods
     get "search/users"                  => "search#users",    :as => 'search_users'

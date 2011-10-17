@@ -90,6 +90,7 @@ class Api::SharesControllerTest < ActionController::TestCase
        :twitter => true,
        :format => "json"
 
+    @deal.reload
     assert_equal 422, @response.status
     assert_equal 1, @deal.shares.size 
     assert_equal 'twitter', @deal.shares.first.service
