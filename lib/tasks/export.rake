@@ -6,24 +6,24 @@ namespace :export do
     puts "Located #{users.size} Users for export"
     
     result = users.map do |u|
-      { :id => u.id, :username => u.username, :name => u.name, :email => u.email, :time => u.created_at.to_i}
+      { :uid => u.id, :name => u.name, :email => u.email}
     end
-
+    
     write_json('users', result)
   end
   
   desc 'export database to events'
   task :events => :environment do
-    
     objects = User.all
     objects += collect_objects([Deal, Like, Comment, Share, Relationship, Repost])
     puts "Located #{objects.size} database objects"
     
     result = objects.map do |obj|
       name  = event_name(obj)
-      owner = obj.class == User  ? obj.username : obj.user.username.downcase
+      owner = obj.class == User  ? obj.id : obj.user.id
       time  = obj.created_at.to_i
-      { :name => name, :time => time, :owner => owner}
+      
+      { :name => name, :owner => owner, :time => time }
     end
     
     write_json('events', result)
