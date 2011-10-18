@@ -166,5 +166,10 @@ class Api::UsersControllerTest < ActionController::TestCase
     assert_equal 422, @response.status
     assert_match /blank/i, json_response["email"].first
   end
+
+  # users#feed
+  test "should render a users activity feed" do
+    
+  end
   
 end

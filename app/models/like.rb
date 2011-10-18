@@ -1,6 +1,8 @@
 class Like < ActiveRecord::Base
   belongs_to :deal, :counter_cache => true, :touch => true
   belongs_to :user, :counter_cache => true, :touch => true
+
+  has_many :events, :class_name => "UserEvent", :dependent => :destroy
   
   validates_presence_of :deal, :user
   
@@ -8,6 +10,7 @@ class Like < ActiveRecord::Base
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   
   after_commit :async_deliver_notification, :on => :create
+  after_commit :create_event, :on => :create
   
   def deliver_notification
     deal.user.send_push_notification("#{self.user.username} liked your deal #{deal.name}", "deals/#{deal.id}")
@@ -21,4 +24,13 @@ class Like < ActiveRecord::Base
   def async_deliver_notification
     Resque.enqueue(LikeNotifyJob, self.id)
   end
+
+  def create_event
+    events.create(
+      :event_type => "like",
+      :deal => deal,
+      :user => deal.user, 
+      :created_by => user)
+  end
 end
+

@@ -81,4 +81,8 @@ class Api::DealsController < Api::ApiController
     respond_with @deal
   end
 
+  def events
+    # TODO
+  end
+
 end

@@ -89,4 +89,17 @@ class LikeTest < ActiveSupport::TestCase
     Mailer.expects(:deal_liked).never
     Resque.run!
   end
+
+  test "should create a 'like' event on creation" do
+    @owner = Factory(:user)
+    @liker = Factory(:user)
+    @deal = Factory(:deal, :user => @owner)
+    @like = Factory(:like, :deal => @deal, :user => @liker)
+
+    assert_equal 1, @owner.events.size
+    assert_equal "like", @owner.events[0].event_type
+    assert_equal @liker, @owner.events[0].created_by
+    assert_equal @deal, @owner.events[0].deal
+  end
 end
+

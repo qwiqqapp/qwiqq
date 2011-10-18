@@ -29,6 +29,9 @@ class User < ActiveRecord::Base
   has_many :invitations_sent, :class_name => "Invitation"
   has_many :reposts, :dependent => :destroy
   has_many :apn_devices, :class_name => 'APN::Device'
+
+  has_many :events, :class_name => "UserEvent"
+  has_many :events_created, :class_name => "UserEvent", :foreign_key => "created_by_id"
   
   scope :sorted, :order => 'users.username ASC'
   

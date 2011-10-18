@@ -70,6 +70,10 @@ class Api::UsersController < Api::ApiController
     respond_with paginate(@friends)
   end
 
+  def events
+    # TODO
+  end
+
   
 end
 

@@ -1,11 +1,13 @@
 class Relationship < ActiveRecord::Base
   belongs_to :user, :touch => true, :counter_cache => :following_count
   belongs_to :target, :touch => true, :class_name => "User", :counter_cache => :followers_count
+  has_many :events, :class_name => "UserEvent"
   
   after_create :update_counts
   after_destroy :update_counts
   
   after_commit :async_deliver_notification, :on => :create
+  after_commit :create_event, :on => :create
   
   def deliver_notification
     if friends?
@@ -30,8 +32,6 @@ class Relationship < ActiveRecord::Base
     Resque.enqueue(RelationshipNotifyJob, self.id)
   end
   
-  
-  
   def update_counts
     if user
       user.friends_count = user.friends.count
@@ -42,6 +42,13 @@ class Relationship < ActiveRecord::Base
       target.friends_count = target.friends.count
       target.save
     end
+  end
+
+  def create_event
+    events.create(
+      :event_type => "follower",
+      :user => target,
+      :created_by => user)
   end
 
   private
