@@ -51,7 +51,9 @@ class User < ActiveRecord::Base
                   :foursquare_access_token,
                   :send_notifications, 
                   :bio,
-                  :push_token
+                  :push_token,
+                  :phone,
+                  :website
 
   attr_accessor :push_token
   attr_accessor :password
@@ -93,7 +95,7 @@ class User < ActiveRecord::Base
     }
   }.merge(PAPERCLIP_STORAGE_OPTIONS)
 
-  strip_attrs :email, :city, :country, :first_name, :last_name, :username, :bio
+  strip_attrs :email, :city, :country, :first_name, :last_name, :username, :bio, :phone, :website
 
   def location
     if !city.blank? && !country.blank?
@@ -201,31 +203,33 @@ class User < ActiveRecord::Base
       :followers_count       => followers_count,
       :following_count       => following_count,
       :friends_count         => friends_count,
+      :phone                 => phone,
+      :website               => website,
 
       # user detail photo
-      :photo               => photo.url(:iphone),
-      :photo_2x            => photo.url(:iphone2x),
+      :photo                 => photo.url(:iphone),
+      :photo_2x              => photo.url(:iphone2x),
       
       # user detail photo zoom
-      :photo_zoom          => photo.url(:iphone_zoom),
-      :photo_zoom_2x       => photo.url(:iphone_zoom_2x),
+      :photo_zoom            => photo.url(:iphone_zoom),
+      :photo_zoom_2x         => photo.url(:iphone_zoom_2x),
       
       # profile image on deal detail screen
-      :photo_profile     => photo.url(:iphone_profile),
-      :photo_profile_2x  => photo.url(:iphone_profile_2x),      
+      :photo_profile         => photo.url(:iphone_profile),
+      :photo_profile_2x      => photo.url(:iphone_profile_2x),      
 
-      :photo_small => photo.url(:iphone_small),
-      :photo_small_2x => photo.url(:iphone_small_2x),
+      :photo_small           => photo.url(:iphone_small),
+      :photo_small_2x        => photo.url(:iphone_small_2x),
       
       # counts
-      :like_count          => likes_count,
-      :deal_count          => deals_count,
-      :comment_count       => comments_count,
+      :like_count            => likes_count,
+      :deal_count            => deals_count,
+      :comment_count         => comments_count,
       
       # conditional
-      :deals               => options[:deals]    ? deals.sorted.limit(6)        : nil,
-      :liked_deals         => options[:deals]    ? liked_deals.sorted.limit(6)  : nil,
-      :comments            => options[:comments] ? comments.limit(3)     : nil
+      :deals                 => options[:deals]    ? deals.sorted.limit(6)        : nil,
+      :liked_deals           => options[:deals]    ? liked_deals.sorted.limit(6)  : nil,
+      :comments              => options[:comments] ? comments.limit(3)     : nil
     }
     
     # add is_following and is_followed if possible

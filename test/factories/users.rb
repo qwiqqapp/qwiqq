@@ -5,6 +5,8 @@ Factory.define :user do |f|
   f.email                 { Faker::Internet.email}
   f.city                  { Faker::Address.city}
   f.country               { Faker::Address.us_state}
+  f.phone                 { Faker::PhoneNumber.phone_number }
+  f.website               { Faker::Internet.domain_name }
   f.password              'tester'
   f.password_confirmation 'tester'
 end
