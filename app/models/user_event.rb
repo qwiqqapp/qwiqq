@@ -12,7 +12,9 @@ class UserEvent < ActiveRecord::Base
   validates :user, :presence => true
   validates :created_by, :presence => true
 
-  def as_json
+  default_scope :order => "created_at desc"
+
+  def as_json(options={})
     json = { 
       :type => event_type,
       :created_by_id => created_by_id,

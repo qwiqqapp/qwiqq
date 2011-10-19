@@ -41,7 +41,6 @@ class Api::DealsController < Api::ApiController
                                   :liked_by_users => true)
   end
   
-  
   # return deals for a given user
   # or return []
   def index      
@@ -82,7 +81,8 @@ class Api::DealsController < Api::ApiController
   end
 
   def events
-    # TODO
+    @deal = current_user.deals.find(params[:id])
+    respond_with paginate(@deal.events)
   end
 
 end

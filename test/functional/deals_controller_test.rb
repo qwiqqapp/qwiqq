@@ -23,6 +23,11 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_routing({:method => 'post', :path => '/api/deals/1/repost.json'}, {:format => 'json', :controller => 'api/deals', :action => 'repost', :id => '1' })
   end
   
+  test "should route to deals#events" do
+    assert_routing("/api/deals/1/events.json", {
+      :format => "json", :controller => "api/deals", :action => "events", :id => "1" })
+  end
+  
   # deals#index
   test "should render deals for the current user" do
     @user = Factory(:user)
@@ -202,9 +207,6 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_equal 1, json_response['liked_by_users'].size
   end
 
-
-
-
   # deals#destroy
   test "should delete a deal that belongs to the current user" do
     @user = Factory(:user)
@@ -224,13 +226,33 @@ class Api::DealsControllerTest < ActionController::TestCase
 
     @follower = Factory(:user)
     @follower.follow! @user
-    
+
     post :repost, :id => @deal.id, :user_id => @user.id, :format => "json"
 
     assert_equal 201, @response.status
     assert_equal 1, Repost.count
     assert_equal 1, Feedlet.count
   end
-  
+
+  # deals#events
+  test "should render a deals events" do
+    @user = Factory(:user)
+    @deal = Factory(:deal, :user => @user)
+
+    @like = Factory(:like, :deal => @deal)
+    @share = Factory(:share, :deal => @deal, :service => "twitter")
+    @comment = Factory(:comment, :deal => @deal)
+
+    @like.create_event
+    @comment.create_event
+    @share.create_event
+
+    sign_in @user
+    get :events, :id => @deal.id, :format => "json"
+
+    assert_equal 200, @response.status
+    assert_equal 3, json_response.size
+  end
+
 end
 

@@ -71,9 +71,9 @@ class Api::UsersController < Api::ApiController
   end
 
   def events
-    # TODO
+    @events = current_user.events
+    respond_with paginate(@events)
   end
 
-  
 end
 
