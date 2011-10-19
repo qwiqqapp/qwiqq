@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111011232029) do
+ActiveRecord::Schema.define(:version => 20111019223950) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -102,20 +102,22 @@ ActiveRecord::Schema.define(:version => 20111011232029) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.boolean  "premium",              :default => false
+    t.boolean  "premium",               :default => false
     t.float    "lat"
     t.float    "lon"
-    t.integer  "comments_count",       :default => 0
-    t.integer  "likes_count",          :default => 0
+    t.integer  "comments_count",        :default => 0
+    t.integer  "likes_count",           :default => 0
     t.string   "location_name"
     t.string   "unique_token"
+    t.datetime "indexed_at"
     t.string   "foursquare_venue_id"
     t.string   "user_photo"
     t.string   "user_photo_2x"
-    t.integer  "reposts_count",        :default => 0
-    t.integer  "shares_count",         :default => 0
+    t.integer  "reposts_count",         :default => 0
+    t.integer  "shares_count",          :default => 0
     t.float    "foursquare_venue_lat"
     t.float    "foursquare_venue_lon"
+    t.string   "foursquare_venue_name"
   end
 
   add_index "deals", ["likes_count", "comments_count"], :name => "index_deals_on_likes_count_and_comments_count"
@@ -196,6 +198,24 @@ ActiveRecord::Schema.define(:version => 20111011232029) do
     t.datetime "shared_at"
     t.string   "number"
     t.string   "foursquare_venue_id"
+  end
+
+  create_table "user_events", :force => true do |t|
+    t.integer  "user_id",             :null => false
+    t.integer  "comment_id"
+    t.integer  "like_id"
+    t.integer  "share_id"
+    t.integer  "relationship_id"
+    t.integer  "deal_id"
+    t.string   "deal_name"
+    t.integer  "created_by_id",       :null => false
+    t.string   "created_by_photo",    :null => false
+    t.string   "created_by_photo_2x", :null => false
+    t.string   "created_by_username", :null => false
+    t.string   "event_type",          :null => false
+    t.text     "metadata"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

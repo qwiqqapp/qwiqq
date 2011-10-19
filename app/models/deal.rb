@@ -4,7 +4,8 @@ class Deal < ActiveRecord::Base
   
   define_index do
     indexes :name
-    indexes category(:name),  :as => :category
+    indexes :foursquare_venue_name
+    indexes category(:name), :as => :category
     
     has "RADIANS(lat)", :as => :latitude,  :type => :float
     has "RADIANS(lon)", :as => :longitude, :type => :float
@@ -23,7 +24,8 @@ class Deal < ActiveRecord::Base
   has_many :feedlets, :dependent => :destroy
   
   #TODO update to 3.1 and use role based attr_accessible for premium
-  attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent, :foursquare_venue_id, :foursquare_venue_lat, :foursquare_venue_lon, :location_name
+  attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent, :location_name,
+    :foursquare_venue_id, :foursquare_venue_name, :foursquare_venue_lat, :foursquare_venue_lon
   
   # TODO update to 3.0 validates method
   validates_presence_of   :user, :category, :name, :message => "is required"
@@ -137,6 +139,7 @@ class Deal < ActiveRecord::Base
       :age            => age.gsub("about ", ""),
       :short_age      => short_created_at,
       :location_name  => location_name,
+      :venue_name     => foursquare_venue_name,
       :user           => options[:minimal] ? nil : user.try(:as_json, :deals => false),
       :repost_count   => reposts_count,
       :share_count    => shares_count
@@ -256,7 +259,8 @@ class Deal < ActiveRecord::Base
       update_attributes(
         :foursquare_venue_lat => venue["location"]["lat"],
         :foursquare_venue_lon => venue["location"]["lng"],
-        :location_name => location_name || venue["name"])
+        :foursquare_venue_name => venue["name"],
+        :location_name => venue["location"]["address"])
     end
   end
 
