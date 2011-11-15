@@ -147,7 +147,6 @@ GEM
     multi_json (1.0.3)
     multi_xml (0.2.2)
     multipart-post (1.1.3)
-    mysql2 (0.2.13)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -162,6 +161,7 @@ GEM
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
       mime-types
+    pg (0.11.0)
     polyglot (0.3.2)
     postmark (0.9.8)
     postmark-rails (0.4.0)
@@ -278,9 +278,9 @@ DEPENDENCIES
   kaminari
   koala
   mocha
-  mysql2 (~> 0.2.7)
   newrelic_rpm
   paperclip
+  pg
   postmark
   postmark-rails (= 0.4.0)
   rails (= 3.0.7)

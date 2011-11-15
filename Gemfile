@@ -7,7 +7,7 @@ gem "aws-s3"
 gem "rails", "3.0.7"
 gem "rake", "0.8.7"
 gem "rails3-generators"
-gem "mysql2", "~> 0.2.7"   #postgresql to match staging and production
+gem "pg"
 gem "bcrypt-ruby", :require => "bcrypt"
 
 # views
