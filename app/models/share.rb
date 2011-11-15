@@ -1,6 +1,7 @@
 class Share < ActiveRecord::Base
   belongs_to :user
   belongs_to :deal, :counter_cache => true, :touch => true
+  has_many :events, :class_name => "UserEvent"
 
   validates :service, :inclusion => [ "email", "twitter", "facebook", "sms", "foursquare" ]
 
@@ -10,6 +11,7 @@ class Share < ActiveRecord::Base
   # avoids deliver being called before record has been persisted (possible with after_create)
   # ref: http://blog.nragaz.com/post/806739797/using-and-testing-after-commit-callbacks-in-rails-3
   after_commit :async_deliver, :if => :persisted?, :unless => :facebook_share?
+  after_commit :create_event, :on => :create
 
   HOST = "www.qwiqq.me"
 
@@ -96,6 +98,21 @@ class Share < ActiveRecord::Base
 
   def twilio_client
     @twilio_client ||= Twilio::REST::Client.new Qwiqq.twilio_sid, Qwiqq.twilio_auth_token
+  end
+
+  def create_event
+    # don't create an event when a user shares their own deal
+    return if user == deal.user 
+
+    # only create events for shares to networks
+    return unless [ "twitter", "facebook", "foursquare" ].include?(service)
+    
+    events.create(
+      :event_type => "share",
+      :user => deal.user,
+      :deal => deal,
+      :created_by => user,
+      :metadata => { :service => service })
   end
 end
 

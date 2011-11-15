@@ -33,6 +33,7 @@ Qwiqq::Application.routes.draw do
       get "followers", :on => :member
       get "following", :on => :member
       get "friends",   :on => :member
+      get "events", :on => :collection
       
       post "following" => "relationships#create"
       delete "following/:target_id" => "relationships#destroy"
@@ -55,6 +56,7 @@ Qwiqq::Application.routes.draw do
       get "feed", :on => :collection
       get "popular", :on => :collection
       post "repost", :on => :member
+      get "events", :on => :member
       
       resources :likes,     :only => [:index]
       resource :like,       :only => [:create, :destroy] #should merge this with above resource likes

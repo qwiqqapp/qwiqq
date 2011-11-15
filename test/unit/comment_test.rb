@@ -68,4 +68,18 @@ class CommentTest < ActiveSupport::TestCase
     Mailer.expects(:deal_commented).never
     Resque.run!
   end
+  
+  test "should create a 'comment' event on creation" do
+    @owner = Factory(:user)
+    @commenter = Factory(:user)
+    @deal = Factory(:deal, :user => @owner)
+    @comment = Factory(:comment, :user => @commenter, :deal => @deal)
+
+    assert_equal 1, @owner.events.size
+    assert_equal "comment", @owner.events[0].event_type
+    assert_equal @comment.body, @owner.events[0].metadata[:body]
+    assert_equal @commenter, @owner.events[0].created_by
+    assert_equal @deal, @owner.events[0].deal
+  end
 end
+

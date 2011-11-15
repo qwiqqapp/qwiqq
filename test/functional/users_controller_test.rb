@@ -31,6 +31,11 @@ class Api::UsersControllerTest < ActionController::TestCase
     assert_routing("/api/users/1/friends.json", 
                    {:format => "json", :controller => "api/users", :action => "friends", :id => "1"})
   end
+
+  test "should route to users#events" do
+    assert_routing("/api/users/events.json", {
+      :format => "json", :controller => "api/users", :action => "events" })
+  end
   
   test "user registration" do
     @user_params = Factory.attributes_for(:user)
@@ -166,5 +171,27 @@ class Api::UsersControllerTest < ActionController::TestCase
     assert_equal 422, @response.status
     assert_match /blank/i, json_response["email"].first
   end
-  
+
+  # users#events
+  test "should render a users events" do
+    @user = Factory(:user)
+    @deal = Factory(:deal, :user => @user)
+
+    @like = Factory(:like, :deal => @deal)
+    @share = Factory(:share, :deal => @deal, :service => "twitter")
+    @comment = Factory(:comment, :deal => @deal)
+    @relationship = Factory(:relationship, :target => @user)
+
+    @like.create_event
+    @comment.create_event
+    @share.create_event
+    @relationship.create_event
+
+    sign_in @user
+    get :events, :format => "json"
+
+    assert_equal 200, @response.status
+    assert_equal 4, json_response.size
+  end
+
 end

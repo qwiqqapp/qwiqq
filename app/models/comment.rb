@@ -5,11 +5,14 @@ class Comment < ActiveRecord::Base
   belongs_to :user, :counter_cache => true, :touch => true
 
   validates_presence_of :deal, :user, :body
+
+  has_many :events, :class_name => "UserEvent", :dependent => :destroy
   
   default_scope :order => 'created_at desc'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   
   after_commit :async_deliver_notification, :on => :create
+  after_commit :create_event, :on => :create
 
   strip_attrs :body
 
@@ -48,4 +51,14 @@ class Comment < ActiveRecord::Base
   def async_deliver_notification
     Resque.enqueue(CommentNotifyJob, self.id)
   end
+
+  def create_event
+    events.create(
+      :event_type => "comment", 
+      :metadata => { :body => body }, 
+      :deal => deal,
+      :user => deal.user, 
+      :created_by => user)
+  end
 end
+

@@ -70,5 +70,18 @@ class ShareTest < ActiveSupport::TestCase
     assert_queued(ShareDeliveryJob, [@share.id])
     Resque.run!
   end
+
+  test "should create a 'share' event on creation" do
+    @owner = Factory(:user)
+    @sharer = Factory(:user)
+    @deal = Factory(:deal, :user => @owner)
+    @share = Factory(:twitter_share, :deal => @deal, :user => @sharer)
+
+    assert_equal 1, @owner.events.size
+    assert_equal "share", @owner.events[0].event_type
+    assert_equal "twitter", @owner.events[0].metadata[:service]
+    assert_equal @sharer, @owner.events[0].created_by
+    assert_equal @deal, @owner.events[0].deal
+  end
 end
 
