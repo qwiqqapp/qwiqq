@@ -6,11 +6,10 @@ h1. Qwiqq Web
 
 h2. Dev Environment
 
-* rvm = 1.6.22
-* ruby = 1.9.2 p180
+* ruby = 1.9.2 mri
 * gemset = qwiqq
-* db = mysql
-* hosting (staging/production) = AWS
+* db = postgreSQL
+* hosting (staging/production) = HEROKU
 
 h2. API notes
 
@@ -18,58 +17,12 @@ h2. API notes
 * prefix id with model, eg user_id
 * current user is a valid option for user_id or id for users collection
 
-h2. Deploy Setup
+h2. Deploy Setup (will add multi env later)
 
-@$ mkdir ~/.ec2@
+* git push heroku master
 
-@$ mv Dropbox/qwiqq\ db\ backups/qwiqq-us-west.pem .ec2/@
-
-@chmod og-rw .ec2/qwiqq-us-west.pem@
-
-@$ export EC2_KEY="~/.ec2/qwiqq-us-west.pem"@
-
-@...cd to qwiqq-web@
-
-@$ cap deploy@
-
-
-h2. Servers
-
-h3. Server DNS list
-
-* app1.qwiqq.me
-* app2.qwiqq.me
-* worker1.qwiqq.me:5678 (resque)
-* db1.qwiqq.me (rds)
-
-h3. App location (for app1, app2 and worker1)
-
-* application root = /var/www/qwiqq.me/current
-
-h3. Rails console or MySQL acccess
-
-* ssh onto app server
-* either rails c from app root 
-* or mysql with creds in database.yml
-
-h3. SSH + RAILS Console (example app1)
-
-* ssh -i ~/.ec2/qwiqq-us-west.pem ubuntu@app1.qwiqq.me
-* RAILS_ENV=production bundle exec rails c
-
-h3. Worker App
-
-* http://worker1.qwiqq.me:5678/
-* username: admin
-* pass: bl4ckb3rry
 
 h2. Services
-
-h3. Indextank
-
-* https://indextank.com/dashboard
-* email: adam@gastownlabs.com
-* pass: blu3b3rry
 
 h3. Zerigo (DNS)
 
@@ -91,18 +44,7 @@ h3. Airbrake (errors)
 
 h3. NewRelic (performance)
 
-Trial 14days (pro)
-
-* https://rpm.newrelic.com/
-* email: core@gastownlabs.com
-* pass: tester
-
-
-Free (basic) disabled
-
-* https://rpm.newrelic.com/accounts/36644/applications/233524
-* email: adam|brian|eoin@gastownlabs.com
-* pass: request reset
+* on heroku
 
 h3. PostmarkApp (email send)
 
