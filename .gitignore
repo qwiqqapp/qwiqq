@@ -13,3 +13,4 @@ solr/*
 db/sphinx/*
 config/*.sphinx.conf
 db/geo.dat
+config/heroku_env.rb

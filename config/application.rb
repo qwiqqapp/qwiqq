@@ -1,9 +1,9 @@
 require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 
-# Load services ENV vars from local file if it exists
-env = File.join("config", "services.rb")
-load(env) if File.exists?(env)
+# Load heroku vars from local file
+heroku_env = File.join(RAILS_ROOT, 'config', 'heroku_env.rb')
+load(heroku_env) if File.exists?(heroku_env)
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.

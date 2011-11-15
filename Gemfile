@@ -21,7 +21,6 @@ gem "rmagick", :require => false
 
 # workers
 gem "resque"
-gem "resque-pool"
 
 # services
 gem "geokit"
@@ -35,12 +34,12 @@ gem "httparty"
 gem "thinking-sphinx", "2.0.5"
 gem "whenever"
 
+# mail
 gem 'postmark'
 gem 'postmark-rails', '0.4.0'
 gem 'activerecord-import'
 
 gem "bcrypt-ruby", :require => "bcrypt"
-gem "htmlentities"
 
 # admin
 gem "activeadmin", '0.3.1'
