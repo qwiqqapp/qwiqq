@@ -280,7 +280,7 @@ DEPENDENCIES
   mocha
   newrelic_rpm
   paperclip
-  pg
+  pg (= 0.11.0)
   postmark
   postmark-rails (= 0.4.0)
   rails (= 3.0.7)

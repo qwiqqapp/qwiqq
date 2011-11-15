@@ -7,7 +7,7 @@ gem "aws-s3"
 gem "rails", "3.0.7"
 gem "rake", "0.8.7"
 gem "rails3-generators"
-gem "pg"
+gem "pg", "0.11.0"
 gem "bcrypt-ruby", :require => "bcrypt"
 
 # views
