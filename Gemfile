@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 # hosting
 gem "aws-s3"
 gem "heroku"
+gem "taps"
 
 # base
 gem "rails", "3.0.7"
@@ -32,6 +33,7 @@ gem "daemons", :require => false
 gem "httparty"
 
 # search
+gem "riddle", "1.4.0"
 gem "thinking-sphinx", "2.0.5"
 gem "flying-sphinx", "0.6.0"
 
