@@ -1,8 +1,0 @@
-production:
-  adapter: mysql2
-  host: db.cexiehfise6l.us-west-1.rds.amazonaws.com
-  port: 3306
-  username: umizora
-  password: LIM1GHehnrrz5r
-  database: qwiqq_production
-
