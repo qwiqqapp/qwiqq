@@ -54,9 +54,5 @@ Qwiqq::Application.configure do
   # https://postmarkapp.com/servers/24292/overview
   config.action_mailer.delivery_method   = :postmark
   config.action_mailer.postmark_settings = { :api_key => ENV['POSTMARK_API_KEY'] }
-  
-  # Nginx fix
-  config.middleware.use "Nginx::ContentLengthFix"
-  
 end
 

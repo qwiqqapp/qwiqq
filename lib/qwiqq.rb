@@ -1,5 +1,4 @@
 require "active_record_strip_attrs_extension"
-require "nginx_content_length_fix"
 require "foursquare"
 
 module Qwiqq
