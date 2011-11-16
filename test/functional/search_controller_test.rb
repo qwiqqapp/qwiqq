@@ -78,7 +78,7 @@ class Api::SearchControllerTest < ActionController::TestCase
       assert_equal 2,               json_response.size
       assert_equal 'prince_edward',  json_response[0]['user_name'] 
       assert_equal 'prince_charles', json_response[1]['user_name'] 
-  end
+    end
   end
   
   # ----------
@@ -97,7 +97,7 @@ class Api::SearchControllerTest < ActionController::TestCase
   
   test "should return 4 deals in category food" do
     create_geo_deals
-    Factory(:deal, :category => Factory(:category, :name => 'tech')) #should not appear in results    
+    Factory(:deal, :category => Factory(:category, :name => 'tech')) #should not appear in results
     ThinkingSphinx::Test.index
     
     ThinkingSphinx::Test.run do
@@ -115,7 +115,7 @@ class Api::SearchControllerTest < ActionController::TestCase
     
     ThinkingSphinx::Test.run do
       get :category, :name => 'food', :lat => @lat, :long => @lon, :format => "json"
-      
+
       assert_equal @deal1.name, json_response[0]['name']     #gastownlabs deal should be first
       assert_equal @deal3.name, json_response[1]['name']     #sixacres deal should be 2nd
       assert_equal @deal2.name, json_response[2]['name']     #thelocal deal should be 3rd

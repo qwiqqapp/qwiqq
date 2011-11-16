@@ -72,7 +72,6 @@ GEM
       net-ssh-gateway (>= 1.1.0)
     capistrano-ext (1.2.1)
       capistrano (>= 1.0.0)
-    chronic (0.6.3)
     cocaine (0.2.0)
     configatron (2.8.2)
       yamler (>= 0.1.0)
@@ -100,6 +99,13 @@ GEM
       faraday (~> 0.6.0)
     fastercsv (1.5.4)
     ffaker (1.8.0)
+    flying-sphinx (0.6.0)
+      faraday (~> 0.6.1)
+      faraday_middleware (~> 0.6.3)
+      multi_json (~> 1.0.1)
+      net-ssh (>= 2.0.23)
+      rash (~> 0.3.0)
+      thinking-sphinx
     formtastic (1.2.4)
       actionpack (>= 2.3.7)
       activesupport (>= 2.3.7)
@@ -194,6 +200,8 @@ GEM
       thor (~> 0.14.4)
     raindrops (0.7.0)
     rake (0.8.7)
+    rash (0.3.0)
+      hashie (~> 1.0.0)
     redis (2.2.2)
     redis-namespace (1.0.3)
       redis (< 3.0.0)
@@ -248,9 +256,6 @@ GEM
       rack (>= 1.0.0)
     warden (1.0.5)
       rack (>= 1.0)
-    whenever (0.7.0)
-      activesupport (>= 2.3.4)
-      chronic (~> 0.6.3)
     xml-simple (1.1.0)
     yamler (0.1.0)
 
@@ -276,6 +281,7 @@ DEPENDENCIES
   faker
   fakeweb
   ffaker
+  flying-sphinx (= 0.6.0)
   geoip (= 1.1.1)
   geokit
   haml-rails
@@ -301,4 +307,3 @@ DEPENDENCIES
   twilio-ruby
   twitter (= 1.6.0)
   unicorn
-  whenever

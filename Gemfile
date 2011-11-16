@@ -33,7 +33,7 @@ gem "httparty"
 
 # search
 gem "thinking-sphinx", "2.0.5"
-gem "whenever"
+gem "flying-sphinx", "0.6.0"
 
 # mail
 gem 'postmark'

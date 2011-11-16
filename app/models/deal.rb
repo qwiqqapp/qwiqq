@@ -7,10 +7,10 @@ class Deal < ActiveRecord::Base
     indexes :foursquare_venue_name
     indexes category(:name), :as => :category
     
-    has "RADIANS(lat)", :as => :latitude,  :type => :float
-    has "RADIANS(lon)", :as => :longitude, :type => :float
+    has "RADIANS(lat)", :as => :lat,  :type => :float
+    has "RADIANS(lon)", :as => :lon, :type => :float
     
-    has created_at, likes_count, comments_count
+    has created_at, likes_count, comments_count, lat, lon
   end
 
   belongs_to :user, :counter_cache => true, :touch => true
@@ -162,7 +162,6 @@ class Deal < ActiveRecord::Base
     
     json
   end
-  
   
   def sphinx_geo_distance(unit=nil)
     return nil unless self.sphinx_attributes && sphinx_attributes['@geodist']
