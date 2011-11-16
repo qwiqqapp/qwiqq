@@ -22,6 +22,17 @@ h2. Deploy Setup (will add multi env later)
 * git push heroku master
 
 
+h2. Related Apps
+
+h3. qwiqq-resque
+
+Shares qwiqq-web REDISTOGO_URL instance
+
+* http://qwiqq-resque.heroku.com/
+* username: gastownlabs
+* password: sdf93b3nf092b3n
+
+
 h2. Services
 
 h3. Zerigo (DNS)
