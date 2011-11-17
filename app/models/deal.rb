@@ -144,6 +144,7 @@ class Deal < ActiveRecord::Base
       :location_name  => location_name,
       :venue_name     => foursquare_venue_name,
       :user           => options[:minimal] ? nil : user.try(:as_json, :deals => false),
+      :user_id        => user_id,
       :repost_count   => reposts_count,
       :share_count    => shares_count
     }
