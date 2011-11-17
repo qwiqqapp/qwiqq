@@ -100,8 +100,8 @@ class UserTest < ActiveSupport::TestCase
     @deal2 = Factory(:deal, :user => @user0, :created_at => 3.hours.ago)
     @deal3 = Factory(:deal, :user => @user3, :created_at => 4.hours.ago)
 
-    assert_equal 2, @user0.feed_deals.count
-    assert_equal [@deal0, @deal1], @user0.feed_deals.sorted
+    assert_equal 3, @user0.feed_deals.count
+    assert_equal [@deal0, @deal1, @deal2], @user0.feed_deals.sorted
   end
   
   test "should strip text attributes before saving" do

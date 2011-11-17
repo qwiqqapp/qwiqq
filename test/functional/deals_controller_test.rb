@@ -65,7 +65,7 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_equal 200,   @response.status
     assert_equal Array, json_response.class
     assert_equal 4,     json_response.size
-    assert_equal 6,     Feedlet.count # user0 sees 4 deals, user1 sees 2 deals
+    assert_equal 10,    Feedlet.count # user0 sees 4 deals, user1 sees 2 deals
     
     # check order
     assert_equal feed_deals.map(&:id), json_response.map{|d| d["deal_id"].to_i}

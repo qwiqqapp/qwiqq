@@ -53,8 +53,9 @@ class Deal < ActiveRecord::Base
   
   def populate_feed(posting_user = nil, repost = false)
     posting_user ||= self.user
-    Feedlet.import(posting_user.followers.map {|f| 
-      Feedlet.new(:user_id => f.id, 
+    users = [ posting_user, posting_user.followers ].flatten
+    Feedlet.import(users.map {|u| 
+      Feedlet.new(:user_id => u.id, 
                   :deal_id => self.id, 
                   :posting_user_id => posting_user.id, 
                   :reposted_by => repost ? posting_user.username : nil, 
