@@ -100,32 +100,10 @@ class UserTest < ActiveSupport::TestCase
     @deal2 = Factory(:deal, :user => @user0, :created_at => 3.hours.ago)
     @deal3 = Factory(:deal, :user => @user3, :created_at => 4.hours.ago)
 
-    @user0.repost_deal!(@deal3)
-
     assert_equal 2, @user0.feed_deals.count
     assert_equal [@deal0, @deal1], @user0.feed_deals.sorted
   end
   
-  test "#feed_deals with reposts from followed users" do
-    @user0 = Factory(:user)
-    @user1 = Factory(:user)
-    @user2 = Factory(:user)
-    @user3 = Factory(:user)
-
-    @user0.follow!(@user1)
-    @user0.follow!(@user2)
-
-    @deal0 = Factory(:deal, :user => @user1, :created_at => 1.hour.ago)
-    @deal1 = Factory(:deal, :user => @user2, :created_at => 2.hours.ago)
-    @deal2 = Factory(:deal, :user => @user0, :created_at => 3.hours.ago)
-    @deal3 = Factory(:deal, :user => @user3, :created_at => 4.hours.ago)
-
-    @user1.repost_deal!(@deal3)
-
-    assert_equal 3, @user0.feed_deals.count
-    assert_equal [@deal0, @deal1, @deal3], @user0.feed_deals.sorted
-  end
-
   test "should strip text attributes before saving" do
     @user = Factory(:user,
       :email => "    eoin@gastownlabs.com     ",

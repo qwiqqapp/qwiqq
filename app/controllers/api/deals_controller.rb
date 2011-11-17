@@ -67,17 +67,15 @@ class Api::DealsController < Api::ApiController
     respond_with @deal
   end
 
-  def repost
-    @deal = Deal.find(params[:id])
-    @user = current_user
-    @reposted_deal = @user.repost_deal!(@deal)
-    respond_with @reposted_deal, :location => false
-  end
-
   def destroy
     @deal = current_user.deals.find(params[:id])
     @deal.destroy
     respond_with @deal
+  end
+
+  def repost
+    # deprecated
+    render :status => :created, :nothing => true
   end
 
   def events

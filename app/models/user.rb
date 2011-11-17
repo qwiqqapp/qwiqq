@@ -27,7 +27,6 @@ class User < ActiveRecord::Base
   has_many :shared_deals, :through => :shares, :source => :deal, :uniq => true
   
   has_many :invitations_sent, :class_name => "Invitation"
-  has_many :reposts, :dependent => :destroy
   has_many :apn_devices, :class_name => 'APN::Device'
 
   has_many :events, :class_name => "UserEvent"
@@ -149,7 +148,6 @@ class User < ActiveRecord::Base
     end
 
     Feedlet.import( target.deals.map { |d| self.feedlets.new(:posting_user_id => target.id, :deal_id => d.id, :timestamp => d.created_at) } )
-    Feedlet.import( target.reposts.map { |r| self.feedlets.new(:posting_user_id => target.id, :deal_id => r.deal_id, :timestamp => r.created_at, :reposted_by => target.username) } )
   end
 
   def unfollow!(target)
@@ -171,12 +169,6 @@ class User < ActiveRecord::Base
       "SELECT r1.* FROM relationships r1, relationships r2 
        WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id 
          AND r1.user_id = #{id} AND r1.target_id = #{target.id}").any?
-  end
-
-  def repost_deal!(deal)
-    r = self.reposts.create :deal => deal
-    deal.populate_feed(self, r)
-    deal
   end
 
   def email_invitation_sent?(email)

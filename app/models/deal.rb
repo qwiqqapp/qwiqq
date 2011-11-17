@@ -149,7 +149,6 @@ class Deal < ActiveRecord::Base
 
     return json if options[:minimal]
     
-    # TODO move this to device, which should know current user and likes
     # add 'liked' for the current_user if requested
     current_user = options[:current_user]
     if current_user
