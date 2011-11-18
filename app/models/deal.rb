@@ -201,59 +201,52 @@ class Deal < ActiveRecord::Base
     end
   end
   
-  # TODO merge this with filtered_search
-  def self.category_search(name, lat, lon, opts = {})
-    # required
-    opts.merge!({:conditions => {:category => name}})
-    opts[:order]  = "@relevance DESC"
-    opts.delete(:page) if opts[:page].nil?
-    
-    # optional
-    if lat && lon
-      opts[:geo]    = geo_radians(lat, lon)
-      opts[:order]  = "@geodist ASC, @relevance DESC"
-      #opts[:with]   = {"@geodist" => 0.0..10_000.0}
-    end
-    
-    self.search(opts)
-  end
-  
-  def self.filtered_search(query, filter, lat=nil, lon=nil, opts = {})
-    return [] if query.blank?
-    
-    opts.merge!({:conditions => {:name => query}})
-    opts.delete(:page) if opts[:page].nil?
-    
-    case filter
-      when 'newest'
-        opts[:order]      = "created_at DESC, @relevance DESC"
-        
-      when 'nearby'
-        raise NoMethodError, 'Coordinates required' if lat.blank? && lon.blank?
-        
-        opts[:order]      = "@geodist ASC, @relevance DESC"
-        opts[:geo]        = geo_radians(lat, lon)
-        #opts[:with]       = {"@geodist" => 0.0..10_000.0}
-        
-      when 'popular'
-        opts[:sort_mode]  = :expr
-        opts[:order]      = "@weight * likes_count * comments_count" 
-      
+  # Search deals.
+  #
+  # order - "newest" || "popular" || "relevance" || "nearby"
+  # options - 
+  #   :query - The search term
+  #   :category - Limit results to category
+  #   :lat, :lon - Limit results to range
+  #   :limit - Limit the number of results
+  #   :page - Pagination page
+  #
+  # Returns a ThinkingSphinx collection containing all deals matching the filters.
+  def self.filtered_search(order, options={})
+    # bail early if the provided query is invalid
+    return [] if options[:query] and options[:query].blank?
+
+    # filtering options
+    conditions = {}
+    search_options = {}
+    conditions[:name] = options[:query] unless options[:query].nil?
+    conditions[:category] = options[:category] unless options[:category].nil?
+    search_options[:conditions] = conditions unless conditions.empty?
+    search_options[:page] = options[:page] unless options[:page].nil?
+    search_options[:max_matches] = options[:limit] unless options[:limit].nil?
+
+    # ordering
+    case order
+      when "newest"
+        search_options[:order] = "created_at DESC, @relevance DESC"
+      when "popular"
+        search_options[:sort_mode] = :expr
+        search_options[:order] = "@weight * likes_count * comments_count" 
+      when "relevance"
+        search_options[:order] = "@relevance DESC"
+      when "nearby"
+        lat, lon = options[:lat], options[:lon]
+        raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank?
+        search_options[:order] = "@geodist ASC, @relevance DESC"
+        search_options[:geo] = geo_radians(lat, lon)
+        #search_options[:with] = { "@geodist" => 0.0..10_000.0 }
       else
-        raise NoMethodError, 'Search filter not valid'  
+        raise NoMethodError, "Search order is invalid."
     end
-    
-    # compact to remove stale deals returned by TS
-    # TS has retry option but it's time expensive
-    self.search(opts)
+
+    self.search(search_options)
   end
 
-  def self.nearby(lat, lon)
-    self.search(:order => "@geodist ASC, created_at DESC",
-                :geo => geo_radians(lat, lon),
-                :max_matches => 15).compact
-  end
-  
   def locate_via_foursquare!
     venue = Qwiqq.foursquare_client.venue(foursquare_venue_id) if foursquare_venue_id
     if venue

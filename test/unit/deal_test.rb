@@ -55,7 +55,7 @@ class DealTest < ActiveSupport::TestCase
   
   test "filtered search without query should not raise" do
     assert_nothing_raised do
-      @deals = Deal.filtered_search(' ', 'popular')
+      @deals = Deal.filtered_search('popular')
     end
     assert_equal [], @deals
   end

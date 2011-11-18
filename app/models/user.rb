@@ -33,7 +33,6 @@ class User < ActiveRecord::Base
   has_many :events_created, :class_name => "UserEvent", :foreign_key => "created_by_id"
   
   scope :sorted, :order => 'users.username ASC'
-  
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
     
   attr_accessible :first_name, 
@@ -147,7 +146,8 @@ class User < ActiveRecord::Base
       r.update_counts
     end
 
-    Feedlet.import( target.deals.map { |d| self.feedlets.new(:posting_user_id => target.id, :deal_id => d.id, :timestamp => d.created_at) } )
+    Feedlet.import( target.deals.map { |d| 
+      self.feedlets.new(:posting_user_id => target.id, :deal_id => d.id, :timestamp => d.created_at) } )
   end
 
   def unfollow!(target)

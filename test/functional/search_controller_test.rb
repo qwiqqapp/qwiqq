@@ -27,8 +27,8 @@ class Api::SearchControllerTest < ActionController::TestCase
   
   test "should route to search#deals" do
     assert_routing(
-      {:method => 'get', :path => '/api/search/deals/nearby.json'}, 
-      {:format => 'json', :controller => 'api/search', :action => 'deals', :filter => 'nearby'}
+      {:method => 'get', :path => '/api/search/deals/popular.json'}, 
+      {:format => 'json', :controller => 'api/search', :action => 'deals', :filter => 'popular'}
     )
   end
   
@@ -166,15 +166,12 @@ class Api::SearchControllerTest < ActionController::TestCase
   end
   
   test "should NOT raise exception for empty query" do
-    assert_nothing_raised do
-      get :deals, :q => ' ', :filter => 'popular', :format => "json"
+    ThinkingSphinx::Test.run do
+      assert_nothing_raised do
+        get :deals, :q => ' ', :filter => 'popular', :format => "json"
+      end
+      assert_equal [], json_response
     end
-    assert_equal [], json_response
-  end
-  
-  test "should provide error message if lat/long not provided for nearby search" do
-    get :deals, :q => 'beer', :filter => 'nearby', :format => "json"
-    assert_match /not allowed/i, json_response['message']
   end
   
   test "should return array of deals for search/newest" do
@@ -208,7 +205,7 @@ class Api::SearchControllerTest < ActionController::TestCase
     ThinkingSphinx::Test.index
 
     ThinkingSphinx::Test.run do
-      get :deals, :q => 'beer', :filter => 'nearby', :lat => @lat, :long => @lon, :format => "json"
+      get :deals, :q => 'beer', :filter => 'newest', :lat => @lat, :long => @lon, :format => "json"
       
       assert_equal 3,           json_response.size
       assert_equal @deal3.name, json_response.first['name']
