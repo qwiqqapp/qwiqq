@@ -2,15 +2,6 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   
-  test "should return user for valid search" do    
-    @user0 = Factory(:user, :first_name => 'mark')
-    @user1 = Factory(:user, :first_name => 'mary')    
-    @user2 = Factory(:user, :first_name => 'john')
-
-    
-
-  end
-  
   test "should raise exception if username taken (ignore case)" do
     Factory(:user, :username => 'Adam')
     exception = assert_raise(ActiveRecord::RecordInvalid) {
