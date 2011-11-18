@@ -42,12 +42,14 @@ class Api::SharesControllerTest < ActionController::TestCase
        :user_id => "current",
        :deal_id => @deal.id,
        :facebook => true,
+       :message => "I found a thing on Qwiqq!",
        :format => "json"
     
     # queues
     assert_equal 200, @response.status
     assert_equal 1, @deal.shares.count
     assert_equal 'facebook', @deal.shares.first.service
+    assert_equal 'I found a thing on Qwiqq!', @deal.shares.first.message
   end
 
   test "should share a deal to multiple services" do

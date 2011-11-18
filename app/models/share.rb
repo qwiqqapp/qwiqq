@@ -5,6 +5,8 @@ class Share < ActiveRecord::Base
 
   validates :service, :inclusion => [ "email", "twitter", "facebook", "sms", "foursquare" ]
 
+  before_create :build_message
+
   # we share to facebook immediately so that we can provide the user with error messages
   before_create :deliver, :if => :facebook_share?
 
@@ -36,11 +38,8 @@ class Share < ActiveRecord::Base
     # post url 
     deal_url = Rails.application.routes.url_helpers.deal_url(deal, :host => HOST)
 
-    # post caption
-    caption = Qwiqq.share_deal_message(deal, self)
- 
     # post to the users wall
-    user.facebook_client.put_wall_post(caption,
+    user.facebook_client.put_wall_post(message,
       "name" => deal.name,
       "link" => deal_url,
       "picture" => deal.photo.url(:iphone_grid))
@@ -49,9 +48,6 @@ class Share < ActiveRecord::Base
   end
 
   def deliver_to_foursquare
-    # build the message (foursquare 'shouts' are also 140 chars)
-    message = Qwiqq.twitter_message(deal, user)
-    
     # if a venue id is present, checkin otherwise 'shout'
     if foursquare_venue_id.blank?
       user.foursquare_client.shout(message)
@@ -64,9 +60,6 @@ class Share < ActiveRecord::Base
   end
 
   def deliver_to_twitter
-    # build the message
-    message = Qwiqq.twitter_message(deal, user)
-
     # post update
     user.twitter_client.update(message)
 
@@ -75,9 +68,6 @@ class Share < ActiveRecord::Base
   end
 
   def deliver_sms
-    # build the message
-    message = Qwiqq.twitter_message(deal, user, true) 
-
     # post update
     twilio_client.account.sms.messages.create(
       :from => Qwiqq.twilio_from_number,
@@ -113,6 +103,19 @@ class Share < ActiveRecord::Base
       :deal => deal,
       :created_by => user,
       :metadata => { :service => service })
+  end
+
+  def build_message
+    self.message ||= Qwiqq.default_share_deal_message
+    # append the name and url for twitter, sms and foursquare
+    case service
+    when "sms"
+      self.message = Qwiqq.build_share_deal_message(self.message, deal, 160)
+      self.message = "#{user.username}: #{self.message}"
+    when "twitter" || "foursquare"
+      self.message.gsub!(/qwiqq/i, "@Qwiqq") if service == "twitter"
+      self.message = Qwiqq.build_share_deal_message(self.message, deal, 140)
+    end
   end
 end
 

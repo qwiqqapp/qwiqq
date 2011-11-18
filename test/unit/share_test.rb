@@ -12,10 +12,27 @@ class ShareTest < ActiveSupport::TestCase
   teardown do
     DatabaseCleaner.clean
   end
+
+  test "should a message provided to be provided" do
+    @share = Factory(:twitter_share, :message => "I found a thing on qwiqq!")
+    url = Rails.application.routes.url_helpers.deal_url(@share.deal, :host => "www.qwiqq.me")
+    assert_equal "I found a thing on @Qwiqq! #{@share.deal.name} #{url}", @share.message
+    assert_queued(ShareDeliveryJob, [@share.id])
+  end
   
+  test "should set a default message when none is provided" do
+    facebook_client = mock
+    facebook_client.expects(:put_wall_post)
+    @user = Factory(:user)
+    @user.expects(:facebook_client).returns(facebook_client)
+    @share = Factory(:facebook_share, :user => @user)
+    assert_equal "I shared something I love on Qwiqq!", @share.message
+  end
+
   # test queue is populated
   test "should queue twitter share" do
     @share = Factory(:twitter_share)
+    assert_not_nil @share.message
     assert_queued(ShareDeliveryJob, [@share.id])
   end
 
@@ -44,6 +61,7 @@ class ShareTest < ActiveSupport::TestCase
     # share should be saved on success
     assert @share.persisted?
     assert_not_nil @share.shared_at
+    assert_not_nil @share.message
   end
 
   test "should not persist when sharing to facebook fails due to an invalid access token" do

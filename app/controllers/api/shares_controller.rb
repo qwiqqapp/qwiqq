@@ -1,30 +1,38 @@
 class Api::SharesController < Api::ApiController
   def create
-    @user = current_user
-    @deal = Deal.find(params[:deal_id])
+    deal = Deal.find(params[:deal_id])
 
     # facebook
     facebook_token_invalid =
       begin
-        @user.shares.create(:deal => @deal, :service => "facebook") if params[:facebook]
+        if params[:facebook]
+          current_user.shares.create(:deal => deal, :service => "facebook", :message => params[:message])
+        end
         false
       rescue Koala::Facebook::APIError => e
         e.message =~ /Error validating access token/
       end 
 
     # twitter
-    @user.shares.create(:deal => @deal, :service => "twitter")  if params[:twitter]
+    if params[:twitter]
+      current_user.shares.create(:deal => deal, :service => "twitter", :message => params[:message])
+    end
+
+    # foursquare
+    if params[:foursquare]
+      current_user.shared.create(:deal => deal, :service => "foursquare", :message => params[:message])
+    end
 
     # sms
     numbers = params[:sms_numbers] || []
     numbers.each do |number|
-      @user.shares.create(:deal => @deal, :service => "sms", :number => number)
+      current_user.shares.create(:deal => deal, :service => "sms", :number => number, :message => params[:message])
     end
 
     # email
     emails = params[:emails] || []
     emails.each do |email|
-      @user.shares.create(:deal => @deal, :service => "email", :email => email)
+      current_user.shares.create(:deal => deal, :service => "email", :email => email, :message => params[:message])
     end
 
     if facebook_token_invalid

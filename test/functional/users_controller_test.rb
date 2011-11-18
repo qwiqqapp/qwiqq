@@ -75,7 +75,7 @@ class Api::UsersControllerTest < ActionController::TestCase
     assert_equal nil, json_response['email']
   end
 
-  # users#show for current user
+  # users#show for the current user
   test "should render the current users details" do
     @user = Factory(:user)
     @deals = [Factory(:deal, :user => @user), Factory(:deal, :user => @user)]
