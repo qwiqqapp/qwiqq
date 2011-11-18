@@ -220,11 +220,12 @@ class User < ActiveRecord::Base
       :comment_count         => comments_count,
       
       # conditional
-      :deals                 => options[:deals]    ? deals.sorted.limit(6)        : nil,
-      :liked_deals           => options[:deals]    ? liked_deals.sorted.limit(6)  : nil,
-      :comments              => options[:comments] ? comments.limit(3)     : nil
+      :deals                 => options[:deals]    ? deals.sorted.limit(6) : nil,
+      :liked_deals           => options[:deals]    ? liked_deals.sorted.limit(6) : nil,
+      :comments              => options[:comments] ? comments.limit(3) : nil,
+      :events                => options[:events]   ? events.limit(20) : nil
     }
-    
+
     # add is_following and is_followed if possible
     if current_user = options[:current_user] 
       if current_user == self

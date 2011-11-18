@@ -63,26 +63,30 @@ class Api::UsersControllerTest < ActionController::TestCase
     assert_match /taken/i, json_response['username'].first
   end
   
-  # users#show
-  test "should render users details" do
-    @user = Factory(:user)
-    sign_in(@user)
+  # users#show for a user other than the current user
+  test "should render a users details" do
+    @user0 = Factory(:user)
+    @user1 = Factory(:user)
+    sign_in(@user0)
     
-    get :show, :id => @user.id, :format => 'json'
+    get :show, :id => @user1.id, :format => 'json'
     assert_equal 200, @response.status
+    assert_equal nil, json_response['events']
+    assert_equal nil, json_response['email']
   end
 
   # users#show for current user
-  test "should render current_users details" do
+  test "should render the current users details" do
     @user = Factory(:user)
     @deals = [Factory(:deal, :user => @user), Factory(:deal, :user => @user)]
     sign_in(@user)
-
 
     get :show, :id => "current", :format => 'json'
 
     assert_equal 200, @response.status
     assert_equal 2, json_response['deals'].size
+    assert_equal 0, json_response['events'].size
+    assert_equal @user.email, json_response['email']
   end
 
   # users#followers

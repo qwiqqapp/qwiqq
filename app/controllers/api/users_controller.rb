@@ -1,6 +1,6 @@
 class Api::UsersController < Api::ApiController
-
   skip_before_filter :require_user, :only => [:create, :show, :followers, :following, :friends]
+
   caches_action :show, :cache_path => lambda {|c|
     (c.current_user.try(:cache_key) || "guest") + "/" + c.requested_user.cache_key
   } # expires automatically when users cache key changes or deals cache key changes
@@ -48,7 +48,8 @@ class Api::UsersController < Api::ApiController
     render :json => @user.as_json(
       :current_user => current_user,
       :deals => true, 
-      :comments => true)
+      :comments => true,
+      :events => @user == current_user)
   end
 
   def followers
