@@ -208,7 +208,7 @@ class Deal < ActiveRecord::Base
   # options - 
   #   :query - The search term
   #   :category - Limit results to category
-  #   :lat, :lon - Limit results to range
+  #   :lat, :lon, :range - Limit results to range
   #   :limit - Limit the number of results
   #   :page - Pagination page
   #
@@ -238,9 +238,10 @@ class Deal < ActiveRecord::Base
       when "nearby"
         lat, lon = options[:lat], options[:lon]
         raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank?
+        range = (options[:range] || 10_000).to_f
         search_options[:order] = "@geodist ASC, @relevance DESC"
         search_options[:geo] = geo_radians(lat, lon)
-        #search_options[:with] = { "@geodist" => 0.0..10_000.0 }
+        search_options[:with] = { "@geodist" => 0.0..range }
       else
         raise NoMethodError, "Search order is invalid."
     end

@@ -114,8 +114,8 @@ class Api::SearchControllerTest < ActionController::TestCase
     ThinkingSphinx::Test.index
     
     ThinkingSphinx::Test.run do
-      get :category, :name => 'food', :lat => @lat, :long => @lon, :format => "json"
-
+      get :category, :name => 'food', :lat => @lat, :long => @lon, :format => "json", :range => 500_000
+      
       assert_equal @deal1.name, json_response[0]['name']     #gastownlabs deal should be first
       assert_equal @deal3.name, json_response[1]['name']     #sixacres deal should be 2nd
       assert_equal @deal2.name, json_response[2]['name']     #thelocal deal should be 3rd

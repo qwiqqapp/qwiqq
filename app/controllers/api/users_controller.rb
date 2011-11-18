@@ -17,7 +17,6 @@ class Api::UsersController < Api::ApiController
 
   def requested_user
     @user ||= find_user(params[:id])
-
   end
 
   # will raise RecordNotFound if user not found

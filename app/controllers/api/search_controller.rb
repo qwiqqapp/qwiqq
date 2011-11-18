@@ -23,15 +23,16 @@ class Api::SearchController < Api::ApiController
   # path: api/search/deals/:filter
   # required params:
   # - params[:filter] = order (newest || popular || nearby)
-  # - params[:lat], params[:long] (required when "filter" is "nearby")
+  # - params[:lat], params[:long], params[:range] (required when "filter" is "nearby")
   # - params[:q]
   # optional params
   # - params[:category]
   def deals
     @deals = Deal.filtered_search(params[:filter],
-      :query => params[:q], 
-      :lat => params[:lat], 
-      :lon => params[:long], 
+      :query => params[:q],
+      :lat => params[:lat],
+      :lon => params[:long],
+      :range => params[:range],
       :category => params[:category],
       :page => params[:page])
     render :json => paginate(@deals).compact.as_json(:minimal => true)
@@ -41,13 +42,14 @@ class Api::SearchController < Api::ApiController
   # required param: 
   # - params[:name]
   # optional params:
-  # - params[:lat], params[:long]
+  # - params[:lat], params[:long], params[:range]
   def category
     order = (params[:lat] and params[:long]) ? "nearby" : "relevance"
     @deals = Deal.filtered_search(order,
-      :category => params[:name], 
-      :lat => params[:lat], 
+      :category => params[:name],
+      :lat => params[:lat],
       :lon => params[:long],
+      :range => params[:range],
       :page => params[:page])
     render :json => paginate(@deals).compact.as_json(:minimal => true)
   end
