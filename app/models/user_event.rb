@@ -23,7 +23,10 @@ class UserEvent < ActiveRecord::Base
       :created_by_photo_2x => created_by_photo_2x
     }
 
-    json[:deal_id] = deal_id if deal
+    if deal
+      json[:deal_name] = deal_name
+      json[:deal_id] = deal_id
+    end
 
     case event_type
     when "comment"
