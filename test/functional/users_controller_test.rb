@@ -33,8 +33,8 @@ class Api::UsersControllerTest < ActionController::TestCase
   end
 
   test "should route to users#events" do
-    assert_routing("/api/users/events.json", {
-      :format => "json", :controller => "api/users", :action => "events" })
+    assert_routing("/api/users/1/events.json", {
+      :format => "json", :controller => "api/users", :action => "events", :id => "1" })
   end
   
   test "user registration" do
@@ -192,7 +192,7 @@ class Api::UsersControllerTest < ActionController::TestCase
     @relationship.create_event
 
     sign_in @user
-    get :events, :format => "json"
+    get :events, :format => "json", :id => "current"
 
     assert_equal 200, @response.status
     assert_equal 4, json_response.size

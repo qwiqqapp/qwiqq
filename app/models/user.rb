@@ -8,9 +8,9 @@ class User < ActiveRecord::Base
     set_property :min_prefix_len => 3
   end
   
-  has_many :deals,    :dependent => :destroy
+  has_many :deals, :dependent => :destroy
   has_many :comments, :dependent => :destroy
-  has_many :likes,    :dependent => :destroy
+  has_many :likes, :dependent => :destroy
   has_many :liked_deals, :through => :likes, :source => :deal
   has_many :feedlets, :dependent => :destroy
   has_many :posted_feedlets, :class_name => 'Feedlet', :foreign_key => 'posting_user_id', :dependent => :destroy

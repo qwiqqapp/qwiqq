@@ -33,7 +33,7 @@ Qwiqq::Application.routes.draw do
       get "followers", :on => :member
       get "following", :on => :member
       get "friends",   :on => :member
-      get "events",    :on => :collection
+      get "events",    :on => :member
       get "suggested", :on => :collection
       
       post "following" => "relationships#create"
@@ -41,7 +41,7 @@ Qwiqq::Application.routes.draw do
       
       resources :likes, :only => [:index]
       resources :comments, :only => [:index]
-      resources :invitations, :only => [:index,:create]
+      resources :invitations, :only => [:index, :create]
       
       resources :deals, :only => [:index] do
         resources :shares, :only => [:create]
@@ -54,10 +54,10 @@ Qwiqq::Application.routes.draw do
     resources :password_resets, :only => [:create, :update]
     
     resources :deals, :only => [:show, :create, :destroy, :update] do
-      get "feed", :on => :collection
+      get "feed",    :on => :collection
       get "popular", :on => :collection
       post "repost", :on => :member
-      get "events", :on => :member
+      get "events",  :on => :member
       
       resources :likes,     :only => [:index]
       resource :like,       :only => [:create, :destroy] #should merge this with above resource likes

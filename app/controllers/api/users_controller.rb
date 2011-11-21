@@ -71,6 +71,7 @@ class Api::UsersController < Api::ApiController
   end
 
   def events
+    raise ActiveRecord::RecordNotFound unless params[:id] == "current"
     @events = current_user.events
     respond_with paginate(@events)
   end
