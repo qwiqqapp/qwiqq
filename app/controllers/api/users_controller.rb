@@ -75,5 +75,10 @@ class Api::UsersController < Api::ApiController
     respond_with paginate(@events)
   end
 
+  def suggested
+    @users = User.suggested
+    respond_with @users
+  end
+
 end
 

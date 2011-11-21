@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
   
   scope :sorted, :order => 'users.username ASC'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
+  scope :suggested, where("suggested IS TRUE")
     
   attr_accessible :first_name, 
                   :last_name, 
@@ -52,7 +53,8 @@ class User < ActiveRecord::Base
                   :bio,
                   :push_token,
                   :phone,
-                  :website
+                  :website,
+                  :suggested
 
   attr_accessor :push_token
   attr_accessor :password
@@ -69,7 +71,6 @@ class User < ActiveRecord::Base
   validates_length_of       :password, :minimum => 5, :allow_nil => true
   validates                 :email, :presence => true, :uniqueness => {:case_sensitive => false}, :email => true
   validates_uniqueness_of   :username, :case_sensitive => false
-
   validates_format_of       :username, :with => /^[\w\d_]+$/, :message => "use only letters, numbers and '_'"
   
   # see initializers/auto_orient.rb for new processor
