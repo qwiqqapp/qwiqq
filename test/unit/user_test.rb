@@ -114,7 +114,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "", @user.bio
   end
   
-  test "should update twitter_id when twitter_access_token changes" do
+  test "should update #twitter_id when #twitter_access_token changes" do
     @user = Factory(:user)
 
     twitter_user = mock(:id => 1)
@@ -128,7 +128,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "1", @user.twitter_id
   end
   
-  test "should update facebook_id when facebook_access_token changes" do
+  test "should update #facebook_id when #facebook_access_token changes" do
     @user = Factory(:user)
     
     facebook_client = mock()
@@ -149,6 +149,16 @@ class UserTest < ActiveSupport::TestCase
     @user.update_attributes(:foursquare_access_token => "token")
     
     assert_equal "1", @user.foursquare_id
+  end
+
+  test "should fetch the users image from facebook when #update_photo_from_facebook is present" do
+    @user = Factory(:user, :facebook_access_token => "token")
+    facebook_client = mock()
+    me = {}
+    facebook_client.expects(:get_object).with("me").returns(me)
+    @user.stubs(:facebook_client).returns(facebook_client)
+    @user.update_attributes(:update_photo_from_facebook => "true")
+
   end
   
 end

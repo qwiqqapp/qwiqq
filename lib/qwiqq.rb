@@ -1,5 +1,6 @@
 require "active_record_strip_attrs_extension"
 require "date_helper"
+require "paperclip_remote_file"
 require "foursquare"
 
 module Qwiqq

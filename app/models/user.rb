@@ -54,16 +54,19 @@ class User < ActiveRecord::Base
                   :push_token,
                   :phone,
                   :website,
-                  :suggested
+                  :suggested,
+                  :photo_service
 
   attr_accessor :push_token
   attr_accessor :password
+  attr_accessor :photo_service
   
   before_save :encrypt_password
   before_save :update_twitter_id
   before_save :update_facebook_id
   before_save :update_foursquare_id
   before_save :update_notifications_token
+  before_save :update_photo_from_service
   after_save :update_push_token # may be called on create and we need user_id to create an APN::Device
   
   validates_confirmation_of :password
@@ -282,6 +285,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def update_photo_from_facebook
+    return if facebook_access_token.blank?
+    picture_url = facebook_client.get_picture("me", :type => "large") rescue nil
+    self.photo = Paperclip::RemoteFile.new(picture_url) if picture_url
+  end
+
   private
     def update_twitter_id
       return unless twitter_access_token_changed?
@@ -316,6 +325,12 @@ class User < ActiveRecord::Base
 
     def update_notifications_token
       self.notifications_token ||= Qwiqq.friendly_token
+    end
+
+    def update_photo_from_service
+      case photo_service
+      when "facebook" then update_photo_from_facebook
+      end
     end
 end
 
