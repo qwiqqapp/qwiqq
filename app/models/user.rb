@@ -291,6 +291,12 @@ class User < ActiveRecord::Base
     self.photo = Paperclip::RemoteFile.new(picture_url) if picture_url
   end
 
+  def update_photo_from_twitter
+    return if twitter_access_token.blank?
+    profile_image_url = twitter_client.profile_image(:size => :original) rescue nil
+    self.photo = Paperclip::RemoteFile.new(profile_image_url)
+  end
+
   private
     def update_twitter_id
       return unless twitter_access_token_changed?
@@ -330,6 +336,7 @@ class User < ActiveRecord::Base
     def update_photo_from_service
       case photo_service
       when "facebook" then update_photo_from_facebook
+      when "twitter" then update_photo_from_twitter
       end
     end
 end

@@ -156,5 +156,10 @@ class UserTest < ActiveSupport::TestCase
     @user.expects(:update_photo_from_facebook)
     @user.update_attributes(:photo_service => "facebook")
   end
-  
+
+  test "should fetch the users image from twitter when #photo_service == 'twitter'" do
+    @user = Factory(:user)
+    @user.expects(:update_photo_from_twitter)
+    @user.update_attributes(:photo_service => "twitter")
+  end
 end
