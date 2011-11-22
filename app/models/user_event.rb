@@ -1,4 +1,6 @@
 class UserEvent < ActiveRecord::Base
+  include ActionView::Helpers::DateHelper
+
   belongs_to :user
   belongs_to :created_by, :class_name => "User"
   belongs_to :deal
@@ -20,7 +22,8 @@ class UserEvent < ActiveRecord::Base
       :created_by_id => created_by_id,
       :created_by_username => created_by_username,
       :created_by_photo => created_by_photo,
-      :created_by_photo_2x => created_by_photo_2x
+      :created_by_photo_2x => created_by_photo_2x,
+      :short_age => short_time_ago_in_words(created_at)
     }
 
     if deal

@@ -139,8 +139,8 @@ class Deal < ActiveRecord::Base
       :lon            => lon.try(:to_s),
       :comment_count  => comments_count,
       :like_count     => likes_count,
-      :age            => age.gsub("about ", ""),
-      :short_age      => short_created_at,
+      :age            => age_in_words.gsub("about ", ""),
+      :short_age      => short_age_in_words,
       :location_name  => location_name,
       :venue_name     => foursquare_venue_name,
       :user           => options[:minimal] ? nil : user.try(:as_json, :deals => false),
@@ -179,27 +179,12 @@ class Deal < ActiveRecord::Base
     number_to_currency price.to_f / 100
   end
   
-  def age
+  def age_in_words
     created_at ? time_ago_in_words(created_at) : ""
   end
-  
 
-  def short_created_at
-    from_time = created_at
-    to_time = Time.now
-    distance_in_minutes = (((to_time - from_time).abs)/60).round
-    distance_in_seconds = ((to_time - from_time).abs).round
-
-    case distance_in_minutes
-    when 0..1
-      "#{distance_in_seconds}s"
-    when 2..44           then "#{distance_in_minutes}m"
-    when 45..1439        then "#{(distance_in_minutes.to_f / 60.0).round}hr"
-    when 1440..43199     then "#{(distance_in_minutes.to_f / 1440.0).round}d"
-    when 43200..525599   then "#{(distance_in_minutes.to_f / 43200.0).round}mo"
-    else
-      "#{distance_in_minutes / 525600}y"
-    end
+  def short_age_in_words
+    created_at ? short_time_ago_in_words(created_at) : ""
   end
   
   # Search deals.

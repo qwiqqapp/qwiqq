@@ -1,4 +1,5 @@
 require "active_record_strip_attrs_extension"
+require "date_helper"
 require "foursquare"
 
 module Qwiqq
@@ -34,4 +35,3 @@ module Qwiqq
     @foursquare_categories ||= YAML.load_file(Rails.root.join("config", "foursquare_categories.yml"))
   end
 end
-
