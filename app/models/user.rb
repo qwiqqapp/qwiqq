@@ -294,7 +294,7 @@ class User < ActiveRecord::Base
   def update_photo_from_twitter
     return if twitter_access_token.blank?
     profile_image_url = twitter_client.profile_image(:size => :original) rescue nil
-    self.photo = Paperclip::RemoteFile.new(profile_image_url)
+    self.photo = Paperclip::RemoteFile.new(profile_image_url) if profile_image_url
   end
 
   private
