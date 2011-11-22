@@ -151,14 +151,10 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "1", @user.foursquare_id
   end
 
-  test "should fetch the users image from facebook when #update_photo_from_facebook is present" do
-    @user = Factory(:user, :facebook_access_token => "token")
-    facebook_client = mock()
-    me = {}
-    facebook_client.expects(:get_object).with("me").returns(me)
-    @user.stubs(:facebook_client).returns(facebook_client)
-    @user.update_attributes(:update_photo_from_facebook => "true")
-
+  test "should fetch the users image from facebook when #photo_service == 'facebook'" do
+    @user = Factory(:user)
+    @user.expects(:update_photo_from_facebook)
+    @user.update_attributes(:photo_service => "facebook")
   end
   
 end
