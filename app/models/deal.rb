@@ -104,7 +104,6 @@ class Deal < ActiveRecord::Base
     json = {
       :deal_id        => id.try(:to_s),
       :name           => name,
-      :category       => options[:minimal] ? nil : category.try(:name),
       
       # popular
       :photo_grid     => photo.url(:iphone_grid),
@@ -143,23 +142,23 @@ class Deal < ActiveRecord::Base
       :short_age      => short_age_in_words,
       :location_name  => location_name,
       :venue_name     => foursquare_venue_name,
-      :user           => options[:minimal] ? nil : user.try(:as_json, :deals => false),
       :user_id        => user_id,
       :repost_count   => reposts_count,
-      :share_count    => shares_count
+      :share_count    => shares_count,
     }
 
-    return json if options[:minimal]
+    # add detail if requested
+    unless options[:minimal]
+      json[:category]       = category.try(:name)
+      json[:events]         = events.limit(20)
+      json[:comments]       = comments.limit(3)
+      json[:liked_by_users] = liked_by_users.limit(6)
+      json[:user]           = user.try(:as_json)
     
-    # add 'liked' for the current_user if requested
-    current_user = options[:current_user]
-    if current_user
-      json[:liked] = current_user.liked_deals.include?(self)
+      # add 'liked' for the current user if requested
+      current_user = options[:current_user]
+      json[:liked] = current_user.liked_deals.include?(self) if current_user
     end
-    
-    # add comments and users who liked this deal if requested 
-    json[:comments] = comments.limit(3) if options[:comments]
-    json[:liked_by_users] = liked_by_users.limit(6) if options[:liked_by_users]
     
     json
   end

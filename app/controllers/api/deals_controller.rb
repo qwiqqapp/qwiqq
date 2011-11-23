@@ -35,10 +35,7 @@ class Api::DealsController < Api::ApiController
   
   def show
     find_deal
-    # i.e. :include => [ :comments, :liked_by_users ]
-    render :json => @deal.as_json(:current_user => current_user,
-                                  :comments => true, 
-                                  :liked_by_users => true)
+    render :json => @deal.as_json(:current_user => current_user)
   end
   
   # return deals for a given user
