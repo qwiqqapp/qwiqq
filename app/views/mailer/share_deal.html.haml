@@ -1,7 +1,6 @@
 %table{:style => "width: 580px; border-collapse: collapse; margin-left: 50px; margin-top: 20px"}
   %tr
     %td{:style => "text-align: left; color:#00c2fe; font-family: Arial; font-size: 14pt"}
-      #{Qwiqq.random_sharing_prefix}
       = link_to @user.username, iphone_redirect_url(:to => "qwiqq:///users/#{@user.id}"),  :style => "color: #ff7720; text-decoration: underline"
       shared a deal with you on Qwiqq!
 
