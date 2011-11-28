@@ -19,7 +19,7 @@ module Qwiqq
   end
 
   def self.friendly_token(size = 20)
-    ActiveSupport::SecureRandom.base64(size).gsub(/[^0-9a-z"]/i, '')
+    SecureRandom.base64(size).gsub(/[^0-9a-z"]/i, '')
   end
   
   def self.foursquare_client
