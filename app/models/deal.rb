@@ -142,7 +142,7 @@ class Deal < ActiveRecord::Base
       :short_age      => short_age_in_words,
       :location_name  => location_name,
       :venue_name     => foursquare_venue_name,
-      :user_id        => user_id,
+      :user_id        => user_id.try(:to_s),
       :repost_count   => reposts_count,
       :share_count    => shares_count,
     }
