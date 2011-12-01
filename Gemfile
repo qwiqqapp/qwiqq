@@ -28,7 +28,6 @@ gem "resque"
 gem "geokit"
 gem "koala" # facebook
 gem "twitter", "1.6.0"
-gem "airbrake"
 gem "daemons", :require => false
 gem "httparty"
 
