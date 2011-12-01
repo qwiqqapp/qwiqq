@@ -147,6 +147,10 @@ class Deal < ActiveRecord::Base
       :share_count    => shares_count,
     }
 
+    # add 'liked' for the current user if requested
+    current_user = options[:current_user]
+    json[:liked] = current_user.liked_deals.include?(self) if current_user
+
     # add detail if requested
     unless options[:minimal]
       json[:category]       = category.try(:name)
@@ -154,10 +158,6 @@ class Deal < ActiveRecord::Base
       json[:comments]       = comments.limit(3)
       json[:liked_by_users] = liked_by_users.limit(6)
       json[:user]           = user.try(:as_json)
-    
-      # add 'liked' for the current user if requested
-      current_user = options[:current_user]
-      json[:liked] = current_user.liked_deals.include?(self) if current_user
     end
     
     json

@@ -55,10 +55,10 @@ class Api::DealsControllerTest < ActionController::TestCase
 
     # deals from users followed by current user
     feed_deals = [
-      Factory(:deal, :user => @user1, :created_at => 2.minutes.ago),
-      Factory(:deal, :user => @user2, :created_at => 3.minutes.ago),
-      Factory(:deal, :user => @user2, :created_at => 4.minutes.ago),
-      Factory(:deal, :user => @user1, :created_at => 5.minutes.ago) ]
+      Factory(:deal, :user => @user1, :created_at => 2.minutes.ago, :name => "a"),
+      Factory(:deal, :user => @user2, :created_at => 3.minutes.ago, :name => "b"),
+      Factory(:deal, :user => @user2, :created_at => 4.minutes.ago, :name => "c"),
+      Factory(:deal, :user => @user1, :created_at => 5.minutes.ago, :name => "d") ]
 
     get :feed, :format => 'json'
     
