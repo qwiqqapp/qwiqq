@@ -1,9 +1,10 @@
 class Api::UsersController < Api::ApiController
   skip_before_filter :require_user, :only => [:create, :show, :followers, :following, :friends]
 
-  caches_action :show, :cache_path => lambda {|c|
-    (c.current_user.try(:cache_key) || "guest") + "/" + c.requested_user.try(:cache_key)
-  } # expires automatically when users cache key changes or deals cache key changes
+  #  broken
+  # caches_action :show, :cache_path => lambda {|c|
+  #   (c.current_user.try(:cache_key) || "guest") + "/" + c.requested_user.try(:cache_key)
+  # } # expires automatically when users cache key changes or deals cache key changes
 
   caches_action :followers, :cache_path => lambda {|c| "followers/#{c.requested_user.cache_key}" },
     :unless => lambda {|c| c.params[:page] }
