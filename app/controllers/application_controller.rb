@@ -3,8 +3,7 @@ class ApplicationController < ActionController::Base
    
   respond_to :html, :json
   helper_method :ios?
-
-
+  
   def ios?
     !!(request.env['HTTP_USER_AGENT'] =~ /iPhone/i)
   end

@@ -12,7 +12,7 @@ namespace :category do
     end
     
     # remove old categories and their deals
-    Category.all.each do |c|
+    Category.find_each do |c|
       unless new_names.include?(c.name)
         c.deals.destroy_all
         c.destroy

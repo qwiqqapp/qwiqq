@@ -8,7 +8,7 @@ namespace :feedlets do
   
   desc 'trim feedlets for each user'
   task :trim => :environment do
-    User.all.each do |u| 
+    User.find_each do |u| 
       puts 'cleaning up feedlets for user: ' + user.username
       Feedlet.where(:user_id => u.id).order('timestamp').offset(50).destroy_all
     end
