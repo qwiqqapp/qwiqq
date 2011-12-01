@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111128062813) do
+ActiveRecord::Schema.define(:version => 20111121195059) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(:version => 20111128062813) do
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
 
   create_table "apn_devices", :force => true do |t|
-    t.string   "token",              :default => "", :null => false
+    t.string   "token",              :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "last_registered_at"
@@ -109,15 +109,15 @@ ActiveRecord::Schema.define(:version => 20111128062813) do
     t.integer  "comments_count",        :default => 0
     t.integer  "likes_count",           :default => 0
     t.string   "location_name"
-    t.string   "unique_token"
     t.datetime "indexed_at"
+    t.string   "unique_token"
     t.string   "foursquare_venue_id"
+    t.float    "foursquare_venue_lat"
+    t.float    "foursquare_venue_lon"
     t.string   "user_photo"
     t.string   "user_photo_2x"
     t.integer  "reposts_count",         :default => 0
     t.integer  "shares_count",          :default => 0
-    t.float    "foursquare_venue_lat"
-    t.float    "foursquare_venue_lon"
     t.string   "foursquare_venue_name"
   end
 

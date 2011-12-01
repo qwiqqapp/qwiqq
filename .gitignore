@@ -16,3 +16,4 @@ db/geo.dat
 config/heroku_env.rb
 vendor
 .bundle
+*.dat
