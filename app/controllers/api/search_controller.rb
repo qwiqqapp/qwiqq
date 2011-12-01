@@ -29,11 +29,11 @@ class Api::SearchController < Api::ApiController
   # - params[:category]
   def deals
     @deals = Deal.filtered_search(params[:filter],
+      :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
       :lat => params[:lat],
       :lon => params[:long],
       :range => params[:range],
-      :category => params[:category],
       :page => params[:page])
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
@@ -48,7 +48,7 @@ class Api::SearchController < Api::ApiController
   def category
     order = (params[:lat] and params[:long]) ? "nearby" : "relevance"
     @deals = Deal.filtered_search(order,
-      :category => params[:name],
+      :category => params[:name] == "all" ? nil : params[:name],
       :lat => params[:lat],
       :lon => params[:long],
       :range => params[:range],
