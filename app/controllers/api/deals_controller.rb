@@ -22,7 +22,9 @@ class Api::DealsController < Api::ApiController
   
   def popular
     @deals = Deal.unscoped.order("likes_count desc, comments_count desc").limit(64)
-    render :json => @deals.as_json(:minimal => true)
+    options = { :minimal => true }
+    options[:current_user] = current_user if current_user
+    render :json => @deals.as_json(options)
   end
   
   # ------------------
