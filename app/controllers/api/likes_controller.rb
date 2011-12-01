@@ -33,7 +33,7 @@ class Api::LikesController < Api::ApiController
   # auth required
   def create
     @deal = Deal.find(params[:deal_id])
-    @deal.likes.create(:user => current_user)
+    @deal.likes.find_or_create_by_user_id(current_user.id)
     respond_with @deal
   end
 
