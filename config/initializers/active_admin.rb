@@ -43,7 +43,7 @@ ActiveAdmin.setup do |config|
   # This setting changes the method which Active Admin calls
   # to return the currently logged in user.
   config.current_user_method = :current_admin_user
-   
+  
 
   # == Admin Notes
   # 

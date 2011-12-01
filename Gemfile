@@ -6,15 +6,15 @@ gem "heroku"
 gem "taps"
 
 # base
-gem "rails", "3.1.3"
+gem "rails", "3.0.7"
 gem "rake", "0.8.7"
+gem "rails3-generators"
 gem "pg", "0.11.0"
 gem "bcrypt-ruby", :require => "bcrypt"
-gem "activerecord-import"
 
 # views
 gem "haml-rails"
-gem "sass-rails"
+gem "simple_form"
 gem "htmlentities"
 
 # images
@@ -36,14 +36,16 @@ gem "httparty"
 gem "riddle", "1.4.0"
 gem "thinking-sphinx", "2.0.5"
 gem "flying-sphinx", "0.6.0"
-gem "kaminari"
 
 # mail
-gem "postmark"
-gem "postmark-rails", "0.4.0"
+gem 'postmark'
+gem 'postmark-rails', '0.4.0'
+gem 'activerecord-import'
+
+gem "bcrypt-ruby", :require => "bcrypt"
 
 # admin
-gem "activeadmin"
+gem "activeadmin", '0.3.1'
 
 # memcached
 gem "dalli"
@@ -52,26 +54,36 @@ gem "dalli"
 gem "geoip", "1.1.1"
 
 # apple push notifications
-#gem "apn_on_rails", :git => "https://github.com/natescherer/apn_on_rails.git", :branch => "rails3"
+gem 'apn_on_rails', :git => 'https://github.com/natescherer/apn_on_rails.git', :branch => 'rails3' 
 
 # sms delivery with twilio
-gem "twilio-ruby"
+gem 'twilio-ruby'
+
+gem 'kaminari'
 
 group :test do
-  gem "factory_girl_rails", "1.0.1"
+  gem "factory_girl_rails", '1.0.1'
   gem "ffaker"
   gem "mocha", :require => false
-  gem "fakeweb"
-  gem "resque_unit"
-  gem "database_cleaner"
+  gem 'fakeweb'
+  gem 'resque_unit'
+  gem 'database_cleaner'
   
   # autotest
-  gem "ZenTest"
-  gem "autotest-rails"
-  gem "autotest-fsevent"
+  gem 'ZenTest'
+  gem 'autotest-rails'
+  gem 'autotest-fsevent'
 end
 
 group :development do
   gem "faker"
+  gem "capistrano"
+  gem "capistrano-ext"
+end
+
+
+group :production do
+  gem "unicorn", :require => false
+  gem "newrelic_rpm"
 end
 
