@@ -52,13 +52,27 @@ class Comment < ActiveRecord::Base
     Resque.enqueue(CommentNotifyJob, self.id)
   end
 
+  def mentioned_users
+    body.scan(/@([\w-]+)/).map {|match| User.find_by_username(match[0]) }.compact
+  end
+
   def create_event
+    # create a 'comment' event
     events.create(
       :event_type => "comment", 
       :metadata => { :body => body }, 
       :deal => deal,
       :user => deal.user, 
       :created_by => user)
+
+    # create a 'mention' event for each mentioned user
+    mentioned_users.each do |mentioned_user|
+      events.create(
+        :event_type => "mention",
+        :metadata => { :body => body },
+        :deal => deal,
+        :user => mentioned_user,
+        :created_by => user)
+    end
   end
 end
-

@@ -10,7 +10,7 @@ class UserEvent < ActiveRecord::Base
 
   before_save :update_cached_attributes
 
-  validates :event_type, :inclusion => [ "comment", "like", "share", "follower" ]
+  validates :event_type, :inclusion => [ "comment", "like", "share", "follower", "mention" ]
   validates :user, :presence => true
   validates :created_by, :presence => true
 
@@ -39,7 +39,7 @@ class UserEvent < ActiveRecord::Base
     end
 
     case event_type
-    when "comment"
+    when "comment" || "mention"
       json[:body] = metadata[:body]
     when "share"
       json[:service] = metadata[:service]
