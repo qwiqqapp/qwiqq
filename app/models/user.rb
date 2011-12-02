@@ -202,6 +202,7 @@ class User < ActiveRecord::Base
       :friends_count         => friends_count,
       :phone                 => phone,
       :website               => website,
+      :location              => location,
 
       # user detail photo
       :photo                 => photo.url(:iphone),
