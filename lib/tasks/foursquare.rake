@@ -2,50 +2,70 @@ desc "Generates 'config/foursquare_categories.yml' which is used to convert four
 task :generate_foursquare_categories_config => :environment do
   # mappable categories, at any level
   foursquare_category_map = {
+    
     "Arts & Entertainment" => "ae",
-    "Food" => "food",
-    "Nightlife Spot" => "food",
-    "Antique Shop" => "used",
-    "Arts & Crafts Store" => "family",
-    "Bike Shop" => "sport",
-    "Board Shop" => "sport",
+    "Toy or Game Store" => "ae",
+    "Video Game Store" => "ae",
+    "Video Store" => "ae",
     "Bookstore" => "ae",
-    "Bridal Shop" => "fashion",
-    "Candy Store" => "food",
-    "Clothing Store" => "fashion",
-    "Convenience Store" => "food",
-    "Cosmetics Shop" => "beauty",
-    "Department Store" => "house",
-    "Drugstore or Pharmacy" => "house",
-    "Electronics Store" => "tech",
-    "Flea Market" => "used",
-    "Flower Shop" => "family",
-    "Food and Drink Shop" => "food",
-    "Furniture or Home Store" => "home",
-    "Gaming Cafe" => "ae",
-    "Gift Shop" => "family",
-    "Gyms or Fitness Center" => "sports",
-    "Hardware Store" => "house",
     "Hobby Shop" => "ae",
     "Internet Cafe" => "ae",
-    "Jewelry Store" => "fashion",
-    "Laundromat or Dry Cleaner" => "house",
-    "Mall" => "fashion",
     "Music Store" => "ae",
     "Record Shop" => "ae",
+    "Smoke Shop" => "ae",
+    
+    "Food" => "food",
+    "Candy Store" => "food",    
+    "Convenience Store" => "food",
+    "Food and Drink Shop" => "food",
+    
+    "Nightlife Spot" => "bar",
+    
+    "Antique Shop" => "home",
+    "Arts & Crafts Store" => "home",
+    "Flea Market" => "home",
+    "Flower Shop" => "home",
+    "Furniture or Home Store" => "home",
+    "Hardware Store" => "home",
+    "Gift Shop" => "home",
+    "Drugstore or Pharmacy" => "home",
+    "Laundromat or Dry Cleaner" => "home",
+    "Convenience Store" => "home",
+        
+    "Bike Shop" => "sport",
+    "Board Shop" => "sport",
+    "Gyms or Fitness Center" => "sport",
+    "Sporting Goods Shop" => "sport",
+    "Yoga Studio" => "sport",
+
+    "Bridal Shop" => "fashion",
+    "Clothing Store" => "fashion",
+    "Jewelry Store" => "fashion",
+    "Mall" => "fashion",    
+    "Thrift or Vintage Store" => "fashion",
+    "Department Store" => "fashion",
+
     "Salon or Barbershop" => "beauty",
     "Spa or Massage" => "beauty",
     "Tattoo Parlor" => "beauty",
-    "Thrift or Vintage Store" => "used",
-    "Toy or Game Store" => "ae",
-    "Video Game Store" => "ae",
-    "Video Store" => "ae"
+    "Cosmetics Shop" => "beauty",
+    "Tanning Salon" => "beauty",
+    "Spa or Massage" => "beauty",
+    
+    "Electronics Store" => "tech",
+    "Camera Store" => "tech",
+    
+    "Animal Shelter" => "pet",
+    "Pet Stores" => "pet",
+    
+    "Automotive Shop" => "car",
+    "Car Dealer" => "car"
   }
 
   categories = {}
 
   # a category can have sub and sub-sub categories:
-  #   https://developer.foursquare.com/docs/venues/categories.html
+  # https://developer.foursquare.com/docs/venues/categories.html
   foursquare_categories = Qwiqq.foursquare_client.categories || []
   foursquare_categories.each do |foursquare_category|
     # category

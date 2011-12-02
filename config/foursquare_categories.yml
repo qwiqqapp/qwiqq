@@ -15,11 +15,11 @@ Art Museum: ae
 History Museum: ae
 Planetarium: ae
 Science Museum: ae
-Music Venue: food
-Concert Hall: food
-Jazz Club: food
-Piano Bar: food
-Rock Club: food
+Music Venue: bar
+Concert Hall: bar
+Jazz Club: bar
+Piano Bar: bar
+Rock Club: bar
 Performing Arts Venue: ae
 Dance Studio: ae
 Indie or Off Broadway Theater: ae
@@ -36,7 +36,7 @@ Hockey Stadium: ae
 Soccer Stadium: ae
 Tennis: ae
 Track: ae
-Strip Club: food
+Strip Club: bar
 Theme Park: ae
 Water Park: ae
 Zoo or Aquarium: ae
@@ -52,7 +52,7 @@ Bagel Shop: food
 Bakery: food
 Brazilian Restaurant: food
 Breakfast Spot: food
-Brewery: food
+Brewery: bar
 Burger Joint: food
 Burrito Place: food
 "Caf\xC3\xA9": food
@@ -73,6 +73,7 @@ Eastern European Restaurant: food
 Ethiopian Restaurant: food
 Falafel Restaurant: food
 Fast Food Restaurant: food
+Filipino Restaurants: food
 Food Court: food
 Food Truck: food
 French Restaurant: food
@@ -96,8 +97,10 @@ Mediterranean Restaurant: food
 Mexican Restaurant: food
 Middle Eastern Restaurant: food
 Molecular Gastronomy Restaurant: food
+Mongolian Restaurants: food
 Moroccan Restaurant: food
 New American Restaurant: food
+Peruvian Restaurants: food
 Pizza Place: food
 Portuguese Restaurant: food
 Ramen or Noodle House: food
@@ -123,26 +126,28 @@ Vegetarian or Vegan Restaurant: food
 Vietnamese Restaurant: food
 Winery: food
 Wings Joint: food
-Nightlife Spot: food
-Bar: food
-Beer Garden: food
-Cocktail Bar: food
-Dive Bar: food
-Gay Bar: food
-Hookah Bar: food
-Hotel Bar: food
-Karaoke Bar: food
-Lounge: food
-Nightclub: food
-Other Nightlife: food
-Pub: food
-Sake Bar: food
-Speakeasy: food
-Sports Bar: food
-Whisky Bar: food
-Wine Bar: food
-Antique Shop: used
-Arts & Crafts Store: family
+Nightlife Spot: bar
+Bar: bar
+Beer Garden: bar
+Cocktail Bar: bar
+Dive Bar: bar
+Gay Bar: bar
+Hookah Bar: bar
+Hotel Bar: bar
+Karaoke Bar: bar
+Lounge: bar
+Nightclub: bar
+Other Nightlife: bar
+Pub: bar
+Sake Bar: bar
+Speakeasy: bar
+Sports Bar: bar
+Whisky Bar: bar
+Wine Bar: bar
+Animal Shelter: pet
+Antique Shop: home
+Arts & Crafts Store: home
+Automotive Shop: car
 Bike Shop: sport
 Board Shop: sport
 Bookstore: ae
@@ -156,37 +161,31 @@ Lingerie Store: fashion
 Men's Store: fashion
 Shoe Store: fashion
 Women's Store: fashion
-Convenience Store: food
+Convenience Store: home
 Cosmetics Shop: beauty
-Department Store: house
-Drugstore or Pharmacy: house
+Department Store: fashion
+Drugstore or Pharmacy: home
 Electronics Store: tech
-Flea Market: used
-Flower Shop: family
-Food and Drink Shop: food
-Butcher: food
-Cheese Shop: food
-Farmers Market: food
-Fish Market: food
-Gourmet Shop: food
-Grocery Store: food
-Liquor Store: food
-Wine Shop: food
+Flea Market: home
+Flower Shop: home
 Furniture or Home Store: home
-Gaming Cafe: ae
-Gift Shop: family
-Hardware Store: house
+Gift Shop: home
+Yoga Studio: sport
+Hardware Store: home
 Hobby Shop: ae
 Internet Cafe: ae
 Jewelry Store: fashion
-Laundromat or Dry Cleaner: house
+Laundromat or Dry Cleaner: home
 Mall: fashion
 Music Store: ae
 Record Shop: ae
 Salon or Barbershop: beauty
+Smoke Shop: ae
 Spa or Massage: beauty
+Sporting Goods Shop: sport
+Tanning Salon: beauty
 Tattoo Parlor: beauty
-Thrift or Vintage Store: used
+Thrift or Vintage Store: fashion
 Toy or Game Store: ae
 Video Game Store: ae
 Video Store: ae

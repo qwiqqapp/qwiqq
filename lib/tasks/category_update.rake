@@ -14,7 +14,9 @@ namespace :category do
     # remove old categories and their deals
     Category.find_each do |c|
       unless new_names.include?(c.name)
+        puts " - removing deals in category #{c.name}"
         c.deals.destroy_all
+        puts " - removing category #{c.name}"
         c.destroy
         puts " - removed category #{c.name} and attached deals"
       end
