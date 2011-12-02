@@ -198,4 +198,20 @@ class Api::UsersControllerTest < ActionController::TestCase
     assert_equal 4, json_response.size
   end
 
+  # user#clear_events
+  test "should clear a users unread events" do
+    @user = Factory(:user)
+
+    @deal = Factory(:deal, :user => @user)
+    @like = Factory(:like, :deal => @deal)
+    @like.create_event
+    assert_equal 1, @user.events.unread.count
+
+    sign_in @user
+    post :clear_events, :format => "json", :id => "current"
+
+    assert_equal 200, @response.status
+    assert_equal 0, @user.events.unread.count
+  end
+
 end

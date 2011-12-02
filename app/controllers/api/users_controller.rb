@@ -77,6 +77,12 @@ class Api::UsersController < Api::ApiController
     respond_with paginate(@events)
   end
 
+  def clear_events
+    raise ActiveRecord::RecordNotFound unless params[:id] == "current"
+    current_user.events.unread.clear
+    render :status => 200, :nothing => true
+  end
+
   def suggested
     @users = User.suggested
     respond_with @users
