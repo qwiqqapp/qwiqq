@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   
   scope :sorted, :order => 'users.username ASC'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
-  scope :suggested, where("suggested IS TRUE")
+  scope :suggested, where(:suggested => true)
     
   attr_accessible :first_name, 
                   :last_name, 
@@ -281,7 +281,12 @@ class User < ActiveRecord::Base
 
   def send_push_notification(message, page = "")
     self.apn_devices.each do |device|
-      APN::Notification.create!(:device => device, :sound => true, :alert => message, :custom_properties => {:page => page}, :badge => 0)
+      APN::Notification.create!(
+        :device => device, 
+        :sound => true, 
+        :alert => message, 
+        :custom_properties => { :page => page }, 
+        :badge => events.unread.count)
     end
   end
 

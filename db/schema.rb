@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111121195059) do
+ActiveRecord::Schema.define(:version => 20111202083244) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -202,21 +202,22 @@ ActiveRecord::Schema.define(:version => 20111121195059) do
   end
 
   create_table "user_events", :force => true do |t|
-    t.integer  "user_id",             :null => false
+    t.integer  "user_id",                                :null => false
     t.integer  "comment_id"
     t.integer  "like_id"
     t.integer  "share_id"
     t.integer  "relationship_id"
     t.integer  "deal_id"
     t.string   "deal_name"
-    t.integer  "created_by_id",       :null => false
-    t.string   "created_by_photo",    :null => false
-    t.string   "created_by_photo_2x", :null => false
-    t.string   "created_by_username", :null => false
-    t.string   "event_type",          :null => false
+    t.integer  "created_by_id",                          :null => false
+    t.string   "created_by_photo",                       :null => false
+    t.string   "created_by_photo_2x",                    :null => false
+    t.string   "created_by_username",                    :null => false
+    t.string   "event_type",                             :null => false
     t.text     "metadata"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "read",                :default => false
   end
 
   create_table "users", :force => true do |t|

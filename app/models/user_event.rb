@@ -14,7 +14,14 @@ class UserEvent < ActiveRecord::Base
   validates :user, :presence => true
   validates :created_by, :presence => true
 
-  default_scope :order => "created_at desc"
+  scope :read, where(:read => true)
+  scope :unread, where(:read => false) do
+    def clear
+      unread.update_all(:read => true)
+    end
+  end
+
+  default_scope :order => "created_at DESC"
 
   def as_json(options={})
     json = { 
