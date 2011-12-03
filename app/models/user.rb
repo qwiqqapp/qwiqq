@@ -85,8 +85,8 @@ class User < ActiveRecord::Base
       :iphone2x => ["150x150#", :jpg],
                                   
       # user detail view
-      :iphone_profile => ["85x85#", :jpg],
-      :iphone_profile_2x => ["170x170#", :jpg],                                  
+      :iphone_profile => ["95x95#", :jpg],
+      :iphone_profile_2x => ["190x190#", :jpg],                                  
                                   
       # large image for zoom
       :iphone_zoom => ["300x300#", :jpg],
