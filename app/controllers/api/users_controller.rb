@@ -12,9 +12,6 @@ class Api::UsersController < Api::ApiController
   caches_action :following, :cache_path => lambda {|c| "following/#{c.requested_user.cache_key}" },
     :unless => lambda {|c| c.params[:page] }
   
-  caches_action :friends, :cache_path => lambda {|c| "friends/#{c.requested_user.cache_key}" },
-    :unless => lambda {|c| c.params[:page] }
-  
 
   def requested_user
     @user ||= find_user(params[:id])
