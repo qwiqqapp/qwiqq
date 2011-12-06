@@ -10,11 +10,18 @@ class UserEvent < ActiveRecord::Base
 
   before_save :update_cached_attributes
 
-  validates :event_type, :inclusion => [ "comment", "like", "share", "follower" ]
+  validates :event_type, :inclusion => [ "comment", "like", "share", "follower", "mention" ]
   validates :user, :presence => true
   validates :created_by, :presence => true
 
-  default_scope :order => "created_at desc"
+  scope :read, where(:read => true)
+  scope :unread, where(:read => false) do
+    def clear
+      unread.update_all(:read => true)
+    end
+  end
+
+  default_scope :order => "created_at DESC"
 
   def as_json(options={})
     json = { 
@@ -32,7 +39,7 @@ class UserEvent < ActiveRecord::Base
     end
 
     case event_type
-    when "comment"
+    when "comment" || "mention"
       json[:body] = metadata[:body]
     when "share"
       json[:service] = metadata[:service]

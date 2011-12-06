@@ -81,5 +81,26 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal @commenter, @owner.events[0].created_by
     assert_equal @deal, @owner.events[0].deal
   end
-end
 
+  test "should find mentioned users" do
+    @mentionee = Factory(:user)
+    @comment = Factory(:comment, :body => "Hi @#{@mentionee.username}!")
+    assert_equal [ @mentionee ], @comment.mentioned_users
+  end
+
+  test "should create 'mention' events for mentioned users" do
+    @owner = Factory(:user)
+    @commenter = Factory(:user)
+    @mentionee = Factory(:user)
+    @deal = Factory(:deal, :user => @owner)
+    @comment = Factory(:comment, :user => @commenter, :deal => @deal, :body => "Hi @#{@mentionee.username}!")
+
+    assert_equal 1, @owner.events.size
+    assert_equal 1, @mentionee.events.size
+    assert_equal "mention", @mentionee.events[0].event_type
+    assert_equal @comment.body, @mentionee.events[0].metadata[:body]
+    assert_equal @commenter, @mentionee.events[0].created_by
+    assert_equal @deal, @mentionee.events[0].deal
+  end
+
+end

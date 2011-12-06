@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   
   scope :sorted, :order => 'users.username ASC'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
-  scope :suggested, where("suggested IS TRUE")
+  scope :suggested, where(:suggested => true)
     
   attr_accessible :first_name, 
                   :last_name, 
@@ -85,8 +85,8 @@ class User < ActiveRecord::Base
       :iphone2x => ["150x150#", :jpg],
                                   
       # user detail view
-      :iphone_profile => ["85x85#", :jpg],
-      :iphone_profile_2x => ["170x170#", :jpg],                                  
+      :iphone_profile => ["95x95#", :jpg],
+      :iphone_profile_2x => ["190x190#", :jpg],                                  
                                   
       # large image for zoom
       :iphone_zoom => ["300x300#", :jpg],
@@ -202,6 +202,7 @@ class User < ActiveRecord::Base
       :friends_count         => friends_count,
       :phone                 => phone,
       :website               => website,
+      :location              => location,
 
       # user detail photo
       :photo                 => photo.url(:iphone),
@@ -281,7 +282,12 @@ class User < ActiveRecord::Base
 
   def send_push_notification(message, page = "")
     self.apn_devices.each do |device|
-      APN::Notification.create!(:device => device, :sound => true, :alert => message, :custom_properties => {:page => page}, :badge => 0)
+      APN::Notification.create!(
+        :device => device, 
+        :sound => true, 
+        :alert => message, 
+        :custom_properties => { :page => page }, 
+        :badge => events.unread.count)
     end
   end
 

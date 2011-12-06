@@ -33,8 +33,9 @@ Qwiqq::Application.routes.draw do
       get "followers", :on => :member
       get "following", :on => :member
       get "friends",   :on => :member
-      get "events",    :on => :member
       get "suggested", :on => :collection
+      get "events",    :on => :member
+      post "clear_events", :on => :member
       
       post "following" => "relationships#create"
       delete "following/:target_id" => "relationships#destroy"
