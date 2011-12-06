@@ -20,7 +20,7 @@ class Api::SharesController < Api::ApiController
 
     # foursquare
     if params[:foursquare]
-      current_user.shared.create(:deal => deal, :service => "foursquare", :message => params[:message])
+      current_user.shares.create(:deal => deal, :service => "foursquare", :message => params[:message])
     end
 
     # sms
