@@ -24,7 +24,7 @@ class Deal < ActiveRecord::Base
   has_many :liked_by_users, :through => :likes, :source => :user
   has_many :feedlets, :dependent => :destroy
 
-  has_many :events, :class_name => "UserEvent"
+  has_many :events, :class_name => "UserEvent", :conditions => [ "event_type IN (?)", [ "comment", "like", "share" ] ]
   
   #TODO update to 3.1 and use role based attr_accessible for premium
   attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent, :location_name,
@@ -47,7 +47,8 @@ class Deal < ActiveRecord::Base
   after_create :populate_feed
   after_create :async_locate
 
-  scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
+  scope :today, lambda { where("DATE(created_at) = ?", Date.today) }
+  scope :recent, lambda { where("DATE(created_at) > ?", 30.days.ago) }
   scope :premium, where(:premium => true)
   scope :sorted, :order => "created_at desc"
   
@@ -61,7 +62,6 @@ class Deal < ActiveRecord::Base
                   :reposted_by => repost ? posting_user.username : nil, 
                   :timestamp => repost ? repost.created_at : self.created_at)})
   end
-
 
   def set_user_photo
     self.user_photo = self.user.photo(:iphone_small)
@@ -198,6 +198,7 @@ class Deal < ActiveRecord::Base
   #   :lat, :lon, :range - Limit results to range
   #   :limit - Limit the number of results
   #   :page - Pagination page
+  #   :age - The maximum age (in days) of the deal
   #
   # Returns a ThinkingSphinx collection containing all deals matching the filters.
   def self.filtered_search(order, options={})
@@ -206,12 +207,8 @@ class Deal < ActiveRecord::Base
 
     # filtering options
     conditions = {}
+    with = {}
     search_options = {}
-    conditions[:name] = options[:query] unless options[:query].nil?
-    conditions[:category] = options[:category] unless options[:category].nil?
-    search_options[:conditions] = conditions unless conditions.empty?
-    search_options[:page] = options[:page] unless options[:page].nil?
-    search_options[:max_matches] = options[:limit] unless options[:limit].nil?
 
     # ordering
     case order
@@ -228,10 +225,18 @@ class Deal < ActiveRecord::Base
         range = (options[:range] || 10_000).to_f
         search_options[:order] = "@geodist ASC, @relevance DESC"
         search_options[:geo] = geo_radians(lat, lon)
-        search_options[:with] = { "@geodist" => 0.0..range }
+        with["@geodist"] = 0.0..range
       else
         raise NoMethodError, "Search order is invalid."
     end
+
+    conditions[:name] = options[:query] unless options[:query].nil?
+    conditions[:category] = options[:category] unless options[:category].nil?
+    with[:created_at] = options[:age].ago..Time.now if options[:age]
+    search_options[:conditions] = conditions unless conditions.empty?
+    search_options[:with] = with unless with.empty?
+    search_options[:page] = options[:page] unless options[:page].nil?
+    search_options[:max_matches] = options[:limit] unless options[:limit].nil?
 
     self.search(search_options)
   end

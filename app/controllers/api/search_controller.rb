@@ -32,6 +32,7 @@ class Api::SearchController < Api::ApiController
       :lat => params[:lat],
       :lon => params[:long],
       :range => params[:range],
+      :age => 30.days,
       :page => params[:page])
 
     options = { :minimal => true }
@@ -51,6 +52,7 @@ class Api::SearchController < Api::ApiController
       :lat => params[:lat],
       :lon => params[:long],
       :range => params[:range],
+      :age => 30.days,
       :page => params[:page])
 
     options = { :minimal => true }

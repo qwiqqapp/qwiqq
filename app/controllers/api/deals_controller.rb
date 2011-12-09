@@ -78,8 +78,8 @@ class Api::DealsController < Api::ApiController
   end
 
   def events
-    @deal = current_user.deals.find(params[:id])
-    respond_with paginate(@deal.events)
+    deal = Deal.find(params[:id])
+    respond_with paginate(deal.events)
   end
 
 end

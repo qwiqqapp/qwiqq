@@ -15,10 +15,11 @@ class Api::SearchControllerTest < ActionController::TestCase
   def create_geo_deals
     @category = Factory(:category, :name => 'food')
     
-    @deal0 = Factory(:deal_at_seattle,     :name => 'space needle beer',:likes_count => 9, :comments_count => 4, :category => @category, :created_at => Time.now - 1.days)
-    @deal1 = Factory(:deal_at_gastownlabs, :name => 'half a sandwhich', :likes_count => 5, :comments_count => 2, :category => @category, :created_at => Time.now - 30.minutes)
-    @deal2 = Factory(:deal_at_thelocal,    :name => 'burger and beer',  :likes_count => 85, :comments_count => 21, :category => @category, :created_at => Time.now - 10.minutes)
-    @deal3 = Factory(:deal_at_sixacres,    :name => 'german beer',      :likes_count => 23, :comments_count => 8, :category => @category, :created_at => Time.now - 5.minutes)
+    @deal0 = Factory(:deal_at_seattle,     :name => 'space needle beer',:likes_count => 9, :comments_count => 4, :category => @category, :created_at => 1.days.ago)
+    @deal1 = Factory(:deal_at_gastownlabs, :name => 'half a sandwhich', :likes_count => 5, :comments_count => 2, :category => @category, :created_at => 30.minutes.ago)
+    @deal2 = Factory(:deal_at_thelocal,    :name => 'burger and beer',  :likes_count => 85, :comments_count => 21, :category => @category, :created_at => 10.minutes.ago)
+    @deal3 = Factory(:deal_at_sixacres,    :name => 'german beer',      :likes_count => 23, :comments_count => 8, :category => @category, :created_at => 5.minutes.ago)
+    @deal4 = Factory(:deal_at_sixacres,    :name => 'hungarian beer',   :likes_count => 23, :comments_count => 8, :category => @category, :created_at => 35.days.ago)
     
     # current location = centre of +victory+ square
     @lat = 49.282224
@@ -142,8 +143,7 @@ class Api::SearchControllerTest < ActionController::TestCase
     
     name    = 'food'
     results = [@deal0, @deal1, nil, @deal3]
-    opts    = {:conditions => {:category => name}, :order => "@relevance DESC"}
-    Deal.expects(:search).with(opts).returns(results)
+    Deal.expects(:filtered_search).returns(results)
 
     get :category, :name => name, :format => "json"
     
