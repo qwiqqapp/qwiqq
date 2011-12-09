@@ -32,16 +32,6 @@ class RelationshipTest < ActiveSupport::TestCase
     Resque.run!
   end
   
-  test "should send new friend email notification if enabled for user" do
-    @target = Factory(:user, :send_notifications => true)
-    @user   = Factory(:user)
-    Factory(:relationship, :user => @user, :target => @target)
-    
-    User.any_instance.expects(:friends?).returns(true)
-    Mailer.expects(:new_friend).once.with(@target, @user).returns(mock(:deliver => true))
-    Resque.run!
-  end
-  
   test "should update sent_at" do
     @target = Factory(:user, :send_notifications => true)    
     @relationship = Factory(:relationship, :target => @target)

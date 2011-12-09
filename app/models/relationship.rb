@@ -10,20 +10,13 @@ class Relationship < ActiveRecord::Base
   after_commit :create_event, :on => :create
   
   def deliver_notification
-    if friends?
-      target.send_push_notification("#{self.user.username} is now your friend", "users/#{self.user.id}")
-    else
-      target.send_push_notification("#{self.user.username} is now following you", "users/#{self.user.id}")
-    end
+    # push notification
+    target.send_push_notification("#{self.user.username} is now following you", "users/#{self.user.id}")
 
+    # email notification
     return unless notification_sent_at.nil?    # avoid double notification
     return unless target.send_notifications    # only send if user has notifications enabled
-    
-    if friends?
-      Mailer.new_friend(target, user).deliver
-    else
-      Mailer.new_follower(target, user).deliver
-    end
+    Mailer.new_follower(target, user).deliver
     
     update_attribute(:notification_sent_at, Time.now)
   end
