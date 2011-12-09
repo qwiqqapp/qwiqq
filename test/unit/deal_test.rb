@@ -53,13 +53,6 @@ class DealTest < ActiveSupport::TestCase
   # -------------
   # search
   
-  test "filtered search without query should not raise" do
-    assert_nothing_raised do
-      @deals = Deal.filtered_search('popular')
-    end
-    assert_equal [], @deals
-  end
-
   test "can be located via Foursquare" do
     venue = { "name" => "Nuba", "location" => { "lat" => 49.282867, "lng" => -123.109587, "address" => "207 West Hastings" } }
     foursquare_client = mock

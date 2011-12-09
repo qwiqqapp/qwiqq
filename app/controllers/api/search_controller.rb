@@ -18,15 +18,15 @@ class Api::SearchController < Api::ApiController
     render :json => @users.as_json(:current_user => current_user)
   end
   
-  # path: api/search/deals/:filter
+  # path: api/search/deals/nearby
+  # path: api/search/deals
   # required params:
-  # - params[:filter] = order (newest || popular || nearby)
-  # - params[:lat], params[:long], params[:range] (required when "filter" is "nearby")
-  # - params[:q]
+  # - params[:lat], params[:long], params[:range]
   # optional params
+  # - params[:q]
   # - params[:category]
   def deals
-    @deals = Deal.filtered_search(params[:filter],
+    @deals = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
       :lat => params[:lat],
@@ -46,8 +46,7 @@ class Api::SearchController < Api::ApiController
   # optional params:
   # - params[:lat], params[:long], params[:range]
   def category
-    order = (params[:lat] and params[:long]) ? "nearby" : "relevance"
-    @deals = Deal.filtered_search(order,
+    @deals = Deal.filtered_search(
       :category => params[:name] == "all" ? nil : params[:name],
       :lat => params[:lat],
       :lon => params[:long],

@@ -191,8 +191,7 @@ class Deal < ActiveRecord::Base
   
   # Search deals.
   #
-  # order - "newest" || "popular" || "relevance" || "nearby"
-  # options - 
+  # options:
   #   :query - The search term
   #   :category - Limit results to category
   #   :lat, :lon, :range - Limit results to range
@@ -201,38 +200,26 @@ class Deal < ActiveRecord::Base
   #   :age - The maximum age (in days) of the deal
   #
   # Returns a ThinkingSphinx collection containing all deals matching the filters.
-  def self.filtered_search(order, options={})
+  def self.filtered_search(options={})
     # bail early if the provided query is invalid
     return [] if options[:query] and options[:query].blank?
 
+    lat, lon = options[:lat], options[:lon]
+    raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank?
+    range = (options[:range] || 10_000).to_f
+
     # filtering options
     conditions = {}
-    with = {}
-    search_options = {}
-
-    # ordering
-    case order
-      when "newest"
-        search_options[:order] = "created_at DESC, @relevance DESC"
-      when "popular"
-        search_options[:sort_mode] = :expr
-        search_options[:order] = "@weight * likes_count * comments_count" 
-      when "relevance"
-        search_options[:order] = "@relevance DESC"
-      when "nearby"
-        lat, lon = options[:lat], options[:lon]
-        raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank?
-        range = (options[:range] || 10_000).to_f
-        search_options[:order] = "@geodist ASC, @relevance DESC"
-        search_options[:geo] = geo_radians(lat, lon)
-        with["@geodist"] = 0.0..range
-      else
-        raise NoMethodError, "Search order is invalid."
-    end
-
     conditions[:name] = options[:query] unless options[:query].nil?
     conditions[:category] = options[:category] unless options[:category].nil?
-    with[:created_at] = options[:age].ago..Time.now if options[:age]
+
+    with = {}
+    with["@geodist"] = 0.0..range
+    with[:created_at] = options[:age].ago..Time.now unless options[:age].nil?
+
+    search_options = {}
+    search_options[:order] = "@geodist ASC, @relevance DESC"
+    search_options[:geo] = geo_radians(lat, lon)
     search_options[:conditions] = conditions unless conditions.empty?
     search_options[:with] = with unless with.empty?
     search_options[:page] = options[:page] unless options[:page].nil?
