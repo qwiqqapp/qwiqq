@@ -91,9 +91,6 @@ class Share < ActiveRecord::Base
   end
 
   def create_event
-    # don't create an event when a user shares their own deal
-    return if user == deal.user 
-
     # only create events for shares to networks
     return unless [ "twitter", "facebook", "foursquare" ].include?(service)
     
