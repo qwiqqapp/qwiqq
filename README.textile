@@ -30,6 +30,25 @@ h2. Push Notifications setup
 * convert to .pem with "openssl pkcs12 -in QwiqqPushCertificates.p12 -out apple_push_notification_development.pem -nodes -clcerts"
 * copy new .pem file to config/ "cp apple_push_notification_development.pem ~/Code/gastownlabs/qwiqq-web/config/"
 
+
+h2. Push Notification Dev testing
+
+* obtain the push notification token from xcode, run on device and watch log for "Registered for push notifications with token <....."
+* alternately get token from production app: "User(12).notifications_token"
+* run the following on your local rails console to create the objects
+* then deliver with  "bundle exec rake apn:notifications:deliver"
+
+<pre><code>
+d = APN::Device.create(:token => "b0a91911 db6fad5f 4e924598 74107351 6f0c032f 3c017918 1c9cd79e a2ec144c")
+n = APN::Notification.new
+n.device = d
+n.badge = 5
+n.sound = true
+n.alert = "foobar"
+n.save
+</pre></code>
+
+
 h2. Related Apps
 
 h3. qwiqq-resque
