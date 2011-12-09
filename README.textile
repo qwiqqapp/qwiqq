@@ -40,13 +40,9 @@ h2. Push Notification Dev testing
 * possibly collect feedback from apn server by running "bundle exec rake apn:feedback:process"
 
 <pre><code>
-d = APN::Device.create(:token => "b0a91911 db6fad5f 4e924598 74107351 6f0c032f 3c017918 1c9cd79e a2ec144c")
-n = APN::Notification.new
-n.device = d
-n.badge = 5
-n.sound = true
-n.alert = "foobar"
-n.save
+d = APN::Device.where(:token => "b0a91911 db6fad5f 4e924598 74107351 6f0c032f 3c017918 1c9cd79e a2ec144c").first
+n = APN::Notification.create!(:device => d, :badge => 3, :sound => true, :alert => "yoodle!")
+
 </pre></code>
 
 h2. Related Apps
@@ -76,9 +72,7 @@ h3. PaperTrail (logging)
 
 h3. Airbrake (errors)
 
-* https://gastownlabs.airbrakeapp.com/login
-* email: adam|brian|eoin@gastownlabs.com
-* pass: request reset
+* on heroku
 
 h3. NewRelic (performance)
 

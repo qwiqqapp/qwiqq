@@ -6,11 +6,11 @@ class Api::UsersController < Api::ApiController
   #   (c.current_user.try(:cache_key) || "guest") + "/" + c.requested_user.try(:cache_key)
   # } # expires automatically when users cache key changes or deals cache key changes
 
-  caches_action :followers, :cache_path => lambda {|c| "followers/#{c.requested_user.cache_key}" },
-    :unless => lambda {|c| c.params[:page] }
-  
-  caches_action :following, :cache_path => lambda {|c| "following/#{c.requested_user.cache_key}" },
-    :unless => lambda {|c| c.params[:page] }
+  # caches_action :followers, :cache_path => lambda {|c| "followers/#{c.requested_user.cache_key}" },
+  #   :unless => lambda {|c| c.params[:page] }
+  # 
+  # caches_action :following, :cache_path => lambda {|c| "following/#{c.requested_user.cache_key}" },
+  #   :unless => lambda {|c| c.params[:page] }
   
 
   def requested_user
