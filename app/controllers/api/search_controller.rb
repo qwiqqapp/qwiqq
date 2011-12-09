@@ -3,6 +3,9 @@
 # has poluted the app with its meta search implementation
 
 class Api::SearchController < Api::ApiController
+  # default search range in metres (25 miles)
+  MAX_RANGE = 40234
+  
   # temp remove action cache for users
   # caches_action :users, 
   #   :cache_path => lambda {|c| "#{c.current_user.try(:cache_key)}/search/users/#{c.params[:q]}" }, 
@@ -31,7 +34,7 @@ class Api::SearchController < Api::ApiController
       :query => params[:q],
       :lat => params[:lat],
       :lon => params[:long],
-      :range => params[:range],
+      :range => params[:range] || MAX_RANGE,
       :age => 30.days,
       :page => params[:page])
 
@@ -50,7 +53,7 @@ class Api::SearchController < Api::ApiController
       :category => params[:name] == "all" ? nil : params[:name],
       :lat => params[:lat],
       :lon => params[:long],
-      :range => params[:range],
+      :range => params[:range] || MAX_RANGE,
       :age => 30.days,
       :page => params[:page])
 
