@@ -21,6 +21,14 @@ h2. Deploy Setup (will add multi env later)
 
 * git push heroku master
 
+h2. Push Notifications setup
+
+* install and config gem: https://github.com/natescherer/apn_on_rails
+* download apn cert from developer.apple.com
+* add to keychain by 2x click on downloaded cert
+* right click on new apn cert in keychain and export as .p12
+* convert to .pem with "openssl pkcs12 -in QwiqqPushCertificates.p12 -out apple_push_notification_development.pem -nodes -clcerts"
+* copy new .pem file to config/ "cp apple_push_notification_development.pem ~/Code/gastownlabs/qwiqq-web/config/"
 
 h2. Related Apps
 
