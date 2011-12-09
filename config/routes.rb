@@ -69,10 +69,12 @@ Qwiqq::Application.routes.draw do
     resources :venues, :only => [:index]
     
     # search controller custom methods
-    get "search/users"                  => "search#users",    :as => 'search_users'
-    get "search/deals/:filter"          => "search#deals",    :as => 'search_deals'   #,    :constraints => { :filter => /\D+/ }
-    get "search/categories/:name/deals" => "search#category", :as => 'search_category'#, :constraints => { :name   => /\D+/ }
+    get "search/users" => "search#users", :as => "search_users"
+    get "search/deals" => "search#deals", :as => "search_deals"
+
+    # TODO deprecate
+    get "search/deals/nearby" => "search#deals", :as => "search_deals"
+    get "search/categories/:name/deals" => "search#category", :as => "search_category"
   end
 
- 
 end

@@ -23,7 +23,7 @@ class Api::FriendsController < Api::ApiController
       friends.map! do |friend|
         # friend found, remove email and check if the user is following them
         emails.delete(friend.email)
-        friend.as_json.merge({
+        friend.as_json(:current_user => current_user).merge({
           :state => user.following?(friend) ? 
             :following : 
             :not_following })
@@ -46,7 +46,7 @@ class Api::FriendsController < Api::ApiController
       twitter_ids = user.twitter_friend_ids
       friends = User.sorted.where(:twitter_id => twitter_ids).order("first_name, last_name DESC")
       friends.map do |friend|
-        friend.as_json.merge({
+        friend.as_json(:current_user => current_user).merge({
           :state => user.following?(friend) ? 
             :following : 
             :not_following })
@@ -58,7 +58,7 @@ class Api::FriendsController < Api::ApiController
       facebook_ids = user.facebook_friend_ids
       friends = User.sorted.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
       friends.map do |friend|
-        friend.as_json.merge({
+        friend.as_json(:current_user => current_user).merge({
           :state => user.following?(friend) ? 
             :following : 
             :not_following })
