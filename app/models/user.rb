@@ -274,7 +274,7 @@ class User < ActiveRecord::Base
     facebook_ids = []
     friends = facebook_client.get_connections("me", "friends")
     begin
-      facebook_ids = friends.map {|f| f["id"].to_s }
+      facebook_ids << friends.map {|f| f["id"].to_s }
       friends = friends.next_page
     end while friends
     facebook_ids.flatten
