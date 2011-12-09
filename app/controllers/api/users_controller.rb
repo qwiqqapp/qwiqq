@@ -53,13 +53,13 @@ class Api::UsersController < Api::ApiController
   def followers
     requested_user
     @followers = @user.followers.sorted
-    respond_with @followers
+    respond_with @followers.as_json(:current_user => current_user)
   end
 
   def following
     requested_user
     @following = @user.following.sorted
-    respond_with @following
+    respond_with @following.as_json(:current_user => current_user)
   end
 
   def friends
@@ -82,7 +82,7 @@ class Api::UsersController < Api::ApiController
 
   def suggested
     @users = User.suggested
-    respond_with @users
+    respond_with @users.as_json(:current_user => current_user)
   end
 
 end
