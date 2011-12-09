@@ -134,8 +134,11 @@ class Deal < ActiveRecord::Base
       :premium        => premium,
       :price          => price,
       :percent        => percent,
-      :lat            => lat.try(:to_s),
-      :lon            => lon.try(:to_s),
+      
+      # prefer return foursquare venue location, otherwise return current location
+      :lat            => foursquare_venue_lat ? foursquare_venue_lat.try(:to_s) : lat.try(:to_s),
+      :lon            => foursquare_venue_lon ? foursquare_venue_lon.try(:to_s) : lon.try(:to_s),
+      
       :comment_count  => comments_count,
       :like_count     => likes_count,
       :age            => age_in_words.gsub("about ", ""),
