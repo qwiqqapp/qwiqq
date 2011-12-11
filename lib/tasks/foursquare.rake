@@ -13,11 +13,13 @@ task :generate_foursquare_categories_config => :environment do
     "Music Store" => "ae",
     "Record Shop" => "ae",
     "Smoke Shop" => "ae",
+    "College & University" => "ae",
     
     "Food" => "food",
     "Candy Store" => "food",    
     "Convenience Store" => "food",
     "Food and Drink Shop" => "food",
+    "College Cafeteria" => "food",
     
     "Nightlife Spot" => "bar",
     
@@ -31,12 +33,24 @@ task :generate_foursquare_categories_config => :environment do
     "Drugstore or Pharmacy" => "home",
     "Laundromat or Dry Cleaner" => "home",
     "Convenience Store" => "home",
+    "Professional & Other Places" => "home",
         
     "Bike Shop" => "sport",
     "Board Shop" => "sport",
     "Gyms or Fitness Center" => "sport",
     "Sporting Goods Shop" => "sport",
     "Yoga Studio" => "sport",
+    "Great Outdoors" => "sport",
+
+    "College Stadium" => "ae",
+    "College Baseball Diamond" => "ae",
+    "College Basketball Court" => "ae",
+    "College Cricket Pitch" => "ae",
+    "College Football Field" => "ae",
+    "College Hockey Rink" => "ae",
+    "College Soccer Field" => "ae",
+    "College Tennis Court" => "ae",
+    "College Track" => "ae",
 
     "Bridal Shop" => "fashion",
     "Clothing Store" => "fashion",
