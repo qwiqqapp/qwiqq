@@ -272,7 +272,7 @@ class Deal < ActiveRecord::Base
   
   def store_unique_token!
     input = ""
-    input << self.name              if self.price
+    input << self.name              if self.name
     input << self.price.to_s        if self.price
     input << self.percent.to_s      if self.percent  
     input << self.user_id.to_s      if self.user_id
