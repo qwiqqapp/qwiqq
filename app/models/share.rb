@@ -109,7 +109,7 @@ class Share < ActiveRecord::Base
     when "sms"
       self.message = Qwiqq.build_share_deal_message(self.message, deal, 160)
       self.message = "#{user.username}: #{self.message}"
-    when "twitter" || "foursquare"
+    when "twitter", "foursquare"
       self.message.gsub!(/qwiqq/i, "@Qwiqq") if service == "twitter"
       self.message = Qwiqq.build_share_deal_message(self.message, deal, 140)
     end
