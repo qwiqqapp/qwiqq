@@ -36,6 +36,10 @@ module Qwiqq
     @foursquare_categories ||= YAML.load_file(Rails.root.join("config", "foursquare_categories.yml"))
   end
 
+  def self.default_category
+    Category.first
+  end
+
   def self.email?(value)
     begin
       m = Mail::Address.new(value)
