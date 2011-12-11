@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111202083244) do
+ActiveRecord::Schema.define(:version => 20111211204925) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(:version => 20111202083244) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
   create_table "admin_users", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "email",                                                :null => false
+    t.string   "encrypted_password",     :limit => 128,                :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -108,15 +108,15 @@ ActiveRecord::Schema.define(:version => 20111202083244) do
     t.integer  "comments_count",        :default => 0
     t.integer  "likes_count",           :default => 0
     t.string   "location_name"
-    t.datetime "indexed_at"
     t.string   "unique_token"
+    t.datetime "indexed_at"
     t.string   "foursquare_venue_id"
-    t.float    "foursquare_venue_lat"
-    t.float    "foursquare_venue_lon"
     t.string   "user_photo"
     t.string   "user_photo_2x"
     t.integer  "reposts_count",         :default => 0
     t.integer  "shares_count",          :default => 0
+    t.float    "foursquare_venue_lat"
+    t.float    "foursquare_venue_lon"
     t.string   "foursquare_venue_name"
   end
 
@@ -190,14 +190,13 @@ ActiveRecord::Schema.define(:version => 20111202083244) do
   add_index "reposts", ["user_id"], :name => "index_reposts_on_user_id"
 
   create_table "shares", :force => true do |t|
-    t.integer  "user_id",             :null => false
-    t.integer  "deal_id",             :null => false
-    t.string   "service",             :null => false
+    t.integer  "user_id",    :null => false
+    t.integer  "deal_id",    :null => false
+    t.string   "service",    :null => false
     t.string   "email"
     t.datetime "created_at"
     t.datetime "shared_at"
     t.string   "number"
-    t.string   "foursquare_venue_id"
     t.string   "message"
   end
 
