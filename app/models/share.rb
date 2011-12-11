@@ -49,10 +49,10 @@ class Share < ActiveRecord::Base
 
   def deliver_to_foursquare
     # if a venue id is present, checkin otherwise 'shout'
-    if foursquare_venue_id.blank?
+    if deal.foursquare_venue_id.blank?
       user.foursquare_client.shout(message)
     else
-      user.foursquare_client.checkin(foursquare_venue_id, message)
+      user.foursquare_client.checkin(deal.foursquare_venue_id, message)
     end
 
     # update
