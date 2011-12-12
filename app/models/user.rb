@@ -308,8 +308,8 @@ class User < ActiveRecord::Base
     def update_push_token
       return if push_token.blank?
       
-      self.user_devices.where(:token => push_token).destroy_all
-      self.user_devices.create(:token => push_token)
+      self.push_devices.where(:token => push_token).destroy_all
+      self.push_devices.create(:token => push_token)
       push_token = nil
     end
   

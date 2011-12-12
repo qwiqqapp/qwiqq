@@ -10,7 +10,7 @@ class UserEvent < ActiveRecord::Base
 
   before_save :update_cached_attributes
   
-  # after_create :deliver_notification
+  after_create :deliver_push_notification
   
   validates :event_type, :inclusion => [ "comment", "like", "share", "follower", "mention" ]
   validates :user, :presence => true
@@ -50,26 +50,26 @@ class UserEvent < ActiveRecord::Base
     json
   end
   
-  private
-  def deliver_notification
+  # TODO move to separate notification class
+  def deliver_push_notification
     return unless push_notification_sent_at.nil?
     
     device_tokens = self.user.push_devices.map(&:token)
-    return if device_tokens.blank?
+    return false if device_tokens.blank?
     
     badge = self.user.events.unread.count
     
     notification = {
       :device_tokens => device_tokens,
-      :aps => {
-        :alert  => notification_message,
-        :badge  => badge}
+      :aps => { :alert  => push_alert, 
+                :badge  => badge}
     }
     
     update_attribute(:push_notification_sent_at, Time.now) if Urbanairship.push(notification)
   end
-  
-  def notification_page
+
+  private
+  def push_link
     #return page hash
     case self.event_type
       when /follower/i
@@ -79,7 +79,7 @@ class UserEvent < ActiveRecord::Base
       end
   end
   
-  def notification_message
+  def push_alert
     action = case self.event_type
       when 'comment'
         "left a comment on your post: #{metadata[:body]}"
