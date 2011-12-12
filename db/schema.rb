@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(:version => 20111212031642) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
   create_table "admin_users", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "email",                                                :null => false
+    t.string   "encrypted_password",     :limit => 128,                :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -108,15 +108,15 @@ ActiveRecord::Schema.define(:version => 20111212031642) do
     t.integer  "comments_count",        :default => 0
     t.integer  "likes_count",           :default => 0
     t.string   "location_name"
-    t.datetime "indexed_at"
     t.string   "unique_token"
+    t.datetime "indexed_at"
     t.string   "foursquare_venue_id"
-    t.float    "foursquare_venue_lat"
-    t.float    "foursquare_venue_lon"
     t.string   "user_photo"
     t.string   "user_photo_2x"
     t.integer  "reposts_count",         :default => 0
     t.integer  "shares_count",          :default => 0
+    t.float    "foursquare_venue_lat"
+    t.float    "foursquare_venue_lon"
     t.string   "foursquare_venue_name"
   end
 
@@ -165,6 +165,16 @@ ActiveRecord::Schema.define(:version => 20111212031642) do
   end
 
   add_index "press_links", ["published_at"], :name => "index_press_links_on_published_at"
+
+  create_table "push_devices", :force => true do |t|
+    t.string   "token",              :null => false
+    t.integer  "user_id"
+    t.datetime "last_registered_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "push_devices", ["token"], :name => "index_push_devices_on_token", :unique => true
 
   create_table "relationships", :force => true do |t|
     t.integer  "user_id"
