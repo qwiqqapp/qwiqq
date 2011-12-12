@@ -45,32 +45,6 @@ ActiveRecord::Schema.define(:version => 20111212031642) do
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
 
-  create_table "apn_devices", :force => true do |t|
-    t.string   "token",              :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "last_registered_at"
-    t.integer  "user_id"
-  end
-
-  add_index "apn_devices", ["token"], :name => "index_apn_devices_on_token", :unique => true
-  add_index "apn_devices", ["user_id"], :name => "index_apn_devices_on_user_id"
-
-  create_table "apn_notifications", :force => true do |t|
-    t.integer  "device_id",                        :null => false
-    t.integer  "errors_nb",         :default => 0
-    t.string   "device_language"
-    t.string   "sound"
-    t.string   "alert"
-    t.integer  "badge"
-    t.text     "custom_properties"
-    t.datetime "sent_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "apn_notifications", ["device_id"], :name => "index_apn_notifications_on_device_id"
-
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -200,25 +174,15 @@ ActiveRecord::Schema.define(:version => 20111212031642) do
   add_index "reposts", ["user_id"], :name => "index_reposts_on_user_id"
 
   create_table "shares", :force => true do |t|
-    t.integer  "user_id",             :null => false
-    t.integer  "deal_id",             :null => false
-    t.string   "service",             :null => false
+    t.integer  "user_id",    :null => false
+    t.integer  "deal_id",    :null => false
+    t.string   "service",    :null => false
     t.string   "email"
     t.datetime "created_at"
     t.datetime "shared_at"
     t.string   "number"
-    t.string   "foursquare_venue_id"
     t.string   "message"
   end
-
-  create_table "user_devices", :force => true do |t|
-    t.string   "token",      :null => false
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "user_devices", ["token"], :name => "index_user_devices_on_token", :unique => true
 
   create_table "user_events", :force => true do |t|
     t.integer  "user_id",                                      :null => false

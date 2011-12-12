@@ -49,10 +49,10 @@ class Share < ActiveRecord::Base
 
   def deliver_to_foursquare
     # if a venue id is present, checkin otherwise 'shout'
-    if foursquare_venue_id.blank?
+    if deal.foursquare_venue_id.blank?
       user.foursquare_client.shout(message)
     else
-      user.foursquare_client.checkin(foursquare_venue_id, message)
+      user.foursquare_client.checkin(deal.foursquare_venue_id, message)
     end
 
     # update
@@ -109,7 +109,7 @@ class Share < ActiveRecord::Base
     when "sms"
       self.message = Qwiqq.build_share_deal_message(self.message, deal, 160)
       self.message = "#{user.username}: #{self.message}"
-    when "twitter" || "foursquare"
+    when "twitter", "foursquare"
       self.message.gsub!(/qwiqq/i, "@Qwiqq") if service == "twitter"
       self.message = Qwiqq.build_share_deal_message(self.message, deal, 140)
     end

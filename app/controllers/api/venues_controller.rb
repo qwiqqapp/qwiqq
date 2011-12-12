@@ -10,10 +10,11 @@ class Api::VenuesController < Api::ApiController
       foursquare_category = foursquare_categories.first {|c| c["primary"] } || foursquare_categories.first
       category = Qwiqq.convert_foursquare_category(foursquare_category["name"]) if foursquare_category
       icon = build_icon_url(foursquare_category["icon"]) if foursquare_category
+      category ||= Qwiqq.default_category.name
       result << { 
         foursquare_id: venue["id"],
         name: venue["name"], 
-        category: category || "",
+        category: category,
         icon: icon || "",
         address: venue["location"]["address"],
         distance: venue["location"]["distance"]

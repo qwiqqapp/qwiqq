@@ -25,8 +25,7 @@ class Deal < ActiveRecord::Base
   has_many :liked_by_users, :through => :likes, :source => :user
   has_many :feedlets, :dependent => :destroy
 
-  has_many :events, 
-    :class_name => "UserEvent", 
+  has_many :events, :class_name => "UserEvent", 
     :conditions => [ "event_type IN (?)", [ "comment", "like", "share" ] ], 
     :dependent => :destroy
   
@@ -274,7 +273,7 @@ class Deal < ActiveRecord::Base
   
   def store_unique_token!
     input = ""
-    input << self.name              if self.price
+    input << self.name              if self.name
     input << self.price.to_s        if self.price
     input << self.percent.to_s      if self.percent  
     input << self.user_id.to_s      if self.user_id

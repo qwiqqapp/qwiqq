@@ -40,6 +40,45 @@ Strip Club: bar
 Theme Park: ae
 Water Park: ae
 Zoo or Aquarium: ae
+College & University: ae
+College Academic Building: ae
+College Arts Building: ae
+College Communications Building: ae
+College Engineering Building: ae
+College History Building: ae
+College Math Building: ae
+College Science Building: ae
+College Technology Building: ae
+College Administrative Building: ae
+College Auditorium: ae
+College Bookstore: ae
+College Cafeteria: food
+College Classroom: ae
+College Dorm: ae
+College Gym: ae
+College Lab: ae
+College Library: ae
+College Quad: ae
+College Rec Center: ae
+College Stadium: sport
+College Baseball Diamond: sport
+College Basketball Court: sport
+College Cricket Pitch: sport
+College Football Field: sport
+College Hockey Rink: sport
+College Soccer Field: sport
+College Tennis Court: sport
+College Track: sport
+College Theater: ae
+Community College: ae
+Fraternity House: ae
+General College & University: ae
+Law School: ae
+Medical School: ae
+Sorority House: ae
+Student Center: ae
+Trade School: ae
+University: ae
 Food: food
 African Restaurant: food
 American Restaurant: food
@@ -73,7 +112,8 @@ Eastern European Restaurant: food
 Ethiopian Restaurant: food
 Falafel Restaurant: food
 Fast Food Restaurant: food
-Filipino Restaurants: food
+Filipino Restaurant: food
+Fish & Chips Shop: food
 Food Court: food
 Food Truck: food
 French Restaurant: food
@@ -97,10 +137,10 @@ Mediterranean Restaurant: food
 Mexican Restaurant: food
 Middle Eastern Restaurant: food
 Molecular Gastronomy Restaurant: food
-Mongolian Restaurants: food
+Mongolian Restaurant: food
 Moroccan Restaurant: food
 New American Restaurant: food
-Peruvian Restaurants: food
+Peruvian Restaurant: food
 Pizza Place: food
 Portuguese Restaurant: food
 Ramen or Noodle House: food
@@ -126,6 +166,47 @@ Vegetarian or Vegan Restaurant: food
 Vietnamese Restaurant: food
 Winery: food
 Wings Joint: food
+Great Outdoors: sport
+Baseball Field: sport
+Basketball Court: sport
+Beach: sport
+Surf Spot: sport
+Bridge: sport
+Campground: sport
+Cemetery: sport
+Dog Run: sport
+Farm: sport
+Field: sport
+Garden Center: home
+Garden: sport
+Golf Course: sport
+Harbor or Marina: sport
+Hiking Trail: sport
+Hot Spring: sport
+Lake: sport
+Lighthouse: sport
+Mountain: sport
+Other Great Outdoors: sport
+Park: sport
+Playground: sport
+Plaza: sport
+Pool: sport
+River: sport
+Scenic Lookout: sport
+Sculpture Garden: ae
+Skate Park: sport
+Skating Rink: sport
+Ski Area: sport
+Apres Ski Bar: sport
+Ski Chairlift: sport
+Ski Chalet: sport
+Ski Lodge: sport
+Ski Trail: sport
+Soccer Field: sport
+Stable: sport
+Tennis Court: sport
+Vineyard: food
+Volleyball Court: sport
 Nightlife Spot: bar
 Bar: bar
 Beer Garden: bar
@@ -144,7 +225,48 @@ Speakeasy: bar
 Sports Bar: bar
 Whisky Bar: bar
 Wine Bar: bar
+Professional & Other Places: home
 Animal Shelter: pet
+Apartment Building / Condo Complex: home
+Building: home
+Convention Center: home
+Meeting Room: home
+Event Space: home
+Factory: home
+Fair: home
+Government Building: home
+Capitol Building: home
+City Hall: home
+Courthouse: home
+Fire Station: home
+Monument or Landmark: home
+Police Station: home
+Library: home
+Medical Center: home
+Dentist's Office: home
+Doctor's Office: home
+Emergency Room: home
+Hospital: home
+Optical Shop: home
+Veterinarian: home
+Military Base: home
+Office: home
+Auditorium: home
+Cafeteria: home
+Conference Room: home
+Coworking Space: home
+Tech Startup: home
+Parking: home
+Post Office: home
+Religious Center: home
+Church: home
+Mosque: home
+Shrine: home
+Synagogue: home
+Temple: home
+School: home
+High School: home
+Voting Booth: home
 Antique Shop: home
 Arts & Crafts Store: home
 Automotive Shop: car
@@ -152,6 +274,7 @@ Bike Shop: sport
 Board Shop: sport
 Bookstore: ae
 Bridal Shop: fashion
+Camera Store: tech
 Candy Store: food
 Clothing Store: fashion
 Accessories Store: fashion
@@ -180,7 +303,7 @@ Mall: fashion
 Music Store: ae
 Record Shop: ae
 Salon or Barbershop: beauty
-Smoke Shop: ae
+Smoke Shop: home
 Spa or Massage: beauty
 Sporting Goods Shop: sport
 Tanning Salon: beauty
