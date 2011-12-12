@@ -6,12 +6,14 @@ class Api::VenuesControllerTest < ActionController::TestCase
   end
   
   test "should render venues near a location" do
+    default_category = Category.create(:name => "food")
     fixture = File.read(Rails.root.join("test", "fixtures", "foursquare_venues.json"))
     venues = JSON.parse(fixture)
     lat, lon = "49.282833", "-123.109698"
     foursquare_client = mock
     foursquare_client.expects(:search_venues).with(lat, lon, "").returns(venues)
     Qwiqq.expects(:foursquare_client).returns(foursquare_client)
+    Qwiqq.stubs(:default_category).returns(default_category)
 
     get :index, :format => :json, :lat => lat, :lon => lon
 
@@ -23,12 +25,14 @@ class Api::VenuesControllerTest < ActionController::TestCase
   end
 
   test "should render venues near a location with a search string" do
+    default_category = Category.create(:name => "food")
     fixture = File.read(Rails.root.join("test", "fixtures", "foursquare_venues_tacos.json"))
     venues = JSON.parse(fixture)
     lat, lon = "49.282833", "-123.109698"
     foursquare_client = mock
     foursquare_client.expects(:search_venues).with(lat, lon, "tacos").returns(venues)
     Qwiqq.expects(:foursquare_client).returns(foursquare_client)
+    Qwiqq.stubs(:default_category).returns(default_category)
 
     get :index, :format => :json, :lat => lat, :lon => lon, :query => "tacos"
 
