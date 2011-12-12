@@ -60,15 +60,15 @@ College Lab: ae
 College Library: ae
 College Quad: ae
 College Rec Center: ae
-College Stadium: ae
-College Baseball Diamond: ae
-College Basketball Court: ae
-College Cricket Pitch: ae
-College Football Field: ae
-College Hockey Rink: ae
-College Soccer Field: ae
-College Tennis Court: ae
-College Track: ae
+College Stadium: sport
+College Baseball Diamond: sport
+College Basketball Court: sport
+College Cricket Pitch: sport
+College Football Field: sport
+College Hockey Rink: sport
+College Soccer Field: sport
+College Tennis Court: sport
+College Track: sport
 College Theater: ae
 Community College: ae
 Fraternity House: ae
@@ -177,7 +177,7 @@ Cemetery: sport
 Dog Run: sport
 Farm: sport
 Field: sport
-Garden Center: sport
+Garden Center: home
 Garden: sport
 Golf Course: sport
 Harbor or Marina: sport
@@ -193,7 +193,7 @@ Plaza: sport
 Pool: sport
 River: sport
 Scenic Lookout: sport
-Sculpture Garden: sport
+Sculpture Garden: ae
 Skate Park: sport
 Skating Rink: sport
 Ski Area: sport
@@ -205,7 +205,7 @@ Ski Trail: sport
 Soccer Field: sport
 Stable: sport
 Tennis Court: sport
-Vineyard: sport
+Vineyard: food
 Volleyball Court: sport
 Nightlife Spot: bar
 Bar: bar
@@ -303,7 +303,7 @@ Mall: fashion
 Music Store: ae
 Record Shop: ae
 Salon or Barbershop: beauty
-Smoke Shop: ae
+Smoke Shop: home
 Spa or Massage: beauty
 Sporting Goods Shop: sport
 Tanning Salon: beauty
