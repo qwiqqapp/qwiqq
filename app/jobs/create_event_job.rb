@@ -1,16 +1,7 @@
-class createEventJob
+class CreateEventJob
   @queue = :events
   
-  def self.perform(id, type)
-    
-    
-    
-
-    l = Like.find(id)
-    l.deliver_notification
- 
-  # allow record not found to silently fail and log
-  rescue ActiveRecord::RecordNotFound => e
-    Rails.logger.info "LikeNotifyJob: Unable to send notification for like #{id} object no longer exists: #{e}"
+  def self.perform(id, klass)
+    #find related object and construct related event
   end
 end

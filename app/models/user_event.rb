@@ -71,6 +71,12 @@ class UserEvent < ActiveRecord::Base
   
   def notification_page
     #return page hash
+    case self.event_type
+      when /follower/i
+        "users/#{self.user_id}"
+      else
+        "deals/#{self.deal_id}"
+      end
   end
   
   def notification_message

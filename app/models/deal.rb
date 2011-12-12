@@ -9,6 +9,7 @@ class Deal < ActiveRecord::Base
     
     has "RADIANS(lat)", :as => :lat_radians,  :type => :float
     has "RADIANS(lon)", :as => :lon_radians, :type => :float
+    
     set_property :latitude_attr => :lat_radians, :longitude_attr => :lon_radians
 
     has created_at, likes_count, comments_count, lat, lon
