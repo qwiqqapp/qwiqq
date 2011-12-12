@@ -13,7 +13,6 @@ class Like < ActiveRecord::Base
   after_commit :create_event, :on => :create
   
   def deliver_notification
-    deal.user.send_push_notification("#{self.user.username} liked your deal #{deal.name}", "deals/#{deal.id}")
     return unless notification_sent_at.nil?       # avoid double notification
     return unless deal.user.send_notifications    # only send if user has notifications enabled
     
@@ -24,7 +23,7 @@ class Like < ActiveRecord::Base
   def async_deliver_notification
     Resque.enqueue(LikeNotifyJob, self.id)
   end
-
+  
   def create_event
     events.create(
       :event_type => "like",

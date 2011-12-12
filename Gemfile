@@ -54,7 +54,7 @@ gem "dalli"
 gem "geoip", "1.1.1"
 
 # apple push notifications
-gem 'apn_on_rails', :git => 'https://github.com/natescherer/apn_on_rails.git', :branch => 'rails3' 
+gem 'urbanairship'
 
 # sms delivery with twilio
 gem 'twilio-ruby'

@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
     set_property :min_prefix_len => 3
   end
   
+  # new custom push notifications
+  has_many :push_devices, :dependent => :destroy
+  
   has_many :deals, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :likes, :dependent => :destroy
@@ -27,7 +30,6 @@ class User < ActiveRecord::Base
   has_many :shared_deals, :through => :shares, :source => :deal, :uniq => true
   
   has_many :invitations_sent, :class_name => "Invitation"
-  has_many :apn_devices, :class_name => 'APN::Device'
 
   has_many :events, :class_name => "UserEvent"
   has_many :events_created, :class_name => "UserEvent", :foreign_key => "created_by_id"
@@ -67,7 +69,8 @@ class User < ActiveRecord::Base
   before_save :update_foursquare_id
   before_save :update_notifications_token
   before_save :update_photo_from_service
-  after_save :update_push_token # may be called on create and we need user_id to create an APN::Device
+  
+  after_save :update_push_token # may be called on create and we need user_id to create an push_device
   
   validates_confirmation_of :password
   validates_presence_of     :password, :on => :create
@@ -280,17 +283,6 @@ class User < ActiveRecord::Base
     facebook_ids.flatten
   end
 
-  def send_push_notification(message, page = "")
-    self.apn_devices.each do |device|
-      APN::Notification.create!(
-        :device => device, 
-        :sound => true, 
-        :alert => message, 
-        :custom_properties => { :page => page }, 
-        :badge => events.unread.count)
-    end
-  end
-
   def update_photo_from_facebook
     return if facebook_access_token.blank?
     picture_url = facebook_client.get_picture("me", :type => "large") rescue nil
@@ -311,11 +303,13 @@ class User < ActiveRecord::Base
         self.twitter_id = twitter_user.id.to_s if twitter_user
       end
     end
-
+    
+    # 
     def update_push_token
       return if push_token.blank?
-      APN::Device.where("token = ? AND user_id != ?", push_token, self.id).destroy_all
-      APN::Device.create(:token => push_token, :user_id => self.id)
+      
+      self.user_devices.where(:token => push_token).destroy_all
+      self.user_devices.create(:token => push_token)
       push_token = nil
     end
   
