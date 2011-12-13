@@ -36,4 +36,7 @@ Qwiqq::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # Default URL
+  config.action_mailer.default_url_options = { :host => "www.qwiqq.me" }
 end
