@@ -58,19 +58,23 @@ class UserEvent < ActiveRecord::Base
     return if device_tokens.blank?
     
     badge         = self.user.events.unread.count
-    notification  = { :device_tokens => device_tokens, :aps => { :alert  => push_alert, :badge  => badge}}
+    notification  = { :device_tokens => device_tokens,
+                      :page => push_page,
+                      :aps => { :alert  => push_alert, 
+                                :badge  => badge}}
     
     update_attribute(:push_notification_sent_at, Time.now) if Urbanairship.push(notification)
   end
 
   private
-  def push_link
-    #return page hash
+  def push_page
     case self.event_type
       when /follower/i
-        "users/#{self.user_id}"
-      else
+        "users/#{self.created_by_id}"
+      when /comment|like|share|mention/
         "deals/#{self.deal_id}"
+      else
+        ''
       end
   end
   
@@ -89,7 +93,7 @@ class UserEvent < ActiveRecord::Base
       else
         raise ArgumentError, "Unable to create notification message for event #{self.id} with type #{self.event_type}"
       end 
-    "#{self.user.username} #{action}"
+    "#{self.created_by.username} #{action}"
   end
   
   
