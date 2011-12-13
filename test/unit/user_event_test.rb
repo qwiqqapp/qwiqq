@@ -47,7 +47,20 @@ class UserEventTest < ActiveSupport::TestCase
     assert_not_nil @event.push_notification_sent_at
   end
   
-  test "should deliver push notification content" do
+  test "should NOT deliver push notification for owner action" do
+    @owner  = Factory(:user)
+    @device = Factory(:push_device, :user => @owner)
+    @deal   = Factory(:deal, :user => @owner)
+    
+    Urbanairship.expects(:push).never
+    
+    @event = Factory(:user_event, 
+                      :event_type => "like", 
+                      :deal => @deal,
+                      :user => @owner,
+                      :created_by => @owner)
+                      
+    assert_nil @event.push_notification_sent_at
   end
 end
 
