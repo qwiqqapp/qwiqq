@@ -6,7 +6,7 @@ class UserTest < ActiveSupport::TestCase
   #  push device tests
   
   test "should create push_device when push_token provided" do
-    push_token = "aaaaaaaa db6fad5f 4e924598 54107351 6f0c032f 3c017918 1c9cd79e a2ec144g"
+    push_token = "AAAAAAAADB6FAD5F4E924598541073516F0C032F3C0179181C9CD79EA2EC144G"
     @user = Factory.build(:user)    
     @user.push_token = push_token
 
@@ -18,7 +18,7 @@ class UserTest < ActiveSupport::TestCase
   end
   
   test "should create 2nd push_device for user if new push_token provided" do
-    new_push_token    = "aaaaaaaa db6fad5f 4e924598 54107351 6f0c032f 3c017918 1c9cd79e a2ec144g"
+    new_push_token    = "AAAAAAAADB6FAD5F4E924598541073516F0C032F3C0179181C9CD79EA2EC144G"
     @user             = Factory(:user)
     @push_device      = Factory(:push_device, :user => @user)
     @user.push_token  = new_push_token
