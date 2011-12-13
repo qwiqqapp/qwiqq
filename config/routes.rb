@@ -1,12 +1,12 @@
 Qwiqq::Application.routes.draw do
   
   ActiveAdmin.routes(self)
-
   devise_for :admin_users, ActiveAdmin::Devise.config
 
   # public web
   root :to => "deals#index"
   resources :deals, :only => [:index, :show]
+  resources :users, :only => [:show]
   
   # home routes
   match "about",    :to => "home#about",    :as => :about

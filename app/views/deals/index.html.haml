@@ -1,94 +1,71 @@
-#navigation
-  #sections
-    %ul
-      %li 
-        %a#app{ :href => "#app" } iPhone App
-      %li
-        %a#deals{ :href => "#deals" } Deals
-      %li
-        %a#contact{ :href => "#contact" } Contact
+#header
+  .container
+    %img.logo{ :src => "assets/home-qwiqq-logo.png" }
+    %img.bubbles{ :src => "assets/home-large-bubbles.png" }
 
-  #corner.left
-    %ul
-      %li
-        %a#top{ :href => "#top" }
-          .image
-          Top
+    #phone
+      %img#frame{ :src => "assets/home-iphone-frame.png" }
+      #screenshots
+        %img#screen1{ :src => "assets/home-iphone-screen-1.png" }
+        %img#screen2{ :src => "assets/home-iphone-screen-2.png" }
+        %img#screen3{ :src => "assets/home-iphone-screen-3.png" }
+        %img#screen3{ :src => "assets/home-iphone-screen-4.png" }
 
-  #corner.right
-    %ul
-      %li
-        %a{ :href => about_path } About
-      |
-      %li
-        %a#blog{ :href => "http://blog.qwiqq.me" }
-          Blog
-          .image
+    #app-store-link
+      %a{ :href => "/download" }
+        %img{ :src => "assets/home-app-store.png" }
+      %img.free-arrow{ :src => "assets/home-free-arrow.png" }
+      %img.free{ :src => "assets/home-free.png" }
 
-#home.section
-  %img.logo{ :src => "/images/logo-tagline.png" }
-  #phone
-    %img#frame{ :src => "images/iphone.png", :width => "253", :height => "534" }
-    #screenshots
-      %img#screen1{ :src => "images/screen1.png" }
-      %img#screen2{ :src => "images/screen2.png" }
-      %img#screen3{ :src => "images/screen3.png" }
-    
-  %a{ :href => "http://download.qwiqq.me" }
-    %img.download{ :src => "/images/download-green.png" }
-
-#app.section
-  %h1 The Revolution Starts Here
-  %h2 The Deal sharing community where you ...
-  #steps-container
+#content
+  .container
     #steps
-      #step1.step  
-        %img{ :src => "/images/1.png" }
-        %h3 See a deal
-        Blowout sale, favorite happy hour, designer sample sale, daily lunch special? Deals are all around you.
+      #one.step
+        %img.icon{ :src => "assets/1-love.png" }
+        .body
+          From a cute pair of shoes to the perfect salon to the tastiest Thai on the Upper West Side. The things you love are all around you!
+          
+      #two.step
+        %img.icon{ :src => "assets/2-share.png" }
+        .body
+          Just snap a photo, write a quick note and enter the price. We do the rest. Remember, sharing is caring!
 
-      #step2.step
-        %img{ :src => "/images/2.png" }
-        %h3 Post a deal
-        Take a photo or scan a product. Write a quick note and we do the rest. Remember sharing is caring.
-      
-      #step3.step
-        %img{ :src => "/images/3.png" }
-        %h3 Discover deals
-        Browse, see what's popular, search or check out what your friends are sharing. Local deals that matter to you.
-      
-  %a{ :href => download_path }
-    %img.download{ :src => "/images/download-orange.png" }
+      #three.step
+        %img.icon{ :src => "assets/3-discover.png" }
+        .body
+          Wow! People are really interesting. From foodies to fashionistas, discover what your friends and the community around you are sharing!
 
-#deals.section
-  #popular
-    %h1 Popular deals 
-  %h2 Sign up with Qwiqq to start sharing and discovering local deals that matter to you!
-  #grid
-    - @deals.each do |deal|
-      .deal
-        %a{ :href => deal_url(deal) }
-          .image
-            %img{ :src => deal.photo.url(:iphone_grid_2x) }
-          .details
-            = emojify deal.name.truncate(100)
+    #posts
+      %fieldset
+        %legend
+          %span.title Posts Nearby
 
-#contact.section
-  %img.contact{ :src => "/images/contact.png" }
-  #methods
-    .method.twitter
-      %a{ :href => "http://twitter.com/home?status=#{CGI::escape("I'm using @Qwiqq to find great deals! http://qwiqq.me")}" }
-        .icon
-      Twitter
-    .method.facebook
-      %a{ :href => "http://www.facebook.com/sharer/sharer.php?u=http://qwiqq.me" }
-        .icon
-      Facebook
-    .method.email
-      %a{ :href => "mailto:?subject=Checkout Qwiqq!&body=http://qwiqq.me" }
-        .icon
-      Email
-  %br
-  %img.communication{ :src => "/images/communication.png" }
+      #grid
+        - @deals.each do |deal|
+          .post
+            %a{ :href => deal_url(deal) }
+              .details
+                %img.photo{ :src => deal.photo.url(:iphone_zoom), :width => "240", :height => "240" }
+                .name= deal.name
 
-= render "shared/footer"
+            .metadata
+              %img.arrow-down{ :src => "assets/arrow-down.png" }
+              %a{ :href => user_url(deal.user) }
+                %img.user-photo{ :src => deal.user.photo.url(:iphone), :width => "48", :height => "48" }
+              .stats
+                %span.stat
+                  %img.icon{ :src => "assets/love-icon.png" }
+                  = deal.likes_count
+                %span.stat
+                  %img.icon{ :src => "assets/share-icon.png" }
+                  = deal.shares_count
+                %span.stat
+                  %img.icon{ :src => "assets/time-icon.png" }
+                  = short_time_ago_in_words(deal.created_at)
+              .location
+                %img.icon{ :src => "assets/location-icon.png" }
+                = deal.location_name
+              
+#footer
+  .container
+

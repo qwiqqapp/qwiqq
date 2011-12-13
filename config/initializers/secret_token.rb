@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Qwiqq::Application.config.secret_token = 'fe834891a0cf7f03d636a9f39ae2f091dc939818ae3e9c5412487470d36712288638cb7834da5d4ed4c2e7fa28d9b0498dfc260515bcf02204388bfbec13c6fd'
+Qwiqq::Application.config.secret_token = '71955198cc3a01a9fcc36a614cc6a0ba83ffdd9f8aa9aba339c9cb500b679bfde67a0af4558122ce002e940d72aeb2f66d2fdc994f6e414b3d9598cac8838a54'
