@@ -21,12 +21,10 @@ module ApplicationHelper
   end
 
   def price_string(deal)
-    if (deal.price && deal.price == 0) || (deal.percent && deal.percent == 0)
-      "FREE"
-    elsif deal.price
+    if deal.price > 0
       deal.price_as_string
     else
-      "#{deal.percent}% OFF"
+      "free"
     end
   end
 end
