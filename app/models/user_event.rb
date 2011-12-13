@@ -55,17 +55,13 @@ class UserEvent < ActiveRecord::Base
     return unless push_notification_sent_at.nil?
     
     device_tokens = self.user.push_devices.map(&:token)
-    return false if device_tokens.blank?
+    return if device_tokens.blank?
     
-    badge = self.user.events.unread.count
-    
-    notification = {
-      :device_tokens => device_tokens,
-      :aps => { :alert  => push_alert, 
-                :badge  => badge}
-    }
+    badge         = self.user.events.unread.count
+    notification  = { :device_tokens => device_tokens, :aps => { :alert  => push_alert, :badge  => badge}}
     
     update_attribute(:push_notification_sent_at, Time.now) if Urbanairship.push(notification)
+
   end
 
   private
