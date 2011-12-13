@@ -7,7 +7,12 @@ background-pattern.png: background-pattern-9c7dfe98bb0d2dea0193eff4be2fde90.png
 bubble-1.png: bubble-1-e24cd6d3f8c80016ac37f57477b1f544.png
 bubble-2.png: bubble-2-2b823c6ac1f5c6e8d1193283b22767aa.png
 bubble-3.png: bubble-3-94ba22486266872986257c11a80dbade.png
+footer-app-store.png: footer-app-store-5f4f73fb12cea5783f33803b81dc1d64.png
 footer-background.png: footer-background-7d88aa9ffcaa4e7a82ed81d263f01cb5.png
+footer-email.png: footer-email-1487171a798b03c613ace0d09c640a46.png
+footer-facebook.png: footer-facebook-0de04450dcb1b744101b86870edc5077.png
+footer-qwiqq-logo.png: footer-qwiqq-logo-0d677355b20d204a7cfd28dd732c35c6.png
+footer-twitter.png: footer-twitter-aa25c961701e559e9c012ab7ae3ed974.png
 home-app-store.png: home-app-store-8113021e15e126a43a4302bd6d876d08.png
 home-free-arrow.png: home-free-arrow-e6e0a7d4e05a260fc185c424fb050be7.png
 home-free.png: home-free-4b0538714624c5f4124d5bf5776aca58.png
@@ -22,10 +27,11 @@ home-top-background.png: home-top-background-e2c8e6904b602051bb547641ab6afb61.pn
 location-icon.png: location-icon-a992366e0a9ae4af23a74f0d6b23bd91.png
 love-icon.png: love-icon-93b214473ac23f8612c340e83616725c.png
 share-icon.png: share-icon-53ca9d48016a52880280774483419b11.png
+tag.png: tag-d5777064fd96b8591a08e0d757c28143.png
 time-icon.png: time-icon-409e9c0abc2c51d73d7f1dd48a4bf5ed.png
 user-photo-overlay.png: user-photo-overlay-6b4f89cd47c08199b387f7cce2ace537.png
 application.js: application-8f047667daa4d01ae014e187a9d51bb9.js
-application.css: application-488e8260f644023201ebe052cbc2844a.css
+application.css: application-d95ff2f4f2d7f902867ef25b04f94424.css
 active_admin/admin_notes_icon.png: active_admin/admin_notes_icon-d3076b67b8655afc5cf14bf244c34db5.png
 active_admin/datepicker/datepicker-header-bg.png: active_admin/datepicker/datepicker-header-bg-c73514e723fd274903d96ff0afd8e7f7.png
 active_admin/datepicker/datepicker-input-icon.png: active_admin/datepicker/datepicker-input-icon-e48beac5b8da2344985c5d2afe6159dd.png
