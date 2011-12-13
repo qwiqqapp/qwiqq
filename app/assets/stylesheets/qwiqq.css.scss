@@ -1,0 +1,187 @@
+/* QWIQQ */
+
+@import "frameless";
+
+body {
+  background-image: url("background-pattern.png");
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  color: #666666;
+}
+
+html, body {
+  height: 100%
+}
+
+#header {
+  background-image: url("home-top-background.png");
+  z-index: -10;
+  height: 290px;
+}
+
+#content {
+  min-height: 100%;
+}
+
+#footer {
+  background-image: url("footer-background.png");
+  height: 385px;
+}
+
+.container {
+  width: $cols12;
+  margin: 0 auto;
+}
+
+img.logo {
+  padding-top: 40px;
+  float: left;
+}
+
+img.bubbles {
+  position: relative;
+  float: right;
+  top: 44px;
+  left: 10px;
+}
+
+#app-store-link {
+  position: relative;
+  top: -220px;
+}
+
+#app-store-link a {
+  text-decoration: none;
+}
+
+img.free-arrow {
+  position: relative;
+  top: 40px;
+  left: -150px;
+}
+
+img.free {
+  position: relative;
+  top: 50px;
+  left: -150px;
+}
+
+#phone {
+  position: relative;
+  width: 252px;
+  margin: 0 auto;
+  top: 40px;
+}
+
+#screenshots {
+  position: absolute;
+  top: 87px;
+  left: 21px;
+}
+
+#steps {
+  overflow: hidden;
+  margin-top: 340px;
+}
+
+.step {
+  float: left;
+  width: 260px;
+}
+
+.step .body {
+  padding-top: 10px;
+  line-height: 24px;
+}
+
+#one.step, #two.step {
+  margin-right: 26px;
+}
+
+#posts {
+  margin-top: 80px;
+  text-align: center;
+  overflow: hidden;
+}
+
+#posts fieldset {
+  font-size: 28px;
+  color: #8c8c8c;
+  border-top: 1px solid #8c8c8c;
+  margin-bottom: 20px;
+}
+
+#posts fieldset .title {
+  padding: 0 20px;
+}
+
+.post {
+  float: left;
+}
+
+.post a {
+  text-decoration: none;
+}
+
+.post .details {
+  background-color: white;
+  width: 240px;
+  height: 360px;
+  padding: 10px;
+  margin: 8px;
+  text-align: left;
+  color: #333333;
+  font-size: 16px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0px 0px 6px #8c8c8c;
+  -moz-box-shadow: 0px 0px 6px #8c8c8c;
+  box-shadow: 0px 0px 6px #8c8c8c;
+}
+
+.post .name {
+  padding: 4px 0;
+}
+
+.post img.photo {
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+
+.post img.arrow-down {
+  position: relative;
+  top: -19px;
+  left: -36px;
+}
+
+.post .metadata {
+  text-align: left;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: #9a8c7e;
+}
+
+.post .stats, .post .location {
+  position: relative;
+  top: -17px;
+  left: 3px;
+}
+
+.post .metadata img.icon {
+  position: relative;
+  top: 4px;
+  margin-left: 4px;
+}
+
+.post img.user-photo {
+  border: 1px solid #8c8c8c;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  float: left;
+}
+
+#posts {
+  margin-bottom: 10px;
+}

@@ -6,6 +6,7 @@ Qwiqq::Application.routes.draw do
   # public web
   root :to => "deals#index"
   resources :deals, :only => [:index, :show]
+  resources :users, :only => [:show]
   
   # home routes
   match "about",    :to => "home#about",    :as => :about

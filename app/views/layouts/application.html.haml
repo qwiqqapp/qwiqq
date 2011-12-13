@@ -1,9 +1,12 @@
 !!!
 %html
   %head
+    %meta{ :charset => "utf-8" }
+    %meta{ "http-equiv" => "X-UA-Compatible", :content => "IE=edge,chrome=1" }
+    %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1" }
     %title Qwiqq
-    = stylesheet_link_tag "reset", "application", "emoji-iphone"
-    = javascript_include_tag "jquery", "jquery.scrollto", "jquery.cycle", "application"
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
     = csrf_meta_tag
   %body
     = yield

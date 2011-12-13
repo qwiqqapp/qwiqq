@@ -14,9 +14,7 @@ class DealsController < ApplicationController
     rescue
     end
 
-    if @deals.blank?
-      @deals = Deal.unscoped.order("likes_count desc, comments_count desc").limit(15)
-    end
+    @deals ||= Deal.unscoped.order("likes_count desc, comments_count desc").limit(6)
 
     respond_with @deals
   end
