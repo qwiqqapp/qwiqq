@@ -85,11 +85,11 @@ class Share < ActiveRecord::Base
   def async_deliver
     Resque.enqueue(ShareDeliveryJob, self.id)
   end
-
+  
   def twilio_client
     @twilio_client ||= Twilio::REST::Client.new Qwiqq.twilio_sid, Qwiqq.twilio_auth_token
   end
-
+  
   def create_event
     # only create events for shares to networks
     return unless [ "twitter", "facebook", "foursquare" ].include?(service)

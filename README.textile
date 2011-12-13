@@ -31,6 +31,12 @@ h2. Push Notifications setup
 * copy new .pem file to config/ "cp apple_push_notification_development.pem ~/Code/gastownlabs/qwiqq-web/config/"
 
 
+h2. Push Notification schedule
+
+* every 10 minutes
+* https://heroku-scheduler.herokuapp.com/dashboard
+
+
 h2. Push Notification Dev testing
 
 * obtain the push notification token from xcode, run on device and watch log for "Registered for push notifications with token <....."

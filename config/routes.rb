@@ -25,11 +25,11 @@ Qwiqq::Application.routes.draw do
 
   # notifications
   match "notifications/:token", :to => "users#update_notifications", :as => :update_notifications
- 
+  
   # api
   namespace "api" do
     resources :users, :only => [:create, :show, :update] do
-
+      
       get "followers", :on => :member
       get "following", :on => :member
       get "friends",   :on => :member

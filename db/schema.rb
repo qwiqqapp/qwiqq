@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111211204925) do
+ActiveRecord::Schema.define(:version => 20111212031642) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -45,32 +45,6 @@ ActiveRecord::Schema.define(:version => 20111211204925) do
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
-
-  create_table "apn_devices", :force => true do |t|
-    t.string   "token",              :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "last_registered_at"
-    t.integer  "user_id"
-  end
-
-  add_index "apn_devices", ["token"], :name => "index_apn_devices_on_token", :unique => true
-  add_index "apn_devices", ["user_id"], :name => "index_apn_devices_on_user_id"
-
-  create_table "apn_notifications", :force => true do |t|
-    t.integer  "device_id",                        :null => false
-    t.integer  "errors_nb",         :default => 0
-    t.string   "device_language"
-    t.string   "sound"
-    t.string   "alert"
-    t.integer  "badge"
-    t.text     "custom_properties"
-    t.datetime "sent_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "apn_notifications", ["device_id"], :name => "index_apn_notifications_on_device_id"
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -167,6 +141,16 @@ ActiveRecord::Schema.define(:version => 20111211204925) do
 
   add_index "press_links", ["published_at"], :name => "index_press_links_on_published_at"
 
+  create_table "push_devices", :force => true do |t|
+    t.string   "token",              :null => false
+    t.integer  "user_id"
+    t.datetime "last_registered_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "push_devices", ["token"], :name => "index_push_devices_on_token", :unique => true
+
   create_table "relationships", :force => true do |t|
     t.integer  "user_id"
     t.integer  "target_id"
@@ -202,22 +186,23 @@ ActiveRecord::Schema.define(:version => 20111211204925) do
   end
 
   create_table "user_events", :force => true do |t|
-    t.integer  "user_id",                                :null => false
+    t.integer  "user_id",                                      :null => false
     t.integer  "comment_id"
     t.integer  "like_id"
     t.integer  "share_id"
     t.integer  "relationship_id"
     t.integer  "deal_id"
     t.string   "deal_name"
-    t.integer  "created_by_id",                          :null => false
-    t.string   "created_by_photo",                       :null => false
-    t.string   "created_by_photo_2x",                    :null => false
-    t.string   "created_by_username",                    :null => false
-    t.string   "event_type",                             :null => false
+    t.integer  "created_by_id",                                :null => false
+    t.string   "created_by_photo",                             :null => false
+    t.string   "created_by_photo_2x",                          :null => false
+    t.string   "created_by_username",                          :null => false
+    t.string   "event_type",                                   :null => false
     t.text     "metadata"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "read",                :default => false
+    t.boolean  "read",                      :default => false
+    t.datetime "push_notification_sent_at"
   end
 
   create_table "users", :force => true do |t|
