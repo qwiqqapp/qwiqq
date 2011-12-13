@@ -1,5 +1,5 @@
-# example valid token: 
-# b0a91911 db6fad5f 4e924598 74107351 6f0c032f 3c017918 1c9cd79e a2ec144c
+# example valid token: 77BAFBCAD01C6BDB5E18C08520EACAFBE14EFD4BCEBA289E03652104A58AAE0E
+# example valid input token: b0a91911 db6fad5f 4e924598 74107351 6f0c032f 3c017918 1c9cd79e a2ec144c
 
 class PushDevice < ActiveRecord::Base
   belongs_to :user
@@ -10,8 +10,16 @@ class PushDevice < ActiveRecord::Base
     :presence   => true,
     :uniqueness => true,
     :format     => {
-      :with => /^[a-z0-9]{8}\s[a-z0-9]{8}\s[a-z0-9]{8}\s[a-z0-9]{8}\s[a-z0-9]{8}\s[a-z0-9]{8}\s[a-z0-9]{8}\s[a-z0-9]{8}$/
+      :with => /^[A-Z0-9]{64}$/     
     }
+  
+  # converts token to valid urbanairship format
+  # in b0a91911 db6fad5f... etc
+  # out B0A91911DB... etc
+  def token=(token)
+    token = token.upcase.gsub(/\s/, '') unless token.blank?
+    write_attribute('token', token)
+  end
   
   #  find device based on user_id and token or create new record
   # register device with urbanairhip
