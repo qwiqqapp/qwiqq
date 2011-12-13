@@ -52,7 +52,7 @@ gem "dalli"
 gem "geoip", "1.1.1"
 
 # apple push notifications
-gem 'urbanairship'
+gem "urbanairship"
 
 # sms delivery with twilio
 gem "twilio-ruby"
@@ -73,5 +73,6 @@ end
 
 group :development do
   gem "faker"
+  gem "uglifier"
 end
 
