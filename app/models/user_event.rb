@@ -61,7 +61,6 @@ class UserEvent < ActiveRecord::Base
     notification  = { :device_tokens => device_tokens, :aps => { :alert  => push_alert, :badge  => badge}}
     
     update_attribute(:push_notification_sent_at, Time.now) if Urbanairship.push(notification)
-
   end
 
   private

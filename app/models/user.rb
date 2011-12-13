@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
   before_save :update_notifications_token
   before_save :update_photo_from_service
   
-  after_save :update_push_token # may be called on create and we need user_id to create an push_device
+  after_save :update_push_token # may be called on create and we need user_id to create a push_device
   
   validates_confirmation_of :password
   validates_presence_of     :password, :on => :create
@@ -304,13 +304,12 @@ class User < ActiveRecord::Base
       end
     end
     
-    # 
+    # called on after_save
+    # will either create device record and register
+    # or register existing device
     def update_push_token
       return if push_token.blank?
-      
-      PushDevice.where(:token => push_token, :user_id => self.id).destroy_all
-      PushDevice.create!(:token => push_token, :user_id => self.id)
-      
+      PushDevice.create_or_update!(:token => push_token, :user_id => self.id)
       push_token = nil
     end
   

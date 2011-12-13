@@ -2,6 +2,45 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   
+  # ---------------
+  #  push device tests
+  
+  test "should create push_device when push_token provided" do
+    push_token = "aaaaaaaa db6fad5f 4e924598 54107351 6f0c032f 3c017918 1c9cd79e a2ec144g"
+    @user = Factory.build(:user)    
+    @user.push_token = push_token
+
+    Urbanairship.expects(:register_device).once.returns(true)
+    @user.save
+    
+    assert_equal 1, @user.push_devices.size
+    assert_equal push_token, @user.push_devices.first.token
+  end
+  
+  test "should create 2nd push_device for user if new push_token provided" do
+    new_push_token    = "aaaaaaaa db6fad5f 4e924598 54107351 6f0c032f 3c017918 1c9cd79e a2ec144g"
+    @user             = Factory(:user)
+    @push_device      = Factory(:push_device, :user => @user)
+    @user.push_token  = new_push_token
+  
+    Urbanairship.expects(:register_device).once.returns(true)
+    @user.save
+  
+    assert_equal 2,               @user.push_devices.size
+    assert_equal new_push_token,  @user.push_devices.last.token
+  end
+
+  test "should register existing push device on update" do
+    @user             = Factory(:user)
+    @push_device      = Factory(:push_device, :user => @user)
+    @user.push_token  = @push_device.token
+  
+    Urbanairship.expects(:register_device).once.returns(true)
+    @user.save
+  
+    assert_equal 1, @user.push_devices.size
+  end
+  
   test "should raise exception if username taken (ignore case)" do
     Factory(:user, :username => 'Adam')
     exception = assert_raise(ActiveRecord::RecordInvalid) {
@@ -163,3 +202,4 @@ class UserTest < ActiveSupport::TestCase
     @user.update_attributes(:photo_service => "twitter")
   end
 end
+  

@@ -25,4 +25,5 @@ class PushDeviceTest < ActiveSupport::TestCase
     }
     assert_match /token/i, exception.message
   end
+  
 end
