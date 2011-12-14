@@ -8,7 +8,6 @@
       %a{ :href => "/download" }
         %img{ :src => "/assets/app-store-small.png" }
 
-
 #post
   .container
     #user
@@ -30,7 +29,7 @@
 
     #slider
       %img.arrow-left{ :src => "/assets/arrow-left.png" }
-      #details
+      .details
         %img.post-photo{ :src => @deal.photo(:iphone_zoom_2x), :width => "504", :height => "504" }
         .name= @deal.name
         .price

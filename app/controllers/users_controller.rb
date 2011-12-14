@@ -5,4 +5,10 @@ class UsersController < ApplicationController
     @user.update_attributes(:send_notifications => params[:enable] || false)
     render :notifications_disabled
   end
+
+  def show
+    @user = User.find(params[:id])
+    # TODO pagination
+    @deals = @user.deals.first(5)
+  end
 end

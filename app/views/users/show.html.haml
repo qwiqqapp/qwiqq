@@ -1,0 +1,39 @@
+#fixed-header
+  .container
+    %a{ :href => root_url }
+      %img.logo-small{ :src => "/assets/header-logo.png" }
+    .app-store-link-small
+      %img.free-small{ :src => "/assets/free-small.png" }
+      %img.free-arrow-small{ :src => "/assets/free-arrow-small.png" }
+      %a{ :href => "/download" }
+        %img{ :src => "/assets/app-store-small.png" }
+
+#user
+  .container
+    #info
+      %img.user-photo{ :src => @user.photo(:iphone_zoom_2x), :width => "260", :height => "260" }
+      .name= @user.name
+      .location= @user.location
+      .bio= @user.bio
+      .stat
+        .num= @user.deals_count
+        posts
+      .stat 
+        .num= @user.following_count
+        following
+      .stat 
+        .num= @user.followers_count
+        followers
+
+    #slider
+      - @deals.each do |deal|
+        %img.arrow-left{ :src => "/assets/arrow-left.png" }
+        %a{ :href => deal_url(deal) }
+          .details
+            %img.post-photo{ :src => deal.photo(:iphone_zoom_2x), :width => "504", :height => "504" }
+            .name= deal.name
+            .price
+              %span.dollars-large= price_string(deal)
+              %img.tag{ :src => "/assets/tag-large.png" }
+
+= render "shared/footer"
