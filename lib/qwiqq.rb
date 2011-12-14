@@ -12,7 +12,7 @@ module Qwiqq
   end
 
   def self.build_share_deal_message(message, deal, length = 140)
-    deal_url = Rails.application.routes.url_helpers.deal_url(deal, :host => "www.qwiqq.me")
+    deal_url = Rails.application.routes.url_helpers.deal_url(deal, :host => "staging.qwiqq.me")
     remaining_length = length - (message.length + deal_url.length + 1)
     message += " #{deal.name.truncate(remaining_length)} #{deal_url}"
     message

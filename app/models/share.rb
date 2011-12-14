@@ -15,7 +15,7 @@ class Share < ActiveRecord::Base
   after_commit :async_deliver, :if => :persisted?, :unless => :facebook_share?
   after_commit :create_event, :on => :create
 
-  HOST = "www.qwiqq.me"
+  HOST = "staging.qwiqq.me"
 
   def deliver
     return unless shared_at.nil? # avoid double shares
