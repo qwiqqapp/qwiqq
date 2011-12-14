@@ -27,4 +27,15 @@ module ApplicationHelper
       "free"
     end
   end
+
+  def event_body(event)
+    case event.event_type
+    when "like"
+      "#{event.created_by.username} Loved it."
+    when "comment"
+      emojify "#{event.created_by.username} said \"#{event.metadata[:body]}\"."
+    when "share"
+      "#{event.created_by_username} shared it on #{event.metadata[:service]}."
+    end
+  end
 end

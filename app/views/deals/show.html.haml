@@ -1,67 +1,60 @@
-- if ios?
-  #ios-header
-    Already have Qwiqq? 
-    = link_to "qwiqq:///deals/#{@deal.id}" do 
-      Go to this deal in the app!
+#fixed-header
+  .container
+    %a{ :href => root_url }
+      %img.logo-small{ :src => "/assets/header-logo.png" }
+    .app-store-link-small
+      %img.free-small{ :src => "/assets/free-small.png" }
+      %img.free-arrow-small{ :src => "/assets/free-arrow-small.png" }
+      %a{ :href => "/download" }
+        %img{ :src => "/assets/app-store-small.png" }
 
-#deal-header
-  %a.logo{ :href => root_path }
-    %img{ :src => "/images/logo.png" }
-  %a.download{ :href => download_path }
-    %img{ :src => "/images/download-green-mid.png" }
 
-#deal
-  #top
+#post
+  .container
     #user
-      %img.photo{ :src => @deal.user.photo.url(:iphone), :width => 50, :height => 50 }
-      %span.username #{@deal.user.username} posted this #{@deal.age} ago
-    #share
-      %a.twitter{ :href => "http://twitter.com/home?status=#{CGI::escape(Qwiqq.twitter_message(@deal))}" }
-        .button
-      %a.facebook{ :href => "http://www.facebook.com/sharer/sharer.php?u=#{deal_url(@deal)}" }
-        .button
-  #shadow
-  #main
-    #info
-      %img#image{ :src => @deal.photo.url(:iphone_zoom_2x) } 
+      %a{ :href => user_url(@deal.user) }
+        %img.user-photo{ :src => @deal.user.photo.url(:iphone2x), :width => "120", :height => "120" }
+        .when
+          Posted #{time_ago_in_words(@deal.created_at)} ago by
+          %span.username
+            #{@deal.user.username}
+        .stat 
+          .num= @deal.user.deals_count
+          posts
+        .stat 
+          .num= @deal.user.following_count
+          following
+        .stat 
+          .num= @deal.user.followers_count
+          followers
+
+    #slider
+      %img.arrow-left{ :src => "/assets/arrow-left.png" }
       #details
-        #name= emojify @deal.name
-        .price_or_percent
-          = price_string @deal
-      #map-title
-        %img{ :src => "/images/location.png" }
-        = @deal.location_name
-      #map
-        %a{ :href => "http://maps.google.com/?q=#{@deal.lat},#{@deal.lon}" }
-          %img{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=385x220&sensor=false&markers=color:red|#{@deal.lat},#{@deal.lon}" }
+        %img.post-photo{ :src => @deal.photo(:iphone_zoom_2x), :width => "504", :height => "504" }
+        .name= @deal.name
+        .price
+          %span.dollars-large= price_string(@deal)
+          %img.tag{ :src => "/assets/tag-large.png" }
 
-    - unless @deal.likes.empty?
-      #likes
-        #count
-          %img{ :src => "/images/like.png" }
-          #{pluralize(@deal.likes_count, "Like")}
-        - @deal.likes.each do |like|
-          .like
-            %img.user{ :src => like.user.photo.url(:iphone), :width => 50, :height => 50 }
+      #location
+        #header
+          %img.icon{ :src => "/assets/location-icon.png" }
+          %h1= @deal.location_name
+        #map
+          %a{ :href => "http://maps.google.com/?q=#{@deal.lat},#{@deal.lon}" }
+            %img{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=550x220&sensor=false&markers=color:red|#{@deal.lat},#{@deal.lon}" }
+        
+      #buzz
+        #header
+          %img.icon{ :src => "/assets/buzz-icon.png" }
+          %h1 Social Buzz
+        #events
+          - @events.each_with_index do |event, i|
+            .event{ :class => i + 1 == @events.size ? "last" : "" }
+              %a{ :href => user_url(event.created_by) }
+                %img.user-photo{ :src => event.created_by.photo(:iphone2x), :width => "70", :height => "70" }
+              .body
+                = event_body(event)
 
-    - unless @deal.comments.empty?
-      #comments
-        #count
-          %img{ :src => "/images/like.png" }
-          #{pluralize(@deal.comments_count, "Comment")}
-        - @deal.comments.each do |comment|
-          .comment
-            %img.user{ :src => comment.user.photo.url(:iphone), :width => 50, :height => 50 }
-            %span.body 
-              "#{emojify comment.body}"
-              %span.from
-                from #{comment.user.username} #{comment.age} ago
-
-#deal-footer
-  %ul#links
-    %li= link_to "Home", root_path
-    |
-    %li= link_to "Get the App", download_path
-    |
-    %li= link_to "About Qwiqq", about_path
-  
+= render "shared/footer"

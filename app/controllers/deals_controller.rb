@@ -20,6 +20,8 @@ class DealsController < ApplicationController
   end
   
   def show
-    respond_with find_deal
+    @deal = Deal.last #find_deal
+    @events = @deal.events
+    respond_with @deal
   end
 end

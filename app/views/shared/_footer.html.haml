@@ -1,17 +1,31 @@
-#footer.section
-  %ul#links
-    %li= link_to "About", about_url
-    |
-    %li= link_to "Media", media_url
-    |
-    %li= link_to "Privacy", privacy_url
-    |
-    %li= link_to "Terms", terms_url
+#footer
+  .container
+    .boxes
+      .box
+        %img{ :src => "/assets/footer-love.png" }
+        %h2
+          From a cute pair of shoes to the perfect salon to the tastiest Thai on the Upper West Side.  The things you love are all around you!
 
-  #container
-    %a#download{ :href => download_url }
-      %img{ :src => "/images/download-white.png" }
+      .box
+        %img{ :src => "/assets/footer-share.png" }
+        %h2
+          Just snap a photo, write a quick note and enter the price. We do the rest. Remember, sharing is caring!
 
-    #copyright
-      &copy; 2011, Qwiqq Inc
+      .box
+        %img{ :src => "/assets/footer-discover.png" }
+        %h2
+          Wow! People are really interesting.  From foodies to fashionistas, discover what your friends and the community around you are sharing!
+
+    %ul
+      %li= link_to "Blog", "http://blog.qwiqq.me"
+      |
+      %li= link_to "About Qwiqq", about_url
+      |
+      %li= link_to "Feedback", "/feedback"
+      |
+      %li= link_to "Privacy Policy", privacy_url
+      |
+      %li= link_to "Terms & Conditions", terms_url
+      |
+      %li &copy; 2011, Qwiqq Inc
 
