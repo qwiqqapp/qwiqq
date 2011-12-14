@@ -36,6 +36,11 @@ html, body {
   margin: 0 auto;
 }
 
+.container-narrow {
+  width: $cols8;
+  margin: 0 auto;
+}
+
 img.logo {
   padding-top: 40px;
   float: left;
@@ -261,7 +266,17 @@ img.bubbles {
   float: right;
 }
 
-#fixed-header {
+#header-small {
+  background-image: url("header-background.png");
+  height: 132px;
+  width: 100%;
+}
+
+#header-small .logo-small {
+  margin-top: 24px;
+}
+
+#fixed-header-small {
   background-image: url("header-background.png");
   position: fixed;
   height: 132px;
@@ -269,7 +284,7 @@ img.bubbles {
   z-index: 1;
 }
 
-#fixed-header .logo-small {
+#fixed-header-small .logo-small {
   margin-top: 24px;
 }
 
@@ -512,7 +527,104 @@ img.bubbles {
   width: 80px;
   float: left;
 }
+
 #user .stat .num {
   font-size: 24px;
   font-weight: bold;
 }
+
+.page {
+  margin-top: 60px;
+  font-size: 16px;
+  color: #666666;
+}
+
+.page h1 {
+  font-size: 22px;
+}
+
+.page h2 {
+  font-size: 20px;
+}
+
+.page {
+  margin-bottom: 40px;
+}
+
+#about h1, #media h1 {
+  font-size: 25px;
+  margin-bottom: 10px;
+  color: #ff7720;
+}
+
+#about h2, #media h2 {
+  font-size: 20px;
+  color: #868686;
+  padding-bottom: 5px;
+}
+
+#about span {
+  line-height: 18px;
+  font-size: 16px;
+  color: #868686;
+}
+
+#about #team h1 {
+  color: #13c3ff;
+}
+
+#about ul.team {
+  overflow: hidden;
+}
+
+#about ul.team li {
+  float: left;
+  width: 260px;
+  list-style: none;
+}
+
+#about ul.team li.first {
+  margin-right: 20px;
+}
+
+#about .deal {
+  float: left;
+  width: 85px;
+  height: 85px;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  margin-top: 20px;
+  margin-right: 10px;
+  overflow: hidden;
+  border: 1px solid #868686;
+}
+
+#about #team {
+  margin-top: 30px;
+}
+
+#about .bio {
+  min-height: 200px;
+}
+
+#about #faq h1 {
+  color: #67d140;
+}
+
+#about #faq {
+  margin-top: 40px;
+}
+
+#about #faq h2 {
+  margin-top: 20px;
+}
+
+#about #faq a {
+  color: #868686;
+}
+
+#about #faq span a{
+  color: #13C3FF;
+}
+

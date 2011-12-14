@@ -68,45 +68,5 @@
               .location
                 %img.icon{ :src => "/assets/location-icon.png" }
                 = deal.location_name
-              
-#footer
-  .container
-    .boxes
-      .box
-        %img{ :src => "/assets/footer-qwiqq-logo.png" }
-        %h1
-          Love it? Share it!
-        %h2
-          Qwiqq is a fast, fun, and simple way to share the things you love to buy.
 
-      .box
-        %a{ :href => "/download" }
-          %img{ :src => "/assets/footer-app-store.png" }
-        %h1
-          Free Download
-        %h2
-          Get Qwiqq for free from the iPhone App Store.
-
-      .box
-        .services
-          %img{ :src => "/assets/footer-facebook.png" }
-          %img{ :src => "/assets/footer-twitter.png" }
-          %img{ :src => "/assets/footer-email.png" }
-        %h1
-          Get in Touch
-        %h2
-          Facebook, Tweet or email us, we'd love to hear from you.
-
-    %ul
-      %li= link_to "Blog", "http://blog.qwiqq.me"
-      |
-      %li= link_to "About Qwiqq", about_url
-      |
-      %li= link_to "Feedback", "/feedback"
-      |
-      %li= link_to "Privacy Policy", privacy_url
-      |
-      %li= link_to "Terms & Conditions", terms_url
-      |
-      %li &copy; 2011, Qwiqq Inc
-
+= render "shared/footer_home"

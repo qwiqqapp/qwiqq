@@ -34,7 +34,7 @@ class HomeController < ApplicationController
   private
     def recent_deals(email)
       user = User.find_by_email(email)
-      user.nil? ? [] : user.deals.sorted.limit(3)
+      user.nil? ? [] : user.deals.sorted.limit(4)
     end
 
     def mobile?
