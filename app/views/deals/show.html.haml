@@ -16,7 +16,7 @@
         .when
           Posted #{time_ago_in_words(@deal.created_at)} ago by
           %span.username
-            #{@deal.user.username}
+            #{@deal.user.name}
         .stat 
           .num= @deal.user.deals_count
           posts
