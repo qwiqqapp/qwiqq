@@ -1,42 +1,45 @@
-- unless mobile?
-  = render :partial => 'home/nav'
+#header-small
+  .container
+    %a{ :href => root_url }
+      %img.logo-small{ :src => "/assets/header-logo.png" }
+    .app-store-link-small
+      %img.free-small{ :src => "/assets/free-small.png" }
+      %img.free-arrow-small{ :src => "/assets/free-arrow-small.png" }
+      %a{ :href => "/download" }
+        %img{ :src => "/assets/app-store-small.png" }
 
 #media.page
-  %a{ :href => root_url }
-    %img.logo{ :src => "/images/logo-mid.png" }
+  .container-narrow
+    %h1 Media Downloads
+    %ul
+      %li
+        %h2 Guidelines
+        %ul
+          %li= link_to "Logo and color guidelines [PDF]", "/media/Qwiqq-branding-guidelines.pdf"
 
-  %h1 Media Downloads
-  %ul
-    %li
-      %h2 Guidelines
-      %ul
-        %li= link_to "Logo and color guidelines [PDF]", "/media/Qwiqq-branding-guidelines.pdf"
+      %li
+        %h2 Logo
+        %ul
+          %li= link_to "Logo on white", "/media/qwiqq-logo-white.png"
+          %li= link_to "Logo on transparent", "/media/qwiqq-logo-transparent.png"
+          %li= link_to "Logo vector AI file", "/media/qwiqq-logo-vector.ai"
 
-    %li
-      %h2 Logo
-      %ul
-        %li= link_to "Logo on white", "/media/qwiqq-logo-white.png"
-        %li= link_to "Logo on transparent", "/media/qwiqq-logo-transparent.png"
-        %li= link_to "Logo vector AI file", "/media/qwiqq-logo-vector.ai"
+      %li
+        %h2 Square Icon
+        %ul
+          %li= link_to "Icon on transparent", "/media/qwiqq-icon-transparent.png"
+          %li= link_to "Large PSD of icon for print", "/media/qwiqq-icon-print.psd"
 
-    %li
-      %h2 Square Icon
-      %ul
-        %li= link_to "Icon on transparent", "/media/qwiqq-icon-transparent.png"
-        %li= link_to "Large PSD of icon for print", "/media/qwiqq-icon-print.psd"
+      %li
+        %h2 Screenshots
+        %ul
+          %li= link_to "iPhone app screenshot collection [ZIP]", "/media/Qwiqq App Screenshots V1.1.zip"
 
-    %li
-      %h2 Screenshots
-      %ul
-        %li= link_to "iPhone app screenshot collection [ZIP]", "/media/Qwiqq App Screenshots V1.1.zip"
+    - unless @press_links.blank?
+      %h1.press Recent Press
+      %ul.press-links= render :partial => "press_link", :collection => @press_links
 
-  - unless @press_links.blank?
-    %h1.press Recent Press
+    %h1.inquiries Inquiries
+    Please contact us at #{link_to "media@qwiqq.me", "mailto:media@qwiqq.me"}
 
-    %ul.press-links= render :partial => "press_link", :collection => @press_links
-
-  %h1.inquiries Inquiries
-  Please contact us at #{link_to "media@qwiqq.me", "mailto:media@qwiqq.me"}
-
-- unless mobile?
-  = render "shared/footer"
+= render "shared/footer_home"

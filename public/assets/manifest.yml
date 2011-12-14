@@ -10,6 +10,16 @@ bubble-1.png: bubble-1-e24cd6d3f8c80016ac37f57477b1f544.png
 bubble-2.png: bubble-2-2b823c6ac1f5c6e8d1193283b22767aa.png
 bubble-3.png: bubble-3-94ba22486266872986257c11a80dbade.png
 buzz-icon.png: buzz-icon-22f1f260c5d6446f5405afd3cbed5c0f.png
+email/app-store.png: email/app-store-b0f0d533ddb2a1d01d13aaf31beb07af.png
+email/comment-bg.png: email/comment-bg-e3032d11603fd33585827f1e71b85e6a.png
+email/email-download.png: email/email-download-7eda08ba3561e9c88bc8098cc13ee437.png
+email/email-logo.png: email/email-logo-8d0b06b46ebea92a371ad34c91cec6ee.png
+email/email.png: email/email-95219b98be0733f3976289e51c583759.png
+email/fb.png: email/fb-42bcf02829beb533d229889dda791a14.png
+email/invite-comment.png: email/invite-comment-3fda6828585793b6c49b7d3734caf512.png
+email/qwiqq-facts.png: email/qwiqq-facts-5c360db66f1fd87fb47884db5ae4b2ed.png
+email/sharingiscaring.png: email/sharingiscaring-15a1b0f85baddbf062d50ba4bb43969f.png
+email/twitter.png: email/twitter-3910f1f5a0b0084145ef834c2558494d.png
 footer-app-store.png: footer-app-store-5f4f73fb12cea5783f33803b81dc1d64.png
 footer-background.png: footer-background-7d88aa9ffcaa4e7a82ed81d263f01cb5.png
 footer-discover.png: footer-discover-c732500ca8424d209937b0cddfa565a3.png
@@ -46,7 +56,7 @@ time-icon.png: time-icon-409e9c0abc2c51d73d7f1dd48a4bf5ed.png
 title-bar.png: title-bar-f03284ca35b341a707822f895e8af45b.png
 user-photo-overlay.png: user-photo-overlay-6b4f89cd47c08199b387f7cce2ace537.png
 application.js: application-8f047667daa4d01ae014e187a9d51bb9.js
-application.css: application-39963a4189e19f1599e8a0ddb081b3d6.css
+application.css: application-e5ece424e43e9a80a961991c7c179d35.css
 active_admin/admin_notes_icon.png: active_admin/admin_notes_icon-d3076b67b8655afc5cf14bf244c34db5.png
 active_admin/datepicker/datepicker-header-bg.png: active_admin/datepicker/datepicker-header-bg-c73514e723fd274903d96ff0afd8e7f7.png
 active_admin/datepicker/datepicker-input-icon.png: active_admin/datepicker/datepicker-input-icon-e48beac5b8da2344985c5d2afe6159dd.png

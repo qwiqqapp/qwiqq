@@ -535,20 +535,28 @@ img.bubbles {
 
 .page {
   margin-top: 60px;
+  margin-bottom: 40px;
   font-size: 16px;
   color: #666666;
 }
 
 .page h1 {
   font-size: 22px;
+  margin-top: 14px;
 }
 
 .page h2 {
   font-size: 20px;
+  margin-top: 8px;
 }
 
-.page {
-  margin-bottom: 40px;
+.page li {
+  list-style: none;
+}
+
+.page a {
+  color: #666666;
+  text-decoration: underline;
 }
 
 #about h1, #media h1 {
@@ -580,7 +588,6 @@ img.bubbles {
 #about ul.team li {
   float: left;
   width: 260px;
-  list-style: none;
 }
 
 #about ul.team li.first {
@@ -627,4 +634,5 @@ img.bubbles {
 #about #faq span a{
   color: #13C3FF;
 }
+
 
