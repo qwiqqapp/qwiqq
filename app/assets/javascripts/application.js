@@ -1,9 +1,9 @@
 //= require jquery.js
 //= require jquery.cycle.js
 
-$.fn.scrollAfter = function (pos) {
+$.fn.fixTo = function (pos) {
   var $this = this, $window = $(window), top = this.position().top;
-  $window.fixTo(function(e) {
+  $window.scroll(function(e) {
     if ($window.scrollTop() > pos) {
       $this.css({ position: "absolute", top: pos + top });
     } else {
