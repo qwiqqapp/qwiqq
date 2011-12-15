@@ -6,16 +6,7 @@ class DealsController < ApplicationController
   end
 
   def index
-    begin
-      if city = GEO_IP.try(:city, request.remote_ip)
-        @deals = Deal.nearby(city.latitude, city.longitude)
-        logger.error @deals.inspect
-      end
-    rescue
-    end
-
-    @deals ||= Deal.unscoped.order("likes_count desc, comments_count desc").limit(6)
-
+    @deals = Deal.unscoped.order("likes_count desc, comments_count desc").limit(6)
     respond_with @deals
   end
   

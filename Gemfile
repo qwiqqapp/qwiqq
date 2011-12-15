@@ -48,9 +48,6 @@ gem "activeadmin"
 # memcached
 gem "dalli"
 
-# maxmind geo lookup
-gem "geoip", "1.1.1"
-
 # apple push notifications
 gem "urbanairship"
 
