@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111212031642) do
+ActiveRecord::Schema.define(:version => 20111215021036) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -90,8 +90,6 @@ ActiveRecord::Schema.define(:version => 20111212031642) do
     t.string   "user_photo_2x"
     t.integer  "reposts_count",         :default => 0
     t.integer  "shares_count",          :default => 0
-    t.float    "foursquare_venue_lat"
-    t.float    "foursquare_venue_lon"
     t.string   "foursquare_venue_name"
   end
 

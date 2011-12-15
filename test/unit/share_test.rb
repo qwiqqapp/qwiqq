@@ -15,7 +15,7 @@ class ShareTest < ActiveSupport::TestCase
 
   test "should a message provided to be provided" do
     @share = Factory(:twitter_share, :message => "I found a thing on qwiqq!")
-    url = Rails.application.routes.url_helpers.deal_url(@share.deal, :host => "www.qwiqq.me")
+    url = Rails.application.routes.url_helpers.deal_url(@share.deal, :host => "staging.qwiqq.me")
     assert_equal "I found a thing on @Qwiqq! #{@share.deal.name} #{url}", @share.message
     assert_queued(ShareDeliveryJob, [@share.id])
   end

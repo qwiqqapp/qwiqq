@@ -30,8 +30,17 @@ class Deal < ActiveRecord::Base
     :dependent => :destroy
   
   #TODO update to 3.1 and use role based attr_accessible for premium
-  attr_accessible :name, :category_id, :price, :lat, :lon, :photo, :premium, :percent, :location_name,
-    :foursquare_venue_id, :foursquare_venue_name, :foursquare_venue_lat, :foursquare_venue_lon
+  attr_accessible :name, 
+                  :category_id, 
+                  :price,
+                  :lat, 
+                  :lon, 
+                  :photo, 
+                  :premium, 
+                  :percent, 
+                  :location_name,
+                  :foursquare_venue_id, 
+                  :foursquare_venue_name
   
   # TODO update to 3.0 validates method
   validates_presence_of   :user, :category, :name, :message => "is required"
@@ -138,9 +147,8 @@ class Deal < ActiveRecord::Base
       :price          => price,
       :percent        => percent,
       
-      # prefer return foursquare venue location, otherwise return current location
-      :lat            => foursquare_venue_lat ? foursquare_venue_lat.try(:to_s) : lat.try(:to_s),
-      :lon            => foursquare_venue_lon ? foursquare_venue_lon.try(:to_s) : lon.try(:to_s),
+      :lat            => lat.try(:to_s),
+      :lon            => lon.try(:to_s),
       
       :comment_count  => comments_count,
       :like_count     => likes_count,
@@ -235,8 +243,8 @@ class Deal < ActiveRecord::Base
     venue = Qwiqq.foursquare_client.venue(foursquare_venue_id) if foursquare_venue_id
     if venue
       update_attributes(
-        :foursquare_venue_lat => venue["location"]["lat"],
-        :foursquare_venue_lon => venue["location"]["lng"],
+        :lat => venue["location"]["lat"],
+        :lon => venue["location"]["lng"],
         :foursquare_venue_name => venue["name"],
         :location_name => venue["location"]["address"])
     end
@@ -252,8 +260,8 @@ class Deal < ActiveRecord::Base
     end
   end
 
+  # locate using either foursquare, or coords
   def locate!
-    # locate using either foursquare, or coords
     if foursquare_venue_id
       locate_via_foursquare!
     else
