@@ -1,6 +1,8 @@
 class HomeController < ApplicationController
   layout :pick_layout
+
   helper_method :mobile?
+
   caches_action :about, :expires_in => 10.minutes
   caches_action :download, :expires_in => 1.hour
   caches_action :terms, :expires_in => 1.hour
@@ -23,7 +25,6 @@ class HomeController < ApplicationController
   def redirect
     redirect_to params[:to] if params[:to] =~ /^qwiqq:\/\//
   end
-
 
   # download.qwiqq.me
   # redirect user to download
