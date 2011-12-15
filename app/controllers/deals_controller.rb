@@ -16,3 +16,4 @@ class DealsController < ApplicationController
     respond_with @deal
   end
 end
+

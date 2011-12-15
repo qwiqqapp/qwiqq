@@ -308,7 +308,7 @@ img.bubbles {
   min-height: 900px;
 }
 
-#post #user {
+#post #info {
   position: fixed;
   top: 160px;
   width: 140px;
@@ -321,28 +321,28 @@ img.bubbles {
   border-radius: 6px;
 }
 
-#post #user a {
+#post #info a {
   text-decoration: none;
 }
 
-#post #user .when {
+#post #info .when {
   font-size: 14px; 
   color: #666666;
   padding: 10px 0;
   line-height: 20px;
 }
 
-#post #user .username {
+#post #info .username {
   font-size: 18px;
 }
 
-#post #user .stat {
+#post #info .stat {
   padding-bottom: 10px;
   font-size: 14px;
   color: #666666;
 }
 
-#post #user .stat .num {
+#post #info .stat .num {
   font-size: 22px;
   font-weight: bold;
 }
