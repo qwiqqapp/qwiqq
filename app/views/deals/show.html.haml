@@ -49,6 +49,9 @@
           %img.icon{ :src => "/assets/buzz-icon.png" }
           %h1 Social Buzz
         #events
+          - if @events.empty?
+            .empty
+              Nothing yet!
           - @events.each_with_index do |event, i|
             .event{ :class => i + 1 == @events.size ? "last" : "" }
               %a{ :href => user_url(event.created_by) }
