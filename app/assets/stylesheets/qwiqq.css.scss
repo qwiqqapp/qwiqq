@@ -88,6 +88,9 @@ img.bubbles {
 }
 
 #steps {
+  font-family: "Helvetica Neue Light", Helvetica, Arial;
+  font-weight: 300;
+  color: #666666;
   overflow: hidden;
   margin-top: 340px;
 }
@@ -340,11 +343,18 @@ img.bubbles {
   padding-bottom: 10px;
   font-size: 14px;
   color: #666666;
+  font-weight: 300;
 }
 
 #post #info .stat .num {
   font-size: 22px;
   font-weight: bold;
+}
+
+#user #info .location, #user #info .bio {
+  font-family: "Helvetica Neue Light", Helvetica, Arial;
+  font-weight: 300;
+  color: #666666;
 }
 
 #slider {
@@ -530,6 +540,7 @@ img.bubbles {
   margin-top: 10px;
   width: 80px;
   float: left;
+  font-weight: 300;
 }
 
 #user .stat .num {
@@ -538,6 +549,9 @@ img.bubbles {
 }
 
 .page {
+  font-family: "Helvetica Neue Light", Helvetica, Arial;
+  font-weight: 300;
+  color: #666666;
   margin-top: 60px;
   margin-bottom: 40px;
   font-size: 16px;
