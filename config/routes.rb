@@ -5,7 +5,12 @@ Qwiqq::Application.routes.draw do
 
   # public web
   root :to => "deals#index"
-  resources :deals, :only => [:index, :show]
+
+  # redirect 'deals' to 'posts'
+  match "/deals" => redirect("/posts")
+  match "/deals/:id" => redirect("/posts/%{id}")
+
+  resources :posts, :only => [:index, :show], :as => "deals", :controller => "deals"
   resources :users, :only => [:show]
   
   # home routes
