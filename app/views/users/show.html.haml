@@ -29,11 +29,27 @@
       - @deals.each do |deal|
         %img.arrow-left{ :src => "/assets/arrow-left.png" }
         %a{ :href => deal_url(deal) }
-          .details
-            %img.post-photo{ :src => deal.photo(:iphone_zoom_2x), :width => "504", :height => "504" }
-            .name= deal.name
-            .price
-              %span.dollars-large= price_string(deal)
-              %img.tag{ :src => "/assets/tag-large.png" }
+          .post
+            .details
+              %img.post-photo{ :src => deal.photo(:iphone_zoom_2x), :width => "504", :height => "504" }
+              .name= deal.name
+              .price
+                %span.dollars-large= price_string(deal)
+                %img.tag{ :src => "/assets/tag-large.png" }
+
+            .metadata
+              .location
+                %img.icon{ :src => "/assets/location-icon.png" }
+                = deal.location_name
+              .stats
+                %span.stat
+                  %img.icon{ :src => "/assets/love-icon.png" }
+                  = deal.likes_count
+                %span.stat
+                  %img.icon{ :src => "/assets/share-icon.png" }
+                  = deal.shares_count
+                %span.stat
+                  %img.icon.time{ :src => "/assets/time-icon.png" }
+                  = short_time_ago_in_words(deal.created_at)
 
 = render "shared/footer"

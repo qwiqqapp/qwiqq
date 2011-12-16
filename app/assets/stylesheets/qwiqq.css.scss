@@ -9,7 +9,7 @@ body {
 }
 
 body.deals.show, body.users.show {
-  background-attachment:fixed;
+  background-attachment: fixed;
 }
 
 html, body {
@@ -127,15 +127,15 @@ img.bubbles {
   padding: 0 20px;
 }
 
-.post {
+.post-small {
   float: left;
 }
 
-.post a {
+.post-small a {
   text-decoration: none;
 }
 
-.post .details-small {
+.post-small .details {
   background-color: white;
   width: 240px;
   height: 360px;
@@ -152,12 +152,12 @@ img.bubbles {
   box-shadow: 0px 0px 6px #8c8c8c;
 }
 
-.post .name {
+.post-small .name {
   padding: 4px 0;
   height: 75px;
 }
 
-.post .dollars {
+.post-small .dollars {
   position: relative;
   top: -11px;
   left: -56px;
@@ -165,38 +165,40 @@ img.bubbles {
   font-size: 14px;
 }
 
-.post img.post-photo {
+img.post-photo {
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
 }
 
-.post img.arrow-down {
+.post-small img.arrow-down {
   position: relative;
   top: -19px;
   left: -36px;
 }
 
-.post .metadata {
+.post-small .metadata {
   text-align: left;
   padding: 10px 20px;
   font-size: 14px;
   color: #9a8c7e;
+  font-weight: 300;
 }
 
-.post .stats, .post .location {
+.post-small .stats, 
+.post-small .location {
   position: relative;
   top: -17px;
   left: 3px;
 }
 
-.post .metadata img.icon {
+.post-small img.icon {
   position: relative;
   top: 4px;
   margin-left: 4px;
 }
 
-.post img.user-photo {
+.post-small img.user-photo {
   border: 1px solid #8c8c8c;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -451,7 +453,7 @@ img.bubbles {
   margin: 10px 20px;
 }
 
-.details {
+.post .details {
   background-color: white;
   width: 504px;
   height: 564px;
@@ -467,32 +469,65 @@ img.bubbles {
   box-shadow: 0px 0px 6px #8c8c8c;
 }
 
-.details img.post-photo {
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-}
-
-.details .name {
+.post .details .name {
   float: left;
   font-size: 22px;
   margin-top: 20px;
-  max-width: 360px;
+  max-width: 350px;
   height: 28px;
   overflow: hidden;
 }
 
-.details .price {
+.post .details .price {
   float: right;
   margin-top: 14px;
 }
 
-.details .dollars-large {
+.post .details .dollars-large {
   position: relative;
   top: -16px;
   left: 80px;
   color: #6cb340;
   font-size: 18px;
+}
+
+.post .metadata {
+  margin-bottom: 20px;
+  padding: 10px 24px;
+  color: #7d6f60;
+  font-size: 16px;
+  font-weight: 300;
+  overflow: hidden;
+}
+
+.post .metadata .location {
+  float: left;
+}
+
+.post .metadata .location .icon {
+  position: relative;
+  top: 5px;
+  left: -5px;
+}
+
+.post .metadata .stats {
+  position: relative;
+  top: 2px;
+  float: right;
+}
+
+.post .metadata .stat {
+  padding-right: 10px;
+}
+
+.post .metadata .stat .icon {
+  position: relative;
+  top: 2px;
+}
+
+.post .metadata .icon.time {
+  top: 4px;
+  left: 1px;
 }
 
 #slider .arrow-left {
@@ -513,10 +548,6 @@ img.bubbles {
   padding-left: 280px; 
 }
 
-#user .details {
-  margin-bottom: 30px;
-}
-
 #user img.user-photo {
   border: 1px solid #8c8c8c;
   -webkit-border-radius: 6px;
@@ -524,26 +555,26 @@ img.bubbles {
   border-radius: 6px;
 }
 
-#user .name {
+#user #info .name {
   padding-top: 10px;
   font-size: 22px; 
   color: #333333;
 }
 
-#user .location {
+#user #info .location {
   padding-bottom: 10px;
   font-size: 16px;
   color: #666666;
 }
 
-#user .stat {
+#user #info .stat {
   margin-top: 10px;
   width: 80px;
   float: left;
   font-weight: 300;
 }
 
-#user .stat .num {
+#user #info .num {
   font-size: 24px;
   font-weight: bold;
 }
@@ -652,5 +683,4 @@ img.bubbles {
 #about #faq span a{
   color: #13C3FF;
 }
-
 
