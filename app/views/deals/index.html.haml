@@ -51,23 +51,23 @@
                   %img.tag{ :src => "/assets/tag.png" }
                   %span.dollars= price_string(deal)
 
-            .metadata
-              %img.arrow-down{ :src => "/assets/arrow-down.png" }
-              %a{ :href => user_url(deal.user) }
-                %img.user-photo{ :src => deal.user.photo.url(:iphone), :width => "48", :height => "48" }
-              .stats
-                %span.stat
-                  %img.icon{ :src => "/assets/love-icon.png" }
-                  = deal.likes_count
-                %span.stat
-                  %img.icon{ :src => "/assets/share-icon.png" }
-                  = deal.shares_count
-                %span.stat
-                  %img.icon{ :src => "/assets/time-icon.png" }
-                  = short_time_ago_in_words(deal.created_at)
-              .location
-                %img.icon{ :src => "/assets/location-icon.png" }
-                = deal.location_name
+            %a{ :href => user_url(deal.user) }
+              .metadata
+                %img.arrow-down{ :src => "/assets/arrow-down.png" }
+                  %img.user-photo{ :src => deal.user.photo.url(:iphone), :width => "48", :height => "48" }
+                .stats
+                  %span.stat
+                    %img.icon{ :src => "/assets/love-icon.png" }
+                    = deal.likes_count
+                  %span.stat
+                    %img.icon{ :src => "/assets/share-icon.png" }
+                    = deal.shares_count
+                  %span.stat
+                    %img.icon{ :src => "/assets/time-icon.png" }
+                    = short_time_ago_in_words(deal.created_at)
+                .location
+                  %img.icon{ :src => "/assets/location-icon.png" }
+                  = deal.location_name
 
 = render "shared/footer_home"
 

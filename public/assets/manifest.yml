@@ -20,6 +20,8 @@ email/invite-comment.png: email/invite-comment-3fda6828585793b6c49b7d3734caf512.
 email/qwiqq-facts.png: email/qwiqq-facts-5c360db66f1fd87fb47884db5ae4b2ed.png
 email/sharingiscaring.png: email/sharingiscaring-15a1b0f85baddbf062d50ba4bb43969f.png
 email/twitter.png: email/twitter-3910f1f5a0b0084145ef834c2558494d.png
+facebook-hoverover.png: facebook-hoverover-f51863c554e571c9d93c67e590236911.png
+facebook.png: facebook-b81d441822cb0e6de2e387daf18cac2f.png
 footer-app-store.png: footer-app-store-5f4f73fb12cea5783f33803b81dc1d64.png
 footer-background.png: footer-background-7d88aa9ffcaa4e7a82ed81d263f01cb5.png
 footer-discover.png: footer-discover-c732500ca8424d209937b0cddfa565a3.png
@@ -54,9 +56,11 @@ tag-large.png: tag-large-5ff5d4732026df1a760581724e959396.png
 tag.png: tag-d5777064fd96b8591a08e0d757c28143.png
 time-icon.png: time-icon-409e9c0abc2c51d73d7f1dd48a4bf5ed.png
 title-bar.png: title-bar-f03284ca35b341a707822f895e8af45b.png
+twitter-hoverover.png: twitter-hoverover-65d215910f5e7342b8dee259e0b9204d.png
+twitter.png: twitter-33e0c815ac602e94dbcff23c72008e34.png
 user-photo-overlay.png: user-photo-overlay-6b4f89cd47c08199b387f7cce2ace537.png
 application.js: application-c9d723058f49015aac235ca668ef6580.js
-application.css: application-ada67b578e0def7b714dcff73fcc5391.css
+application.css: application-b8e45374833b04ceda33981f27adb2d9.css
 mobile.css: mobile-a30155b72706074e42889712a7c0b2c8.css
 active_admin/admin_notes_icon.png: active_admin/admin_notes_icon-d3076b67b8655afc5cf14bf244c34db5.png
 active_admin/datepicker/datepicker-header-bg.png: active_admin/datepicker/datepicker-header-bg-c73514e723fd274903d96ff0afd8e7f7.png

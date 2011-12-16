@@ -27,6 +27,10 @@
           .num= @deal.user.followers_count
           followers
 
+    #share
+      %a#facebook{ :href => "http://www.facebook.com/sharer/sharer.php?u=#{deal_url(@deal)}", :target => "_blank" }
+      %a#twitter{ :href => "http://twitter.com/home?status=#{CGI::escape(build_share_deal_message(@deal))}", :target => "_blank" }
+
     #slider
       %img.arrow-left{ :src => "/assets/arrow-left.png" }
       .post

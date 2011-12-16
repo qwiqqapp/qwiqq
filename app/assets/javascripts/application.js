@@ -2,7 +2,8 @@
 //= require jquery.cycle.js
 
 $.fn.fixTo = function (pos) {
-  var $this = this, $window = $(window), position = $this.position();
+  var $this = this, $window = $(window);
+  var position = $this.position();
   if (!position) return;
   $window.scroll(function(e) {
     if ($window.scrollTop() > pos) {

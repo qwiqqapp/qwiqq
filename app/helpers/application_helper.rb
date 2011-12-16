@@ -38,4 +38,11 @@ module ApplicationHelper
       "#{event.created_by_username} shared it on #{event.metadata[:service]}."
     end
   end
+
+  def build_share_deal_message(deal)
+    message = Qwiqq.default_share_deal_message
+    message.gsub!(/qwiqq/i, "@Qwiqq")
+    Qwiqq.build_share_deal_message(message, deal, 140)
+  end
 end
+

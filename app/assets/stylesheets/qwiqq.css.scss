@@ -173,7 +173,7 @@ img.post-photo {
 
 .post-small img.arrow-down {
   position: relative;
-  top: -19px;
+  top: -20px;
   left: -36px;
 }
 
@@ -309,6 +309,36 @@ img.post-photo {
   left: 24px;
 }
 
+#share {
+  position: relative;
+  top: 160px;
+  width: 123px;
+  float: right;
+}
+
+#share a {
+  text-decoration: none;
+  display: block;
+  width: 123px;
+  height: 123px;
+}
+
+#share a#facebook {
+  background: url("facebook.png") no-repeat 0 0;;
+}
+
+#share a:hover#facebook {
+  background: url("facebook-hoverover.png") no-repeat 0 0;;
+}
+
+#share a#twitter {
+  background: url("twitter.png") no-repeat 0 0;;
+}
+
+#share a:hover#twitter {
+  background: url("twitter-hoverover.png") no-repeat 0 0;;
+}
+
 #post {
   min-height: 900px;
 }
@@ -353,15 +383,15 @@ img.post-photo {
   font-weight: bold;
 }
 
-#user #info .location, #user #info .bio {
-  font-family: "Helvetica Neue Light", Helvetica, Arial;
+#user #info .location, 
+#user #info .bio {
   font-weight: 300;
   color: #666666;
 }
 
 #slider {
   padding-top: 160px;
-  padding-left: 160px;
+  padding-left: 145px;
 }
 
 #slider a {
@@ -457,7 +487,7 @@ img.post-photo {
   background-color: white;
   width: 504px;
   height: 564px;
-  padding: 24px;
+  padding: 20px;
   text-align: left;
   color: #333333;
   font-size: 16px;
