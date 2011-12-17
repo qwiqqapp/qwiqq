@@ -12,7 +12,7 @@ class Mailer < ActionMailer::Base
     @show_footer = true
     mail :to => target_email, 
          :tag => 'share',
-         :subject => "#{@user.name} shared a Qwiqq deal with you!"
+         :subject => "#{@user.name} shared a post with your on Qwiqq!"
   end
   
   def invitation(target_email, from)
@@ -40,7 +40,7 @@ class Mailer < ActionMailer::Base
     @show_footer = true
     mail :to => target.email, 
          :tag => 'like',
-         :subject => "Someone liked your Qwiqq deal!"
+         :subject => "Someone liked your Qwiqq post!"
   end
   
   def deal_commented(target, comment)
@@ -52,7 +52,7 @@ class Mailer < ActionMailer::Base
     
     mail :to => target.email, 
          :tag => 'comment',
-         :subject => "Someone commented on your Qwiqq deal!"
+         :subject => "Someone commented on your Qwiqq post!"
   end
   
   def new_follower(target, follower)
