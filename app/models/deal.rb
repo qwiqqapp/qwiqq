@@ -221,7 +221,6 @@ class Deal < ActiveRecord::Base
 
     # filtering options
     conditions = {}
-    conditions[:name] = options[:query] unless options[:query].nil?
     conditions[:category] = options[:category] unless options[:category].nil?
 
     with = {}
@@ -236,7 +235,7 @@ class Deal < ActiveRecord::Base
     search_options[:page] = options[:page] unless options[:page].nil?
     search_options[:max_matches] = options[:limit] unless options[:limit].nil?
 
-    self.search(search_options)
+    self.search(options[:query], search_options)
   end
 
   def locate_via_foursquare!
