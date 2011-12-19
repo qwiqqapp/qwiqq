@@ -23,4 +23,3 @@ $(function() {
   var containerHeight = $("#fixed-container").height();
   $("#fixed-container").freeAt(sliderHeight - containerHeight);
 });
-

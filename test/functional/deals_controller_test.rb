@@ -20,8 +20,7 @@ class Api::DealsControllerTest < ActionController::TestCase
   end
   
   test "should route to deals#events" do
-    assert_routing("/api/deals/1/events.json", {
-      :format => "json", :controller => "api/deals", :action => "events", :id => "1" })
+    assert_routing("/api/deals/1/events.json", { :format => "json", :controller => "api/deals", :action => "events", :id => "1" })
   end
   
   # deals#index
