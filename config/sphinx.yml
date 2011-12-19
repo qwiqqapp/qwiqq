@@ -1,5 +1,7 @@
 staging:
   version: 1.10-beta
+  min_prefix_len: 3
 
 production:
   version: 1.10-beta
+  min_prefix_len: 3
