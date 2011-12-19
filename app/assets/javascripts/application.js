@@ -1,7 +1,7 @@
 //= require jquery.js
 //= require jquery.cycle.js
 
-$.fn.fixTo = function (pos) {
+$.fn.freeAt = function (pos) {
   var $this = this, $window = $(window);
   var position = $this.position();
   if (!position) return;
@@ -19,8 +19,7 @@ $(function() {
   $("#screenshots").cycle("fade");
 
   // free fixed divs at certain positions
-  sliderHeight = $("#slider").height();
-  infoHeight = $("#info").height();
-  $("#info").fixTo(sliderHeight - infoHeight);
+  var sliderHeight = $("#slider").height();
+  var containerHeight = $("#fixed-container").height();
+  $("#fixed-container").freeAt(sliderHeight - containerHeight);
 });
-

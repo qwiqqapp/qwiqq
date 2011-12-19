@@ -13,26 +13,27 @@
 
 #post
   .container
-    #info
-      %a{ :href => user_url(@deal.user) }
-        %img.user-photo{ :src => @deal.user.photo.url(:iphone2x), :width => "120", :height => "120" }
-        .when
-          Posted #{time_ago_in_words(@deal.created_at)} ago by
-          %span.username
-            #{@deal.user.name}
-        .stat 
-          .num= @deal.user.deals_count
-          posts
-        .stat 
-          .num= @deal.user.following_count
-          following
-        .stat 
-          .num= @deal.user.followers_count
-          followers
+    #fixed-container
+      #info
+        %a{ :href => user_url(@deal.user) }
+          %img.user-photo{ :src => @deal.user.photo.url(:iphone2x), :width => "120", :height => "120" }
+          .when
+            Posted #{time_ago_in_words(@deal.created_at)} ago by
+            %span.username
+              #{@deal.user.name}
+          .stat 
+            .num= @deal.user.deals_count
+            posts
+          .stat 
+            .num= @deal.user.following_count
+            following
+          .stat 
+            .num= @deal.user.followers_count
+            followers
 
-    #share
-      %a#facebook{ :href => "http://www.facebook.com/sharer/sharer.php?u=#{deal_url(@deal)}", :target => "_blank" }
-      %a#twitter{ :href => "http://twitter.com/home?status=#{CGI::escape(build_share_deal_message(@deal))}", :target => "_blank" }
+      #share
+        %a#facebook{ :href => "http://www.facebook.com/sharer/sharer.php?u=#{deal_url(@deal)}", :target => "_blank" }
+        %a#twitter{ :href => "http://twitter.com/home?status=#{CGI::escape(build_share_deal_message(@deal))}", :target => "_blank" }
 
     #slider
       %img.arrow-left{ :src => "/assets/arrow-left.png" }

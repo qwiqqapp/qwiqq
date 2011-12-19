@@ -33,8 +33,7 @@ class Api::UsersControllerTest < ActionController::TestCase
   end
 
   test "should route to users#events" do
-    assert_routing("/api/users/1/events.json", {
-      :format => "json", :controller => "api/users", :action => "events", :id => "1" })
+    assert_routing("/api/users/1/events.json", { :format => "json", :controller => "api/users", :action => "events", :id => "1" })
   end
   
   test "user registration" do

@@ -6,10 +6,6 @@ Qwiqq::Application.routes.draw do
   # public web
   root :to => "deals#index"
 
-  # redirect 'deals' to 'posts'
-  match "/deals" => redirect("/posts")
-  match "/deals/:id" => redirect("/posts/%{id}")
-
   resources :posts, :only => [:index, :show], :as => "deals", :controller => "deals"
   resources :users, :only => [:show]
   
@@ -26,7 +22,7 @@ Qwiqq::Application.routes.draw do
   match "iphone/terms",   :to => "home#terms",    :as => :iphone_terms
   match "iphone/privacy", :to => "home#privacy",  :as => :iphone_privacy
 
-  match 'r', :to => 'home#redirect', :as => :iphone_redirect
+  match "r", :to => 'home#redirect', :as => :iphone_redirect
 
   # notifications
   match "notifications/:token", :to => "users#update_notifications", :as => :update_notifications
@@ -81,5 +77,9 @@ Qwiqq::Application.routes.draw do
     get "search/deals/nearby" => "search#deals", :as => "search_deals"
     get "search/categories/:name/deals" => "search#category", :as => "search_category"
   end
+
+  # redirect 'deals' to 'posts'
+  match "/deals" => redirect("/posts")
+  match "/deals/:id" => redirect("/posts/%{id}")
 
 end

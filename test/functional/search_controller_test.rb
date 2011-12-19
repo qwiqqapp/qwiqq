@@ -150,7 +150,6 @@ class Api::SearchControllerTest < ActionController::TestCase
   
   # ------------
   # filtered search
-  
 
   test "should return matching deals for nearby query" do
     create_geo_deals
@@ -163,5 +162,15 @@ class Api::SearchControllerTest < ActionController::TestCase
       assert_equal @deal3.name, json_response.first["name"]
     end
   end
-  
+
+  test "should return matching deals for venue name" do
+    create_geo_deals
+
+    ThinkingSphinx::Test.index
+    ThinkingSphinx::Test.run do
+      get :deals, :q => "labs", :lat => @lat, :long => @lon, :range => 500_000, :format => "json"
+      assert_equal 1, json_response.size
+      assert_equal @deal1.name, json_response.first["name"]
+    end
+  end
 end
