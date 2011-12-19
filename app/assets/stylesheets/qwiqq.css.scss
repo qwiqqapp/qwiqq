@@ -566,9 +566,11 @@ img.post-photo {
 
 #fixed-container {
   position: fixed;
-  width: $cols12;
   top: 160px;
-  z-index: -1;
+}
+
+#post #fixed-container {
+  width: $cols12;
 }
 
 #share {
