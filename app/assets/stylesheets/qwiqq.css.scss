@@ -310,8 +310,6 @@ img.post-photo {
 }
 
 #share {
-  position: relative;
-  top: 160px;
   width: 123px;
   float: right;
 }
@@ -328,10 +326,6 @@ img.post-photo {
   background: url("facebook.png") no-repeat 0 0;
 }
 
-#share a:hover#facebook {
-  background: url("facebook-hoverover.png") no-repeat 0 0;;
-}
-
 #share a#twitter {
   background: url("twitter.png") no-repeat 0 0;;
 }
@@ -340,13 +334,15 @@ img.post-photo {
   background: url("twitter-hoverover.png") no-repeat 0 0;;
 }
 
+#share a:hover#facebook {
+  background: url("facebook-hoverover.png") no-repeat 0 0;;
+}
+
 #post {
   min-height: 900px;
 }
 
 #post #info {
-  position: fixed;
-  top: 160px;
   width: 140px;
 }
 
@@ -568,9 +564,22 @@ img.post-photo {
   left: -12px;
 }
 
-#user #info {
+#fixed-container {
   position: fixed;
+  width: $cols12;
   top: 160px;
+  z-index: -1;
+}
+
+#share {
+  float: right;
+}
+
+#info {
+  float: left;
+}
+
+#user #info {
   width: 240px;
 }
 

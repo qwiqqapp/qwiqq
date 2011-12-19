@@ -13,20 +13,21 @@
 
 #user
   .container
-    #info
-      %img.user-photo{ :src => @user.photo(:iphone_zoom_2x), :width => "260", :height => "260" }
-      .name= @user.name
-      .location= @user.location
-      .bio= @user.bio
-      .stat
-        .num= @user.deals_count
-        posts
-      .stat 
-        .num= @user.following_count
-        following
-      .stat 
-        .num= @user.followers_count
-        followers
+    #fixed-container
+      #info
+        %img.user-photo{ :src => @user.photo(:iphone_zoom_2x), :width => "260", :height => "260" }
+        .name= @user.name
+        .location= @user.location
+        .bio= @user.bio
+        .stat
+          .num= @user.deals_count
+          posts
+        .stat 
+          .num= @user.following_count
+          following
+        .stat 
+          .num= @user.followers_count
+          followers
 
     #slider
       - @deals.each do |deal|
