@@ -1,10 +1,6 @@
-%div{:style => "margin:30px; margin-left: 50px; color: #00c2fe; font-size: 15pt"}
-  = link_to @user.username, iphone_redirect_url(:to => "qwiqq:///users/#{@user.id}"),  :style => "color: #ff7720; text-decoration: underline"
-  is now following you.
-
-%div{:style => "background-color: #efefef; border: 1px solid #dedede; padding: 10px; border-radius: 10px; width: 580px; margin: 20px; font-size: 13pt; margin-left: 50px; min-height: 75px; line-height: 25px"}
+%div{:style => "background-color: white; padding: 10px; border-radius: 10px; margin: 20px; font-size: 13pt; margin-left: 50px; min-height: 75px; line-height: 25px"}
   = image_tag @user.photo(:iphone_profile), :width => 75, :height => 75, :align => "left", :style => "margin-right: 10px; border-radius:10px"
   %strong{:style => "font-size:14pt; color:#000; font-weight: bold"}= @user.username
   %br
-  %span{:style => "color: #555555"}= @user.location
+  is now following you.
 

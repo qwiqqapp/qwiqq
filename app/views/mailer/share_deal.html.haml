@@ -1,16 +1,7 @@
-%table{:style => "width: 580px; border-collapse: collapse; margin-left: 50px; margin-top: 20px"}
-  %tr
-    %td{:style => "text-align: left; color:#00c2fe; font-family: Arial; font-size: 14pt"}
-      = link_to @user.username, iphone_redirect_url(:to => "qwiqq:///users/#{@user.id}"),  :style => "color: #ff7720; text-decoration: underline"
-      shared a deal with you on Qwiqq!
-
-%div{:style => "background-color: #efefef; border: 1px solid #dedede; padding: 10px; border-radius: 10px; width: 580px; margin: 20px; font-size: 13pt; margin-left: 50px; min-height: 75px; line-height: 25px"}
+%div{:style => "background-color: white; padding: 10px; border-radius: 10px; font-size: 13pt; margin: 20px 0; min-height: 75px; line-height: 25px"}
   = image_tag @user.photo(:iphone_profile), :width => 75, :height => 75, :align => "left", :style => "margin-right: 10px; border-radius:10px"
   %strong{:style => "font-size:14pt; color:#000; font-weight: bold"}= @user.username
   %br
-  %span{:style => "color: #555555"}
-    = link_to(strip_emoji(@deal.name), deal_url(@deal), :style => "color: #ff7720; text-decoration: underline")
-    deal
-  %br
-  %span{:style => "color:#858585"}= @share.created_at.to_s(:long_ordinal)
+  Shared a post with you on Qwiqq!
+  = link_to(strip_emoji(@deal.name), deal_url(@deal), :style => "text-decoration: underline")
 
