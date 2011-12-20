@@ -4,12 +4,12 @@
 #fixed-header-small
   .container
     %a{ :href => root_url }
-      %img.logo-small{ :src => "/assets/header-logo.png" }
+      %img.logo-small{ :src => image_path("header-logo.png") }
     .app-store-link-small
-      %img.free-small{ :src => "/assets/free-small.png" }
-      %img.free-arrow-small{ :src => "/assets/free-arrow-small.png" }
+      %img.free-small{ :src => image_path("free-small.png") }
+      %img.free-arrow-small{ :src => image_path("free-arrow-small.png") }
       %a{ :href => "/download" }
-        %img{ :src => "/assets/app-store-small.png" }
+        %img{ :src => image_path("app-store-small.png") }
 
 #user
   .container
@@ -31,7 +31,7 @@
 
     #slider
       - @deals.each do |deal|
-        %img.arrow-left{ :src => "/assets/arrow-left.png" }
+        %img.arrow-left{ :src => image_path("arrow-left.png") }
         %a{ :href => deal_url(deal) }
           .post
             .details
@@ -39,21 +39,22 @@
               .name= deal.name
               .price
                 %span.dollars-large= price_string(deal)
-                %img.tag{ :src => "/assets/tag-large.png" }
+                %img.tag{ :src => image_path("tag-large.png") }
 
             .metadata
               .location
-                %img.icon{ :src => "/assets/location-icon.png" }
+                %img.icon{ :src => image_path("location-icon.png") }
                 = deal.location_name
               .stats
                 %span.stat
-                  %img.icon{ :src => "/assets/love-icon.png" }
+                  %img.icon{ :src => image_path("love-icon.png") }
                   = deal.likes_count
                 %span.stat
-                  %img.icon{ :src => "/assets/share-icon.png" }
+                  %img.icon{ :src => image_path("share-icon.png") }
                   = deal.shares_count
                 %span.stat
-                  %img.icon.time{ :src => "/assets/time-icon.png" }
+                  %img.icon.time{ :src => image_path("time-icon.png") }
                   = short_time_ago_in_words(deal.created_at)
 
 = render "shared/footer"
+

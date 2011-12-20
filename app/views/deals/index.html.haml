@@ -3,38 +3,38 @@
 
 #header
   .container
-    %img.logo{ :src => "/assets/home-qwiqq-logo.png" }
-    %img.bubbles{ :src => "/assets/home-large-bubbles.png" }
+    %img.logo{ :src => image_path("home-qwiqq-logo.png") }
+    %img.bubbles{ :src => image_path("home-large-bubbles.png") }
 
     #phone
-      %img#frame{ :src => "/assets/home-iphone-frame.png" }
+      %img#frame{ :src => image_path("home-iphone-frame.png") }
       #screenshots
-        %img#screen1{ :src => "/assets/home-iphone-screen-1.png" }
-        %img#screen2{ :src => "/assets/home-iphone-screen-2.png" }
-        %img#screen3{ :src => "/assets/home-iphone-screen-3.png" }
-        %img#screen3{ :src => "/assets/home-iphone-screen-4.png" }
+        %img#screen1{ :src => image_path("home-iphone-screen-1.png") }
+        %img#screen2{ :src => image_path("home-iphone-screen-2.png") }
+        %img#screen3{ :src => image_path("home-iphone-screen-3.png") }
+        %img#screen3{ :src => image_path("home-iphone-screen-4.png") }
 
     .app-store-link
       %a{ :href => "/download" }
-        %img{ :src => "/assets/home-app-store.png" }
-      %img.free-arrow{ :src => "/assets/home-free-arrow.png" }
-      %img.free{ :src => "/assets/home-free.png" }
+        %img{ :src => image_path("home-app-store.png") }
+      %img.free-arrow{ :src => image_path("home-free-arrow.png") }
+      %img.free{ :src => image_path("home-free.png") }
 
 #content
   .container
     #steps
       #one.step
-        %img.icon{ :src => "/assets/1-love.png" }
+        %img.icon{ :src => image_path("1-love.png") }
         .body
           From a cute pair of shoes to the perfect salon to the tastiest Thai on the Upper West Side. The things you love are all around you!
           
       #two.step
-        %img.icon{ :src => "/assets/2-share.png" }
+        %img.icon{ :src => image_path("2-share.png") }
         .body
           Just snap a photo, write a quick note and enter the price. We do the rest. Remember, sharing is caring!
 
       #three.step
-        %img.icon{ :src => "/assets/3-discover.png" }
+        %img.icon{ :src => image_path("3-discover.png") }
         .body
           Wow! People are really interesting. From foodies to fashionistas, discover what your friends and the community around you are sharing!
 
@@ -51,25 +51,25 @@
                 %img.post-photo{ :src => deal.photo.url(:iphone_zoom), :width => "240", :height => "240" }
                 .name= deal.name
                 .price
-                  %img.tag{ :src => "/assets/tag.png" }
+                  %img.tag{ :src => image_path("tag.png") }
                   %span.dollars= price_string(deal)
 
             %a{ :href => user_url(deal.user) }
               .metadata
-                %img.arrow-down{ :src => "/assets/arrow-down.png" }
+                %img.arrow-down{ :src => image_path("arrow-down.png") }
                   %img.user-photo{ :src => deal.user.photo.url(:iphone), :width => "48", :height => "48" }
                 .stats
                   %span.stat
-                    %img.icon{ :src => "/assets/love-icon.png" }
+                    %img.icon{ :src => image_path("love-icon.png") }
                     = deal.likes_count
                   %span.stat
-                    %img.icon{ :src => "/assets/share-icon.png" }
+                    %img.icon{ :src => image_path("share-icon.png") }
                     = deal.shares_count
                   %span.stat
-                    %img.icon{ :src => "/assets/time-icon.png" }
+                    %img.icon{ :src => image_path("time-icon.png") }
                     = short_time_ago_in_words(deal.created_at)
                 .location
-                  %img.icon{ :src => "/assets/location-icon.png" }
+                  %img.icon{ :src => image_path("location-icon.png") }
                   = deal.location_name
 
 = render "shared/footer_home"

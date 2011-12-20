@@ -4,12 +4,12 @@
 #header-small
   .container
     %a{ :href => root_url }
-      %img.logo-small{ :src => "/assets/header-logo.png" }
+      %img.logo-small{ :src => image_path("header-logo.png") }
     .app-store-link-small
-      %img.free-small{ :src => "/assets/free-small.png" }
-      %img.free-arrow-small{ :src => "/assets/free-arrow-small.png" }
+      %img.free-small{ :src => image_path("free-small.png") }
+      %img.free-arrow-small{ :src => image_path("free-arrow-small.png") }
       %a{ :href => "/download" }
-        %img{ :src => "/assets/app-store-small.png" }
+        %img{ :src => image_path("app-store-small.png") }
 
 #about.page
   .container-narrow
@@ -78,3 +78,4 @@
       %span No problem. We love to hear from you. The best way to get in touch with us is to email us at #{mail_to("hello@qwiqq.me")}. We will respond. We promise.
 
 = render "shared/footer_home"
+

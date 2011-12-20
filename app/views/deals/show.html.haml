@@ -4,12 +4,12 @@
 #fixed-header-small
   .container
     %a{ :href => root_url }
-      %img.logo-small{ :src => "/assets/header-logo.png" }
+      %img.logo-small{ :src => image_path("header-logo.png") }
     .app-store-link-small
-      %img.free-small{ :src => "/assets/free-small.png" }
-      %img.free-arrow-small{ :src => "/assets/free-arrow-small.png" }
+      %img.free-small{ :src => image_path("/assets/free-small.png") }
+      %img.free-arrow-small{ :src => image_path("/assets/free-arrow-small.png") }
       %a{ :href => "/download" }
-        %img{ :src => "/assets/app-store-small.png" }
+        %img{ :src => image_path("app-store-small.png") }
 
 #post
   .container
@@ -36,18 +36,18 @@
         %a#twitter{ :href => "http://twitter.com/home?status=#{CGI::escape(build_share_deal_message(@deal))}", :target => "_blank" }
 
     #slider
-      %img.arrow-left{ :src => "/assets/arrow-left.png" }
+      %img.arrow-left{ :src => image_path("arrow-left.png") }
       .post
         .details
           %img.post-photo{ :src => @deal.photo(:iphone_zoom_2x), :width => "504", :height => "504" }
           .name= @deal.name
           .price
             %span.dollars-large= price_string(@deal)
-            %img.tag{ :src => "/assets/tag-large.png" }
+            %img.tag{ :src => image_path("tag-large.png") }
 
       #location
         #header
-          %img.icon{ :src => "/assets/location-icon.png" }
+          %img.icon{ :src => image_path("location-icon.png") }
           %h1= @deal.location_name
         #map
           %a{ :href => "http://maps.google.com/?q=#{@deal.lat},#{@deal.lon}" }
@@ -55,7 +55,7 @@
         
       #buzz
         #header
-          %img.icon{ :src => "/assets/buzz-icon.png" }
+          %img.icon{ :src => image_path("buzz-icon.png") }
           %h1 Social Buzz
         #events
           - if @events.empty?
