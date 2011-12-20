@@ -1,5 +1,5 @@
-//= require jquery.js
-//= require jquery.cycle.js
+//= require jquery
+//= require jquery.cycle
 
 $.fn.freeAt = function (pos) {
   var $this = this, $window = $(window);

@@ -2,8 +2,6 @@ source "http://rubygems.org"
 
 # hosting
 gem "aws-s3"
-gem "heroku"
-gem "taps"
 
 # base
 gem "rails", "3.1.3"
@@ -69,7 +67,15 @@ group :test do
 end
 
 group :development do
+  gem "heroku"
+  gem "taps"
   gem "faker"
+end
+
+group :assets do
   gem "uglifier"
 end
 
+group :production do
+  gem "thin"
+end
