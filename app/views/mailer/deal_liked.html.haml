@@ -1,8 +1,7 @@
-%div{:style => "background-color: white; padding: 10px; border-radius: 10px; margin: 20px; font-size: 13pt; margin-left: 50px; min-height: 75px; line-height: 25px"}
-  = image_tag @user.photo(:iphone_profile), :width => 75, :height => 75, :align => "left", :style => "margin-right: 10px; border-radius:10px"
-  %strong{:style => "font-size:14pt; color:#000; font-weight: bold"}= @user.username
-  %br
+= image_tag @user.photo(:iphone_profile), :width => 75, :height => 75, :align => "left", :style => "margin-right: 10px; border-radius:10px"
+= link_to(@user.username, user_url(@user), :style => "text-decoration:none; font-size:14pt; color:gray; font-weight: bold")
+%div{:style => "color:gray"}
   Liked your
-  = link_to(strip_emoji(@deal.name), deal_url(@deal), :style => "color: #ff7720; text-decoration: underline")
+  = link_to(strip_emoji(@deal.name), deal_url(@deal), :style => "color:#FF7720; text-decoration: underline")
   post.
 

@@ -9,16 +9,15 @@ class Mailer < ActionMailer::Base
     @deal = share.deal
     @user = share.user
     @share = share
-    @show_footer = true
     mail :to => target_email, 
-         :tag => 'share',
+         :tag => "share",
          :subject => "#{@user.name} shared a post with your on Qwiqq!"
   end
   
   def invitation(target_email, from)
     @user = from
     mail :to => target_email, 
-         :tag => 'invitation',
+         :tag => "invitation",
          :subject => "#{@user.name} has invited you to Qwiqq!"
     
   end
@@ -27,7 +26,7 @@ class Mailer < ActionMailer::Base
   def password_reset(target)
     @user = target
     mail :to => target.email, 
-         :tag => 'password',
+         :tag => "password",
          :subject => "Your password reset instructions for Qwiqq"
   end
 
@@ -37,9 +36,8 @@ class Mailer < ActionMailer::Base
     @user = like.user
     @deal = like.deal
     @like = like
-    @show_footer = true
     mail :to => target.email, 
-         :tag => 'like',
+         :tag => "like",
          :subject => "Someone liked your Qwiqq post!"
   end
   
@@ -48,19 +46,16 @@ class Mailer < ActionMailer::Base
     @comment  = comment
     @deal     = comment.deal
     @user     = comment.user
-    @show_footer = true
-    
     mail :to => target.email, 
-         :tag => 'comment',
+         :tag => "comment",
          :subject => "Someone commented on your Qwiqq post!"
   end
   
   def new_follower(target, follower)
     @target = target
     @user = follower
-    @show_footer = true
     mail :to => target.email, 
-         :tag => 'follower',
+         :tag => "follower",
          :subject => "#{@user.name} is now following you."
   end
 end
