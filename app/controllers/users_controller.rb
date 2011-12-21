@@ -9,6 +9,6 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     # TODO pagination
-    @deals = @user.deals.first(5)
+    @deals = @user.deals.sorted.first(5)
   end
 end
