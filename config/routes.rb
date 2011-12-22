@@ -6,7 +6,9 @@ Qwiqq::Application.routes.draw do
   # public web
   root :to => "deals#index"
 
-  resources :posts, :only => [:index, :show], :as => "deals", :controller => "deals"
+  resources :posts, :only => [:index, :show], :as => "deals", :controller => "deals" do
+    get :nearby, :on => :collection
+  end
   resources :users, :only => [:show]
   
   # home routes
