@@ -272,6 +272,10 @@ class Deal < ActiveRecord::Base
     Resque.enqueue(LocateDealJob, id)
   end
 
+  def venue_or_location_name
+    foursquare_venue_name || location_name
+  end
+
   private
   def self.geo_radians(lat, lon)
     [ (lat.to_f / 180.0) * Math::PI, 
