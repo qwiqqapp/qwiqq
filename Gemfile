@@ -28,7 +28,7 @@ gem "koala" # facebook
 gem "twitter", "1.6.0"
 gem "airbrake"
 gem "daemons", :require => false
-gem "httparty"
+gem "skittles" # foursquare
 
 # search
 gem "riddle", "1.4.0"

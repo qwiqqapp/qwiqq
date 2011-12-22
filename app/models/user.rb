@@ -260,7 +260,7 @@ class User < ActiveRecord::Base
   end
 
   def foursquare_client
-    @foursquare_client ||= Foursquare.new(:access_token => foursquare_access_token)
+    @foursquare_client ||= Skittles.client(:access_token => foursquare_access_token)
   end
   
   def twitter_friend_ids

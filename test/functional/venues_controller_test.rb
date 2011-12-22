@@ -11,7 +11,7 @@ class Api::VenuesControllerTest < ActionController::TestCase
     venues = JSON.parse(fixture)
     lat, lon = "49.282833", "-123.109698"
     foursquare_client = mock
-    foursquare_client.expects(:search_venues).with(lat, lon, "").returns(venues)
+    foursquare_client.expects(:venue_search).with("#{lat}, #{lon}", :query => "").returns(venues)
     Qwiqq.expects(:foursquare_client).returns(foursquare_client)
     Qwiqq.stubs(:default_category).returns(default_category)
 
@@ -30,7 +30,7 @@ class Api::VenuesControllerTest < ActionController::TestCase
     venues = JSON.parse(fixture)
     lat, lon = "49.282833", "-123.109698"
     foursquare_client = mock
-    foursquare_client.expects(:search_venues).with(lat, lon, "tacos").returns(venues)
+    foursquare_client.expects(:venue_search).with("#{lat}, #{lon}", :query => "tacos").returns(venues)
     Qwiqq.expects(:foursquare_client).returns(foursquare_client)
     Qwiqq.stubs(:default_category).returns(default_category)
 
@@ -46,7 +46,7 @@ class Api::VenuesControllerTest < ActionController::TestCase
   test "should handle when Foursquare returns no venues" do
     lon, lat = "0.0", "0.0" 
     foursquare_client = mock
-    foursquare_client.expects(:search_venues).with(lon, lat, "").returns(nil)
+    foursquare_client.expects(:venue_search).with("#{lat}, #{lon}", :query => "").returns(nil)
     Qwiqq.expects(:foursquare_client).returns(foursquare_client)
 
     get :index, :format => :json, :lon => lon, :lat => lat

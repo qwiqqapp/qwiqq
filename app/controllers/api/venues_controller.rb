@@ -2,7 +2,7 @@ class Api::VenuesController < Api::ApiController
   skip_before_filter :require_user
 
   def index
-    venues = Qwiqq.foursquare_client.search_venues(params[:lat], params[:lon], params[:query] || "") || []
+    venues = Qwiqq.foursquare_client.venue_search("#{params[:lat]}, #{params[:lon]}", :query => params[:query] || "") || []
 
     result = []
     venues.each do |venue|

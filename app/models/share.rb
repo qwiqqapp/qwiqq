@@ -1,3 +1,5 @@
+require "open-uri"
+
 class Share < ActiveRecord::Base
   belongs_to :user
   belongs_to :deal, :counter_cache => true, :touch => true
@@ -12,7 +14,7 @@ class Share < ActiveRecord::Base
 
   # avoids deliver being called before record has been persisted (possible with after_create)
   # ref: http://blog.nragaz.com/post/806739797/using-and-testing-after-commit-callbacks-in-rails-3
-  after_commit :async_deliver, :if => :persisted?, :unless => :facebook_share?
+  after_commit :async_deliver, :if => :persisted?, :unless => :facebook_share?, :on => :create
   after_commit :create_event, :on => :create
 
   HOST = "staging.qwiqq.me"
@@ -50,9 +52,22 @@ class Share < ActiveRecord::Base
   def deliver_to_foursquare
     # if a venue id is present, checkin otherwise 'shout'
     if deal.foursquare_venue_id.blank?
-      user.foursquare_client.shout(message)
+      user.foursquare_client.add_checkin("private", { :shout => message })
     else
-      user.foursquare_client.checkin(deal.foursquare_venue_id, message)
+      checkin = user.foursquare_client.add_checkin(
+        "private", { :venueId => deal.foursquare_venue_id, :shout => message })
+
+      image_uri = URI.parse(deal.photo.url(:iphone_grid))
+      open(image_uri) do |remote|
+        photo = Tempfile.new("open-uri")
+        photo.binmode
+        photo.write(remote.read)
+        photo.flush
+        user.foursquare_client.add_photo(
+          photo.path, 
+          :checkinId => checkin["id"], 
+          :venueid => deal.foursquare_venue_id)
+      end
     end
 
     # update

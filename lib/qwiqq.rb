@@ -1,7 +1,6 @@
 require "active_record_strip_attrs_extension"
 require "date_helper"
 require "paperclip_remote_file"
-require "foursquare"
 
 module Qwiqq
   # application-wide redis client
@@ -23,9 +22,7 @@ module Qwiqq
   end
   
   def self.foursquare_client
-    Foursquare.new(
-      :client_id => ENV["FOURSQUARE_CLIENT_ID"], 
-      :client_secret => ENV["FOURSQUARE_CLIENT_SECRET"])
+    Skittles.client
   end
 
   def self.convert_foursquare_category(foursquare_category_name)
