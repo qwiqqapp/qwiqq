@@ -66,6 +66,13 @@ class UserEvent < ActiveRecord::Base
     
     update_attribute(:push_notification_sent_at, Time.now) if Urbanairship.push(notification)
   end
+ 
+  def update_cached_attributes
+    self.created_by_photo = created_by.photo(:iphone_small)
+    self.created_by_photo_2x = created_by.photo(:iphone_small_2x)
+    self.created_by_username = created_by.username
+    self.deal_name = deal.name if deal
+  end
 
   private
   def push_page
@@ -95,14 +102,6 @@ class UserEvent < ActiveRecord::Base
         raise ArgumentError, "Unable to create notification message for event #{self.id} with type #{self.event_type}"
       end 
     "#{self.created_by.username} #{action}"
-  end
-  
-  
-  def update_cached_attributes
-    self.created_by_photo = created_by.photo(:iphone_small)
-    self.created_by_photo_2x = created_by.photo(:iphone_small_2x)
-    self.created_by_username = created_by.username
-    self.deal_name = deal.name if deal
   end
 end
 

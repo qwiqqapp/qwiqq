@@ -71,6 +71,7 @@ class User < ActiveRecord::Base
   before_save :update_photo_from_service
   
   after_save :update_push_token # may be called on create and we need user_id to create a push_device
+  after_save :async_update_cached_user_attributes
   
   validates_confirmation_of :password
   validates_presence_of     :password, :on => :create
@@ -338,6 +339,10 @@ class User < ActiveRecord::Base
       when "facebook" then update_photo_from_facebook
       when "twitter" then update_photo_from_twitter
       end
+    end
+
+    def async_update_cached_user_attributes
+      Resque.enqueue(UpdateCachedUserAttributesJob, id) if photo_file_name_changed?
     end
 end
 
