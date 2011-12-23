@@ -57,7 +57,7 @@ class Share < ActiveRecord::Base
       checkin = user.foursquare_client.add_checkin(
         "public", { :venueId => deal.foursquare_venue_id, :shout => message })
 
-      image_uri = URI.parse(deal.photo.url(:iphone_grid))
+      image_uri = URI.parse(deal.photo.url(:iphone_zoom_2x))
       open(image_uri) do |remote|
         photo = Tempfile.new("open-uri")
         photo.binmode
