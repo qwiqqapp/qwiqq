@@ -55,6 +55,10 @@
     display: none;
   }
 
+  #footer .boxes.steps {
+    display: none;
+  } 
+
   #header-small .logo-small {
     position: relative;
     left: -10px;
@@ -71,6 +75,88 @@
 
   #about .deal {
     display: none;
+  }
+
+  #fixed-container,
+  #post #fixed-container{
+    position: relative;
+    width: 100%;
+  }
+
+  #slider, 
+  #user #slider {
+    padding: 600px 0 0 0;
+  }
+
+  #slider .arrow-left {
+    display: none;
+  }
+
+  .post {
+    margin-bottom: 20px;
+  }
+
+  .post .details {
+    padding: 10px;
+    width: 240px;
+    height: 100%;
+  }
+
+  .post .details .name {
+    float: none;
+    font-size: 18px;
+    height: 100%;
+  }
+
+  .post .details .price {
+    float: none;
+  }
+
+  .post img.post-photo {
+    width: 240px;
+    height: 240px;
+  }
+
+  .post .metadata {
+    padding: 10px;
+  }
+
+  .post .metadata .stats {
+    display: none;
+  }
+
+  #location,
+  #buzz {
+    display: none;
+  }
+
+  #post #info {
+    width: 100%;
+  }
+
+  #post #info .stat {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 10px;
+  }
+
+  #post #slider {
+    padding: 172px 0 0 0;
+  }
+
+  #info {
+    float: none;
+  }
+
+  #share {
+    float: none;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  #share a {
+    float: left;
+    margin-right: 17px;
   }
 }
 

@@ -6,10 +6,14 @@ $.fn.freeAt = function (pos) {
   var position = $this.position();
   if (!position) return;
   $window.scroll(function(e) {
-    if ($window.scrollTop() > pos) {
-      $this.css({ position: "absolute", top: pos + position.top });
+    if ($window.width() > 400) {
+      if ($window.scrollTop() > pos) {
+        $this.css({ position: "absolute", top: pos + position.top });
+      } else {
+        $this.css({ position: "fixed", top: position.top });
+      }
     } else {
-      $this.css({ position: "fixed", top: position.top });
+      $this.css({ position: "relative" });
     }
   });
 };

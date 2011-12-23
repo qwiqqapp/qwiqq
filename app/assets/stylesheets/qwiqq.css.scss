@@ -157,10 +157,16 @@ img.bubbles {
   height: 75px;
 }
 
+.post-small .price {
+  background-image: url("tag.png");
+  width: 67px;
+  height: 32px;
+}
+
 .post-small .dollars {
   position: relative;
-  top: -11px;
-  left: -56px;
+  top: 5px;
+  left: 15px;
   color: #6cb340;
   font-size: 14px;
 }
@@ -242,7 +248,7 @@ img.post-photo {
 }
 
 #footer ul {
-  margin: 40px 0;
+  padding: 40px 0;
 }
 
 #footer ul li {
@@ -484,7 +490,6 @@ img.post-photo {
 .post .details {
   background-color: white;
   width: 504px;
-  height: 564px;
   padding: 24px;
   text-align: left;
   color: #333333;
@@ -502,19 +507,21 @@ img.post-photo {
   font-size: 22px;
   margin-top: 20px;
   max-width: 350px;
-  height: 28px;
   overflow: hidden;
 }
 
 .post .details .price {
+  width: 94px;
+  height: 45px;
+  margin-top: 20px;
   float: right;
-  margin-top: 14px;
+  background-image: url("tag-large.png");
 }
 
 .post .details .dollars-large {
   position: relative;
-  top: -16px;
-  left: 80px;
+  top: 11px;
+  left: 20px;
   color: #6cb340;
   font-size: 18px;
 }
@@ -727,3 +734,6 @@ img.post-photo {
   color: #13C3FF;
 }
 
+.clearfix {
+  overflow: hidden;
+}
