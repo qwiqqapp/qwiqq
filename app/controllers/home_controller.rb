@@ -1,8 +1,4 @@
 class HomeController < ApplicationController
-  layout :pick_layout
-
-  helper_method :mobile?
-
   caches_action :about, :expires_in => 10.minutes
   caches_action :download, :expires_in => 1.hour
   caches_action :terms, :expires_in => 1.hour
@@ -36,15 +32,5 @@ class HomeController < ApplicationController
     def recent_deals(email)
       user = User.find_by_email(email)
       user.nil? ? [] : user.deals.sorted.limit(4)
-    end
-
-    def mobile?
-      @mobile
-    end
-
-    def pick_layout
-      # TODO we could just use the user agent
-      @mobile = request.path =~ /iphone/
-      @mobile ? "mobile" : "application"
     end
 end

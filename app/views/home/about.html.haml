@@ -24,19 +24,17 @@
           %h2 John Phan, Co-founder    
           .bio
             A native of Canada, John has a deep passion for creating social products that enable people to share and discover information. He has helped launch two broadcast media startups and co-founded one of the first online peer-to-peer lending companies in Canada. In his free time, he and his wife enjoy hanging out with their daughter and two well-fed English bulldogs.
-          - unless mobile?
-            - @johns_deals.each do |deal|
-              %a.deal{ :href => deal_url(deal) }
-                %img{ :src => deal.photo.url(:iphone_profile) }
+          - @johns_deals.each do |deal|
+            %a.deal{ :href => deal_url(deal) }
+              %img{ :src => deal.photo.url(:iphone_profile) }
 
         %li
           %h2 Jack Wrigley, Co-founder
           .bio
             Inspired by a business his wife created in 2007, Jack has been thinking of ways to empower people to share what they love to buy. In his spare time, he’s invented some products, won a few sales awards along the way and currently loves hanging out with his wife, two daughters, son, beloved dog Bella and Ben Purr the family cat. 
-          - unless mobile?
-            - @jacks_deals.each do |deal|
-              %a.deal{ :href => deal_url(deal) }
-                %img{ :src => deal.photo.url(:iphone_profile) }
+          - @jacks_deals.each do |deal|
+            %a.deal{ :href => deal_url(deal) }
+              %img{ :src => deal.photo.url(:iphone_profile) }
 
     #faq.area
       %h1 Questions People Ask

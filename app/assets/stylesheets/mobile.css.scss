@@ -1,0 +1,76 @@
+/* QWIQQ - Mobile */
+
+@media (max-width: 400px) {
+  .container { 
+    width: 280px;
+    margin: 0 auto;
+  }
+
+  .container-narrow {
+    width: 100%;
+  }
+
+  img.logo {
+    float: none;
+    margin-left: 10px;
+  }
+
+  img.bubbles {
+    display: none;
+  }
+
+  .app-store-link {
+    top: 0;
+    margin-left: 8px;
+  }
+
+  .app-store-link img.free-arrow {
+    top: 0;
+    left: 60px;
+  }
+
+  .app-store-link img.free {
+    top: 10px;
+    left: 70px;
+  }
+
+  #steps {
+    margin-left: 20px;
+    margin-top: 690px;
+  }
+
+  #steps .step {
+    margin-top: 20px;
+  }
+
+  #posts {
+    margin-left: 8px;
+  }
+
+  #footer .box.logo {
+    display: none;
+  }
+  
+  #footer .box.contact {
+    display: none;
+  }
+
+  #header-small .logo-small {
+    position: relative;
+    left: -10px;
+  }
+
+  .app-store-link-small {
+    display: none;
+  }
+
+  .page {
+    margin-top: 20px;
+    padding: 10px;
+  }
+
+  #about .deal {
+    display: none;
+  }
+}
+
