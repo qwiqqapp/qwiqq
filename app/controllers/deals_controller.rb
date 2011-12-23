@@ -27,7 +27,7 @@ class DealsController < ApplicationController
   private
     def find_location
       ip = request.remote_ip
-      response = HTTParty.get("http://qwiqq-geoip.heroku.com/location.json?ip=#{ip}") rescue nil
+      response = HTTParty.get("http://qwiqq-geoip.heroku.com/location.json?ip=#{ip}")
       if response and response.code == 200
         [ response["latitude"], response["longitude"] ]
       end

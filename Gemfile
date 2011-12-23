@@ -29,6 +29,7 @@ gem "twitter", "1.6.0"
 gem "airbrake"
 gem "daemons", :require => false
 gem "skittles" # foursquare
+gem "httparty"
 
 # search
 gem "riddle", "1.4.0"
