@@ -6,7 +6,7 @@ class DealsController < ApplicationController
   end
 
   def index
-    @deals = Deal.unscoped.order("likes_count desc, comments_count desc").limit(6)
+    @deals = Deal.popular.limit(6)
   end
 
   def nearby
@@ -25,12 +25,12 @@ class DealsController < ApplicationController
   end
 
   private
-    def find_location
-      ip = request.remote_ip
-      response = HTTParty.get("http://qwiqq-geoip.heroku.com/location.json?ip=#{ip}")
-      if response and response.code == 200
-        [ response["latitude"], response["longitude"] ]
-      end
+  def find_location
+    ip = request.remote_ip
+    response = HTTParty.get("http://qwiqq-geoip.heroku.com/location.json?ip=#{ip}")
+    if response and response.code == 200
+      [ response["latitude"], response["longitude"] ]
     end
+  end
 end
 

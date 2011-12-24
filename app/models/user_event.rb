@@ -78,30 +78,30 @@ class UserEvent < ActiveRecord::Base
   def push_page
     case self.event_type
       when /follower/i
-        "users/#{self.created_by_id}"
+        "users/#{created_by_id}"
       when /comment|like|share|mention/
-        "deals/#{self.deal_id}"
+        "deals/#{deal_id}"
       else
-        ''
+        ""
       end
   end
   
   def push_alert
-    action = case self.event_type
-      when 'comment'
+    action = case event_type
+      when "comment"
         "left a comment on your post: #{metadata[:body]}"
-      when 'like'
+      when "like"
         "loved your post"
-      when 'share'        
+      when "share"
         "shared your post on #{metadata[:service]}"
-      when 'follower'
+      when "follower"
         "started following you"
-      when 'mention'  
+      when "mention"
         "mentioned you in a comment: #{metadata[:body]}"
       else
-        raise ArgumentError, "Unable to create notification message for event #{self.id} with type #{self.event_type}"
+        raise ArgumentError, "Unable to create notification message for event #{id} with type #{event_type}"
       end 
-    "#{self.created_by.username} #{action}"
+    "#{created_by.username} #{action}"
   end
 end
 

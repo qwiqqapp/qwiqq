@@ -63,6 +63,7 @@ class Deal < ActiveRecord::Base
   scope :recent, lambda { where("DATE(created_at) > ?", 30.days.ago) }
   scope :premium, where(:premium => true)
   scope :sorted, :order => "created_at desc"
+  scope :popular, order("likes_count desc, comments_count desc")
   
   def populate_feed(posting_user = nil, repost = false)
     posting_user ||= self.user

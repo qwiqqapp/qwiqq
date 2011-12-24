@@ -57,6 +57,14 @@
         #header
           %img.icon{ :src => image_path("buzz-icon.png") }
           %h1 Social Buzz
+          .stats
+            %span.stat
+              %img.icon.love{ :src => image_path("large-love-icon.png") }
+              = @deal.likes_count
+            %span.stat
+              %img.icon.share{ :src => image_path("large-share-icon.png") }
+              = @deal.shares_count
+
         #events
           - if @events.empty?
             .empty
@@ -64,8 +72,10 @@
           - @events.each_with_index do |event, i|
             .event{ :class => i + 1 == @events.size ? "last" : "" }
               %a{ :href => user_url(event.created_by) }
-                %img.user-photo{ :src => event.created_by.photo(:iphone2x), :width => "70", :height => "70" }
+                %img.user-photo{ :src => event.created_by.photo(:iphone2x), :width => "80", :height => "80" }
+
               .body
                 = event_body(event)
+                %img.icon{ :src => image_path(event_icon(event)) }
 
 = render "shared/footer"

@@ -22,6 +22,12 @@ html, body {
   height: 290px;
 }
 
+.post .metadata .stat .icon {
+  position: relative;
+  top: 2px;
+}
+
+
 #content {
   min-height: 100%;
 }
@@ -426,6 +432,29 @@ img.post-photo {
   left: 30px;
 }
 
+#post #header .stats {
+  position: relative;
+  top: 11px;
+  float: right;
+  color: #7d6f60;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+#post #header .stat {
+  padding-right: 10px;
+}
+
+#post #header .stat .icon {
+  float: none;
+  top: 4px;
+  left: 0;
+}
+
+#post #header .stat .icon.share {
+  top: 6px;
+}
+
 #post #map, 
 #post #events {
   position: relative;
@@ -484,7 +513,12 @@ img.post-photo {
 #post .event .body {
   float: left;
   margin: 10px 20px;
-  max-width: 400px;
+  width: 400px;
+}
+
+#post .event .icon {
+  float: right;
+  margin-top: 20px;
 }
 
 .post .details {
