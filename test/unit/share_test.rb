@@ -49,11 +49,28 @@ class ShareTest < ActiveSupport::TestCase
   
   test "should send shared deal to facebook immediately" do
     facebook_client = mock
-    facebook_client.expects(:put_wall_post).returns(true)
+    facebook_client.expects(:put_wall_post).with(anything, anything, "me").returns(true)
 
     @user = Factory(:user)
     @user.expects(:facebook_client).returns(facebook_client)
     @share = Factory(:facebook_share, :user => @user)
+
+    # facebook shares are not queued
+    assert_not_queued(ShareDeliveryJob, [@share.id])
+
+    # share should be saved on success
+    assert @share.persisted?
+    assert_not_nil @share.shared_at
+    assert_not_nil @share.message
+  end
+
+  test "should share a deal to a facebook page" do
+    facebook_client = mock
+    facebook_client.expects(:put_wall_post).with(anything, anything, "3234592348234").returns(true)
+
+    @user = Factory(:user)
+    @user.expects(:facebook_client).returns(facebook_client)
+    @share = Factory(:facebook_share, :user => @user, :facebook_page_id => "3234592348234")
 
     # facebook shares are not queued
     assert_not_queued(ShareDeliveryJob, [@share.id])

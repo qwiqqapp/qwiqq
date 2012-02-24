@@ -6,7 +6,11 @@ class Api::SharesController < Api::ApiController
     facebook_token_invalid =
       begin
         if params[:facebook]
-          current_user.shares.create(:deal => deal, :service => "facebook", :message => params[:message])
+          current_user.shares.create(
+            :deal => deal, 
+            :service => "facebook", 
+            :message => params[:message],
+            :facebook_page_id => params[:facebook_page_id])
         end
         false
       rescue Koala::Facebook::APIError => e

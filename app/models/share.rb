@@ -1,5 +1,6 @@
 require "open-uri"
 
+# TODO this class should be split using STI
 class Share < ActiveRecord::Base
   belongs_to :user
   belongs_to :deal, :counter_cache => true, :touch => true
@@ -40,12 +41,14 @@ class Share < ActiveRecord::Base
     # post url 
     deal_url = Rails.application.routes.url_helpers.deal_url(deal, :host => HOST)
 
-    # post to the users wall
-    user.facebook_client.put_wall_post(message,
+    # post to the page or users wall
+    attachment = {
       "name" => deal.name,
       "link" => deal_url,
-      "picture" => deal.photo.url(:iphone_grid))
+      "picture" => deal.photo.url(:iphone_grid) }
+    user.facebook_client.put_wall_post(message, attachment, facebook_page_id || "me")
 
+    # set, don't update
     self.shared_at = Time.now
   end
 
