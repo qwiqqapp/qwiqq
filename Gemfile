@@ -24,7 +24,7 @@ gem "resque"
 
 # services
 gem "geokit"
-gem "koala" # facebook
+gem "koala", "1.1.0" # facebook
 gem "twitter", "1.6.0"
 gem "airbrake"
 gem "daemons", :require => false

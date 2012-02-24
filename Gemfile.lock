@@ -297,7 +297,7 @@ DEPENDENCIES
   htmlentities
   httparty
   kaminari
-  koala
+  koala (= 1.1.0)
   mocha
   paperclip
   pg (= 0.11.0)
