@@ -284,6 +284,16 @@ class User < ActiveRecord::Base
     facebook_ids.flatten
   end
 
+  def facebook_pages
+    return if facebook_access_token.blank?
+    pages = facebook_client.get_connections("me", "accounts").map do |page|
+      result = {
+        :id => page["id"],
+        :name => page["name"]
+      }
+    end 
+  end
+
   def update_photo_from_facebook
     return if facebook_access_token.blank?
     picture_url = facebook_client.get_picture("me", :type => "large") rescue nil

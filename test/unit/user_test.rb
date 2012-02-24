@@ -201,5 +201,23 @@ class UserTest < ActiveSupport::TestCase
     @user.expects(:update_photo_from_twitter)
     @user.update_attributes(:photo_service => "twitter")
   end
+
+  test "should retrieve Facebook pages" do
+    @user = Factory(:user, :facebook_access_token => "token")
+    facebook_response = [{ 
+      "name" => "Gastown Labs", 
+      "access_token" => "ADXVqk6fFwBACg3qmH9zJxVfrop7a9P2U",
+      "category" => "Internet/software", 
+      "id" => "325173277528821" 
+    }]
+    facebook_client = mock()
+    facebook_client.expects(:get_connections).with("me", "accounts").returns(facebook_response)
+    @user.stubs(:facebook_client).returns(facebook_client)
+    pages = @user.facebook_pages
+
+    assert_equal pages.size, 1
+    assert_equal pages[0][:name], "Gastown Labs"
+    assert_equal pages[0][:id], "325173277528821"
+  end
 end
-  
+
