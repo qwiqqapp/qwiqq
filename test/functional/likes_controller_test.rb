@@ -39,11 +39,11 @@ class Api::LikesControllerTest < ActionController::TestCase
     @user = Factory(:user)
     sign_in(@user)
     
-    @deal0 = Factory(:deal, :created_at => Time.now - 1.hour)
-    @deal1 = Factory(:deal, :created_at => Time.now - 2.hours)
+    @deal0 = Factory(:deal)
+    @deal1 = Factory(:deal)
             
-    @user.likes.create(:deal => @deal0)
-    @user.likes.create(:deal => @deal1)
+    @user.likes.create(:deal => @deal0, :created_at => Time.now - 1.hour)
+    @user.likes.create(:deal => @deal1, :created_at => Time.now - 2.hours)
 
     get :index, :user_id => @user.id, :format => "json"
     
