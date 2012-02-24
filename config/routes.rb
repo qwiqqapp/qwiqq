@@ -32,7 +32,6 @@ Qwiqq::Application.routes.draw do
   # api
   namespace "api" do
     resources :users, :only => [:create, :show, :update] do
-      
       get "followers", :on => :member
       get "following", :on => :member
       get "friends",   :on => :member
@@ -52,6 +51,7 @@ Qwiqq::Application.routes.draw do
       end
       
       post "find_friends" => "friends#find"
+      get "facebook_pages", :on => :member
     end
     
     resources :sessions, :only => [:create, :destroy]

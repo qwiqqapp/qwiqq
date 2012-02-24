@@ -85,5 +85,14 @@ class Api::UsersController < Api::ApiController
     respond_with @users.as_json(:current_user => current_user)
   end
 
+  def facebook_pages
+    raise ActiveRecord::RecordNotFound unless params[:id] == "current"
+    if current_user.facebook_access_token.blank?
+      render :status => :bad_request, :nothing => true
+      return
+    end
+    respond_with current_user.facebook_pages
+  end
+
 end
 

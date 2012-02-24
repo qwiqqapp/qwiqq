@@ -249,7 +249,7 @@ class User < ActiveRecord::Base
   end
 
   def facebook_client
-    @facebook_client ||= Koala::Facebook::GraphAPI.new(facebook_access_token)
+    @facebook_client ||= Koala::Facebook::GraphAPI.new(facebook_access_token) if facebook_access_token.present?
   end
 
   def twitter_client
@@ -289,7 +289,8 @@ class User < ActiveRecord::Base
     pages = facebook_client.get_connections("me", "accounts").map do |page|
       result = {
         :id => page["id"],
-        :name => page["name"]
+        :name => page["name"],
+        :access_token => page["access_token"]
       }
     end 
   end

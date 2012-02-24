@@ -215,9 +215,10 @@ class UserTest < ActiveSupport::TestCase
     @user.stubs(:facebook_client).returns(facebook_client)
     pages = @user.facebook_pages
 
-    assert_equal pages.size, 1
-    assert_equal pages[0][:name], "Gastown Labs"
-    assert_equal pages[0][:id], "325173277528821"
+    assert_equal 1, pages.size
+    assert_equal "Gastown Labs", pages[0][:name]
+    assert_equal "325173277528821", pages[0][:id]
+    assert_equal "ADXVqk6fFwBACg3qmH9zJxVfrop7a9P2U", pages[0][:access_token]
   end
 end
 
