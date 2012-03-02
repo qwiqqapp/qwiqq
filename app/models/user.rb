@@ -58,8 +58,7 @@ class User < ActiveRecord::Base
                   :phone,
                   :website,
                   :suggested,
-                  :photo_service,
-                  :current_facebook_page_id
+                  :photo_service
 
   attr_accessor :push_token
   attr_accessor :password
