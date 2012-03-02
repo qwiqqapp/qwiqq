@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120224192719) do
+ActiveRecord::Schema.define(:version => 20120302203412) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -221,10 +221,10 @@ ActiveRecord::Schema.define(:version => 20120224192719) do
     t.string   "username"
     t.string   "facebook_access_token"
     t.string   "twitter_access_token"
-    t.boolean  "send_notifications",      :default => true
-    t.integer  "followers_count",         :default => 0,     :null => false
-    t.integer  "following_count",         :default => 0,     :null => false
-    t.integer  "friends_count",           :default => 0,     :null => false
+    t.boolean  "send_notifications",       :default => true
+    t.integer  "followers_count",          :default => 0,     :null => false
+    t.integer  "following_count",          :default => 0,     :null => false
+    t.integer  "friends_count",            :default => 0,     :null => false
     t.string   "twitter_access_secret"
     t.string   "twitter_id"
     t.string   "facebook_id"
@@ -232,14 +232,15 @@ ActiveRecord::Schema.define(:version => 20120224192719) do
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.string   "notifications_token"
-    t.integer  "likes_count",             :default => 0
-    t.integer  "comments_count",          :default => 0
-    t.integer  "deals_count",             :default => 0
+    t.integer  "likes_count",              :default => 0
+    t.integer  "comments_count",           :default => 0
+    t.integer  "deals_count",              :default => 0
     t.string   "foursquare_id"
     t.string   "foursquare_access_token"
     t.string   "phone"
     t.string   "website"
-    t.boolean  "suggested",               :default => false
+    t.boolean  "suggested",                :default => false
+    t.string   "current_facebook_page_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

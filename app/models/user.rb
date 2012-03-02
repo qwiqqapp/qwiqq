@@ -48,6 +48,7 @@ class User < ActiveRecord::Base
                   :country, 
                   :city, 
                   :facebook_access_token,
+                  :current_facebook_page_id,
                   :twitter_access_token, 
                   :twitter_access_secret,
                   :foursquare_access_token,
@@ -57,7 +58,8 @@ class User < ActiveRecord::Base
                   :phone,
                   :website,
                   :suggested,
-                  :photo_service
+                  :photo_service,
+                  :current_facebook_page_id
 
   attr_accessor :push_token
   attr_accessor :password
@@ -239,6 +241,11 @@ class User < ActiveRecord::Base
     if current_user = options[:current_user] 
       if current_user == self
         json[:email] = email
+
+        # add the cached facebook page if present
+        if current_facebook_page_id.present?
+          json[:current_facebook_page_id] = current_facebook_page_id
+        end
       else
         json[:is_following] = current_user.following?(self)
         json[:is_followed] = self.following?(current_user)
