@@ -10,7 +10,7 @@ class Api::SharesController < Api::ApiController
             :deal => deal, 
             :service => "facebook", 
             :message => params[:message],
-            :facebook_page_id => params[:facebook_page_id])
+            :facebook_page_id => current_user.current_facebook_page_id)
         end
         false
       rescue Koala::Facebook::APIError => e
