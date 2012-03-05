@@ -1,10 +1,9 @@
-%div{:style => "text-align:center; font-size:15pt; color:gray; font-weight: bold; padding-bottom: 10px"}
-  = link_to(@user.name, user_url(@user), :style => "text-decoration:none; color:gray;")
-  has invited you to Qwiqq!
-
-%div{:style => "text-align:center; color:gray; font-family: Arial; font-weight: bold; font-size: 15pt"}
-  Qwiqq is a deal sharing community where you see, post, and discover local deals from your iPhone.
-
+%div{:style => "text-align:center; font-size:14pt; font-family: Arial; color:gray; font-weight: normal; padding-bottom: 10px"}
+  = link_to(@user.username, user_url(@user), :style => "color:#ff7720; text-decoration:underline;") 
+  says 
+  %br
+  "I use Qwiqq to share the things I love to buy!  You should too!"
+  
   %div{:style => "text-align:center; font-size:14pt; color:black; margin:20px 0"}
     = link_to("Get the <b>free</b> app".html_safe, download_url, :style => "color:#ff7720; text-decoration:underline;")
     or 

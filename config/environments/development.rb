@@ -21,13 +21,17 @@ Qwiqq::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+  
+  # Default URL
+  config.action_mailer.default_url_options = { :host => "localhost:3000" }
+  config.action_mailer.asset_host = "http://localhost:3000"
 
   # ActionMailer
-  config.action_mailer.delivery_method = :test
+  config.action_mailer.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
    :address => "localhost",
    :port => 1025,
-   :domain => "qwiqq.me"
+   :domain => "www.qwiqq.me"
   }
 
   # Do not compress assets

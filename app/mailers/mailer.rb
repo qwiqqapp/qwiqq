@@ -18,7 +18,7 @@ class Mailer < ActionMailer::Base
     @user = from
     mail :to => target_email, 
          :tag => "invitation",
-         :subject => "#{@user.name} has invited you to Qwiqq!"
+         :subject => "#{@user.username} has invited you to Qwiqq!"
     
   end
   
