@@ -82,6 +82,7 @@ class User < ActiveRecord::Base
   validates_format_of       :username, :with => /^[\w\d_]+$/, :message => "use only letters, numbers and '_'"
   
   # see initializers/auto_orient.rb for new processor
+  # see initializers/paperclip.rb for default image (missing) location
   has_attached_file :photo, { 
     :processors => [:auto_orient, :thumbnail],
     :styles => { 

@@ -87,26 +87,25 @@ class Deal < ActiveRecord::Base
   has_attached_file :photo, { 
     :processors => [:auto_orient, :thumbnail], 
     :styles => { 
+      # app v2
+      :iphone_explore => ['95x95#', :jpg],
+      :iphone_explore_2x => ['190x190#', :jpg]  ,    
+      
       # popular
       :iphone_grid => ["75x75#", :jpg],
       :iphone_grid_2x => ["150x150#", :jpg],
      
-      # deal detail view
-      :iphone_profile => ["85x85#", :jpg],
-      :iphone_profile_2x => ["170x170#", :jpg],
-
-      
       # feed, browse, search list views
       :iphone_list => ["55x55#", :jpg],
       :iphone_list_2x => ["110x110#", :jpg],
      
+      # deal detail view
+      :iphone_profile => ["85x85#", :jpg],
+      :iphone_profile_2x => ["170x170#", :jpg],
+     
       # zoomed image size
       :iphone_zoom => ["300x300#", :jpg],
-      :iphone_zoom_2x => ["600x600#", :jpg] ,
-
-      # app v2
-      :iphone_explore => ['95x95#', :jpg],
-      :iphone_explore_2x => ['190x190#', :jpg]
+      :iphone_zoom_2x => ["600x600#", :jpg]
     }
   }.merge(PAPERCLIP_STORAGE_OPTIONS)
 
