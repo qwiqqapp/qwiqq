@@ -269,6 +269,8 @@ class User < ActiveRecord::Base
     facebook_ids.flatten
   end
 
+
+  # TODO handle invalid token exception
   def facebook_pages
     return if facebook_access_token.blank?
     pages = facebook_client.get_connections("me", "accounts").map do |page|

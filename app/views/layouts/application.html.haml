@@ -21,9 +21,9 @@
       
     - elsif @user
       %meta(property="og:type" content="profile")    
-      %meta(property="og:title" content="#{@user.name}")
-      %meta(property="og:description" content="#{@user.username} is using Qwiqq, A fun way to share the things they love to buy.")
-      %meta(property="og:image" content="#{@user.photo(:iphone_zoom_2x)}")
+      %meta(property="og:title" content="#{@user.name || @user.username} is sharing with Qwiqq.")
+      %meta(property="og:description" content="Qwiqq is A fun way to share the things you love to buy.")
+      %meta(property="og:image" content="#{root_url.chomp('/')}#{asset_path('home-qwiqq-logo.png')}")
       %meta(property="og:url" content="#{user_url(@user)}")
       %meta(property="profile:first_name" content="#{@user.first_name}")
       %meta(property="profile:last_name" content="#{@user.last_name}")
@@ -31,7 +31,7 @@
       
     - else
       %meta(property="og:title" content="Qwiqq")
-      %meta(property="og:description" content="A fun way to share the things you love to buy")
+      %meta(property="og:description" content="A fun way to share the things you love to buy.")
       %meta(property="og:image" content="#{root_url.chomp('/')}#{asset_path('home-qwiqq-logo.png')}")
       %meta(property="og:url" content=root_url)
       
