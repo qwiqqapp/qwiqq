@@ -11,7 +11,7 @@ class Mailer < ActionMailer::Base
     @share = share
     mail :to => target_email, 
          :tag => "share",
-         :subject => "#{@user.name} shared a post with your on Qwiqq!"
+         :subject => "#{@user.name} shared a post with you on Qwiqq!"
   end
   
   def invitation(target_email, from)
