@@ -25,7 +25,6 @@ class User < ActiveRecord::Base
     
   has_many :following, :through => :relationships, :source => :target
   has_many :followers, :through => :inverse_relationships, :source => :user
-  has_many :friends, :through => :relationships, :source => :target, :conditions => ['friends = ?', true]
   has_many :shares, :dependent => :destroy
   has_many :shared_deals, :through => :shares, :source => :deal, :uniq => true
   
@@ -148,14 +147,7 @@ class User < ActiveRecord::Base
   end
 
   def follow!(target)
-    reciprocal = !target.relationships.where(:target_id => self).blank?
-    relationships.create(:target => target, :friends => reciprocal)
-    rel = target.relationships.where(:target_id => self)
-    rel.update_all(:friends => true)
-    rel.each do |r|
-      r.update_counts
-    end
-
+    relationships.create(:target => target)
     Feedlet.import( target.deals.map { |d| 
       self.feedlets.new(:posting_user_id => target.id, :deal_id => d.id, :timestamp => d.created_at) } )
   end
@@ -163,24 +155,12 @@ class User < ActiveRecord::Base
   def unfollow!(target)
     self.feedlets.where(:posting_user_id => target.id).delete_all
     relationships.find_by_target_id(target.id).try(:destroy)
-    rel = target.relationships.where(:target_id => self)
-    rel.update_all(:friends => false)
-    rel.each do |r|
-      r.update_counts
-    end
   end
   
   def following?(target)
     relationships.exists?(:target_id => target.id)
   end
   
-  def friends?(target)
-    Relationship.find_by_sql(
-      "SELECT r1.* FROM relationships r1, relationships r2 
-       WHERE r1.user_id = r2.target_id AND r1.target_id = r2.user_id 
-         AND r1.user_id = #{id} AND r1.target_id = #{target.id}").any?
-  end
-
   def email_invitation_sent?(email)
     invitations_sent.exists?(:service => "email", :email => email)
   end
@@ -205,7 +185,6 @@ class User < ActiveRecord::Base
       :foursquare_authorized => !foursquare_access_token.blank?,
       :followers_count       => followers_count,
       :following_count       => following_count,
-      :friends_count         => friends_count,
       :phone                 => phone,
       :website               => website,
       :location              => location,
