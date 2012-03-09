@@ -8,6 +8,33 @@
     = stylesheet_link_tag "application"
     = javascript_include_tag "application"
     = csrf_meta_tag
+    %meta(property="og:site_name" content="Qwiqq.me")
+    - if @deal
+      %meta(property="og:type" content="article")    
+      %meta(property="og:title" content="#{@deal.name}")
+      %meta(property="og:description" content="#{@deal.meta_content}")
+      %meta(property="og:image" content="#{@deal.photo(:iphone_zoom_2x)}")
+      %meta(property="og:url" content="#{deal_url(@deal)}")
+      %meta(property="article:published_time" content="#{@deal.created_at}")
+      %meta(property="article:section" content="#{@deal.category.name}")
+      %meta(property="article:tag" content="#{@deal.category.name}")
+      
+    - elsif @user
+      %meta(property="og:type" content="profile")    
+      %meta(property="og:title" content="#{@user.name}")
+      %meta(property="og:description" content="#{@user.username} is using Qwiqq, A fun way to share the things they love to buy.")
+      %meta(property="og:image" content="#{@user.photo(:iphone_zoom_2x)}")
+      %meta(property="og:url" content="#{user_url(@user)}")
+      %meta(property="profile:first_name" content="#{@user.first_name}")
+      %meta(property="profile:last_name" content="#{@user.last_name}")
+      %meta(property="profile:username" content="#{@user.username}")
+      
+    - else
+      %meta(property="og:title" content="Qwiqq")
+      %meta(property="og:description" content="A fun way to share the things you love to buy")
+      %meta(property="og:image" content="#{root_url.chomp('/')}#{asset_path('home-qwiqq-logo.png')}")
+      %meta(property="og:url" content=root_url)
+      
   %body{ :class => "#{controller_name} #{action_name}" }
     = yield
     - if Rails.env.production?

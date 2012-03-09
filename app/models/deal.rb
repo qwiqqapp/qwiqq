@@ -275,6 +275,16 @@ class Deal < ActiveRecord::Base
   def venue_or_location_name
     foursquare_venue_name || location_name
   end
+  
+  def meta_content
+    c = self.name
+    c << " for #{self.price_as_string}" if self.price
+    c << " at #{venue_or_location_name}"
+    c << " Posted by #{self.user.name}"
+    c << " in #{self.category.name.titleize}"
+    c
+  end
+  
 
   private
   def self.geo_radians(lat, lon)
