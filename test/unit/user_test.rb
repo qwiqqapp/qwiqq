@@ -76,37 +76,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 1, @user1.followers.count
   end
 
-  test "#friends" do
-    @user0 = Factory(:user)
-    @user1 = Factory(:user)
-    @user2 = Factory(:user)
-    
-    @user0.follow!(@user1)
-    @user1.follow!(@user0)
-    @user0.follow!(@user2)
-
-    assert_equal [@user1], @user0.friends
-    assert_equal [@user0], @user1.friends
-    assert_equal 1, @user0.friends.count
-    assert_equal 1, @user1.friends.count
-  end
-
-  test "#friends?" do
-    @user0 = Factory(:user)
-    @user1 = Factory(:user)
-    @user2 = Factory(:user)
-    
-    @user0.follow!(@user1)
-    @user1.follow!(@user0)
-    @user0.follow!(@user2)
-
-    assert @user1.friends?(@user0)
-    assert @user0.friends?(@user1)
-    
-    assert !@user0.friends?(@user2)
-    assert !@user2.friends?(@user0)
-  end
-
   test "#following?" do
     @user0 = Factory(:user)
     @user1 = Factory(:user)
