@@ -61,10 +61,8 @@ group :test do
   gem "resque_unit"
   gem "database_cleaner"
   
-  # autotest
-  gem "ZenTest"
-  gem "autotest-rails"
-  gem "autotest-fsevent"
+  # autotestb
+  gem 'guard-test'
 end
 
 group :development do

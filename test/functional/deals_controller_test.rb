@@ -51,20 +51,19 @@ class Api::DealsControllerTest < ActionController::TestCase
     @user0.follow!(@user1)
     @user1.follow!(@user2)
     @user0.follow!(@user2)
-
+    
     # deals from users followed by current user
     feed_deals = [
       Factory(:deal, :user => @user1, :created_at => 2.minutes.ago, :name => "a"),
       Factory(:deal, :user => @user2, :created_at => 3.minutes.ago, :name => "b"),
       Factory(:deal, :user => @user2, :created_at => 4.minutes.ago, :name => "c"),
       Factory(:deal, :user => @user1, :created_at => 5.minutes.ago, :name => "d") ]
-
+    
     get :feed, :format => 'json'
     
     assert_equal 200,   @response.status
     assert_equal Array, json_response.class
     assert_equal 4,     json_response.size
-    assert_equal 10,    Feedlet.count # 1 deal for each user plus, user0 sees 4 deals, user1 sees 2 deals
     
     # check order
     assert_equal feed_deals.map(&:id), json_response.map{|d| d["deal_id"].to_i}
