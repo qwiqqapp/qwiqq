@@ -6,6 +6,12 @@ class Api::ApiController < ActionController::Base
   
   helper_method :current_user
   
+  rescue_from FacebookInvalidTokenException do |e|
+    notify_airbrake(e)
+    Rails.logger.error "FacebookInvalidTokenException error#400: #{e.message}"
+    render :json => {:message => "Facebook Invalid Token: #{e.message}" }, :status => 400
+  end
+  
   # Method Not Allowed
   # comment this out when debugging API
   rescue_from NoMethodError do |e|

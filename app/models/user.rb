@@ -1,3 +1,5 @@
+class FacebookInvalidTokenException < Exception; end
+
 class User < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
   
@@ -233,9 +235,6 @@ class User < ActiveRecord::Base
     json
   end
 
-  def facebook_client
-    @facebook_client ||= Koala::Facebook::GraphAPI.new(facebook_access_token) if facebook_access_token.present?
-  end
 
   def twitter_client
     @twitter_client ||= Twitter::Client.new(
@@ -259,6 +258,27 @@ class User < ActiveRecord::Base
     twitter_ids.flatten
   end
 
+
+
+  # TODO move to lib/facebook.rb
+  def facebook_client
+    @facebook_client ||= Koala::Facebook::GraphAPI.new(facebook_access_token) if facebook_access_token.present?
+  end
+  
+  # TODO extract to wrapper method
+  def facebook_pages
+    return if facebook_access_token.blank?
+    
+    facebook_client.get_connections("me", "accounts").map do |page|
+      { id: page["id"], name: page["name"], access_token: page["access_token"]}
+    end
+    
+  rescue Koala::Facebook::APIError => e
+    Rails.logger.error "[rescue from] Koala::Facebook::APIError: #{e.message}"
+    self.update_attribute(:facebook_access_token, nil)
+    raise FacebookInvalidTokenException, e.message
+  end
+  
   def facebook_friend_ids
     facebook_ids = []
     friends = facebook_client.get_connections("me", "friends")
@@ -268,32 +288,19 @@ class User < ActiveRecord::Base
     end while friends
     facebook_ids.flatten
   end
-
-
-  # TODO handle invalid token exception
-  def facebook_pages
-    return if facebook_access_token.blank?
-    pages = facebook_client.get_connections("me", "accounts").map do |page|
-      result = {
-        :id => page["id"],
-        :name => page["name"],
-        :access_token => page["access_token"]
-      }
-    end 
-  end
-
+  
   def update_photo_from_facebook
     return if facebook_access_token.blank?
     picture_url = facebook_client.get_picture("me", :type => "large") rescue nil
     self.photo = Paperclip::RemoteFile.new(picture_url) if picture_url
   end
-
+  
   def update_photo_from_twitter
     return if twitter_access_token.blank?
     profile_image_url = twitter_client.profile_image(:size => :original) rescue nil
     self.photo = Paperclip::RemoteFile.new(profile_image_url) if profile_image_url
   end
-
+  
   private
     def update_twitter_id
       return unless twitter_access_token_changed?

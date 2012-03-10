@@ -200,15 +200,15 @@ class Api::UsersControllerTest < ActionController::TestCase
   # user#clear_events
   test "should clear a users unread events" do
     @user = Factory(:user)
-
+    
     @deal = Factory(:deal, :user => @user)
     @like = Factory(:like, :deal => @deal)
     @like.create_event
     assert_equal 1, @user.events.unread.count
-
+    
     sign_in @user
     post :clear_events, :format => "json", :id => "current"
-
+    
     assert_equal 200, @response.status
     assert_equal 0, @user.events.unread.count
   end
@@ -226,5 +226,14 @@ class Api::UsersControllerTest < ActionController::TestCase
     assert_equal "Gastown Labs", json_response[0]["name"]
     assert_equal "325173277528821", json_response[0]["id"]
   end
-
+  
+  test "should return 400 when users token is invalid" do
+    @user = Factory(:user, :facebook_access_token => "test")
+    User.any_instance.expects(:facebook_pages).raises(FacebookInvalidTokenException)
+    sign_in @user
+    
+    get :facebook_pages, :format => "json", :id => "current"
+    
+    assert_equal 400, @response.status
+  end
 end

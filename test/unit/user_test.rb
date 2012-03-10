@@ -46,14 +46,14 @@ class UserTest < ActiveSupport::TestCase
     exception = assert_raise(ActiveRecord::RecordInvalid) {
       Factory(:user, :username => 'adam')
     }
-    assert_match /username/i, exception.message
+    assert_match(/username/i, exception.message)
   end
   
   test "should raise expection if usename is not alphanumeric" do
     exception = assert_raise(ActiveRecord::RecordInvalid) {
       Factory(:user, :username => 'a b c')
     }
-    assert_match /username/i, exception.message
+    assert_match(/username/i, exception.message)
   end
   
   test "#authenticate" do
@@ -188,6 +188,24 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "Gastown Labs", pages[0][:name]
     assert_equal "325173277528821", pages[0][:id]
     assert_equal "ADXVqk6fFwBACg3qmH9zJxVfrop7a9P2U", pages[0][:access_token]
+  end
+  
+  # TODO fix test, does not set exception message. SO unable to confirm logic for e.message =~ /error validating access token/
+  test "should reset users facebook_access_token if invalid" do
+    facebook_client = mock()
+    facebook_client.expects(:get_connections).with("me", "accounts").raises(Koala::Facebook::APIError.new(
+      :type => "OAuthException",
+      :message => "Error validating access token: The session has been invalidated because the user has changed the password."))
+
+    @user = Factory(:user, :facebook_access_token => "token")
+    @user.stubs(:facebook_client).returns(facebook_client)
+        
+    assert_raises FacebookInvalidTokenException do
+      @user.facebook_pages
+    end
+    
+    @user.reload
+    assert_equal nil, @user.facebook_access_token
   end
 end
 

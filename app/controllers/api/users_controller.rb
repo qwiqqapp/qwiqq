@@ -88,14 +88,11 @@ class Api::UsersController < Api::ApiController
   # raise RecordNotFound unless current user
   # return :bad_request if no access token
   # TODO return bad_request if facebook_pages returns nil
-  
   def facebook_pages
     raise ActiveRecord::RecordNotFound unless params[:id] == "current"
-    if current_user.facebook_access_token.blank?
-      render :status => :bad_request, :nothing => true
-      return
-    end
-    respond_with current_user.facebook_pages
+    @facebook_pages = current_user.facebook_pages
+    
+    respond_with @facebook_pages
   end
 
 end
