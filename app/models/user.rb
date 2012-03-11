@@ -237,11 +237,11 @@ class User < ActiveRecord::Base
 
 
   def twitter_client
-    @twitter_client ||= Twitter::Client.new(
-      :consumer_key => Qwiqq.twitter_consumer_key, 
-      :consumer_secret => Qwiqq.twitter_consumer_secret, 
-      :oauth_token => twitter_access_token, 
-      :oauth_token_secret => twitter_access_secret)
+    @twitter_client = Twitter::Client.new(
+      consumer_key: Qwiqq.twitter_consumer_key, 
+      consumer_secret: Qwiqq.twitter_consumer_secret, 
+      oauth_token: twitter_access_token, 
+      oauth_token_secret: twitter_access_secret)
   end
 
   def foursquare_client
