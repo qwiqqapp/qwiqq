@@ -14,8 +14,9 @@ class Api::SharesController < Api::ApiController
         end
         false
       rescue Koala::Facebook::APIError => e
+        Rails.logger.error "Api::SharesController [RESCUE FROM] Koala::Facebook::APIError: #{e.message}"
         e.message =~ /Error validating access token/
-      end 
+      end
 
     # twitter
     if params[:twitter]
