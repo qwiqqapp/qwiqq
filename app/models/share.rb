@@ -9,13 +9,10 @@ class Share < ActiveRecord::Base
   validates :service, :inclusion => [ "email", "twitter", "facebook", "sms", "foursquare" ]
 
   before_create :build_message
-
-  # we share to facebook immediately so that we can provide the user with error messages
-  before_create :deliver, :if => :facebook_share?
-
+  
   # avoids deliver being called before record has been persisted (possible with after_create)
   # ref: http://blog.nragaz.com/post/806739797/using-and-testing-after-commit-callbacks-in-rails-3
-  after_commit :async_deliver, :if => :persisted?, :unless => :facebook_share?, :on => :create
+  after_commit :async_deliver, :if => :persisted?, :on => :create
   after_commit :create_event, :on => :create
 
   HOST = "staging.qwiqq.me"
@@ -37,6 +34,8 @@ class Share < ActiveRecord::Base
     end
   end
 
+
+  # TODO resque from Koala API Exceptions
   def deliver_to_facebook
     # post url 
     deal_url = Rails.application.routes.url_helpers.deal_url(deal, :host => HOST)
@@ -45,8 +44,8 @@ class Share < ActiveRecord::Base
     target_id = facebook_page_id.blank? ? "me" : facebook_page_id
     user.facebook_client.put_connections(target_id, "qwiqqme:share", :post => deal_url)
 
-    # set, don't update
-    self.shared_at = Time.now
+    # update
+    update_attribute(:shared_at, Time.now)
   end
 
   def deliver_to_foursquare
