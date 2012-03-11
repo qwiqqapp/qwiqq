@@ -41,12 +41,8 @@ class Share < ActiveRecord::Base
     # post url 
     deal_url = Rails.application.routes.url_helpers.deal_url(deal, :host => HOST)
 
-    # post to the page or users wall
-    attachment = {
-      "name" => deal.name,
-      "link" => deal_url,
-      "picture" => deal.photo.url(:iphone_grid) }
-    user.facebook_client.put_wall_post(message, attachment, facebook_page_id || "me")
+    # post to the page or users timeline
+    user.facebook_client.put_connections("me", "qwiqqme:share", :post => deal_url)
 
     # set, don't update
     self.shared_at = Time.now
