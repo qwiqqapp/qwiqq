@@ -42,7 +42,7 @@ class Share < ActiveRecord::Base
     deal_url = Rails.application.routes.url_helpers.deal_url(deal, :host => HOST)
 
     # post to the page or users timeline
-    user.facebook_client.put_connections("me", "qwiqqme:share", :post => deal_url)
+    user.facebook_client.put_connections(facebook_page_id || "me", "qwiqqme:share", :post => deal_url)
 
     # set, don't update
     self.shared_at = Time.now
