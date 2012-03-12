@@ -64,7 +64,7 @@ class ShareTest < ActiveSupport::TestCase
     @share = Factory(:facebook_share, :user => Factory(:user), :facebook_page_id => '')
     
     facebook_client = mock
-    facebook_client.expects(:put_connections).with("me", "qwiqqme:share", anything).returns(true)
+    facebook_client.expects(:put_connections).with("me", "links", anything).returns(true)
     User.any_instance.expects(:facebook_client).returns(facebook_client)
     
     Resque.run!
@@ -72,11 +72,11 @@ class ShareTest < ActiveSupport::TestCase
   
   test "should share a deal to a users facebook page" do
     @share = Factory(:facebook_share, :facebook_page_id => "3234592348234")
-
+    
     facebook_client = mock
-    facebook_client.expects(:put_connections).with("3234592348234", "qwiqqme:share", anything).returns(true)
+    facebook_client.expects(:put_connections).with("3234592348234", "links", anything).returns(true)
     User.any_instance.expects(:facebook_client).returns(facebook_client)
-
+    
     Resque.run!
   end
   

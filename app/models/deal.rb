@@ -280,7 +280,6 @@ class Deal < ActiveRecord::Base
     c = self.price_as_string if self.price
     c << " at #{venue_or_location_name}."
     c << " Posted by #{self.user.name || self.user.username}"
-    c << " about #{self.age_in_words} ago."
     c
   end
   

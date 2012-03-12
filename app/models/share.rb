@@ -41,8 +41,8 @@ class Share < ActiveRecord::Base
     
     # post to the page or users timeline
     target_id = self.facebook_page_id.blank? ? "me" : self.facebook_page_id
-    self.user.facebook_client.put_connections(target_id, "qwiqqme:share", :post => deal_url)
-
+    self.user.facebook_client.put_connections(target_id, "links", {:link => deal_url, :message => message})
+    
     # update
     self.update_attribute(:shared_at, Time.now)
   end
