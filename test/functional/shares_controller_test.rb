@@ -32,13 +32,13 @@ class Api::SharesControllerTest < ActionController::TestCase
     assert_equal 'twitter', @deal.shares.first.service
   end
 
-  test "should share a deal on facebook" do
+  test "should create facebook share (for page)" do
     @owner  = Factory(:user)
-    @sharer = Factory(:user)
+    @sharer = Factory(:user, :current_facebook_page_id => '3234592348234')
     @deal   = Factory(:deal, :user => @owner)
     sign_in(@sharer)
     
-    # share is pushed to worker
+    # share is pushed to worker queue
     Share.any_instance.expects(:deliver_to_facebook).never
     
     post :create,
@@ -53,6 +53,7 @@ class Api::SharesControllerTest < ActionController::TestCase
     assert_equal 1, @deal.shares.count
     assert_equal 'facebook', @deal.shares.first.service
     assert_equal 'I found a thing on Qwiqq!', @deal.shares.first.message
+    assert_equal '3234592348234', @deal.shares.first.facebook_page_id
   end
 
   test "should share a deal to multiple services" do

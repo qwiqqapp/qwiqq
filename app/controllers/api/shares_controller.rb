@@ -5,8 +5,12 @@ class Api::SharesController < Api::ApiController
     deal = Deal.find(params[:deal_id])
     
     # facebook
+    # share created with current_facebook_page_id
     if params[:facebook]
-      current_user.shares.create(:deal => deal, :service => "facebook", :message => params[:message])
+      current_user.shares.create( deal: deal, 
+                                  service: "facebook", 
+                                  message: params[:message],
+                                  facebook_page_id: current_user.current_facebook_page_id)
     end
     
     # twitter

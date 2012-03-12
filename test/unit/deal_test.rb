@@ -63,8 +63,8 @@ class DealTest < ActiveSupport::TestCase
     @deal.locate_via_foursquare!
     @deal.reload # reload to make sure changes were commited
 
-    assert_in_delta 49.282867, @deal.lat, 0.01
-    assert_in_delta -123.109587, @deal.lon, 0.01
+    assert_in_delta(49.282867, @deal.lat, 0.01)
+    assert_in_delta(-123.109587, @deal.lon, 0.01)
     assert_equal "Nuba", @deal.foursquare_venue_name
     assert_equal "207 West Hastings", @deal.location_name
   end

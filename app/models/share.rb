@@ -38,14 +38,14 @@ class Share < ActiveRecord::Base
   # TODO resque from Koala API Exceptions
   def deliver_to_facebook
     # post url 
-    deal_url = Rails.application.routes.url_helpers.deal_url(deal, :host => HOST)
+    deal_url = Rails.application.routes.url_helpers.deal_url(self.deal, :host => HOST)
 
     # post to the page or users timeline
-    target_id = facebook_page_id.blank? ? "me" : facebook_page_id
-    user.facebook_client.put_connections(target_id, "qwiqqme:share", :post => deal_url)
+    target_id = self.facebook_page_id.blank? ? "me" : self.facebook_page_id
+    self.user.facebook_client.put_connections(target_id, "qwiqqme:share", :post => deal_url)
 
     # update
-    update_attribute(:shared_at, Time.now)
+    self.update_attribute(:shared_at, Time.now)
   end
 
   def deliver_to_foursquare

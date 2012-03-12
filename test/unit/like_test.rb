@@ -39,7 +39,7 @@ class LikeTest < ActiveSupport::TestCase
     
     Resque.run!
     email = ActionMailer::Base.deliveries.last
-    assert_match  /liked/i, email.subject
+    assert_match(/liked/i, email.subject)
   end
   
   test "should update sent_at" do

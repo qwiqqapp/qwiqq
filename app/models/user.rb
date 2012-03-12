@@ -143,17 +143,17 @@ class User < ActiveRecord::Base
       self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
     end
   end
-
+  
   def name
     "#{first_name} #{last_name}".titleize
   end
-
+  
   def follow!(target)
     relationships.create(:target => target)
     Feedlet.import( target.deals.map { |d| 
       self.feedlets.new(:posting_user_id => target.id, :deal_id => d.id, :timestamp => d.created_at) } )
   end
-
+  
   def unfollow!(target)
     self.feedlets.where(:posting_user_id => target.id).delete_all
     relationships.find_by_target_id(target.id).try(:destroy)
