@@ -282,7 +282,6 @@ class Deal < ActiveRecord::Base
     c << " Posted by #{self.user.name || self.user.username}"
     c
   end
-  
 
   private
   def self.geo_radians(lat, lon)

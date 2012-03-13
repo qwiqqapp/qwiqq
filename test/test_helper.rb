@@ -6,7 +6,7 @@ require 'mocha'
 # stop all network requests,
 # will throw exception if network request is issued
 require 'fakeweb'
-FakeWeb.allow_net_connect = false
+# FakeWeb.allow_net_connect = false
 
 # there's an issue with psych failing to parse dates on 1.9.2 
 # so force the use of syck until the issue has been resolved

@@ -36,12 +36,13 @@ class Share < ActiveRecord::Base
 
   
   def deliver_to_facebook
-    # post url 
+    # old
     deal_url = Rails.application.routes.url_helpers.deal_url(self.deal, :host => HOST)
-    
-    # post to the page or users timeline
     target_id = self.facebook_page_id.blank? ? "me" : self.facebook_page_id
     self.user.facebook_client.put_connections(target_id, "links", {:link => deal_url, :message => message})
+    
+    # new
+    # user.facebook.share(self)
     
     # update
     self.update_attribute(:shared_at, Time.now)

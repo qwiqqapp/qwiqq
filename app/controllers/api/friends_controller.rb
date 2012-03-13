@@ -54,8 +54,11 @@ class Api::FriendsController < Api::ApiController
     end
 
     def find_friends_on_facebook(user)
-      # TODO move to user model #facebook_friends
-      facebook_ids = user.facebook_client.friends.map {|f| f["id"].to_s }
+      # new
+      # facebook_ids = user.facebook_client.friends.map {|f| f["id"].to_s }
+
+      # find facebook friends
+      facebook_ids = user.facebook_friend_ids
       friends = User.sorted.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
       #//
       
