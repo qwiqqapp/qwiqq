@@ -171,41 +171,43 @@ class UserTest < ActiveSupport::TestCase
     @user.update_attributes(:photo_service => "twitter")
   end
 
-  test "should retrieve Facebook pages" do
-    @user = Factory(:user, :facebook_access_token => "token")
-    facebook_response = [{ 
-      "name" => "Gastown Labs", 
-      "access_token" => "ADXVqk6fFwBACg3qmH9zJxVfrop7a9P2U",
-      "category" => "Internet/software", 
-      "id" => "325173277528821" 
-    }]
-    facebook_client = mock()
-    facebook_client.expects(:get_connections).with("me", "accounts").returns(facebook_response)
-    @user.stubs(:facebook_client).returns(facebook_client)
-    pages = @user.facebook_pages
 
-    assert_equal 1, pages.size
-    assert_equal "Gastown Labs", pages[0][:name]
-    assert_equal "325173277528821", pages[0][:id]
-    assert_equal "ADXVqk6fFwBACg3qmH9zJxVfrop7a9P2U", pages[0][:access_token]
-  end
-  
-  # TODO fix test, does not set exception message. SO unable to confirm logic for e.message =~ /error validating access token/
-  test "should reset users facebook_access_token if invalid" do
-    facebook_client = mock()
-    facebook_client.expects(:get_connections).with("me", "accounts").raises(Koala::Facebook::APIError.new(
-      :type => "OAuthException",
-      :message => "Error validating access token: The session has been invalidated because the user has changed the password."))
-
-    @user = Factory(:user, :facebook_access_token => "token")
-    @user.stubs(:facebook_client).returns(facebook_client)
-        
-    assert_raises FacebookInvalidTokenException do
-      @user.facebook_pages
-    end
-    
-    @user.reload
-    assert_equal nil, @user.facebook_access_token
-  end
+  #  move to users controller facebook_pages
+  # test "should retrieve Facebook pages" do
+  #   @user = Factory(:user, :facebook_access_token => "token")
+  #   facebook_response = [{ 
+  #     "name" => "Gastown Labs", 
+  #     "access_token" => "ADXVqk6fFwBACg3qmH9zJxVfrop7a9P2U",
+  #     "category" => "Internet/software", 
+  #     "id" => "325173277528821" 
+  #   }]
+  #   facebook_client = mock()
+  #   facebook_client.expects(:get_connections).with("me", "accounts").returns(facebook_response)
+  #   @user.stubs(:facebook_client).returns(facebook_client)
+  #   pages = @user.facebook_pages
+  # 
+  #   assert_equal 1, pages.size
+  #   assert_equal "Gastown Labs", pages[0][:name]
+  #   assert_equal "325173277528821", pages[0][:id]
+  #   assert_equal "ADXVqk6fFwBACg3qmH9zJxVfrop7a9P2U", pages[0][:access_token]
+  # end
+  # 
+  # # TODO fix test, does not set exception message. SO unable to confirm logic for e.message =~ /error validating access token/
+  # test "should reset users facebook_access_token if invalid" do
+  #   facebook_client = mock()
+  #   facebook_client.expects(:get_connections).with("me", "accounts").raises(Koala::Facebook::APIError.new(
+  #     :type => "OAuthException",
+  #     :message => "Error validating access token: The session has been invalidated because the user has changed the password."))
+  # 
+  #   @user = Factory(:user, :facebook_access_token => "token")
+  #   @user.stubs(:facebook_client).returns(facebook_client)
+  #       
+  #   assert_raises FacebookInvalidTokenException do
+  #     @user.facebook_pages
+  #   end
+  #   
+  #   @user.reload
+  #   assert_equal nil, @user.facebook_access_token
+  # end
 end
 

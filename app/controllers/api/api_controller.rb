@@ -1,5 +1,3 @@
-class FacebookInvalidTokenException < Exception; end
-
 class Api::ApiController < ActionController::Base
   
   respond_to :json
@@ -8,10 +6,10 @@ class Api::ApiController < ActionController::Base
   
   helper_method :current_user
   
-  rescue_from FacebookInvalidTokenException do |e|
+  rescue_from Facebook::InvalidAccessTokenError do |e|
     notify_airbrake(e)
-    Rails.logger.error "FacebookInvalidTokenException error#400: #{e.message}"
-    render :json => {:message => "Facebook Invalid Token: #{e.message}" }, :status => 400
+    Rails.logger.error "Facebook::InvalidAccessTokenError #405: #{e.message}"
+    render :json => {:message => "Facebook::InvalidAccessTokenError: #{e.message}" }, :status => :bad_request
   end
   
   # Method Not Allowed

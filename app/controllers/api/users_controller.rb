@@ -85,15 +85,12 @@ class Api::UsersController < Api::ApiController
     respond_with @users.as_json(:current_user => current_user)
   end
 
-  # raise RecordNotFound unless current user
-  # return :bad_request if no access token
-  # TODO return bad_request if facebook_pages returns nil
   def facebook_pages
     raise ActiveRecord::RecordNotFound unless params[:id] == "current"
-    @facebook_pages = current_user.facebook_pages
-    
+    @facebook_pages = current_user.facebook.pages.map do |page|
+      { id: page["id"], name: page["name"], access_token: page["access_token"]}
+    end
     respond_with @facebook_pages
   end
-
 end
 
