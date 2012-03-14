@@ -169,7 +169,7 @@ class Api::UsersControllerTest < ActionController::TestCase
   end
   
   
-  test "#update should return 406 (not_acceptable when users token is invalid)" do
+  test "#update should return 200 when users token is invalid for FB id update" do
     @user = Factory(:user)   
     sign_in @user
     
@@ -188,8 +188,11 @@ class Api::UsersControllerTest < ActionController::TestCase
     @user.expects(:facebook_client).returns(client)
     
     put :update, :id => "current", :user => @user_params, :format => "json"
-    assert_equal 406, @response.status
+    assert_equal 200, @response.status
   end
+  
+
+  
   
   # users#update
   test "should return validation errors when updating the user failed" do
@@ -270,6 +273,27 @@ class Api::UsersControllerTest < ActionController::TestCase
     assert_equal 406, @response.status
   end
   
-
+  
+  test "#update should return 406 when users token is invalid for FB image update" do
+    @user = Factory(:user)   
+    sign_in @user
+    
+    @user_params = {
+      :first_name => "Bilbo",
+      :last_name => "Baggins",
+      :username => "bilbo",
+      :email => "bilbo@theshire.com", 
+      :country => "Middle Earth",
+      :city => "The Shire",
+      :photo_service => "facebook"
+    }
+    
+    client = mock
+    client.expects(:photo).raises(Facebook::InvalidAccessTokenError)
+    @user.expects(:facebook_client).returns(client)
+    
+    put :update, :id => "current", :user => @user_params, :format => "json"
+    assert_equal 406, @response.status
+  end
   
 end

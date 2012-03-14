@@ -6,7 +6,6 @@ class Api::ApiController < ActionController::Base
   
   helper_method :current_user
   
-  
   # not_acceptable
   rescue_from Facebook::InvalidAccessTokenError do |e|
     notify_airbrake(e)

@@ -66,13 +66,19 @@ class User < ActiveRecord::Base
   attr_accessor :photo_service
   
   before_save :encrypt_password
-  before_save :update_twitter_id
-  before_save :update_facebook_id
-  before_save :update_foursquare_id
   before_save :update_notifications_token
   before_save :update_photo_from_service
   
-  after_save :update_push_token # may be called on create and we need user_id to create a push_device
+  # update social id when access_token is updated
+  # move to after_save to avoid ever halting update
+  after_save :update_twitter_id
+  after_save :update_facebook_id
+  after_save :update_foursquare_id
+  
+  # may be called on create and we need user_id to create a push_device
+  after_save :update_push_token 
+  
+  # create worker to update cached user event attributes
   after_save :async_update_cached_user_attributes
   
   validates_confirmation_of :password
@@ -93,7 +99,7 @@ class User < ActiveRecord::Base
                                   
       # user detail view
       :iphone_profile => ["95x95#", :jpg],
-      :iphone_profile_2x => ["190x190#", :jpg],                                  
+      :iphone_profile_2x => ["190x190#", :jpg],
                                   
       # large image for zoom
       :iphone_zoom => ["300x300#", :jpg],
@@ -280,20 +286,40 @@ class User < ActiveRecord::Base
   end
   
   private
+    # perform on after_save callback
+    # note use of update_column over update_attribute
+    # facebook_client will handle exception and clear facebook_access_token if appropriate
+    # TODO refactor all this dup code
     def update_facebook_id
-      return unless facebook_access_token_changed?
-      unless facebook_access_token.blank?
-        self.facebook_id = facebook_client.me["id"] 
-      end
+      return unless self.facebook_access_token_changed?
+      return if self.facebook_access_token.blank?
+      
+      facebook_user = self.facebook_client.me
+      self.update_column(:facebook_id, facebook_user["id"]) if facebook_user
+    rescue Exception => e
+      Rails.logger.error "User#update_facebook_id: #{e.message}"
     end
     
     def update_twitter_id
       return unless twitter_access_token_changed?
-      unless twitter_access_token.blank?
-        twitter_user = twitter_client.user rescue nil
-        self.twitter_id = twitter_user.id.to_s if twitter_user
-      end
+      return if twitter_access_token.blank?
+      
+      twitter_user = twitter_client.user
+      self.update_column(:twitter_id, twitter_user.id.to_s) if twitter_user
+    rescue Exception => e
+      Rails.logger.error "User#update_twitter_id: #{e.message}"
     end
+    
+    def update_foursquare_id
+      return unless foursquare_access_token_changed?
+      return if foursquare_access_token.blank?
+      
+      foursquare_user = foursquare_client.user("self")
+      self.update_column(:foursquare_id,  foursquare_user["id"]) if foursquare_user
+    rescue Exception => e
+      Rails.logger.error "User#update_foursquare_id: #{e.message}"      
+    end
+    
     
     # called on after_save
     # will either create device record and register
@@ -304,13 +330,7 @@ class User < ActiveRecord::Base
       push_token = nil
     end
     
-    def update_foursquare_id
-      return unless foursquare_access_token_changed?
-      unless foursquare_access_token.blank?
-        user = foursquare_client.user("self")
-        self.foursquare_id = user["id"]
-      end
-    end
+
     
     def update_notifications_token
       self.notifications_token ||= Qwiqq.friendly_token

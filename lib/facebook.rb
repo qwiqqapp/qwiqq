@@ -42,7 +42,9 @@ class Facebook
   end
   
   def me
-    with_client{ client.get_object("me") }
+    with_client do 
+      client.get_object("me")
+    end
   end
   
 private

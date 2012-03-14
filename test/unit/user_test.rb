@@ -86,6 +86,8 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "#feed_deals" do
+    @category = Factory(:category)
+    
     @user0 = Factory(:user)
     @user1 = Factory(:user)
     @user2 = Factory(:user)
@@ -94,10 +96,10 @@ class UserTest < ActiveSupport::TestCase
     @user0.follow!(@user1)
     @user0.follow!(@user2)
 
-    @deal0 = Factory(:deal, :user => @user1, :created_at => 1.hour.ago)
-    @deal1 = Factory(:deal, :user => @user2, :created_at => 2.hours.ago)
-    @deal2 = Factory(:deal, :user => @user0, :created_at => 3.hours.ago)
-    @deal3 = Factory(:deal, :user => @user3, :created_at => 4.hours.ago)
+    @deal0 = Factory(:deal, :user => @user1, :category => @category, :created_at => 1.hour.ago)
+    @deal1 = Factory(:deal, :user => @user2, :category => @category, :created_at => 2.hours.ago)
+    @deal2 = Factory(:deal, :user => @user0, :category => @category, :created_at => 3.hours.ago)
+    @deal3 = Factory(:deal, :user => @user3, :category => @category, :created_at => 4.hours.ago)
 
     assert_equal 3, @user0.feed_deals.count
     assert_equal [@deal0, @deal1, @deal2], @user0.feed_deals.sorted
@@ -148,7 +150,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "1", @user.facebook_id
   end
 
-  test "should update #foursquare_id when #facebook_access_token changes" do
+  test "should update #foursquare_id when #foursquare_access_token changes" do
     @user = Factory(:user)
     
     foursquare_response = { "id" => "1" }
@@ -159,7 +161,23 @@ class UserTest < ActiveSupport::TestCase
     
     assert_equal "1", @user.foursquare_id
   end
+  
+  test "should update user even if FB token is changed and invalid" do    
+    @user = Factory(:user, :first_name => 'jack', :last_name => 'w')
 
+    facebook_client = mock
+    facebook_client.expects(:me).raises(Facebook::InvalidAccessTokenError)
+    @user.stubs(:facebook_client).returns(facebook_client)    
+    
+    assert_nothing_raised do
+      @user.update_attributes(:first_name => 'john', :last_name => 'phan', :facebook_access_token => 'invalid')
+    end
+    
+    @user.reload
+    assert_equal 'john', @user.first_name
+    assert_equal 'phan', @user.last_name
+  end
+  
   test "should fetch the users image from facebook when #photo_service == 'facebook'" do
     @user = Factory(:user)
     @user.expects(:update_photo_from_facebook)
