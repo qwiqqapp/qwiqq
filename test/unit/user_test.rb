@@ -183,7 +183,19 @@ class UserTest < ActiveSupport::TestCase
     @user.expects(:update_photo_from_facebook)
     @user.update_attributes(:photo_service => "facebook")
   end
-
+  
+  test "should raise if FB token is invalid when #photo_service == 'facebook'" do
+    @user = Factory(:user)
+    
+    facebook_client = mock
+    facebook_client.expects(:photo).raises(Facebook::InvalidAccessTokenError)
+    @user.stubs(:facebook_client).returns(facebook_client)
+    
+    assert_raises Facebook::InvalidAccessTokenError do 
+      @user.update_attributes(:photo_service => "facebook")
+    end
+  end
+  
   test "should fetch the users image from twitter when #photo_service == 'twitter'" do
     @user = Factory(:user)
     @user.expects(:update_photo_from_twitter)
@@ -203,5 +215,6 @@ class UserTest < ActiveSupport::TestCase
     
     assert_equal ['a', 'c'], @user.facebook_friends.map(&:first_name)
   end
+  
 end
 

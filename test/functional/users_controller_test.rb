@@ -275,18 +275,9 @@ class Api::UsersControllerTest < ActionController::TestCase
   
   
   test "#update should return 406 when users token is invalid for FB image update" do
-    @user = Factory(:user)   
+    @user = Factory(:user)
     sign_in @user
-    
-    @user_params = {
-      :first_name => "Bilbo",
-      :last_name => "Baggins",
-      :username => "bilbo",
-      :email => "bilbo@theshire.com", 
-      :country => "Middle Earth",
-      :city => "The Shire",
-      :photo_service => "facebook"
-    }
+    @user_params = {:photo_service => "facebook"}
     
     client = mock
     client.expects(:photo).raises(Facebook::InvalidAccessTokenError)

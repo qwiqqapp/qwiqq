@@ -70,10 +70,9 @@ class User < ActiveRecord::Base
   before_save :update_photo_from_service
   
   # update social id when access_token is updated
-  # move to after_save to avoid ever halting update
-  after_save :update_twitter_id
-  after_save :update_facebook_id
-  after_save :update_foursquare_id
+  before_save :update_twitter_id
+  before_save :update_facebook_id
+  before_save :update_foursquare_id
   
   # may be called on create and we need user_id to create a push_device
   after_save :update_push_token 
@@ -265,8 +264,15 @@ class User < ActiveRecord::Base
   end
   
   def update_photo_from_facebook
+    puts "fetching photo"
+    
+
     picture_url = facebook_client.photo
-    self.photo = Paperclip::RemoteFile.new(picture_url) if picture_url
+    
+    puts "fetched photo"
+    self.photo = Paperclip::RemoteFile.new(picture_url) if picture_url 
+    
+    puts 'saved photo'
   end
   
   def update_photo_from_twitter
@@ -286,7 +292,6 @@ class User < ActiveRecord::Base
   end
   
   private
-    # perform on after_save callback
     # note use of update_column over update_attribute
     # facebook_client will handle exception and clear facebook_access_token if appropriate
     # TODO refactor all this dup code
@@ -295,7 +300,8 @@ class User < ActiveRecord::Base
       return if self.facebook_access_token.blank?
       
       facebook_user = self.facebook_client.me
-      self.update_column(:facebook_id, facebook_user["id"]) if facebook_user
+      self.facebook_id = facebook_user["id"] if facebook_user
+            
     rescue Exception => e
       Rails.logger.error "User#update_facebook_id: #{e.message}"
     end
@@ -305,7 +311,8 @@ class User < ActiveRecord::Base
       return if twitter_access_token.blank?
       
       twitter_user = twitter_client.user
-      self.update_column(:twitter_id, twitter_user.id.to_s) if twitter_user
+      self.twitter_id = twitter_user.id.to_s if twitter_user
+      
     rescue Exception => e
       Rails.logger.error "User#update_twitter_id: #{e.message}"
     end
@@ -315,7 +322,8 @@ class User < ActiveRecord::Base
       return if foursquare_access_token.blank?
       
       foursquare_user = foursquare_client.user("self")
-      self.update_column(:foursquare_id,  foursquare_user["id"]) if foursquare_user
+      self.foursquare_id =  foursquare_user["id"] if foursquare_user
+      
     rescue Exception => e
       Rails.logger.error "User#update_foursquare_id: #{e.message}"      
     end

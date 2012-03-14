@@ -52,14 +52,14 @@ private
     Rails.application.routes.url_helpers.deal_url(deal, :host => HOST)
   end
 
-
   def with_client(&block)
     begin
       yield
     rescue Koala::Facebook::APIError => e
+      logger.error "[Rescue from] Koala::Facebook::APIError #{e.message}"
       case e.message 
         when /OAuthException/
-          @user.update_attribute(:facebook_access_token, nil)
+          @user.update_column(:facebook_access_token, nil)
           raise InvalidAccessTokenError
       
         when /KoalaMissingAccessToken/
@@ -73,5 +73,9 @@ private
   
   def client
     Koala::Facebook::GraphAPI.new(@user.facebook_access_token)
+  end
+  
+  def logger
+    Rails.logger
   end
 end
