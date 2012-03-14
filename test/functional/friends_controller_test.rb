@@ -111,5 +111,16 @@ class Api::FriendsControllerTest < ActionController::TestCase
     post :find, :format => "json", :user_id => @user0.id
     assert_equal 406, @response.status
   end
+  
+  test "should return 406 (not_acceptable) when users FB token is invalid" do
+    client = mock
+    client.expects(:friends).raises(Facebook::InvalidAccessTokenError)
+    @user = Factory(:user)    
+    @user.expects(:facebook_client).returns(client)
+
+    sign_in @user
+    post :find, :format => "json",:user_id => @user.id, :service => "facebook"
+    assert_equal 406, @response.status
+  end
 end
 

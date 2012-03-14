@@ -87,13 +87,9 @@ class Api::UsersController < Api::ApiController
 
   def facebook_pages
     raise ActiveRecord::RecordNotFound unless params[:id] == "current"
-    
     @facebook_pages = current_user.facebook_client.pages.map do |page|
       { id: page["id"], name: page["name"], access_token: page["access_token"]}
     end
-    
-    puts @facebook_pages
-    
     respond_with @facebook_pages
   end
 end
