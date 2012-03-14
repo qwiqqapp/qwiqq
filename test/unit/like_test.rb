@@ -58,12 +58,13 @@ class LikeTest < ActiveSupport::TestCase
   test "should NOT raise exception for like+unlike record not found" do
     @owner  = Factory(:user, :send_notifications => false)
     @deal   = Factory(:deal, :user => @owner)
-    @like   = Factory(:like, :deal => @deal)
+    Resque.reset! ## <<< temp fix, share job is being created from @user factory
     
-    #user unlikes deal
-    @like.destroy
+    @like = Factory(:like, :deal => @deal)
+    @like.destroy #user unlikes deal
+    
     assert_nothing_raised(ActiveRecord::RecordNotFound) do
-        Resque.run!
+      Resque.run!
     end
   end
 

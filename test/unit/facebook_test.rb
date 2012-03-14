@@ -16,7 +16,7 @@ class FacebookTest < ActiveSupport::TestCase
     client.expects(:get_object).with("me").returns(facebook_response)
     @facebook.expects(:client).returns(client)
     
-    assert_equal @facebook.me.id, facebook_response['id']
+    assert_equal @facebook.me['id'], facebook_response['id']
   end
   
   test "#photos with a valid access token" do
@@ -41,13 +41,17 @@ class FacebookTest < ActiveSupport::TestCase
   
   # Koala::Facebook::APIError: OAuthException: Error validating access token: The session has been invalidated because the user has changed the password.
   test "#photos with an invalid access token" do
-    @user.update_attribute(:facebook_access_token, "deadbeef")
+    # to avoid callbacks and update_facebook_id
+    @user.update_column(:facebook_access_token, 'invalid')
+    
     client = mock
     client.expects(:get_picture).raises(Koala::Facebook::APIError.new(
-      {'type' => 'OAuthException', 'message' => 'Invalid OAuth access token.' }))
+      {'type' => 'OAuthException', 
+        'message' => 'Invalid OAuth access token.' }))
       
     @facebook.expects(:client).returns(client)
-    assert_raises Facebook::InvalidAccessTokenError do 
+    
+    assert_raises Facebook::InvalidAccessTokenError do
       @facebook.photo
     end
     
@@ -55,14 +59,14 @@ class FacebookTest < ActiveSupport::TestCase
   end  
   
   test "#friends" do
-    results = [1,2,3]
+    results = [{'id' => 1}, {'id' => 2}, {'id' => 3}]
     results.expects(:next_page).returns(nil).once
     
     client = mock
     client.expects(:get_connections).with("me", "friends").returns(results)
     @facebook.expects(:client).returns(client)
     
-    assert_equal @facebook.friends, [1,2,3]
+    assert_equal @facebook.friends.first['id'], 1
   end
   
   test "#friends without access token" do

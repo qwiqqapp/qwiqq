@@ -88,8 +88,8 @@ class Api::FriendsControllerTest < ActionController::TestCase
     @user3 = Factory(:user, :facebook_id => "3", :email => "user3@gastownlabs.com", :first_name => "c", :last_name => "c", :username => "3") 
     @user0.follow!(@user1)
 
-    User.any_instance.stubs(:facebook_friend_ids).returns([ "1", "2", "4" ])
-
+    @user0.stubs(:facebook_friends).returns([@user1, @user2])
+    
     post :find,
       :format => "json",
       :user_id => @user0.id,

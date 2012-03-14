@@ -60,61 +60,39 @@ class ShareTest < ActiveSupport::TestCase
   end
   
   # ------- facebook
-  test "should deliver share to users facebook timeline" do
-    @share = Factory(:facebook_share, :user => Factory(:user), :facebook_page_id => '')
-    
-    facebook_client = mock
-    facebook_client.expects(:put_connections).with("me", "links", anything).returns(true)
-    User.any_instance.expects(:facebook_client).returns(facebook_client)
-    
-    Resque.run!
-  end
-  
-  test "should share a deal to a users facebook page" do
-    @share = Factory(:facebook_share, :facebook_page_id => "3234592348234")
-    
-    facebook_client = mock
-    facebook_client.expects(:put_connections).with("3234592348234", "links", anything).returns(true)
-    User.any_instance.expects(:facebook_client).returns(facebook_client)
-    
-    Resque.run!
-  end
-  
   test "should queue share deliver job" do
     @share = Factory(:facebook_share)
     assert_queued(ShareDeliveryJob, [@share.id])
   end
   
+  test "should share a deal to facebook" do
+    @share = Factory(:facebook_share)
+    
+    client = mock
+    client.expects(:share_link).with(@share)
+    User.any_instance.expects(:facebook_client).returns(client)
+    
+    Resque.run!
+  end
+  
   test "should update shared_at on success" do
     @share = Factory(:facebook_share)
-
-    facebook_client = mock
-    facebook_client.expects(:put_connections).returns(true)
-    User.any_instance.expects(:facebook_client).returns(facebook_client)
+    
+    client = mock
+    client.expects(:share_link).with(@share)
+    User.any_instance.expects(:facebook_client).returns(client)
     
     Resque.run!
     @share.reload
     assert_not_nil @share.shared_at
   end
   
-  test "should set a default message when none is provided (facebook)" do
-    @share = Factory(:facebook_share)
-
-    facebook_client = mock
-    facebook_client.expects(:put_connections).returns(true)
-    User.any_instance.expects(:facebook_client).returns(facebook_client)
-    
-    Resque.run!
-    assert_equal "I shared something I love on Qwiqq!", @share.message
-  end
-  
-  
-  test "should not resque from Koala exception" do
+  test "should not rescue from Koala exception" do
     @share = Factory(:facebook_share)
     
-    facebook_client = mock
-    facebook_client.expects(:put_connections).raises(Koala::Facebook::APIError)
-    User.any_instance.expects(:facebook_client).returns(facebook_client)
+    client = mock
+    client.expects(:share_link).with(@share).raises(Koala::Facebook::APIError)
+    User.any_instance.expects(:facebook_client).returns(client)
     
     assert_raises Koala::Facebook::APIError do
       Resque.run!

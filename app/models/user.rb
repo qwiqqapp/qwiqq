@@ -257,43 +257,9 @@ class User < ActiveRecord::Base
     end while cursor != 0
     twitter_ids.flatten
   end
-
-
-
-  # TODO move to lib/facebook.rb
-  def facebook_client
-    @facebook_client ||= Koala::Facebook::GraphAPI.new(facebook_access_token) if facebook_access_token.present?
-  end
   
-  # TODO move to lib/facebook.rb
-  def facebook_pages
-    return if facebook_access_token.blank?
-    
-    facebook_client.get_connections("me", "accounts").map do |page|
-      { id: page["id"], name: page["name"], access_token: page["access_token"]}
-    end
-    
-  rescue Koala::Facebook::APIError => e
-    Rails.logger.error "[rescue from] Koala::Facebook::APIError: #{e.message}"
-    self.update_attribute(:facebook_access_token, nil)
-    raise FacebookInvalidTokenException, e.message
-  end
-  
-  # TODO move to lib/facebook.rb  
-  def facebook_friend_ids
-    facebook_ids = []
-    friends = facebook_client.get_connections("me", "friends")
-    begin
-      facebook_ids << friends.map {|f| f["id"].to_s }
-      friends = friends.next_page
-    end while friends
-    facebook_ids.flatten
-  end
-  
-  # TODO move to lib/facebook.rb  
   def update_photo_from_facebook
-    return if facebook_access_token.blank?
-    picture_url = facebook_client.get_picture("me", :type => "large") rescue nil
+    picture_url = facebook_client.photo
     self.photo = Paperclip::RemoteFile.new(picture_url) if picture_url
   end
   
@@ -303,7 +269,24 @@ class User < ActiveRecord::Base
     self.photo = Paperclip::RemoteFile.new(profile_image_url) if profile_image_url
   end
   
+  def facebook_friends
+    facebook_ids = facebook_client.friends.map{|f| f["id"].to_s }
+    self.class.sorted.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
+  end
+  
+  # see lib/facebook
+  def facebook_client
+    Facebook.new(self)
+  end
+  
   private
+    def update_facebook_id
+      return unless facebook_access_token_changed?
+      unless facebook_access_token.blank?
+        self.facebook_id = facebook_client.me["id"] 
+      end
+    end
+    
     def update_twitter_id
       return unless twitter_access_token_changed?
       unless twitter_access_token.blank?
@@ -320,15 +303,7 @@ class User < ActiveRecord::Base
       PushDevice.create_or_update!(:token => push_token, :user_id => self.id)
       push_token = nil
     end
-  
-    def update_facebook_id
-      return unless facebook_access_token_changed?
-      unless facebook_access_token.blank?
-        me = facebook_client.get_object("me") rescue nil
-        self.facebook_id = me["id"] if me
-      end
-    end
-
+    
     def update_foursquare_id
       return unless foursquare_access_token_changed?
       unless foursquare_access_token.blank?
@@ -336,18 +311,18 @@ class User < ActiveRecord::Base
         self.foursquare_id = user["id"]
       end
     end
-
+    
     def update_notifications_token
       self.notifications_token ||= Qwiqq.friendly_token
     end
-
+    
     def update_photo_from_service
       case photo_service
       when "facebook" then update_photo_from_facebook
       when "twitter" then update_photo_from_twitter
       end
     end
-
+    
     def async_update_cached_user_attributes
       Resque.enqueue(UpdateCachedUserAttributesJob, id) if photo_file_name_changed?
     end

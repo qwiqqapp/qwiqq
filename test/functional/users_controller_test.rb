@@ -148,19 +148,24 @@ class Api::UsersControllerTest < ActionController::TestCase
       :last_name => "Baggins",
       :username => "bilbo",
       :email => "bilbo@theshire.com", 
-      :country => "Middle Earth", 
+      :country => "Middle Earth",
       :city => "The Shire", 
       :facebook_access_token => "token"
     }
- 
+    
+    client = mock
+    client.expects(:me).returns({'id' => '982739873298'})
+    @user.expects(:facebook_client).returns(client)
+    
     put :update, :id => "current", :user => @user_params, :format => "json"
-
+    
     assert_equal 200, @response.status
-    assert_equal "token", @user.facebook_access_token
-
-    # the response should contain the updated user
     assert_equal "Bilbo", json_response["first_name"]
     assert_equal "Baggins", json_response["last_name"]
+    
+    # user should be updated
+    assert_equal "token", @user.facebook_access_token
+    assert_equal '982739873298', @user.facebook_id
   end
 
   # users#update
@@ -214,10 +219,13 @@ class Api::UsersControllerTest < ActionController::TestCase
   end
 
   test "should return the current users facebook pages" do
-    @user = Factory(:user, :facebook_access_token => "test")
-    pages = [{ :id => "325173277528821", :name => "Gastown Labs", :access_token => "ADXVqk6fFwBACg3qmH9zJxVfrop7a9P2U" }]
-    User.any_instance.expects(:facebook_pages).returns(pages)
-
+    @user = Factory(:user)
+    pages = [{ 'id' => "325173277528821", 'name' => "Gastown Labs", 'access_token' => "ADXVqk6fFwBACg3qmH9zJxVfrop7a9P2U" }]
+    
+    client = mock
+    client.expects(:pages).returns(pages)
+    @user.expects(:facebook_client).returns(client)
+    
     sign_in @user
     get :facebook_pages, :format => "json", :id => "current"
 
@@ -227,13 +235,15 @@ class Api::UsersControllerTest < ActionController::TestCase
     assert_equal "325173277528821", json_response[0]["id"]
   end
   
-  test "should return 400 when users token is invalid" do
-    @user = Factory(:user, :facebook_access_token => "test")
-    User.any_instance.expects(:facebook_pages).raises(FacebookInvalidTokenException)
+  test "should return 406 (not_acceptable) when users token is invalid" do
+    client = mock
+    client.expects(:pages).raises(Facebook::InvalidAccessTokenError)
+    User.any_instance.expects(:facebook_client).returns(client)
+    
+    @user = Factory(:user)    
     sign_in @user
     
     get :facebook_pages, :format => "json", :id => "current"
-    
-    assert_equal 400, @response.status
+    assert_equal 406, @response.status
   end
 end

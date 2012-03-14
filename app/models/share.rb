@@ -33,18 +33,9 @@ class Share < ActiveRecord::Base
       Mailer.share_deal(email, self).deliver
     end
   end
-
   
   def deliver_to_facebook
-    # old
-    deal_url = Rails.application.routes.url_helpers.deal_url(self.deal, :host => HOST)
-    target_id = self.facebook_page_id.blank? ? "me" : self.facebook_page_id
-    self.user.facebook_client.put_connections(target_id, "links", {:link => deal_url, :message => message})
-    
-    # new
-    # user.facebook.share(self)
-    
-    # update
+    user.facebook_client.share_link(self)
     self.update_attribute(:shared_at, Time.now)
   end
 

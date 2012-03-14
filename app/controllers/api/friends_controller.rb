@@ -54,15 +54,7 @@ class Api::FriendsController < Api::ApiController
     end
 
     def find_friends_on_facebook(user)
-      # new
-      # facebook_ids = user.facebook_client.friends.map {|f| f["id"].to_s }
-
-      # find facebook friends
-      facebook_ids = user.facebook_friend_ids
-      friends = User.sorted.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
-      #//
-      
-      friends.map do |friend|
+      user.facebook_friends.map do |friend|
         friend.as_json(:current_user => current_user).merge({
           :state => user.following?(friend) ? 
             :following : 

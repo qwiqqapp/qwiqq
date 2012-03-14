@@ -52,19 +52,20 @@ private
 
 
   def with_client(&block)
-    yield
-    
-  rescue Koala::Facebook::APIError => e
-    case e.message 
-      when /OAuthException/
-        @user.update_attribute(:facebook_access_token, nil)
-        raise InvalidAccessTokenError, e.message
+    begin
+      yield
+    rescue Koala::Facebook::APIError => e
+      case e.message 
+        when /OAuthException/
+          @user.update_attribute(:facebook_access_token, nil)
+          raise InvalidAccessTokenError
       
-      when /KoalaMissingAccessToken/
-        raise InvalidAccessTokenError, e.message
+        when /KoalaMissingAccessToken/
+          raise InvalidAccessTokenError
       
-      else
-        raise
+        else
+          raise
+      end
     end
   end
   
