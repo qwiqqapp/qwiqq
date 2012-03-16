@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
   scope :sorted, :order => 'users.username ASC'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   scope :suggested, where(:suggested => true)
+  
+  scope :connected_to_facebook, where('facebook_access_token is NOT NULL')
+  scope :connected_to_twitter, where('twitter_access_token is NOT NULL')
+  scope :connected_to_foursquare, where('foursquare_access_token is NOT NULL')
     
   attr_accessible :first_name, 
                   :last_name, 
@@ -263,16 +267,10 @@ class User < ActiveRecord::Base
     twitter_ids.flatten
   end
   
+  # can raise Facebook::InvalidAccessTokenError if token missing or invalid
   def update_photo_from_facebook
-    puts "fetching photo"
-    
-
     picture_url = facebook_client.photo
-    
-    puts "fetched photo"
-    self.photo = Paperclip::RemoteFile.new(picture_url) if picture_url 
-    
-    puts 'saved photo'
+    self.photo = Paperclip::RemoteFile.new(picture_url) if picture_url
   end
   
   def update_photo_from_twitter
@@ -328,7 +326,6 @@ class User < ActiveRecord::Base
       Rails.logger.error "User#update_foursquare_id: #{e.message}"      
     end
     
-    
     # called on after_save
     # will either create device record and register
     # or register existing device
@@ -337,8 +334,6 @@ class User < ActiveRecord::Base
       PushDevice.create_or_update!(:token => push_token, :user_id => self.id)
       push_token = nil
     end
-    
-
     
     def update_notifications_token
       self.notifications_token ||= Qwiqq.friendly_token

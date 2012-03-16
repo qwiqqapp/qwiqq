@@ -4,32 +4,39 @@ ActiveAdmin.register Deal do
   
   scope :all, :default => true
   scope :today
+  scope :recent
+  scope :premium  
   
   filter :name
+  filter :foursquare_venue_name
   filter :price
   filter :created_at
   filter :premium
+  filter :deals_count
   filter :category, :as => :check_boxes, :collection => proc { Category.all }
     
   index do
     column("") do |deal| 
-      link_to(image_tag(deal.photo.url(:iphone_grid)), [:admin, deal])
+      link_to(image_tag(deal.photo.url(:iphone_list)), [:admin, deal])
     end
     
     column("Name", :sortable => :name) do |deal|
       link_to(deal.name, [:admin, deal])
     end
-    
-    column('Location') {|d| link_to d.location_name, "http://maps.google.com/maps?q=#{d.name}@#{d.lat},#{d.lon}"}
-    
     column("Category") {|deal| status_tag(deal.try(:category).try(:name)) }
-    column("Premium", :sortable => :premium){|deal| deal.premium ? status_tag("Premium") : nil  }
-    
-    column("Date", :sortable => :created_at){|deal| deal.created_at.to_s(:short) }
-    column("User", :sortable => :user_id) {|deal| link_to(deal.user.name, admin_user_path(deal.user))}
+    column('Venue (4SQ)') {|d| link_to(d.foursquare_venue_name, "http://foursquare.com/v/#{d.foursquare_venue_id}") if d.foursquare_venue_name}
 
+    column("Premium", :sortable => :premium){|deal| deal.premium ? status_tag("Premium") : nil  }
+
+    column :likes_count
+    column :comments_count
+    column :shares_count
+    
+    column("User", :sortable => :user_id) {|deal| link_to(deal.user.name, admin_user_path(deal.user))}
     column("Price", :sortable => :price) {|deal| deal.price ? number_to_currency(deal.price.to_f/100) : "" }
-    column("Percent", :sortable => :percent) {|deal| deal.percent ? number_to_percentage(deal.percent, :precision => 0) : "" }    
+    
+    column :created_at
+    default_actions
   end
   
   form(:html => {:multipart => true}) do |f|

@@ -3,6 +3,9 @@ ActiveAdmin.register User do
   scope :all, :default => true
   scope :today
   scope :suggested
+  scope :connected_to_facebook
+  scope :connected_to_twitter
+  scope :connected_to_foursquare    
   
   filter :first_name
   filter :last_name
@@ -14,20 +17,25 @@ ActiveAdmin.register User do
   
   index do
     column("") do |user| 
-      link_to(image_tag(user.photo.url(:iphone)), [:admin, user])
+       link_to(image_tag(user.photo.url(:iphone_small)), [:admin, user])
     end
-    
-    column("Name", :sortable => :last_name) do |user|  
-      link_to("#{user.first_name} #{user.last_name}", [:admin, user])
-    end
-    
+    id_column     
+    column :first_name
+    column :last_name
     column :email
+    column :country
+    column :city
     
-    column('Location') do |l|
-      "#{l.country}, #{l.city}" unless l.country.blank? or l.city.blank?
-    end
-
-    column("Joined", :sortable => :created_at){|user| user.created_at.to_s(:short) }
+    column :followers_count
+    column :following_count
+    column :deals_count
+    column :comments_count
+    column :likes_count
+    
+    column :created_at
+    column :updated_at
+    
+    default_actions
   end
   
   show :title => :name do
@@ -74,11 +82,22 @@ ActiveAdmin.register User do
   end
 
   sidebar "Photo", :only => [:show, :edit] do
-    image_tag(user.photo.url(:iphone_zoom))
+    image_tag(user.photo.url(:iphone_profile_2x))
   end
   
   sidebar "Details", :only => :show do
-    attributes_table_for user, :first_name, :last_name, :username, :email, :country, :city, :created_at, :suggested
+    attributes_table_for user, :first_name, 
+                                :last_name, 
+                                :username, 
+                                :email, 
+                                :country, 
+                                :city, 
+                                :created_at, 
+                                :facebook_id,
+                                :twitter_id,
+                                :foursquare_id,
+                                :suggested,
+                                :send_notifications
   end
   
   form(:html => {:multipart => true}) do |f|
@@ -88,6 +107,9 @@ ActiveAdmin.register User do
      f.input :username
      f.input :email
      f.input :city
+     f.input :phone
+     f.input :website
+     f.input :bio     
      f.input :country, :as => :string
      f.input :photo, :as => :file
      f.input :suggested
