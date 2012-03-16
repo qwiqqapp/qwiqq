@@ -56,7 +56,7 @@
       #buzz
         #header
           %img.icon{ :src => image_path("buzz-icon.png") }
-          %h1 Social Buzz
+          %h1 Social buzz
           .stats
             %span.stat
               %img.icon.love{ :src => image_path("large-love-icon.png") }
@@ -68,7 +68,7 @@
         #events
           - if @events.empty?
             .empty
-              Nothing yet!
+              The latest buzz on this post will show up here
           - @events.each_with_index do |event, i|
             .event{ :class => i + 1 == @events.size ? "last" : "" }
               %a{ :href => user_url(event.created_by) }
