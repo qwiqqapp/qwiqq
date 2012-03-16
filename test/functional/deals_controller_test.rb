@@ -139,29 +139,26 @@ class Api::DealsControllerTest < ActionController::TestCase
     
     assert_equal 422, @response.status
     assert_match /required/i, json_response['name'].first
-    assert_match /price/i, json_response['base'].first
+    assert_match /blank/i, json_response['price'].first
   end
   
   # deals#create validation only name
   test "should NOT create deal from post missing category and price" do
     @user = Factory(:user)
     sign_in(@user)
-    
     @params = {:name => 'bacon brand tshirt' }
     
     post :create, :deal => @params, :format => 'json'
     
     assert_equal 422, @response.status
-
     assert_match /required/i, json_response['category'].first
-    assert_match /price/i, json_response['base'].first    
+    assert_match /blank/i, json_response['price'].first
   end
   
   # deals#create validation empty strings
   test "should NOT create deal from post with empty strings" do
     @user = Factory(:user)
     sign_in(@user)
-    
     @params = { :name => '', :category => '', :price => '', :photo => '' }
 
     post :create, :deal => @params, :format => 'json'
@@ -170,7 +167,7 @@ class Api::DealsControllerTest < ActionController::TestCase
     
     assert_match /required/i, json_response['name'].first
     assert_match /required/i, json_response['category'].first
-    assert_match /price/i,    json_response['base'].first
+    assert_match /is not a number/i, json_response['price'].last
   end
   
   # deals#show

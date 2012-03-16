@@ -15,11 +15,11 @@ class Api::SearchControllerTest < ActionController::TestCase
   def create_geo_deals
     @category = Factory(:category, :name => "food")
     
-    @deal0 = Factory(:deal_at_seattle,     :name => "space needle beer",:likes_count => 9, :comments_count => 4, :category => @category, :created_at => 1.days.ago)
-    @deal1 = Factory(:deal_at_gastownlabs, :name => "half a sandwhich", :likes_count => 5, :comments_count => 2, :category => @category, :created_at => 30.minutes.ago)
-    @deal2 = Factory(:deal_at_thelocal,    :name => "burger and beer",  :likes_count => 85, :comments_count => 21, :category => @category, :created_at => 10.minutes.ago)
-    @deal3 = Factory(:deal_at_sixacres,    :name => "german beer",      :likes_count => 23, :comments_count => 8, :category => @category, :created_at => 5.minutes.ago)
-    @deal4 = Factory(:deal_at_sixacres,    :name => "hungarian beer",   :likes_count => 23, :comments_count => 8, :category => @category, :created_at => 35.days.ago)
+    @deal0 = Factory(:deal_at_seattle,     :foursquare_venue_name => 'space needle',  :name => "space needle beer",:likes_count => 9, :comments_count => 4, :category => @category, :created_at => 1.days.ago)
+    @deal1 = Factory(:deal_at_gastownlabs, :foursquare_venue_name => 'Gastown Labs',  :name => "half a sandwhich", :likes_count => 5, :comments_count => 2, :category => @category, :created_at => 30.minutes.ago)
+    @deal2 = Factory(:deal_at_thelocal,    :foursquare_venue_name => 'The Local',     :name => "burger and beer",  :likes_count => 85, :comments_count => 21, :category => @category, :created_at => 10.minutes.ago)
+    @deal3 = Factory(:deal_at_sixacres,    :foursquare_venue_name => 'Six Acres',     :name => "german beer",      :likes_count => 23, :comments_count => 8, :category => @category, :created_at => 5.minutes.ago)
+    @deal4 = Factory(:deal_at_sixacres,    :foursquare_venue_name => 'Six Acres',     :name => "hungarian beer",   :likes_count => 23, :comments_count => 8, :category => @category, :created_at => 35.days.ago)
     
     # current location = centre of +victory+ square
     @lat = 49.282224

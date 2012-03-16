@@ -7,7 +7,7 @@ class Deal < ActiveRecord::Base
     indexes :foursquare_venue_name
     indexes category(:name), :as => :category
     
-    has "RADIANS(lat)", :as => :lat_radians,  :type => :float
+    has "RADIANS(lat)", :as => :lat_radians, :type => :float
     has "RADIANS(lon)", :as => :lon_radians, :type => :float
     
     set_property :latitude_attr => :lat_radians, :longitude_attr => :lon_radians
@@ -21,10 +21,10 @@ class Deal < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   has_many :likes, :dependent => :destroy
   has_many :shares
-
+  
   has_many :liked_by_users, :through => :likes, :source => :user
   has_many :feedlets, :dependent => :destroy
-
+  
   has_many :events, :class_name => "UserEvent", 
     :conditions => [ "event_type IN (?)", [ "comment", "like", "share" ] ], 
     :dependent => :destroy
@@ -37,7 +37,6 @@ class Deal < ActiveRecord::Base
                   :lon, 
                   :photo, 
                   :premium, 
-                  :percent, 
                   :location_name,
                   :foursquare_venue_id, 
                   :foursquare_venue_name
@@ -48,17 +47,14 @@ class Deal < ActiveRecord::Base
 
   validates_uniqueness_of :unique_token
   
-  validate :has_price_or_percentage
-  
-  validates :percent, :numericality => true, :inclusion => { :in => 0..100 }, :if => :has_percentage?
-  validates :price, :numericality => true, :if => :has_price?
+  validates :price, presence: true, numericality:  true
   
   before_validation :store_unique_token!, :on => :create
-
+  
   before_create :set_user_photo
   after_create :populate_feed
   after_create :async_locate
-
+  
   scope :today, lambda { where("DATE(created_at) = ?", Date.today) }
   scope :recent, lambda { where("DATE(created_at) > ?", 30.days.ago) }
   scope :premium, where(:premium => true)
@@ -145,7 +141,6 @@ class Deal < ActiveRecord::Base
       
       :premium        => premium,
       :price          => price,
-      :percent        => percent,
       
       :lat            => lat.try(:to_s),
       :lon            => lon.try(:to_s),
@@ -289,27 +284,29 @@ class Deal < ActiveRecord::Base
       (lon.to_f / 180.0) * Math::PI] 
   end
   
+  
+  # construct and store hexdigest of important attributes
+  # intent is to avoid duplicate posts being created due to server and 
+  # network issues
   def store_unique_token!
     input = ""
-    input << self.name              if self.name
-    input << self.price.to_s        if self.price
-    input << self.percent.to_s      if self.percent  
-    input << self.user_id.to_s      if self.user_id
-    input << self.category_id.to_s  if self.category_id
+    input << self.name                        if self.name
+    input << self.price.to_s                  if self.price
+    input << self.user_id.to_s                if self.user_id
+    input << self.category_id.to_s            if self.category_id
+
+    input << self.foursquare_venue_id.to_s    if self.foursquare_venue_id
+    input << self.foursquare_venue_name.to_s  if self.foursquare_venue_name
+
+    #added to allow user to intentionall post dup
+    input << self.lat.to_s                    if self.lat
+    input << self.lon.to_s                    if self.lon
     
     self.unique_token = Digest::MD5.hexdigest(input)
-  end
-  
-  def has_percentage?
-    !percent.blank?
   end
   
   def has_price?
     !price.blank?
   end
-  
-  def has_price_or_percentage
-    errors.add(:base, "Price or percent required") if price.blank? && percent.blank?
-  end  
 end
 

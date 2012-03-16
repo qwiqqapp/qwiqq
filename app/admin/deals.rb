@@ -85,6 +85,6 @@ ActiveAdmin.register Deal do
   end
     
   sidebar "Details (raw data)", :only => :show do
-    attributes_table_for deal, :name, :price, :percent, :lat, :lon,  :likes_count, :comments_count, :premium, :created_at, :updated_at
+    attributes_table_for deal, :name, :price, :lat, :lon,  :likes_count, :comments_count, :premium, :created_at, :updated_at
   end
 end

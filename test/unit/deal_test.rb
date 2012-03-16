@@ -19,15 +19,9 @@ class DealTest < ActiveSupport::TestCase
     }
   end
 
-  test "validates percent is a percentage" do
-    assert_raise(ActiveRecord::RecordInvalid) {
-      Factory(:deal, :percent => 101)
-    }
-  end
-
   test "validates price" do
     assert_raise(ActiveRecord::RecordInvalid) {
-      Factory(:deal, :price => "", :percent => nil)
+      Factory(:deal, :price => "")
     }
   end
   
@@ -42,7 +36,7 @@ class DealTest < ActiveSupport::TestCase
   test "validate unique token" do
     @user = Factory(:user)
     @category = Factory(:category)
-    params = {:name => 'test', :price => 5, :category_id => @category.id, :user_id => @user.id, :percent => nil}
+    params = Factory.attributes_for(:deal, :category => @category, :user => @user)
     
     @deal0 = Factory(:deal, params)
     assert_raise(ActiveRecord::RecordInvalid) {
@@ -52,7 +46,6 @@ class DealTest < ActiveSupport::TestCase
   
   # -------------
   # search
-  
   test "can be located via Foursquare" do
     venue = { "name" => "Nuba", "location" => { "lat" => 49.282867, "lng" => -123.109587, "address" => "207 West Hastings" } }
     foursquare_client = mock

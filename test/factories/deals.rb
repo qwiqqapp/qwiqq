@@ -4,9 +4,10 @@ Factory.define :deal do |f|
   f.lat { Faker::Geolocation.lat }
   f.lon { Faker::Geolocation.lng }
   f.location_name { "#{Faker::Address.street_address}, #{Faker::Address.city}" }
-  
   f.user {|f| f.association(:user) }
   f.category {|f| f.association(:category)}
+  f.foursquare_venue_id '4d41f6341da9a09377485d3d'
+  f.foursquare_venue_name "Gastown Labs"
 end
 
 
