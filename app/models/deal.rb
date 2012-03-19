@@ -274,7 +274,7 @@ class Deal < ActiveRecord::Base
   def meta_content
     c = self.price_as_string if self.price
     c << " at #{venue_or_location_name}."
-    c << " Posted by #{self.user.name || self.user.username}"
+    c << " Posted by #{self.user.username}"
     c
   end
 
