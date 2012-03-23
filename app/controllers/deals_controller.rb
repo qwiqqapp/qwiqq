@@ -21,11 +21,11 @@ class DealsController < ApplicationController
     end
   end
 
-  private
   def find_deal
     @deal ||= Deal.find(params[:id])
   end
-  
+
+  private
   def find_location
     ip = request.remote_ip
     response = HTTParty.get("http://qwiqq-geoip.heroku.com/location.json?ip=#{ip}")
