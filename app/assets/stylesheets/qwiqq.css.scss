@@ -464,6 +464,10 @@ img.post-photo {
   padding: 20px;
 }
 
+p.empty-deals{
+  margin-bottom: 400px;
+}
+
 #post #map img, 
 #post .event.last {
   -webkit-border-bottom-left-radius: 6px;
@@ -506,13 +510,13 @@ img.post-photo {
 
 #post .event .body {
   float: left;
-  margin: 10px 20px;
-  width: 400px;
+  margin: 20px;
+  width: 360px;
 }
 
 #post .event .icon {
   float: right;
-  margin-top: 20px;
+  margin: 20px 20px 0 0;
 }
 
 .post .details {
@@ -520,7 +524,7 @@ img.post-photo {
   width: 504px;
   padding: 24px;
   text-align: left;
-  color: #333333;
+  color: #666;
   font-size: 16px;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -626,7 +630,7 @@ img.post-photo {
 #user #info .name {
   padding-top: 10px;
   font-size: 22px; 
-  color: #333333;
+  color: #333;
 }
 
 #user #info .location {

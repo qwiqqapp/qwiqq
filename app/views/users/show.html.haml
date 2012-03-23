@@ -6,6 +6,7 @@
     #info
       %img.user-photo{ :src => @user.photo(:iphone_zoom_2x), :width => "260", :height => "260" }
       .name= @user.name
+      .username= @user.username
       .location= @user.location
       .bio= @user.bio
       .stat
@@ -19,29 +20,35 @@
         followers
 
     #slider
-      - @deals.each_with_index do |deal, i|
-        - if i == 0
-          %img.arrow-left{ :src => image_path("arrow-left.png") } 
-        %a{ :href => deal_url(deal) }
-          .post
-            .details
-              %img.post-photo{ :src => deal.photo(:iphone_zoom_2x), :width => "504", :height => "504" }
-              .clearfix
-                .name= deal.name
-                .price
-                  %span.dollars-large= price_string(deal)
+      - if @deals.empty?
+        %p.empty-deals
+          Boo hoo... this user has not posted anything yet.
+        
+      
+      - else
+        - @deals.each_with_index do |deal, i|
+          - if i == 0
+            %img.arrow-left{ :src => image_path("arrow-left.png") } 
+          %a{ :href => deal_url(deal) }
+            .post
+              .details
+                %img.post-photo{ :src => deal.photo(:iphone_zoom_2x), :width => "504", :height => "504" }
+                .clearfix
+                  .name= deal.name
+                  .price
+                    %span.dollars-large= price_string(deal)
 
-            .metadata
-              .location
-                %img.icon{ :src => image_path("location-icon.png") }
-                = deal.venue_or_location_name
-              .stats
-                %span.stat
-                  %img.icon{ :src => image_path("love-icon.png") }
-                  = deal.likes_count
-                %span.stat
-                  %img.icon{ :src => image_path("share-icon.png") }
-                  = deal.shares_count
-                %span.stat
-                  %img.icon.time{ :src => image_path("time-icon.png") }
-                  = short_time_ago_in_words(deal.created_at)
+              .metadata
+                .location
+                  %img.icon{ :src => image_path("location-icon.png") }
+                  = deal.venue_or_location_name
+                .stats
+                  %span.stat
+                    %img.icon{ :src => image_path("love-icon.png") }
+                    = deal.likes_count
+                  %span.stat
+                    %img.icon{ :src => image_path("share-icon.png") }
+                    = deal.shares_count
+                  %span.stat
+                    %img.icon.time{ :src => image_path("time-icon.png") }
+                    = short_time_ago_in_words(deal.created_at)
