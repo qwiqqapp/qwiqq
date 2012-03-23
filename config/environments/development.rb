@@ -31,7 +31,7 @@ Qwiqq::Application.configure do
   ActionMailer::Base.smtp_settings = {
    :address => "localhost",
    :port => 1025,
-   :domain => "www.qwiqq.me"
+   :domain => "qwiqq.dev"
   }
 
   # Do not compress assets
