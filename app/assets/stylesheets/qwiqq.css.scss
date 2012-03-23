@@ -292,10 +292,6 @@ img.post-photo {
   margin-top: 24px;
 }
 
-#fixed-header-small .logo-small {
-  margin-top: 24px;
-}
-
 .app-store-link-small {
   float: right;
   margin-top: 28px;
@@ -599,14 +595,6 @@ img.post-photo {
   left: -12px;
 }
 
-#fixed-container {
-  position: fixed;
-  top: 160px;
-}
-
-#post #fixed-container {
-  width: $cols12;
-}
 
 #share {
   float: right;
@@ -621,8 +609,7 @@ img.post-photo {
 }
 
 #user #slider {
-  padding-top: 160px;
-  padding-left: 280px; 
+  margin-left: 280px; 
 }
 
 #user img.user-photo {

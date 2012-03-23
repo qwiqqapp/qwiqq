@@ -1,37 +1,27 @@
 - content_for :title do 
   Qwiqq | Welcome!
   
-#fixed-header-small
-  .container
-    %a{ :href => root_url }
-      %img.logo-small{ :src => image_path("header-logo.png") }
-    .app-store-link-small
-      %img.free-small{ :src => image_path("free-small.png") }
-      %img.free-arrow-small{ :src => image_path("free-arrow-small.png") }
-      %a{ :href => "/download" }
-        %img{ :src => image_path("app-store-small.png") }
-
 #user
   .container
-    #fixed-container
-      #info
-        %img.user-photo{ :src => @user.photo(:iphone_zoom_2x), :width => "260", :height => "260" }
-        .name= @user.name
-        .location= @user.location
-        .bio= @user.bio
-        .stat
-          .num= @user.deals_count
-          posts
-        .stat 
-          .num= @user.following_count
-          following
-        .stat 
-          .num= @user.followers_count
-          followers
+    #info
+      %img.user-photo{ :src => @user.photo(:iphone_zoom_2x), :width => "260", :height => "260" }
+      .name= @user.name
+      .location= @user.location
+      .bio= @user.bio
+      .stat
+        .num= @user.deals_count
+        posts
+      .stat 
+        .num= @user.following_count
+        following
+      .stat 
+        .num= @user.followers_count
+        followers
 
     #slider
-      - @deals.each do |deal|
-        %img.arrow-left{ :src => image_path("arrow-left.png") }
+      - @deals.each_with_index do |deal, i|
+        - if i == 0
+          %img.arrow-left{ :src => image_path("arrow-left.png") } 
         %a{ :href => deal_url(deal) }
           .post
             .details
@@ -55,6 +45,3 @@
                 %span.stat
                   %img.icon.time{ :src => image_path("time-icon.png") }
                   = short_time_ago_in_words(deal.created_at)
-
-= render "shared/footer"
-
