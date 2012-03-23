@@ -1,5 +1,5 @@
 class DealsController < ApplicationController
-  caches_action :show, :cache_path => lambda {|c| "home/#{c.find_deal.cache_key}/#{c.ios?}" }
+  # caches_action :show, :cache_path => lambda {|c| "home/#{c.find_deal.cache_key}/#{c.ios?}" }
 
   def index
     @deals = Deal.popular.limit(6)

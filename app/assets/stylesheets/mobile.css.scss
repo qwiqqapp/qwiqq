@@ -133,7 +133,28 @@
   }
 
   #post #slider {
-    padding: 172px 0 0 0;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #post #slider #header{
+    background-image: url("/assets/title-bar-mobile.png");
+    width: 262px;
+  }
+  
+  #post #slider #header h1 {
+    font-size: 0.9em;
+    top: 18px;
+    left: 25px;
+  }
+  
+  #post #slider #map,
+  #post #slider #events{
+    width: 259px;
+  }
+  
+  #post #slider #map{
+    overflow: hidden;
   }
 
   #info {

@@ -1,3 +1,15 @@
+TODO
+
+
+- fix deal mobile view
+- events not showing on deal page
+- js exists error
+
+
+
+
+
+
 h1. Qwiqq Web
 
 * web app
