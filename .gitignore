@@ -14,6 +14,7 @@ db/sphinx/*
 config/*.sphinx.conf
 db/geo.dat
 config/heroku_env.rb
-vendor
 .bundle
 *.dat
+vendor/bundle
+public/assets

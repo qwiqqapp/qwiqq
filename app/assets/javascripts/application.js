@@ -1,5 +1,5 @@
-//= require jquery
-//= require jquery.cycle
+//= require jquery.js
+//= require jquery.cycle.js
 
 jQuery.fn.exists = function() { 
   return this.length > 0; 
