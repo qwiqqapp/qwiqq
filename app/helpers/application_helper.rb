@@ -52,7 +52,7 @@ module ApplicationHelper
       when "twitter"
         "buzz-twitter-icon.png"
       when "foursquare"
-        "buzz-comment-icon.png"
+        "buzz-4sq-icon.png"
       end
     end
   end

@@ -54,6 +54,7 @@ class CommentTest < ActiveSupport::TestCase
     Mailer.expects(:deal_commented).never
 
     Resque.run!
+    
     @comment.reload
     assert_nil @comment.notification_sent_at
   end
