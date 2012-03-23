@@ -24,7 +24,7 @@ module ApplicationHelper
     if deal.price > 0
       deal.price_as_string
     else
-      "free"
+      "Free"
     end
   end
 
