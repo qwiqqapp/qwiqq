@@ -34,7 +34,7 @@ gem "httparty"
 # search
 gem "riddle", "1.4.0"
 gem "thinking-sphinx", "2.0.5"
-gem "flying-sphinx", "0.6.0"
+gem "flying-sphinx", "0.6.0"  #need to upgrade to 0.6.4, recommended on flysphinx docs
 gem "kaminari"
 
 # mail
