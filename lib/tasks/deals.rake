@@ -11,5 +11,16 @@ namespace :deals do
     end
     p "Fixed #{fixed} deals."
   end
+  
+  desc "Refresh deal counter cache"
+  task :refresh_counter_cache => :environment do
+    counters = [:comments, :likes, :shares]
+    Deal.find_each do |deal|
+      p "refresh counter cache for deal #{deal.id}"
+      counters.each do |c|
+        Deal.reset_counters(deal.id, c)
+      end
+    end
+  end
 end
 
