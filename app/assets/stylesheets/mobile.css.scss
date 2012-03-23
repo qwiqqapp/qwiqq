@@ -153,9 +153,19 @@
     width: 259px;
   }
   
-  #post #slider #map{
-    overflow: hidden;
+  #post #map {
+    height: 300px;
   }
+  
+  #post #slider #map img.full{
+    display: none;
+  }
+  
+  #post #slider #map img.mobile{
+    display: block;
+  }
+  
+  
 
   #info {
     float: none;

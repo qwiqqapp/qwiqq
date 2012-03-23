@@ -1,6 +1,10 @@
 //= require jquery
 //= require jquery.cycle
-//= require jquery.mobilegmap
+
+jQuery.fn.exists = function() { 
+  return this.length > 0; 
+}
+
 
 $(function() {
   // cycle screenshots

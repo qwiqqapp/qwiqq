@@ -475,8 +475,13 @@ img.post-photo {
 }
 
 #post #map {
-  height: 220px;
+  height: 300px;
 }
+
+#post #map img.mobile{
+  display: none;
+}
+
 
 #post #events {
   margin-bottom: 90px;

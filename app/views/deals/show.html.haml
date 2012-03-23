@@ -43,7 +43,8 @@
           %h1= @deal.venue_or_location_name
         #map
           %a{ :href => "http://maps.google.com/?q=#{@deal.lat},#{@deal.lon}" }
-            %img{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=550x220&sensor=false&markers=color:red|#{@deal.lat},#{@deal.lon}" }
+            %img.full{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=550x300&zoom=15&sensor=false&markers=color:red|#{@deal.lat},#{@deal.lon}" }
+            %img.mobile{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=259x300&zoom=14&sensor=false&markers=color:red|#{@deal.lat},#{@deal.lon}" }            
         
       #buzz
         #header
