@@ -1,12 +1,14 @@
 class DealsController < ApplicationController
   caches_action :show, :cache_path => lambda {|c| "home/#{c.find_deal.cache_key}/#{c.ios?}" }
 
-  def find_deal
-    @deal ||= Deal.find(params[:id])
-  end
-
   def index
     @deals = Deal.popular.limit(6)
+    render layout: 'home'
+  end
+  
+  def show
+    @deal = find_deal
+    @events = @deal.events
   end
 
   def nearby
@@ -18,13 +20,12 @@ class DealsController < ApplicationController
       render :layout => false
     end
   end
-  
-  def show
-    @deal = find_deal
-    @events = @deal.events
-  end
 
   private
+  def find_deal
+    @deal ||= Deal.find(params[:id])
+  end
+  
   def find_location
     ip = request.remote_ip
     response = HTTParty.get("http://qwiqq-geoip.heroku.com/location.json?ip=#{ip}")

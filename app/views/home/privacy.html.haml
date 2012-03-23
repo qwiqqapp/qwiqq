@@ -1,16 +1,6 @@
 - content_for :title do 
   Qwiqq | Privacy
 
-#header-small
-  .container
-    %a{ :href => root_url }
-      %img.logo-small{ :src => image_path("header-logo.png") }
-    .app-store-link-small
-      %img.free-small{ :src => image_path("free-small.png") }
-      %img.free-arrow-small{ :src => image_path("free-arrow-small.png") }
-      %a{ :href => "/download" }
-        %img{ :src => image_path("app-store-small.png") }
-
 #privacy.page
   .container-narrow
     %h1 Privacy Policy
@@ -102,6 +92,3 @@
   
     %h2 Questions Or Concerns?
     %p If you have any questions or concerns regarding privacy using the Service, please send a detailed message to: #{mail_to("hello@qwiqq.me")}. We will make every effort to resolve your concerns.
-
-= render "shared/footer_home"
- 

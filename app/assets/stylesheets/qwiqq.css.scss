@@ -285,19 +285,11 @@ img.post-photo {
 #header-small {
   background-image: url("header-background.png");
   height: 132px;
-  width: 100%;
+  margin-bottom: 24px;
 }
 
 #header-small .logo-small {
   margin-top: 24px;
-}
-
-#fixed-header-small {
-  background-image: url("header-background.png");
-  position: fixed;
-  height: 132px;
-  width: 100%;
-  z-index: 1;
 }
 
 #fixed-header-small .logo-small {
@@ -397,12 +389,15 @@ img.post-photo {
 }
 
 #slider {
-  padding-top: 160px;
-  padding-left: 145px;
+  margin-left: 145px
 }
 
 #slider a {
   text-decoration: none;
+}
+
+#post .container {
+  
 }
 
 #post #header {
@@ -664,7 +659,6 @@ img.post-photo {
   font-family: "Helvetica Neue Light", Helvetica, Arial;
   font-weight: 300;
   color: #666666;
-  margin-top: 60px;
   margin-bottom: 40px;
   font-size: 16px;
   color: #666666;

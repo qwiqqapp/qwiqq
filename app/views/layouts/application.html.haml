@@ -25,14 +25,9 @@
       %meta(property="profile:first_name" content="#{@user.first_name}")
       %meta(property="profile:last_name" content="#{@user.last_name}")
       %meta(property="profile:username" content="#{@user.username}")
-    - else
-      %meta(property="og:title" content="Qwiqq")
-      %meta(property="og:description" content="A fun way to share the things you love to buy.")
-      %meta(property="og:image" content="#{root_url.chomp('/')}#{asset_path('home-qwiqq-logo.png')}")
-      %meta(property="og:url" content=root_url)
       
   %body{ :class => "#{controller_name} #{action_name}" }
+    = render "shared/header"
     = yield
-    - if Rails.env.production?
-      = render "shared/google_analytics"
-
+    = render "shared/footer"
+    = render "shared/google_analytics"

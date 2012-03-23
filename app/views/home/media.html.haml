@@ -1,16 +1,6 @@
 - content_for :title do 
   Qwiqq | Media
  
-#header-small
-  .container
-    %a{ :href => root_url }
-      %img.logo-small{ :src => image_path("header-logo.png") }
-    .app-store-link-small
-      %img.free-small{ :src => image_path("free-small.png") }
-      %img.free-arrow-small{ :src => image_path("free-arrow-small.png") }
-      %a{ :href => "/download" }
-        %img{ :src => image_path("app-store-small.png") }
-
 #media.page
   .container-narrow
     %h1 Media Downloads
@@ -44,5 +34,3 @@
 
     %h1.inquiries Inquiries
     Please contact us at #{link_to "media@qwiqq.me", "mailto:media@qwiqq.me"}
-
-= render "shared/footer_home"

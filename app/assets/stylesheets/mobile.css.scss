@@ -60,8 +60,8 @@
   } 
 
   #header-small .logo-small {
-    position: relative;
-    left: -10px;
+   
+    margin-left: 10px;
   }
 
   .app-store-link-small {
@@ -75,12 +75,6 @@
 
   #about .deal {
     display: none;
-  }
-
-  #fixed-container,
-  #post #fixed-container{
-    position: relative;
-    width: 100%;
   }
 
   #slider {
@@ -125,11 +119,6 @@
   }
 
   .post .metadata .stats {
-    display: none;
-  }
-
-  #location,
-  #buzz {
     display: none;
   }
 

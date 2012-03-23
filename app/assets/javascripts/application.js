@@ -1,27 +1,6 @@
 //= require jquery
 //= require jquery.cycle
 
-$.fn.freeAt = function (pos) {
-  var $this = this, $window = $(window);
-  var position = $this.position();
-  if (!position) return;
-  $window.scroll(function(e) {
-    if ($window.width() > 400) {
-      if ($window.scrollTop() > pos) {
-        $this.css({ position: "absolute", top: pos + position.top });
-      } else {
-        $this.css({ position: "fixed", top: position.top });
-      }
-    } else {
-      $this.css({ position: "relative" });
-    }
-  });
-};
-
-jQuery.fn.exists = function() { 
-  return this.length > 0; 
-}
-
 $(function() {
   // cycle screenshots
   $("#screenshots").cycle("fade");
@@ -40,4 +19,3 @@ $(function() {
     });
   }
 });
-
