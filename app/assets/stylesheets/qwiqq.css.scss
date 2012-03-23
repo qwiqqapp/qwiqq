@@ -33,8 +33,9 @@ html, body {
 }
 
 #footer {
-  background-image: url("footer-background.png");
-  height: 385px;
+  background-image: url("background-pattern-footer.png");
+  min-height: 385px;
+  border-top: #999 1px solid;
 }
 
 .container {

@@ -54,6 +54,10 @@
   #footer .box.contact {
     display: none;
   }
+  
+  #footer .box{
+    margin: 30px 10px
+  }
 
   #header-small .logo-small {
    
@@ -159,6 +163,10 @@
     margin: 10px;
   }
   
+  #post .event .empty{
+    font-size: 0.8em;
+  }
+  
   #post .event .icon{
     margin: 10px 0 0 0;
   }
@@ -180,8 +188,6 @@
     display: block;
   }
   
-  
-
   #info {
     float: none;
   }
