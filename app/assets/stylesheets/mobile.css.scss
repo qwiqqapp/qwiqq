@@ -77,14 +77,6 @@
     display: none;
   }
 
-  #slider {
-    padding: 600px 0 0 0;
-  }
-
-  #user #slider {
-    padding: 240px 0 0 0;
-  }
-
   #slider .arrow-left {
     display: none;
   }
@@ -118,7 +110,8 @@
     padding: 10px;
   }
 
-  .post .metadata .stats {
+  .post .metadata .love,
+  .post .metadata .share {
     display: none;
   }
 
@@ -130,6 +123,12 @@
     float: left;
     margin-right: 20px;
     margin-bottom: 10px;
+  }
+
+
+  #user #slider{
+    margin: 80px 0 0 0;
+    padding: 0;
   }
 
   #post #slider {

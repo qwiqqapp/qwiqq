@@ -43,12 +43,12 @@
                   %img.icon{ :src => image_path("location-icon.png") }
                   = deal.venue_or_location_name
                 .stats
-                  %span.stat
+                  %span.stat.love
                     %img.icon{ :src => image_path("love-icon.png") }
                     = deal.likes_count
-                  %span.stat
+                  %span.stat.share
                     %img.icon{ :src => image_path("share-icon.png") }
                     = deal.shares_count
-                  %span.stat
+                  %span.stat.time
                     %img.icon.time{ :src => image_path("time-icon.png") }
                     = short_time_ago_in_words(deal.created_at)

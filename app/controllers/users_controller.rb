@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     @user = User.find_by_notifications_token(params[:token])
     redirect_to root_url if @user.nil?
     @user.update_attributes(:send_notifications => params[:enable] || false)
-    render :notifications_disabled
+    render :notifications_disabled, layout: 'basic'
   end
 
   def show
