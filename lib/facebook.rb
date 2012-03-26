@@ -1,7 +1,7 @@
 class Facebook
   class InvalidAccessTokenError < Exception; end
   
-  HOST = "qwiqq.herokuapp.com"
+  HOST = "qwiqq.me"
   
   def initialize(user)
     @user = user
