@@ -16,7 +16,7 @@ namespace :deals do
   # max age set in deal model
   desc "Remove deals older than age"
   task :remove_old => :environment do
-     deals = Deal.where('created_at > ?', Deal::MAX_AGE.days.ago)
+     deals = Deal.where('created_at < ?', Deal::MAX_AGE.days.ago)
      if deals.empty?
        puts "No deals older than #{Deal::MAX_AGE} days"
      else
