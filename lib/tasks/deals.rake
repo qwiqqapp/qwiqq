@@ -25,6 +25,5 @@ namespace :deals do
      end
      puts "success!"
   end
-  
 end
 

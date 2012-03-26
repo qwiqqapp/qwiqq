@@ -53,6 +53,9 @@ gem "urbanairship"
 # sms delivery with twilio
 gem "twilio-ruby"
 
+#performance
+gem 'newrelic_rpm'
+
 group :test do
   gem "factory_girl_rails", "1.0.1"
   gem "ffaker"
