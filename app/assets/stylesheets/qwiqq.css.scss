@@ -29,7 +29,7 @@ html, body {
 
 
 #content {
-  min-height: 100%;
+//  min-height: 100%;
 }
 
 #footer {
@@ -124,14 +124,30 @@ img.bubbles {
 }
 
 #posts fieldset {
-  font-size: 28px;
+  font-size: 1.8em;
   color: #8c8c8c;
   border-top: 1px solid #8c8c8c;
   margin-bottom: 20px;
+  font-weight: 300;
+  color: #666;
+  font-family: "Helvetica Neue Light", Helvetica, Arial;
 }
 
 #posts fieldset .title {
   padding: 0 20px;
+}
+
+#posts #grid p {
+  font-size: 1.2em;
+  font-weight: 300;
+  color: #666;
+  margin: 100px auto 300px;
+  font-family: "Helvetica Neue Light", Helvetica, Arial;
+  line-height: 1.6em;
+}
+
+#posts #grid p a{
+  color: #26b1da;
 }
 
 .post-small {

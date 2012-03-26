@@ -1,4 +1,12 @@
 module ApplicationHelper
+  
+  def empty_nearby_message(city)
+   
+    
+    m
+  end
+  
+  
   def update_user_notifications_url(user)
     update_notifications_url(:token => user.notifications_token)
   end

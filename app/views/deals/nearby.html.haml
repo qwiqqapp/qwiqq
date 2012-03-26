@@ -1,6 +1,22 @@
 %fieldset
   %legend
     %span.title Nearby Posts
+    
+#grid
+  - if @deals.empty?
+    %p 
+      - if @city_name
+        = "Hello #{@city_name},"
+        %br
+        
+      You're the first person from your city on Qwiqq, sweet.
+      %br
+      Seeing as you're early to the party you get to have all the cake.
+      %br
+      = link_to 'Download Qwiqq', 'http://get.qwiqq.me'
+      and start Posting!
+  - else
+    = render partial: 'grid_deal', collection: @deals
 
-= render "grid"
+
 

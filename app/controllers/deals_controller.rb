@@ -2,35 +2,36 @@ class DealsController < ApplicationController
   # caches_action :show, :cache_path => lambda {|c| "home/#{c.find_deal.cache_key}/#{c.ios?}" }
 
   def index
-    @deals = Deal.popular.limit(6)
     render layout: 'home'
   end
   
   def show
-    @deal = find_deal
+    @deal ||= Deal.find(params[:id])
     @events = @deal.events
   end
 
   def nearby
-    lat, lon = find_location
-    @deals = Deal.filtered_search(:lat => lat, :lon => lon).compact.first(6) if lat and lon
-    if @deals.blank?
-      render :status => 200, :text => ""
+    lat, lon, @city_name = find_location
+    
+    if lat and lon
+      @deals =  Deal.filtered_search(:lat => lat, :lon => lon).compact.first(6)
     else
-      render :layout => false
+      @deals = []
     end
-  end
-
-  def find_deal
-    @deal ||= Deal.find(params[:id])
+    render layout: false
   end
 
   private
   def find_location
-    ip = request.remote_ip
+    if Rails.env.development?
+      ip = '96.49.202.116' #for easy testing
+    else
+      ip = request.remote_ip
+    end
+    
     response = HTTParty.get("http://qwiqq-geoip.heroku.com/location.json?ip=#{ip}")
     if response and response.code == 200
-      [ response["latitude"], response["longitude"] ]
+      [ response["latitude"], response["longitude"], response['city_name']]
     end
   end
 end

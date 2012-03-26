@@ -1,0 +1,25 @@
+.post-small
+  %a{ :href => deal_url(grid_deal) }
+    .details
+      %img.post-photo{ :src => grid_deal.photo.url(:iphone_zoom), :width => "240", :height => "240" }
+      .name= grid_deal.name
+      .price
+        %span.dollars= price_string(grid_deal)
+
+  %a{ :href => user_url(grid_deal.user) }
+    .metadata
+      %img.arrow-down{ :src => image_path("arrow-down.png") }
+        %img.user-photo{ :src => grid_deal.user.photo.url(:iphone), :width => "48", :height => "48" }
+      .stats
+        %span.stat
+          %img.icon{ :src => image_path("love-icon.png") }
+          = grid_deal.likes_count
+        %span.stat
+          %img.icon{ :src => image_path("share-icon.png") }
+          = grid_deal.shares_count
+        %span.stat
+          %img.icon{ :src => image_path("time-icon.png") }
+          = short_time_ago_in_words(grid_deal.created_at)
+      .location
+        %img.icon{ :src => image_path("location-icon.png") }
+        = truncate(grid_deal.venue_or_location_name, :length => 24)
