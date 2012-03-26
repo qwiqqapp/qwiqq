@@ -1,26 +1,30 @@
 namespace :deals do
-  desc "Clean deal location fields"
-  task :clean_location_name => :environment do
-    fixed = 0
-    Deal.find_each do |deal|
-      next unless location_name = deal.location_name
-      if location_name[0] == "-"
-        deal.update_attribute(:location_name, location_name.slice(1..-1))
-        fixed += 1
-      end
-    end
-    p "Fixed #{fixed} deals."
-  end
-  
   desc "Refresh deal counter cache"
-  task :refresh_counter_cache => :environment do
+  task :refresh_cache => :environment do
     counters = [:comments, :likes, :shares]
     Deal.find_each do |deal|
-      p "refresh counter cache for deal #{deal.id}"
+      puts "refresh counter cache for deal #{deal.id}"
       counters.each do |c|
         Deal.reset_counters(deal.id, c)
       end
     end
+    
+    puts "success!"
   end
+  
+  # TODO replace with deleted_at and default_scope later
+  # max age set in deal model
+  desc "Remove deals older than age"
+  task :remove_old => :environment do
+     deals = Deal.where('created_at > ?', Deal::MAX_AGE.days.ago)
+     if deals.empty?
+       puts "No deals older than #{Deal::MAX_AGE} days"
+     else
+       puts "Removing #{deals.size} deals, which are older than #{Deal::MAX_AGE} days"
+       deals.destroy_all
+     end
+     puts "success!"
+  end
+  
 end
 
