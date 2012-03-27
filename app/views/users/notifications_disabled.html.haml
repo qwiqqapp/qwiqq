@@ -1,16 +1,15 @@
 - content_for :title do 
   Qwiqq | Email Preferences
 
-#update_notifications
-  %a.logo{ :href => root_url }
-    %img.logo{ :src => image_path("logo-large.png") }
+#notification
+  .header
+    %a.logo{ :href => root_url }
+      %img.logo.scale-with-grid{ :src => image_path("logo-large.png") }
   
-  %br
-  %br
-  .message
+  .message  
     - if params[:enable]
       %p Yay! You will continue to receive notifications from Qwiqq.
     - else
       %p You have successfully changed your email preferences, you will no longer recieve notifications from Qwiqq.
       %a.button{ :href => update_notifications_url(:token => @user.notifications_token, :enable => true)}
-        %img.enable{ :src => image_path('button-resubscribe.png') }
+        %img.enable.scale-with-grid{ :src => image_path('button-resubscribe.png') }

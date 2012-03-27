@@ -1,0 +1,35 @@
+body
+  background-image: url("background-pattern.png")
+  font-family: "Helvetica Neue Light", Helvetica, Arial
+  font-weight: 300
+  color: #666666
+  
+img.scale-with-grid
+  max-width: 100%
+  height: auto
+
+
+#notification
+  width: 480px
+  margin: 40px auto 0
+  clear: both
+  .header
+    img.logo
+      margin: 0 auto
+      display: block
+      width: 261px
+      
+  .message
+    p
+      text-align: center
+      line-height: 1.2em
+      font-size: 1.2em
+    img
+      margin: 0 auto
+      width: 408px
+      display: block
+
+
+@media (max-width: 480px)
+  #notification
+    width: 300px
