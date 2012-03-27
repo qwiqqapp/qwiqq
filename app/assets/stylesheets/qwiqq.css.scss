@@ -2,6 +2,13 @@
 
 @import "frameless";
 
+
+img.scale-with-grid{
+  max-width: 100%;
+  height: auto;
+}
+
+
 body {
   background-image: url("background-pattern.png");
   font-family: "Helvetica Neue", Helvetica, Arial;
@@ -309,6 +316,8 @@ img.post-photo {
 #header-small .logo-small {
   margin-top: 24px;
 }
+
+
 
 .app-store-link-small {
   float: right;
