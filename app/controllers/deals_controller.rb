@@ -6,13 +6,12 @@ class DealsController < ApplicationController
   end
   
   def show
-    @deal ||= Deal.find(params[:id])
+    @deal = find_deal
     @events = @deal.events
   end
 
   def nearby
     lat, lon, @city_name = find_location
-    
     if lat and lon
       @deals =  Deal.filtered_search(:lat => lat, :lon => lon).compact.first(6)
     else
@@ -20,7 +19,11 @@ class DealsController < ApplicationController
     end
     render layout: false
   end
-
+  
+  def find_deal
+    @deal ||= Deal.find(params[:id])
+  end
+  
   private
   def find_location
     if Rails.env.development?

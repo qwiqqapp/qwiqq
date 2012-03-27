@@ -5,7 +5,7 @@
 #grid
   - if @deals.empty?
     %p 
-      - if @city_name
+      - unless @city_name.blank?
         = "Hello #{@city_name},"
         %br
         
