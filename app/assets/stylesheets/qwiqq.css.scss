@@ -483,7 +483,9 @@ img.post-photo {
 }
 
 p.empty-deals{
-  margin-bottom: 400px;
+  padding-top: 100px;
+  text-align: center;
+  
 }
 
 #post #map img, 
@@ -637,6 +639,7 @@ p.empty-deals{
 
 #user #slider {
   margin-left: 280px; 
+  min-height: 500px;
 }
 
 #user img.user-photo {

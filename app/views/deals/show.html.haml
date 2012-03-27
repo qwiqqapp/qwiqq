@@ -9,7 +9,7 @@
         .when
           Posted by
           %br
-          %span.username= @deal.user.username
+          %span.username= "@#{@deal.user.username}"
           %br
           #{time_ago_in_words(@deal.created_at)} ago  
             
