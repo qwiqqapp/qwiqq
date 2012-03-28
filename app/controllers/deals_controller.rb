@@ -13,7 +13,7 @@ class DealsController < ApplicationController
   def nearby
     lat, lon, @city_name = find_location
     if lat and lon
-      @deals =  Deal.filtered_search(:lat => lat, :lon => lon).compact.first(6)
+      @deals =  Deal.filtered_search(:lat => lat, :lon => lon, :range => Deal::MAX_RANGE*2).compact.first(6)
     else
       @deals = []
     end

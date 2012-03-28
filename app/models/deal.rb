@@ -5,7 +5,6 @@ class Deal < ActiveRecord::Base
   MAX_AGE = 30
   MAX_RANGE = 40234   # default search range in metres (25 miles)
   
-  
   define_index do
     indexes :name
     indexes :foursquare_venue_name
