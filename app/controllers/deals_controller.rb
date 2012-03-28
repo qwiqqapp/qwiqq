@@ -1,6 +1,8 @@
 class DealsController < ApplicationController
   # caches_action :show, :cache_path => lambda {|c| "home/#{c.find_deal.cache_key}/#{c.ios?}" }
 
+
+  # TODO either cache action or memoize @deals 
   def index
     @deals = Deal.premium.recent.sorted.popular.first(6)
     render layout: 'home'
