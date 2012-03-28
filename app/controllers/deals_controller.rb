@@ -2,6 +2,7 @@ class DealsController < ApplicationController
   # caches_action :show, :cache_path => lambda {|c| "home/#{c.find_deal.cache_key}/#{c.ios?}" }
 
   def index
+    @deals = Deal.premium.recent.sorted.popular.first(6)
     render layout: 'home'
   end
   
@@ -10,6 +11,8 @@ class DealsController < ApplicationController
     @events = @deal.events
   end
 
+  # the geoip service was not accurate enough so using suggested users posts as stopgap
+  # TODO update nearby to use HTML5 location
   def nearby
     lat, lon = find_location
     if lat and lon
@@ -17,6 +20,7 @@ class DealsController < ApplicationController
     else
       @deals = []
     end
+    
     render layout: false
   end
   

@@ -10,12 +10,14 @@ $(function() {
   // cycle screenshots
   $("#screenshots").cycle("fade");
   
+  // JS callback disabled, currently using featured posts
+  // TODO restore this code once HTML5 location is added
   // render nearby deals
-  if ($("#posts").exists()) {
-    $.get("/posts/nearby", function(data) {
-      if (data != "") {
-        $("#posts").html(data);
-      }
-    });
-  }
+  // if ($("#posts").exists()) {
+  //    $.get("/posts/nearby", function(data) {
+  //      if (data != "") {
+  //        $("#posts").html(data);
+  //      }
+  //    });
+  //  }
 });

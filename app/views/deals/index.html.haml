@@ -18,7 +18,15 @@
     #posts
       %fieldset
         %legend
-          %span.title Nearby Posts
-          
+          %span.title Featured Posts
+
       #grid
-        %p  Looking for fun things to buy near you...
+        - if @deals.empty?
+          %p 
+            Want to see your posts here?
+            %br
+            = link_to 'Download Qwiqq', 'http://get.qwiqq.me'
+            and start Posting!
+            %br
+        - else
+          = render partial: 'grid_deal', collection: @deals
