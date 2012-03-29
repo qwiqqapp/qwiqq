@@ -25,7 +25,7 @@
 
     #share
       %a#facebook{ :href => "http://www.facebook.com/sharer/sharer.php?u=#{deal_url(@deal)}", :target => "_blank" }
-      %a#twitter{ :href => "http://twitter.com/home?status=#{CGI::escape(build_share_deal_message(@deal))}", :target => "_blank" }
+      %a#twitter{ :href => "http://twitter.com/home?status=#{CGI::escape(@deal.share_message)}", :target => "_blank" }
 
     #slider
       %img.arrow-left{ :src => image_path("arrow-left.png") }

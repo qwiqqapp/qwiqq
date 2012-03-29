@@ -202,6 +202,15 @@ class Deal < ActiveRecord::Base
     created_at ? short_time_ago_in_words(created_at) : ""
   end
   
+  # construct message base string, example: The best bubble tea ever! $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259  
+  def share_message
+    meta = price_as_string || ""
+    meta << " @ #{foursquare_venue_name}" if foursquare_venue_name
+    meta << " #{Rails.application.routes.url_helpers.deal_url(self, :host => "qwiqq.me")}"
+    
+    "#{name.truncate(138 - meta.size)} #{meta}"
+  end
+
   # Search deals.
   #
   # options:

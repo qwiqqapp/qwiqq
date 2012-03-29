@@ -136,6 +136,5 @@ class Share < ActiveRecord::Base
     end
     meta << " #{url}"
   end
-  
 end
 
