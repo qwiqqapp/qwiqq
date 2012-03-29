@@ -19,7 +19,7 @@ class ShareTest < ActiveSupport::TestCase
     deal = Factory(:deal, :price => 0, :name => 'free beer', :foursquare_venue_name => "Gastown Labs")
     share = Factory(:twitter_share, :message => "sweet", :deal => deal)
     
-    assert_equal "sweet #{deal.name} Free @ #{deal.foursquare_venue_name} http://qwiqq.me/posts/#{deal.id}", share.message
+    assert_equal "sweet - #{deal.name} Free @ #{deal.foursquare_venue_name} http://qwiqq.me/posts/#{deal.id}", share.message
     assert share.message.size < 140
   end
   
@@ -35,7 +35,7 @@ class ShareTest < ActiveSupport::TestCase
     deal = Factory(:deal, :price => 9000, :name => 'nice pizza', :foursquare_venue_name => "Gastown Labs")
     share = Factory(:foursquare_share, :message => "epic", :deal => deal)
     
-    assert_equal "epic #{deal.name} $90.00 http://qwiqq.me/posts/#{deal.id}", share.message
+    assert_equal "epic - #{deal.name} $90.00 http://qwiqq.me/posts/#{deal.id}", share.message
     assert share.message.size < 140
   end
   
@@ -43,16 +43,16 @@ class ShareTest < ActiveSupport::TestCase
     deal = Factory(:deal, :price => 400, :name => 'best pizza place in NY', :foursquare_venue_name => "Gastown Labs")
     share = Factory(:sms_share, :message => "sweet", :deal => deal)
     
-    assert_equal "#{share.user.username}: sweet #{deal.name} $4.00 @ #{deal.foursquare_venue_name} http://qwiqq.me/posts/#{deal.id}", share.message
+    assert_equal "#{share.user.username}: sweet - #{deal.name} $4.00 @ #{deal.foursquare_venue_name} http://qwiqq.me/posts/#{deal.id}", share.message
     assert share.message.size < 140
   end
   
   test "should share truncated message on Twitter with LONG custom message" do
-    long_message = "amazing amazing amazing pizza, get there early though there will be a looooooong line!"
+    long_message = "amazing amazing amazing pizza, get there early though there will be a looooong line!"
     deal = Factory(:deal, :price => 9000, :name => 'best pizza place in NY just over the bridge', :foursquare_venue_name => "Gastown Labs")
     share = Factory(:twitter_share, :message => long_message, :deal => deal)
     
-    assert_equal "#{long_message} bes... $90.00 @ #{deal.foursquare_venue_name} http://qwiqq.me/posts/#{deal.id}", share.message
+    assert_equal "#{long_message} - bes... $90.00 @ #{deal.foursquare_venue_name} http://qwiqq.me/posts/#{deal.id}", share.message
     assert share.message.size < 140
   end
   

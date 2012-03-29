@@ -109,9 +109,9 @@ class Share < ActiveRecord::Base
   
   private
   # [sender:] <personal comment> <deal.name> <deal.price> @ [deal.foursquare_venue_name] <deal_url>
-  # Twitter: Yummy! The best bubble tea ever! @ Happy Teahouse http://qwiqq.me/posts/2259
-  # Foursquare: Yummy! The best bubble tea ever! $5.99 http://qwiqq.me/posts/2259
-  # SMS: Adam: Yummy! The best bubble tea ever! $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259
+  # Twitter: sweet -The best bubble tea ever! @ Happy Teahouse http://qwiqq.me/posts/2259
+  # Foursquare: sweet - The best bubble tea ever! $5.99 http://qwiqq.me/posts/2259
+  # SMS: Adam: sweet - The best bubble tea ever! $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259
   def build_message
     return unless service =~ /sms|twitter|foursquare/
     base = message_base
@@ -123,7 +123,7 @@ class Share < ActiveRecord::Base
   def message_base
     base = ""
     base << "#{self.user.username}: " if service == "sms"
-    base << "#{self.message} " unless self.message.blank?
+    base << "#{self.message} - " unless self.message.blank?
     base << "#{deal.name}"
   end
   
