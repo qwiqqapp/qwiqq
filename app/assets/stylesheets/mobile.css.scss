@@ -108,15 +108,30 @@
     height: 240px;
   }
 
-  .post .metadata {
+
+  .post .metadata{
     padding: 10px;
   }
 
-  .post .metadata .love,
-  .post .metadata .share {
-    display: none;
+  .post .metadata .location,
+  .post .metadata .stats{
+    float: left;
+    margin-bottom: 10px;
   }
-
+  
+  .post .metadata .location span{
+    width: 220px;
+    margin-left: 5px;
+    float: left;
+  }
+  
+  .post .metadata .location .icon{
+    float: left;
+    left: 0;
+    top: 2px;
+    
+  }
+  
   #post #info {
     width: 100%;
   }
