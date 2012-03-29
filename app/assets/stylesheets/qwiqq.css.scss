@@ -387,11 +387,30 @@ img.post-photo {
   color: #666666;
   padding: 10px 0;
   line-height: 20px;
+  overflow: hidden;
+  font-family: "Helvetica Neue Light", Helvetica, Arial;
+  font-weight: 300;
+}
+
+#post #info span {
+  display: block;
+}
+
+
+#post #info .name {
+  font-size: 22px;
+  color: #333;
+  margin: 4px 0;
+  line-height: 22px;
 }
 
 #post #info .username {
   font-size: 18px;
+  color: #333;
+  margin: 2px 0;
 }
+
+
 
 #post #info .stat {
   padding-bottom: 10px;
@@ -663,8 +682,14 @@ p.empty-deals{
   color: #333;
 }
 
+#user #info .username {
+  padding: 5px 0 10px;
+  font-family: "Helvetica Neue Light", Helvetica, Arial;
+  font-weight: 300;
+}
+
 #user #info .location {
-  padding-bottom: 10px;
+  padding: 10px 0;
   font-size: 16px;
   color: #666666;
 }

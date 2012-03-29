@@ -140,23 +140,23 @@ textarea {overflow: auto;}
 	These are easy to forget
 */
 
-::selection {
-	background: red;
-	color: white;
-}
-::-moz-selection {
-	background: red;
-	color: white;
-}
-
-img::selection {
-	background: transparent;
-}
-img::-moz-selection {
-	background: transparent;
-}
-
-body {
-	-webkit-tap-highlight-color: rgba(255,0,0, 0.62);
-}
+//::selection {
+//  background: red;
+//  color: white;
+//}
+//::-moz-selection {
+//  background: red;
+//  color: white;
+//}
+//
+//img::selection {
+//  background: transparent;
+//}
+//img::-moz-selection {
+//  background: transparent;
+//}
+//
+//body {
+//  -webkit-tap-highlight-color: rgba(255,0,0, 0.62);
+//}
 

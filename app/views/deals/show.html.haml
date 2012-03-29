@@ -7,15 +7,16 @@
       %a{ :href => user_url(@deal.user) }
         %img.user-photo{ :src => @deal.user.photo.url(:iphone2x), :width => "120", :height => "120" }
         .when
-          Posted by
-          %br
-          %span.username= "@#{@deal.user.username}"
-          %br
-          #{time_ago_in_words(@deal.created_at)} ago  
+          %span Posted by
+          - unless @deal.user.name.blank?
+            %span.name= @deal.user.name
+          - else
+            %span.username= "@#{@deal.user.username}"
+          %span= "#{time_ago_in_words(@deal.created_at)} ago"
             
-        .stat 
+        .stat
           .num= @deal.user.deals_count
-          posts
+          = @deal.user.deals_count == 1 ? 'post' : 'posts'
         .stat 
           .num= @deal.user.following_count
           following

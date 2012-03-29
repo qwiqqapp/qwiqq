@@ -21,14 +21,6 @@ class Api::VenuesController < Api::ApiController
       }
     end
     
-    # temp check 
-    with_blank_foursquare = result.select{|r| r[:foursquare_id].blank? }
-    unless with_blank_foursquare.blank?
-      Rails.logger.error "venue_controller#index >>>>> 4SQ_VENUE_ID is missing!"
-      Rails.logger.error with_blank_foursquare.size
-      Rails.logger.error with_blank_foursquare.inspect
-    end
-    
     render :json => result
   end
 

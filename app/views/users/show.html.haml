@@ -6,12 +6,12 @@
     #info
       %img.user-photo{ :src => @user.photo(:iphone_zoom_2x), :width => "260", :height => "260" }
       .name= @user.name
-      .username= @user.username
+      .username= "@#{@user.username}"
       .location= @user.location
       .bio= @user.bio
       .stat
         .num= @user.deals_count
-        posts
+        = @user.deals_count == 1 ? 'post' : 'posts'
       .stat 
         .num= @user.following_count
         following
