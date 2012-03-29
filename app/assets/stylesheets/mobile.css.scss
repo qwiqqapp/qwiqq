@@ -151,8 +151,11 @@
   }
   
   #post #slider #location #header h1{
-    width: 220px;
+    width: 210px;
+    height: 35px;
     top: 12px;
+    overflow: hidden;
+    
   }
   
   #post #slider #map,
