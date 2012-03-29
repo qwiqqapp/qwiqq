@@ -52,6 +52,13 @@ class Api::DealsController < Api::ApiController
 
   # TODO move this logic to model once finalized
   def create
+    
+    # temp check
+    if params[:deal][:foursquare_venue_id].blank? && Rails.env.production?
+      Rails.logger.error "DealsController#create >>>>> 4SQ_VENUE_ID is missing!"
+      Rails.logger.error params.inspect
+    end
+    
     category = Category.find_by_name(params[:deal][:category_name])
     @deal = Deal.new(params[:deal])
     @deal.category = category
