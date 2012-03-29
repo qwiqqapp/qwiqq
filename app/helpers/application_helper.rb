@@ -1,12 +1,5 @@
 module ApplicationHelper
   
-  def empty_nearby_message(city)
-   
-    
-    m
-  end
-  
-  
   def update_user_notifications_url(user)
     update_notifications_url(:token => user.notifications_token)
   end
@@ -26,14 +19,6 @@ module ApplicationHelper
 
   def download_url
     "http://download.qwiqq.me"
-  end
-
-  def price_string(deal)
-    if deal.price > 0
-      deal.price_as_string
-    else
-      "Free"
-    end
   end
 
   def event_body(event)

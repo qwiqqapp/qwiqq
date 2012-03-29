@@ -104,18 +104,38 @@ class Share < ActiveRecord::Base
       :created_by => user,
       :metadata => { :service => service })
   end
+  
 
+  
+  private
+  # [sender:] <personal comment> <deal.name> <deal.price> @ [deal.foursquare_venue_name] <deal_url>
+  # Twitter: Yummy! The best bubble tea ever! @ Happy Teahouse http://qwiqq.me/posts/2259
+  # Foursquare: Yummy! The best bubble tea ever! $5.99 http://qwiqq.me/posts/2259
+  # SMS: Adam: Yummy! The best bubble tea ever! $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259
   def build_message
-    self.message ||= Qwiqq.default_share_deal_message
-    # append the name and url for twitter, sms and foursquare
-    case service
-    when "sms"
-      self.message = Qwiqq.build_share_deal_message(self.message, deal, 160)
-      self.message = "#{user.username}: #{self.message}"
-    when "twitter", "foursquare"
-      self.message.gsub!(/qwiqq/i, "@Qwiqq") if service == "twitter"
-      self.message = Qwiqq.build_share_deal_message(self.message, deal, 140)
-    end
+    return unless service =~ /sms|twitter|foursquare/
+    base = message_base
+    meta = message_meta
+    self.message = "#{base.truncate(138 - meta.length)} #{meta}"
   end
+  
+  # construct message base string, example: Yummy! The best bubble tea ever!
+  def message_base
+    base = ""
+    base << "#{self.user.username}: " if service == "sms"
+    base << "#{self.message} " unless self.message.blank?
+    base << "#{deal.name}"
+  end
+  
+  # construct message meta string, example: $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259
+  def message_meta
+    url = Rails.application.routes.url_helpers.deal_url(self.deal, :host => "qwiqq.me")
+    meta = deal.price_as_string || ""
+    if deal.foursquare_venue_name && service != "foursquare"
+      meta << " @ #{deal.foursquare_venue_name}"
+    end
+    meta << " #{url}"
+  end
+  
 end
 

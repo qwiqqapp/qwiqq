@@ -11,6 +11,10 @@ Factory.define :twitter_share, :parent => :share do |f|
   f.service 'twitter'
 end
 
+Factory.define :foursquare_share, :parent => :share do |f|
+  f.service 'foursquare'
+end
+
 Factory.define :email_share, :parent => :share do |f|
   f.service 'email'
   f.email   'adam@test.com'

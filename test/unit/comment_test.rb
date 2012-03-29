@@ -10,6 +10,7 @@ class CommentTest < ActiveSupport::TestCase
   end
   
   teardown do
+    Resque.reset!
     DatabaseCleaner.clean
   end
   

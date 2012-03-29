@@ -187,7 +187,11 @@ class Deal < ActiveRecord::Base
   end  
   
   def price_as_string
-    number_to_currency price.to_f / 100
+    if self.price > 0
+      number_to_currency(price.to_f / 100)
+    else
+      "Free"
+    end
   end
   
   def age_in_words

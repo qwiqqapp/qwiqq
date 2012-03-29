@@ -12,15 +12,51 @@ class ShareTest < ActiveSupport::TestCase
   teardown do
     DatabaseCleaner.clean
   end
+  
 
-  #------ twitter
-  test "should a message provided to be provided" do
-    @share = Factory(:twitter_share, :message => "I found a thing on qwiqq!")
-    url = Rails.application.routes.url_helpers.deal_url(@share.deal, :host => "qwiqq.me")
-    assert_equal "I found a thing on @Qwiqq! #{@share.deal.name} #{url}", @share.message
-    assert_queued(ShareDeliveryJob, [@share.id])
-  end
+  #------ message content
+  test "should share formatted message on Twitter with custom message" do
+    deal = Factory(:deal, :price => 0, :name => 'free beer', :foursquare_venue_name => "Gastown Labs")
+    share = Factory(:twitter_share, :message => "sweet", :deal => deal)
     
+    assert_equal "sweet #{deal.name} Free @ #{deal.foursquare_venue_name} http://qwiqq.me/posts/#{deal.id}", share.message
+    assert share.message.size < 140
+  end
+  
+  test "should share formatted message on Twitter without custom message" do
+    deal = Factory(:deal, :price => 200, :name => 'cheap beer', :foursquare_venue_name => "Six Acres")
+    share = Factory(:twitter_share, :message => "", :deal => deal)
+    
+    assert_equal "#{deal.name} $2.00 @ #{deal.foursquare_venue_name} http://qwiqq.me/posts/#{deal.id}", share.message
+    assert share.message.size < 140
+  end
+  
+  test "should share formatted message on Foursquare with custom message" do
+    deal = Factory(:deal, :price => 9000, :name => 'nice pizza', :foursquare_venue_name => "Gastown Labs")
+    share = Factory(:foursquare_share, :message => "epic", :deal => deal)
+    
+    assert_equal "epic #{deal.name} $90.00 http://qwiqq.me/posts/#{deal.id}", share.message
+    assert share.message.size < 140
+  end
+  
+  test "should share formatting message on SMS with custom message" do
+    deal = Factory(:deal, :price => 400, :name => 'best pizza place in NY', :foursquare_venue_name => "Gastown Labs")
+    share = Factory(:sms_share, :message => "sweet", :deal => deal)
+    
+    assert_equal "#{share.user.username}: sweet #{deal.name} $4.00 @ #{deal.foursquare_venue_name} http://qwiqq.me/posts/#{deal.id}", share.message
+    assert share.message.size < 140
+  end
+  
+  test "should share truncated message on Twitter with LONG custom message" do
+    long_message = "amazing amazing amazing pizza, get there early though there will be a looooooong line!"
+    deal = Factory(:deal, :price => 9000, :name => 'best pizza place in NY just over the bridge', :foursquare_venue_name => "Gastown Labs")
+    share = Factory(:twitter_share, :message => long_message, :deal => deal)
+    
+    assert_equal "#{long_message} bes... $90.00 @ #{deal.foursquare_venue_name} http://qwiqq.me/posts/#{deal.id}", share.message
+    assert share.message.size < 140
+  end
+  
+  
   # test queue is populated
   test "should queue twitter share" do
     @share = Factory(:twitter_share)
