@@ -154,7 +154,7 @@ class User < ActiveRecord::Base
   end
   
   def name
-    return "" if first_name.blank? && last_name.blank?
+    return nil if first_name.blank? && last_name.blank?
     "#{first_name} #{last_name}"
   end
   

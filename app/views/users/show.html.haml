@@ -1,5 +1,5 @@
 - content_for :title do 
-  Qwiqq | Welcome!
+  Qwiqq | #{@user.name || @user.username}
   
 #user
   .container
@@ -24,7 +24,6 @@
         %p.empty-deals
           Boo hoo... this user has not posted anything yet.
         
-      
       - else
         - @deals.each_with_index do |deal, i|
           - if i == 0
