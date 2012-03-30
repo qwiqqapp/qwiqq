@@ -4,7 +4,7 @@ class DealsController < ApplicationController
 
   # TODO either cache action or memoize @deals 
   def index
-    @deals = Deal.premium.recent.sorted.popular.first(6)
+    @deals = Deal.premium.recent.sorted.popular.first(9)
     render layout: 'home'
   end
   
