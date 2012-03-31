@@ -11,14 +11,14 @@ class Mailer < ActionMailer::Base
     @share = share
     mail :to => target_email, 
          :tag => "share",
-         :subject => "#{@user.name} shared a post with you on Qwiqq!"
+         :subject => "#{@user.best_name} shared a post with you on Qwiqq!"
   end
   
   def invitation(target_email, from)
     @user = from
     mail :to => target_email, 
          :tag => "invitation",
-         :subject => "#{@user.username} has invited you to Qwiqq!"
+         :subject => "#{@user.best_name} has invited you to Qwiqq!"
     
   end
   
@@ -56,7 +56,7 @@ class Mailer < ActionMailer::Base
     @user = follower
     mail :to => target.email, 
          :tag => "follower",
-         :subject => "#{@user.name} is now following you."
+         :subject => "#{@user.best_name} is now following you."
   end
 end
 

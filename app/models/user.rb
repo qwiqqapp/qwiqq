@@ -158,6 +158,11 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
   
+  def best_name
+    name || username
+  end
+  
+  
   def follow!(target)
     relationships.create(:target => target)
     Feedlet.import( target.deals.map { |d| 
