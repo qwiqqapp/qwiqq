@@ -53,3 +53,5 @@ module Qwiqq
     config.assets.version = '1.0'
   end
 end
+
+require 'newrelic_rpm'

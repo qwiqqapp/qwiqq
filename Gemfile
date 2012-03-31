@@ -54,7 +54,7 @@ gem "urbanairship"
 gem "twilio-ruby"
 
 #performance
-gem 'newrelic_rpm'
+gem 'newrelic_rpm', :require => false
 
 group :test do
   gem "factory_girl_rails", "1.0.1"
