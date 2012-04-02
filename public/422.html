@@ -1,26 +1,73 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>The change you wanted was rejected (422)</title>
-  <style type="text/css">
-    body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
-    div.dialog {
-      width: 25em;
-      padding: 0 4em;
-      margin: 4em auto 0 auto;
-      border: 1px solid #ccc;
-      border-right-color: #999;
-      border-bottom-color: #999;
-    }
-    h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
-  </style>
-</head>
-
-<body>
-  <!-- This file lives in public/422.html -->
-  <div class="dialog">
-    <h1>The change you wanted was rejected.</h1>
-    <p>Maybe you tried to change something you didn't have access to.</p>
-  </div>
-</body>
+  <head>
+    <meta charset='utf-8'>
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+    <meta content='width=device-width, initial-scale=1' name='viewport'>
+    <title>Qwiqq | 422</title>
+    <style type="text/css">
+      body {
+        background-image:url("static/background-pattern.png");
+        font-family:"Helvetica Neue Light",Helvetica,Arial;
+        font-weight:300;
+        color:#666;
+      }
+      
+      img.scale-with-grid{
+        max-width:100%;
+        height:auto
+      }
+      
+      #notification{
+        width:480px;
+        margin:40px auto 0;
+        clear:both
+      }
+      
+      #notification .header img.logo{
+        margin:0 auto;
+        display:block;
+        width:261px;
+      }
+      
+      #notification .message a{
+        color:#666;
+        text-align:center;
+        line-height:1.2em;
+        font-size:1.2em;
+        display: block;
+        margin: 40px 0;
+      }
+      
+      #notification .message img{
+        margin: 20px auto;
+        width:263px;
+        display:block;
+      }
+      
+      @media (max-width: 480px){
+        #notification{
+          width:240px;
+        }
+      }
+      
+      
+    </style>  
+  </head>
+  <body>
+    <div id='notification'>
+      <div class='header'>
+        <a class='logo' href='/'>
+          <img class='logo scale-with-grid' src='/static/logo-large.png'>
+        </a>
+      </div>
+      <div class='message'>
+        <img class='bubble scale-with-grid' src='/static/404-bubble.png'/>
+        <a class='home' href='/'>
+          back to Home page
+        </a>
+      </div>
+    </div>
+    
+  </body>
 </html>

@@ -98,8 +98,8 @@ class Share < ActiveRecord::Base
     @twilio_client ||= Twilio::REST::Client.new Qwiqq.twilio_sid, Qwiqq.twilio_auth_token
   end
   
+  # only create events for shares to networks  
   def create_event
-    # only create events for shares to networks
     return unless [ "twitter", "facebook", "foursquare" ].include?(service)
     
     events.create(
