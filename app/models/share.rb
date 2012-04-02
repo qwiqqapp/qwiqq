@@ -85,8 +85,13 @@ class Share < ActiveRecord::Base
     self.service == "facebook"
   end
 
+  # rescue from connection error
   def async_deliver
     Resque.enqueue(ShareDeliveryJob, self.id)
+
+  rescue Exception => e
+    Rails.logger.error "Share#async_deliver Failed: #{e.message}"
+    notify_airbrake(e)
   end
   
   def twilio_client
@@ -105,18 +110,20 @@ class Share < ActiveRecord::Base
       :metadata => { :service => service })
   end
   
-
-  
-  private
   # [sender:] <personal comment> <deal.name> <deal.price> @ [deal.foursquare_venue_name] <deal_url>
   # Twitter: sweet -The best bubble tea ever! @ Happy Teahouse http://qwiqq.me/posts/2259
   # Foursquare: sweet - The best bubble tea ever! $5.99 http://qwiqq.me/posts/2259
   # SMS: Adam: sweet - The best bubble tea ever! $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259
-  def build_message
-    return unless service =~ /sms|twitter|foursquare/
+  def formatted_message
     base = message_base
     meta = message_meta
-    self.message = "#{base.truncate(138 - meta.length)} #{meta}"
+    "#{base.truncate(138 - meta.length)} #{meta}"
+  end
+  
+  private
+  def build_message
+    return unless service =~ /sms|twitter|foursquare|email/
+    self.message = formatted_message
   end
   
   # construct message base string, example: Yummy! The best bubble tea ever!
@@ -134,7 +141,8 @@ class Share < ActiveRecord::Base
     if deal.foursquare_venue_name && service != "foursquare"
       meta << " @ #{deal.foursquare_venue_name}"
     end
-    meta << " #{url}"
+    meta << " #{url}" unless service == 'email'
+    meta
   end
 end
 
