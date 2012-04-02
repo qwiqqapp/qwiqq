@@ -6,6 +6,8 @@ class Relationship < ActiveRecord::Base
   after_commit :async_deliver_notification, :on => :create
   after_commit :create_event, :on => :create
   
+  before_destroy :remove_feedlets
+  
   def deliver_notification
     
     # email notification
@@ -26,8 +28,12 @@ class Relationship < ActiveRecord::Base
       :user => target,
       :created_by => user)
   end
-
+  
   private
+  def remove_feedlets
+    Feedlet.where(user_id: user.id, posting_user_id: target.id).destroy_all
+  end
+  
   def friends?
     @friends ||= user.friends?(target)
   end

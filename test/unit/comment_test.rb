@@ -10,7 +10,6 @@ class CommentTest < ActiveSupport::TestCase
   end
   
   teardown do
-    Resque.reset!
     DatabaseCleaner.clean
   end
   
@@ -50,10 +49,11 @@ class CommentTest < ActiveSupport::TestCase
   test "should NOT send notification if DISABLED for user" do
     @owner    = Factory(:user, :send_notifications => false)
     @deal     = Factory(:deal, :user => @owner)
+    Resque.reset! #temp fix. for some reason share deals exist in the queue
+    
     @comment  = Factory(:comment, :deal => @deal)
     
     Mailer.expects(:deal_commented).never
-
     Resque.run!
     
     @comment.reload

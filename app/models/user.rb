@@ -162,15 +162,13 @@ class User < ActiveRecord::Base
     name || username
   end
   
-  
+  # does not create feedlets, only created on new deal create
   def follow!(target)
     relationships.create(:target => target)
-    Feedlet.import( target.deals.map { |d| 
-      self.feedlets.new(:posting_user_id => target.id, :deal_id => d.id, :timestamp => d.created_at) } )
   end
   
+  # relationship destroy callback handles feedlet cleanup
   def unfollow!(target)
-    self.feedlets.where(:posting_user_id => target.id).delete_all
     relationships.find_by_target_id(target.id).try(:destroy)
   end
   

@@ -69,7 +69,7 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_equal feed_deals.map(&:id), json_response.map{|d| d["deal_id"].to_i}
   end
 
-  test "should see feed deals previously posted by a user after following" do
+  test "should NOT see feed deals previously posted by a user after following" do
     @user0 = Factory(:user)
     @user1 = Factory(:user)
     @user2 = Factory(:user)
@@ -82,7 +82,7 @@ class Api::DealsControllerTest < ActionController::TestCase
     get :feed, :format => 'json'
     assert_equal 200, @response.status
     assert_equal Array, json_response.class
-    assert_equal 1, json_response.size
+    assert_equal 0, json_response.size
   end
   
   test "should no longer see deals from a user after unfollowing" do

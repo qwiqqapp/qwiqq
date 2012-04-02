@@ -1,7 +1,12 @@
 namespace :feedlets do
-  desc 'batch create all feedlets'
-  task :create => :environment do
-    Deal.all.each do |d|
+  desc 'batch refresh all feedlets'
+  task :refresh => :environment do
+    puts "- Remove all feedlets..."
+    Feedlet.destroy_all
+    puts "- Feedlets removed."
+    
+    Deal.find_each do |d| 
+      puts "+ Populating feeds for deal #{d.id}: #{d.name}"
       d.populate_feed
     end
   end
