@@ -284,12 +284,13 @@ class Deal < ActiveRecord::Base
   end
 
   def venue_or_location_name
-    foursquare_venue_name || location_name
+    foursquare_venue_name || location_name || 'Approximate Location'
   end
   
   def meta_content
-    c = self.price_as_string if self.price
-    c << " at #{venue_or_location_name}."
+    c = ""
+    c << self.price_as_string if self.price
+    c << " at #{venue_or_location_name}." unless venue_or_location_name.blank?
     c << " Posted by #{self.user.username}"
     c
   end
