@@ -15,7 +15,6 @@ class RelationshipTest < ActiveSupport::TestCase
 
   # ---------
   # email notifcations
-  
   test "should queue relationship notification delivery" do
     @relationship = Factory(:relationship)
     

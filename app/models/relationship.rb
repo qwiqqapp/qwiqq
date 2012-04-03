@@ -18,13 +18,14 @@ class Relationship < ActiveRecord::Base
     update_attribute(:notification_sent_at, Time.now)
   end
   
-  # rescue from connection error
-  def async_deliver
+  
+  def async_deliver_notification
     Resque.enqueue(RelationshipNotifyJob, self.id)
-    
-  rescue Exception => e
-    Rails.logger.error "Relationship#async_deliver Failed: #{e.message}"
-    notify_airbrake(e)
+  
+  # rescue from connection error
+   rescue Exception => e
+     Rails.logger.error "Relationship#async_deliver_notification Failed: #{e.message}"
+     notify_airbrake(e)
   end
   
   def create_event
