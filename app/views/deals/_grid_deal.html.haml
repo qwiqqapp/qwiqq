@@ -4,6 +4,7 @@
       %img.post-photo{ :src => grid_deal.photo.url(:iphone_zoom), :width => "240", :height => "240" }
       .name= grid_deal.name
       .price
+        .hole  
         %span.dollars= grid_deal.price_as_string
 
   %a{ :href => user_url(grid_deal.user) }

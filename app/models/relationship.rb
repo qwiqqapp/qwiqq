@@ -18,10 +18,8 @@ class Relationship < ActiveRecord::Base
     update_attribute(:notification_sent_at, Time.now)
   end
   
-  
   def async_deliver_notification
     Resque.enqueue(RelationshipNotifyJob, self.id)
-  
   # rescue from connection error
    rescue Exception => e
      Rails.logger.error "Relationship#async_deliver_notification Failed: #{e.message}"

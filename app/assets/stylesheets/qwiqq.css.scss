@@ -184,19 +184,10 @@ img.bubbles {
 
 .post-small .name {
   padding: 4px 0;
-  height: 75px;
-}
-
-.post-small .price {
-  background-image: url("tag.png");
-  width: 67px;
-  height: 32px;
+  height: 60px;
 }
 
 .post-small .dollars {
-  position: relative;
-  top: 5px;
-  left: 15px;
   color: #6cb340;
   font-size: 14px;
 }
@@ -583,25 +574,50 @@ p.empty-deals{
 }
 
 .post .details .name {
-  float: left;
   font-size: 22px;
   margin-top: 20px;
-  max-width: 350px;
   overflow: hidden;
 }
 
-.post .details .price {
-  width: 94px;
-  height: 45px;
-  margin-top: 20px;
-  float: right;
-  background-image: url("tag-large.png");
+.post-small .price,
+.post .price {
+  padding: 5px 8px 5px 15px;
+  border: 2px solid #dedede;
+  background-color: #ededed;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  float: left;  
+  margin-top: 10px;  
 }
 
-.post .details .dollars-large {
+.post-small .price .hole,
+.post .price .hole{
   position: relative;
-  top: 11px;
-  left: 20px;
+  float: left;  
+  left: -6px;
+  top: 6px;
+  margin: 0;
+  height: 5px;
+  width: 5px;
+  border: 2px solid #dedede;
+  background-color: white;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+
+.post-small .price,{
+  padding: 5px 8px 5px 10px;
+}
+
+.post-small .price .hole{
+  left: -5px;
+  top: 5px;
+}
+
+
+.post .details .dollars-large {
   color: #6cb340;
   font-size: 18px;
 }
