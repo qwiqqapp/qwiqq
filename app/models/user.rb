@@ -21,10 +21,10 @@ class User < ActiveRecord::Base
   has_many :posted_feedlets, :class_name => 'Feedlet', :foreign_key => 'posting_user_id', :dependent => :destroy
 
   has_many :feed_deals, :through => :feedlets, :source => :deal
-
+  
   has_many :relationships, :dependent => :destroy
   has_many :inverse_relationships, :dependent => :destroy, :class_name => "Relationship", :foreign_key => "target_id"
-    
+  
   has_many :following, :through => :relationships, :source => :target
   has_many :followers, :through => :inverse_relationships, :source => :user
   has_many :shares, :dependent => :destroy
@@ -82,7 +82,8 @@ class User < ActiveRecord::Base
   after_save :update_push_token 
   
   # create worker to update cached user event attributes
-  after_save :async_update_cached_user_attributes
+  # Todo fix, currently not working
+  # after_save :async_update_cached_user_attributes
   
   validates_confirmation_of :password
   validates_presence_of     :password, :on => :create
@@ -282,7 +283,7 @@ class User < ActiveRecord::Base
     profile_image_url = twitter_client.profile_image(:size => :original) rescue nil
     self.photo = Paperclip::RemoteFile.new(profile_image_url) if profile_image_url
   end
-  
+    
   def facebook_friends
     facebook_ids = facebook_client.friends.map{|f| f["id"].to_s }
     self.class.sorted.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
@@ -291,6 +292,13 @@ class User < ActiveRecord::Base
   # see lib/facebook
   def facebook_client
     Facebook.new(self)
+  end
+  
+  # Temp fix for issue with reset_counters, does not work for has many through
+  def update_relationship_cache
+    write_attribute(:followers_count, followers.count)
+    write_attribute(:following_count, following.count)
+    save
   end
   
   private
@@ -350,6 +358,7 @@ class User < ActiveRecord::Base
       end
     end
     
+    # TODO fix, currently not working
     def async_update_cached_user_attributes
       Resque.enqueue(UpdateCachedUserAttributesJob, id) if photo_file_name_changed?
     end

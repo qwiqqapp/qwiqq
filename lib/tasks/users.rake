@@ -13,9 +13,12 @@ namespace :users do
   
   desc "Reset users counter cache"
   task :refresh_counter_cache => :environment do
-    counters = [:followers, :following, :likes, :comments, :deals]
+    counters = [:likes, :comments, :deals]
     User.find_each do |user|
-      p "refresh counter cache for user #{user.id}"
+
+      puts " - refreshing counter cache for user #{user.id}"
+      user.update_relationship_cache
+      
       counters.each do |c|
         User.reset_counters(user.id, c)
       end
