@@ -1,32 +1,32 @@
 ActiveAdmin::Dashboards.build do
 
-
-  section "New Users", :priority => 1 do
-    table_for User.order("created_at desc").limit(10).each do
-      column("") {|u| link_to(image_tag(u.photo.url(:iphone_small)), [:admin, u])}
-      column("") {|u| link_to(u.email, admin_user_path(u)) }
-      column("") {|u| pretty_format(u.created_at) }
-      column("") {|u| u.created_at.to_s(:short) }
-    end
-  end
-
-  section "New Posts", :priority => 2 do
-    table_for Deal.order("created_at desc").limit(10) do
-      column("") {|deal| link_to(image_tag(deal.photo.url(:iphone_list)), [:admin, deal])}
-      column("") {|deal|  link_to deal.name, admin_deal_path(deal)}
-      column("") {|deal| status_tag(deal.try(:category).try(:name)) }
-      column("") {|deal| deal.created_at.to_s(:short) }
-    end
-  end
+   section "New Posts", :priority => 1 do
+     table_for Deal.order("created_at desc").limit(9) do
+       column("") {|deal| link_to(image_tag(deal.photo.url(:iphone_list)), [:admin, deal])}
+       column("") {|deal|  link_to deal.name, admin_deal_path(deal)}
+       column("") {|deal| status_tag(deal.try(:category).try(:name)) }
+       column("") {|deal| deal.created_at.to_s(:short) }
+     end
+   end
+   
+   section "Popular Posts", :priority => 2 do
+     table_for Deal.popular.limit(9) do
+       column("") {|deal| link_to(image_tag(deal.photo.url(:iphone_list)), [:admin, deal])}
+       column("") {|deal|  link_to deal.name, admin_deal_path(deal)}
+       column("") {|deal| status_tag(deal.try(:category).try(:name)) }
+       column("") {|deal| deal.created_at.to_s(:short) }
+     end
+   end
    
    section "Current Home Page Posts", :priority => 3 do
      table_for Deal.premium.recent.sorted.popular.first(9) do
        column("") {|deal| link_to(image_tag(deal.photo.url(:iphone_list)), [:admin, deal])}
        column("") {|deal|  link_to deal.name, admin_deal_path(deal)}
        column("") {|deal| status_tag(deal.try(:category).try(:name)) }
+       column("") {|deal| deal.created_at.to_s(:short) }
      end
    end
-   
+
    section "Performance", :priority => 4 do
       div do
         br
