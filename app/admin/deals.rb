@@ -32,7 +32,7 @@ ActiveAdmin.register Deal do
     column :comments_count
     column :shares_count
     
-    column("User", :sortable => :user_id) {|deal| link_to(deal.user.name, admin_user_path(deal.user))}
+    column("User", :sortable => :user_id) {|deal| link_to(deal.user.best_name, admin_user_path(deal.user))}
     column("Price", :sortable => :price) {|deal| deal.price ? number_to_currency(deal.price.to_f/100) : "" }
     
     column :created_at
@@ -42,14 +42,19 @@ ActiveAdmin.register Deal do
   form(:html => {:multipart => true}) do |f|
    f.inputs "Details" do
      f.input :name
-     f.input :price
+     f.input :price, :hint => "Stored in cents. Example: 1000c = $10.00"
      f.input :category
-     f.input :lat
-     f.input :lon
      f.input :photo, :as => :file
      f.input :premium
    end
-
+   
+   f.inputs "Location" do
+     f.input :lat
+     f.input :lon     
+     f.input :foursquare_venue_id, :hint => "http://foursquare.com/v/4d41f6341da9a09377485d3d"
+     f.input :foursquare_venue_name
+  end 
+     
    f.buttons
   end
   
