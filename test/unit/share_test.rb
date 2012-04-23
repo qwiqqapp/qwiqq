@@ -56,6 +56,12 @@ class ShareTest < ActiveSupport::TestCase
     assert share.message.size < 140
   end
   
+  test "should share formatted message via Email" do
+    deal = Factory(:deal, :price => 9000, :name => 'tasty whiskey', :foursquare_venue_name => "Gastown Labs")
+    share = Factory(:email_share, :message => 'test', :deal => deal)
+    
+    assert_equal "test - tasty whiskey $90.00 @ Gastown Labs", share.message
+  end
   
   # test queue is populated
   test "should queue twitter share" do
