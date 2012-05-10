@@ -4,6 +4,14 @@
     width: 280px;
     margin: 0 auto;
   }
+  
+  
+  // TODO should use above 280px width but requires new assets for location header
+  body.deals.show .container,
+  body.users.show .container { 
+    width: 260px;
+    margin: 0 auto;
+  }
 
   .container-narrow {
     width: 100%;
@@ -91,6 +99,10 @@
     padding: 10px;
     width: 240px;
     height: 100%;
+  }
+  
+  .post-small .details {
+    margin: 8px 4px;
   }
 
   .post .details .name {
@@ -221,7 +233,16 @@
 
   #share a {
     float: left;
-    margin-right: 17px;
+    margin: 0;
   }
+  
+  #share a#facebook{
+    float: left;
+  }
+  
+  #share a#twitter{
+    float: right;
+  }
+  
 }
 
