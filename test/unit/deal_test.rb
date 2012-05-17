@@ -1,6 +1,17 @@
 require 'test_helper'
 
 class DealTest < ActiveSupport::TestCase
+
+  self.use_transactional_fixtures = false
+  
+  setup do
+    Resque.reset!
+    DatabaseCleaner.start
+  end
+  
+  teardown do
+    DatabaseCleaner.clean
+  end
   
   # --------------
   #  validation
@@ -61,6 +72,20 @@ class DealTest < ActiveSupport::TestCase
     assert_equal "Nuba", @deal.foursquare_venue_name
     assert_equal "207 West Hastings", @deal.location_name
   end
- 
-end
 
+  # -------------
+  # Coupons
+  test "detects when the coupon tag is not present" do
+    @deal = Factory(:deal, :name => "This is a deal without a coupon.")
+    assert_not_queued(CreateCouponJob)
+    assert_equal true, @deal.persisted?
+    assert_equal false, @deal.has_coupon?
+  end
+ 
+  test "detects when the coupon tag is present" do
+    @deal = Factory(:deal, :name => "This is a deal with a coupon. #coupon")
+    assert_queued(CreateCouponJob)
+    assert_equal true, @deal.persisted?
+    assert_equal true, @deal.has_coupon?
+  end
+end

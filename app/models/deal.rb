@@ -4,6 +4,7 @@ class Deal < ActiveRecord::Base
   
   MAX_AGE = 30
   MAX_RANGE = 40234   # default search range in metres (25 miles)
+  COUPON_TAG = "#coupon"
   
   define_index do
     indexes :name
@@ -24,10 +25,8 @@ class Deal < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   has_many :likes, :dependent => :destroy
   has_many :shares
-  
   has_many :liked_by_users, :through => :likes, :source => :user
   has_many :feedlets, :dependent => :destroy
-  
   has_many :events, :class_name => "UserEvent", 
     :conditions => [ "event_type IN (?)", [ "comment", "like", "share" ] ], 
     :dependent => :destroy
@@ -57,6 +56,8 @@ class Deal < ActiveRecord::Base
   before_create :set_user_photo
   after_create :populate_feed
   after_create :async_locate
+  before_validation :set_has_coupon
+  after_create :async_create_coupon, :if => :has_coupon?
   
   scope :today, lambda { where("DATE(created_at) = ?", Date.today) }
   scope :recent, lambda { where("DATE(created_at) > ?", 30.days.ago) }
@@ -64,24 +65,6 @@ class Deal < ActiveRecord::Base
   scope :sorted, :order => "created_at desc"
   scope :popular, order("likes_count desc, comments_count desc")
   
-  
-  
-  def populate_feed(posting_user = nil, repost = false)
-    posting_user ||= self.user
-    users = [ posting_user, posting_user.followers ].flatten
-    Feedlet.import(users.map {|u| 
-      Feedlet.new(:user_id => u.id, 
-                  :deal_id => self.id, 
-                  :posting_user_id => posting_user.id, 
-                  :reposted_by => repost ? posting_user.username : nil, 
-                  :timestamp => repost ? repost.created_at : self.created_at)})
-  end
-
-  def set_user_photo
-    self.user_photo = self.user.photo(:iphone_small)
-    self.user_photo_2x = self.user.photo(:iphone_small_2x)
-  end
-
   # all images are cropped
   # see initializers/auto_orient.rb for new processor
   #  TODO review all image sizes, need to reduce/reuse
@@ -281,10 +264,6 @@ class Deal < ActiveRecord::Base
     end
   end
 
-  def async_locate
-    Resque.enqueue(LocateDealJob, id)
-  end
-
   def venue_or_location_name
     foursquare_venue_name || location_name || 'Approximate Location'
   end
@@ -297,12 +276,22 @@ class Deal < ActiveRecord::Base
     c
   end
 
+  def create_coupon
+  end
+
+  def async_locate
+    Resque.enqueue(LocateDealJob, id)
+  end
+
+  def async_create_coupon
+    Resque.enqueue(CreateCouponJob, id)
+  end
+
   private
   def self.geo_radians(lat, lon)
     [ (lat.to_f / 180.0) * Math::PI, 
       (lon.to_f / 180.0) * Math::PI] 
   end
-  
   
   # construct and store hexdigest of important attributes
   # intent is to avoid duplicate posts being created due to server and 
@@ -326,6 +315,27 @@ class Deal < ActiveRecord::Base
   
   def has_price?
     !price.blank?
+  end
+
+  def populate_feed(posting_user = nil, repost = false)
+    posting_user ||= self.user
+    users = [ posting_user, posting_user.followers ].flatten
+    Feedlet.import(users.map {|u| 
+      Feedlet.new(:user_id => u.id, 
+                  :deal_id => self.id, 
+                  :posting_user_id => posting_user.id, 
+                  :reposted_by => repost ? posting_user.username : nil, 
+                  :timestamp => repost ? repost.created_at : self.created_at)})
+  end
+
+  def set_user_photo
+    self.user_photo = self.user.photo(:iphone_small)
+    self.user_photo_2x = self.user.photo(:iphone_small_2x)
+  end
+
+  def set_has_coupon
+    self.has_coupon = (self.name =~ /#{COUPON_TAG}/).present?
+    true
   end
 end
 
