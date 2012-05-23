@@ -57,13 +57,14 @@ class Deal < ActiveRecord::Base
   before_create :set_user_photo
   after_create :populate_feed
   after_create :async_locate
-  before_validation :create_coupon, :on => :create
+  before_validation :set_coupon_attributes, :on => :create
   
   scope :today, lambda { where("DATE(created_at) = ?", Date.today) }
   scope :recent, lambda { where("DATE(created_at) > ?", 30.days.ago) }
   scope :premium, where(:premium => true)
   scope :sorted, :order => "created_at desc"
   scope :popular, order("likes_count desc, comments_count desc")
+  scope :coupons, where(:has_coupon => true)
   
   # all images are cropped
   # see initializers/auto_orient.rb for new processor
@@ -267,6 +268,16 @@ class Deal < ActiveRecord::Base
   def venue_or_location_name
     foursquare_venue_name || location_name || 'Approximate Location'
   end
+
+  def redeem_coupon!
+    transaction do
+      if coupon_count > 0
+        decrement!(:coupon_count)
+        return true
+      end
+    end if has_coupon?
+    false
+  end
   
   def meta_content
     c = ""
@@ -326,10 +337,9 @@ class Deal < ActiveRecord::Base
     self.user_photo_2x = self.user.photo(:iphone_small_2x)
   end
 
-  def create_coupon
-    self.has_coupon = (self.name =~ /#{COUPON_TAG}/).present?
-    self.coupon_count = DEFAULT_COUPON_COUNT if has_coupon
+  def set_coupon_attributes
+    self.has_coupon ||= (self.name =~ /#{COUPON_TAG}/).present?
+    self.coupon_count ||= DEFAULT_COUPON_COUNT if has_coupon
     true
   end
 end
-

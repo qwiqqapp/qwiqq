@@ -87,4 +87,28 @@ class DealTest < ActiveSupport::TestCase
     assert_equal true, @deal.has_coupon?
     assert_equal Deal::DEFAULT_COUPON_COUNT, @deal.coupon_count
   end
+
+  test "does not redeem a coupon when none exist" do
+    @deal = Factory(:deal, :has_coupon => false)
+    redeemed = @deal.redeem_coupon!
+    @deal.reload
+    assert_equal false, redeemed
+  end
+
+  test "redeems a coupon when coupons are available" do
+    @deal = Factory(:deal, :has_coupon => true, :coupon_count => 10)
+    redeemed = @deal.redeem_coupon!
+    @deal.reload
+    assert_equal true, redeemed
+    assert_equal 9, @deal.coupon_count
+  end
+
+  test "does not redeem a coupon when none remain" do
+    @deal = Factory(:deal, :has_coupon => true, :coupon_count => 0)
+    redeemed = @deal.redeem_coupon!
+    @deal.reload
+    assert_equal false, redeemed
+    assert_equal 0, @deal.coupon_count
+  end
+
 end
