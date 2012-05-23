@@ -42,7 +42,9 @@ class Deal < ActiveRecord::Base
                   :premium, 
                   :location_name,
                   :foursquare_venue_id, 
-                  :foursquare_venue_name
+                  :foursquare_venue_name,
+                  :coupon,
+                  :coupon_count
   
   # TODO update to 3.0 validates method
   validates_presence_of   :user, :category, :name, :message => "is required"
@@ -64,7 +66,7 @@ class Deal < ActiveRecord::Base
   scope :premium, where(:premium => true)
   scope :sorted, :order => "created_at desc"
   scope :popular, order("likes_count desc, comments_count desc")
-  scope :coupons, where(:coupon => true)
+  scope :coupon, where(:coupon => true)
   
   # all images are cropped
   # see initializers/auto_orient.rb for new processor

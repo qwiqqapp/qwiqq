@@ -5,7 +5,8 @@ ActiveAdmin.register Deal do
   scope :all, :default => true
   scope :today
   scope :recent
-  scope :premium  
+  scope :premium
+  scope :coupon
   
   filter :name
   filter :foursquare_venue_name
@@ -46,6 +47,8 @@ ActiveAdmin.register Deal do
      f.input :category
      f.input :photo, :as => :file
      f.input :premium
+     f.input :coupon
+     f.input :coupon_count
    end
    
    f.inputs "Location" do
@@ -60,29 +63,29 @@ ActiveAdmin.register Deal do
   
   
   show :title => :name do
-      panel "Deal Comments (#{deal.comments.size})" do
-        table_for(deal.comments) do
-          column("") {|c| link_to(image_tag(c.user.photo.url(:iphone)), admin_user_path(c.user))}
-          column("User") {|c| link_to(c.user.name, [:admin, c.user])}
-          column('Comment'){|c| c.body}
-          column(:created_at)
-          column("") do |comment| 
-            links  = link_to("View", admin_deal_comment_path(comment), :class => "member_link view_link")
-            links += link_to("Edit", edit_admin_deal_comment_path(comment))
-            links
-          end
+    panel "Deal Comments (#{deal.comments.size})" do
+      table_for(deal.comments) do
+        column("") {|c| link_to(image_tag(c.user.photo.url(:iphone)), admin_user_path(c.user))}
+        column("User") {|c| link_to(c.user.name, [:admin, c.user])}
+        column('Comment'){|c| c.body}
+        column(:created_at)
+        column("") do |comment| 
+          links  = link_to("View", admin_deal_comment_path(comment), :class => "member_link view_link")
+          links += link_to("Edit", edit_admin_deal_comment_path(comment))
+          links
         end
       end
-      
-      panel "Like History (#{deal.likes.size})" do
-        table_for(deal.likes) do
-          column("User") {|c| link_to(c.user.name, [:admin, c.user])}
-          column :created_at
-        end
-      end
-      
-      active_admin_comments
     end
+    
+    panel "Like History (#{deal.likes.size})" do
+      table_for(deal.likes) do
+        column("User") {|c| link_to(c.user.name, [:admin, c.user])}
+        column :created_at
+      end
+    end
+    
+    active_admin_comments
+  end
     
     
   sidebar "Photo", :only => [:show, :edit] do
@@ -90,6 +93,6 @@ ActiveAdmin.register Deal do
   end
     
   sidebar "Details (raw data)", :only => :show do
-    attributes_table_for deal, :name, :price, :lat, :lon,  :likes_count, :comments_count, :premium, :created_at, :updated_at
+    attributes_table_for deal, :name, :price, :lat, :lon,  :likes_count, :comments_count, :premium, :created_at, :updated_at, :coupon, :coupon_count
   end
 end
