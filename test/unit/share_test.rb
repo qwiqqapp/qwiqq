@@ -13,8 +13,35 @@ class ShareTest < ActiveSupport::TestCase
     DatabaseCleaner.clean
   end
   
+  #------ with coupon
+  # twitter
+  test "should include coupon indicator in Twitter share message" do
+    deal = Factory(:deal, :price => 0, :name => 'free beer', :foursquare_venue_name => "Gastown Labs", :coupon => true)
+    share = Factory(:twitter_share, :message => "dave, you like?", :deal => deal)
+    
+    assert_equal "dave, you like? - Qwiqq Coupon! #{deal.name} Free @ #{deal.foursquare_venue_name} http://qwiqq.me/posts/#{deal.id}", share.message
+    assert share.message.size < 140
+  end
+  
+  #4sq
+  test "should include coupon indicator in FourSquare share message" do
+    deal = Factory(:deal, :price => 780, :name => 'free beer', :foursquare_venue_name => "Gastown Labs", :coupon => true)
+    share = Factory(:foursquare_share, :message => "great deal", :deal => deal)
+    
+    assert_equal "great deal - Qwiqq Coupon! #{deal.name} $7.80 http://qwiqq.me/posts/#{deal.id}", share.message
+    assert share.message.size < 140
+  end
+  
+  #SMS
+  test "should include coupon indicator in SMS share message" do
+    deal = Factory(:deal, :price => 1000, :name => 'free beer', :foursquare_venue_name => "Gastown Labs", :coupon => true)
+    share = Factory(:sms_share, :message => "wow", :deal => deal)
+    
+    assert_equal "#{share.user.username}: wow - Qwiqq Coupon! #{deal.name} $10.00 @ #{deal.foursquare_venue_name} http://qwiqq.me/posts/#{deal.id}", share.message
+    assert share.message.size < 140
+  end
 
-  #------ message content
+  #------ without coupon
   test "should share formatted message on Twitter with custom message" do
     deal = Factory(:deal, :price => 0, :name => 'free beer', :foursquare_venue_name => "Gastown Labs")
     share = Factory(:twitter_share, :message => "sweet", :deal => deal)

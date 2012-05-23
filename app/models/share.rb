@@ -110,10 +110,18 @@ class Share < ActiveRecord::Base
       :metadata => { :service => service })
   end
   
+  # messages for posts without coupons
   # [sender:] <personal comment> <deal.name> <deal.price> @ [deal.foursquare_venue_name] <deal_url>
-  # Twitter: sweet -The best bubble tea ever! @ Happy Teahouse http://qwiqq.me/posts/2259
+  # Twitter:    sweet - The best bubble tea ever! $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259
   # Foursquare: sweet - The best bubble tea ever! $5.99 http://qwiqq.me/posts/2259
-  # SMS: Adam: sweet - The best bubble tea ever! $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259
+  # SMS: Adam:  sweet - The best bubble tea ever! $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259
+  
+  # messages for coupons (if post.coupon?)
+  # Twitter:    sweet - Qwiqq Coupon! The best bubble tea ever! #coupon @ Happy Teahouse http://qwiqq.me/posts/2259
+  # Foursquare: sweet - Qwiqq Coupon! The best bubble tea ever! #coupon $5.99 http://qwiqq.me/posts/2259
+  # SMS: Adam:  sweet - Qwiqq Coupon! The best bubble tea ever! #coupon $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259
+  
+  
   def formatted_message
     base = message_base
     meta = message_meta
@@ -131,6 +139,7 @@ class Share < ActiveRecord::Base
     base = ""
     base << "#{self.user.username}: " if service == "sms"
     base << "#{self.message} - " unless self.message.blank?
+    base << "Qwiqq Coupon! " if self.deal.coupon?
     base << "#{deal.name}"
   end
   

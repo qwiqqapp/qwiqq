@@ -24,7 +24,7 @@ class Api::SharesControllerTest < ActionController::TestCase
        :format => "json"
        
     # share is pushed to worker
-    Share.any_instance.expects(:deliver_to_facebook).never
+    Share.any_instance.expects(:deliver_to_twitter).never
     
     # queues
     assert_equal 200, @response.status
@@ -78,5 +78,10 @@ class Api::SharesControllerTest < ActionController::TestCase
     assert_equal 4, @sharer.shares.count
     assert_equal 1, @sharer.shared_deals.count
   end
+  
+  
+  
+  
+  
 end
 

@@ -8,6 +8,7 @@ Factory.define :deal do |f|
   f.category {|f| f.association(:category)}
   f.foursquare_venue_id '4d41f6341da9a09377485d3d'
   f.foursquare_venue_name "Gastown Labs"
+  f.coupon false
 end
 
 
