@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.integer  "reposts_count",         :default => 0
     t.integer  "shares_count",          :default => 0
     t.string   "foursquare_venue_name"
-    t.boolean  "has_coupon"
+    t.boolean  "coupon"
     t.integer  "coupon_count"
   end
 

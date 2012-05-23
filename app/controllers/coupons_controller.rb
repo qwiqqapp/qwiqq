@@ -10,7 +10,7 @@ private
   def find_deal
     @deal ||= begin
       deal = Deal.find(params[:deal_id])
-      unless deal.present? and deal.has_coupon?
+      unless deal.present? and deal.coupon?
         redirect_to root_url and return
       end
       deal

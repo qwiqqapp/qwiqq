@@ -64,7 +64,7 @@ class Deal < ActiveRecord::Base
   scope :premium, where(:premium => true)
   scope :sorted, :order => "created_at desc"
   scope :popular, order("likes_count desc, comments_count desc")
-  scope :coupons, where(:has_coupon => true)
+  scope :coupons, where(:coupon => true)
   
   # all images are cropped
   # see initializers/auto_orient.rb for new processor
@@ -275,7 +275,7 @@ class Deal < ActiveRecord::Base
         decrement!(:coupon_count)
         return true
       end
-    end if has_coupon?
+    end if coupon?
     false
   end
   
@@ -338,8 +338,8 @@ class Deal < ActiveRecord::Base
   end
 
   def set_coupon_attributes
-    self.has_coupon ||= (self.name =~ /#{COUPON_TAG}/).present?
-    self.coupon_count ||= DEFAULT_COUPON_COUNT if has_coupon
+    self.coupon ||= (self.name =~ /#{COUPON_TAG}/).present?
+    self.coupon_count ||= DEFAULT_COUPON_COUNT if coupon?
     true
   end
 end

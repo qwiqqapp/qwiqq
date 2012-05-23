@@ -78,25 +78,25 @@ class DealTest < ActiveSupport::TestCase
   test "detects when the coupon tag is not present" do
     @deal = Factory(:deal, :name => "This is a deal without a coupon.")
     assert_equal true, @deal.persisted?
-    assert_equal false, @deal.has_coupon?
+    assert_equal false, @deal.coupon?
   end
  
   test "detects when the coupon tag is present" do
     @deal = Factory(:deal, :name => "This is a deal with a coupon. #coupon")
     assert_equal true, @deal.persisted?
-    assert_equal true, @deal.has_coupon?
+    assert_equal true, @deal.coupon?
     assert_equal Deal::DEFAULT_COUPON_COUNT, @deal.coupon_count
   end
 
   test "does not redeem a coupon when none exist" do
-    @deal = Factory(:deal, :has_coupon => false)
+    @deal = Factory(:deal, :coupon => false)
     redeemed = @deal.redeem_coupon!
     @deal.reload
     assert_equal false, redeemed
   end
 
   test "redeems a coupon when coupons are available" do
-    @deal = Factory(:deal, :has_coupon => true, :coupon_count => 10)
+    @deal = Factory(:deal, :coupon => true, :coupon_count => 10)
     redeemed = @deal.redeem_coupon!
     @deal.reload
     assert_equal true, redeemed
@@ -104,7 +104,7 @@ class DealTest < ActiveSupport::TestCase
   end
 
   test "does not redeem a coupon when none remain" do
-    @deal = Factory(:deal, :has_coupon => true, :coupon_count => 0)
+    @deal = Factory(:deal, :coupon => true, :coupon_count => 0)
     redeemed = @deal.redeem_coupon!
     @deal.reload
     assert_equal false, redeemed
