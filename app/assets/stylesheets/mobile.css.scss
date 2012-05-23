@@ -5,7 +5,6 @@
     margin: 0 auto;
   }
   
-  
   // TODO should use above 280px width but requires new assets for location header
   body.deals.show .container,
   body.users.show .container { 
@@ -248,5 +247,15 @@
     margin-top: 10px;
   }
   
+  #post .coupon .center {
+    height: 100%;
+  }
+
+  #post .coupon .redeem, 
+  #post .coupon .remaining {
+    position: static;
+    border: none;
+    width: 100%;
+  }
 }
 

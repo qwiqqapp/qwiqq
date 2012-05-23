@@ -49,13 +49,10 @@ class Deal < ActiveRecord::Base
   # TODO update to 3.0 validates method
   validates_presence_of   :user, :category, :name, :message => "is required"
   validates_length_of     :name, :maximum => 70, :message=> "max characters is 70"
-
   validates_uniqueness_of :unique_token
-  
   validates :price, presence: true, numericality:  true
   
   before_validation :store_unique_token!, :on => :create
-  
   before_create :set_user_photo
   after_create :populate_feed
   after_create :async_locate

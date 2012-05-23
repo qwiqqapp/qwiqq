@@ -835,3 +835,71 @@ p.empty-deals{
 .clearfix {
   overflow: hidden;
 }
+
+#post .coupon {
+  position: relative;
+  color: white;
+  width: 100%;
+  background-color: #75b749;
+  overflow: hidden;
+  margin: 20px 0;
+  border: 1px solid #659d40;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  box-shadow: 0px 0px 3px #8c8c8c;
+  -webkit-box-shadow: 0px 0px 3px #8c8c8c;
+  -moz-box-shadow: 0px 0px 3px #8c8c8c;
+}
+
+#post .coupon .remaining {
+  position: absolute;
+  font-size: 15px;
+  margin: 0 4px;
+  height: 100px;
+  width: 140px;
+  text-align: center;
+  border-right: 1px dashed #659d40;
+}
+
+#post .coupon .count {
+  position: relative;
+  top: 6px;
+  font-size: 52px;
+  font-weight: 500;
+}
+
+#post .coupon .center {
+  width: 100%;
+  height: 100px;
+  text-align: center;
+}
+
+#post .coupon .awesome {
+  padding-top: 18px;
+  font-size: 25px;
+  font-weight: 500;
+  text-shadow: 0px 1px 1px #659d40;
+  filter: dropshadow(color=#659d40, offx=0, offy=1);
+}
+
+#post .coupon .name {
+  padding-top: 6px;
+}
+
+#post .coupon .redeem {
+  position: absolute;
+  text-align: center;
+  right: 0;
+  top: 0;
+  width: 200px;
+  height: 100px;
+  border-left: 1px dashed #659d40;
+}
+
+#post a.get-coupon, #post .gone {
+  display: inline-block;
+  padding-top: 24px;
+  width: 159px;
+  height: 51px;
+}

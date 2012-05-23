@@ -1,0 +1,18 @@
+.coupon
+  .remaining
+    .count= @deal.coupon_count
+    .base
+      #{@deal.coupon_count == 1 ? "coupon" : "coupons"} left
+  .center
+    .awesome
+      An awesome Qwiqq #coupon!
+    .name
+      = @deal.name
+  .redeem
+    - if @deal.coupon_count > 0
+      = link_to deal_coupon_path(@deal), :class => "get-coupon" do
+        = image_tag "get-coupon.png"
+    - else
+      .gone
+        Sorry, all gone!
+
