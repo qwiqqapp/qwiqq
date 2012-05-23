@@ -85,5 +85,6 @@ class DealTest < ActiveSupport::TestCase
     @deal = Factory(:deal, :name => "This is a deal with a coupon. #coupon")
     assert_equal true, @deal.persisted?
     assert_equal true, @deal.has_coupon?
+    assert_equal Deal::DEFAULT_COUPON_COUNT, @deal.coupon_count
   end
 end

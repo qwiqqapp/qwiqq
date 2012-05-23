@@ -5,6 +5,7 @@ class Deal < ActiveRecord::Base
   MAX_AGE = 30
   MAX_RANGE = 40234   # default search range in metres (25 miles)
   COUPON_TAG = "#coupon"
+  DEFAULT_COUPON_COUNT = 100
   
   define_index do
     indexes :name
@@ -56,7 +57,7 @@ class Deal < ActiveRecord::Base
   before_create :set_user_photo
   after_create :populate_feed
   after_create :async_locate
-  before_validation :set_has_coupon
+  before_validation :create_coupon, :on => :create
   
   scope :today, lambda { where("DATE(created_at) = ?", Date.today) }
   scope :recent, lambda { where("DATE(created_at) > ?", 30.days.ago) }
@@ -325,8 +326,9 @@ class Deal < ActiveRecord::Base
     self.user_photo_2x = self.user.photo(:iphone_small_2x)
   end
 
-  def set_has_coupon
+  def create_coupon
     self.has_coupon = (self.name =~ /#{COUPON_TAG}/).present?
+    self.coupon_count = DEFAULT_COUPON_COUNT if has_coupon
     true
   end
 end
