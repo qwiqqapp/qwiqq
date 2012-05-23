@@ -14,6 +14,7 @@ class ShareTest < ActiveSupport::TestCase
   end
   
   #------ with coupon
+  
   # twitter
   test "should include coupon indicator in Twitter share message" do
     deal = Factory(:deal, :price => 0, :name => 'free beer', :foursquare_venue_name => "Gastown Labs", :coupon => true)
@@ -106,6 +107,19 @@ class ShareTest < ActiveSupport::TestCase
     
     Mailer.expects(:share_deal).once.with(@target_email, @share).returns(mock(:deliver => true))
     Resque.run!
+  end
+  
+  test "should deliver share email with coupon message" do
+    @target_email = 'adam@test.com'
+    @deal = Factory(:deal, :coupon => true)
+    @share = Factory(:email_share, :email => @target_email, :deal => @deal)
+    Resque.run!
+    
+    share_email = ActionMailer::Base.deliveries.last
+    
+    assert_match /share/i, share_email.subject
+    assert_equal @target_email, share_email.to[0]
+    assert_match /qwiqq #coupon!/i, share_email.body
   end
   
   test "should deliver an sms share" do
