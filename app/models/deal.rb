@@ -57,7 +57,6 @@ class Deal < ActiveRecord::Base
   after_create :populate_feed
   after_create :async_locate
   before_validation :set_has_coupon
-  after_create :async_create_coupon, :if => :has_coupon?
   
   scope :today, lambda { where("DATE(created_at) = ?", Date.today) }
   scope :recent, lambda { where("DATE(created_at) > ?", 30.days.ago) }
@@ -276,15 +275,8 @@ class Deal < ActiveRecord::Base
     c
   end
 
-  def create_coupon
-  end
-
   def async_locate
     Resque.enqueue(LocateDealJob, id)
-  end
-
-  def async_create_coupon
-    Resque.enqueue(CreateCouponJob, id)
   end
 
   private

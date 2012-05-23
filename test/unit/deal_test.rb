@@ -77,14 +77,12 @@ class DealTest < ActiveSupport::TestCase
   # Coupons
   test "detects when the coupon tag is not present" do
     @deal = Factory(:deal, :name => "This is a deal without a coupon.")
-    assert_not_queued(CreateCouponJob)
     assert_equal true, @deal.persisted?
     assert_equal false, @deal.has_coupon?
   end
  
   test "detects when the coupon tag is present" do
     @deal = Factory(:deal, :name => "This is a deal with a coupon. #coupon")
-    assert_queued(CreateCouponJob)
     assert_equal true, @deal.persisted?
     assert_equal true, @deal.has_coupon?
   end
