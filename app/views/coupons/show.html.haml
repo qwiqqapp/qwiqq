@@ -1,0 +1,34 @@
+!!!
+%html
+  %head
+    %meta{ :charset => "utf-8" }
+    %meta{ "http-equiv" => "X-UA-Compatible", :content => "IE=edge,chrome=1" }
+    %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1" }
+    %title
+      Qwiqq Coupon - #{deal.name}
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tag
+    %meta(property="fb:app_id" content="236767206341724")
+    %meta(property="og:site_name" content="Qwiqq.me")
+      
+  %body
+    .coupon-container
+      %a{ :href => root_url }
+        %img{ :src => image_path("logo-coupon.png") }
+      .coupon
+        - if redeemed?
+          .header
+            .inner Yay, you snagged a Qwiqq #coupon!
+          .details
+            .inner= deal.name
+          .map
+            %a{ :href => "http://maps.google.com/?q=#{deal.lat},#{deal.lon}" }
+              %img{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=280x200&zoom=15&sensor=false&markers=color:red|#{deal.lat},#{deal.lon}" }
+        - else
+          .gone
+            .sorry
+              Sorry,
+            someone beat you to the last Qwiqq #coupon.
+
+    = render "shared/google_analytics"

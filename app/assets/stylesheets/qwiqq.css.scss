@@ -836,20 +836,23 @@ p.empty-deals{
   overflow: hidden;
 }
 
-#post .coupon {
-  position: relative;
+.coupon {
   color: white;
-  width: 100%;
   background-color: #75b749;
-  overflow: hidden;
-  margin: 20px 0;
   border: 1px solid #659d40;
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  box-shadow: 0px 0px 3px #8c8c8c;
-  -webkit-box-shadow: 0px 0px 3px #8c8c8c;
-  -moz-box-shadow: 0px 0px 3px #8c8c8c;
+  -webkit-box-shadow: 0px 1px 1px rgba(50, 50, 50, 0.25);
+  -moz-box-shadow: 0px 1px 1px rgba(50, 50, 50, 0.25);
+  box-shadow: 0px 1px 1px rgba(50, 50, 50, 0.25);
+}
+
+#post .coupon {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin: 20px 0;
 }
 
 #post .coupon .remaining {
@@ -904,6 +907,52 @@ p.empty-deals{
   height: 51px;
 }
 
-#post .gone {
+#post .coupon .gone {
   padding-top: 38px;
+}
+
+// coupon page
+.coupon-container {
+  width: 280px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 60px;
+}
+
+.coupon-container .coupon {
+  width: 100%;
+  min-height: 400px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.coupon .header, 
+.coupon .sorry {
+  font-size: 22px;
+  font-weight: 500;
+  text-shadow: 0px 1px 1px #659d40;
+  filter: dropshadow(color=#659d40, offx=0, offy=1);
+}
+
+.coupon .header .inner {
+  padding: 20px 40px;
+}
+
+.coupon .details .inner {
+  padding: 30px;
+}
+
+.coupon .details {
+  font-size: 18px;
+  border-top: 1px dashed #659d40;
+  border-bottom: 1px solid #659d40;
+}
+
+.coupon .map img {
+  display: block;
+}
+
+.coupon .gone {
+  margin: 100px 50px;
+  font-size: 20px;
 }
