@@ -89,7 +89,7 @@ ActiveAdmin.register Deal do
     
     
   sidebar "Photo", :only => [:show, :edit] do
-    image_tag(deal.photo.url(:iphone_zoom))
+    image_tag(deal.photo.url(:iphone_explore_2x))
   end
     
   sidebar "Details (raw data)", :only => :show do
