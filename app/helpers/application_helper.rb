@@ -4,7 +4,7 @@ module ApplicationHelper
     url = "http://pinterest.com/pin/create/button/"
     url << "?url=#{deal_url(deal)}"
     url << "&media=#{deal.photo.url(:iphone_zoom_2x)}"
-    url << "&description=#{deal.name.titleize} #{deal.price_as_string}"
+    url << "&description=#{CGI::escape(deal.name.titleize)} #{deal.price_as_string}"
     url << " @ #{deal.foursquare_venue_name}" if deal.foursquare_venue_name
     url << " via Qwiqq.me"
     url
