@@ -900,7 +900,9 @@ p.empty-deals{
   border-left: 1px dashed #659d40;
 }
 
-#post a.get-coupon, #post .gone {
+
+#post a.get-coupon, 
+#post .gone {
   display: inline-block;
   padding-top: 24px;
   width: 159px;
@@ -914,7 +916,7 @@ p.empty-deals{
 // coupon page
 .coupon-container {
   width: 280px;
-  margin: 0 auto;
+  margin: 0 auto 40px auto;
   text-align: center;
   padding-top: 60px;
 }
@@ -926,7 +928,35 @@ p.empty-deals{
   margin: 20px 0;
 }
 
-.coupon .header, 
+.coupon-container .coupon .gone{
+  margin: 140px 70px 0;
+  line-height: 1.3em;
+}
+
+.coupon-container .coupon .gone .sorry{
+  margin: 10px 0;
+}
+
+.coupon-container p.directions{
+  font-size: 14px;
+  line-height: 1.3em;
+  margin: 0 30px 30px;
+}
+
+.coupon-container p.directions em{
+  font-weight: bold;
+  font-style: normal;
+}
+
+.coupon-container p.directions a
+.coupon-container p.directions a:hover,
+.coupon-container p.directions a:visited,
+.coupon-container p.directions a:link{
+  color: #666;
+}
+
+
+.coupon .header,
 .coupon .sorry {
   font-size: 22px;
   font-weight: 500;
@@ -940,6 +970,7 @@ p.empty-deals{
 
 .coupon .details .inner {
   padding: 30px;
+  line-height: 1.5em;
 }
 
 .coupon .details {
@@ -952,7 +983,5 @@ p.empty-deals{
   display: block;
 }
 
-.coupon .gone {
-  margin: 100px 50px;
-  font-size: 20px;
-}
+
+

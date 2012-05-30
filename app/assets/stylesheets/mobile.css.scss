@@ -257,5 +257,22 @@
     border: none;
     width: 100%;
   }
+  
+  #post .coupon .redeem{
+    border-top: 1px dashed #659d40;
+    margin-top: 20px;
+  }
+  
+  #post .coupon .remaining{
+    border-bottom: 1px dashed #659d40;
+  }
+  
+  .coupon-container p.directions{
+    margin: 0 30px 30px;
+  }
+  
+
+  
+  
 }
 

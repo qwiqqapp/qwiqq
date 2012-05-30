@@ -42,9 +42,7 @@ class Deal < ActiveRecord::Base
                   :premium, 
                   :location_name,
                   :foursquare_venue_id, 
-                  :foursquare_venue_name,
-                  :coupon,
-                  :coupon_count
+                  :foursquare_venue_name
   
   # TODO update to 3.0 validates method
   validates_presence_of   :user, :category, :name, :message => "is required"
@@ -53,10 +51,11 @@ class Deal < ActiveRecord::Base
   validates :price, presence: true, numericality:  true
   
   before_validation :store_unique_token!, :on => :create
+  before_validation :set_coupon_attributes, :on => :create
+  
   before_create :set_user_photo
   after_create :populate_feed
   after_create :async_locate
-  before_validation :set_coupon_attributes, :on => :create
   
   scope :today, lambda { where("DATE(created_at) = ?", Date.today) }
   scope :recent, lambda { where("DATE(created_at) > ?", 30.days.ago) }
@@ -338,8 +337,8 @@ class Deal < ActiveRecord::Base
   end
 
   def set_coupon_attributes
-    self.coupon ||= (self.name =~ /#{COUPON_TAG}/).present?
-    self.coupon_count ||= DEFAULT_COUPON_COUNT if coupon?
+    self.coupon = (self.name =~ /#{COUPON_TAG}/).present?
+    self.coupon_count = DEFAULT_COUPON_COUNT if coupon?
     true
   end
 end

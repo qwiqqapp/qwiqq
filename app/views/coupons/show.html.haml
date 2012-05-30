@@ -21,14 +21,31 @@
           .header
             .inner Yay, you snagged a Qwiqq #coupon!
           .details
-            .inner= deal.name
+            %p.inner
+              = deal.name
+              %br
+              = "@ #{deal.venue_or_location_name}"
           .map
-            %a{ :href => "http://maps.google.com/?q=#{deal.lat},#{deal.lon}" }
+            %a{ :href => "http://maps.google.com/?q=#{deal.lat},#{deal.lon}", :target => '_blank' }
               %img{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=280x200&zoom=15&sensor=false&markers=color:red|#{deal.lat},#{deal.lon}" }
         - else
           .gone
             .sorry
               Sorry,
-            someone beat you to the last Qwiqq #coupon.
+            someone beat you to the last Qwiqq 
+            %br #coupon.
+
+      - if redeemed?
+        %p.directions
+          %em Show your Qwiqq #coupon
+          to our friends @
+          %a{ :href => "http://maps.google.com/?q=#{deal.lat},#{deal.lon}", :target => '_blank' }
+            = deal.venue_or_location_name
+          %em to redeem!
+      - else
+        %p.directions
+          = link_to 'back to Qwiqq post', deal
+    
+
 
     = render "shared/google_analytics"

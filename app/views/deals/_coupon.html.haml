@@ -9,10 +9,11 @@
     .name
       = @deal.name
   .redeem
-    - if @deal.coupon_count > 0
+    - if @deal.coupon_count == 0
+      .gone
+        Sorry, all gone.
+    - else
       = link_to deal_coupon_path(@deal), :class => "get-coupon" do
         = image_tag "get-coupon.png"
-    - else
-      .gone
-        Sorry, all gone!
+      
 

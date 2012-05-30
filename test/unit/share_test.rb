@@ -17,7 +17,7 @@ class ShareTest < ActiveSupport::TestCase
   
   # twitter
   test "should include coupon indicator in Twitter share message" do
-    deal = Factory(:deal, :price => 0, :name => 'free beer', :foursquare_venue_name => "Gastown Labs", :coupon => true)
+    deal = Factory(:deal, :price => 0, :name => 'free beer #coupon', :foursquare_venue_name => "Gastown Labs")
     share = Factory(:twitter_share, :message => "dave, you like?", :deal => deal)
     
     assert_equal "dave, you like? - Qwiqq Coupon! #{deal.name} Free @ #{deal.foursquare_venue_name} http://qwiqq.me/posts/#{deal.id}", share.message
@@ -26,7 +26,7 @@ class ShareTest < ActiveSupport::TestCase
   
   #4sq
   test "should include coupon indicator in FourSquare share message" do
-    deal = Factory(:deal, :price => 780, :name => 'free beer', :foursquare_venue_name => "Gastown Labs", :coupon => true)
+    deal = Factory(:deal, :price => 780, :name => 'free pizza #coupon!', :foursquare_venue_name => "Gastown Labs")
     share = Factory(:foursquare_share, :message => "great deal", :deal => deal)
     
     assert_equal "great deal - Qwiqq Coupon! #{deal.name} $7.80 http://qwiqq.me/posts/#{deal.id}", share.message
@@ -35,7 +35,7 @@ class ShareTest < ActiveSupport::TestCase
   
   #SMS
   test "should include coupon indicator in SMS share message" do
-    deal = Factory(:deal, :price => 1000, :name => 'free beer', :foursquare_venue_name => "Gastown Labs", :coupon => true)
+    deal = Factory(:deal, :price => 1000, :name => 'cheap golf clubs #coupon', :foursquare_venue_name => "Gastown Labs")
     share = Factory(:sms_share, :message => "wow", :deal => deal)
     
     assert_equal "#{share.user.username}: wow - Qwiqq Coupon! #{deal.name} $10.00 @ #{deal.foursquare_venue_name} http://qwiqq.me/posts/#{deal.id}", share.message
@@ -111,7 +111,7 @@ class ShareTest < ActiveSupport::TestCase
   
   test "should deliver share email with coupon message" do
     @target_email = 'adam@test.com'
-    @deal = Factory(:deal, :coupon => true)
+    @deal = Factory(:deal, :name => 'deal with #coupon')
     @share = Factory(:email_share, :email => @target_email, :deal => @deal)
     Resque.run!
     

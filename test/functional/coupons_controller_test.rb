@@ -6,9 +6,11 @@ class CouponsControllerTest < ActionController::TestCase
   end
 
   test "redeems and shows the coupon for a deal with remaining coupons" do
-    deal = Factory(:deal, :coupon => true, :coupon_count => 10)
+    deal = Factory(:deal, :name => 'deal with sweet #coupon!')
+    deal.update_attribute(:coupon_count, 10)
     get :show, :deal_id => deal.id
     deal.reload
+    
     assert_equal 9, deal.coupon_count
   end
 end

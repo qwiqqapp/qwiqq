@@ -117,8 +117,8 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.integer  "reposts_count",         :default => 0
     t.integer  "shares_count",          :default => 0
     t.string   "foursquare_venue_name"
-    t.boolean  "coupon"
-    t.integer  "coupon_count"
+    t.boolean  "coupon",                :default => false
+    t.integer  "coupon_count",          :default => 0
   end
 
   add_index "deals", ["likes_count", "comments_count"], :name => "index_deals_on_likes_count_and_comments_count"
