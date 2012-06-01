@@ -873,13 +873,14 @@ p.empty-deals{
 }
 
 #post .coupon .center {
-  width: 100%;
+  width: 475px;
+  margin-left: 150px;
   height: 100px;
   text-align: center;
 }
 
 #post .coupon .awesome {
-  padding-top: 18px;
+  padding: 12px 6px 6px 6px;
   font-size: 25px;
   font-weight: 500;
   text-shadow: 0px 1px 1px #659d40;
@@ -887,7 +888,7 @@ p.empty-deals{
 }
 
 #post .coupon .name {
-  padding-top: 6px;
+  padding: 6px;
 }
 
 #post .coupon .redeem {
