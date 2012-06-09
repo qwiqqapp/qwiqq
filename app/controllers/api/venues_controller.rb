@@ -25,8 +25,13 @@ class Api::VenuesController < Api::ApiController
   end
 
   private
+    # default to size = 256 and .png
     def build_icon_url(icon)
-      icon["prefix"] + icon["sizes"].last.to_s + icon["name"]
+      icon_url = ""
+      icon_url << icon["prefix"]
+      icon_url << (icon["sizes"].nil? ? '256' : icon["sizes"].last.to_s)
+      icon_url << icon["name"] || '.png'
+      icon_url
     end
 end
 
