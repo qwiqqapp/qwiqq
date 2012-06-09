@@ -25,14 +25,7 @@
             "shortName":"Middle Eastern",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/middleeastern_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+               "suffix":".png"
             },
             "primary":true
          }
@@ -74,14 +67,7 @@
             "shortName":"Other - Buildings",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/building/default_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+               "suffix":".png"
             },
             "primary":true
          }
@@ -124,14 +110,7 @@
             "shortName":"Sandwiches",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/sandwiches_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+               "suffix":".png"
             },
             "primary":true
          }
@@ -170,14 +149,8 @@
             "shortName":"Corporate / Office",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/building/default_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -215,14 +188,8 @@
             "shortName":"Café",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/cafe_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -263,14 +230,8 @@
             "shortName":"Malaysian",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/default_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -336,14 +297,8 @@
             "shortName":"Coffee Shop",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/coffeeshop_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -383,14 +338,8 @@
             "shortName":"Bookstore",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/shops/bookstore_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -432,14 +381,8 @@
             "shortName":"Pub",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/nightlife/pub_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -480,14 +423,8 @@
             "shortName":"Café",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/cafe_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -525,14 +462,8 @@
             "shortName":"Arts & Crafts",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/shops/artstore_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -572,14 +503,8 @@
             "shortName":"Dive Bar",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/nightlife/divebar_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -620,14 +545,8 @@
             "shortName":"Tacos",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/tacos_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -667,14 +586,8 @@
             "shortName":"African",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/african_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -712,14 +625,8 @@
             "shortName":"Café",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/cafe_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -787,14 +694,8 @@
             "shortName":"Arts & Crafts",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/shops/artstore_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -832,14 +733,8 @@
             "shortName":"Corporate / Office",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/building/default_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -877,14 +772,8 @@
             "shortName":"Plaza / Square",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/parks_outdoors/default_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -922,14 +811,8 @@
             "shortName":"Dance Studio",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/arts_entertainment/default_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -967,14 +850,8 @@
             "shortName":"Other - College & Education",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/education/default_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -1011,14 +888,8 @@
             "shortName":"Hotel Bar",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/nightlife/hotelbar_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -1055,14 +926,8 @@
             "shortName":"Tattoo",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/shops/tattoos_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -1128,14 +993,8 @@
             "shortName":"Tech Startup",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/building/default_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -1172,14 +1031,8 @@
             "shortName":"Sandwiches",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/sandwiches_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -1241,14 +1094,8 @@
             "shortName":"Pub",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/nightlife/pub_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -1289,14 +1136,7 @@
             "shortName":"Middle Eastern",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/middleeastern_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+               "suffix":".png"
             },
             "primary":true
          }

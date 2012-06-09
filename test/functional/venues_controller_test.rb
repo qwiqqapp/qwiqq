@@ -53,5 +53,6 @@ class Api::VenuesControllerTest < ActionController::TestCase
 
     assert_equal 0, json_response.size
   end
+  
 end
 

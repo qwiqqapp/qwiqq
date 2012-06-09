@@ -22,14 +22,8 @@
             "shortName":"Tacos",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/tacos_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -68,14 +62,8 @@
             "shortName":"Mexican",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/mexican_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -116,14 +104,8 @@
             "shortName":"Tacos",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/tacos_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -163,14 +145,8 @@
             "shortName":"Mexican",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/mexican_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -232,14 +208,8 @@
             "shortName":"Tacos",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/tacos_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -280,14 +250,8 @@
             "shortName":"Mexican",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/mexican_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -326,14 +290,8 @@
             "shortName":"Mexican",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/mexican_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -372,14 +330,8 @@
             "shortName":"Fast Food",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/fastfood_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -416,14 +368,8 @@
             "shortName":"Food Court",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/foodcourt_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -461,14 +407,8 @@
             "shortName":"Food Truck / Street Food",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/streetfood_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -506,14 +446,8 @@
             "shortName":"Food Truck / Street Food",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/streetfood_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -547,14 +481,8 @@
             "shortName":"Mexican",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/mexican_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -616,14 +544,8 @@
             "shortName":"Food Truck / Street Food",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/streetfood_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -684,14 +606,8 @@
             "shortName":"Mexican",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/mexican_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -727,14 +643,8 @@
             "shortName":"Fast Food",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/fastfood_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -801,14 +711,8 @@
             "shortName":"Mexican",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/mexican_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -847,14 +751,8 @@
             "shortName":"Tacos",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/tacos_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -921,14 +819,8 @@
             "shortName":"Mexican",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/mexican_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -965,14 +857,8 @@
             "shortName":"Monument / Landmark",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/building/default_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -1008,14 +894,8 @@
             "shortName":"Food Truck / Street Food",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/streetfood_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -1056,14 +936,8 @@
             "shortName":"Tacos",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/tacos_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -1099,14 +973,8 @@
             "shortName":"Other - Buildings",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/building/default_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -1143,14 +1011,8 @@
             "shortName":"Mexican",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/mexican_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -1186,14 +1048,8 @@
             "shortName":"Home",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/building/home_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+
+               "suffix":".png"
             },
             "primary":true
          }
@@ -1232,14 +1088,7 @@
             "shortName":"Mexican",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/mexican_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
-               "name":".png"
+               "suffix":".png"
             },
             "primary":true
          }

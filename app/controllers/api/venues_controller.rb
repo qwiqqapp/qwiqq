@@ -29,8 +29,8 @@ class Api::VenuesController < Api::ApiController
     def build_icon_url(icon)
       icon_url = ""
       icon_url << icon["prefix"]
-      icon_url << (icon["sizes"].nil? ? '256' : icon["sizes"].last.to_s)
-      icon_url << icon["name"] || '.png'
+      icon_url << '256'
+      icon_url << (icon["suffix"].nil? ? '.png' : icon["suffix"])
       icon_url
     end
 end
