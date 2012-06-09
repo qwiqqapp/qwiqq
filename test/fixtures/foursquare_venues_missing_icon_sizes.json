@@ -25,13 +25,6 @@
             "shortName":"Middle Eastern",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/middleeastern_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
                "name":".png"
             },
             "primary":true
@@ -74,13 +67,6 @@
             "shortName":"Other - Buildings",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/building/default_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
                "name":".png"
             },
             "primary":true
@@ -336,13 +322,6 @@
             "shortName":"Coffee Shop",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/coffeeshop_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
                "name":".png"
             },
             "primary":true
@@ -383,13 +362,6 @@
             "shortName":"Bookstore",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/shops/bookstore_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
                "name":".png"
             },
             "primary":true
@@ -432,13 +404,6 @@
             "shortName":"Pub",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/nightlife/pub_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
                "name":".png"
             },
             "primary":true
@@ -480,13 +445,6 @@
             "shortName":"Café",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/food/cafe_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
                "name":".png"
             },
             "primary":true
@@ -525,13 +483,6 @@
             "shortName":"Arts & Crafts",
             "icon":{
                "prefix":"https://foursquare.com/img/categories/shops/artstore_",
-               "sizes":[
-                  32,
-                  44,
-                  64,
-                  88,
-                  256
-               ],
                "name":".png"
             },
             "primary":true
