@@ -28,7 +28,7 @@
           followers
 
     #share
-      %a#facebook{ :href => "http://www.facebook.com/sharer/sharer.php?u=#{deal_url(@deal)}", :target => "_blank" }
+      %a#facebook{ :href => "http://www.facebook.com/sharer/sharer.php?u=#{deal_url(@deal)}&t=#{deal.}", :target => "_blank" }
       %a#twitter{ :href => "http://twitter.com/home?status=#{CGI::escape(@deal.share_message)}", :target => "_blank" }
       %a#pinterest{ :href => pinterest_url_for(@deal), :target => "_blank" }
       
