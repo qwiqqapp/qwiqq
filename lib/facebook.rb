@@ -39,6 +39,7 @@ class Facebook
     target  = share.facebook_page_id.blank? ? "me" : share.facebook_page_id
     
     client.put_connections(target, "links", {link: link, message: share.message})
+    #client.put_connections("me", "namespace:action", {link: link, message: share.message})
   end
   
   def me
