@@ -28,7 +28,8 @@
           followers
 
     #share
-      %a#facebook{ :href => "http://www.facebook.com/sharer.php?u=#{deal_url(@deal)}&t=#{CGI::escape(@deal.share_message)}", :target => "_blank" }
+      %a#facebook{ :href => "https://www.facebook.com/dialog/feed?app_id=236767206341724&link=#{deal_url(@deal)}&picture=#{@deal.photo(:iphone_zoom_2x)}&name=Qwiqq&caption=#{CGI::escape(@deal.share_message)}&redirect_uri=#{deal_url(@deal)}", :target => "_blank" }
+      #%a#facebook{ :href => "http://www.facebook.com/sharer.php?u=#{deal_url(@deal)}&t=#{CGI::escape(@deal.share_message)}", :target => "_blank" }
       %a#twitter{ :href => "http://twitter.com/home?status=#{CGI::escape(@deal.share_message)}", :target => "_blank" }
       %a#pinterest{ :href => pinterest_url_for(@deal), :target => "_blank" }
       
