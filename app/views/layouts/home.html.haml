@@ -20,7 +20,7 @@
 = render "shared/header_home"
 = yield
 %a{:href => "/home"}
-  %img{:border => "0", :onmouseout => "this.src='document/app/assets/images/Black-White/GoodDog.png';", :onmouseover => "this.src='http://www.euraxess.cz/images_raw/facebook.png'", :src => "http://uxmovement.com/wp-content/uploads/2010/10/Twitter-icon1.png"}/
+  %img{:border => "0", :onmouseout => "this.src= image_path('header-logo.png');", :onmouseover => "this.src='http://www.euraxess.cz/images_raw/facebook.png'", :src => "http://uxmovement.com/wp-content/uploads/2010/10/Twitter-icon1.png"}/
 = render "shared/footer_home"
 = render "shared/google_analytics"
 
