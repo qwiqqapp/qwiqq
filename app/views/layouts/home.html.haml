@@ -23,4 +23,4 @@
     = render "shared/google_analytics"
 
     %a{:href => "http://www.bluemesagrill.com/"}
-        %img{:border => "0", :onmouseout => "this.src='/assets/Black-White/Blue Mesa Grill.png'", :onmouseover => "this.src='/assets/Color/Blue Mesa Grill.png'", :src => "/assets/Black-White/Blue Mesa Grill.png"}/
+        %img{:border => "0", :onmouseout => "this.src=#{asset_path('/Black-White/Blue Mesa Grill.png')", :onmouseover => "this.src=#{asset_path('/Color/Blue Mesa Grill.png')", :src => "#{asset_path(/Black-White/Blue Mesa Grill.png")}/
