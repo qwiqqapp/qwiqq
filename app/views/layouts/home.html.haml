@@ -17,10 +17,10 @@
 
       
   %body{ :class => "#{controller_name} #{action_name}" }
-%a{:href => "/home"}
-  %img{:border => "0", :onmouseout => "this.src='http://uxmovement.com/wp-content/uploads/2010/10/Twitter-icon1.png'", :onmouseover => "this.src='http://www.euraxess.cz/images_raw/facebook.png'", :src => "http://uxmovement.com/wp-content/uploads/2010/10/Twitter-icon1.png"}/
 = render "shared/header_home"
 = yield
+%a{:href => "/home"}
+  %img{:border => "0", :onmouseout => "this.src='http://uxmovement.com/wp-content/uploads/2010/10/Twitter-icon1.png'", :onmouseover => "this.src='http://www.euraxess.cz/images_raw/facebook.png'", :src => "http://uxmovement.com/wp-content/uploads/2010/10/Twitter-icon1.png"}/
 = render "shared/footer_home"
 = render "shared/google_analytics"
 
