@@ -38,7 +38,11 @@ class Facebook
     link    = deal_share_url(share.deal)
     target  = share.facebook_page_id.blank? ? "me" : share.facebook_page_id
     
-    client.put_connections(target, "links", {link: link, message: share.message})
+    
+    
+    client.put_connections("me", "feed", :message => share.message, :link => link)
+    #client.put_connections("me", "feed", {link: link, message: share.message})
+
     #client.put_connections("me", "namespace:action", {link: link, message: share.message})
   end
   

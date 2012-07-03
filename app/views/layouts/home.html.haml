@@ -14,10 +14,18 @@
     %meta(property="og:description" content="A fun way to share the things you love to buy.")
     %meta(property="og:image" content="#{root_url.chomp('/')}#{asset_path('home-qwiqq-logo.png')}")
     %meta(property="og:url" content=root_url)
+
       
   %body{ :class => "#{controller_name} #{action_name}" }
     = render "shared/header_home"
     = yield
     = render "shared/footer_home"
     = render "shared/google_analytics"
+
+%a{:href => "/home"}
+  %img{:border => "0", :onmouseout => "this.src='/assets/Black-White/Blue Mesa Grill.png'", :onmouseover => "this.src='/assets/Color/Blue Mesa Grill.png'", :src => "/assets/Black-White/Blue Mesa Grill.png"}/
+%a{:href => "/home"}
+  %img{:border => "0", :onmouseout => "this.src='/assets/Black-White/Corner Bakery Cafe.png'", :onmouseover => "this.src='/assets/Color/Corner Bakery Cafe.png'",src => "/assets/Black-White/Corner Bakery Cafe.png"}/
+​
+
   

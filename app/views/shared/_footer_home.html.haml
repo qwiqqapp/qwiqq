@@ -2,26 +2,6 @@
   .container
     .boxes.info
       .box.logo
-%head
-  %SCRIPT{:LANGUAGE => "JavaScript"}
-    /
-      hide from none JavaScript Browsers
-      Image1= new Image(75,50)
-      Image1.src = "footer-logo.png"
-      Image2 = new Image(75,50)
-      Image2.src = "footer-app-store.png"
-      function SwapOut() {
-      document.imageflip.src = Image2.src; return true;
-      }
-      function SwapBack() {
-      document.imageflip.src = Image1.src; return true;
-      }
-      \// - stop hiding
-
-Image1= new Image(75,50)
-Image1.src = "footer-logo.png"
-Image2 = new Image(75,50)
-Image2.src = "footer-app-store.png"
 
 
         %img{ :src => image_path("footer-logo.png") }
@@ -50,10 +30,6 @@ Image2.src = "footer-app-store.png"
           Get in Touch
         %h2
           Facebook, Tweet or email us, we'd love to hear from you.
-
-%A{:HREF => "www.google.com", :onMouseOut => "SwapBack()", :onMouseOver => "SwapOut()"}
-  %IMG{:BORDER => "0", :HEIGHT => "50", :NAME => "imageflip", :SRC => "footer-app-store.png", :WIDTH => "75"}/
-
 
 
     %ul
