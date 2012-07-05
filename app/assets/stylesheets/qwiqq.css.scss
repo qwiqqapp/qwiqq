@@ -123,6 +123,27 @@ img.bubbles {
   margin-right: 26px;
 }
 
+#logos {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  overflow: hidden;
+}
+
+#logos fieldset {
+  font-size: 1.8em;
+  color: #8c8c8c;
+  border-top: 1px solid #8c8c8c;
+  margin-bottom: 10px;
+  font-weight: 300;
+  color: #666;
+  font-family: "Helvetica Neue Light", Helvetica, Arial;
+}
+
+#logos fieldset .title {
+  padding: 0 20px;
+}
+
 #posts {
   margin-top: 80px;
   margin-bottom: 10px;
