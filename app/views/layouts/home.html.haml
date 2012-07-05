@@ -15,18 +15,20 @@
     %meta(property="og:image" content="#{root_url.chomp('/')}#{asset_path('home-qwiqq-logo.png')}")
     %meta(property="og:url" content=root_url)
 
-      
-  %body{ :class => "#{controller_name} #{action_name}" }
+%body{ :class => "#{controller_name} #{action_name}" }
 = render "shared/header_home"
 = yield
-#content
+#footer
   .container
-    #posts
-      %fieldset
-        %legend
-          %span.title Who's Talking About Us:
-
-%div{:style => "width:1226px; background-color:transparent; height:80px; overflow:hidden;"}
+    .boxes.info
+      .box.logo
+        #content
+        .container
+          #posts
+            %fieldset
+              %legend
+                %span.title Who's Talking About Us:
+        %div{:style => "width:1226px; background-color:transparent; height:80px; overflow:hidden;"}
   %div{:style => "width: 1226px; height: 75px;"}
     %a{:href => "http://techwildcatters.com/"}
       %img{:border => "0", :onmouseout => "this.src='/assets/Black-White/tech_wildcatters.png';", :onmouseover => "this.src='/assets/Color/TWC-2.png';", :src => "/assets/Black-White/tech_wildcatters.png", :style => "margin-left: 6px; width: 117px; height: 70px;"}/
@@ -46,6 +48,7 @@
     %a{:href => "http://www.s.co/"}
       %img{:border => "0", :onmouseout => "this.src='/assets/Black-White/Startup-America-Logo.png';", :onmouseover => "this.src='/assets/Color/startup-america-logo.png';", :src => "/assets/Black-White/Startup-America-Logo.png", :style => "margin-left: 8px; width: 247px; height: 70px;"}/
 
+%h5 Businesses Using Qwiqq:
 #content
   .container
     #posts
@@ -78,7 +81,7 @@
       %img{:border => "0", :onmouseout => "this.src='/assets/Black-White/ragin-cajun.png';", :onmouseover => "this.src='/assets/Color/ragin-cajun.png';", :src => "/assets/Black-White/ragin-cajun.png", :style => "margin-left: 8px; width: 107px; height: 70px;"}/
     %a{:href => "http://www.tenshisushi.net/"}
       %img{:border => "0", :onmouseout => "this.src='/assets/Black-White/tenshi_sushi.png';", :onmouseover => "this.src='/assets/Color/tenshi_sushi.png';", :src => "/assets/Black-White/tenshi_sushi.png", :style => "margin-left: 8px; width: 125px; height: 70px;"}/
-
+  ​
 = render "shared/footer_home"
 = render "shared/google_analytics"
 
