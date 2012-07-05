@@ -19,6 +19,7 @@
   %body{ :class => "#{controller_name} #{action_name}" }
 = render "shared/header_home"
 = yield
+= render "shared/footer_home"
 #content
   .container
     #posts
@@ -53,7 +54,7 @@
       %fieldset
         %legend
           %span.title Businesses Using Qwiqq:
-%div{:style => "width:1226px; background-color:transparent; height:80px; overflow:hidden;"}
+%div{:style => "width:1226px; background-color:transparent; height:180px; overflow:hidden;"}
   %div{:style => "width: 1226px; height: 75px;"}
     %a{:href => "http://www.bluemesagrill.com/"}
       %img{:border => "0", :onmouseout => "this.src='/assets/Black-White/Blue Mesa Grill.png';", :onmouseover => "this.src='/assets/Color/Blue Mesa Grill.png';", :src => "/assets/Black-White/Blue Mesa Grill.png", :style => "margin-left: 45px; width: 140px; height: 70px;"}/
@@ -80,6 +81,5 @@
     %a{:href => "http://www.tenshisushi.net/"}
       %img{:border => "0", :onmouseout => "this.src='/assets/Black-White/tenshi_sushi.png';", :onmouseover => "this.src='/assets/Color/tenshi_sushi.png';", :src => "/assets/Black-White/tenshi_sushi.png", :style => "margin-left: 8px; width: 125px; height: 70px;"}/
 
-= render "shared/footer_home"
 = render "shared/google_analytics"
 
