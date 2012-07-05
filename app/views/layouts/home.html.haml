@@ -19,6 +19,12 @@
   %body{ :class => "#{controller_name} #{action_name}" }
 = render "shared/header_home"
 = yield
+#content
+  .container
+    #posts
+      %fieldset
+        %legend
+          %span.title Who's Talking About Us:
 %h5 Who's Talking About Us:
 
 %div{:style => "width:1226px; background-color:transparent; height:80px; overflow:hidden;"}
@@ -43,7 +49,7 @@
 
 %h5 Businesses Using Qwiqq:
 
-%div{:style => "width:1226px; background-color:white; height:80px; overflow:hidden;"}
+%div{:style => "width:1226px; background-color:transparent; height:80px; overflow:hidden;"}
   %div{:style => "width: 1226px; height: 75px;"}
     %a{:href => "http://www.bluemesagrill.com/"}
       %img{:border => "0", :onmouseout => "this.src='/assets/Black-White/Blue Mesa Grill.png';", :onmouseover => "this.src='/assets/Color/Blue Mesa Grill.png';", :src => "/assets/Black-White/Blue Mesa Grill.png", :style => "margin-left: 50px; width: 140px; height: 70px;"}/
