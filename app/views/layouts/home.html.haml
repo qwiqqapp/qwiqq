@@ -20,6 +20,10 @@
 = render "shared/header_home"
 = yield
 %h5 Who's Talking About Us:
+#posts
+    %fieldset
+        %legend
+            %span.title Who's Talking About Us:
 %a{:href => "http://nibletz.com/"}
   %img{:border => "0", :onmouseout => "this.src='/assets/Black-White/nibletz.png'", :onmouseover => "this.src='/assets/Color/nibletz.png'", :src => "/assets/Black-White/nibletz.png"}/
 %a{:href => "http://techwildcatters.com/"}
