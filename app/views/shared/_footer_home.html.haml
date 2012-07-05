@@ -30,35 +30,19 @@
           Get in Touch
         %h2
           Facebook, Tweet or email us, we'd love to hear from you.
-  #content
-  .container
-    #posts
-      %fieldset
-        %legend
-          %span.title Who's Talking About Us:
-​
-          %div{:style => "width:1226px; background-color:transparent; height:80px; overflow:hidden;"}
-            %div{:style => "width: 1226px; height: 75px;"}
-              %a{:href => "http://techwildcatters.com/"}
-                %img{:border => "0", :onmouseout => "this.src='/assets/Black-White/tech_wildcatters.png';", :onmouseover => "this.src='/assets/Color/TWC-2.png';", :src => "/assets/Black-White/tech_wildcatters.png", :style => "margin-left: 6px; width: 117px; height: 70px;"}/
-              %a{:href => ""}
-                %img{:border => "0", :onmouseout => "this.src='/assets/Black-White/TeXchange.png';", :onmouseover => "this.src='/assets/Color/TeXchange.png';", :src => "/assets/Black-White/TeXchange.png", :style => "margin-left: 8px; width: 170px; height: 70px;"}/
-              %a{:href => "http://www.huffingtonpost.com/"}
-                %img{:border => "0", :onmouseout => "this.src='/assets/Black-White/The Huffington Post.png';", :onmouseover => "this.src='/assets/Color/The Huffington Post.png';", :src => "/assets/Black-White/The Huffington Post.png", :style => "margin-left: 8px; width: 135px; height: 70px;"}/
-              %a{:href => "http://techcocktail.com/"}
-                %img{:border => "0", :onmouseout => "this.src='/assets/Black-White/TECH Cocktail.png';", :onmouseover => "this.src='/assets/Color/TECH Cocktail.png';", :src => "/assets/Black-White/TECH Cocktail.png", :style => "margin-left: 8px; width: 70px; height: 70px;"}/
-              %a{:href => "http://launchdfw.com/"}
-                %img{:border => "0", :onmouseout => "this.src='/assets/Black-White/Launch DFW.png';", :onmouseover => "this.src='/assets/Color/Launch DFW.png';", :src => "/assets/Black-White/Launch DFW.png", :style => "margin-left: 8px; width: 155px; height: 70px;"}/
-              %a{:href => "http://www.dallasnews.com/"}
-                %img{:border => "0", :onmouseout => "this.src='/assets/Black-White/The Dallas Morning News.png';", :onmouseover => "this.src='/assets/Color/The Dallas Morning News.png';", :src => "/assets/Black-White/The Dallas Morning News.png", :style => "margin-left: 8px; width: 160px; height: 70px;"}/
-              %a{:href => "http://www.fueled.com/"}
-                %img{:border => "0", :onmouseout => "this.src='/assets/Black-White/fueled-1.png';", :onmouseover => "this.src='/assets/Color/Fueled-1.png';", :src => "/assets/Black-White/fueled-1.png", :style => "margin-left: 8px; width: 70px; height: 70px;"}/
-              %a{:href => "http://www.s.co/"}
-                %img{:border => "0", :onmouseout => "this.src='/assets/Black-White/Startup-America-Logo.png';", :onmouseover => "this.src='/assets/Color/startup-america-logo.png';", :src => "/assets/Black-White/Startup-America-Logo.png", :style => "margin-left: 8px; width: 247px; height: 70px;"}/
 
-    #content
-    .container
-      #posts
-        %fieldset
-          %legend
-            %span.title Businesses Using Qwiqq:​
+    %ul
+      %li= link_to "Blog", "http://blog.qwiqq.me"
+      |
+      %li= link_to "Help", "http://help.qwiqq.me"
+      |
+      %li= link_to "About Us", about_url
+      |
+      %li= link_to "Media", media_url
+      |
+      %li= link_to "Privacy", privacy_url
+      |
+      %li= link_to "Terms", terms_url
+      |
+      %li &copy; 2012, Qwiqq Inc.
+
