@@ -21,9 +21,3 @@ $(function() {
   //    });
   //  }
 });
-
-if (document.location == "home.html.haml") {
-    if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-        location.replace("mobile-home.html.haml");
-    }
-}
