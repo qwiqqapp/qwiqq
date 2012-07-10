@@ -23,7 +23,7 @@
         document.write("Mobile");
   }
     else{
-         <% render :partial => "logos" -%>
+         $("#logo").html('#{escape_javascript(render :partial => "logos")}');
   }
 
 
