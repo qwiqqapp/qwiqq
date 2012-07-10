@@ -23,7 +23,9 @@
         document.write("Mobile");
   }
     else{
-         $("#logo").html('#{escape_javascript(render :partial => "logos")}');
+        jQuery(function($){
+            $("#logo").html('#{escape_javascript(render :partial => "logos")}');
+        };
   }
 
 
