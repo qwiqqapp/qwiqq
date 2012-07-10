@@ -23,9 +23,7 @@
         document.write("Mobile");
   }
     else{
-        jQuery(function($){
-            $("#footer").append('<%= render :partial => "shared/logos" %>');
-        };
+$("#footer").html('<%= escape_javascript(render :partial => "shared/logos") %>');
   }
 = render "shared/footer_home"
 = render "shared/google_analytics"
