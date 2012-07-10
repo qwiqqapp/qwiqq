@@ -17,7 +17,8 @@
 :javascript
     if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
   };
-    else { alert('computer'); };
+    else { document.write('HI');
+ };
 
 %body{ :class => "#{controller_name} #{action_name}" }
 = render "shared/header_home"
