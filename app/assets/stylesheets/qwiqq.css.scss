@@ -28,8 +28,9 @@ html, body {
   z-index: -10;
   height: 290px;
 }
+
 @media screen and (device-width: 768px) and (orientation: portrait) {
-#header {
+.container {
   width: 768px;
 
 }
@@ -43,7 +44,7 @@ html, body {
 
 #content {
 //  min-height: 100%;
-    min-width: 100%;
+    width: 100%;
 }
 
 @media screen and (device-width: 768px) and (orientation: portrait) {
