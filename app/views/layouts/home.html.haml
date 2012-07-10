@@ -14,18 +14,17 @@
     %meta(property="og:description" content="A fun way to share the things you love to buy.")
     %meta(property="og:image" content="#{root_url.chomp('/')}#{asset_path('home-qwiqq-logo.png')}")
     %meta(property="og:url" content=root_url)
-
-%body{ :class => "#{controller_name} #{action_name}" }
-= render "shared/header_home"
-= yield
 :javascript
     if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
         document.write("Mobile");
   }
     else{
-        img{:border => "0", :src => "/assets/Logo-Top-BW.png", :style => "margin-left: 6px; width: 1226px; height: 70px; padding-bottom: 30px;"}/
-
+        document.write("NOTmobile");
   }
+
+%body{ :class => "#{controller_name} #{action_name}" }
+= render "shared/header_home"
+= yield
 #footer
   .container
     .boxes.info
