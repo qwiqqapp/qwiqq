@@ -24,7 +24,7 @@
   }
     else{
         jQuery(function($){
-            $("#logo").load('#{escape_javascript(render :partial => "logos")}');
+            $("#logo").append('#{escape_javascript(render :partial => "logos")}');
         };
   }
 
