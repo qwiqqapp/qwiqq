@@ -16,16 +16,14 @@
     %meta(property="og:url" content=root_url)
 :javascript
     if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-        document.write("Mobile");
   }
     else{
-        document.write("NOTmobile");
   }
 
 %body{ :class => "#{controller_name} #{action_name}" }
 = render "shared/header_home"
 = yield
-#businesses
+%div{((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) ? {:class => "businesses"} : {}}
   #footer
     .container
       .boxes.info
