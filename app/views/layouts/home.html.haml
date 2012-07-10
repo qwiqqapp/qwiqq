@@ -14,6 +14,10 @@
     %meta(property="og:description" content="A fun way to share the things you love to buy.")
     %meta(property="og:image" content="#{root_url.chomp('/')}#{asset_path('home-qwiqq-logo.png')}")
     %meta(property="og:url" content=root_url)
+
+%body{ :class => "#{controller_name} #{action_name}" }
+= render "shared/header_home"
+= yield
 :javascript
     if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
         document.write("mobile-home.html");
@@ -21,10 +25,6 @@
     else{
         document.write("NOTmobile-home.html");
   }
-
-%body{ :class => "#{controller_name} #{action_name}" }
-= render "shared/header_home"
-= yield
 #footer
   .container
     .boxes.info
