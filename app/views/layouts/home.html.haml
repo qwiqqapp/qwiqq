@@ -24,7 +24,7 @@
   }
     else{
         jQuery(function($){
-            $('#footer').haml("<%= escape_javascript(render :partial => 'shared/footer_home') %>");
+            $('#footer').append("<%= escape_javascript(render :partial => 'shared/footer_home') %>");
         };
   }
 = render "shared/footer_home"
