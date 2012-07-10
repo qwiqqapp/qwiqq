@@ -25,7 +25,7 @@ function isOnDevice()
 %body{ :class => "#{controller_name} #{action_name}" }
 = render "shared/header_home"
 = yield
-%div{isOnDevice ? {:class => "businesses"} : {}}
+#businesses
   #footer
     .container
       .boxes.info
