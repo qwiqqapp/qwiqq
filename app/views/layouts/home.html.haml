@@ -27,27 +27,6 @@
             $("#logos").append("<%= escape_javascript(render(:partial => @shared/logos)) %>");
         };
   }
-#logos
-  #footer
-    .container
-      .boxes.info
-        .box.logo
-    #content
-      .container
-        #logos
-          %fieldset
-            %legend
-              %span.title THIS IS WRONG
-    %img{:border => "0", :src => "/assets/Logo-Top-BW.png", :style => "margin-left: 6px; width: 1226px; height: 70px; padding-bottom: 30px;"}/
-  
-    #content
-      .container
-        #logos
-          %fieldset
-            %legend
-              %span.title Businesses Using Qwiqq
-    %img{:border => "0", :src => "/assets/Logo-Bottom-BW.png", :style => "margin-left: 6px; width: 1222px; height: 70px;"}/
-
 = render "shared/footer_home"
 = render "shared/google_analytics"
 
