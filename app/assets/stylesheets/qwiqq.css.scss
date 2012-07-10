@@ -40,7 +40,11 @@ html, body {
     width: 100%;
 }
 
-
+@media screen and (device-width: 768px) and (orientation: portrait) {
+.container {
+  width: 768pxpx;
+}
+}
 
 #footer {
   background-image: url("background-pattern-footer.png");
