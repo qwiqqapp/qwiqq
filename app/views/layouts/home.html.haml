@@ -23,9 +23,7 @@
         document.write("Mobile");
   }
     else{
-        jQuery(function($){
-            $("#logo").append('#{escape_javascript(render :partial => "logos")}');
-        };
+         <% render :partial => "shared/logos" -%>
   }
 
 
