@@ -24,10 +24,10 @@
   }
     else{
         jQuery(function($){
-            $("#logos").html('#{escape_javascript(render :partial => "shared/logos")}');
+            $("#logos").append("<%= escape_javascript(render(:partial => @shared/logos)) %>");
         };
   }
-#logo
+#logos
   #footer
     .container
       .boxes.info
