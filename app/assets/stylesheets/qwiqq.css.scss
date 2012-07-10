@@ -37,7 +37,10 @@ html, body {
 
 #content {
 //  min-height: 100%;
+    width: 100%;
 }
+
+
 
 #footer {
   background-image: url("background-pattern-footer.png");
@@ -261,8 +264,8 @@ img.post-photo {
 
 #footer {
   text-align: center;
-  width: 100%;
 }
+
 
 #footer .boxes {
   overflow: hidden;
