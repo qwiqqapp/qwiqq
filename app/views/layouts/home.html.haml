@@ -24,7 +24,7 @@
   }
     else{
         jQuery(function($){
-            $("#logos").append("<%= escape_javascript(render(:partial => @shared/logos)) %>");
+            $("#logos").append("<%= escape_javascript(render :partial => 'logos') %>");
         };
   }
 = render "shared/footer_home"
