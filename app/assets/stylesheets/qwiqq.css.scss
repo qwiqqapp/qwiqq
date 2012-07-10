@@ -29,12 +29,6 @@ html, body {
   height: 290px;
 }
 
-@media screen and (device-width: 768px) and (orientation: portrait) {
-.container {
-  background-repeat: repeat-x;
-
-}
-}
 
 .post .metadata .stat .icon {
   position: relative;
@@ -44,7 +38,6 @@ html, body {
 
 #content {
 //  min-height: 100%;
-    width: 100%;
 }
 
 @media screen and (device-width: 768px) and (orientation: portrait) {
