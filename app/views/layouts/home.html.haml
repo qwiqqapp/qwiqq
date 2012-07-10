@@ -23,7 +23,9 @@
         document.write("Mobile");
   }
     else{
-         $("#logo").haml('shared/logos');
+        jQuery(function($){
+            $("#logo").html('shared/logos');
+        }
   }
 #logo
   #footer
