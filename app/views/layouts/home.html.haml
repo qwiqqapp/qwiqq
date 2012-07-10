@@ -15,15 +15,17 @@
     %meta(property="og:image" content="#{root_url.chomp('/')}#{asset_path('home-qwiqq-logo.png')}")
     %meta(property="og:url" content=root_url)
 :javascript
-    if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-  }
-    else{
-  }
+function isOnDevice()
+{
+    return ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i)));
+}
+
+
 
 %body{ :class => "#{controller_name} #{action_name}" }
 = render "shared/header_home"
 = yield
-%div{((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) ? {:class => "businesses"} : {}}
+%div{isOnDevice ? {:class => "businesses"} : {}}
   #footer
     .container
       .boxes.info
