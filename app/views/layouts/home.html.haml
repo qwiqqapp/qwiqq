@@ -20,32 +20,12 @@
 = yield
 :javascript
     if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-        var node = document.getElementById("Logos");
-        node.innerHTML = "";
+        document.write("Mobile");
   }
     else{
         document.write("NOTmobile");
   }
-%div{:id => "Logos"}
-  #footer
-    .container
-      .boxes.info
-        .box.logo
-    #content
-      .container
-        #logos
-          %fieldset
-            %legend
-              %span.title Who's Talking About Us:
-    %img{:border => "0", :src => "/assets/Logo-Top-BW.png", :style => "margin-left: 6px; width: 1226px; height: 70px; padding-bottom: 30px;"}/
-
-    #content
-      .container
-        #logos
-          %fieldset
-            %legend
-              %span.title Businesses Using Qwiqq
-    %img{:border => "0", :src => "/assets/Logo-Bottom-BW.png", :style => "margin-left: 6px; width: 1222px; height: 70px;"}/
+= render "home/logos"
 = render "shared/footer_home"
 = render "shared/google_analytics"
 
