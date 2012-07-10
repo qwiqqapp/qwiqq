@@ -3,6 +3,7 @@
   %head
     %meta{ :charset => "utf-8" }
     %meta{ "http-equiv" => "X-UA-Compatible", :content => "IE=edge,chrome=1" }
+    %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1" }
     %title Qwiqq | Welcome!
     = stylesheet_link_tag "application"
     = javascript_include_tag "application"
@@ -13,15 +14,17 @@
     %meta(property="og:description" content="A fun way to share the things you love to buy.")
     %meta(property="og:image" content="#{root_url.chomp('/')}#{asset_path('home-qwiqq-logo.png')}")
     %meta(property="og:url" content=root_url)
-:javascript
-    if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-  }
-    else{
-  }
 
 %body{ :class => "#{controller_name} #{action_name}" }
 = render "shared/header_home"
 = yield
+:javascript
+    if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+        document.write("Mobile");
+  }
+    else{
+        document.write("%img{:border => "0", :src => "/assets/Logo-Top-BW.png", :style => "margin-left: 6px; width: 1226px; height: 70px; padding-bottom: 30px;"}/");
+  }
 #footer
   .container
     .boxes.info
@@ -33,6 +36,7 @@
           %legend
             %span.title Who's Talking About Us
   %img{:border => "0", :src => "/assets/Logo-Top-BW.png", :style => "margin-left: 6px; width: 1226px; height: 70px; padding-bottom: 30px;"}/
+
   #content
     .container
       #logos
