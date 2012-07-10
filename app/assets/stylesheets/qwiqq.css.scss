@@ -38,10 +38,11 @@ html, body {
 
 #content {
 //  min-height: 100%;
+    width: 100%;
 }
 
-@media screen and (device-width: 768px) and (orientation: portrait) {
-#content {
+@media screen and (device-width: 768px) {
+.container {
   width: 768px;
 }
 }
