@@ -122,6 +122,12 @@ img.bubbles {
   margin-right: 26px;
 }
 
+<!--#if expr="(${HTTP_USER_AGENT} = /iPhone/)"-->
+#businesses {
+  display: "none";
+}
+-->
+
 #logos {
   margin-top: 10px;
   margin-bottom: 10px;
