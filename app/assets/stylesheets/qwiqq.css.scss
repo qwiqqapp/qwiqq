@@ -128,7 +128,9 @@ img.bubbles {
 
 @media screen and (min-device-width : 320px) and (max-device-width : 800px){
 #businesses {
-  display: none;
+  width: 880px;
+  height: 50px;
+  padding-left: 10px;
 }
 }
 
