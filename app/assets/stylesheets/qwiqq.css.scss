@@ -29,11 +29,6 @@ html, body {
   height: 290px;
 }
 
-@media screen and (device-width: 768px) {
-.container {
-  width: 768px;
-}
-}
 
 .post .metadata .stat .icon {
   position: relative;
@@ -60,12 +55,6 @@ html, body {
 .container {
   width: $cols12;
   margin: 0 auto;
-}
-
-@media screen and (device-width: 768px) {
-.container {
-  width: 768px;
-}
 }
 
 .container-narrow {
