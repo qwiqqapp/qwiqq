@@ -27,8 +27,14 @@ html, body {
   background-image: url("home-top-background.png");
   z-index: -10;
   height: 290px;
+  width: 100%;
 }
 
+@media screen and (device-width: 768px) {
+.container {
+  width: 768px;
+}
+}
 
 .post .metadata .stat .icon {
   position: relative;
