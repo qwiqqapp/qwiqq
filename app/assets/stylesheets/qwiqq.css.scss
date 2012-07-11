@@ -56,11 +56,18 @@ html, body {
 #footer {
   background-image: url("background-pattern-footer.png");
   min-height: 385px;
+  width: 100%;
 }
 
 .container {
   width: $cols12;
   margin: 0 auto;
+}
+
+@media screen and (device-width: 768px) {
+.container {
+  width: 768px;
+}
 }
 
 .container-narrow {
