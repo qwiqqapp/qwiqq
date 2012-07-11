@@ -27,7 +27,6 @@ html, body {
   background-image: url("home-top-background.png");
   z-index: -10;
   height: 290px;
-  width: 100%;
 }
 
 .post .metadata .stat .icon {
@@ -45,7 +44,6 @@ html, body {
 #footer {
   background-image: url("background-pattern-footer.png");
   min-height: 385px;
-  width: 100%;
 }
 
 .container {
@@ -136,6 +134,7 @@ img.bubbles {
 @media screen and (min-device-width : 320px) and (max-device-width : 800px){
 #businessimage {
   width: 98%;
+  background-color: green;
 
 }
 }
