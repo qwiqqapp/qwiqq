@@ -132,9 +132,10 @@ img.bubbles {
 }
 }
 
-@media screen and (min-device-width : 320px) and (max-device-width : 480px){
+@media screen and (max-device-width : 320px)
 #businessimage {
-  width: 480px;
+  width: device-width;
+  height: 50;
 }
 }
 
