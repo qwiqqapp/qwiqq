@@ -125,21 +125,21 @@ img.bubbles {
   margin-right: 26px;
 }
 
-
 @media screen and (min-device-width : 320px) and (max-device-width : 800px){
 #businesses {
-  width: 98%;
+  width: device-width;
 }
 }
 
 @media screen and (min-device-width : 320px) and (max-device-width : 767px){
 #businessimage {
-  width: 99%;
+  width: 90%;
   height: 70px;
   background-color: white;
 
 }
 }
+
 
 #logos {
   margin-top: 10px;
