@@ -60,7 +60,7 @@ html, body {
 
 @media screen and (min-device-width : 320px) and (max-device-width : 767px) {
 #businesses {
-  width: device-width;
+  width: 100%;
   background-color: blue;
 
 }
@@ -75,7 +75,7 @@ html, body {
 @media screen and (max-device-width: 1024px) and (orientation: landscape) {
 #businesses {
   background-color: pink;
-  width: 80%;
+  width: 70%;
 }
 #businessimage {
   background-color: red;
@@ -83,14 +83,14 @@ html, body {
 
 }
 #header {
-  width: 80%;
+  width: 70%;
 }
 }
 
 @media screen and (device-width: 768px) and (orientation: portrait) {
 #businesses {
   background-color: pink;
-  width: 80%;
+  width: 70%;
 }
 #businessimage {
   background-color: red;
@@ -98,7 +98,7 @@ html, body {
 
 }
 #header {
-  width: 80%;
+  width: 70%;
 }
 }
 
