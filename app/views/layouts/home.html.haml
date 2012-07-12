@@ -14,12 +14,7 @@
     %meta(property="og:description" content="A fun way to share the things you love to buy.")
     %meta(property="og:image" content="#{root_url.chomp('/')}#{asset_path('home-qwiqq-logo.png')}")
     %meta(property="og:url" content=root_url)
-    %meta{:content => "width = 380", :name => "viewport"}
-:javascript
-  if (screen.width < 700) {
-    var mvp = document.getElementById('resizeViewport');
-    mvp.setAttribute('content','initial-scale=.4');
-  }
+
 
 %body{ :class => "#{controller_name} #{action_name}" }
 = render "shared/header_home"
