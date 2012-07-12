@@ -1,34 +1,32 @@
-#businesses
-  #footer
-    .container
-      .boxes.steps
-        .box
-          %img{ :src => image_path("footer-love.png") }
-          %h2
-            From a cute pair of shoes to the perfect salon to the tastiest Thai on the Upper West Side.  The things you love are all around you!
-  
-        .box
-          %img{ :src => image_path("footer-share.png") }
-          %h2
-            Just snap a photo, write a quick note and enter the price. We do the rest. Sharing is caring so get out there and spread the love!
+#footer
+  .container
+    .boxes.steps
+      .box
+        %img{ :src => image_path("footer-love.png") }
+        %h2
+          From a cute pair of shoes to the perfect salon to the tastiest Thai on the Upper West Side.  The things you love are all around you!
 
-        .box
-          %img{ :src => image_path("footer-discover.png") }
-          %h2
-            Wow! People are really interesting. From foodies to fashionistas, discover what your friends and local merchants around you are sharing!
+      .box
+        %img{ :src => image_path("footer-share.png") }
+        %h2
+          Just snap a photo, write a quick note and enter the price. We do the rest. Sharing is caring so get out there and spread the love!
 
-      %ul
-        %li= link_to "Blog", "http://blog.qwiqq.me"
-        |
-        %li= link_to "Help", "http://help.qwiqq.me"
-        |
-        %li= link_to "About Us", about_url
-        |
-        %li= link_to "Media", media_url
-        |
-        %li= link_to "Policy", privacy_url
-        |
-        %li= link_to "Terms", terms_url
-        |
-        %li &copy; 2012, Qwiqq Inc.
+      .box
+        %img{ :src => image_path("footer-discover.png") }
+        %h2
+          Wow! People are really interesting. From foodies to fashionistas, discover what your friends and local merchants around you are sharing!
 
+    %ul
+      %li= link_to "Blog", "http://blog.qwiqq.me"
+      |
+      %li= link_to "Help", "http://help.qwiqq.me"
+      |
+      %li= link_to "About Us", about_url
+      |
+      %li= link_to "Media", media_url
+      |
+      %li= link_to "Policy", privacy_url
+      |
+      %li= link_to "Terms", terms_url
+      |
+      %li &copy; 2012, Qwiqq Inc.
