@@ -45,7 +45,6 @@ html, body {
 #footer {
   background-image: url("background-pattern-footer.png");
   min-height: 385px;
-  width: device-width;
 }
 
 .container {
@@ -57,6 +56,33 @@ html, body {
 .container-narrow {
   width: $cols8;
   margin: 0 auto;
+}
+
+@media screen and (min-device-width : 320px) and (max-device-width : 800px) {
+#businesses {
+  width: device-width;
+}
+}
+
+@media screen and (min-device-width : 320px) and (max-device-width : 800px) {
+#businessimage {
+  width: 98%;
+
+}
+}
+
+@media screen and (max-device-width: 1024px) and (orientation: landscape) {
+#businessimage {
+  width: 75%;
+
+}
+}
+
+@media screen and (device-width: 768px) and (orientation: portrait) {
+#businessimage {
+  width: 75%;
+
+}
 }
 
 img.logo {
@@ -125,20 +151,6 @@ img.bubbles {
 
 #one.step, #two.step {
   margin-right: 26px;
-}
-
-
-@media screen and (min-device-width : 320px) and (max-device-width : 800px){
-#businesses {
-  width: device-width;
-}
-}
-
-@media screen and (min-device-width : 320px) and (max-device-width : 800px){
-#businessimage {
-  width: 98%;
-
-}
 }
 
 
