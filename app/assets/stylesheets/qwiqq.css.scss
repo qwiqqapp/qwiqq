@@ -74,7 +74,7 @@ html, body {
 @media screen and (max-device-width: 1024px) and (orientation: landscape) {
 #businesses {
   background-color: pink;
-  width: 70%;
+  width: 100%;
 }
 #businessimage {
   background-color: red;
@@ -82,14 +82,14 @@ html, body {
 
 }
 #header {
-  width: 70%;
+  width: 100%;
 }
 }
 
 @media screen and (device-width: 768px) and (orientation: portrait) {
 #businesses {
   background-color: pink;
-  width: 70%;
+  width: 100%;
 }
 #businessimage {
   background-color: red;
@@ -97,7 +97,7 @@ html, body {
 
 }
 #header {
-  width: 70%;
+  width: 100%;
 }
 }
 
