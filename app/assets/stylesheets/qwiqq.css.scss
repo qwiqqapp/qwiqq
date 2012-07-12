@@ -58,20 +58,21 @@ html, body {
   margin: 0 auto;
 }
 
-@media screen and (min-device-width : 320px) and (max-device-width : 800px) {
+@media screen and (min-device-width : 320px) and (max-device-width : 767px) {
 #businesses {
   width: device-width;
 }
-}
-
-@media screen and (min-device-width : 320px) and (max-device-width : 800px) {
 #businessimage {
   width: 98%;
 
 }
 }
 
+
 @media screen and (max-device-width: 1024px) and (orientation: landscape) {
+#businesses {
+  width: 80%;
+}
 #businessimage {
   width: 75%;
 
