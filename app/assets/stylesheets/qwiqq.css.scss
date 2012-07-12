@@ -61,6 +61,8 @@ html, body {
 @media screen and (min-device-width : 320px) and (max-device-width : 767px) {
 #businesses {
   width: device-width;
+  background-color: blue;
+
 }
 #businessimage {
   width: 98%;
@@ -72,16 +74,23 @@ html, body {
 
 @media screen and (max-device-width: 1024px) and (orientation: landscape) {
 #businesses {
+  background-color: white;
   width: 80%;
 }
 #businessimage {
+  background-color: red;
   width: 75%;
 
 }
 }
 
 @media screen and (device-width: 768px) and (orientation: portrait) {
+#businesses {
+  background-color: white;
+  width: 80%;
+}
 #businessimage {
+  background-color: red;
   width: 75%;
 
 }
