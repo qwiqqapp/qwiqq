@@ -3,7 +3,7 @@
   %head
     %meta{ :charset => "utf-8" }
     %meta{ "http-equiv" => "X-UA-Compatible", :content => "IE=edge,chrome=1" }
-    %meta{ :name => "viewport", :content => "width=850, initial-scale=.9" }
+    %meta#resizeViewport{ :name => "viewport", :content => "width=850, initial-scale=.9" }
     %title Qwiqq | Welcome!
     = stylesheet_link_tag "application"
     = javascript_include_tag "application"
@@ -14,6 +14,12 @@
     %meta(property="og:description" content="A fun way to share the things you love to buy.")
     %meta(property="og:image" content="#{root_url.chomp('/')}#{asset_path('home-qwiqq-logo.png')}")
     %meta(property="og:url" content=root_url)
+    %meta{:content => "width = 380", :name => "viewport"}
+:javascript
+  if (screen.width < 700) {
+    var mvp = document.getElementById('resizeViewport');
+    mvp.setAttribute('content','initial-scale=.4');
+  }
 
 %body{ :class => "#{controller_name} #{action_name}" }
 = render "shared/header_home"

@@ -59,7 +59,7 @@ html, body {
 
 @media screen and (min-device-width : 320px) and (max-device-width : 767px) {
 #businesses {
-  width: 50%;
+  width: 100%;
   background-color: blue;
 
 }
@@ -68,13 +68,6 @@ html, body {
   background-color: green;
 
 }
-#content {
-  width: 50%;
-}
-#header {
-  width: 50%;
-}
-
 }
 
 
