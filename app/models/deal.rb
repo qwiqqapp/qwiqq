@@ -322,6 +322,7 @@ class Deal < ActiveRecord::Base
     !price.blank?
   end
 
+  #THIS IS WHAT MICHAEL NEEDS TO IMPLEMENT WHEN USER FOLLOWS ANOTHER
   def populate_feed(posting_user = nil, repost = false)
     posting_user ||= self.user
     users = [ posting_user, posting_user.followers ].flatten

@@ -31,6 +31,7 @@ class Api::DealsController < Api::ApiController
   # public scope
   
   def feed
+    #feedlets are already connected upon share, as to who can see them at that point in time?
     @feedlets = current_user.feedlets.includes(:deal).limit(40).order("feedlets.timestamp DESC")
     render :json => paginate(@feedlets).map {|f| f.as_json(:minimal => true, :current_user => current_user) }.compact
   end

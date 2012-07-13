@@ -142,6 +142,10 @@ class User < ActiveRecord::Base
     update_attribute(:reset_password_sent_at, Time.now)
   end
   
+  def deliver_welcome_email!
+    Mailer.welcome_email(self).deliver
+  end
+  
   # TODO check for token age, should be younger than 24.hours
   def self.validate_password_reset(token)
     self.find_by_reset_password_token(token)
@@ -164,6 +168,7 @@ class User < ActiveRecord::Base
   end
   
   # does not create feedlets, only created on new deal create
+  #3 RECENT FEEDLETS NEED TO BE CREATED
   def follow!(target)
     relationships.create(:target => target)
   end
