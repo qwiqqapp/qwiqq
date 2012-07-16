@@ -9,13 +9,13 @@ class Api::RelationshipsController < Api::ApiController
         :followers_count => target.followers_count + 1,
         :following_count => target.following_count,
         :friends_count =>   target.friends_count }
-      targetDeals = target.deals.limit(10).order("deals.timestamp DESC")
-      targetDeals.each {|deal|
+      target_deals = target.deals.limit(10).order("deals.timestamp DESC")
+      target_deals.each do |deal|
         Feedlet.new(:user_id => current_user.id, 
                   :deal_id => deal.id, 
                   :posting_user_id => target.id, 
                   :reposted_by => nil, 
-                  :timestamp => deal.created_at)}
+                  :timestamp => deal.created_at) end
       end
   end
 

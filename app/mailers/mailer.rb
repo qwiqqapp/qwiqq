@@ -29,6 +29,32 @@ class Mailer < ActionMailer::Base
          :tag => "password",
          :subject => "Your password reset instructions for Qwiqq"
   end
+  
+  def welcome_email(target)
+    @user = target
+    mail :to => target.email, 
+         :tag => "welcome",
+         :subject => "Welcome to Qwiqq!!!"
+  end
+  
+  def create_post(target)
+    @user = target
+    mail :to => target.email, 
+         :tag => "post",
+         :subject => "You haven't created a post yet..."
+  end
+  def share_post(target)
+    @user = target
+    mail :to => target.email, 
+         :tag => "share",
+         :subject => "You haven't shared a post yet..."
+  end
+  def missed_email(target)
+    @user = target
+    mail :to => target.email, 
+         :tag => "missed",
+         :subject => "You haven't posted in awhile..."
+  end
 
   # send if recipient notification settings allows
   def deal_liked(target, like)

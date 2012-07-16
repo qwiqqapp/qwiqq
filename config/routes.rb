@@ -56,6 +56,11 @@ Qwiqq::Application.routes.draw do
     
     resources :sessions, :only => [:create, :destroy]
     resources :password_resets, :only => [:create, :update]
+    resources :welcome_email, :only => [:mail]
+    resources :create_post, :only => [:mail]
+    resources :share_post, :only => [:mail]
+    resources :missed_email, :only => [:mail]
+
     
     resources :deals, :only => [:show, :create, :destroy, :update] do
       get "feed",    :on => :collection
