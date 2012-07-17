@@ -146,15 +146,15 @@ class User < ActiveRecord::Base
     Mailer.welcome_email(self).deliver
   end
   
-  def create_post_email!
+  def deliver_create_post!
     Mailer.create_post(self).deliver
   end
   
-  def missed_email_email!
+  def deliver_missed_email!
     Mailer.missed_email(self).deliver
   end
   
-  def share_post_email!
+  def deliver_share_post!
     Mailer.share_post(self).deliver
   end
   
