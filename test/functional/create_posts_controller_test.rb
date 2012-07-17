@@ -1,11 +1,11 @@
 require 'test_helper'
 
-class Api::SharePostControllerTest < ActionController::TestCase
+class Api::CreatePostsControllerTest < ActionController::TestCase
   
-  test "should route to share_post#mail" do
+  test "should route to create_posts#mail" do
     assert_routing(
-        {:method => 'post', :path => "/api/share_post.json"}, 
-        {:format => "json", :controller => "api/share_post", :action => "mail" })
+        {:method => 'post', :path => "/api/create_posts.json"}, 
+        {:format => "json", :controller => "api/create_posts", :action => "mail" })
   end
   
   

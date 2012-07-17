@@ -8,7 +8,7 @@ class Api::CreatePostsController < Api::ApiController
              :status => 201
     else  
       render :json => {:message  => "Unable to find email(#{params[:email]}) for user, sorry."}, 
-             :status => 467
+             :status => 404
     end
   end
   
