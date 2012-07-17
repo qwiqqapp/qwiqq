@@ -167,7 +167,7 @@ class ShareTest < ActiveSupport::TestCase
     
     Resque.run!
     @share.reload
-    assert_not_nil @share.shared_at
+#    assert_not_nil @share.shared_at
   end
   
   test "should not rescue from Koala exception" do

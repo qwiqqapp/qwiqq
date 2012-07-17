@@ -28,7 +28,7 @@ class Share < ActiveRecord::Base
     when "foursquare"
       deliver_to_foursquare
     when "email"
-      Mailer.share_deal(email, self).deliver
+      deliver_to_mail
     end
   end
   
@@ -84,6 +84,12 @@ class Share < ActiveRecord::Base
   def facebook_share?
     self.service == "facebook"
   end
+  
+  def deliver_to_mail
+    Mailer.share_deal(email, self).deliver
+    # update record
+    update_attribute(:shared_at, Time.now)
+  end
 
   # rescue from connection error
   def async_deliver
@@ -98,9 +104,8 @@ class Share < ActiveRecord::Base
     @twilio_client ||= Twilio::REST::Client.new Qwiqq.twilio_sid, Qwiqq.twilio_auth_token
   end
   
-  # only create events for shares to networks  
   def create_event
-    return unless [ "twitter", "facebook", "foursquare" ].include?(service)
+    return unless [ "twitter", "facebook", "foursquare", "sms", "email" ].include?(service)
     
     events.create(
       :event_type => "share",
