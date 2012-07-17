@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Api::SharePostControllerTest < ActionController::TestCase
   
-  test "should route to welcome_email#mail" do
+  test "should route to share_post#mail" do
     assert_routing(
         {:method => 'post', :path => "/api/share_post.json"}, 
         {:format => "json", :controller => "api/share_post", :action => "mail" })

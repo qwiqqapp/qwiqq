@@ -5,7 +5,7 @@ class Api::MissedEmailController < Api::ApiController
   def mail
     @user = User.find_by_email(params[:email])
     if @user
-      @user.deliver_welcome_email!
+      @user.deliver_missed_email!
       render :json => {:message  => "We've sent an email to #{params[:email]}!!!"}, 
              :status => 201
     else  

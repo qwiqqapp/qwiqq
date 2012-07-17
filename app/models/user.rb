@@ -146,6 +146,18 @@ class User < ActiveRecord::Base
     Mailer.welcome_email(self).deliver
   end
   
+  def create_post_email!
+    Mailer.create_post(self).deliver
+  end
+  
+  def missed_email_email!
+    Mailer.missed_email(self).deliver
+  end
+  
+  def share_post_email!
+    Mailer.share_post(self).deliver
+  end
+  
   # TODO check for token age, should be younger than 24.hours
   def self.validate_password_reset(token)
     self.find_by_reset_password_token(token)
