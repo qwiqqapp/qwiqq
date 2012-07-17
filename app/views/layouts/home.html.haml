@@ -16,15 +16,15 @@
     %meta(property="og:url" content=root_url)
     %meta{:content => "width = 380", :name => "viewport"}
     :javascript
-      if (screen.width < 479) {
+      if (screen.width < 479 && screen.width < screen.height) {
         var mvp = document.getElementById('resizeViewport');
         mvp.setAttribute('content','width=850');
         mvp.setAttribute('content','initial-scale=.38');
       }
-      if (screen.width > 321 && screen.width < 700) {
+      if (screen.width > 321 && screen.width < 760) {
         var mvp = document.getElementById('resizeViewport');
-        mvp.setAttribute('content','width=850');
-        mvp.setAttribute('content','initial-scale=.6');
+        mvp.setAttribute('content','width=800');
+        mvp.setAttribute('content','initial-scale=1');
       }
 
 %body{ :class => "#{controller_name} #{action_name}" }
