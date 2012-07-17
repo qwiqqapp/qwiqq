@@ -1,4 +1,4 @@
-class Api::WelcomeEmailController < Api::ApiController
+class Api::WelcomeEmailsController < Api::ApiController
     
   def mail
     @user = User.find_by_email(params[:email])

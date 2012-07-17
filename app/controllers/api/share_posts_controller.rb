@@ -1,4 +1,4 @@
-class Api::SharePostController < Api::ApiController
+class Api::SharePostsController < Api::ApiController
     
   def mail
     @user = User.find_by_email(params[:email])

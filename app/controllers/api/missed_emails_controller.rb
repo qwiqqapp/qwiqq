@@ -1,4 +1,4 @@
-class Api::MissedEmailController < Api::ApiController
+class Api::MissedEmailsController < Api::ApiController
     
   def mail
     @user = User.find_by_email(params[:email])

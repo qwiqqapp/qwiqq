@@ -1,4 +1,4 @@
-class Api::CreatePostController < Api::ApiController
+class Api::CreatePostsController < Api::ApiController
     
   def mail
     @user = User.find_by_email(params[:email])
@@ -8,7 +8,7 @@ class Api::CreatePostController < Api::ApiController
              :status => 201
     else  
       render :json => {:message  => "Unable to find email(#{params[:email]}) for user, sorry."}, 
-             :status => 404
+             :status => 467
     end
   end
   
