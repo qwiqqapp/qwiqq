@@ -1,7 +1,5 @@
 class Api::WelcomeEmailController < Api::ApiController
-  
-  skip_before_filter :require_user
-  
+    
   def mail
     @user = User.find_by_email(params[:email])
     if @user
