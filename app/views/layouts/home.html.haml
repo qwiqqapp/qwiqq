@@ -21,6 +21,11 @@
         mvp.setAttribute('content','width=850');
         mvp.setAttribute('content','initial-scale=.38');
       }
+      if (screen.width > 479 && screen.width < 700) {
+        var mvp = document.getElementById('resizeViewport');
+        mvp.setAttribute('content','width=700');
+        mvp.setAttribute('content','initial-scale=.38');
+      }
 
 %body{ :class => "#{controller_name} #{action_name}" }
 = render "shared/header_home"
