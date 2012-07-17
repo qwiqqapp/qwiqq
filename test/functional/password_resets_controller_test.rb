@@ -5,7 +5,7 @@ class Api::PasswordResetsControllerTest < ActionController::TestCase
   test "should route to password_resets#create" do
     assert_routing(
         {:method => 'post', :path => "/api/password_resets.json"}, 
-        {:format => "json", :controller => "api/password_resets", :action => "create" })
+        {:format => "json", :controller => "api/password_resets", :action => "mail" })
   end
   
   test "should route to password_resets#show" do
