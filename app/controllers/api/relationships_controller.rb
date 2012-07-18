@@ -6,16 +6,9 @@ class Api::RelationshipsController < Api::ApiController
     else  
       relationship = current_user.follow!(target)
       target_deals = target.deals.limit(10).order("deals.timestamp DESC")
-      if target_deals
-        target_deals.each do |deal|
-        Feedlet.new(:user_id => current_user.id, 
-                  :deal_id => deal.id, 
-                  :posting_user_id => target.id, 
-                  :reposted_by => nil, 
-                  :timestamp => deal.created_at) end
-      else
-        render :status => 405, :json => { :message => 'Cannot retrieve deals' }
-      end
+      return if target_deals
+      render :status => 405, :json => { :message => 'Cannot retrieve deals' }
+    end
       
       render :status => :created, :json => {
         :followers_count => target.followers_count + 1,
