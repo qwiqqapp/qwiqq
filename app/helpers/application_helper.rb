@@ -60,6 +60,8 @@ module ApplicationHelper
         "buzz-email-icon.png"
       when "sms"
         "buzz-sms-icon.png"
+      else 
+        "buzz-comment-icon.png"
       end
     end
   end
