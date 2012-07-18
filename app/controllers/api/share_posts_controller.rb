@@ -1,9 +1,9 @@
-class Api::CreatePostController < Api::ApiController
+class Api::SharePostsController < Api::ApiController
     
   def mail
     @user = User.find_by_email(params[:email])
     if @user
-      @user.deliver_create_post!
+      @user.deliver_share_post!
       render :json => {:message  => "We've sent an email to #{params[:email]}!!!"}, 
              :status => 201
     else  

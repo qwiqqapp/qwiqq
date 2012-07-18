@@ -1,11 +1,11 @@
 require 'test_helper'
 
-class Api::CreatePostControllerTest < ActionController::TestCase
+class Api::MissedEmailsControllerTest < ActionController::TestCase
   
-  test "should route to create_post#mail" do
+  test "should route to missed_emails#mail" do
     assert_routing(
-        {:method => 'post', :path => "/api/create_post.json"}, 
-        {:format => "json", :controller => "api/create_post", :action => "mail" })
+        {:method => 'post', :path => "/api/missed_emails.json"}, 
+        {:format => "json", :controller => "api/missed_emails", :action => "mail" })
   end
   
   
