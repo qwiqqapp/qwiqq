@@ -9,14 +9,16 @@ class Api::RelationshipsController < Api::ApiController
         :followers_count => target.followers_count + 1,
         :following_count => target.following_count,
         :friends_count =>   target.friends_count }
-      target_deals = target.deals.limit(10).order("deals.timestamp DESC")
-      target_deals.each do |deal|
-        Feedlet.new(:user_id => current_user.id, 
-                  :deal_id => deal.id, 
-                  :posting_user_id => target.id, 
-                  :reposted_by => nil, 
-                  :timestamp => deal.created_at) end
+      target_deals = target.deals.sorted
+      if target_deals
+        target_deals.each do |deal|
+          Feedlet.new(:user_id => current_user.id.try, 
+                    :deal_id => deal.id.try, 
+                    :posting_user_id => target.id.try, 
+                    :reposted_by => nil, 
+                    :timestamp => deal.created_at) end
       end
+    end
   end
 
   def destroy

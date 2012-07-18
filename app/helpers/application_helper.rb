@@ -56,6 +56,10 @@ module ApplicationHelper
         "buzz-twitter-icon.png"
       when "foursquare"
         "buzz-4sq-icon.png"
+      when "email"
+        "buzz-email-icon.png"
+      when "sms"
+        "buzz-sms-icon.png"
       end
     end
   end
