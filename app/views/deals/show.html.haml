@@ -66,7 +66,7 @@
               = @deal.shares_count
               
         #events
-          - if @events.empty?
+          - if @events.empty? || !image_path(event_icon(event))
             .empty
               The latest buzz on this post will show up here
           - @events.each_with_index do |event, i|
