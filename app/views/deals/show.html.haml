@@ -72,7 +72,7 @@
               The latest buzz on this post will show up here
           - @events.each_with_index do |event, i|
             - if event.created_by
-              .event{ :class => i + 1 == @events.size ? "last" : "" }
+              .event{ :class => ""}
                 %a{ :href => user_url(event.created_by) }
                   %img.user-photo{ :src => event.created_by.photo(:iphone2x), :width => "80", :height => "80" }
                 %img.icon{ :src => image_path(event_icon(event)) }  
