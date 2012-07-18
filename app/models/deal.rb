@@ -311,7 +311,7 @@ class Deal < ActiveRecord::Base
     input << self.foursquare_venue_id.to_s    if self.foursquare_venue_id
     input << self.foursquare_venue_name.to_s  if self.foursquare_venue_name
 
-    #added to allow user to intentionall post dup
+    #added to allow user to intentional post dup
     input << self.lat.to_s                    if self.lat
     input << self.lon.to_s                    if self.lon
     
