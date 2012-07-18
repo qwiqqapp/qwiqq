@@ -8,7 +8,7 @@ class Api::RelationshipsController < Api::ApiController
       target_deals = target.deals.limit(10).order("deals.timestamp DESC")
       return if target_deals
       render :status => 405, :json => { :message => 'Cannot retrieve deals' }
-    end
+     end
       
       render :status => :created, :json => {
         :followers_count => target.followers_count + 1,
