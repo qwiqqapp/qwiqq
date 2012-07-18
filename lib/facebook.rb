@@ -40,8 +40,7 @@ class Facebook
     
     
     
-    #client.put_connections("me", "feed", :message => share.message, :link => link)
-    client.put_connections("me", "namespace:action", :message => share.message, :link => link)
+    client.put_connections("me", "feed", :message => share.message, :link => link)
     #client.put_connections("me", "feed", {link: link, message: share.message})
 
     #client.put_connections("me", "namespace:action", {link: link, message: share.message})
@@ -78,7 +77,6 @@ private
   end
   
   def client
-    @user.facebook_access_token = Koala::Facebook::OAuth.new(236767206341724, 2f51f0a009c7586de0267ad4df233499).get_app_access_token
     Koala::Facebook::GraphAPI.new(@user.facebook_access_token)
   end
   
