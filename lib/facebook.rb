@@ -41,10 +41,7 @@ class Facebook
     #original
     #client.put_connections(target, "links", {link: link, message: share.message})
     
-    client.put_connections(target, "feed", :message => share.message, :link => link)
-    #client.put_connections("me", "feed", {link: link, message: share.message})
-
-    #client.put_connections("me", "namespace:action", {link: link, message: share.message})
+    client.put_connections(target, "links", :message => share.message, :link => link)
   end
   
   def me
