@@ -3,7 +3,7 @@ class Api::CreatePostsController < Api::ApiController
   def index
     @user = User.find_by_email(params[:email])
     if @user
-      @user.deliver_create_post!
+    Mailer.create_post(@user).deliver
       render :json => {:message  => "We've sent an email to #{params[:email]}!!!"}, 
              :status => 201
     else  

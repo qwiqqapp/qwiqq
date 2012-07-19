@@ -24,6 +24,7 @@ class Api::UsersController < Api::ApiController
     if @user.save
       session[:user_id] = @user.id
     end
+    Mailer.welcome_email(@user).deliver
     respond_with :api, @user do
       render :status => :created, :json => @user.as_json(:current_user => current_user) and return if @user.valid?
     end

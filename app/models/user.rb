@@ -180,7 +180,6 @@ class User < ActiveRecord::Base
   end
   
   # does not create feedlets, only created on new deal create
-  #15 RECENT FEEDLETS NEED TO BE CREATED
   def follow!(target)
     relationships.create(:target => target)
   end
