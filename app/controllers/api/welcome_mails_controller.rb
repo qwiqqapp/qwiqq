@@ -1,6 +1,6 @@
 class Api::WelcomeEmailsController < Api::ApiController
     
-  def mail
+  def index
     @user = User.find_by_email(params[:email])
     if @user
       @user.deliver_welcome_email!

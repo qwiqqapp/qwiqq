@@ -1,6 +1,6 @@
 class Api::MissedEmailsController < Api::ApiController
     
-  def mail
+  def index
     @user = User.find_by_email(params[:email])
     if @user
       @user.deliver_missed_email!

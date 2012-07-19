@@ -1,6 +1,6 @@
 class Api::CreatePostsController < Api::ApiController
     
-  def mail
+  def index
     @user = User.find_by_email(params[:email])
     if @user
       @user.deliver_create_post!
