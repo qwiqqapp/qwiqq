@@ -6,7 +6,7 @@ class Share < ActiveRecord::Base
   belongs_to :deal, :counter_cache => true, :touch => true
   has_many :events, :class_name => "UserEvent"
 
-  validates :service, :inclusion => [ "email", "twitter", "facebook", "sms", "foursquare" ]
+  validates :service, :inclusion => [ "email", "twitter", "facebook", "sms", "foursquare", "constantcontact" ]
 
   before_create :build_message
   
