@@ -208,6 +208,8 @@ GEM
     riddle (1.4.0)
     rmagick (2.13.1)
     rubyzip (0.9.4)
+    rufus-scheduler (2.0.17)
+      tzinfo (>= 0.3.23)
     sass (3.1.10)
     sass-rails (3.1.5)
       actionpack (~> 3.1.0)
@@ -311,6 +313,7 @@ DEPENDENCIES
   resque_unit
   riddle (= 1.4.0)
   rmagick
+  rufus-scheduler (~> 2.0.17)
   sass-rails
   skittles
   taps

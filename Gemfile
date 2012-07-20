@@ -24,6 +24,7 @@ gem "rmagick", :require => false
 
 # workers
 gem "resque"
+gem "rufus-scheduler", "~> 2.0.17"
 
 # services
 gem "geokit"
