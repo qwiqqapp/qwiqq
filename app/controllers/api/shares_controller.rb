@@ -35,6 +35,8 @@ class Api::SharesController < Api::ApiController
       current_user.shares.create(:deal => deal, :service => "email", :email => email, :message => params[:message])
     end
     
+    # constantcontact
+    current_user.shares.create(:deal => deal, :service => "constantcontact", :message => params[:message])
     # return 200
     head :ok
   end
