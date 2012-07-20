@@ -6,7 +6,7 @@ class Share < ActiveRecord::Base
   belongs_to :deal, :counter_cache => true, :touch => true
   has_many :events, :class_name => "UserEvent"
 
-  validates :service, :inclusion => [ "email", "twitter", "facebook", "sms", "foursquare", "constantcontact" ]
+  validates :service, :inclusion => [ "email", "twitter", "facebook", "sms", "foursquare", "constantcontact"]
 
   before_create :build_message
   
@@ -135,7 +135,7 @@ class Share < ActiveRecord::Base
   
   private
   def build_message
-    return unless service =~ /sms|twitter|foursquare|email/
+    return unless service =~ /sms|twitter|foursquare|email|constantcontact/
     self.message = formatted_message
   end
   
