@@ -58,7 +58,7 @@ module ApplicationHelper
         "buzz-4sq-icon.png"
       when "email"
         "buzz-email-icon.png"
-      when "Constant Contact"
+      when "ConstantContact"
         "buzz-constantcontact-icon.png"
       when "sms"
         "buzz-sms-icon.png"
