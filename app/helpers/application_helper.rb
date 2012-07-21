@@ -34,10 +34,13 @@ module ApplicationHelper
   def event_body(event)
     case event.event_type
     when "like"
-      "#{event.created_by.username} loved it"
+      "#{event.created_by.username} loved this"
     when "comment"
       emojify "#{event.created_by.username} said \"#{event.metadata[:body]}\""
     when "share"
+      if "#{event.metadata[:service]}" == "sms"
+        "#{event.created_by_username} shared on SMS}"
+      end
       "#{event.created_by_username} shared on #{event.metadata[:service].titleize}"
     end
   end
