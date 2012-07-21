@@ -36,7 +36,7 @@ class Api::SharesController < Api::ApiController
     end
     
     # constantcontact
-    current_user.shares.create(:service => "constantcontact")
+    current_user.shares.create(:service => "Constant Contact")
     # return 200
     head :ok
   end
