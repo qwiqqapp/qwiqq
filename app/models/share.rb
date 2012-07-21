@@ -8,6 +8,7 @@ class Share < ActiveRecord::Base
 
   validates :service, :inclusion => [ "email", "twitter", "facebook", "sms", "foursquare", "Constant Contact"]
 
+
   before_create :build_message
   
   # avoids deliver being called before record has been persisted (possible with after_create)
