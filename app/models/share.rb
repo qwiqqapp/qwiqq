@@ -7,7 +7,7 @@ class Share < ActiveRecord::Base
   has_many :events, :class_name => "UserEvent"
 
 
-  validates :service, :inclusion => [ "email", "twitter", "facebook", "sms", "foursquare", "constantcontact" ]
+  validates :service, :inclusion => [ "email", "twitter", "facebook", "sms", "foursquare", "constantcontact"]
 
   before_create :build_message
   
@@ -106,7 +106,7 @@ class Share < ActiveRecord::Base
   end
   
   def create_event
-    return unless [ "twitter", "facebook", "foursquare", "sms", "email", "constantcontact" ].include?(service)
+    return unless [ "twitter", "facebook", "foursquare", "sms", "email", "constantcontact"].include?(service)
     
     events.create(
       :event_type => "share",
