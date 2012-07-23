@@ -59,6 +59,16 @@ class Api::DealsController < Api::ApiController
     @deal.category = category
     @deal.user = current_user
     @deal.save
+    #30 DAYS
+    scheduler.every '10s' do |job|
+    l = current_user.deals_count + 1
+    if l >= current_user.deals_count
+      job.unschedule
+    else
+      #hasn't posted new deal in past month
+      Mailer.welcome_email(@user).deliver
+    end
+  end
     respond_with @deal
   end
 
