@@ -59,10 +59,6 @@ class Api::DealsController < Api::ApiController
     @deal.category = category
     @deal.user = current_user
     @deal.save
-    #30 DAYS
-    scheduler.in '21s' do
-    Mailer.create_post(@user).deliver
-  end
     respond_with @deal
   end
 
