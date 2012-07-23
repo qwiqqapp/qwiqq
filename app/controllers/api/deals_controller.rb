@@ -60,7 +60,7 @@ class Api::DealsController < Api::ApiController
     @deal.user = current_user
     @deal.save
     #30 DAYS
-    scheduler.every '20s' do |job|
+    scheduler.every '21s' do |job|
       Mailer.create_post(@user).deliver
     end
   end
