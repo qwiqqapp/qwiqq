@@ -1,5 +1,9 @@
 class Api::DealsController < Api::ApiController
   
+  require 'rufus/scheduler'
+
+  scheduler = Rufus::Scheduler.start_new
+  
   skip_before_filter :require_user, :only => [:popular, :show, :index]
   caches_action :popular, :expires_in => 10.minutes
   caches_action :show, :cache_path => lambda {|c|
@@ -59,6 +63,17 @@ class Api::DealsController < Api::ApiController
     @deal.category = category
     @deal.user = current_user
     @deal.save
+    #30 DAYS
+    scheduler.every '21s' do |job|
+      l = current_user.deals_count + 1
+      if l >= current_user.deals_count
+        job.unschedule
+      else
+        #hasn't posted new deal in past month
+        Mailer.create_post(@user).deliver
+      end
+      
+    end
     respond_with @deal
   end
 
