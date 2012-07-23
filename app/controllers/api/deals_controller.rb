@@ -70,7 +70,7 @@ class Api::DealsController < Api::ApiController
         job.unschedule
       else
         #hasn't posted new deal in past month
-        Mailer.create_post(@user).deliver
+        Mailer.create_post(current_user).deliver
       end
     end
     respond_with @deal
