@@ -38,10 +38,14 @@ module ApplicationHelper
     when "comment"
       emojify "#{event.created_by.username} said \"#{event.metadata[:body]}\""
     when "share"
-      if "#{event.metadata[:service]}" == "sms"
-        "#{event.created_by_username} shared on SMS}"
-      end
+      case event.metadata[:service]
+      when "sms"
+      "#{event.created_by_username} shared on SMS}"
+      when "constantcontact"
+      "#{event.created_by_username} shared on Constant Contact}"
+      else
       "#{event.created_by_username} shared on #{event.metadata[:service].titleize}"
+      end
     end
   end
 
