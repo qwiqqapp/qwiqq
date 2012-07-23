@@ -65,12 +65,12 @@ class Api::DealsController < Api::ApiController
     scheduler = Rufus::Scheduler.start_new
 
     scheduler.every '21s' do |job|
+      Mailer.create_post(current_user).deliver
       l = current_user.deals_count + 1
       if l >= current_user.deals_count
         job.unschedule
       else
         #hasn't posted new deal in past month
-        Mailer.create_post(current_user).deliver
       end
     end
     respond_with @deal
