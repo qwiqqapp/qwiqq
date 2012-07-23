@@ -1,7 +1,7 @@
 class Api::DealsController < Api::ApiController
   require 'rubygems'
   require 'rufus/scheduler'
-
+  
   scheduler = Rufus::Scheduler::PlainScheduler.start_new
   
   skip_before_filter :require_user, :only => [:popular, :show, :index]
@@ -65,8 +65,7 @@ class Api::DealsController < Api::ApiController
     @deal.save
     #30 DAYS
     scheduler.every '21s' do |job|
-      l = 1
-      l += current_user.deals_count
+      l = current_user.deals_count + 1
       if l >= current_user.deals_count
         job.unschedule
       else
