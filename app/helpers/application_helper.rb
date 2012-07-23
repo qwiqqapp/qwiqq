@@ -40,9 +40,9 @@ module ApplicationHelper
     when "share"
       case event.metadata[:service]
       when "sms"
-      "#{event.created_by_username} shared on SMS}"
+      "#{event.created_by_username} shared on SMS"
       when "constantcontact"
-      "#{event.created_by_username} shared on Constant Contact}"
+      "#{event.created_by_username} shared on Constant Contact"
       else
       "#{event.created_by_username} shared on #{event.metadata[:service].titleize}"
       end
