@@ -64,7 +64,7 @@ class Mailer < ActionMailer::Base
     @like = like
     mail :to => target.email, 
          :tag => "like",
-         :subject => "Someone liked your Qwiqq post!"
+         :subject => "Someone loved your Qwiqq post!"
   end
   
   def deal_commented(target, comment)
