@@ -1,5 +1,5 @@
 class Api::DealsController < Api::ApiController
-  
+  require 'rubygems'
   require 'rufus/scheduler'
 
   scheduler = Rufus::Scheduler.start_new
