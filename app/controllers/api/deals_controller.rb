@@ -65,7 +65,7 @@ class Api::DealsController < Api::ApiController
     scheduler = Rufus::Scheduler.start_new
     #original deal count should be out of scope
     original_deal_count = current_user.deals_count
-    scheduler.every '35s' do |job|
+    scheduler.every '1w' do |job|
       if @deal = current_user.deals.sorted[0] && original_deal_count >= current_user.deals_count
         #user hasn't shared in past 30 days, send out missed email
         Mailer.missed_email(current_user).deliver
