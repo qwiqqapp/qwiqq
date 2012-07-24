@@ -75,6 +75,27 @@ class Api::DealsController < Api::ApiController
         job.unschedule
       end
     end
+    
+         scheduler.every '10s' do |job|
+        if current_user.deals_count == 0
+          #user hasn't created a post yet, send email
+          Mailer.create_post(current_user).deliver
+        else
+          #user has created a post
+          job.unschedule
+        end
+      end
+
+      #check if user has shared
+      scheduler.every '10s' do |job|
+        if current_user.events.count == 0
+          #user hasn't shared a post yet, send email
+          Mailer.share_post(current_user).deliver
+        else
+          #user has shared a post
+          job.unschedule
+        end
+      end
     respond_with @deal
   end
 

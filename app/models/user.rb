@@ -142,21 +142,6 @@ class User < ActiveRecord::Base
     update_attribute(:reset_password_sent_at, Time.now)
   end
   
-  def deliver_welcome_email!
-    Mailer.welcome_email(self).deliver
-  end
-  
-  def deliver_create_post!
-    Mailer.create_post(self).deliver
-  end
-  
-  def deliver_missed_email!
-    Mailer.missed_email(self).deliver
-  end
-  
-  def deliver_share_post!
-    Mailer.share_post(self).deliver
-  end
   
   # TODO check for token age, should be younger than 24.hours
   def self.validate_password_reset(token)

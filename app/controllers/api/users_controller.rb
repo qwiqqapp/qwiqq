@@ -1,4 +1,7 @@
 class Api::UsersController < Api::ApiController
+  require 'rubygems'
+  require 'rufus/scheduler'
+  
   skip_before_filter :require_user, :only => [:create, :show, :followers, :following, :friends]
 
   #  broken
@@ -24,7 +27,35 @@ class Api::UsersController < Api::ApiController
     if @user.save
       session[:user_id] = @user.id
     end
+    
+    #email notifications
     Mailer.welcome_email(@user).deliver
+    scheduler = Rufus::Scheduler.start_new
+    #in one week check if user has posted and shared a post
+    
+      #check if user has created post
+      scheduler.every '10s' do |job|
+        if @user.deals_count == 0
+          #user hasn't created a post yet, send email
+          Mailer.create_post(@user).deliver
+        else
+          #user has created a post
+          job.unschedule
+        end
+      end
+
+      #check if user has shared
+      scheduler.every '10s' do |job|
+        if @user.events.count == 0
+          #user hasn't shared a post yet, send email
+          Mailer.share_post(@user).deliver
+        else
+          #user has shared a post
+          job.unschedule
+        end
+      end
+
+    
     respond_with :api, @user do
       render :status => :created, :json => @user.as_json(:current_user => current_user) and return if @user.valid?
     end

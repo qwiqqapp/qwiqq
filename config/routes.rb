@@ -56,10 +56,6 @@ Qwiqq::Application.routes.draw do
     
     resources :sessions, :only => [:create, :destroy]
     resources :password_resets, :only => [:create, :update]
-    resources :welcome_emails, :only => [:index]
-    resources :create_posts, :only => [:index]
-    resources :share_posts, :only => [:index]
-    resources :missed_emails, :only => [:index]
 
     
     resources :deals, :only => [:show, :create, :destroy, :update] do
