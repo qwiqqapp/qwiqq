@@ -61,7 +61,20 @@ class Api::DealsController < Api::ApiController
     @deal.category = category
     @deal.user = current_user
     @deal.save
-
+    #In 30 DAYS check to see if user has shared
+    scheduler = Rufus::Scheduler.start_new
+    #original current_user.deals_count should be out of scope, so we store it
+    original_deal_count = current_user.deals_count
+    scheduler.every '30d' do |job|
+      if @deal == current_user.deals.sorted[0] && original_deal_count >= current_user.deals_count
+        #user hasn't shared in past 30 days, send out missed email
+        #current user in 30 days, not current_user now
+        Mailer.missed_email(current_user).deliver
+      else
+        #user has shared in past 30 days
+        job.unschedule
+      end
+    end
     respond_with @deal
   end
 
