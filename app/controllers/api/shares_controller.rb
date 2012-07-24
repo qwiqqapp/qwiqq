@@ -39,11 +39,7 @@ class Api::SharesController < Api::ApiController
     if params[:constantcontact]
       current_user.shares.create(:deal => deal, :service => "constantcontact", :message => params[:message])
     end
-    
-    if params[:Constantcontact]
-      current_user.shares.create(:deal => deal, :service => "constantcontact", :message => params[:message])
-    end
-    
+
     # return 200
     head :ok
   end
