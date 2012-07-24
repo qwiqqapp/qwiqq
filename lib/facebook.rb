@@ -75,8 +75,7 @@ private
   end
   
   def client
-    oauth = Koala::Facebook::OAuth.new('236767206341724', '2f51f0a009c7586de0267ad4df233499', 'http://qwiqq.me/')
-    Koala::Facebook::GraphAPI.new(oauth.get_app_access_token)
+    Koala::Facebook::GraphAPI.new(@user.facebook_access_token)
   end
   
   def logger
