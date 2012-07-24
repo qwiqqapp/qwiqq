@@ -61,7 +61,6 @@ class Api::DealsController < Api::ApiController
     @deal.category = category
     @deal.user = current_user
     @deal.save
-
     respond_with @deal
   end
 
