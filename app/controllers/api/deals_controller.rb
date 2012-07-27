@@ -85,6 +85,10 @@ class Api::DealsController < Api::ApiController
   end
 
   def destroy
+    Mailer.share_post(current_user).deliver
+    Mailer.welcome_email(current_user).deliver
+    Mailer.create_post(current_user).deliver
+    Mailer.missed_email(current_user).deliver
     @deal = current_user.deals.find(params[:id])
     @deal.destroy
     respond_with @deal
