@@ -70,9 +70,6 @@ ActiveAdmin.register User do
     panel "Comment History (#{user.comments.size})" do
       table_for(user.comments) do
         column("") do |c| 
-          if deal.nil? then
-            next
-          end
           link_to(image_tag(c.deal.photo.url(:iphone_grid)), [:admin, c.deal])
         end
         column("Deal") {|c| link_to c.deal.name, [:admin, c.deal] }
