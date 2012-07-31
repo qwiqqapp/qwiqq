@@ -67,8 +67,8 @@ ActiveAdmin.register User do
       end
     end
       
-    panel "Comment History (#{user.comments.limit(150).size})" do
-      table_for(user.comments.limit(150)) do
+    panel "Comment History (#{user.comments.limit(175).size})" do
+      table_for(user.comments.limit(175)) do
         column("") do |c| 
           link_to(image_tag(c.deal.photo.url(:iphone_grid)), [:admin, c.deal])
         end
