@@ -45,7 +45,7 @@ ActiveAdmin.register User do
           link_to(image_tag(deal.photo.url(:iphone_grid)), [:admin, deal])
         end
         column("Name", :sortable => :name) do |deal|  
-          link_to(deal.try(:name), [:admin, deal])
+          link_to(deal.name, [:admin, deal])
         end
         column("Category") {|deal| status_tag(deal.try(:category).try(:name)) }
         column("Date", :sortable => :created_at){|deal| deal.created_at.to_s(:short) }
