@@ -5,7 +5,7 @@ namespace :mail do
   task :weekly_update => :environment do
     #make sure it is a Monday that the email is sent out
     return if Date.today.wday != 2
-
+    user = User.find_by_email("michaelscaria26@gmail.com")
       
   end
 end
