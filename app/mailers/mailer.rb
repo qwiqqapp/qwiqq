@@ -55,7 +55,15 @@ class Mailer < ActionMailer::Base
          :tag => "missed",
          :subject => "You haven't posted in awhile..."
   end
-
+  
+  def weekly_update(target)
+    @user = target
+    @deal = Deal.premium.recent.sorted.popular.first(9)
+    mail :to => target.email, 
+         :tag => "update",
+         :subject => "What's been going on in Qwiqq!"
+  end
+  
   # send if recipient notification settings allows
   def deal_liked(target, like)
     @target = target
