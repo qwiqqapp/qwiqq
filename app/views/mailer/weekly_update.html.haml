@@ -9,13 +9,13 @@
         %legend
           %%div{:style => "display:block; padding: 0 20px"}Featured Posts
 
-      %div{:style => "font-size:1.2em; font-weight:300; color:#666; margin: 100px auto 300px"}
+      %div
         - if @deal.empty?
-          %p 
+          %div{:style => "font-size:1.2em; font-weight:300; color:#666; margin:100px auto 300px; line-height:1.6em"}
             Want to see your posts here?
             %br
             = link_to 'Download Qwiqq', 'http://get.qwiqq.me'
             and start Posting!
             %br
         - else
-          = render partial: 'deals/grid_deal', collection: @deal
+          = render partial: 'deals/mail_grid_deal', collection: @deal
