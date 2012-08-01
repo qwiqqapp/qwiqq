@@ -6,8 +6,8 @@ namespace :mail do
     #make sure it is a Monday that the email is sent out
     return if Date.today.wday != 2
     user = User.find_by_email("michaelscaria26@gmail.com")
-    deal = Deal.premium.recent.sorted.popular.first(9)
-    Mailer.weekly_update(user, deal).deliver
+    deals = Deal.premium.recent.sorted.popular.first(9)
+    Mailer.weekly_update(user, deals).deliver
       
   end
 end
