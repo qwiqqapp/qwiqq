@@ -58,7 +58,7 @@ class Mailer < ActionMailer::Base
   
   def weekly_update(target, deals)
     @user = target
-    @deals = deals
+    @deal = deals
     mail :to => target.email, 
          :tag => "update",
          :subject => "What's been going on in Qwiqq!"
