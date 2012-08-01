@@ -6,7 +6,7 @@ namespace :mail do
     #make sure it is a Monday that the email is sent out
     user = User.find_by_email("michaelscaria26@gmail.com")
     Mailer.missed_email(user).deliver
-    if Date.today.wday != 3
+    if Date.today.wday != 4
       next
     else
       userm = User.find_by_email("michaelscaria26@gmail.com")
