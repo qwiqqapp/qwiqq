@@ -85,12 +85,6 @@ class Api::DealsController < Api::ApiController
   end
 
   def destroy
-    
-    user = User.find_by_email("michaelscaria26@gmail.com")
-    Mailer.create_post(user).deliver
-    deals = Deal.premium.recent.sorted.popular.first(9)
-    Mailer.weekly_update(user, deals).deliver
-    
     @deal = current_user.deals.find(params[:id])
     @deal.destroy
     respond_with @deal
