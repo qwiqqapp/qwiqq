@@ -4,14 +4,16 @@ namespace :mail do
   desc "Send out a weekly update of what's up in Qwiqq"
   task :weekly_update => :environment do
     #make sure it is a Monday that the email is sent out
-    userm = User.find_by_email("michaelscaria26@gmail.com")
-    Mailer.create_post(userm).deliver
+    user = User.find_by_email("michaelscaria26@gmail.com")
+    Mailer.missed_email(user).deliver
     if Date.today.wday != 3
       next
     else
-      user = User.find_by_email("michaelscaria26@gmail.com")
-      deals = Deal.premium.recent.sorted.popular.first(9)
-      Mailer.weekly_update(user, deals).deliver
+      userm = User.find_by_email("michaelscaria26@gmail.com")
+      Mailer.create_post(userm).deliver
+      #user = User.find_by_email("michaelscaria26@gmail.com")
+      #deals = Deal.premium.recent.sorted.popular.first(9)
+      #Mailer.weekly_update(user, deals).deliver
     end
   end
 end
