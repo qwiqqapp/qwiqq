@@ -1,0 +1,27 @@
+%div{:style => "float:left"}
+  %div{:style => "text-decoration:none"}
+  %a{ :href => deal_url(grid_deal) }
+    %div{:style => "background-color:white; width:240px; height:360px; padding:10px; margin:8px; text-align:left; color:#333333; font-size:16px"}
+      %img.post-photo{ :src => grid_deal.photo.url(:iphone_zoom), :width => "240", :height => "240" }
+      .name= grid_deal.name
+      .price
+        .hole  
+        %span.dollars= grid_deal.price_as_string
+
+  %a{ :href => user_url(grid_deal.user) }
+    .metadata
+      %img.arrow-down{ :src => image_path("arrow-down.png") }
+        %img.user-photo{ :src => grid_deal.user.photo.url(:iphone), :width => "48", :height => "48" }
+      .stats
+        %span.stat
+          %img.icon{ :src => image_path("love-icon.png") }
+          = grid_deal.likes_count
+        %span.stat
+          %img.icon{ :src => image_path("share-icon.png") }
+          = grid_deal.shares_count
+        %span.stat
+          %img.icon{ :src => image_path("time-icon.png") }
+          = short_time_ago_in_words(grid_deal.created_at)
+      .location
+        %img.icon{ :src => image_path("location-icon.png") }
+        = truncate(grid_deal.venue_or_location_name, :length => 24)
