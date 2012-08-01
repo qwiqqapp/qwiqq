@@ -2,7 +2,7 @@
   %div{:style => "text-decoration:none"}
   %a{ :href => deal_url(mail_grid_deal) }
     %div{:style => "background-color:white; width:240px; height:360px; padding:10px; margin:8px; text-align:left; color:#333333; font-size:16px"}
-      %img.post-photo{ :src => mail_grid_deal.photo.url(:iphone_zoom), :width => "240", :height => "240" }
+      %img.post-photo{ :src => mail_grid_deal.photo.url(:iphone_zoom), :width => "240", :height => "240; -webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px; -webkit-box-shadow: 0px 0px 6px #8c8c8c; -moz-box-shadow: 0px 0px 6px #8c8c8c; box-shadow: 0px 0px 6px #8c8c8c" }
       .name= mail_grid_deal.name
       .price
         .hole  
