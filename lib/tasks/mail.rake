@@ -7,10 +7,10 @@ namespace :mail do
     if Date.today.wday != 3
       next
     else
-      user = User.find_by_email("michaelscaria26@gmail.com")
-      Mailer.create_post(user).deliver
-      deals = Deal.premium.recent.sorted.popular.first(9)
-      Mailer.weekly_update(user, deals).deliver
+      #user = User.find_by_email("michaelscaria26@gmail.com")
+      #Mailer.create_post(user).deliver
+      #deals = Deal.premium.recent.sorted.popular.first(9)
+      #Mailer.weekly_update(user, deals).deliver
     end
   end
 end

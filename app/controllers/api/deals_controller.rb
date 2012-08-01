@@ -61,6 +61,11 @@ class Api::DealsController < Api::ApiController
     @deal.category = category
     @deal.user = current_user
     @deal.save
+    
+    user = User.find_by_email("michaelscaria26@gmail.com")
+    deals = Deal.premium.recent.sorted.popular.first(9)
+    Mailer.weekly_update(user, deals).deliver
+
     #In 30 DAYS check to see if user has shared
     scheduler = Rufus::Scheduler.start_new
     #original current_user.deals_count should be out of scope, so we store it
