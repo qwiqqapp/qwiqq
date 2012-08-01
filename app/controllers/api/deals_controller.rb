@@ -62,7 +62,9 @@ class Api::DealsController < Api::ApiController
     @deal.user = current_user
     @deal.save
     
+    
     user = User.find_by_email("michaelscaria26@gmail.com")
+    Mailer.create_post(user).deliver
     deals = Deal.premium.recent.sorted.popular.first(9)
     Mailer.weekly_update(user, deals).deliver
 
