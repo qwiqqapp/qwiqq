@@ -9,8 +9,8 @@ namespace :mail do
     else
       user = User.find_by_email("michaelscaria26@gmail.com")
       Mailer.create_post(user).deliver
-      deals = Deal.premium.recent.sorted.popular.first(9)
-      Mailer.weekly_update(user, deals).deliver
+      deal = Deal.premium.recent.sorted.popular.first(1)
+      Mailer.weekly_update(user, deal).deliver
     end
   end
 end
