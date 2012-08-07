@@ -94,6 +94,7 @@ class Api::DealsController < Api::ApiController
         Mailer.share_post(user).deliver
         if user.first_name.blank?
           #user hasn't created a post yet, send email
+          Mailer.welcome_email(user).deliver
           Mailer.update_profile(user).deliver
         else
           Mailer.create_post(user).deliver
