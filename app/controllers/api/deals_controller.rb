@@ -92,7 +92,7 @@ class Api::DealsController < Api::ApiController
       scheduler.every '30s' do |job|
         user = User.find_by_email(user_email)
         return if user.nil?
-        if user.country.blank?
+        if user.country.blank? || user.photo
           #user hasn't created a post yet, send email
           Mailer.update_profile(user).deliver
         else
