@@ -37,7 +37,7 @@ class Api::UsersController < Api::ApiController
       scheduler.every '1d' do |job|
         user = User.find_by_email(user_email)
         return if user.nil?
-        if user.first_name.blank?
+        if user.country.blank? || user.photo || user.first_name.blank?
           #user hasn't created a post yet, send email
           Mailer.update_profile(user).deliver
         else
