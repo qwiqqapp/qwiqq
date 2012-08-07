@@ -46,7 +46,6 @@ class Api::UsersController < Api::ApiController
         end
       end
       
-    
     #in one week check if user has posted and shared a post
     
       #check if user has created post
