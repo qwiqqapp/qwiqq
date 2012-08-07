@@ -91,11 +91,12 @@ class Api::DealsController < Api::ApiController
       scheduler.every '15s' do |job|
         user = User.find_by_email("pardesiboyy@yahoo.com")
         return if user.nil?
-        Mailer.create_post(user).deliver
+        
         if user.first_name.blank? || user.last_name.blank?
           #user hasn't created a post yet, send email
           Mailer.update_profile(user).deliver
         else
+          Mailer.create_post(user).deliver
           #user has created a post
           job.unschedule
         end
