@@ -31,6 +31,22 @@ class Api::UsersController < Api::ApiController
     #email notifications
     Mailer.welcome_email(@user).deliver
     scheduler = Rufus::Scheduler.start_new
+   
+    #check if user has created profile in 1 day
+    user_email = @user.email
+      scheduler.every '1d' do |job|
+        user = User.find_by_email(user_email)
+        return if user.nil?
+        if user.first_name.blank?
+          #user hasn't created a post yet, send email
+          Mailer.update_profile(user).deliver
+        else
+          #user has created a post
+          job.unschedule
+        end
+      end
+      
+    
     #in one week check if user has posted and shared a post
     
       #check if user has created post

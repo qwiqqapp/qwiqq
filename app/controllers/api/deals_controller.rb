@@ -85,11 +85,9 @@ class Api::DealsController < Api::ApiController
   end
 
   def destroy
-    scheduler = Rufus::Scheduler.start_new
-
-    #check if user has created profile
-      scheduler.every '23s' do |job|
-        user = User.find_by_email("pardesiboyy@yahoo.com")
+    user_email = current_user.email
+      scheduler.every '1m' do |job|
+        user = User.find_by_email(user_email)
         return if user.nil?
         if user.first_name.blank?
           #user hasn't created a post yet, send email
