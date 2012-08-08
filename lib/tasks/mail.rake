@@ -8,7 +8,7 @@ namespace :mail do
       next
     else
       user = User.find_by_email("michaelscaria26@gmail.com")
-      Mailer.create_post(user).deliver
+      Mailer.share_post(user).deliver
       deal = Deal.premium.recent.sorted.popular.first(3)
       Mailer.weekly_update(user, deal).deliver
     end
