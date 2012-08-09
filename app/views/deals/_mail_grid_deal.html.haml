@@ -1,25 +1,26 @@
 .post-small{:style => "display: table; margin: 0 auto"}
-  %a{:href => "http://www.qwiqq.me/posts/6473", :style => "text-decoration: none;"}
+  %a{:href => deal_url(mail_grid_deal), :style => "text-decoration: none;"}
     .details{:style => "background-color: white;border: 1px solid #cdcdcc; border-radius: 6px 6px 6px 6px;-webkit-border-radius: 6px;box-shadow: 0 0 6px #8C8C8C;-webkit-box-shadow: 0 0 6px #8C8C8C;color: #333333;font-size: 16px;height: 360px;margin: 8px;padding: 10px;text-align: left;width: 240px;"}
-      %img.post-photo{:height => "240", :src => "http://s3.amazonaws.com/qwiqq.images.production/deals/6473/iphone_zoom.jpg?1344346750", :style => "border-radius: 6px 6px 6px 6px;-webkit-border-radius: 6px;", :width => "240"}
-        .name{:style => "height: 60px;padding: 4px 0;"} Local business loves @QWIQQ!  Thank you.
+      %img.post-photo{:height => "240", :src => mail_grid_deal.photo.url(:iphone_zoom), :style => "border-radius: 6px 6px 6px 6px;-webkit-border-radius: 6px;", :width => "240"}
+        .name{:style => "height: 60px;padding: 4px 0;"}mail_grid_deal.name
         .price{:style => "padding: 2px 8px 0px 10px; background-color: #EDEDED; border: 2px solid #DEDEDE; -webkit-border-radius: 6px 6px 6px 6px; border-radius: 6px 6px 6px 6px;float: left;margin-top: 10px;"}
           .hole{:style => "left: -5px;top: 5px;background-color: white;border: 2px solid #DEDEDE;border-radius: 6px 6px 6px 6px;-webkit-border-radius: 6px 6px 6px 6px;float: left;height: 5px;margin: 0;position: relative;width: 5px;"}
-          %span.dollars{:style => "color: #6CB340;font-size: 14px; text-align:left"} Free
-  %a{:href => "http://www.qwiqq.me/users/16", :style => "text-decoration: none;"}
+          %span.dollars{:style => "color: #6CB340;font-size: 14px; text-align:left"} mail_grid_deal.price_as_string
+
+  %a{:href => user_url(mail_grid_deal.user), :style => "text-decoration: none;"}
     .metadata{:style => "color: #9A8C7E;font-size: 14px;font-weight: 300;padding: 10px 20px;text-align: left;"}
       %img.arrow-down{:src => "http://www.qwiqq.me/assets/arrow-down-9eb94d5bf9c9e260c686c9921a4dc479.png", :style => "left: -36px;position: relative;top: -18px;"}
-      %img.user-photo{:height => "48", :src => "http://s3.amazonaws.com/qwiqq.images.production/users/16/iphone.jpg?1341244787", :style => "-webkit-border-radius: 6px 6px 6px 6px; border-radius: 6px 6px 6px 6px;float: left;", :width => "48"}
+      %img.user-photo{:height => "48", :src => mail_grid_deal.user.photo.url(:iphone), :style => "-webkit-border-radius: 6px 6px 6px 6px; border-radius: 6px 6px 6px 6px;float: left;", :width => "48"}
         .stats{:style => "left: 3px;position: relative;top: -3px;"}
           %span.stat{:style => "color: #9A8C7E;font-size: 14px;font-weight: 300;text-align: left;"}
-            %img.icon{:src => "http://www.qwiqq.me/assets/love-icon-93b214473ac23f8612c340e83616725c.png", :style => "margin-left: 4px;position: relative;top: 4px;"}
-              1
+            %img.icon{:src => "image_path("love-icon.png"), :style => "margin-left: 4px;position: relative;top: 4px;"}
+              = mail_grid_deal.likes_count
           %span.stat{:style => "color: #9A8C7E;font-size: 14px;font-weight: 300;text-align: left;"}
-            %img.icon{:src => "http://www.qwiqq.me/assets/share-icon-53ca9d48016a52880280774483419b11.png", :style => "margin-left: 4px;position: relative;top: 4px;"}
-              2
+            %img.icon{:src => image_path("share-icon.png"), :style => "margin-left: 4px;position: relative;top: 4px;"}
+              = mail_grid_deal.shares_count
           %span.stat{:style => "color: #9A8C7E;font-size: 14px;font-weight: 300;text-align: left;"}
-            %img.icon{:src => "http://www.qwiqq.me/assets/time-icon-409e9c0abc2c51d73d7f1dd48a4bf5ed.png", :style => "margin-left: 4px;position: relative;top: 4px;"}
-              2hr
+            %img.icon{:src => image_path("time-icon.png"), :style => "margin-left: 4px;position: relative;top: 4px;"}
+              = short_time_ago_in_words(mail_grid_deal.created_at)
         .location{:style => "left: 3px;position: relative;top: -7px; color: #9A8C7E;font-size: 14px;font-weight: 300;text-align: left;"}
-          %img.icon{:src => "http://www.qwiqq.me/assets/location-icon-a992366e0a9ae4af23a74f0d6b23bd91.png", :style => "margin-left: 4px;position: relative;top: 4px;"}
-            Qwiqq HQ
+          %img.icon{:src => image_path("location-icon.png"), :style => "margin-left: 4px;position: relative;top: 4px;"}
+            = truncate(mail_grid_deal.venue_or_location_name, :length => 24)
