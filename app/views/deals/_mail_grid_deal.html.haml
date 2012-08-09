@@ -12,4 +12,18 @@
       %img.arrow-down{:src => image_path("arrow-down.png"), :style => "left: -36px;position: relative;top: -18px;"}
       %img.user-photo{:height => "48", :src => mail_grid_deal.user.photo.url(:iphone), :style => "-webkit-border-radius: 6px 6px 6px 6px; border-radius: 6px 6px 6px 6px;float: left;", :width => "48"}
         .stats{:style => "left: 3px;position: relative;top: -3px;"}
+          %span.stat{:style => "color: #9A8C7E;font-size: 14px;font-weight: 300;text-align: left;"}
+            %img.icon{:src => image_path("love-icon.png"), :style => "margin-left: 4px;position: relative;top: 4px;"}
+              = mail_grid_deal.likes_count
+          %span.stat{:style => "color: #9A8C7E;font-size: 14px;font-weight: 300;text-align: left;"}
+            %img.icon{:src => image_path("share-icon.png"), :style => "margin-left: 4px;position: relative;top: 4px;"}
+              = mail_grid_deal.shares_count
+          %span.stat{:style => "color: #9A8C7E;font-size: 14px;font-weight: 300;text-align: left;"}
+            %img.icon{:src => image_path("time-icon.png"), :style => "margin-left: 4px;position: relative;top: 4px;"}
+              = short_time_ago_in_words(mail_grid_deal.created_at)
+        .location{:style => "left: 3px;position: relative;top: -7px; color: #9A8C7E;font-size: 14px;font-weight: 300;text-align: left;"}
+          %img.icon{:src => image_path("location-icon.png"), :style => "margin-left: 4px;position: relative;top: 4px;"}
+            = truncate(mail_grid_deal.venue_or_location_name, :length => 24)
+
+
           
