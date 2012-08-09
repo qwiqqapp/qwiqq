@@ -11,4 +11,7 @@
     .metadata{:style => "color: #9A8C7E;font-size: 14px;font-weight: 300;padding: 10px 20px;text-align: left;"}
       %img.arrow-down{:src => "http://www.qwiqq.me/assets/arrow-down-9eb94d5bf9c9e260c686c9921a4dc479.png", :style => "left: -36px;position: relative;top: -18px;"}
       %img.user-photo{:height => "48", :src => mail_grid_deal.user.photo.url(:iphone), :style => "-webkit-border-radius: 6px 6px 6px 6px; border-radius: 6px 6px 6px 6px;float: left;", :width => "48"}
-      
+        .stats{:style => "left: 3px;position: relative;top: -3px;"}
+          %span.stat{:style => "color: #9A8C7E;font-size: 14px;font-weight: 300;text-align: left;"}
+            %img.icon{:src => "image_path("love-icon.png"), :style => "margin-left: 4px;position: relative;top: 4px;"}
+              = mail_grid_deal.likes_count
