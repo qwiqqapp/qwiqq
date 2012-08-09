@@ -1,3 +1,4 @@
+%div{:style => "text-align:left; font-size:12pt; color:gray; padding: 5px 30px 10px 30px; font-weight: normal ;overflow: auto;"}
 %p{:style => "font-size: 15pt;font-weight: bold;text-align: left;color:gray;line-height: 30px;"} Weekly Update
 %p{:style => "color: gray;font-size: 12pt;font-weight: normal;text-align: left;line-height:25px"} See what other Qwiqq users are up to!
 #posts
@@ -14,7 +15,7 @@
           and start Posting!
           %br
       - else
-        %span.title{:style => "padding: 0 20px;color: #666666;font-family: Helvetica,Arial; font-size: 24px;font-weight: 300;"} Featured Test
+        = render partial: 'deals/mail_grid_deal', collection: @deal
 
 
 
