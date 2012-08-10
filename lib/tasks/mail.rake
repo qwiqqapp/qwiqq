@@ -18,7 +18,7 @@ namespace :mail do
   desc "Send out a weekly update of what's up in Qwiqq"
   task :weekly_update_for_jack => :environment do
     #make sure it is a Monday that the email is sent out
-    if Date.today.wday != 4
+    if Date.today.wday != 1
       next
     else
       user = User.find_by_email("jack@qwiqq.me")
