@@ -132,21 +132,15 @@ img.bubbles {
 }
 
 #phone {
-  position: absolute;
+  position: relative;
   width: 252px;
   margin: 0 auto;
   top: 35px;
   left: -10px;
 }
 
-#iphone {
-  position: relative;
-  top: 0px;
-  left: 0px;
-}
-
 #screenshots {
-  position: relative;
+  position: absolute;
   top: 86px;
   left: 21px;
 }
