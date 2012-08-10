@@ -7,8 +7,10 @@ namespace :mail do
     if Date.today.wday != 5
       next
     else
+     userm = User.find_by_email("michaelscaria26@gmail.com")
      users = User.all
      deals = Deal.premium.recent.sorted.popular.first(3)
+     Mailer.weekly_update(userm, deals).deliver
      if users
        users.each { |user| Mailer.weekly_update(user, deals).deliver }
       end
