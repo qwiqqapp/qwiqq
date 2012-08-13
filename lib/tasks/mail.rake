@@ -7,15 +7,13 @@ namespace :mail do
     if Date.today.wday != 1
       next
     else
-     user = User.find_by_email("michaelscaria26@gmail.com")
+     userm = User.find_by_email("michaelscaria26@gmail.com")
      users = User.all
      deals = Deal.premium.recent.sorted.popular.first(3)
      if users
-       Mailer.weekly_update(user, deals).deliver
-       result = users.map do |u|
-          {}
-       end
-     end
+       Mailer.weekly_update(userm, deals).deliver
+       users.each { |user| Mailer.weekly_update(user, deals).deliver }
+      end
     end
   end
     # called everyday but checks if specific day to make it weekly updates
