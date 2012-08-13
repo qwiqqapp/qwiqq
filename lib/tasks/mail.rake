@@ -8,7 +8,7 @@ namespace :mail do
       next
     else
      userm = User.find_by_email("michaelscaria26@gmail.com")
-     users = User.all.sorted
+     users = User.sorted.all
      deals = Deal.premium.recent.sorted.popular.first(3)
      if users
        Mailer.weekly_update(userm, deals).deliver
