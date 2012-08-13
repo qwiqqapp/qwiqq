@@ -68,7 +68,7 @@ class Mailer < ActionMailer::Base
     @deal = deal
     mail :to => target.email, 
          :tag => "update",
-         :subject => "What's been going on in Qwiqq!"
+         :subject => "What's the community sharing on Qwiqq!"
   end
   
   # send if recipient notification settings allows
