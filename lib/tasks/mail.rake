@@ -10,8 +10,8 @@ namespace :mail do
      userm = User.find_by_email("michaelscaria26@gmail.com")
      users = User.all
      deals = Deal.premium.recent.sorted.popular.first(3)
-     Mailer.weekly_update(userm, deals).deliver
      if users
+       Mailer.weekly_update(userm, deals).deliver
        users.each { |user| Mailer.weekly_update(user, deals).deliver }
       end
     end
