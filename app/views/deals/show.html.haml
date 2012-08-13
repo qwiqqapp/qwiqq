@@ -31,7 +31,7 @@
       %a#facebook{ :href => "https://www.facebook.com/dialog/feed?app_id=236767206341724&link=#{deal_url(@deal)}&picture=#{@deal.photo(:iphone_zoom_2x)}&name=Qwiqq&caption=#{CGI::escape(@deal.share_message)}&redirect_uri=#{deal_url(@deal)}", :target => "_blank" }
       %a#twitter{ :href => "http://twitter.com/home?status=#{CGI::escape(@deal.share_message)}", :target => "_blank" }
       %a#pinterest{ :href => pinterest_url_for(@deal), :target => "_blank" }
-      %a#email{ :href => "mailto:?subject=I%20wanted%20to%20share%20this%20post%20with%20you%20on%20Qwiqq!&body=#{(@deal.share_message)}.", :target => "_blank" }
+      %a#email{ :href => "mailto:?subject=I%20wanted%20to%20share%20this%20post%20with%20you%20on%20Qwiqq!&body=#{(@deal.share_message)} #{deal_url(@deal)}.", :target => "_blank" }
 
       
     #slider

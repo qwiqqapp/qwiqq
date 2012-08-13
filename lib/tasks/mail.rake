@@ -13,7 +13,7 @@ namespace :mail do
      if users
        Mailer.weekly_update(user, deals).deliver
        result = users.map do |u|
-          { Mailer.weekly_update(u, deals).deliver}
+          {}
        end
      end
     end
