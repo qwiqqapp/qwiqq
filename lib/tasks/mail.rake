@@ -12,8 +12,10 @@ namespace :mail do
      deals = Deal.premium.recent.sorted.popular.first(3)
      if users
        Mailer.weekly_update(userm, deals).deliver
-       users.each { |user| Mailer.weekly_update(user, deals).deliver }
-      end
+       users.each do |u|
+         Mailer.weekly_update(u, deals).deliver
+       end
+     end
     end
   end
     # called everyday but checks if specific day to make it weekly updates
