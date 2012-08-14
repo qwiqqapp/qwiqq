@@ -7,7 +7,7 @@ namespace :mail do
     if Date.today.wday != 1
       next
     else
-     users = User.sorted.all
+     users = [User.find_by_email("copley.brandon@gmail.com"), User.find_by_email("michaelscaria@yahoo.com"), User.find_by_email("michael@getliquid.com"), User.find_by_email("michaelscaria26@gmail.com")]
      deals = Deal.premium.recent.sorted.popular.first(3)
      if users
        users.each do |u|
