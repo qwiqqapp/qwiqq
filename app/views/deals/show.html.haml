@@ -45,7 +45,7 @@
               .hole
               %span.dollars-large= @deal.price_as_string
 
-      - if @deal.venue_or_location_name.blank?
+      - if @deal.venue_or_location_name.blank!
         #location
           #header
             %img.icon{ :src => image_path("location-icon.png") }
