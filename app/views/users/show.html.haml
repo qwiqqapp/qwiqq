@@ -8,7 +8,7 @@
       .name= @user.name
       .username= "@#{@user.username}"
       .location= @user.location
-      .bio= @user.autolink_bio
+      .bio= auto_link(@user.bio)
       .stat
         .num= @user.deals_count
         = @user.deals_count == 1 ? 'post' : 'posts'
