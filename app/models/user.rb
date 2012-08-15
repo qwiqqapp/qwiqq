@@ -1,4 +1,3 @@
-require 'rails_autolink'
 class FacebookInvalidTokenException < Exception; end
 
 class User < ActiveRecord::Base
@@ -163,10 +162,6 @@ class User < ActiveRecord::Base
   
   def best_name
     name || username
-  end
-  
-  def autolink_bio
-    bio
   end
   
   # does not create feedlets, only created on new deal create
