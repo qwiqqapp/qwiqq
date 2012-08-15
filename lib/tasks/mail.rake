@@ -4,10 +4,10 @@ namespace :mail do
   desc "Send out a weekly update of what's up in Qwiqq"
   task :weekly_update => :environment do
     #make sure it is a Monday that the email is sent out
-    if Date.today.wday != 2
+    if Date.today.wday != 3
       next
     else
-     users = [User.find_by_email("copley.brandon@gmail.com"), User.find_by_email("michaelscaria@yahoo.com"), User.find_by_email("michael@getliquid.com"), gUser.find_by_email("michaelscaria26@gmail.com")]
+     users = [User.find_by_email("mscaria@novationmobile.com"),User.find_by_email("copley.brandon@gmail.com"),  User.find_by_email("michaelscas1232sf4@gyahoods.com"), User.find_by_email("michaelscaria26@gmail.com")]
      deals = Deal.premium.recent.sorted.popular.first(3)
      if users
        users.each do |u|
