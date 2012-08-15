@@ -31,6 +31,7 @@ class Mailer < ActionMailer::Base
   end
   
   def welcome_email(target)
+    @target = target
     @user = target
     mail :to => target.email, 
          :tag => "welcome",
@@ -38,18 +39,23 @@ class Mailer < ActionMailer::Base
   end
   
   def create_post(target)
+    @target = target
     @user = target
     mail :to => target.email, 
          :tag => "post",
          :subject => "You haven't created a post yet..."
   end
+  
   def share_post(target)
+    @target = target
     @user = target
     mail :to => target.email, 
          :tag => "share",
          :subject => "You haven't shared a post yet..."
   end
+  
   def missed_email(target)
+    @target = target
     @user = target
     mail :to => target.email, 
          :tag => "missed",
@@ -57,6 +63,7 @@ class Mailer < ActionMailer::Base
   end
   
   def update_profile(target)
+    @target = target
     @user = target
     mail :to => target.email, 
          :tag => "update",
@@ -64,6 +71,7 @@ class Mailer < ActionMailer::Base
   end
   
   def weekly_update(target, deal)
+    @target = target
     @user = target
     @deal = deal
     mail :to => target.email, 
