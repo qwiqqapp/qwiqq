@@ -166,7 +166,7 @@ class User < ActiveRecord::Base
   end
   
   def autolink_bio
-    auto_link(bio) || bio
+    bio
   end
   
   # does not create feedlets, only created on new deal create
