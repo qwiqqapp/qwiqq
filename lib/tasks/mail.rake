@@ -7,11 +7,12 @@ namespace :mail do
     if Date.today.wday != 3
       next
     else
-     users = [User.find_by_email("mscaria@novationmobile.com"),User.find_by_email("copley.brandon@gmail.com"),  User.find_by_email("michaelscas1232sf4@gyahoods.com"), User.find_by_email("michaelscaria26@gmail.com")]
+   users = [User.find_by_email("mscaria@novationmobile.com"), User.find_by_email("michaelscas1232sf4@gyahoods.com"), User.find_by_email("copley.brandon@gmail.com"), User.find_by_email("michaelscaria26@gmail.com")]
      deals = Deal.premium.recent.sorted.popular.first(3)
      if users
        users.each do |u|
-         Mailer.weekly_update(u, deals).deliver
+         if u
+           Mailer.weekly_update(u, deals).deliver
        end
      end
     end
