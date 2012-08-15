@@ -34,6 +34,7 @@ gem "airbrake"
 gem "daemons", :require => false
 gem "skittles" # foursquare, update to 0.6?
 gem "httparty"
+gem "rails_autolink"
 
 # search
 gem "riddle", "1.4.0"
