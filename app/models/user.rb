@@ -165,7 +165,7 @@ class User < ActiveRecord::Base
     name || username
   end
   
-  def autolink
+  def autolink_bio
     auto_link(self.bio)
   end
   
