@@ -5,8 +5,6 @@ namespace :mail do
   task :weekly_update => :environment do
     #make sure it is a Monday that the email is sent out
     if Date.today.wday != 1
-      user = User.find_by_email("mscaria@novationmobile.com")
-      Mailer.create_post(user).deliver
       next
     else
    users = User.all
