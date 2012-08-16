@@ -266,7 +266,7 @@ class Deal < ActiveRecord::Base
   end
 
   def venue_or_location_name
-    foursquare_venue_name || location_nameg
+    foursquare_venue_name || location_name
   end
 
   def redeem_coupon!
