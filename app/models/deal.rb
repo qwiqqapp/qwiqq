@@ -270,9 +270,9 @@ class Deal < ActiveRecord::Base
   end
   
   def love_name
-    c = "Loved your"
+    c = "Loved your "
     c << "#{self.name}"
-    c << "post."
+    c << " post."
     c
   end
 
