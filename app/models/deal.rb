@@ -268,6 +268,13 @@ class Deal < ActiveRecord::Base
   def venue_or_location_name
     foursquare_venue_name || location_name
   end
+  
+  def love_name
+    c = "Loved your"
+    c << "#{self.name}"
+    c << "post."
+    c
+  end
 
   def redeem_coupon!
     transaction do
