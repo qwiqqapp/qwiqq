@@ -153,7 +153,7 @@ class Share < ActiveRecord::Base
   def message_meta
     url = Rails.application.routes.url_helpers.deal_url(self.deal, :host => "qwiqq.me")
     meta = deal.price_as_string || ""
-    if deal.foursquare_venue_name && service != "foursquare"
+    if deal.foursquare_venue_name && service != "foursquare" && deal.foursquare_venue_name != "Approximate Location"
       meta << " @ #{deal.foursquare_venue_name}"
     end
     meta << " #{url}" unless service == 'email'
