@@ -69,6 +69,7 @@ class Api::DealsControllerTest < ActionController::TestCase
     assert_equal feed_deals.map(&:id), json_response.map{|d| d["deal_id"].to_i}
   end
 
+  #deprecated in 2.32
   test "should NOT see feed deals previously posted by a user after following" do
     @user0 = Factory(:user)
     @user1 = Factory(:user)

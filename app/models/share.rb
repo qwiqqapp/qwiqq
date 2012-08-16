@@ -136,7 +136,7 @@ class Share < ActiveRecord::Base
   
   private
   def build_message
-    return unless service =~ /sms|twitter|foursquare|email|constantcontact/
+    return unless service =~ /sms|twitter|facebook|foursquare|email|constantcontact/
     self.message = formatted_message
   end
   
@@ -155,9 +155,6 @@ class Share < ActiveRecord::Base
     meta = deal.price_as_string || ""
     if deal.foursquare_venue_name && service != "foursquare" && deal.foursquare_venue_name != "Approximate Location"
       meta << " @ #{deal.foursquare_venue_name}"
-    end
-    if service == 'facebook'
-      meta << "FaceBook "
     end
     meta << " #{url}" unless service == 'email'
     meta
