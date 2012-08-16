@@ -24,4 +24,4 @@
       .location
         %img.icon{ :src => image_path("location-icon.png") }
         - if grid_deal.venue_or_location_name != "Approximate Location"
-            = truncate(mail_grid_deal.venue_or_location_name, :length => 24)
+          = truncate(mail_grid_deal.venue_or_location_name, :length => 24)
