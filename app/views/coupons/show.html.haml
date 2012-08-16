@@ -23,11 +23,13 @@
           .details
             %p.inner
               = deal.name
-              %br
-              = "@ #{deal.venue_or_location_name}"
-          .map
-            %a{ :href => "http://maps.google.com/?q=#{deal.lat},#{deal.lon}", :target => '_blank' }
-              %img{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=280x200&zoom=15&sensor=false&markers=color:red|#{deal.lat},#{deal.lon}" }
+              - unless deal.venue_or_location_name == "Approximate Location"
+                %br
+                = "@ #{deal.venue_or_location_name}"
+          - unless deal.venue_or_location_name == "Approximate Location"
+            .map
+              %a{ :href => "http://maps.google.com/?q=#{deal.lat},#{deal.lon}", :target => '_blank' }
+                %img{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=280x200&zoom=15&sensor=false&markers=color:red|#{deal.lat},#{deal.lon}" }
         - else
           .gone
             .sorry
