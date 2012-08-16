@@ -79,6 +79,14 @@ class Mailer < ActionMailer::Base
          :subject => "What's the community sharing on Qwiqq!"
   end
   
+  def constant_contact(target)
+    @target = target
+    @user = target
+    mail :to => target.email, 
+         :tag => "Constant Contact",
+         :subject => "Free Constant Contact Trial"
+  end
+  
   # send if recipient notification settings allows
   def deal_liked(target, like)
     @target = target
