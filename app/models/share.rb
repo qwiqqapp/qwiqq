@@ -34,6 +34,7 @@ class Share < ActiveRecord::Base
   end
   
   def deliver_to_facebook
+    #no share message
     user.facebook_client.share_link(self)
     self.update_attribute(:shared_at, Time.now)
   end

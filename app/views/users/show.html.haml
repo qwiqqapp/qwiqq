@@ -39,9 +39,10 @@
                     %span.dollars-large= deal.price_as_string
 
               .metadata
-                .location
-                  %img.icon{ :src => image_path("location-icon.png") }
-                  %span= deal.venue_or_location_name
+                - unless deal.venue_or_location_name == "Approximate Location"
+                  .location
+                    %img.icon{ :src => image_path("location-icon.png") }
+                    %span= deal.venue_or_location_name 
                 .stats
                   %span.stat.love
                     %img.icon{ :src => image_path("love-icon.png") }
