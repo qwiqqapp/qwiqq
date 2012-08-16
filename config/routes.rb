@@ -45,6 +45,7 @@ Qwiqq::Application.routes.draw do
       resources :likes, :only => [:index]
       resources :comments, :only => [:index]
       resources :invitations, :only => [:index, :create]
+      resources :constantcontact, :only => [:index, :create]
       
       resources :deals, :only => [:index] do
         resources :shares, :only => [:create]
