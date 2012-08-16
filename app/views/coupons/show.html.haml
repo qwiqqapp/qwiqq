@@ -39,11 +39,15 @@
 
       - if redeemed?
         %p.directions
-          %em Show your Qwiqq #coupon
-          to our friends @
-          %a{ :href => "http://maps.google.com/?q=#{deal.lat},#{deal.lon}", :target => '_blank' }
-            = deal.venue_or_location_name
-          %em to redeem!
+          - if deal.venue_or_location_name != "Approximate Location"
+            %em Show your Qwiqq #coupon
+            to our friends @
+            %a{ :href => "http://maps.google.com/?q=#{deal.lat},#{deal.lon}", :target => '_blank' }
+              = deal.venue_or_location_name
+            %em to redeem!
+          - else
+            %em Show your Qwiqq #coupon
+            to our friends to redeem!
       - else
         %p.directions
           = link_to 'back to Qwiqq post', deal
