@@ -136,7 +136,7 @@ class Share < ActiveRecord::Base
   
   private
   def build_message
-    return unless service =~ /sms|twitter|facebook|foursquare|email|constantcontact/
+    return unless service =~ /sms|twitter|foursquare|email|constantcontact/
     self.message = formatted_message
   end
   
