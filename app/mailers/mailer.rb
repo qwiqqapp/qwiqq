@@ -84,6 +84,14 @@ class Mailer < ActionMailer::Base
     @user = target
     mail :to => target.email, 
          :tag => "Constant Contact",
+         :subject => "What Constant Contact is."
+  end
+  
+  def constant_contact_trial(target)
+    @target = target
+    @user = target
+    mail :to => target.email, 
+         :tag => "Constant Contact Trial",
          :subject => "Free Constant Contact Trial"
   end
   

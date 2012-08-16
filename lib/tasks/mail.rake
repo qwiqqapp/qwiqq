@@ -40,7 +40,7 @@ namespace :mail do
       next
     else
       user = User.find_by_email("michaelscaria26@gmail.com")
-      Mailer.constant_contact(user).deliver
+      Mailer.constant_contact_trial(user).deliver
     end
   end
 end
