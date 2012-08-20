@@ -16,7 +16,7 @@ class Like < ActiveRecord::Base
     return unless notification_sent_at.nil?       # avoid double notification
     return unless deal.user.send_notifications    # only send if user has notifications enabled
     
-    return unless deal.user.id.try != self.user.id.try
+    return if deal.user.id == self.user.id
     Mailer.deal_liked(deal.user, self).deliver
     update_attribute(:notification_sent_at, Time.now)
   end
