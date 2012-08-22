@@ -2,7 +2,7 @@ namespace :category do
   
   desc 'update categories names (WARNING, will remove categories if not on new_names list)'
   task :update => :environment do
-    new_names = %w(deal food bar fashion beauty ae sport tech home car)
+    new_names = %w(deal food fashion beauty ae sport tech home car)
     current_names = Category.all.map(&:name)
     
     # create new categories
