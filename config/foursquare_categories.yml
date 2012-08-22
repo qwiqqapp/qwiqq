@@ -15,11 +15,11 @@ Art Museum: ae
 History Museum: ae
 Planetarium: ae
 Science Museum: ae
-Music Venue: bar
-Concert Hall: bar
-Jazz Club: bar
-Piano Bar: bar
-Rock Club: bar
+Music Venue: food
+Concert Hall: food
+Jazz Club: food
+Piano Bar: food
+Rock Club: food
 Performing Arts Venue: ae
 Dance Studio: ae
 Indie or Off Broadway Theater: ae
@@ -36,7 +36,7 @@ Hockey Stadium: ae
 Soccer Stadium: ae
 Tennis: ae
 Track: ae
-Strip Club: bar
+Strip Club: food
 Theme Park: ae
 Water Park: ae
 Zoo or Aquarium: ae
@@ -91,7 +91,7 @@ Bagel Shop: food
 Bakery: food
 Brazilian Restaurant: food
 Breakfast Spot: food
-Brewery: bar
+Brewery: food
 Burger Joint: food
 Burrito Place: food
 "Caf\xC3\xA9": food
@@ -207,24 +207,24 @@ Stable: sport
 Tennis Court: sport
 Vineyard: food
 Volleyball Court: sport
-Nightlife Spot: bar
-Bar: bar
-Beer Garden: bar
-Cocktail Bar: bar
-Dive Bar: bar
-Gay Bar: bar
-Hookah Bar: bar
-Hotel Bar: bar
-Karaoke Bar: bar
-Lounge: bar
-Nightclub: bar
-Other Nightlife: bar
-Pub: bar
-Sake Bar: bar
-Speakeasy: bar
-Sports Bar: bar
-Whisky Bar: bar
-Wine Bar: bar
+Nightlife Spot: food
+Bar: food
+Beer Garden: food
+Cocktail Bar: food
+Dive Bar: food
+Gay Bar: food
+Hookah Bar: food
+Hotel Bar: food
+Karaoke Bar: food
+Lounge: food
+Nightclub: food
+Other Nightlife: food
+Pub: food
+Sake Bar: food
+Speakeasy: food
+Sports Bar: food
+Whisky Bar: food
+Wine Bar: food
 Professional & Other Places: home
 Animal Shelter: pet
 Apartment Building / Condo Complex: home

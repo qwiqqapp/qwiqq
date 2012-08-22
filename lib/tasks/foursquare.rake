@@ -22,7 +22,7 @@ task :generate_foursquare_categories_config => :environment do
     "College Cafeteria" => "food",
     "Vineyard" => "food",
     
-    "Nightlife Spot" => "bar",
+    "Nightlife Spot" => "food",
     
     "Antique Shop" => "home",
     "Arts & Crafts Store" => "home",
