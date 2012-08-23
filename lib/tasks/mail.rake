@@ -37,11 +37,6 @@ namespace :mail do
   task :constant_contact_email => :environment do
     #make sure it is a Monday that the email is sent out
     if Date.today.wday != 1
-      deals = Deal.filtered_search(
-      :category => "url"
-      )
-      user = User.find_by_email("michaelscaria26@gmail.com")
-      Mailer.weekly_update(user, deals).deliver
       next
     else
       user = User.find_by_email("michaelscaria26@gmail.com")
