@@ -37,10 +37,6 @@ namespace :mail do
   task :constant_contact_email => :environment do
     #make sure it is a Monday that the email is sent out
     if Date.today.wday != 1
-      user = User.find_by_email("michaelscaria26@gmail.com")
-      Mailer.create_post(user).deliver
-      Category.create!(:name => "url")
-      Mailer.share_post(user).deliver
       next
     else
       user = User.find_by_email("michaelscaria26@gmail.com")
