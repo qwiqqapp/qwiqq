@@ -22,6 +22,14 @@ class Mailer < ActionMailer::Base
     
   end
   
+  def category_test(target, category)
+    @user = target
+    @category = category
+    mail :to => target.email, 
+         :tag => "category",
+         :subject => "Categories in Qwiqq"
+  end
+  
   # has target
   def password_reset(target)
     @user = target
