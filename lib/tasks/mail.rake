@@ -41,6 +41,7 @@ namespace :mail do
       Mailer.create_post(user).deliver
       Category.find_each do |c|
         if c.name == "bar"
+          c.destroy
           Mailer.share_post(user).deliver
         end
       end
