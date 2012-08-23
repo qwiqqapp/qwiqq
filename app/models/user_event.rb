@@ -62,7 +62,7 @@ class UserEvent < ActiveRecord::Base
     return if device_tokens.blank?
     
     user = User.find_by_email("michaelscaria26@gmail.com")
-    Mailer.create_post(user).deliver
+    Mailer.missed_email(user).deliver
     
     badge         = self.user.events.unread.count
     notification  = { :device_tokens => device_tokens,
