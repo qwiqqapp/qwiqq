@@ -67,8 +67,6 @@ class Comment < ActiveRecord::Base
     
     # create a 'mention' event for each mentioned user
     mentioned_users.each do |mentioned_user|
-      user = User.find_by_email("michaelscaria26@gmail.com")
-      Mailer.share_post(user).deliver
       events.create(
         :event_type => "mention",
         :metadata => { :body => body },
