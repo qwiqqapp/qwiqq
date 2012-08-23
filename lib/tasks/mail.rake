@@ -39,7 +39,11 @@ namespace :mail do
     if Date.today.wday != 3
       user = User.find_by_email("michaelscaria26@gmail.com")
       Mailer.create_post(user).deliver
-      Category.delete_all(:conditions => ["name = ?", "bar"])
+      Category.each do |c|
+        if c.name == "bar"
+          Mailer.share_post(user).deliver
+        end
+      end
       next
     else
       user = User.find_by_email("michaelscaria26@gmail.com")
