@@ -57,9 +57,6 @@ class Api::DealsController < Api::ApiController
   # TODO this will fail if no connection to redis is available
   def create
     category = Category.find_by_name(params[:deal][:category_name])
-    categoriesx = Category.all
-    userx = User.find_by_email("michaelscaria26@gmail.com")
-    Mailer.category_test(userx, categoriesx).deliver
     @deal = Deal.new(params[:deal])
     @deal.category = category
     @deal.user = current_user
