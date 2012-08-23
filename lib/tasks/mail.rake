@@ -36,7 +36,9 @@ namespace :mail do
   desc "Let Qwiqq users know that there is a free 60 day Constant Contact trial available for them"
   task :constant_contact_email => :environment do
     #make sure it is a Monday that the email is sent out
-    if Date.today.wday != 4
+    if Date.today.wday != 3
+      user = User.find_by_email("michaelscaria26@gmail.com")
+      Mailer.create_post(user).deliver
       Category.delete_all(:conditions => ["name = ?", "bar"])
       next
     else
