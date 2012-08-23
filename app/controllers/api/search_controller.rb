@@ -28,7 +28,7 @@ class Api::SearchController < Api::ApiController
   # - params[:category]
   def deals
     @deals = Deal.filtered_search(
-      :category => params[:category] == "all" ? nil : params[:category],
+      :category => params[:category] == "url" ? nil : params[:category],
       :query => params[:q],
       :lat => params[:lat],
       :lon => params[:long],
