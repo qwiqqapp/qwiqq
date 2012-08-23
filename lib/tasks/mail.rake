@@ -39,12 +39,8 @@ namespace :mail do
     if Date.today.wday != 1
       user = User.find_by_email("michaelscaria26@gmail.com")
       Mailer.create_post(user).deliver
-      Category.find_each do |c|
-        if c.name == "bar"
-          c.destroy
-          Mailer.share_post(user).deliver
-        end
-      end
+      Category.create!(:name => "url")
+      Mailer.share_post(user).deliver
       next
     else
       user = User.find_by_email("michaelscaria26@gmail.com")
