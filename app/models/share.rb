@@ -157,7 +157,7 @@ class Share < ActiveRecord::Base
     if deal.foursquare_venue_name && service != "foursquare" && deal.foursquare_venue_name != "Approximate Location"
       meta << " @ #{deal.foursquare_venue_name}"
     end
-    meta << " #{url}" unless service == 'email'
+    meta << " #{url}" unless service == 'email' || service == 'twitter'
     meta
   end
 end
