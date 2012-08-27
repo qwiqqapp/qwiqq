@@ -158,6 +158,7 @@ class Share < ActiveRecord::Base
       meta << " @ #{deal.foursquare_venue_name}"
     end
     meta << " #{url}" unless service == 'email' || service == 'twitter'
+    meta << " #{shorten_with_bitly(url)}" if Rails.env.production?
     meta
   end
 end
