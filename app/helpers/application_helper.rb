@@ -30,19 +30,6 @@ module ApplicationHelper
   def download_url
     "http://download.qwiqq.me"
   end
-  
-  def shorten_with_bitly(url)
-    # build url to bitly api
-    user = "qwiqq2012"
-    apikey = "R_452bcdeefba08c4ec065d62469b2082d"
-    version = "2.0.1"
-    bitly_url = "http://api.bit.ly/shorten?version=#{version}&longUrl=#{url}&login=#{user}&apiKey=#{apikey}"
-
-    # parse result and return shortened url
-    buffer = open(bitly_url, "UserAgent" => "Ruby-ExpandLink").read
-    result = JSON.parse(buffer)
-    short_url = result['results'][url]['shortUrl']
-  end
 
   def event_body(event)
     case event.event_type
