@@ -34,9 +34,9 @@ module ApplicationHelper
   def event_body(event)
     case event.event_type
     when "like"
-      "#{event.created_by.username} loved this"
+      "@#{event.created_by.username} loved this"
     when "comment"
-      emojify "#{event.created_by.username} said \"#{event.metadata[:body]}\""
+      emojify "@#{event.created_by.username} said \"#{event.metadata[:body]}\""
     when "share"
       case event.metadata[:service]
       when "sms"
