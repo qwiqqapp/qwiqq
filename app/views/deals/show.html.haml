@@ -1,84 +1,82 @@
-!!!
-%html
-  %head
+- content_for :title do 
+  Qwiqq | #{@deal.name}
+  
+#post
+  .container
+    - if @deal.coupon?
+      = render "coupon"
 
-  %body
-  #post
-    .container
-      - if @deal.coupon?
-        = render "coupon"
+    #info
+      %a{ :href => user_url(@deal.user) }
+        %img.user-photo{ :src => @deal.user.photo.url(:iphone2x), :width => "120", :height => "120" }
+        .when
+          %span Posted by
+          - unless @deal.user.name.blank?
+            %span.name= @deal.user.name
+          - else
+            %span.username= "@#{@deal.user.username}"
+          %span= "#{time_ago_in_words(@deal.created_at)} ago"
+            
+        .stat
+          .num= @deal.user.deals_count
+          = @deal.user.deals_count == 1 ? 'post' : 'posts'
+        .stat 
+          .num= @deal.user.following_count
+          following
+        .stat 
+          .num= @deal.user.followers_count
+          followers
 
-      #info
-        %a{ :href => user_url(@deal.user) }
-          %img.user-photo{ :src => @deal.user.photo.url(:iphone2x), :width => "120", :height => "120" }
-          .when
-            %span Posted by
-            - unless @deal.user.name.blank?
-              %span.name= @deal.user.name
-            - else
-              %span.username= "@#{@deal.user.username}"
-            %span= "#{time_ago_in_words(@deal.created_at)} ago"
-              
-          .stat
-            .num= @deal.user.deals_count
-            = @deal.user.deals_count == 1 ? 'post' : 'posts'
-          .stat 
-            .num= @deal.user.following_count
-            following
-          .stat 
-            .num= @deal.user.followers_count
-            followers
-
-      #share
-        %a#facebook{ :href => "https://www.facebook.com/dialog/feed?app_id=236767206341724&link=#{deal_url(@deal)}&picture=#{@deal.photo(:iphone_zoom_2x)}&name=Qwiqq&caption=#{CGI::escape(@deal.share_message)}&redirect_uri=#{deal_url(@deal)}", :target => "_blank" }
-        %a#twitter{ :href => "http://twitter.com/home?status=#{CGI::escape(@deal.share_message)}", :target => "_blank" }
-        %a#pinterest{ :href => pinterest_url_for(@deal), :target => "_blank" }
-        %a#email{ :href => "mailto:?subject=I%20wanted%20to%20share%20this%20post%20with%20you%20on%20Qwiqq!&body=#{(@deal.share_message)}.", :target => "_blank" }
+    #share
+      %a#facebook{ :href => "https://www.facebook.com/dialog/feed?app_id=236767206341724&link=#{deal_url(@deal)}&picture=#{@deal.photo(:iphone_zoom_2x)}&name=Qwiqq&caption=#{CGI::escape(@deal.share_message)}&redirect_uri=#{deal_url(@deal)}", :target => "_blank" }
+      %a#twitter{ :href => "http://twitter.com/home?status=#{CGI::escape(@deal.share_message)}", :target => "_blank" }
+      %a#pinterest{ :href => pinterest_url_for(@deal), :target => "_blank" }
+      %a#email{ :href => "mailto:?subject=I%20wanted%20to%20share%20this%20post%20with%20you%20on%20Qwiqq!&body=#{(@deal.share_message)}.", :target => "_blank" }
 
       
-      #slider
-        %img.arrow-left{ :src => image_path("arrow-left.png") }
-        .post
-          .details
-            %img.post-photo{ :src => @deal.photo(:iphone_zoom_2x), :width => "504", :height => "504" }
-            .clearfix
-              .name= auto_link(@deal.name)
-              .price
-                .hole
-                %span.dollars-large= @deal.price_as_string
-  
-        - unless @deal.venue_or_location_name.blank?
-          - unless @deal.venue_or_location_name == "Approximate Location"
-            #location
-              #header
-                %img.icon{ :src => image_path("location-icon.png") }
-                %h1= @deal.venue_or_location_name
-              #map
-                %a{ :href => "http://maps.google.com/?q=#{@deal.lat},#{@deal.lon}" }
-                  %img.full{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=550x300&zoom=15&sensor=false&markers=color:red|#{@deal.lat},#{@deal.lon}" }
-                  %img.mobile{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=259x300&zoom=14&sensor=false&markers=color:red|#{@deal.lat},#{@deal.lon}" }
+    #slider
+      %img.arrow-left{ :src => image_path("arrow-left.png") }
+      .post
+        .details
+          %img.post-photo{ :src => @deal.photo(:iphone_zoom_2x), :width => "504", :height => "504" }
+          .clearfix
+            .name= auto_link(@deal.name)
+            .price
+              .hole
+              %span.dollars-large= @deal.price_as_string
+
+      - unless @deal.venue_or_location_name.blank?
+        - unless @deal.venue_or_location_name == "Approximate Location"
+          #location
+            #header
+              %img.icon{ :src => image_path("location-icon.png") }
+              %h1= @deal.venue_or_location_name
+            #map
+              %a{ :href => "http://maps.google.com/?q=#{@deal.lat},#{@deal.lon}" }
+                %img.full{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=550x300&zoom=15&sensor=false&markers=color:red|#{@deal.lat},#{@deal.lon}" }
+                %img.mobile{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=259x300&zoom=14&sensor=false&markers=color:red|#{@deal.lat},#{@deal.lon}" }
         
-        #buzz
-          #header
-            %img.icon{ :src => image_path("buzz-icon.png") }
-            %h1 Social buzz
-            .stats
-              %span.stat
-                %img.icon.love{ :src => image_path("large-love-icon.png") }
-                = @deal.likes_count
-              %span.stat
-                %img.icon.share{ :src => image_path("large-share-icon.png") }
-                = @deal.shares_count
+      #buzz
+        #header
+          %img.icon{ :src => image_path("buzz-icon.png") }
+          %h1 Social buzz
+          .stats
+            %span.stat
+              %img.icon.love{ :src => image_path("large-love-icon.png") }
+              = @deal.likes_count
+            %span.stat
+              %img.icon.share{ :src => image_path("large-share-icon.png") }
+              = @deal.shares_count
               
-          #events
-            - if @events.empty?
-              .empty
-                The latest buzz on this post will show up here
-            - @events.each_with_index do |event, i|
-              - if event.created_by
-                .event{ :class => ""}
-                  %a{ :href => user_url(event.created_by) }
-                    %img.user-photo{ :src => event.created_by.photo(:iphone2x), :width => "80", :height => "80" }
-                  %img.icon{ :src => image_path(event_icon(event)) }  
-                  .body
-                    = event_body(event)
+        #events
+          - if @events.empty?
+            .empty
+              The latest buzz on this post will show up here
+          - @events.each_with_index do |event, i|
+            - if event.created_by
+              .event{ :class => ""}
+                %a{ :href => user_url(event.created_by) }
+                  %img.user-photo{ :src => event.created_by.photo(:iphone2x), :width => "80", :height => "80" }
+                %img.icon{ :src => image_path(event_icon(event)) }  
+                .body
+                  = event_body(event)
