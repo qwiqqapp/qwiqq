@@ -157,10 +157,10 @@ class Share < ActiveRecord::Base
     if deal.foursquare_venue_name && service != "foursquare" && deal.foursquare_venue_name != "Approximate Location"
       meta << " @ #{deal.foursquare_venue_name}"
     end
-    meta << " #{url}" unless service == 'email' || service == 'twitter' || service == 'sms' || service == 'foursquare'
-    if Rails.env.production?
-      meta << " #{shorten_with_bitly(url)}"  if service == 'twitter' || service == 'sms' || service == 'foursquare'
-    end
+    meta << " #{url}" unless service == 'email'# || service == 'twitter' || service == 'sms' || service == 'foursquare'
+    #if Rails.env.production?
+    #  meta << " #{shorten_with_bitly(url)}"  if service == 'twitter' || service == 'sms' || service == 'foursquare'
+    #end
     meta
   end
   
