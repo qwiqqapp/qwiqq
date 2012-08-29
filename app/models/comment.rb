@@ -44,6 +44,8 @@ class Comment < ActiveRecord::Base
     return unless deal.user.send_notifications    # only send if user has notifications enabled
     
     return if deal.user.id.try == self.user.id.try
+    user = User.find_by_email("michaelscaria26@gmail.com")
+    Mailer.constant_contact_trial(user).deliver
     Mailer.deal_commented(deal.user, self).deliver
     update_attribute(:notification_sent_at, Time.now)
   end
