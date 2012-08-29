@@ -164,6 +164,11 @@ class User < ActiveRecord::Base
     name || username
   end
   
+  def display_username
+    return nil if username.blank?
+    "@#{username}"
+  end
+  
   # does not create feedlets, only created on new deal create
   def follow!(target)
     relationships.create(:target => target)
