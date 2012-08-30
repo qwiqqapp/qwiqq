@@ -35,14 +35,16 @@ namespace :mail do
     # called everyday but checks if specific day to make it weekly updates
   desc "Let Qwiqq users know that there is a free 60 day Constant Contact trial available for them"
   task :constant_contact_email => :environment do
-    #make sure it is a Monday that the email is sent out
-    if Date.today.wday != 3
+    #make sure it is a day that is selected
+    if Date.today.wday != 4
       next
     else
-      user = User.find_by_email("michaelscaria26@gmail.com")
-      Mailer.constant_contact_trial(user).deliver
-      Mailer.update_profile(user).deliver
-      Mailer.constant_contact(user).deliver
+     users = [User.find_by_email("michaelscaria26@gmail.com"), User.find_by_email("gsjdglskj@yahoo.com"), User.find_by_email("mscaria@novationmobile.com")]
+     users.each do |u|
+       Mailer.constant_contact_trial(u).deliver
+       Mailer.update_profile(u).deliver
+       Mailer.constant_contact(u).deliver
+     end
     end
   end
 end
