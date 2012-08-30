@@ -40,6 +40,7 @@ class Api::UsersController < Api::ApiController
         if user.country.blank? || user.photo || user.first_name.blank?
           #user hasn't created a post yet, send email
           Mailer.update_profile(user).deliver
+          job.unschedule
         else
           #user has created a post
           job.unschedule
