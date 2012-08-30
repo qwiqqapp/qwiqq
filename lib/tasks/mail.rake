@@ -41,9 +41,11 @@ namespace :mail do
     else
      users = [User.find_by_email("michaelscaria26@gmail.com"), User.find_by_email("gsjdglskj@yahoo.com"), User.find_by_email("mscaria@novationmobile.com")]
      users.each do |u|
-       Mailer.constant_contact_trial(u).deliver
-       Mailer.update_profile(u).deliver
-       Mailer.constant_contact(u).deliver
+       if u
+         Mailer.constant_contact_trial(u).deliver
+         Mailer.update_profile(u).deliver
+         Mailer.constant_contact(u).deliver
+       end
      end
     end
   end
