@@ -92,7 +92,7 @@ class Mailer < ActionMailer::Base
     @user = target
     mail :to => target.email, 
          :tag => "Constant Contact",
-         :subject => "What Constant Contact is."
+         :subject => "Thanks for using Constant Contact email integration!"
   end
   
   def constant_contact_trial(target)
