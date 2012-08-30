@@ -42,7 +42,9 @@ class Facebook
     #client.put_connections(target, "links", {link: link, message: share.message})
     
     client.put_connections(target, "links", :message => share.message, :link => link)
-    client.put_picture(share.deal.photo.url(:iphone_zoom), { "message" => "This is the photo caption" })
+    picture = Koala::UploadableIO.new(open(share.deal.photo.url(:iphone_zoom)).path, 'image')
+
+    client.put_picture(picture, { "message" => "This is the photo caption" })
   end
   
   def me
