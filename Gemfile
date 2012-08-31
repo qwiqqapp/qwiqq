@@ -28,18 +28,19 @@ gem "rufus-scheduler", "~> 2.0.17"
 
 # services
 gem "geokit"
-gem "koala", "~> 1.5.0" # facebook
-gem "twitter", "1.6.0"
+gem "koala", "1.5.0" # facebook
+gem "twitter", "3.7.0"
 gem "airbrake"
 gem "daemons", :require => false
 gem "skittles" # foursquare, update to 0.6?
 gem "httparty"
 gem "rails_autolink"
+gem "faraday", "0.8.4"
 
 # search
-gem "riddle", "1.4.0"
+gem "riddle", "1.5.0"
 gem "thinking-sphinx", "2.0.5"
-gem "flying-sphinx", "0.6.0"  #need to upgrade to 0.6.4, recommended on flysphinx docs
+gem "flying-sphinx", "0.8.2"  #need to upgrade to 0.6.4, recommended on flysphinx docs
 gem "kaminari"
 
 # mail
