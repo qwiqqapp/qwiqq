@@ -2,7 +2,6 @@ source "http://rubygems.org"
 
 # hosting
 gem "aws-s3"
-gem "aws-sdk"
 
 # performance
 gem 'newrelic_rpm'
