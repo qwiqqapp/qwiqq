@@ -7,7 +7,7 @@ gem 'aws-sdk', '~> 1.3.4'
 gem 'newrelic_rpm'
 
 # base
-gem "rails", "3.1.4"
+gem "rails", "3.2.8"
 gem "rake", "0.8.7"
 gem "pg", "0.11.0"
 gem "bcrypt-ruby", :require => "bcrypt"
@@ -15,7 +15,7 @@ gem "activerecord-import"
 
 # views
 gem "haml-rails"
-gem "sass-rails", "3.1.4"
+gem "sass-rails", "3.2.0"
 gem "htmlentities"
 
 # images
