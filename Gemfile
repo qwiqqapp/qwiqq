@@ -6,6 +6,8 @@ gem 'aws-sdk', '~> 1.3.4'
 # performance
 gem 'newrelic_rpm'
 
+gem "sass-rails", "3.2.0"
+
 # base
 gem "rails", "3.2.8"
 gem "rake", "0.8.7"
@@ -15,7 +17,7 @@ gem "activerecord-import"
 
 # views
 gem "haml-rails"
-gem "sass-rails", "3.2.0"
+
 gem "htmlentities"
 
 # images

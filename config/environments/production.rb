@@ -46,7 +46,7 @@ Qwiqq::Application.configure do
   config.assets.precompile += %w( mobile.css active_admin.css.scss active_admin/print.css active_admin.js basic.css)
 # Precompile additional assets. Defaults to [application.js, application.css, non-JS/CSS]
   # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode
   # config.threadsafe!
