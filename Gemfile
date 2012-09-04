@@ -6,7 +6,7 @@ gem 'aws-sdk', '~> 1.3.4'
 # performance
 gem 'newrelic_rpm'
 
-gem "sass-rails"
+gem "sass-rails", "3.2.0"
 
 # base
 gem "rails", "3.2.8"
