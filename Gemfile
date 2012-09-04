@@ -78,6 +78,7 @@ end
 
 group :assets do
   gem "uglifier"
+  gem "coffee-rails"
 end
 
 group :production do
