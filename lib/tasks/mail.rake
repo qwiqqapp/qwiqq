@@ -12,7 +12,9 @@ namespace :mail do
      if users
        users.each do |u|
          if u
-           Mailer.weekly_update(u, deals).deliver
+           if u.send_notifications
+             Mailer.weekly_update(u, deals).deliver
+           end
          end
        end
      end
@@ -26,9 +28,11 @@ namespace :mail do
     if Date.today.wday != 1
       next
     else
-      user = User.find_by_email("jack@qwiqq.me")
-      deals = Deal.premium.recent.sorted.popular.first(3)
-      Mailer.weekly_update(user, deals).deliver
+      if user.send_notifications 
+        user = User.find_by_email("jack@qwiqq.me")
+        deals = Deal.premium.recent.sorted.popular.first(3)
+        Mailer.weekly_update(user, deals).deliver
+      end
     end
   end
   
@@ -42,7 +46,9 @@ namespace :mail do
      users = User.all
      users.each do |u|
        if u
-         Mailer.constant_contact_trial(u).deliver
+         if u.send_notifications
+           Mailer.constant_contact_trial(u).deliver
+         end
        end
      end
     end

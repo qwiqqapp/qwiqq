@@ -28,6 +28,7 @@ class Api::UsersController < Api::ApiController
       session[:user_id] = @user.id
     end
     
+    
     #email notifications
     Mailer.welcome_email(@user).deliver
     scheduler = Rufus::Scheduler.start_new
@@ -39,7 +40,9 @@ class Api::UsersController < Api::ApiController
         return if user.nil?
         if user.country.blank? || user.photo || user.first_name.blank?
           #user hasn't created a post yet, send email
-          Mailer.update_profile(user).deliver
+          if user.send_notifications    # only send if user has notifications enabled
+            Mailer.update_profile(user).deliver
+          end
           job.unschedule
         else
           #user has created a post
@@ -53,7 +56,9 @@ class Api::UsersController < Api::ApiController
       scheduler.every '1w' do |job|
         if @user.deals_count == 0
           #user hasn't created a post yet, send email
-          Mailer.create_post(@user).deliver
+          if @user.send_notification
+            Mailer.create_post(@user).deliver
+          end
         else
           #user has created a post
           job.unschedule
@@ -64,7 +69,9 @@ class Api::UsersController < Api::ApiController
       scheduler.every '1w' do |job|
         if @user.events.count == 0
           #user hasn't shared a post yet, send email
-          Mailer.share_post(@user).deliver
+          if @user.send_notification
+            Mailer.share_post(@user).deliver
+          end
         else
           #user has shared a post
           job.unschedule

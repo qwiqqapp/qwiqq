@@ -69,7 +69,9 @@ class Api::DealsController < Api::ApiController
       if @deal == current_user.deals.sorted[0] && original_deal_count >= current_user.deals_count
         #user hasn't shared in past 30 days, send out missed email
         #current user in 30 days, not current_user now
-        Mailer.missed_email(current_user).deliver
+        if current_user.send_notifications 
+          Mailer.missed_email(current_user).deliver
+        end
       else
         #user has shared in past 30 days
         job.unschedule

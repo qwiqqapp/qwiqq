@@ -8,6 +8,7 @@ class Invitation < ActiveRecord::Base
   def deliver!
     case service
     when "email"
+      return unless user.send_notifications    # only send if user has notifications enabled
       Mailer.invitation(email, user).deliver
     end
     update_attribute(:delivered_at, Time.now)
