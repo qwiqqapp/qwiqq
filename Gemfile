@@ -15,7 +15,6 @@ gem "activerecord-import"
 
 # views
 gem "haml-rails"
-gem "sass-rails", "3.1.5"
 gem "htmlentities"
 
 # images
@@ -79,6 +78,7 @@ end
 group :assets do
   gem "uglifier"
   gem "coffee-rails"
+  gem "sass-rails", "3.1.4"
 end
 
 group :production do
