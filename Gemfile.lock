@@ -144,9 +144,9 @@ GEM
     kaminari (0.14.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    koala (1.1.0)
-      multi_json (~> 1.0)
-      multipart-post (~> 1.0)
+    koala (1.5.0)
+      faraday (~> 0.7)
+      multi_json (~> 1.3)
     launchy (2.1.2)
       addressable (~> 2.3)
     listen (0.5.0)
@@ -322,7 +322,7 @@ DEPENDENCIES
   htmlentities
   httparty
   kaminari
-  koala (= 1.1.0)
+  koala (= 1.5.0)
   mocha
   newrelic_rpm
   paperclip
