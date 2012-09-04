@@ -326,7 +326,7 @@ DEPENDENCIES
   htmlentities
   httparty
   kaminari
-  koala
+  koala (= 1.1.0)
   mocha
   newrelic_rpm
   paperclip
@@ -347,6 +347,6 @@ DEPENDENCIES
   thin
   thinking-sphinx (= 2.0.5)
   twilio-ruby
-  twitter (= 1.6.0)
+  twitter (~> 1.6.0)
   uglifier
   urbanairship

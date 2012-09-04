@@ -28,8 +28,8 @@ gem "rufus-scheduler", "~> 2.0.17"
 
 # services
 gem "geokit"
-gem "koala" # facebook
-gem "twitter", "1.6.0"
+gem "koala", "1.1.0" # facebook
+gem "twitter", "~> 1.6.0"
 gem "airbrake"
 gem "daemons", :require => false
 gem "skittles" # foursquare, update to 0.6?
