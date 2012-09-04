@@ -38,7 +38,7 @@ gem "rails_autolink"
 
 # search
 gem "riddle", "1.5.0"
-gem "thinking-sphinx", "2.0.5"
+gem "thinking-sphinx", "2.0.10"
 gem "flying-sphinx", "0.7.0"  #need to upgrade to 0.6.4, recommended on flysphinx docs
 gem "kaminari"
 
