@@ -15,7 +15,7 @@ gem "activerecord-import"
 
 # views
 gem "haml-rails"
-gem "sass-rails", "3.1.4"
+gem "sass-rails", "3.1.5"
 gem "htmlentities"
 
 # images
