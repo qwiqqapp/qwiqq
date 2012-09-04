@@ -8,6 +8,7 @@ class Constantcontact < ActiveRecord::Base
   def deliver!
     case service
     when "email"
+      return unless user.send_notifications    # only send if user has notifications enabled
       Mailer.constant_contact(user).deliver
     end
   end
