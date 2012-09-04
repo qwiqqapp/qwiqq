@@ -37,6 +37,7 @@ gem "daemons", :require => false
 gem "skittles", "0.6.0" # foursquare, update to 0.6?
 gem "httparty"
 gem "rails_autolink"
+gem "country_select", "~> 1.0.1"
 
 # search
 gem "riddle", "1.5.0"
