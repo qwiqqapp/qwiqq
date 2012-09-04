@@ -7,7 +7,7 @@ gem 'aws-sdk', '~> 1.3.4'
 gem 'newrelic_rpm'
 
 # base
-gem "rails", "3.1.3"
+gem "rails", "3.1.4"
 gem "rake", "0.8.7"
 gem "pg", "0.11.0"
 gem "bcrypt-ruby", :require => "bcrypt"
