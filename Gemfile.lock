@@ -317,7 +317,7 @@ DEPENDENCIES
   htmlentities
   httparty
   kaminari
-  koala (= 1.1.0)
+  koala
   mocha
   newrelic_rpm
   paperclip
