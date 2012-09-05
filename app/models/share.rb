@@ -92,6 +92,11 @@ class Share < ActiveRecord::Base
     # update record
     update_attribute(:shared_at, Time.now)
   end
+  
+  # construct message base string, example: Hey I just shared this The best bubble tea ever! $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259  
+  def share_message
+    formatted_message
+  end
 
   # rescue from connection error
   def async_deliver
