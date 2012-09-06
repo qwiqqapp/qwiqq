@@ -94,8 +94,9 @@ class Share < ActiveRecord::Base
   end
   
   # construct message base string, example: Hey I just shared this The best bubble tea ever! $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259  
-  def share_message
-    formatted_message
+  def fb_share_message
+    c = formatted_message
+    c
   end
 
   # rescue from connection error
