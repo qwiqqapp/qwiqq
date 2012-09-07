@@ -238,7 +238,7 @@ class Deal < ActiveRecord::Base
   def locate_via_foursquare!
     venue = Qwiqq.foursquare_client.venue(foursquare_venue_id) if foursquare_venue_id
     if venue
-      if venue["location"]["lat"] != 0 && venue["location"]["lng"] != 0
+      if venue["location"]["lat"] != 0.0 && venue["location"]["lng"] != 0.0
         update_attributes(
           :lat => venue["location"]["lat"],
           :lon => venue["location"]["lng"],
@@ -250,7 +250,9 @@ class Deal < ActiveRecord::Base
 
   def locate_via_coords!
     return unless location_name.blank?
+    return if venue["location"]["lat"] != 0 && venue["location"]["lng"] != 0
     loc = GeoKit::Geocoders::MultiGeocoder.reverse_geocode([ lat, lon ])
+    
     if loc.success?
       location_name = loc.city
       location_name = "#{loc.street_name}, #{location_name}" if loc.street_name
