@@ -250,7 +250,7 @@ class Deal < ActiveRecord::Base
 
   def locate_via_coords!
     return unless location_name.blank?
-    return if lat != 0.0 && lon != 0.0
+    return if lat == 0.0 && lon == 0.0
     loc = GeoKit::Geocoders::MultiGeocoder.reverse_geocode([ lat, lon ])
     
     if loc.success?
