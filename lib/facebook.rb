@@ -36,7 +36,7 @@ class Facebook
   # can raise Koala::Facebook::APIError
   def share_link(share)
     link    = deal_share_url(share.deal)
-    picture = share.deal.photo.url(:iphone_zoom)
+    picture = share.deal.photo.url(:iphone_zoom_2x)
     target  = share.facebook_page_id.blank? ? "me" : share.facebook_page_id
     
     #original
