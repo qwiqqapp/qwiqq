@@ -43,7 +43,7 @@ class Facebook
     #client.put_connections(target, "links", {link: link, message: share.message})
     
     #client.put_connections(target, "links", :message => share.message, :link => link)
-    client.put_picture(picture, { "message" => share.fb_share_message },share.facebook_page_id)
+    client.put_picture(picture, { "message" => share.fb_share_message },target)
   end
   
   def me
