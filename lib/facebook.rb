@@ -39,7 +39,7 @@ class Facebook
     picture = share.deal.photo.url(:iphone_zoom_2x)
     target  = share.facebook_page_id.blank? ? "me" : share.facebook_page_id
     
-    if share.facebook_page_id.blank?
+    if !share.facebook_page_id.blank?
       # you can easily get the access token for a single page:
       page_token = client.get_page_access_token(target)
       @page_graph = Koala::Facebook::API.new(page_token["access_token"])
