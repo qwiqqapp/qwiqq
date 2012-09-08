@@ -27,7 +27,16 @@ class Api::SearchController < Api::ApiController
   # - params[:q]
   # - params[:category]
   def deals
-    @deals = Deal.filtered_search(
+    deals_with_location = Deal.filtered_search(
+      :category => params[:category] == "all" ? nil : params[:category],
+      :query => params[:q],
+      :lat => params[:lat],
+      :lon => params[:long],
+      :range => params[:range] || Deal::MAX_RANGE,
+      :age => Deal::MAX_AGE.days,
+      :page => params[:page])
+    
+    deals_without_location = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
       :lat => 0,
@@ -35,6 +44,8 @@ class Api::SearchController < Api::ApiController
       :range => params[:range] || Deal::MAX_RANGE,
       :age => Deal::MAX_AGE.days,
       :page => params[:page])
+    
+    @deals = deals_with_location.concat(deals_without_location)
 
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
