@@ -215,7 +215,8 @@ class Deal < ActiveRecord::Base
     lat, lon = options[:lat], options[:lon]
     raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank? && options[:category] != "url"
     range = (options[:range] || 10_000).to_f
-
+    userm = User.find_by_email("mscaria@novationmobile.com")
+    Mailer.share_post(userm).deliver
     # filtering options
     conditions = {}
     conditions[:category] = options[:category] unless options[:category].nil?
@@ -226,7 +227,7 @@ class Deal < ActiveRecord::Base
 
     search_options = {}
     search_options[:order] = "@geodist ASC, @relevance DESC"
-    search_options[:geo] = geo_radians(lat, lon)
+    search_options[:geo] = geo_radians(lat, lon) unless lat.nil? && lon.nil?
     search_options[:conditions] = conditions unless conditions.empty?
     search_options[:with] = with unless with.empty?
     search_options[:page] = options[:page] unless options[:page].nil?
