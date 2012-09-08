@@ -45,7 +45,7 @@ class Api::SearchController < Api::ApiController
       :age => Deal::MAX_AGE.days,
       :page => params[:page])
     
-    @deals = deals_with_location.concat(deals_without_location)
+    @deals = deals_with_location + deals_without_location
 
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
