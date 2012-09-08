@@ -27,8 +27,6 @@ class Api::SearchController < Api::ApiController
   # - params[:q]
   # - params[:category]
   def deals
-    userm = User.find_by_email("mscaria@novationmobile.com")
-    Mailer.share_post(userm).deliver
     @deals = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
@@ -49,8 +47,6 @@ class Api::SearchController < Api::ApiController
   # optional params:
   # - params[:lat], params[:long], params[:range]
   def category
-    userm = User.find_by_email("mscaria@novationmobile.com")
-    Mailer.update_profile(userm).deliver
     @deals = Deal.filtered_search(
       :category => params[:name] == "all" ? nil : params[:name],
       :lat => params[:lat],
