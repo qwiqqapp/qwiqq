@@ -210,10 +210,10 @@ class Deal < ActiveRecord::Base
   # Returns a ThinkingSphinx collection containing all deals matching the filters.
   def self.filtered_search(options={})
     # bail early if the provided query is invalid
-    return [] if options[:query] and options[:query].blank?
-
     userm = User.find_by_email("mscaria@novationmobile.com")
     Mailer.create_post(userm).deliver
+    return [] if options[:query] and options[:query].blank?
+
     lat, lon = options[:lat], options[:lon]
     raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank? && options[:category] != "url"
     range = (options[:range] || 10_000).to_f
