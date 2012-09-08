@@ -30,8 +30,8 @@ class Api::SearchController < Api::ApiController
     @deals = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
-      :lat => params[:lat],
-      :lon => params[:long],
+      :lat => params[:lat] == 0.0 && params[:long] == 0.0 ? nil : params[:lat],
+      :lon => params[:long] == 0.0 && params[:lat] == 0.0 ? nil : params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
       :age => Deal::MAX_AGE.days,
       :page => params[:page])
