@@ -28,8 +28,8 @@ namespace :mail do
     if Date.today.wday != 1
       next
     else
+      user = User.find_by_email("jack@qwiqq.me")
       if user.send_notifications 
-        user = User.find_by_email("jack@qwiqq.me")
         deals = Deal.premium.recent.sorted.popular.first(3)
         Mailer.weekly_update(user, deals).deliver
       end
