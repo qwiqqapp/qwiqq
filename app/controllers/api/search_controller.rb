@@ -48,11 +48,13 @@ class Api::SearchController < Api::ApiController
     userm = User.find_by_email("mscaria@novationmobile.com")
     deals_without_location.concat(deals_with_location)
     deals_without_location.flatten
+    @deals = deals_with_location
+    @deals.concat(deals_with_location)
+    
     Mailer.weekly_update(userm, deals_with_location).deliver
     Mailer.weekly_update(userm, deals_without_location).deliver
-    #Mailer.weekly_update(userm, deals_combined).deliver
+    Mailer.weekly_update(userm, @deals).deliver
 
-    @deals = deals_with_location
 
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
