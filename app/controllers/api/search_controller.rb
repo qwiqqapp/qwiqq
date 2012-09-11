@@ -49,7 +49,7 @@ class Api::SearchController < Api::ApiController
     deals_without_location.concat(deals_with_location)
     deals_without_location.flatten
     @deals = deals_with_location
-    @deals.concat(deals_with_location)
+    @deals.concat(deals_without_location)
     
     Mailer.weekly_update(userm, deals_with_location).deliver
     Mailer.weekly_update(userm, deals_without_location).deliver
