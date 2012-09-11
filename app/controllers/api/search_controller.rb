@@ -51,9 +51,9 @@ class Api::SearchController < Api::ApiController
     @deals = deals_with_location
     @deals.concat(deals_without_location)
     
-    Mailer.weekly_update(userm, deals_with_location).deliver
-    Mailer.weekly_update(userm, deals_without_location).deliver
-    Mailer.weekly_update(userm, @deals).deliver
+    #Mailer.weekly_update(userm, deals_with_location).deliver
+    #Mailer.weekly_update(userm, deals_without_location).deliver
+    #Mailer.weekly_update(userm, @deals).deliver
 
 
     options = { :minimal => true }
