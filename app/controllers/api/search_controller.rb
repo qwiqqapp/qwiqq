@@ -46,7 +46,7 @@ class Api::SearchController < Api::ApiController
       :page => params[:page])
     
     userm = User.find_by_email("mscaria@novationmobile.com")
-    deals_combined = deals_with_location.concat(deals_without_location)
+    deals_combined = deals_with_location + deals_without_location
     Mailer.weekly_update(userm, deals_with_location).deliver
     Mailer.weekly_update(userm, deals_without_location).deliver
     Mailer.weekly_update(userm, deals_combined).deliver
