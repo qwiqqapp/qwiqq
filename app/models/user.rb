@@ -266,7 +266,7 @@ class User < ActiveRecord::Base
   def twitter_friend_ids
     twitter_ids = []
     begin
-      result = twitter_client.friend_ids(:cursor => (cursor ||= -1))
+      result = twitter_client.following(:cursor => (cursor ||= -1))
       cursor = result.next_cursor
       twitter_ids << result.users.map {|f| f["id"].to_s } if result.users
     end while cursor != 0
