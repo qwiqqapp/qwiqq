@@ -27,6 +27,7 @@ class Api::SearchController < Api::ApiController
   # - params[:q]
   # - params[:category]
   def deals
+    #We query twice, one for categories with a location and then the second time for a category without a location
     deals_with_location = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
@@ -45,8 +46,8 @@ class Api::SearchController < Api::ApiController
       :age => Deal::MAX_AGE.days)
     
     userm = User.find_by_email("mscaria@novationmobile.com")
-    deals_with_location.concat(deals_without_location)
     deals_with_location.compact
+    deals_with_location.concat(deals_without_location)
     #@deals.concat(deals_without_location)
     
     @deals = deals_with_location
