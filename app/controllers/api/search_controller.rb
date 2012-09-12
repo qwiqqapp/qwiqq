@@ -42,21 +42,16 @@ class Api::SearchController < Api::ApiController
       :query => params[:q],
       :lat => 0,
       :lon => 0,
-      :range => params[:range] || Deal::MAX_RANGE,
-      :age => Deal::MAX_AGE.days).compact
+      :range => Deal::MAX_RANGE,
+      :age => Deal::MAX_AGE.days)
     
     userm = User.find_by_email("mscaria@novationmobile.com")
     deals_with_location.concat(deals_without_location)
-    #deals_with_location.flatten
-    #@deals.concat(deals_without_location)
     
     @deals = deals_with_location
     
     Mailer.weekly_update(userm, deals_with_location).deliver
-    #Mailer.weekly_update(userm, deals_without_location).deliver
     Mailer.weekly_update(userm, @deals).deliver
-    
-
 
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
