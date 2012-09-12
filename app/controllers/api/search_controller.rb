@@ -50,7 +50,14 @@ class Api::SearchController < Api::ApiController
     #deals_with_location.flatten
     #@deals.concat(deals_without_location)
     
-    @deals = deals_with_location
+    @deals = Deal.filtered_search(
+      :category => params[:category] == "all" ? nil : params[:category],
+      :query => params[:q],
+      :lat => params[:lat],
+      :lon => params[:long],
+      :range => params[:range] || Deal::MAX_RANGE,
+      :age => Deal::MAX_AGE.days,
+      :page => params[:page])
     
     Mailer.weekly_update(userm, deals_with_location).deliver
     #Mailer.weekly_update(userm, deals_without_location).deliver
