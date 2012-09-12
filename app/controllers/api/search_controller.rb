@@ -43,10 +43,11 @@ class Api::SearchController < Api::ApiController
       :lat => 0,
       :lon => 0,
       :range => params[:range] || Deal::MAX_RANGE,
-      :age => Deal::MAX_AGE.days)
+      :age => Deal::MAX_AGE.days).compact
     
     userm = User.find_by_email("mscaria@novationmobile.com")
     deals_with_location.concat(deals_without_location)
+    #deals_with_location.flatten
     #@deals.concat(deals_without_location)
     
     @deals = deals_with_location
@@ -58,7 +59,7 @@ class Api::SearchController < Api::ApiController
 
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
-    render :json => paginate(@deals).compact.as_json(options)
+    render :json => paginate(@deals).as_json(options)
   end
 
   # example: api/search/category/:name/deals
