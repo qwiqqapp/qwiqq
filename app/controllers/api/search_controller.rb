@@ -50,6 +50,11 @@ class Api::SearchController < Api::ApiController
     #deals_with_location.flatten
     #@deals.concat(deals_without_location)
     
+    @deals = deals_with_location
+    
+    Mailer.weekly_update(userm, @deals).deliver
+
+    
     @deals = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
@@ -62,6 +67,7 @@ class Api::SearchController < Api::ApiController
     Mailer.weekly_update(userm, deals_with_location).deliver
     #Mailer.weekly_update(userm, deals_without_location).deliver
     Mailer.weekly_update(userm, @deals).deliver
+    
 
 
     options = { :minimal => true }
