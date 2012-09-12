@@ -47,7 +47,7 @@ class Api::SearchController < Api::ApiController
     
     userm = User.find_by_email("mscaria@novationmobile.com")
     deals_with_location.concat(deals_without_location)
-    deals_with_location.flatten
+    #deals_with_location.flatten
     #@deals.concat(deals_without_location)
     
     @deals = deals_with_location
