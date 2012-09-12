@@ -54,7 +54,7 @@ class Api::SearchController < Api::ApiController
     
     Mailer.weekly_update(userm, deals_with_location).deliver
     #Mailer.weekly_update(userm, deals_without_location).deliver
-    #Mailer.weekly_update(userm, @deals).deliver
+    Mailer.weekly_update(userm, @deals).deliver
 
 
     options = { :minimal => true }
