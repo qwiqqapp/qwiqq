@@ -34,7 +34,7 @@ class Api::SearchController < Api::ApiController
       :lon => params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
       :age => Deal::MAX_AGE.days,
-      :page => params[:page])
+      :page => params[:page]).compact
     
     deals_without_location = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
@@ -43,13 +43,13 @@ class Api::SearchController < Api::ApiController
       :lon => 0,
       :range => params[:range] || Deal::MAX_RANGE,
       :age => Deal::MAX_AGE.days,
-      :page => params[:page])
+      :page => params[:page]).compact
     
     userm = User.find_by_email("mscaria@novationmobile.com")
-    deals_without_location.concat(deals_with_location)
-    deals_without_location.flatten
-    @deals = deals_with_location
-    @deals.concat(deals_without_location)
+    deals_with_location.concat(deals_without_location)
+    deals_with_location.flatten
+    #@deals = deals_with_location
+    #@deals.concat(deals_without_location)
     
     #Mailer.weekly_update(userm, deals_with_location).deliver
     #Mailer.weekly_update(userm, deals_without_location).deliver
