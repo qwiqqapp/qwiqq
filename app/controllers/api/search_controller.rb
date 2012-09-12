@@ -48,11 +48,12 @@ class Api::SearchController < Api::ApiController
     userm = User.find_by_email("mscaria@novationmobile.com")
     deals_with_location.concat(deals_without_location)
     deals_with_location.flatten
-    #@deals = deals_with_location
     #@deals.concat(deals_without_location)
     
-    #Mailer.weekly_update(userm, deals_with_location).deliver
-    #Mailer.weekly_update(userm, deals_without_location).deliver
+    @deals = deals_with_location
+    
+    Mailer.weekly_update(userm, deals_with_location).deliver
+    Mailer.weekly_update(userm, deals_without_location).deliver
     #Mailer.weekly_update(userm, @deals).deliver
 
 
