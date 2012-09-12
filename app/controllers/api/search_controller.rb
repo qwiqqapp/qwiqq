@@ -56,7 +56,7 @@ class Api::SearchController < Api::ApiController
       :lon => params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
       :age => Deal::MAX_AGE.days,
-      :page => params[:page])
+      :page => params[:page]).compact
     
     Mailer.weekly_update(userm, deals_with_location).deliver
     #Mailer.weekly_update(userm, deals_without_location).deliver
