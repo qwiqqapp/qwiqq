@@ -249,8 +249,7 @@ class Deal < ActiveRecord::Base
     deals_without_location = self.search(options[:query], no_location_options)
     Mailer.weekly_update(userm, deals_without_location).deliver
     
-    result = deals_with_location.flatten + deals_without_location.flatten
-    result
+    self.search(options[:query], search_options)
 
   end
 
