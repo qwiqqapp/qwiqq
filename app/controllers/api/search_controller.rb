@@ -50,7 +50,7 @@ class Api::SearchController < Api::ApiController
     userm = User.find_by_email("mscaria@novationmobile.com")
     deals_with_location.concat(deals_without_location)
     
-    if params[:category] == "all" 
+    if params[:category] == nil
       Mailer.share_post(userm).deliver
     else
       Mailer.create_post(userm).deliver
