@@ -236,7 +236,7 @@ class Deal < ActiveRecord::Base
 
     deals_with_location = self.search(options[:query], search_options)
     
-    Mailer.weekly_update(userm, deals_with_location).deliver
+    #Mailer.weekly_update(userm, deals_with_location).deliver
     
     no_location_conditions = {}
     no_location_conditions[:category] = "url"
@@ -247,7 +247,7 @@ class Deal < ActiveRecord::Base
     no_location_options[:max_matches] = options[:limit] unless options[:limit].nil?
     
     deals_without_location = self.search(options[:query], no_location_options)
-    Mailer.weekly_update(userm, deals_without_location).deliver
+    #Mailer.weekly_update(userm, deals_without_location).deliver
     
     self.search(options[:query], search_options)
 
