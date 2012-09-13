@@ -45,8 +45,15 @@ class Api::SearchController < Api::ApiController
       :range => Deal::MAX_RANGE,
       :age => Deal::MAX_AGE.days).compact
     
+
+    
     userm = User.find_by_email("mscaria@novationmobile.com")
-    deals_with_location = deals_with_location.concat(deals_without_location)
+    deals_with_location.concat(deals_without_location)
+    
+    if params[:category] == "all" 
+      Mailer.share_post(userm).deliver
+    end
+    
     
     @deals = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
