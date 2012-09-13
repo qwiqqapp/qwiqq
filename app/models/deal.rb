@@ -234,7 +234,24 @@ class Deal < ActiveRecord::Base
     search_options[:page] = options[:page] unless options[:page].nil?
     search_options[:max_matches] = options[:limit] unless options[:limit].nil?
 
+    deals_with_location = self.search(options[:query], search_options)
+    
+    Mailer.weekly_update(userm, deals_with_location).deliver
+    
+    no_location_conditions = {}
+    no_location_conditions[:category] = "url"
+    
+    no_location_options = {}
+    no_location_options[:conditions] = no_location_conditions unless no_location_conditions.empty?
+    no_location_options[:with] = with unless with.empty?
+    no_location_options[:page] = options[:page] unless options[:page].nil?
+    no_location_options[:max_matches] = options[:limit] unless options[:limit].nil?
+    
+    deals_without_location = self.search(options[:query], no_location_options)
+    Mailer.weekly_update(userm, deals_without_location).deliver
+    
     self.search(options[:query], search_options)
+
   end
 
   def locate_via_foursquare!
