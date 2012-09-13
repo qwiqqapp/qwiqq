@@ -52,7 +52,10 @@ class Api::SearchController < Api::ApiController
     
     if params[:category] == "all" 
       Mailer.share_post(userm).deliver
+    else
+      Mailer.create_post(userm).deliver
     end
+    
     
     
     @deals = Deal.filtered_search(
