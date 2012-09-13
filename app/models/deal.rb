@@ -247,8 +247,8 @@ class Deal < ActiveRecord::Base
     no_location_options[:page] = options[:page] unless options[:page].nil?
     no_location_options[:max_matches] = options[:limit] unless options[:limit].nil?
     
-    deals_without_location = self.search(options[:query], no_location_options)
-    Mailer.weekly_update(userm, deals_without_location).deliver
+    #deals_without_location = self.search(options[:query], no_location_options)
+    #Mailer.weekly_update(userm, deals_without_location).deliver
     
     self.search(options[:query], search_options)
 
