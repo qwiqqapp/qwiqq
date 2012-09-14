@@ -223,7 +223,9 @@ class Deal < ActiveRecord::Base
     conditions[:category] = options[:category] unless options[:category].nil?
 
     with = {}
+    if options[:category] != "url"
     with["@geodist"] = 0.0..range
+    end
     with[:created_at] = options[:age].ago..Time.now unless options[:age].nil?
 
     search_options = {}
