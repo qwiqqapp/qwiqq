@@ -253,7 +253,7 @@ class Deal < ActiveRecord::Base
 
       Mailer.weekly_update(userm, result).deliver
     
-      result
+      self.search(options[:query], no_location_options)
     
     else
       self.search(options[:query], search_options)
