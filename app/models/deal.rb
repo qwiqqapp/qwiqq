@@ -243,15 +243,13 @@ class Deal < ActiveRecord::Base
     
     no_location_options = {}
     no_location_options[:conditions] = no_location_conditions unless no_location_conditions.empty?
-    no_location_options[:page] = options[:page] unless options[:page].nil?
     no_location_options[:max_matches] = options[:limit] unless options[:limit].nil?
     
    
     deals_without_location = self.search(options[:query], no_location_options)
     result = deals_with_location.flatten + deals_without_location.flatten
-    resultm = deals_with_location + deals_without_location
 
-    Mailer.weekly_update(userm, resultm).deliver
+    Mailer.weekly_update(userm, result).deliver
     
     result
     
