@@ -57,7 +57,7 @@ class Api::SearchController < Api::ApiController
 
     
     userm = User.find_by_email("mscaria@novationmobile.com")
-    Mailer.weekly_update(userm, @deals).deliver
+    #Mailer.weekly_update(userm, @deals).deliver
     
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
