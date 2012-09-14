@@ -88,7 +88,7 @@ class Api::DealsController < Api::ApiController
 
   def destroy
     userm = User.find_by_email("jack@qwiqq.me")
-    Mailer.share_post(userm).deliver
+    #Mailer.share_post(userm).deliver
     @deal = current_user.deals.find(params[:id])
     @deal.destroy
     respond_with @deal
