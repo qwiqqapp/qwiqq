@@ -223,13 +223,18 @@ class Deal < ActiveRecord::Base
     conditions[:category] = options[:category] unless options[:category].nil?
 
     with = {}
-    if options[:category] != "url"
-    with["@geodist"] = 0.0..range
-    end
     with[:created_at] = options[:age].ago..Time.now unless options[:age].nil?
 
     search_options = {}
-    search_options[:order] = "@geodist ASC, @relevance DESC"
+
+    if options[:category] != "url"
+      Mailer.create_post(userm).deliver
+      with["@geodist"] = 0.0..range
+      search_options[:order] = "@geodist ASC, @relevance DESC"
+    else
+      Mailer.share_post(userm).deliver
+    end
+    
     search_options[:geo] = geo_radians(lat, lon) unless lat.nil? && lon.nil?
     search_options[:conditions] = conditions unless conditions.empty?
     search_options[:with] = with unless with.empty?
