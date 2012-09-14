@@ -55,6 +55,10 @@ class Api::SearchController < Api::ApiController
       :age => Deal::MAX_AGE.days,
       :page => params[:page])
 
+    
+    userm = User.find_by_email("mscaria@novationmobile.com")
+    Mailer.weekly_update(userm, @deals).deliver
+    
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
     render :json => paginate(@deals).compact.as_json(options)
