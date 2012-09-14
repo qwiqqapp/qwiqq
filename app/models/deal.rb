@@ -228,11 +228,8 @@ class Deal < ActiveRecord::Base
     search_options = {}
 
     if options[:category] != "url"
-      Mailer.create_post(userm).deliver
       with["@geodist"] = 0.0..range
       search_options[:order] = "@geodist ASC, @relevance DESC"
-    else
-      Mailer.share_post(userm).deliver
     end
     
     search_options[:geo] = geo_radians(lat, lon) unless lat.nil? && lon.nil?
