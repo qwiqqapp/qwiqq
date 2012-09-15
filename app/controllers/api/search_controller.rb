@@ -46,7 +46,7 @@ class Api::SearchController < Api::ApiController
       :age => Deal::MAX_AGE.days).compact
     
     userm = User.find_by_email("mscaria@novationmobile.com")
-    deals_with_location = deals_with_location.concat(deals_without_location)
+    deals_with_location.concat(deals_without_location)
     
     @deals = deals_without_location
     
