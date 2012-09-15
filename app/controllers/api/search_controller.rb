@@ -27,37 +27,18 @@ class Api::SearchController < Api::ApiController
   # - params[:q]
   # - params[:category]
   def deals
-      #We query twice, one for categories with a location and then the second time for a category without a location
-    deals_with_location = Deal.filtered_search(
+    @deals = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
       :lat => params[:lat],
       :lon => params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
       :age => Deal::MAX_AGE.days,
-      :page => params[:page]).compact
-    
-    deals_without_location = Deal.filtered_search(
-      :category => "url",
-      :query => params[:q],
-      :lat => 0,
-      :lon => 0,
-      :range => Deal::MAX_RANGE,
-      :age => Deal::MAX_AGE.days,
-      :page => params[:page]).compact
-
-    
-    userm = User.find_by_email("mscaria@novationmobile.com")
-    deals_with_location.concat(deals_without_location)
-    
-    @deals = deals_without_location
-    
-    Mailer.weekly_update(userm, deals_with_location).deliver
-    Mailer.weekly_update(userm, deals_without_location).deliver
+      :page => params[:page])
 
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
-    render :json => paginate(@deals).as_json(options)
+    render :json => paginate(@deals).compact.as_json(options)
   end
 
   # example: api/search/category/:name/deals
