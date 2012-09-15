@@ -209,7 +209,7 @@ class Deal < ActiveRecord::Base
   #
   # Returns a ThinkingSphinx collection containing all deals matching the filters.
   def self.filtered_search(options={})
-    # bail early if the provided query is invalid
+  # bail early if the provided query is invalid
     userm = User.find_by_email("mscaria@novationmobile.com")
     #Mailer.create_post(userm).deliver
     return [] if options[:query] and options[:query].blank?
@@ -223,39 +223,18 @@ class Deal < ActiveRecord::Base
     conditions[:category] = options[:category] unless options[:category].nil?
 
     with = {}
+    with["@geodist"] = 0.0..range
     with[:created_at] = options[:age].ago..Time.now unless options[:age].nil?
 
     search_options = {}
-
-    if options[:category] != "url"
-      with["@geodist"] = 0.0..range
-      search_options[:order] = "@geodist ASC, @relevance DESC"
-    end
-    
+    search_options[:order] = "@geodist ASC, @relevance DESC"
     search_options[:geo] = geo_radians(lat, lon) unless lat.nil? && lon.nil?
     search_options[:conditions] = conditions unless conditions.empty?
     search_options[:with] = with unless with.empty?
     search_options[:page] = options[:page] unless options[:page].nil?
     search_options[:max_matches] = options[:limit] unless options[:limit].nil?
-    
-     deals_with_location = self.search(options[:query], search_options)
-    
-    Mailer.weekly_update(userm, deals_with_location).deliver
-    
-    no_location_conditions = {}
-    no_location_conditions[:category] = "url"
-    
-    no_location_options = {}
-    no_location_options[:conditions] = no_location_conditions unless no_location_conditions.empty?
-    no_location_options[:with] = with unless with.empty?
-    no_location_options[:page] = options[:page] unless options[:page].nil?
-    no_location_options[:max_matches] = options[:limit] unless options[:limit].nil?
-    
-    deals_without_location = self.search(options[:query], no_location_options)
-    Mailer.weekly_update(userm, deals_without_location).deliver
-    
-    result = deals_with_location + deals_without_location.flatten
-    deals_without_location
+
+    self.search(options[:query], search_options)
     
   end
 
