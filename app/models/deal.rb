@@ -223,11 +223,15 @@ class Deal < ActiveRecord::Base
     conditions[:category] = options[:category] unless options[:category].nil?
 
     with = {}
-    with["@geodist"] = 0.0..range
     with[:created_at] = options[:age].ago..Time.now unless options[:age].nil?
 
     search_options = {}
-    search_options[:order] = "@geodist ASC, @relevance DESC"
+
+    if options[:category] != "url"
+      with["@geodist"] = 0.0..range
+      search_options[:order] = "@geodist ASC, @relevance DESC"
+    end
+    
     search_options[:geo] = geo_radians(lat, lon) unless lat.nil? && lon.nil?
     search_options[:conditions] = conditions unless conditions.empty?
     search_options[:with] = with unless with.empty?
@@ -235,6 +239,20 @@ class Deal < ActiveRecord::Base
     search_options[:max_matches] = options[:limit] unless options[:limit].nil?
 
     self.search(options[:query], search_options)
+    
+  end
+
+  def locate_via_foursquare!
+    venue = Qwiqq.foursquare_client.venue(foursquare_venue_id) if foursquare_venue_id
+    if venue
+      if venue["location"]["lat"] != 0.0 && venue["location"]["lng"] != 0.0
+        update_attributes(
+          :lat => venue["location"]["lat"],
+          :lon => venue["location"]["lng"],
+          :foursquare_venue_name => venue["name"],
+          :location_name => venue["location"]["address"])
+      end
+    end
     
   end
 
