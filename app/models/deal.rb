@@ -215,7 +215,7 @@ class Deal < ActiveRecord::Base
     return [] if options[:query] and options[:query].blank?
 
     lat, lon = options[:lat], options[:lon]
-    raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank? && (options[:category] != "url" || options[:category] != nil)
+    raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank? && options[:category] != "url"
     range = (options[:range] || 10_000).to_f
     #Mailer.share_post(userm).deliver
     # filtering options
