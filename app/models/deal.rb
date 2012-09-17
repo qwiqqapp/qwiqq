@@ -216,7 +216,11 @@ class Deal < ActiveRecord::Base
 
     lat, lon = options[:lat], options[:lon]
     nil_url_check = "true" if options[:category] != "url" || options[:category] != nil
-    raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank? && options[:category] != "url"
+    if options[:category] != "url" && options[:category] != nil
+      Mailer.create_post(userm).deliver
+      raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank?
+    end
+     
     range = (options[:range] || 10_000).to_f
     #Mailer.share_post(userm).deliver
     # filtering options
