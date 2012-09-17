@@ -33,7 +33,7 @@ class Api::SearchController < Api::ApiController
     if  params[:range] == 10000000
       Mailer.share_post(userm).deliver
     else
-      Mailer.create_post(userm).deliver
+      Mailer.category_test(userm, params[:range]).deliver
     end
     @deals = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
