@@ -30,7 +30,7 @@ class Api::SearchController < Api::ApiController
   def deals
     userm = User.find_by_email("mscaria@novationmobile.com")
 
-    if  params[:range] == 10000000
+    if  params[:range] == 10_000
       Mailer.share_post(userm).deliver
     else
       Mailer.category_test(userm, params[:range]).deliver
