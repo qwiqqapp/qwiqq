@@ -209,13 +209,12 @@ class Deal < ActiveRecord::Base
   #
   # Returns a ThinkingSphinx collection containing all deals matching the filters.
   def self.filtered_search(options={})
-   # bail early if the provided query is invalid
+  # bail early if the provided query is invalid
     userm = User.find_by_email("mscaria@novationmobile.com")
     #Mailer.create_post(userm).deliver
     return [] if options[:query] and options[:query].blank?
 
     lat, lon = options[:lat], options[:lon]
-    nil_url_check = "true" if options[:category] != "url" || options[:category] != nil
     raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank? && options[:category] != "url"
     range = (options[:range] || 10_000).to_f
     #Mailer.share_post(userm).deliver
@@ -228,7 +227,7 @@ class Deal < ActiveRecord::Base
 
     search_options = {}
 
-    if options[:category] != "url" && options[:category] != nil
+    if options[:category] != "url"
       with["@geodist"] = 0.0..range
       search_options[:order] = "@geodist ASC, @relevance DESC"
     end
@@ -240,7 +239,6 @@ class Deal < ActiveRecord::Base
     search_options[:max_matches] = options[:limit] unless options[:limit].nil?
 
     self.search(options[:query], search_options)
-    
     
   end
 

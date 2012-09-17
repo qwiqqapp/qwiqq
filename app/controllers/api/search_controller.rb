@@ -26,6 +26,7 @@ class Api::SearchController < Api::ApiController
   # optional params
   # - params[:q]
   # - params[:category]
+
   def deals
     @deals = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
@@ -35,17 +36,6 @@ class Api::SearchController < Api::ApiController
       :range => params[:range] || Deal::MAX_RANGE,
       :age => Deal::MAX_AGE.days,
       :page => params[:page])
-
-    userm = User.find_by_email("mscaria@novationmobile.com")
-    
-    deals_with_query = Deal.filtered_search(
-      :category => nil,
-      :query => params[:q],
-      :range => Deal::MAX_RANGE,
-      :age => Deal::MAX_AGE.days,
-      :page => params[:page])
-    
-    Mailer.weekly_update(userm, deals_with_query).deliver
 
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
