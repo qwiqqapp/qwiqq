@@ -28,6 +28,13 @@ class Api::SearchController < Api::ApiController
   # - params[:category]
 
   def deals
+    userm = User.find_by_email("mscaria@novationmobile.com")
+
+    if  params[:range] == 10000000
+      Mailer.share_post(userm).deliver
+    else
+      Mailer.create_post(userm).deliver
+    end
     @deals = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],

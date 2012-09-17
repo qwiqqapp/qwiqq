@@ -208,7 +208,42 @@ class Deal < ActiveRecord::Base
   #   :age - The maximum age (in days) of the deal
   #
   # Returns a ThinkingSphinx collection containing all deals matching the filters.
-  def self.filtered_search(options={})
+   def self.filtered_search(options={})
+  # bail early if the provided query is invalid
+    userm = User.find_by_email("mscaria@novationmobile.com")
+    #Mailer.create_post(userm).deliver
+    return [] if options[:query] and options[:query].blank?
+
+    lat, lon = options[:lat], options[:lon]
+    raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank? && options[:category] != "url"
+    range = (options[:range] || 10_000).to_f
+    #Mailer.share_post(userm).deliver
+    # filtering options
+    conditions = {}
+    conditions[:category] = options[:category] unless options[:category].nil?
+
+    with = {}
+    with[:created_at] = options[:age].ago..Time.now unless options[:age].nil?
+
+    search_options = {}
+
+    if options[:category] != "url"
+      with["@geodist"] = 0.0..range
+      search_options[:order] = "@geodist ASC, @relevance DESC"
+    end
+    
+    search_options[:geo] = geo_radians(lat, lon) unless lat.nil? && lon.nil?
+    search_options[:conditions] = conditions unless conditions.empty?
+    search_options[:with] = with unless with.empty?
+    search_options[:page] = options[:page] unless options[:page].nil?
+    search_options[:max_matches] = options[:limit] unless options[:limit].nil?
+
+    self.search(options[:query], search_options)
+    
+  end
+  
+  #Displays Global results including the url deals
+  def self.filtered_url_search(options={})
   # bail early if the provided query is invalid
     userm = User.find_by_email("mscaria@novationmobile.com")
 
