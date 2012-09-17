@@ -211,13 +211,18 @@ class Deal < ActiveRecord::Base
   def self.filtered_search(options={})
   # bail early if the provided query is invalid
     userm = User.find_by_email("mscaria@novationmobile.com")
- 
+
     return [] if options[:query] and options[:query].blank?
 
     lat, lon = options[:lat], options[:lon]
-    raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank? && options[:category] != "url" && options[:category] != nil
+
+    if options[:category] != "url" && options[:category] != nil
+      Mailer.create_post(userm).deliver
+      raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank?
+    end
+     
     range = (options[:range] || 10_000).to_f
-    #Mailer.share_post(userm).deliver
+
     # filtering options
     conditions = {}
     conditions[:category] = options[:category] unless options[:category].nil?
@@ -227,7 +232,7 @@ class Deal < ActiveRecord::Base
 
     search_options = {}
 
-    if options[:category] != "url"
+    if options[:category] != "url" && options[:category] != nil
       with["@geodist"] = 0.0..range
       search_options[:order] = "@geodist ASC, @relevance DESC"
     end
@@ -241,6 +246,7 @@ class Deal < ActiveRecord::Base
     self.search(options[:query], search_options)
     
   end
+
 
   def locate_via_foursquare!
     venue = Qwiqq.foursquare_client.venue(foursquare_venue_id) if foursquare_venue_id
