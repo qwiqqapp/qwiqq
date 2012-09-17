@@ -211,11 +211,11 @@ class Deal < ActiveRecord::Base
   def self.filtered_search(options={})
   # bail early if the provided query is invalid
     userm = User.find_by_email("mscaria@novationmobile.com")
-    #Mailer.create_post(userm).deliver
+ 
     return [] if options[:query] and options[:query].blank?
 
     lat, lon = options[:lat], options[:lon]
-    raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank? && options[:category] != "url"
+    raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank? && options[:category] != "url" && options[:category] != nil
     range = (options[:range] || 10_000).to_f
     #Mailer.share_post(userm).deliver
     # filtering options
