@@ -31,11 +31,7 @@ class Api::SearchController < Api::ApiController
     userm = User.find_by_email("mscaria@novationmobile.com")
 
     if  params[:range] == "10000000"
-      Mailer.share_post(userm).deliver
-    else
-      Mailer.category_test(userm, params[:range]).deliver
-    end
-    @deals = Deal.filtered_search(
+      @deals = Deal.filtered_url_search(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
       :lat => params[:lat],
@@ -43,6 +39,17 @@ class Api::SearchController < Api::ApiController
       :range => params[:range] || Deal::MAX_RANGE,
       :age => Deal::MAX_AGE.days,
       :page => params[:page])
+    else
+      @deals = Deal.filtered_search(
+      :category => params[:category] == "all" ? nil : params[:category],
+      :query => params[:q],
+      :lat => params[:lat],
+      :lon => params[:long],
+      :range => params[:range] || Deal::MAX_RANGE,
+      :age => Deal::MAX_AGE.days,
+      :page => params[:page])
+    end
+    
 
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
