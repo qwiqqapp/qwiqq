@@ -39,7 +39,7 @@
                     %span.dollars-large= deal.price_as_string
 
               .metadata
-                - unless deal.venue_or_location_name == "Approximate Location"
+                - unless deal.venue_or_location_name == ""
                   .location
                     %img.icon{ :src => image_path("location-icon.png") }
                     %span= deal.venue_or_location_name 

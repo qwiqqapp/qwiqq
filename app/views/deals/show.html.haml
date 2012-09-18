@@ -46,7 +46,7 @@
               %span.dollars-large= @deal.price_as_string
 
       - unless @deal.venue_or_location_name.blank?
-        - unless @deal.venue_or_location_name == "Approximate Location"
+        - unless @deal.venue_or_location_name == ""
           #location
             #header
               %img.icon{ :src => image_path("location-icon.png") }

@@ -23,10 +23,10 @@
           .details
             %p.inner
               = deal.name
-              - unless deal.venue_or_location_name == "Approximate Location"
+              - unless deal.venue_or_location_name == ""
                 %br
                 = "@ #{deal.venue_or_location_name}"
-          - unless deal.venue_or_location_name == "Approximate Location"
+          - unless deal.venue_or_location_name == ""
             .map
               %a{ :href => "http://maps.google.com/?q=#{deal.lat},#{deal.lon}", :target => '_blank' }
                 %img{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=280x200&zoom=15&sensor=false&markers=color:red|#{deal.lat},#{deal.lon}" }
@@ -39,7 +39,7 @@
 
       - if redeemed?
         %p.directions
-          - if deal.venue_or_location_name != "Approximate Location"
+          - if deal.venue_or_location_name != ""
             %em Show your Qwiqq #coupon
             to our friends @
             %a{ :href => "http://maps.google.com/?q=#{deal.lat},#{deal.lon}", :target => '_blank' }
