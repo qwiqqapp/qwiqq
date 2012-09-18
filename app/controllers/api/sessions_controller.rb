@@ -9,7 +9,7 @@ class Api::SessionsController < Api::ApiController
       session[:user_id] = user.id
       render :json => user.as_json(:current_user => user)
     else
-      render :json => {:message  => 'Wrong email or password'}, :status => 401
+      render :json => {:message  => 'Wrong email or password.'}, :status => 401
     end
   end
   
