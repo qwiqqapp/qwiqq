@@ -22,7 +22,7 @@
           %img.icon{ :src => image_path("time-icon.png") }
           = short_time_ago_in_words(grid_deal.created_at)
       .location
+        %img.icon{ :src => image_path("location-icon.png") }
         - if grid_deal.venue_or_location_name != "" && grid_deal.venue_or_location_name != nil
-          %img.icon{ :src => image_path("location-icon.png") }
           = "Qwiqq"
 
