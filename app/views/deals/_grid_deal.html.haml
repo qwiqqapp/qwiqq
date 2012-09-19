@@ -25,3 +25,6 @@
         .location
           %img.icon{ :src => image_path("location-icon.png") }
           = truncate(grid_deal.venue_or_location_name, :length => 24)
+      - else
+        %br
+
