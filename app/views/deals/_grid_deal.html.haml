@@ -21,12 +21,7 @@
         %span.stat
           %img.icon{ :src => image_path("time-icon.png") }
           = short_time_ago_in_words(grid_deal.created_at)
-      .location
-        
-        - if grid_deal.venue_or_location_name != "" && grid_deal.venue_or_location_name != nil
+      - if grid_deal.venue_or_location_name != "" && grid_deal.venue_or_location_name != nil
+        .location
           %img.icon{ :src => image_path("location-icon.png") }
           = truncate(grid_deal.venue_or_location_name, :length => 24)
-        - else
-          %img.icon
-          = "Qwiqq"
-
