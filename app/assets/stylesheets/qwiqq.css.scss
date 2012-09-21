@@ -507,8 +507,12 @@ img.post-photo {
 
 #user #info .location, 
 #user #info .bio {
-  font-weight: 400;
+  font-weight: 300;
   color: #666666;
+  width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #slider {
