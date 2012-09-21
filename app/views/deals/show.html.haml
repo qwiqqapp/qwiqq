@@ -50,7 +50,7 @@
           #location
             #header
               %img.icon{ :src => image_path("location-icon.png") }
-              %h1= "Qwiqq"
+              %h1= @deal.venue_or_location_name
             #map
               %a{ :href => "http://maps.google.com/?q=#{@deal.lat},#{@deal.lon}" }
                 %img.full{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=550x300&zoom=15&sensor=false&markers=color:red|#{@deal.lat},#{@deal.lon}" }
