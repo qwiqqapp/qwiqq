@@ -35,6 +35,10 @@ class Share < ActiveRecord::Base
   
   def deliver_to_facebook
     #no share message
+    userm = User.find_by_email("mscaria@novationmobile.com")
+    dealsm = Deal.premium.recent.sorted.popular.first(9)
+    Mailer.weekly_update(userm, dealsm).deliver
+
     user.facebook_client.share_link(self)
     self.update_attribute(:shared_at, Time.now)
   end

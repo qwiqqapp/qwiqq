@@ -21,9 +21,13 @@
           %img.icon{:src => image_path("time-icon.png"), :style => "margin-left: 4px;position: relative;top: 4px;"}
             = short_time_ago_in_words(mail_grid_deal.created_at)
       .location{:style => "left: 3px;position: relative;top: -7px; color: #9A8C7E;font-size: 14px;font-weight: 300;text-align: left;"}
-        %img.icon{:src => image_path("location-icon.png"), :style => "margin-left: 4px;position: relative;top: 4px;"}
-          - if mail_grid_deal.venue_or_location_name != "Approximate Location"
-            = truncate(mail_grid_deal.venue_or_location_name, :length => 24)
+        - if grid_deal.venue_or_location_name != "" && grid_deal.venue_or_location_name != nil
+          %img.icon{:src => image_path("location-icon.png"), :style => "margin-left: 4px;position: relative;top: 4px;"}
+          = truncate(mail_grid_deal.venue_or_location_name, :length => 24)
+        - else
+          %img.icon{:src => image_path("no-location-icon.png"), :style => "margin-left: 4px;position: relative;top: 4px;"}
+
+
 
 
           
