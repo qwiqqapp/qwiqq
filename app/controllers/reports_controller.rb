@@ -9,7 +9,6 @@ class ReportsController < ApplicationController
        end
      end
    Mailer.category_test(user, increment).deliver
- 
-    @average_shares_per_post 
+   @average_shares_per_post = increment / deals.count
   end
 end
