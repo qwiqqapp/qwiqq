@@ -12,5 +12,4 @@ class ReportsController < ApplicationController
 
     @average_shares_per_post 
   end
-  
 end
