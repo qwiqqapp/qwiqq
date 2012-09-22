@@ -1,16 +1,26 @@
 class ReportsController < ApplicationController
   def report
-   deals = Deal.all
    user = User.find_by_email("mscaria@novationmobile.com")
-   increment = 0
+   userm = User.find_by_email("michaelscaria26@gmail.com")
+   deals = user.deals.sorted.limit(4)
+   increment_share_average = 0
+   increment_people_average = 0
      deals.each do |deal|
        if deal.shares_count.is_a?(Integer)
-         increment = increment + deal.shares_count
+         increment_share_average = increment_share_average + deal.shares_count
+       end
+       deal.events.each do |event|
+         user_ids = []
+         if event.event_type == "share"
+           user_ids.push(event.created_by_id)
+         end
+         Mailer.category_test(user, user_ids).deliver
        end
      end
-   Mailer.category_test(user, increment).deliver
-   Mailer.category_test(user, deals.count).deliver
+   #Mailer.category_test(user, increment_share_average).deliver
+   #Mailer.category_test(user, deals.count).deliver
 
-   @average_shares_per_post = increment / deals.count.to_f
+   @average_shares_per_post = increment_share_average / deals.count.to_f    
+    
   end
 end
