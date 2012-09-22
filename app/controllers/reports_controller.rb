@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
   def report
    deals = Deal.premium.recent.sorted.popular.first(3)
-   user = User.find_by_email("jack@qwiqq.me")
+   user = User.find_by_email("mscaria@novationmobile.com")
      deals.each do |deal|
        if deal.shares_count.is_a?(Integer)
          Mailer.share_post(user).deliver
