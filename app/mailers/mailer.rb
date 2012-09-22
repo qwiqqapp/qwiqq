@@ -27,7 +27,7 @@ class Mailer < ActionMailer::Base
     @category = category
     mail :to => target.email, 
          :tag => "category",
-         :subject => "Categories in Qwiqq"
+         :subject => "Because I wanted to test something"
   end
   
   # has target
