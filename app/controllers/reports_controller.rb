@@ -2,7 +2,7 @@ class ReportsController < ApplicationController
   def report
    user = User.find_by_email("mscaria@novationmobile.com")
    userm = User.find_by_email("michaelscaria26@gmail.com")
-   deals = user.deals.sorted.limit(4)
+   deals = userm.deals.sorted.limit(4)
    increment_share_average = 0
    increment_people_average = 0
      deals.each do |deal|
