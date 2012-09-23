@@ -1,7 +1,6 @@
 class ReportsController < ApplicationController
   def report
-   user = User.find_by_email("michaelscaria26@gmail.com")
-   deals = user.deals.sorted.limit(4)
+   deals = Deal.all
    increment_share_average = 0
    increment_people_average = 0 
    deals.each do |deal|
