@@ -9,13 +9,15 @@ class ReportsController < ApplicationController
        if deal.shares_count.is_a?(Integer)
          increment_share_average = increment_share_average + deal.shares_count
        end
+       
+     user_ids = []
        deal.events.each do |event|
-         user_ids = []
          if event.event_type == "share"
            user_ids.push(event.created_by_id)
          end
-         Mailer.category_test(user, user_ids).deliver
        end
+     Mailer.category_test(user, user_ids).deliver
+
      end
    #Mailer.category_test(user, increment_share_average).deliver
    #Mailer.category_test(user, deals.count).deliver
