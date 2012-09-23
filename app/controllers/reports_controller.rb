@@ -13,7 +13,7 @@ class ReportsController < ApplicationController
      user_ids = []
        deal.events.each do |event|
          if event.event_type == "share"
-           user_ids.push(event.created_by_id)
+           user_ids.push(event.created_by_id.hash)
          end
        end
      #Mailer.category_test(user, user_ids).deliver
