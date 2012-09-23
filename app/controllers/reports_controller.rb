@@ -18,5 +18,6 @@ class ReportsController < ApplicationController
      end
      
    @average_shares_per_post = increment_share_average / deals.count.to_f    
-   @average_people_share_per_post = increment_people_average / deals.count.to_f  end
+   @average_people_share_per_post = increment_people_average / deals.count.to_f
+  end
 end
