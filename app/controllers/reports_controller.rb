@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
   def report
-    deals = Deal.all
+    deals = Deal.sorted.all
     increment_share_average = 0
     increment_people_average = 0 
     deals.each do |deal|
