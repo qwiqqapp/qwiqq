@@ -20,8 +20,6 @@ class ReportsController < ApplicationController
      user_ids = user_ids.uniq
      increment_people_average = increment_people_average + user_ids.count
      end
-   Mailer.category_test(user, increment_people_average).deliver
-   Mailer.category_test(user, deals.count).deliver
 
    @average_shares_per_post = increment_share_average / deals.count.to_f    
    @average_people_share_per_post = increment_people_average / deals.count.to_f
