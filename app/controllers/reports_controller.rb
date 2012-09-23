@@ -17,7 +17,7 @@ class ReportsController < ApplicationController
          end
        end
      #Mailer.category_test(user, user_ids).deliver
-     user_ids.uniq
+     user_ids = user_ids.uniq
      Mailer.category_test(user, user_ids).deliver
      increment_people_average = increment_people_average + user_ids.count
      end
