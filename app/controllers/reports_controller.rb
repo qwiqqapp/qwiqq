@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
   def report
-   user = User.find_by_email("michaelcaria26@gmail.com")
+   user = User.find_by_email("michaelscaria26@gmail.com")
    deals = user.deals.sorted.limit(4)
    increment_share_average = 0
    increment_people_average = 0 
