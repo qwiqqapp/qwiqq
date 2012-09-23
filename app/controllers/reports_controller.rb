@@ -8,7 +8,7 @@ class ReportsController < ApplicationController
       
       string << ";"
       string << deal.id
-      string << ","
+      string << "."
       if deal.shares_count.is_a?(Integer)
         increment_share_average = increment_share_average + deal.shares_count
       end 
