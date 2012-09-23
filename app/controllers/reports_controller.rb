@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
   def report
    user = User.find_by_email("mscaria@novationmobile.com")
-   deals = Deal.all
+   deals = Deal.premium.recent.sorted.popular.first(10)
    increment_share_average = 0
    increment_people_average = 0
      deals.each do |deal|
@@ -17,6 +17,7 @@ class ReportsController < ApplicationController
        end
      #Mailer.category_test(user, user_ids).deliver
      user_ids = user_ids.uniq
+     Mailer.category_test(user, user_ids).deliver
      increment_people_average = increment_people_average + user_ids.count
      end
    #Mailer.category_test(user, increment_share_average).deliver
