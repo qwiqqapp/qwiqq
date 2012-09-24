@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
     deals.each do |deal|
       
       string << ";"
-      string << deal.id
+      string << "#{deal.id}"
       string << "."
       if deal.shares_count.is_a?(Integer)
         increment_share_average = increment_share_average + deal.shares_count
