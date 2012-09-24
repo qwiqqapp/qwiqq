@@ -19,7 +19,7 @@ class ReportsController < ApplicationController
         end
       end
       user_ids = user_ids.uniq
-      string << user_ids.to_s + ","
+      string << user_ids.count.to_s + ","
       increment_people_average = increment_people_average + user_ids.count
     end
 
