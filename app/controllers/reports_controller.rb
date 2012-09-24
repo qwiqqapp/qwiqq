@@ -7,9 +7,9 @@ class ReportsController < ApplicationController
     deals.each do |deal|
       
       string << ";"
-      string << "#{deal.id}"
-      string << "."
+      string << "#{deal.id}"+","
       if deal.shares_count.is_a?(Integer)
+        string << deal.shares_count.to_s + ","
         increment_share_average = increment_share_average + deal.shares_count
       end 
       user_ids = []
@@ -19,6 +19,7 @@ class ReportsController < ApplicationController
         end
       end
       user_ids = user_ids.uniq
+      string << user_ids.to_s + ","
       increment_people_average = increment_people_average + user_ids.count
     end
 
