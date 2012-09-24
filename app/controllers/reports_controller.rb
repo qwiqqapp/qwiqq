@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
   def report
     string = "start: "
-    deals = Deal.recent.sorted.limit(2000)
+    deals = Deal.recent.sorted.limit(4000)
     increment_share_average = 0
     increment_people_average = 0 
     deals.each do |deal|
