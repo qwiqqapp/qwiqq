@@ -16,11 +16,6 @@ ActiveAdmin.register Deal do
   filter :deals_count
   filter :category, :as => :check_boxes, :collection => proc { Category.all }
   
-  csv do
-    column :likes_count
-    column :comments_count
-    column :shares_count
-  end
     
   index do
     column("") do |deal| 
