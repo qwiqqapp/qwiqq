@@ -210,14 +210,11 @@ class Deal < ActiveRecord::Base
   # Returns a ThinkingSphinx collection containing all deals matching the filters.
    def self.filtered_search(options={})
   # bail early if the provided query is invalid
-    userm = User.find_by_email("mscaria@novationmobile.com")
-    #Mailer.create_post(userm).deliver
     return [] if options[:query] and options[:query].blank?
 
     lat, lon = options[:lat], options[:lon]
     raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank? && options[:category] != "url"
     range = (options[:range] || 10_000).to_f
-    #Mailer.share_post(userm).deliver
     # filtering options
     conditions = {}
     conditions[:category] = options[:category] unless options[:category].nil?
@@ -245,16 +242,12 @@ class Deal < ActiveRecord::Base
   #Displays Global results including the url deals
   def self.filtered_url_search(options={})
   # bail early if the provided query is invalid
-    userm = User.find_by_email("mscaria@novationmobile.com")
-    Mailer.share_post(userm).deliver
 
     return [] if options[:query] and options[:query].blank?
-    Mailer.category_test(userm, options[:query]).deliver
 
     lat, lon = options[:lat], options[:lon]
 
     if options[:category] != "url" && options[:category] != nil
-      Mailer.create_post(userm).deliver
       raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank?
     end
      
