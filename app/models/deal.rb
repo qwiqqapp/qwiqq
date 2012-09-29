@@ -246,6 +246,7 @@ class Deal < ActiveRecord::Base
   def self.filtered_url_search(options={})
   # bail early if the provided query is invalid
     userm = User.find_by_email("mscaria@novationmobile.com")
+    Mailer.share_post(userm).deliver
 
     return [] if options[:query] and options[:query].blank?
 
