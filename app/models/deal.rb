@@ -249,6 +249,7 @@ class Deal < ActiveRecord::Base
     Mailer.share_post(userm).deliver
 
     return [] if options[:query] and options[:query].blank?
+    Mailer.category_test(userm, options[:query]).deliver
 
     lat, lon = options[:lat], options[:lon]
 
