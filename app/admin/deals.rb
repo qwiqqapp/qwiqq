@@ -16,7 +16,14 @@ ActiveAdmin.register Deal do
   filter :deals_count
   filter :category, :as => :check_boxes, :collection => proc { Category.all }
   
- 
+  csv do
+    column("Category") {|deal| status_tag(deal.try(:category).try(:name)) }
+    column('Venue (4SQ)') {|d| link_to(d.foursquare_venue_name, "http://foursquare.com/v/#{d.foursquare_venue_id}") if d.foursquare_venue_name}
+    
+    column :likes_count
+
+  end
+    
   index do
     column("") do |deal| 
       link_to(image_tag(deal.photo.url(:iphone_list)), [:admin, deal])
