@@ -17,7 +17,10 @@ ActiveAdmin.register Deal do
   filter :category, :as => :check_boxes, :collection => proc { Category.all }
   
   csv do
+    column(""){|deal| deal.photo.url(:iphone_list)}
     column("Name"){ |deal| deal.name }
+    #column("Category") {|deal| deal.try(:category).try(:name)}
+    column('Venue (4SQ)'){|d| d.foursquare_venue_name}
     column :likes_count
     column :comments_count
     column :shares_count
