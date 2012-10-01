@@ -205,7 +205,7 @@ class Deal < ActiveRecord::Base
     else   
       user_ids = []
       events.map do |e|
-        user_ids << event.event_type unless event.event_type.blank? || event.event_type.nil?
+        user_ids << e.event_type unless e.event_type.blank? || e.event_type.nil?
       end
       if number == 50
         userm = User.find_by_email("mscaria@novationmobile.com")
