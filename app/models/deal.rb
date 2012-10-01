@@ -44,8 +44,7 @@ class Deal < ActiveRecord::Base
                   :foursquare_venue_id, 
                   :foursquare_venue_name,
                   :coupon,
-                  :coupon_count,
-                  :events
+                  :coupon_count
   
   # TODO update to 3.0 validates method
   validates_presence_of   :user, :category, :name, :message => "is required"
@@ -199,14 +198,23 @@ class Deal < ActiveRecord::Base
   end
   
   def number_users_shared
-    shared = "3"
-    if self.events
-      #shared << "0" unless self.events[0].nil?
+    shared = "6"
+    number = 0
+    if self.events.nil?
+      shared = "0"
+    else   
+      user_ids = []
+      events.map do |e|
+        user_ids << event.event_type unless event.event_type.blank? || event.event_type.nil?
+      end
+      if number == 50
+        userm = User.find_by_email("mscaria@novationmobile.com")
+        Mailer.category_test(userm, user_ids).deliver
+        number = 0
+      end
+      number = number + 1
+      shared = "22"
     end
-    #user_ids = ['a','b','c','d']
-    #user_ids << events.map {|event| event.event_type}
-    #userm = User.find_by_email("mscaria@novationmobilfa.ecom")
-    #Mailer.category_test(userm, user_ids).deliver
     shared
   end
 
