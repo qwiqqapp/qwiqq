@@ -27,6 +27,8 @@ ActiveAdmin.register Deal do
     column(:lon)
     column("Location Name") {|deal| deal.location_name}
     column("Unique Token") {|deal| deal.unique_token}
+    column("User Photo") {|deal| deal.user.photo.url(:iphone)}
+    column("User Photo2x") {|deal| deal.user.photo.url(:iphone2x)}
     column('Venue (4SQ)'){|d| d.foursquare_venue_name}
     column :likes_count
     column :comments_count
