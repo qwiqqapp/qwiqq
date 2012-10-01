@@ -25,7 +25,8 @@ ActiveAdmin.register Deal do
     column(:premium)
     column(:lat)
     column(:lon)
-    column("Category") {|deal| deal.try(:category).try(:name)}
+    column("Location Name") {|deal| deal.location_name}
+    column("Unique Token") {|deal| deal.unique_token}
     column('Venue (4SQ)'){|d| d.foursquare_venue_name}
     column :likes_count
     column :comments_count
