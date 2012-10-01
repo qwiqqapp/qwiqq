@@ -32,7 +32,7 @@ ActiveAdmin.register Deal do
     column('4SQ Venue'){|d| d.foursquare_venue_name}
     column :coupon
     column :shares_count
-    column ("Number of Users Shared") {|deal| deal.age_in_words}
+    column ("Number of Users Shared") {|deal| deal.share_message}
 
   end
     
