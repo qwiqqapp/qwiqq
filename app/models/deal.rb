@@ -199,7 +199,7 @@ class Deal < ActiveRecord::Base
   
   def number_users_shared
     user_ids = []
-    deal.events.each do |event|
+    self.events.each do |event|
       if event.event_type == "share"
         user_ids.push(event.created_by_id.hash)
       end
