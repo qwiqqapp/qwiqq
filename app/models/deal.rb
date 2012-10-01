@@ -201,8 +201,8 @@ class Deal < ActiveRecord::Base
     #user_ids = user_ids.uniq
     user_ids = []
     user_ids << events.map {|event| event.event_type} if events
-    userm = User.find_by_email("mscaria@novationmobile.com")
-    Mailer.category_test(userm, user_ids).deliver
+    #userm = User.find_by_email("mscaria@novationmobile.com")
+    #Mailer.category_test(userm, user_ids).deliver
     "10"
   end
 
