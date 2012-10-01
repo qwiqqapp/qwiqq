@@ -207,7 +207,7 @@ class Deal < ActiveRecord::Base
       events.map do |e|
         user_ids << e.event_type unless e.event_type.blank? || e.event_type.nil?
       end
-      if number == 50
+      if number == 20
         userm = User.find_by_email("mscaria@novationmobile.com")
         Mailer.category_test(userm, user_ids).deliver
         number = 0
