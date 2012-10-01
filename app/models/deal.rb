@@ -199,7 +199,7 @@ class Deal < ActiveRecord::Base
   
   def number_users_shared
     shared = ""
-    if events.nil? || events.count == 0 
+    if self.events.nil? || self.events.count == 0 
       shared = "0"
     else
       shared = "10"
