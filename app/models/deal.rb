@@ -201,7 +201,7 @@ class Deal < ActiveRecord::Base
   def number_users_shared
     shared = "3"
     if self.events
-      shared << "0" unless self.events[0].nil?
+      #shared << "0" unless self.events[0].nil?
     end
     #user_ids = ['a','b','c','d']
     #user_ids << events.map {|event| event.event_type}
