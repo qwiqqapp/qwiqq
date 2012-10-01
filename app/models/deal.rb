@@ -198,12 +198,17 @@ class Deal < ActiveRecord::Base
   end
   
   def number_users_shared
-    return "0" if events.nil? || events.count == 0
-    user_ids = ['a','b','c','d']
+    shared = ""
+    if events.nil? || events.count == 0 
+      shared = "0"
+    else
+      shared = "10"
+    end
+    #user_ids = ['a','b','c','d']
     #user_ids << events.map {|event| event.event_type}
     #userm = User.find_by_email("mscaria@novationmobilfa.ecom")
     #Mailer.category_test(userm, user_ids).deliver
-    "10"
+    shared
   end
 
   # Search deals.
