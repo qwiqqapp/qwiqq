@@ -19,6 +19,8 @@ ActiveAdmin.register Deal do
   csv do
     column("ID"){|deal| deal.id.try(:to_s)}
     column("Name"){ |deal| deal.name }
+    column("Price"){ |deal| deal.price }
+    column("Price"){ |deal| deal.created_at }
     column("Category") {|deal| deal.try(:category).try(:name)}
     column('Venue (4SQ)'){|d| d.foursquare_venue_name}
     column :likes_count
