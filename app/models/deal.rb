@@ -198,16 +198,11 @@ class Deal < ActiveRecord::Base
   end
   
   def number_users_shared
-    #user_ids = []
-    event = self.events
-    event.each do |e|
-      #if e.event_type == "share"
-        #user_ids.push(e.created_by_id.hash)
-      #end
-    end
     #user_ids = user_ids.uniq
+    user_ids << events.map {|event| event.event_type} if events
+    userm = User.find_by_email("mscaria@novationmobile.com")
+    Mailer.category_test(userm, user_ids).deliver
     "10"
-      
   end
 
   # Search deals.
