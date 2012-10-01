@@ -198,12 +198,7 @@ class Deal < ActiveRecord::Base
   end
   
   def number_users_shared
-    shared = ""
-    if self.events.nil? || self.events.count == 0 
-      shared = "0"
-    else
-      shared = "10"
-    end
+    shared = "3"
     #user_ids = ['a','b','c','d']
     #user_ids << events.map {|event| event.event_type}
     #userm = User.find_by_email("mscaria@novationmobilfa.ecom")
