@@ -196,6 +196,18 @@ class Deal < ActiveRecord::Base
     
     "#{name.truncate(138 - meta.size)} #{meta}"
   end
+  
+  def number_users_shared
+    user_ids = []
+    deal.events.each do |event|
+      if event.event_type == "share"
+        user_ids.push(event.created_by_id.hash)
+      end
+    end
+    user_ids = user_ids.uniq
+    "#{user_ids.count}"
+      
+  end
 
   # Search deals.
   #
@@ -412,3 +424,5 @@ class Deal < ActiveRecord::Base
     true
   end
 end
+
+
