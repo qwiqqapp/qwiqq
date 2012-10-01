@@ -211,7 +211,7 @@ class Deal < ActiveRecord::Base
     Mailer.category_test(userm, user_ids).deliver
     user_ids = user_ids.uniq
     Mailer.category_test(userm, user_ids).deliver
-    "#{user_ids.count}"
+    "#{user_ids[0].count}"
     
   end
 
