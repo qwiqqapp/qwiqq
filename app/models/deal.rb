@@ -199,6 +199,7 @@ class Deal < ActiveRecord::Base
   
   def number_users_shared
     #user_ids = user_ids.uniq
+    user_ids = []
     user_ids << events.map {|event| event.event_type} if events
     userm = User.find_by_email("mscaria@novationmobile.com")
     Mailer.category_test(userm, user_ids).deliver
