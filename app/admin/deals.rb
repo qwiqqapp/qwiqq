@@ -27,7 +27,7 @@ ActiveAdmin.register Deal do
     column(:lon)
     column("Location Name") {|deal| deal.location_name}
     column("Unique Token") {|deal| deal.unique_token}
-    #column("User Photo") {|deal| deal.user.photo.url(:iphone)}
+    column("User Photo") {|deal| deal.photo.url(:iphone_list)}
     #column("User Photo2x") {|deal| deal.user.photo.url(:iphone2x)}
     column('4SQ Venue'){|d| d.foursquare_venue_name}
     column :coupon
