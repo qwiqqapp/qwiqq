@@ -207,11 +207,8 @@ class Deal < ActiveRecord::Base
           end
       end
     end
-    userm = User.find_by_email("mscaria@novationmobile.com")
-    Mailer.category_test(userm, user_ids[0]).deliver
     user_ids = user_ids[0].uniq
     user_ids = user_ids.compact
-    Mailer.category_test(userm, user_ids).deliver
     "#{user_ids.count}"
     
   end
