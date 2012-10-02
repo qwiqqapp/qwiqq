@@ -208,10 +208,10 @@ class Deal < ActiveRecord::Base
       end
     end
     userm = User.find_by_email("mscaria@novationmobile.com")
+    Mailer.category_test(userm, user_ids[0]).deliver
+    user_ids = user_ids[0].uniq
     Mailer.category_test(userm, user_ids).deliver
-    user_ids = user_ids.uniq
-    Mailer.category_test(userm, user_ids).deliver
-    "#{user_ids[0].count}"
+    "#{user_ids.count}"
     
   end
 
