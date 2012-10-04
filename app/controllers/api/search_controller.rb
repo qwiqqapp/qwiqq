@@ -79,4 +79,3 @@ class Api::SearchController < Api::ApiController
     render :json => paginate(@deals).compact.as_json(options)
   end
 end
-
