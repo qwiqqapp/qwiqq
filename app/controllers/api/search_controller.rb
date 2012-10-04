@@ -76,7 +76,11 @@ class Api::SearchController < Api::ApiController
     
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
-    render :json => paginate(@deals).compact.as_json(options)
+    if params[:name] != "url"
+      render :json => paginate(@deals).compact.as_json(options)
+    else
+      render :json => paginate(@deals).compact.sorted.as_json(options)
+    end
   end
 end
 
