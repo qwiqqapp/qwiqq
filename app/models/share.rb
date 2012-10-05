@@ -150,7 +150,7 @@ class Share < ActiveRecord::Base
   # construct message base string, example: Yummy! The best bubble tea ever!
   def message_base
     base = ""
-    base << "#{self.user.username}: " if service == "sms"
+    base << "@#{self.user.username}: " if service == "sms"
     base << "#{self.message} - " unless self.message.blank?
     base << "Qwiqq Coupon! " if self.deal.coupon?
     base << "#{deal.name}"
