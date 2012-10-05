@@ -49,7 +49,7 @@ class Api::UsersControllerTest < ActionController::TestCase
     post :create, :user => @user_params, :format => 'json'
     
     assert_equal 422, @response.status
-    assert_equal ["can't be blank", "is invalid"], json_response['email']
+    assert_equal ["can't be blank.", "is invalid"], json_response['email']
   end
   
   test "failed user registration with taken username" do
