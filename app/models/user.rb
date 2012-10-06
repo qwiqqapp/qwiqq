@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
   validates_length_of       :password, :minimum => 5, :allow_nil => true
   validates                 :email, :presence => true, :uniqueness => {:case_sensitive => false}, :email => true
   validates_uniqueness_of   :username, :case_sensitive => false
-  validates_format_of       :username, :with => /^[\w\d_]+$/, :message => "use only letters, numbers and '_'"
+  validates_format_of       :username, :with => /^[\w\d_]+$/, :message => "must only contain letters, numbers and underscores."
   
   # see initializers/auto_orient.rb for new processor
   # see initializers/paperclip.rb for default image (missing) location
