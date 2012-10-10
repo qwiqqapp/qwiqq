@@ -199,18 +199,21 @@ class Deal < ActiveRecord::Base
   
   def number_users_shared
     #user_ids = user_ids.uniq
-    user_ids = []
-    if events
-      user_ids << events.map do |event|
-          if event.event_type == "share"
-            event.created_by_id.hash
-          end
+    average = "0"
+    if shares_count == "2" 
+      user_ids = []
+      if events
+        user_ids << events.map do |event|
+            if event.event_type == "share"
+              event.created_by_id.hash
+            end
+        end
       end
-    end
-    user_ids = user_ids[0].uniq
-    user_ids = user_ids.compact
-    "#{user_ids.count}"
-    
+      user_ids = user_ids[0].uniq
+      user_ids = user_ids.compact
+      average = "#{user_ids.count}"
+   end
+   average
   end
 
   # Search deals.
