@@ -203,7 +203,7 @@ class Deal < ActiveRecord::Base
     if shares_count == 1
       average = "1"
     end
-    if shares_count >= 2 
+    if shares_count > 4 
       user_ids = []
       if events
         user_ids << events.map do |event|
