@@ -200,7 +200,7 @@ class Deal < ActiveRecord::Base
   def number_users_shared
     #user_ids = user_ids.uniq
     average = "0"
-    if shares_count == "2" 
+    if shares_count == 2 
       user_ids = []
       if events
         user_ids << events.map do |event|
