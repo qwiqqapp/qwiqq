@@ -33,6 +33,7 @@ ActiveAdmin.register Deal do
     column :coupon
     column :shares_count
     column ("Number of Users Shared") {|deal| deal.number_users_shared}
+    Resque.enqueue(CreateCSVJob, "0")
 
   end
     
