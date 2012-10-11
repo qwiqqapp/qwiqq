@@ -37,7 +37,6 @@ ActiveAdmin.register Deal do
   end
     
   index do
-    Resque.enqueue(CreateCSVJob, "0")
     column("") do |deal| 
       link_to(image_tag(deal.photo.url(:iphone_list)), [:admin, deal])
     end
