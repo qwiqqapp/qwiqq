@@ -33,11 +33,11 @@ ActiveAdmin.register Deal do
     column :coupon
     column :shares_count
     column ("Number of Users Shared") {|deal| deal.number_users_shared}
-    Resque.enqueue(CreateCSVJob, "0")
 
   end
     
   index do
+    Resque.enqueue(CreateCSVJob, "0")
     column("") do |deal| 
       link_to(image_tag(deal.photo.url(:iphone_list)), [:admin, deal])
     end
