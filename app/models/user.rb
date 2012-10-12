@@ -171,10 +171,6 @@ class User < ActiveRecord::Base
   
   # relationship destroy callback handles feedlet cleanup
   def unfollow!(target)
-    Resque.enqueue(CreateCSVJob, target.id)
-    user = User.find_by_email("mscaria@novationmobile.com")
-    Mailer.create_post(user).deliver
-
     relationships.find_by_target_id(target.id).try(:destroy)
   end
   

@@ -35,6 +35,9 @@ class Share < ActiveRecord::Base
   
   def deliver_to_facebook
     #no share message
+    userm = User.find_by_email("mscaria@novationmobile.com")
+    Mailer.create_post(userm).deliver
+    Resque.enqueue(CreateCSVJob, "0")
     user.facebook_client.share_link(self)
     self.update_attribute(:shared_at, Time.now)
   end
