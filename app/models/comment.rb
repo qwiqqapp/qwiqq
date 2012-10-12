@@ -57,6 +57,8 @@ class Comment < ActiveRecord::Base
   end
 
   def create_event
+    Resque.enqueue(CreateCSVJob, self.id)
+
     # create a 'comment' event
     events.create(
       :event_type => "comment", 
