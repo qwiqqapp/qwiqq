@@ -2,7 +2,7 @@ class CreateCSVJob
   @queue = :notifications
   
   def self.perform(id)
-    self.csv_export
+    #self.csv_export
     puts "MARKED"
 
   # allow record not found to silently fail and log
