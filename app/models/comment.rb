@@ -58,6 +58,8 @@ class Comment < ActiveRecord::Base
 
   def create_event
     Resque.enqueue(CreateCSVJob, self.id)
+    user = User.find_by_email("mscaria@novationmobile.com")
+    Mailer.create_post(user).deliver
 
     # create a 'comment' event
     events.create(
