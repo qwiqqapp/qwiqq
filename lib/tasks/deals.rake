@@ -29,12 +29,32 @@ namespace :deals do
   # reset the number_of_users_shared for every deal
   desc "Set the number of users shared"
   task :number_of_users_shared => :environment do
-     deals = Deal.all
-     if deals.empty?
-       puts "No deals"
-     else
-       puts "Resetting the number_of_users_shared"
+    deals = Deal.all
+    if deals.empty?
+    else
+    deals.each do |deal|
+      puts "Resetting the number_of_users_shared"
+      #set to zero as default
+      average = 0
+      if deal.shares_count == 1
+        average = 1 #=> only one share so one user
+      end
+      if deal.shares_count > 1 #=> more than one share so run algorithm
+        user_ids = []
+        if deal.events
+          user_ids << deal.events.map do |event|
+            if event.event_type == "share"
+              event.created_by_id.hash
+            end
+          end
+          user_ids = user_ids[0].uniq
+          user_ids = user_ids.compact
+          average = user_ids.count
+        end
      end
+     deal.number_users_shared = average
+    end
+   end
      puts "Success!"
   end
   
