@@ -152,7 +152,7 @@ class Deal < ActiveRecord::Base
     # add detail if requested
     unless options[:minimal]
       json[:category]       = category.try(:name)
-      json[:events]         = events.limit(20)
+      json[:events]         = events.limit(60)
       json[:comments]       = comments.limit(3)
       json[:liked_by_users] = liked_by_users.limit(6)
       json[:user]           = user.try(:as_json)
