@@ -289,6 +289,11 @@ class Deal < ActiveRecord::Base
     if options[:category] != "url" && options[:category] != nil
       with["@geodist"] = 0.0..range
       search_options[:order] = "@geodist ASC, @relevance DESC"
+    else
+      if options[:category] != "url"
+        search_options[:order] = "created_at desc"
+      end
+
     end
     
     search_options[:geo] = geo_radians(lat, lon) unless lat.nil? && lon.nil?
