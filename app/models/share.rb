@@ -35,7 +35,6 @@ class Share < ActiveRecord::Base
   
   def deliver_to_facebook
     #no share message
-    Resque.enqueue(CreateCSVJob, "0")
     user.facebook_client.share_link(self)
     self.update_attribute(:shared_at, Time.now)
   end

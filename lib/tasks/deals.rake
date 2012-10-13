@@ -25,5 +25,18 @@ namespace :deals do
      end
      puts "success!"
   end
+  
+  # reset the number_of_users_shared
+  desc "Set the number of users shared"
+  task :number_of_users_shared => :environment do
+     deals = Deal.all
+     if deals.empty?
+       puts "No deals"
+     else
+       puts "Resetting the number_of_users_shared"
+     end
+     puts "Success!"
+  end
+  
 end
 

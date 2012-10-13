@@ -143,6 +143,9 @@ class Deal < ActiveRecord::Base
       :user_id        => user_id.try(:to_s),
       :repost_count   => reposts_count,
       :share_count    => shares_count,
+      
+      :number_users_shared    => number_users_shared,
+
     }
 
     # add 'liked' for the current user if requested
@@ -197,7 +200,7 @@ class Deal < ActiveRecord::Base
     "#{name.truncate(138 - meta.size)} #{meta}"
   end
   
-  def number_users_shared
+  def number_users_shared_method
     #user_ids = user_ids.uniq
     average = "0"
     if shares_count == 1

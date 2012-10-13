@@ -15,8 +15,6 @@ class ReportsController < ApplicationController
       end
       user_ids = user_ids.uniq
       increment_people_average = increment_people_average + user_ids.count
-      Resque.enqueue(CreateCSVJob, "0")
-
     end
 
     @average_shares_per_post = increment_share_average / deals.count.to_f    
