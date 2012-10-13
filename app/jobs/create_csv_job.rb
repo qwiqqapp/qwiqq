@@ -2,7 +2,7 @@ class CreateCSVJob
   @queue = :notifications
   
   def self.perform(id)
-    puts "TRY"
+    puts "TRY 0"
     self.csv_export
     puts "MARKED"
 
@@ -28,6 +28,7 @@ class CreateCSVJob
   end
   
   def csv_export
+    puts "TRY 0.0"
     @deal = Deal.all.sorted.limit(1)   
     @filename = "dealcsv" 
     puts "TRY 1"
