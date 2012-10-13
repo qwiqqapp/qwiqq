@@ -3,7 +3,16 @@ class CreateCSVJob
   
   def self.perform(id)
     puts "TRY 0"
-    self.csv_export
+    @deal = Deal.all.sorted.limit(1)   
+    @filename = "dealcsv" 
+    puts "TRY 1"
+    CSV.open("#{Rails.root.to_s}/tmp/#{@filename}", "wb") do |csv| #creates a tempfile csv
+      puts "TRY 2"
+      csv << ["ID", "Name"]
+      puts "TRY 3"
+      csv << [@deal.id.try(:to_s), @deal.name]
+      puts "TRY 4"   
+    end
     puts "MARKED"
 
   # allow record not found to silently fail and log
