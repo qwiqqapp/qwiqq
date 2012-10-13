@@ -2,7 +2,7 @@ class CreateCSVJob
   @queue = :notifications
   
   def self.perform(id)
-    puts "TRY 0"
+    puts "TRY 0.0"
     @deal = Deal.sorted.limit(1)   
     @filename = "dealcsv" 
     puts "TRY 1"
