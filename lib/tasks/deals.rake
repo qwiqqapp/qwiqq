@@ -26,7 +26,7 @@ namespace :deals do
      puts "success!"
   end
   
-  # reset the number_of_users_shared
+  # reset the number_of_users_shared for every deal
   desc "Set the number of users shared"
   task :number_of_users_shared => :environment do
      deals = Deal.all
