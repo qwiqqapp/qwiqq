@@ -2,6 +2,7 @@ class CreateCSVJob
   @queue = :notifications
   
   def self.perform(id)
+    puts "TRY"
     self.csv_export
     puts "MARKED"
 
