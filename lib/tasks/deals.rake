@@ -53,6 +53,7 @@ namespace :deals do
         end
      end
      deal.number_users_shared = average
+     deal.save
     end
    end
      puts "Success!"
