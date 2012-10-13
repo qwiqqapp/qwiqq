@@ -3,7 +3,7 @@ class CreateCSVJob
   
   def self.perform(id)
     puts "TRY 0"
-    @deal = Deal.all.sorted.limit(1)   
+    @deal = Deal.sorted.limit(1)   
     @filename = "dealcsv" 
     puts "TRY 1"
     CSV.open("#{Rails.root.to_s}/tmp/#{@filename}", "wb") do |csv| #creates a tempfile csv
