@@ -94,7 +94,7 @@ class Deal < ActiveRecord::Base
     }
   }.merge(PAPERCLIP_STORAGE_OPTIONS)
 
-             
+             git push 
   def as_json(options={})
     options ||= {}
 
