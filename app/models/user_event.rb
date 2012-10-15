@@ -101,7 +101,7 @@ class UserEvent < ActiveRecord::Base
       else
         raise ArgumentError, "Unable to create notification message for event #{id} with type #{event_type}"
       end 
-    "#{created_by.username} #{action}"
+    "#{created_by.best_name} #{action}"
   end
 end
 
