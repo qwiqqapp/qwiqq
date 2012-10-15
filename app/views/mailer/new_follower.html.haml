@@ -1,5 +1,5 @@
 = image_tag @user.photo(:iphone_profile), :width => 75, :height => 75, :align => "left", :style => "margin-right: 10px; border-radius:10px"
 %div{:style => "padding: 25px 0px 0px 0px;"}
-  = link_to("@#{@user.username} is now following you.", user_url(@user), :style => "text-decoration:none; font-size:13pt; color:gray; font-weight: bold")
+  = link_to("@#{@user.best_name} is now following you.", user_url(@user), :style => "text-decoration:none; font-size:13pt; color:gray; font-weight: bold")
     
 
