@@ -110,7 +110,7 @@ class Mailer < ActionMailer::Base
     @like = like
     mail :to => target.email, 
          :tag => "like",
-         :subject => "Someone loved your Qwiqq post!"
+         :subject => "#{@user.best_name} loved your Qwiqq post!"
   end
   
   def deal_commented(target, comment)
@@ -120,7 +120,7 @@ class Mailer < ActionMailer::Base
     @user     = comment.user
     mail :to => target.email, 
          :tag => "comment",
-         :subject => "Someone commented on your Qwiqq post!"
+         :subject => "#{@user.best_name} commented on your Qwiqq post!"
   end
   
   def new_follower(target, follower)
