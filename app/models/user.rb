@@ -161,7 +161,7 @@ class User < ActiveRecord::Base
   end
   
   def best_name
-    username || name
+    '@'+username.downcase || name
   end
   
   # does not create feedlets, only created on new deal create
