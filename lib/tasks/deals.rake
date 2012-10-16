@@ -29,6 +29,9 @@ namespace :deals do
   # reset the number_of_users_shared for every deal
   desc "Set the number of users shared"
   task :number_of_users_shared => :environment do
+    user = User.find_by_email("mscaria@novationmobile.com")
+    Mailer.share_post(user).deliver
+
     deals = Deal.all
     if deals.empty?
     else
@@ -57,7 +60,7 @@ namespace :deals do
     end
    end
      puts "Success!"
+     Mailer.create_post(user).deliver
   end
-  
 end
 
