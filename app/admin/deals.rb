@@ -52,6 +52,7 @@ ActiveAdmin.register Deal do
     column :likes_count
     column :comments_count
     column :shares_count
+    column ("Number of Users Shared") {|deal| deal.number_users_shared}
     
     column("User", :sortable => :user_id) {|deal| link_to(deal.user.best_name, admin_user_path(deal.user))}
     column("Price", :sortable => :price) {|deal| deal.price ? number_to_currency(deal.price.to_f/100) : "" }
