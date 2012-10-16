@@ -53,6 +53,7 @@ class User < ActiveRecord::Base
                   :country, 
                   :city, 
                   :facebook_access_token,
+                  :facebook_id,
                   :current_facebook_page_id,
                   :twitter_access_token, 
                   :twitter_access_secret,
@@ -241,6 +242,7 @@ class User < ActiveRecord::Base
         # add the cached facebook page and token if present
         json[:current_facebook_page_id] = current_facebook_page_id if current_facebook_page_id.present?
         json[:facebook_access_token] = facebook_access_token if facebook_access_token.present?
+        json[:facebook_id] = self.facebook_id if facebook_id.present?
       else
         json[:is_following] = current_user.following?(self)
         json[:is_followed] = self.following?(current_user)
