@@ -7,7 +7,7 @@ ActiveAdmin.register Deal do
   scope :recent
   scope :premium
   scope :coupon
-  scope :number_users_shared
+  scope :most_shared
   
   filter :name
   filter :foursquare_venue_name
