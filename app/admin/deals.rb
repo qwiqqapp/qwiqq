@@ -7,6 +7,7 @@ ActiveAdmin.register Deal do
   scope :recent
   scope :premium
   scope :coupon
+  scope :number_users_shared
   
   filter :name
   filter :foursquare_venue_name
@@ -32,7 +33,7 @@ ActiveAdmin.register Deal do
     column('4SQ Venue'){|d| d.foursquare_venue_name}
     column :coupon
     column :shares_count
-    column ("Number of Users Shared") {|deal| deal.number_users_shared}
+    column ("Number of Users Sha\nred") {|deal| deal.number_users_shared}
 
   end
     
