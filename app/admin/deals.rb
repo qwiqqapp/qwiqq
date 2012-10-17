@@ -33,7 +33,7 @@ ActiveAdmin.register Deal do
     column('4SQ Venue'){|d| d.foursquare_venue_name}
     column :coupon
     column :shares_count
-    column ("Number of Users Sha\nred") {|deal| deal.number_users_shared}
+    column ("Number of Users Shared") {|deal| deal.number_users_shared}
 
   end
     
@@ -53,7 +53,7 @@ ActiveAdmin.register Deal do
     column :likes_count
     column :comments_count
     column :shares_count
-    column ("Number of\nUsers Shared") {|deal| deal.number_users_shared}
+    column ("Number of Users Sha\nred", :sortable => :most_shared) {|deal| deal.number_users_shared}
     
     column("User", :sortable => :user_id) {|deal| link_to(deal.user.best_name, admin_user_path(deal.user))}
     column("Price", :sortable => :price) {|deal| deal.price ? number_to_currency(deal.price.to_f/100) : "" }
