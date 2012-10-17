@@ -65,7 +65,7 @@ class Deal < ActiveRecord::Base
   scope :sorted, :order => "created_at desc"
   scope :popular, order("likes_count desc, comments_count desc")
   scope :coupon, where(:coupon => true)
-  scope :most_shared, order("number_users_shared desc")
+  scope :most_shared, where(:premium => true)
   
   # all images are cropped
   # see initializers/auto_orient.rb for new processor
