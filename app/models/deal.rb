@@ -44,7 +44,8 @@ class Deal < ActiveRecord::Base
                   :foursquare_venue_id, 
                   :foursquare_venue_name,
                   :coupon,
-                  :coupon_count
+                  :coupon_count,
+                  :number_users_shared
   
   # TODO update to 3.0 validates method
   validates_presence_of   :user, :category, :name, :message => "is required"
