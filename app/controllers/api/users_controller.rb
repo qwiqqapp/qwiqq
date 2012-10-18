@@ -17,6 +17,13 @@ class Api::UsersController < Api::ApiController
   
 
   def requested_user
+    puts "requested_user START"
+    if @user.has_sent_facebook_push == false
+      puts "PUSH IS FALSE"
+    else
+      puts "PUSH IS TRUE"
+    end
+    puts "requested_user FINISHED"
     @user ||= find_user(params[:id])
   end
 
