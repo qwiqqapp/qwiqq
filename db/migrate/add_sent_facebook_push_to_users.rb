@@ -1,5 +1,5 @@
 class AddHasSentFacebookPushToUsers < ActiveRecord::Migration
   def change
-    add_column :users, :hasSentFacebookPush, :string
+    add_column :users, :has_sent_facebook_push, :string
   end
 end
