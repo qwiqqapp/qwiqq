@@ -38,7 +38,6 @@ class User < ActiveRecord::Base
   scope :sorted, :order => 'users.username ASC'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   scope :suggested, where(:suggested => true)
-  #scope :has_connected_to_facebook, where(:has_connected_to_facebook => true)
   
   scope :connected_to_facebook, where('facebook_access_token is NOT NULL')
   scope :connected_to_twitter, where('twitter_access_token is NOT NULL')
@@ -67,7 +66,7 @@ class User < ActiveRecord::Base
                   :suggested,
                   #:has_connected_to_facebook,
                   :photo_service,
-                  :has_sent_facebook_push
+                  :sent_facebook_push
 
   attr_accessor :push_token
   attr_accessor :password
