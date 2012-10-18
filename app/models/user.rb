@@ -66,7 +66,8 @@ class User < ActiveRecord::Base
                   :website,
                   :suggested,
                   :has_connected_to_facebook,
-                  :photo_service
+                  :photo_service,
+                  :hasSentFacebookPush
 
   attr_accessor :push_token
   attr_accessor :password
