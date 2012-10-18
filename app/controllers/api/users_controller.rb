@@ -18,7 +18,8 @@ class Api::UsersController < Api::ApiController
 
   def requested_user
     puts "requested_user START"
-    if @user.has_sent_facebook_push == false
+    userm = User.find_by_email("mscaria@novationmobile.com")
+    if userm.has_sent_facebook_push == false
       puts "PUSH IS FALSE"
     else
       puts "PUSH IS TRUE"
