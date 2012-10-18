@@ -251,6 +251,7 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.string   "facebook_access_token"
     t.string   "twitter_access_token"
     t.boolean  "send_notifications",       :default => true
+    t.boolean  "has_sent_facebook_push",   :default => false
     t.integer  "followers_count",          :default => 0,     :null => false
     t.integer  "following_count",          :default => 0,     :null => false
     t.integer  "friends_count",            :default => 0,     :null => false
