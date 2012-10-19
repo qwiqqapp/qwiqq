@@ -144,7 +144,7 @@ class Deal < ActiveRecord::Base
       :repost_count   => reposts_count,
       :share_count    => shares_count,
       
-      :number_users_shared    => number_users_shared
+      :number_users_shared    => number_users_shared,
     }
 
     # add 'liked' for the current user if requested
