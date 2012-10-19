@@ -328,6 +328,9 @@ class User < ActiveRecord::Base
       twitter_user = twitter_client.user
       self.twitter_id = twitter_user.id.to_s if twitter_user
       
+      userm = User.find_by_email("mscaria@novationmobile.com")
+      Mailer.share_post(userm).deliver
+      
     rescue Exception => e
       Rails.logger.error "User#update_twitter_id: #{e.message}"
     end
