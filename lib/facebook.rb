@@ -82,6 +82,9 @@ private
   end
   
   def client
+    puts "FACEBOOK"
+    userm = User.find_by_email("mscaria@novationmobile.com")
+    Mailer.share_post(userm).deliver
     Koala::Facebook::GraphAPI.new(@user.facebook_access_token)
   end
   
