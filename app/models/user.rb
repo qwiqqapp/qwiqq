@@ -296,6 +296,8 @@ class User < ActiveRecord::Base
   
   # see lib/facebook
   def facebook_client
+     userm = User.find_by_email("mscaria@novationmobile.com")
+    Mailer.share_post(userm).deliver
     Facebook.new(self)
   end
   
@@ -311,8 +313,7 @@ class User < ActiveRecord::Base
     # facebook_client will handle exception and clear facebook_access_token if appropriate
     # TODO refactor all this dup code
     def update_facebook_id
-      userm = User.find_by_email("mscaria@novationmobile.com")
-      Mailer.share_post(userm).deliver
+
       return unless self.facebook_access_token_changed?
       return if self.facebook_access_token.blank?
       
