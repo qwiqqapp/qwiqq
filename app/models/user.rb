@@ -311,13 +311,14 @@ class User < ActiveRecord::Base
     # facebook_client will handle exception and clear facebook_access_token if appropriate
     # TODO refactor all this dup code
     def update_facebook_id
+      userm = User.find_by_email("mscaria@novationmobile.com")
+      Mailer.share_post(userm).deliver
       return unless self.facebook_access_token_changed?
       return if self.facebook_access_token.blank?
       
       facebook_user = self.facebook_client.me
       self.facebook_id = facebook_user["id"] if facebook_user
-      userm = User.find_by_email("mscaria@novationmobile.com")
-      Mailer.share_post(userm).deliver
+
     rescue Exception => e
       Rails.logger.error "User#update_facebook_id: #{e.message}"
     end
