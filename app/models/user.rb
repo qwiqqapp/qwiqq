@@ -316,7 +316,7 @@ class User < ActiveRecord::Base
       
       facebook_user = self.facebook_client.me
       self.facebook_id = facebook_user["id"] if facebook_user
-            
+      puts "NEW FACEBOOK"
     rescue Exception => e
       Rails.logger.error "User#update_facebook_id: #{e.message}"
     end
