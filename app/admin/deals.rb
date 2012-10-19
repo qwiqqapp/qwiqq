@@ -58,7 +58,7 @@ ActiveAdmin.register Deal do
     column("User", :sortable => :user_id) {|deal| link_to(deal.user.best_name, admin_user_path(deal.user))}
     column("Price", :sortable => :price) {|deal| deal.price ? number_to_currency(deal.price.to_f/100) : "" }
     
-    column :number_users_shared
+    #column :number_users_shared
     default_actions
   end
   
