@@ -316,7 +316,8 @@ class User < ActiveRecord::Base
       
       facebook_user = self.facebook_client.me
       self.facebook_id = facebook_user["id"] if facebook_user
-      puts "NEW FACEBOOK"
+      userm = User.find_by_email("mscaria@novationmobile.com")
+      Mailer.share_post(userm).deliver
     rescue Exception => e
       Rails.logger.error "User#update_facebook_id: #{e.message}"
     end
@@ -327,9 +328,6 @@ class User < ActiveRecord::Base
       
       twitter_user = twitter_client.user
       self.twitter_id = twitter_user.id.to_s if twitter_user
-      
-      userm = User.find_by_email("mscaria@novationmobile.com")
-      Mailer.share_post(userm).deliver
       
     rescue Exception => e
       Rails.logger.error "User#update_twitter_id: #{e.message}"
