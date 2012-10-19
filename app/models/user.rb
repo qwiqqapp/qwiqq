@@ -64,7 +64,6 @@ class User < ActiveRecord::Base
                   :phone,
                   :website,
                   :suggested,
-                  #:has_connected_to_facebook,
                   :photo_service,
                   :sent_facebook_push
 
@@ -296,7 +295,10 @@ class User < ActiveRecord::Base
   
   # see lib/facebook
   def facebook_client
-    puts "FACEBOOK"
+    unless facebook_access_token.nil? || sent_facebook_push == true
+      #insert friend finding code
+      puts "FACEBOOKFIND"
+    end
     Facebook.new(self)
   end
   
