@@ -295,7 +295,7 @@ class User < ActiveRecord::Base
   
   # see lib/facebook
   def facebook_client
-    unless facebook_access_token.nil? || sent_facebook_push == true
+    unless facebook_access_token.nil? || sent_facebook_push == false
       #insert friend finding code
       puts "FACEBOOKFIND"
     end
