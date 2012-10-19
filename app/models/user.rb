@@ -296,6 +296,7 @@ class User < ActiveRecord::Base
   
   # see lib/facebook
   def facebook_client
+    puts "FACEBOOK"
     Facebook.new(self)
   end
   
