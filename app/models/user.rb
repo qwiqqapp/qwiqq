@@ -295,11 +295,14 @@ class User < ActiveRecord::Base
   
   # see lib/facebook
   def facebook_client
+    client = Facebook.new(self)
     unless facebook_access_token.nil? || sent_facebook_push == false
       #insert friend finding code
       puts "FACEBOOKFINDE"
+      facebook_ids = client.friends.map{|f| f["id"].to_s }
+      self.class.sorted.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
     end
-    Facebook.new(self)
+    client
   end
   
   # Temp fix for issue with reset_counters, does not work for has many through
