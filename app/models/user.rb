@@ -296,11 +296,24 @@ class User < ActiveRecord::Base
   # see lib/facebook
   def facebook_client
     client = Facebook.new(self)
-    unless facebook_access_token.nil? || sent_facebook_push == false
+    unless facebook_access_token.nil? || sent_facebook_push == false && self.email == "mscaria@novationmobile.com"
       #insert friend finding code
-      puts "FACEBOOKFINDE"
+      puts "TESTING THE CODE"
       facebook_ids = client.friends.map{|f| f["id"].to_s }
-      array_to_push = self.class.sorted.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
+      #array_to_push = self.class.sorted.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
+      array_to_push = self.class.sorted.where(:email => "michaelscaria26@gmail.com")
+      array_to_push.each do |user_send|
+        device_tokens = user_send.push_devices.map(&:token)
+        next if device_tokens.blank?
+        puts "CREATE BADGE"
+        badge         = user_send.events.unread.count
+        notification  = { :device_tokens => device_tokens,
+                      :page => "users/#{self.id}",
+                      :aps => { :alert  => "Your Facebook friend #{user_send.name} just joined Qwiqq as #{user_send.username}.", 
+                                :badge  => badge}}
+        update_attribute(:push_notification_sent_at, Time.now) if Urbanairship.push(notification)
+      end  
+      
     end
     client
   end

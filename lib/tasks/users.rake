@@ -30,7 +30,6 @@ namespace :users do
     User.find_each do |user|
       user.sent_facebook_push = true
       user.save
-      puts "SET FINISHED"
     end
   end
 end
