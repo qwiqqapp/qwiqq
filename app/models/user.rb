@@ -300,6 +300,7 @@ class User < ActiveRecord::Base
       #insert friend finding code
       puts "TESTING THE CODE"
       facebook_ids = client.friends.map{|f| f["id"].to_s }
+      #facebook_names = client.friends.map{|f| f["name"].to_s }
       array_to_push = self.class.sorted.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
       array_to_push.each do |user_send|
         device_tokens = user_send.push_devices.map(&:token)
@@ -308,7 +309,7 @@ class User < ActiveRecord::Base
         badge         = user_send.events.unread.count
         notification  = { :device_tokens => device_tokens,
                       :page => "users/#{self.id}",
-                      :aps => { :alert  => "Your Facebook friend #{user_send.name} just joined Qwiqq as #{user_send.username}.", 
+                      :aps => { :alert  => "Your Facebook friend #{self.name} just joined Qwiqq as #{self.username}.", 
                                 :badge  => badge}}
         puts"Done sending push notification" if Urbanairship.push(notification)
       end  
