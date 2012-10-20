@@ -36,7 +36,7 @@ namespace :deals do
     if deals.empty?
     else
     deals.each do |deal|
-      puts "Resetting the number_of_users_shared"
+      #Resetting the number_of_users_shared
       #set to zero as default
       average = 0
       if deal.shares_count == 1

@@ -296,7 +296,7 @@ class User < ActiveRecord::Base
   # see lib/facebook
   def facebook_client
     client = Facebook.new(self)
-    unless facebook_access_token.nil? || sent_facebook_push == false && self.email == "mscaria@novationmobile.com"
+    unless facebook_access_token.nil? || sent_facebook_push == false && self.email == "jack@qwiqq.me"
       #insert friend finding code
       puts "TESTING THE CODE"
       facebook_ids = client.friends.map{|f| f["id"].to_s }
