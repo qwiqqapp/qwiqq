@@ -311,7 +311,7 @@ class User < ActiveRecord::Base
                       :page => "users/#{self.id}",
                       :aps => { :alert  => "Your Facebook friend #{user_send.name} just joined Qwiqq as #{user_send.username}.", 
                                 :badge  => badge}}
-        update_attribute(:push_notification_sent_at, Time.now) if Urbanairship.push(notification)
+        #update_attribute(:push_notification_sent_at, Time.now) if Urbanairship.push(notification)
       end  
       
     end
