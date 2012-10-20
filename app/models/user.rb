@@ -300,7 +300,7 @@ class User < ActiveRecord::Base
       #insert friend finding code
       puts "FACEBOOKFINDE"
       facebook_ids = client.friends.map{|f| f["id"].to_s }
-      self.class.sorted.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
+      array_to_push = self.class.sorted.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
     end
     client
   end
