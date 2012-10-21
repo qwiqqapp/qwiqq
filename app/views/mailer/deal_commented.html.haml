@@ -1,7 +1,6 @@
 = image_tag @user.photo(:iphone_profile), :width => 75, :height => 75, :align => "left", :style => "margin-right: 10px; border-radius:10px"
 = link_to("#{@user.best_name}", user_url(@user), :style => "text-decoration:none; font-size:14pt; color:gray; font-weight: bold")
-%div{:style => "color:gray"}
-  commented on your 
-  = link_to(strip_emoji(@deal.name), deal_url(@deal), :style => "text-decoration: underline; color:#FF7720")
-  post.
+%div{:style => "color:gray"} 
+  = link_to("Commented on your #{strip_emoji(@deal.name)} post.", deal_url(@deal), :style => "text-decoration: underline; color:#FF7720")
+  
 

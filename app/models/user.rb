@@ -310,7 +310,7 @@ class User < ActiveRecord::Base
         #name          = client.me["name"].to_s #CHECK
        # notification  = { :device_tokens => device_tokens,
                      # :page => "users/#{self.id}",
-                     # :aps => { :alert  => "Your Facebook friend #{self.name} just joined Qwiqq as #{self.username}.", 
+                     # :aps => { :alert  => "Your Facebook friend #{self.name} just joined Qwiqq as @#{self.username}.", 
                            #     :badge  => badge}}
         #puts"Done sending push notification" if Urbanairship.push(notification)
       end  
