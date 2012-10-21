@@ -306,12 +306,13 @@ class User < ActiveRecord::Base
         device_tokens = user_send.push_devices.map(&:token)
         next if device_tokens.blank?
         puts "CREATE BADGE"
-        badge         = user_send.events.unread.count
-        notification  = { :device_tokens => device_tokens,
-                      :page => "users/#{self.id}",
-                      :aps => { :alert  => "Your Facebook friend #{self.name} just joined Qwiqq as #{self.username}.", 
-                                :badge  => badge}}
-        puts"Done sending push notification" if Urbanairship.push(notification)
+        #badge         = user_send.events.unread.count
+        #name          = client.me["name"].to_s #CHECK
+       # notification  = { :device_tokens => device_tokens,
+                     # :page => "users/#{self.id}",
+                     # :aps => { :alert  => "Your Facebook friend #{self.name} just joined Qwiqq as #{self.username}.", 
+                           #     :badge  => badge}}
+        #puts"Done sending push notification" if Urbanairship.push(notification)
       end  
     self.sent_facebook_push = true
     save
