@@ -1,1 +1,6 @@
-Your Facebook friend John Phan just joined Qwiqq as @jxtphan.
+= image_tag @user.photo(:iphone_profile), :width => 75, :height => 75, :align => "left", :style => "margin-right: 10px; border-radius:10px"
+= link_to("#{@user.best_name}", user_url(@user), :style => "text-decoration:none; font-size:14pt; color:gray; font-weight: bold")
+%div{:style => "color:gray"}
+  Your Facebook friend #{@user.client.me["name"].to_s} just joined Qwiqq as @#{@user.username}.
+
+
