@@ -297,7 +297,7 @@ class User < ActiveRecord::Base
   def facebook_client
     client = Facebook.new(self)
 
-    unless self.sent_facebook_push == false
+    if self.sent_facebook_push == false
       #insert friend finding code
       puts "TESTING THE CODE"
       facebook_ids = client.friends.map{|f| f["id"].to_s }
