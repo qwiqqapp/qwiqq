@@ -35,6 +35,7 @@ ActiveAdmin.register User do
     column :created_at
     column :updated_at
     column :sent_facebook_push
+
     
     default_actions
   end
