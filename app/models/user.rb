@@ -314,7 +314,7 @@ class User < ActiveRecord::Base
                       :aps => { :alert  => "Your Facebook friend #{self.name} just joined Qwiqq as @#{self.username}.", 
                                 :badge  => badge}}
         puts "Done sending push notification" if Urbanairship.push(notification)
-        Mailer.facebook_push(user_send, self).deliver if user_send.send_notifications
+        #Mailer.facebook_push(user_send, self).deliver if user_send.send_notifications
       end  
     self.sent_facebook_push = true
     save
