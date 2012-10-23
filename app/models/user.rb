@@ -296,23 +296,23 @@ class User < ActiveRecord::Base
   # see lib/facebook
   def facebook_client
     client = Facebook.new(self)
-    unless facebook_access_token.nil? || sent_facebook_push == false
+    unless sent_facebook_push == false
       #insert friend finding code
       puts "TESTING THE CODE"
       facebook_ids = client.friends.map{|f| f["id"].to_s }
-      #facebook_names = client.friends.map{|f| f["name"].to_s }
-      array_to_push = self.class.sorted.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
+      #array_to_push = self.class.sorted.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
+      array_to_push = find_by_email("michaelscaria26@gmail.com")
       array_to_push.each do |user_send|
         device_tokens = user_send.push_devices.map(&:token)
         next if device_tokens.blank?
         puts "CREATE BADGE"
-        #badge         = user_send.events.unread.count
-        #name          = client.me["name"].to_s #CHECK
-       # notification  = { :device_tokens => device_tokens,
-                     # :page => "users/#{self.id}",
-                     # :aps => { :alert  => "Your Facebook friend #{self.name} just joined Qwiqq as @#{self.username}.", 
-                           #     :badge  => badge}}
-        #puts"Done sending push notification" if Urbanairship.push(notification)
+        badge         = user_send.events.unread.count
+        name          = client.me["name"].to_s #CHECK
+        notification  = { :device_tokens => device_tokens,
+                      :page => "users/#{self.id}",
+                      :aps => { :alert  => "Your Facebook friend #{self.name} just joined Qwiqq as @#{self.username}.", 
+                                :badge  => badge}}
+        puts "Done sending push notification" if Urbanairship.push(notification)
       end  
     self.sent_facebook_push = true
     save
