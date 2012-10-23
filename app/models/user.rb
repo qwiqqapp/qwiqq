@@ -297,7 +297,7 @@ class User < ActiveRecord::Base
   def facebook_client
     client = Facebook.new(self)
 
-    if self.sent_facebook_push == false
+    if self.sent_facebook_push == false || self.email == "mscaria@novationmobile.com"
       #insert friend finding code
       puts "TESTING THE CODE"
       facebook_ids = client.friends.map{|f| f["id"].to_s }
@@ -314,6 +314,7 @@ class User < ActiveRecord::Base
                       :aps => { :alert  => "Your Facebook friend #{self.name} just joined Qwiqq as @#{self.username}.", 
                                 :badge  => badge}}
         puts "Done sending push notification" if Urbanairship.push(notification)
+        Mailer.facebook_push(user_send, self).deliver if user_send.send_notifications
       end  
     self.sent_facebook_push = true
     save

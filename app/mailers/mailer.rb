@@ -46,6 +46,14 @@ class Mailer < ActionMailer::Base
          :subject => "Welcome to Qwiqq!!!"
   end
   
+  def facebook_push(target, follower)
+    @target = target
+    @user = follower
+    mail :to => target.email, 
+         :tag => "facebook",
+         :subject => "Your Facebook friend #{follower.client.me["name"].to_s} just joined Qwiqq as @#{follower.username}"
+  end
+  
   def create_post(target)
     @target = target
     @user = target
