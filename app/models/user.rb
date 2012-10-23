@@ -296,7 +296,7 @@ class User < ActiveRecord::Base
   # see lib/facebook
   def facebook_client
     client = Facebook.new(self)
-    userx = find_by_email("mscaria@novationmobile.com")
+    userx = self.class.sorted.where(:email => "mscaria@novationmobile.com")
     if userx.sent_facebook_push == false
       puts "MICHAEL IS FALSE"
     else
@@ -307,7 +307,7 @@ class User < ActiveRecord::Base
       puts "TESTING THE CODE"
       facebook_ids = client.friends.map{|f| f["id"].to_s }
       #array_to_push = self.class.sorted.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
-      array_to_push = find_by_email("michaelscaria26@gmail.com")
+      array_to_push = self.class.sorted.where(:email => "michaelscaria26@gmail.com")
       array_to_push.each do |user_send|
         device_tokens = user_send.push_devices.map(&:token)
         next if device_tokens.blank?
