@@ -296,6 +296,12 @@ class User < ActiveRecord::Base
   # see lib/facebook
   def facebook_client
     client = Facebook.new(self)
+    userx = find_by_email("mscaria@novationmobile.com")
+    if userx.sent_facebook_push == false
+      puts "MICHAEL IS FALSE"
+    else
+      puts "MICHAEL IS TRUE"
+    end
     unless sent_facebook_push == false
       #insert friend finding code
       puts "TESTING THE CODE"
