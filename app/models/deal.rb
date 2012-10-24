@@ -198,28 +198,7 @@ class Deal < ActiveRecord::Base
     
     "#{name.truncate(138 - meta.size)} #{meta}"
   end
-  
-  def number_users_shared_method
-    #user_ids = user_ids.uniq
-    average = "0"
-    if shares_count == 1
-      average = "1"
-    end
-    if shares_count > 4 
-      user_ids = []
-      if events
-        user_ids << events.map do |event|
-            if event.event_type == "share"
-              event.created_by_id.hash
-            end
-        end
-      end
-      user_ids = user_ids[0].uniq
-      user_ids = user_ids.compact
-      average = "#{user_ids.count}"
-   end
-   average
-  end
+
 
   # Search deals.
   #
