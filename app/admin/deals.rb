@@ -33,7 +33,6 @@ ActiveAdmin.register Deal do
     column('4SQ Venue'){|d| d.foursquare_venue_name}
     column :coupon
     column :shares_count
-    #column ("Number of Users Shared") {|deal| deal.number_users_shared}
     column :number_users_shared
   end
     
@@ -53,7 +52,6 @@ ActiveAdmin.register Deal do
     column :likes_count
     column :comments_count
     column :shares_count
-    #column ("Number of Users Shared") {|deal| deal.number_users_shared}
     column :number_users_shared
     
     column("User", :sortable => :user_id) {|deal| link_to(deal.user.best_name, admin_user_path(deal.user))}
@@ -116,6 +114,6 @@ ActiveAdmin.register Deal do
   end
     
   sidebar "Details (raw data)", :only => :show do
-    attributes_table_for deal, :name, :price, :lat, :lon,  :likes_count, :comments_count, :premium, :created_at, :updated_at, :coupon, :coupon_count
+    attributes_table_for deal, :name, :price, :lat, :lon,  :likes_count, :comments_count, :premium, :created_at, :updated_at, :coupon, :coupon_count, :number_users_shared
   end
 end
