@@ -2,6 +2,6 @@
 = link_to("#{@user.best_name}", user_url(@user), :style => "text-decoration:none; font-size:14pt; color:gray; font-weight: bold")
 %div{:style => "color:gray"}
   Loved your 
-  = link_to(strip_emoji(self.name), deal_url(@deal), :style => "color:#FF7720; text-decoration: underline")
+  = link_to(strip_emoji(@deal.name), deal_url(@deal), :style => "color:#FF7720; text-decoration: underline")
   post.
 
