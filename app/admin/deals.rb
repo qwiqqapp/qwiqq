@@ -1,4 +1,4 @@
-ActiveAdmin.register Deal, :namespace => "Posts" do
+ActiveAdmin.register Deal do
   #ActiveAdmin.register Deal, :as => "Posts" do
   menu :label => "Posts"
   actions :index, :show, :edit, :update, :destroy
