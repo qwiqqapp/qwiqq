@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.boolean  "coupon",                :default => false
     t.integer  "coupon_count",          :default => 0
     t.integer  "number_users_shared",    :default => 0
+    t.integer  "num_for_sale",          :default => 0
   end
 
   add_index "deals", ["likes_count", "comments_count"], :name => "index_deals_on_likes_count_and_comments_count"
