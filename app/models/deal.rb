@@ -45,6 +45,7 @@ class Deal < ActiveRecord::Base
                   :foursquare_venue_name,
                   :coupon,
                   :coupon_count
+               
   
   # TODO update to 3.0 validates method
   validates_presence_of   :user, :category, :name, :message => "is required"
@@ -145,6 +146,7 @@ class Deal < ActiveRecord::Base
       :share_count    => shares_count,
       
       :number_users_shared    => number_users_shared,
+      :num_for_sale           => num_for_sale,
     }
 
     # add 'liked' for the current user if requested
