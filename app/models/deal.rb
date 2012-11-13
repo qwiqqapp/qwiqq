@@ -146,9 +146,13 @@ class Deal < ActiveRecord::Base
       :share_count    => shares_count,
       
       :number_users_shared    => number_users_shared,
-      :num_for_sale           => num_for_sale,
     }
-
+    
+    #if :for_sale_on_paypal
+      json[:num_left_for_sale] = num_left_for_sale
+      json[:num_for_sale]           => num_for_sale
+      json[:for_sale_on_paypal]      => for_sale_on_paypal
+    #end
     # add 'liked' for the current user if requested
     current_user = options[:current_user]
     json[:liked] = current_user.liked_deals.include?(self) if current_user
