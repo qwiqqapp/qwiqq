@@ -1,4 +1,4 @@
-class AddForSaleOnPaypalToUsers < ActiveRecord::Migration
+class AddForSaleOnPaypalToDeals < ActiveRecord::Migration
   def change
     add_column :deals, :for_sale_on_paypal, :boolean, :default => false
   end
