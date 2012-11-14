@@ -70,7 +70,9 @@
   }
 
   #header-small .logo-small {
-    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .app-store-link-small {
