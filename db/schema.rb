@@ -120,9 +120,9 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.boolean  "coupon",                :default => false
     t.integer  "coupon_count",          :default => 0
     t.integer  "number_users_shared",   :default => 0
-    #t.integer  "num_for_sale",          :default => 0
-    #t.integer  "num_left_for_sale",     :default => 0
-    #t.boolean  "for_sale_on_paypal",    :default => false
+    t.integer  "num_for_sale",          :default => 0
+    t.integer  "num_left_for_sale",     :default => 0
+    t.boolean  "for_sale_on_paypal",    :default => false
 
   end
 
