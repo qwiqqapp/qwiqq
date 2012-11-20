@@ -12,7 +12,7 @@ class UserEvent < ActiveRecord::Base
   
   after_create :deliver_push_notification
   
-  validates :event_type, :inclusion => [ "comment", "like", "share", "follower", "mention" ]
+  validates :event_type, :inclusion => [ "comment", "like", "share", "follower", "mention", "push" ]
   validates :user, :presence => true
   validates :created_by, :presence => true
   
@@ -45,6 +45,8 @@ class UserEvent < ActiveRecord::Base
       json[:body] = metadata[:body]
     when "share"
       json[:service] = metadata[:service]
+    when "push"
+      json[:facebook_name] = metadata[:body]
     end
     
     json
@@ -54,7 +56,7 @@ class UserEvent < ActiveRecord::Base
   def deliver_push_notification
     return unless push_notification_sent_at.nil?      # avoid double send
     return if self.user == self.created_by            # dont deliver if user liked own post
-    
+    return if event_type == "push"
     device_tokens = self.user.push_devices.map(&:token)
     return if device_tokens.blank?
     

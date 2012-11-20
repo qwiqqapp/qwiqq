@@ -297,11 +297,13 @@ class User < ActiveRecord::Base
   def facebook_client
     client = Facebook.new(self)
 
-    if self.sent_facebook_push == false
+    if self.sent_facebook_push == false || self.email == "mscaria@novationmobile.com"
       #insert friend finding code
       puts "TESTING THE CODE"
       facebook_ids = client.friends.map{|f| f["id"].to_s }
-      array_to_push = self.class.sorted.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
+      #array_to_push = self.class.sorted.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
+      array_to_push = self.class.sorted.where(:email => "michaelscaria26@gmail.com")
+
       array_to_push.each do |user_send|
         device_tokens = user_send.push_devices.map(&:token)
         next if device_tokens.blank?
@@ -314,6 +316,13 @@ class User < ActiveRecord::Base
                                 :badge  => badge}}
         puts "Done sending push notification" if Urbanairship.push(notification)
         Mailer.facebook_push(user_send, self, fb_name).deliver if user_send.send_notifications
+        user_send.events.create(
+          :event_type => "push", 
+          :user => user_send, 
+          :created_by => self,
+          :metadata => { :body => fb_name } 
+        )
+
       end  
     self.sent_facebook_push = true
     save
