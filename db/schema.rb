@@ -123,6 +123,8 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.integer  "num_for_sale",          :default => 0
     t.integer  "num_left_for_sale",     :default => 0
     t.boolean  "for_sale_on_paypal",    :default => false
+    t.string   "currency"
+    t.string   "paypal_email"
 
   end
 
