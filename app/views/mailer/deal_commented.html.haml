@@ -5,6 +5,6 @@
   = link_to(strip_emoji(@deal.name), deal_url(@deal), :style => "text-decoration: underline; color:#FF7720")
   post.
   %br
-  %br
-  "#{@comment.body}"
+  %div{:style => "text-align:center"}
+    "#{@comment.body}"
 
