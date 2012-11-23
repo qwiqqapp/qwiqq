@@ -113,8 +113,8 @@ class Api::UsersController < Api::ApiController
   def following
     requested_user
     @following = @user.following.sorted
-    #respond_with @following.as_json(:current_user => current_user)
-    respond_with(paginate(@following), :current_user => current_user)
+    respond_with @following.as_json(:current_user => current_user)
+    #respond_with(paginate(@following), :current_user => current_user)
 
   end
 
