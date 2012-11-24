@@ -114,7 +114,9 @@ class Api::UsersController < Api::ApiController
     requested_user
     puts "MARK page:#{params[:page]}"
     @following = @user.following.sorted
-    respond_with @following.as_json(:current_user => current_user)
+    result = @following.page(params[:page])
+    #response.headers["X-Pages"] = (@following.count / result.default_per_page.to_f).ceil.to_s
+    respond_with result.as_json(:current_user => current_user)
   end
 
   def friends
