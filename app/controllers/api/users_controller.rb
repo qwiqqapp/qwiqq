@@ -112,6 +112,7 @@ class Api::UsersController < Api::ApiController
 
   def following
     requested_user
+    puts "MARK page:#{params[:page]}"
     @following = @user.following.sorted
     respond_with @following.as_json(:current_user => current_user)
   end
