@@ -117,7 +117,7 @@ class Api::UsersController < Api::ApiController
     puts "Count following:#{@following.count} result count:#{result.count}"
     (@following.count / result.default_per_page.to_f).ceil.to_s
     number = (@following.count.to_f / result.count.to_f).ceil.to_s
-    response.headers["X-Pages"] = number
+    #response.headers["X-Pages"] = number
     puts "Total number of queries needed #{number}"
     respond_with result.as_json(:current_user => current_user)
   end
