@@ -116,7 +116,7 @@ class Api::UsersController < Api::ApiController
     #result = @following.page(params[:page])
     #puts "Count following:#{@following.count} result count:#{result.count}"
     #number = (@following.count.to_f / result.count.to_f).ceil.to_s
-    string = (collection.count / result.default_per_page.to_f).ceil.to_s
+    string = (@following.count / result.default_per_page.to_f).ceil.to_s
     puts "The Total Pages for Following is #{string}"
     #response.headers["X-Pages"] = number
     #puts "Total number of queries needed #{number}"
