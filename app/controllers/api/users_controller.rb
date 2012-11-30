@@ -17,6 +17,7 @@ class Api::UsersController < Api::ApiController
   
 
   def requested_user
+<<<<<<< HEAD
     puts "requested_user START"
     userm = User.find_by_email("mscaria@novationmobile.com")
     if userm.sent_facebook_push == false
@@ -25,6 +26,8 @@ class Api::UsersController < Api::ApiController
       puts "PUSH IS TRUE"
     end
     puts "requested_user FINISHED"
+=======
+>>>>>>> 4d3bf61e745c92f7afe3e1859b08557e79c6f69b
     @user ||= find_user(params[:id])
   end
 

@@ -64,7 +64,6 @@ class User < ActiveRecord::Base
                   :phone,
                   :website,
                   :suggested,
-                  #:has_connected_to_facebook,
                   :photo_service,
                   :sent_facebook_push
 
@@ -164,7 +163,7 @@ class User < ActiveRecord::Base
   end
   
   def best_name
-    '@'+username.downcase || name
+    '@'+username || name
   end
   
   # does not create feedlets, only created on new deal create
@@ -296,7 +295,30 @@ class User < ActiveRecord::Base
   
   # see lib/facebook
   def facebook_client
-    Facebook.new(self)
+    client = Facebook.new(self)
+
+    if self.sent_facebook_push == false
+      #insert friend finding code
+      puts "TESTING THE CODE"
+      facebook_ids = client.friends.map{|f| f["id"].to_s }
+      array_to_push = self.class.sorted.where(:facebook_id => facebook_ids).order("first_name, last_name DESC")
+      array_to_push.each do |user_send|
+        device_tokens = user_send.push_devices.map(&:token)
+        next if device_tokens.blank?
+        puts "CREATE BADGE"
+        badge         = user_send.events.unread.count
+        fb_name          = client.me["name"].to_s #CHECK
+        notification  = { :device_tokens => device_tokens,
+                      :page => "users/#{self.id}",
+                      :aps => { :alert  => "Your Facebook friend #{fb_name} just joined Qwiqq as @#{self.username}.", 
+                                :badge  => badge}}
+        puts "Done sending push notification" if Urbanairship.push(notification)
+        Mailer.facebook_push(user_send, self, fb_name).deliver if user_send.send_notifications
+      end  
+    self.sent_facebook_push = true
+    save
+    end
+    client
   end
   
   # Temp fix for issue with reset_counters, does not work for has many through

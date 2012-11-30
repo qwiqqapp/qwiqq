@@ -24,4 +24,12 @@ namespace :users do
       end
     end
   end
+  
+    desc "Set all number of users shared to true"
+  task :set_to_true => :environment do
+    User.find_each do |user|
+      user.sent_facebook_push = true
+      user.save
+    end
+  end
 end

@@ -44,8 +44,7 @@ class Deal < ActiveRecord::Base
                   :foursquare_venue_id, 
                   :foursquare_venue_name,
                   :coupon,
-                  :coupon_count,
-                  :number_users_shared
+                  :coupon_count
   
   # TODO update to 3.0 validates method
   validates_presence_of   :user, :category, :name, :message => "is required"
@@ -199,28 +198,7 @@ class Deal < ActiveRecord::Base
     
     "#{name.truncate(138 - meta.size)} #{meta}"
   end
-  
-  def number_users_shared_method
-    #user_ids = user_ids.uniq
-    average = "0"
-    if shares_count == 1
-      average = "1"
-    end
-    if shares_count > 4 
-      user_ids = []
-      if events
-        user_ids << events.map do |event|
-            if event.event_type == "share"
-              event.created_by_id.hash
-            end
-        end
-      end
-      user_ids = user_ids[0].uniq
-      user_ids = user_ids.compact
-      average = "#{user_ids.count}"
-   end
-   average
-  end
+
 
   # Search deals.
   #
@@ -360,13 +338,6 @@ class Deal < ActiveRecord::Base
 
   def venue_or_location_name
     foursquare_venue_name || location_name
-  end
-  
-  def love_name
-    c = "Loved your "
-    c << "#{self.name}"
-    c << " post."
-    c
   end
 
   def redeem_coupon!
