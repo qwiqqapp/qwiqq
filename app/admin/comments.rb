@@ -1,5 +1,6 @@
 # added as "DealComment" to avoid conflicting with ActiveAdmin::Comment
 ActiveAdmin.register Comment, :as => "DealComment" do
+  menu :label => "Comments"
   scope :all, :default => true
   scope :today
   

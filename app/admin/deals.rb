@@ -1,5 +1,6 @@
 ActiveAdmin.register Deal do
-  
+  #ActiveAdmin.register Deal, :as => "Posts" do
+  menu :label => "Posts"
   actions :index, :show, :edit, :update, :destroy
   
   scope :all, :default => true

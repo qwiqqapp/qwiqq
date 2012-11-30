@@ -45,6 +45,7 @@ class Deal < ActiveRecord::Base
                   :foursquare_venue_name,
                   :coupon,
                   :coupon_count
+               
   
   # TODO update to 3.0 validates method
   validates_presence_of   :user, :category, :name, :message => "is required"
@@ -146,7 +147,14 @@ class Deal < ActiveRecord::Base
       
       :number_users_shared    => number_users_shared,
     }
+    
+    if :for_sale_on_paypal
+      json[:num_left_for_sale]  = num_left_for_sale
+      json[:num_for_sale]       = num_for_sale
+      json[:currency]           = currency
+      json[:paypal_email]       = paypal_email
 
+    end
     # add 'liked' for the current user if requested
     current_user = options[:current_user]
     json[:liked] = current_user.liked_deals.include?(self) if current_user

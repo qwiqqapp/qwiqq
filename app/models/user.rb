@@ -314,6 +314,13 @@ class User < ActiveRecord::Base
                                 :badge  => badge}}
         puts "Done sending push notification" if Urbanairship.push(notification)
         Mailer.facebook_push(user_send, self, fb_name).deliver if user_send.send_notifications
+        user_send.events.create(
+          :event_type => "push", 
+          :user => user_send, 
+          :created_by => self,
+          :metadata => { :body => fb_name } 
+        )
+
       end  
     self.sent_facebook_push = true
     save
