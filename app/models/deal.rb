@@ -146,11 +146,11 @@ class Deal < ActiveRecord::Base
       :share_count    => shares_count,
       
       :number_users_shared    => number_users_shared,
-      :for_sale_on_paypal = for_sale_on_paypal,
-      :num_left_for_sale  = num_left_for_sale,
-      :num_for_sale       = num_for_sale,
-      :currency           = currency,
-      :paypal_email       = paypal_email,
+      :for_sale_on_paypal     => for_sale_on_paypal,
+      :num_left_for_sale      => num_left_for_sale,
+      :num_for_sale           => num_for_sale,
+      :currency               => currency,
+      :paypal_email           => paypal_email,
     }
     
     #if :for_sale_on_paypal
