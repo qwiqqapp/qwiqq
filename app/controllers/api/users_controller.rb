@@ -17,17 +17,6 @@ class Api::UsersController < Api::ApiController
   
 
   def requested_user
-<<<<<<< HEAD
-    puts "requested_user START"
-    userm = User.find_by_email("mscaria@novationmobile.com")
-    if userm.sent_facebook_push == false
-      puts "PUSH IS FALSE"
-    else
-      puts "PUSH IS TRUE"
-    end
-    puts "requested_user FINISHED"
-=======
->>>>>>> 4d3bf61e745c92f7afe3e1859b08557e79c6f69b
     @user ||= find_user(params[:id])
   end
 
@@ -125,12 +114,12 @@ class Api::UsersController < Api::ApiController
     requested_user
     @following = @user.following.sorted
     
-    #result = @following.page(params[:page])
+    result = @following.page(params[:page])
     #puts "Count following:#{@following.count} result count:#{result.count}"
-    #string = (@following.count / result.default_per_page.to_f).ceil.to_s
+    string = (@following.count / result.default_per_page.to_f).ceil.to_s
     #create custom x- response header data to transfer the number of pages
-    #response.headers["X-Total-Pages"] = string
-    #puts "Total number of queries needed #{string}"
+    response.headers["X-Total-Pages"] = string
+    puts "Total number of queries needed #{string}"
     respond_with @following.as_json(:current_user => current_user)
   end
 
