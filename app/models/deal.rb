@@ -150,7 +150,7 @@ class Deal < ActiveRecord::Base
       :num_left_for_sale      => num_left_for_sale,
       :num_for_sale           => num_for_sale,
       :currency               => currency,
-      :paypal_email           => paypal_email,
+      :paypal_email           => paypal_email
     }
     
     #if :for_sale_on_paypal
