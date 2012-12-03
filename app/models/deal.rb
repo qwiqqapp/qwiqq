@@ -44,7 +44,12 @@ class Deal < ActiveRecord::Base
                   :foursquare_venue_id, 
                   :foursquare_venue_name,
                   :coupon,
-                  :coupon_count
+                  :coupon_count,
+                  :for_sale_on_paypal,   
+                  :num_left_for_sale,  
+                  :num_for_sale,    
+                  :currency, 
+                  :paypal_email
                
   
   # TODO update to 3.0 validates method
