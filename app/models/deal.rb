@@ -158,7 +158,7 @@ class Deal < ActiveRecord::Base
       #:paypal_email           => paypal_email
     }
     
-    if :for_sale_on_paypal
+    if for_sale_on_paypal?
       json[:for_sale_on_paypal] = for_sale_on_paypal
       json[:num_left_for_sale]  = num_left_for_sale
       json[:num_for_sale]       = num_for_sale
