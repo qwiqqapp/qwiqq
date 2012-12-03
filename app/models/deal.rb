@@ -146,14 +146,19 @@ class Deal < ActiveRecord::Base
       :share_count    => shares_count,
       
       :number_users_shared    => number_users_shared,
+      :for_sale_on_paypal = for_sale_on_paypal,
+      :num_left_for_sale  = num_left_for_sale,
+      :num_for_sale       = num_for_sale,
+      :currency           = currency,
+      :paypal_email       = paypal_email,
     }
     
     #if :for_sale_on_paypal
-      json[:for_sale_on_paypal] = for_sale_on_paypal;
-      json[:num_left_for_sale]  = num_left_for_sale
-      json[:num_for_sale]       = num_for_sale
-      json[:currency]           = currency
-      json[:paypal_email]       = paypal_email
+      #json[:for_sale_on_paypal] = for_sale_on_paypal,
+      #json[:num_left_for_sale]  = num_left_for_sale,
+      #json[:num_for_sale]       = num_for_sale,
+      #json[:currency]           = currency,
+      #json[:paypal_email]       = paypal_email,
     #end
     
     # add 'liked' for the current user if requested
