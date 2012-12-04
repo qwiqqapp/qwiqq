@@ -307,7 +307,7 @@ DEPENDENCIES
   activeadmin
   activerecord-import
   airbrake
-  aws-sdk (~> 1.3.4)
+  aws-sdk
   bcrypt-ruby
   coffee-rails
   daemons
