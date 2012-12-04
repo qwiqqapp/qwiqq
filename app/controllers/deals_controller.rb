@@ -34,7 +34,7 @@ class DealsController < ApplicationController
     @deal = current_user.deals.find(params[:id])
     @deal.destroy
     respond_with @deal
-  end
+  endgit 
   
   private
   def find_location
