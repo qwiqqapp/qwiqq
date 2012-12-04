@@ -5,7 +5,7 @@ Qwiqq::Application.routes.draw do
 
   # public web
   root :to => "deals#index"
-  resources :posts, :only => [:index, :show, :destroy], :as => "deals", :controller => "deals" do
+  resources :posts, :only => [:index, :show], :as => "deals", :controller => "deals" do
     get :nearby, :on => :collection
     resource :coupon, :only => [:show]
   end
