@@ -109,9 +109,13 @@ ActiveAdmin.register Deal do
     active_admin_comments
   end
   
-  destroy  do
-    puts "DESTROY MARK"
+  controller do
+      # This code is evaluated within the controller class
+    destroy  do
+      puts "DESTROY MARK"
+    end
   end
+
     
     
   sidebar "Photo", :only => [:show, :edit] do
