@@ -79,7 +79,8 @@ end
 group :assets do
   gem "uglifier"
   gem "coffee-rails"
-  gem "sass-rails", "3.1.4"
+  gem "sass-rails"
+  gem "meta_search",    '>= 1.1.0.pre'
 end
 
 group :production do

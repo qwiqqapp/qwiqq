@@ -327,6 +327,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   koala (= 1.5.0)
+  meta_search (>= 1.1.0.pre)
   mocha
   newrelic_rpm
   paperclip
@@ -341,7 +342,7 @@ DEPENDENCIES
   riddle (= 1.5.0)
   rmagick
   rufus-scheduler (~> 2.0.17)
-  sass-rails (= 3.1.4)
+  sass-rails
   skittles (= 0.6.0)
   taps
   thin
