@@ -47,6 +47,7 @@ gem "postmark-rails", "0.4.0"
 
 # admin
 gem "activeadmin"
+gem "jquery-rails"
 
 # memcached
 gem "dalli"
