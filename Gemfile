@@ -48,6 +48,8 @@ gem "postmark-rails", "0.4.0"
 # admin
 gem "activeadmin"
 gem "jquery-rails"
+gem "sass-rails"
+gem "meta_search",    '>= 1.1.0.pre'
 
 # memcached
 gem "dalli"
@@ -79,8 +81,6 @@ end
 group :assets do
   gem "uglifier"
   gem "coffee-rails"
-  gem "sass-rails"
-  gem "meta_search",    '>= 1.1.0.pre'
 end
 
 group :production do
