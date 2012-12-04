@@ -30,6 +30,12 @@ class DealsController < ApplicationController
     @deal ||= Deal.find(params[:id])
   end
   
+  def destroy
+    @deal = current_user.deals.find(params[:id])
+    @deal.destroy
+    respond_with @deal
+  end
+  
   private
   def find_location
     if Rails.env.development?
