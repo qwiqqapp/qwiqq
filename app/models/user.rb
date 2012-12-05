@@ -65,7 +65,8 @@ class User < ActiveRecord::Base
                   :website,
                   :suggested,
                   :photo_service,
-                  :sent_facebook_push
+                  :sent_facebook_push,
+                  :paypal_email
 
   attr_accessor :push_token
   attr_accessor :password
@@ -207,6 +208,7 @@ class User < ActiveRecord::Base
       :phone                 => phone,
       :website               => website,
       :location              => location,
+      :paypal_email          => paypal_email,
 
       # user detail photo
       :photo                 => photo.url(:iphone),

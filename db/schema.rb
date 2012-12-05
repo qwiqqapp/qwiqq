@@ -277,7 +277,8 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.string   "website"
     t.boolean  "suggested",                :default => false
     t.string   "current_facebook_page_id",
-    t.string   "sent_facebook_push"        :default -> false
+    t.string   "sent_facebook_push",        :default -> false
+    t.string   "paypal_email"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
