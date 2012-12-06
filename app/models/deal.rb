@@ -17,7 +17,7 @@ class Deal < ActiveRecord::Base
     
     set_property :latitude_attr => :lat_radians, :longitude_attr => :lon_radians
 
-    has created_at, likes_count, comments_count, transactions_count, lat, lon
+    has created_at, likes_count, comments_count, transaction_count, lat, lon
   end
 
   belongs_to :user, :counter_cache => true, :touch => true
@@ -141,7 +141,7 @@ class Deal < ActiveRecord::Base
       :lat            => lat.try(:to_s),
       :lon            => lon.try(:to_s),
       
-      :transaction_count  => transactions_count,
+      :transaction_count  => transaction_count,
       :comment_count  => comments_count,
       :like_count     => likes_count,
       :age            => age_in_words.gsub("about ", ""),
