@@ -11,7 +11,7 @@
       .bio= auto_link(@user.bio)
       .phone
         %a{ :href => "tel:#{@user.phone}" }
-        = @user.phone
+        = "Phone: #{@user.phone}"
       .stat
         .num= @user.deals_count
         = @user.deals_count == 1 ? 'post' : 'posts'
