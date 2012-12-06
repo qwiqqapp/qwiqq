@@ -24,6 +24,7 @@ class Deal < ActiveRecord::Base
   belongs_to :category
   
   has_many :comments, :dependent => :destroy
+  has_many :transactions, :dependent => :destroy
   has_many :likes, :dependent => :destroy
   has_many :shares
   has_many :liked_by_users, :through => :likes, :source => :user
