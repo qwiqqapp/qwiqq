@@ -1,4 +1,4 @@
-ActiveAdmin.register Deal do
+ActiveAdmin.register Post do
   #ActiveAdmin.register Deal, :as => "Deals" do
   menu :label => "Posts"
   actions :index, :show, :edit, :update, :destroy
@@ -85,7 +85,7 @@ ActiveAdmin.register Deal do
   
   
   show :title => :name do
-    panel "Deal Comments (#{deal.comments.size})" do
+    panel "Comments (#{deal.comments.size})" do
       table_for(deal.comments) do
         column("") {|c| link_to(image_tag(c.user.photo.url(:iphone)), admin_user_path(c.user))}
         column("User") {|c| link_to(c.user.name, [:admin, c.user])}
