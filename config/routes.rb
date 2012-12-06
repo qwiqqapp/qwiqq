@@ -67,12 +67,14 @@ Qwiqq::Application.routes.draw do
       post "repost", :on => :member
       get "events",  :on => :member
       
-      resources :likes,     :only => [:index]
-      resource :like,       :only => [:create, :destroy] #should merge this with above resource likes
-      resources :comments,  :only => [:create, :index]
+      resources :likes,         :only => [:index]
+      resource :like,           :only => [:create, :destroy] #should merge this with above resource likes
+      resources :comments,      :only => [:create, :index]
+      resources :transactions,  :only => [:create, :index]
     end
-
+    
     resources :comments, :only => [:destroy]
+    resources :transactions, :only => [:destroy]
     resources :venues, :only => [:index]
     
     # search controller custom methods
