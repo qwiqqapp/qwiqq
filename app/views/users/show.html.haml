@@ -9,7 +9,8 @@
       .username= "@#{@user.username}"
       .location= @user.location
       .bio= auto_link(@user.bio)
-      .phone= auto_link(@user.phone)
+      .phone
+        a{:href => "tel://#{@user.phone}"}
       .stat
         .num= @user.deals_count
         = @user.deals_count == 1 ? 'post' : 'posts'
