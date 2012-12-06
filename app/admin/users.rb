@@ -98,7 +98,8 @@ ActiveAdmin.register User do
                                 :foursquare_id,
                                 :suggested,
                                 :send_notifications,
-                                :website
+                                :website,
+                                :phone
   end
   
   form(:html => {:multipart => true}) do |f|
