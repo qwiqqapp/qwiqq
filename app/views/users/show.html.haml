@@ -10,7 +10,7 @@
       .location= @user.location
       .bio= auto_link(@user.bio)
       .phone
-        a{:href => "tel:#{@user.phone}"}
+        %a{ :href => "tel:#{@user.phone}" }
         = @user.phone
       .stat
         .num= @user.deals_count
