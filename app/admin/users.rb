@@ -97,7 +97,8 @@ ActiveAdmin.register User do
                                 :twitter_id,
                                 :foursquare_id,
                                 :suggested,
-                                :send_notifications
+                                :send_notifications,
+                                :website
   end
   
   form(:html => {:multipart => true}) do |f|
