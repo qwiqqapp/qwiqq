@@ -55,14 +55,18 @@ namespace :mail do
   end
   
   task :send_michael => :environment do
-    #make sure it is a day that is selected
+    puts "michael's rake"
     user = User.find_by_email("mscaria@novationmobile.com")
     target = User.find_by_email("michaelscaria26@gmail.com")
+    puts "michael's rake finished users"
     deals = Deal.premium.recent.sorted.popular.first(3)
+    puts "michael's rake finished setting deals"
     Mailer.constant_contact_trial(user).deliver
     Mailer.weekly_update(user, deals).deliver
+    puts "michael's rake finished email BATCH #1"
     Mailer.facebook_push(user, target, "Michael Scaria").deliver
     Mailer.share_deal("mscaria@novationmobile.com", deals[0]).deliver
+    puts "michael's rake finished email BATCH #2"
   end
 end
 
