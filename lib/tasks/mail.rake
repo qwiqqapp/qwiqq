@@ -53,5 +53,16 @@ namespace :mail do
      end
     end
   end
+  
+  task :send_michael => :environment do
+    #make sure it is a day that is selected
+    user = User.find_by_email("mscaria@novationmobile.com")
+    target = User.find_by_email("michaelscaria26@gmail.com")
+    deals = Deal.premium.recent.sorted.popular.first(3)
+    Mailer.constant_contact_trial(user).deliver
+    Mailer.weekly_update(user, deals).deliver
+    Mailer.facebook_push(user, target, "Michael Scaria").deliver
+    Mailer.share_deal("mscaria@novationmobile.com", deals[0]).deliver
+  end
 end
 
