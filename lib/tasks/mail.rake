@@ -60,15 +60,12 @@ namespace :mail do
     target = User.find_by_email("michaelscaria26@gmail.com")
     puts "michael's rake finished users"
     deals = Deal.premium.recent.sorted.popular.first(3)
-    share = Share.first(1)
     puts "michael's rake finished setting deals"
     Mailer.constant_contact_trial(user).deliver
     Mailer.weekly_update(user, deals).deliver
     puts "michael's rake finished email BATCH #1"
     Mailer.facebook_push(user, target, "Michael Scaria").deliver
     puts "michael's rake finished email BATCH #2"
-    Mailer.share_deal("mscaria@novationmobile.com", share).deliver
-    puts "michael's rake finished email BATCH #3"
   end
 end
 
