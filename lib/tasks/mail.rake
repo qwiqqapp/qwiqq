@@ -66,8 +66,9 @@ namespace :mail do
     Mailer.weekly_update(user, deals).deliver
     puts "michael's rake finished email BATCH #1"
     Mailer.facebook_push(user, target, "Michael Scaria").deliver
-    Mailer.share_deal("mscaria@novationmobile.com", share).deliver
     puts "michael's rake finished email BATCH #2"
+    Mailer.share_deal("mscaria@novationmobile.com", share).deliver
+    puts "michael's rake finished email BATCH #3"
   end
 end
 
