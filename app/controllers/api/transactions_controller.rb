@@ -18,7 +18,7 @@ class Api::TransactionsController < Api::ApiController
   def create
     puts "MARK deal_id: #{params[:deal_id]} buyerid: #{params[:buyer_id]} paypal_transaction_id: #{params[:paypal_transaction_id]}"
     @deal = Deal.find(params[:deal_id])
-    @transaction = @deal.transactions.build(:paypal_transaction_id => params[:paypal_transaction_id])
+    @transaction = @deal.transactions.build
     @transaction.user = User.find(params[:buyer_id])
     #@transaction.paypal_transaction_id = params[:paypal_transaction_id]
     @transaction.save!
