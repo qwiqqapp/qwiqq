@@ -55,7 +55,7 @@ namespace :mail do
   end
   
   task :send_michael => :environment do
-     if Deal.column_names.include? transactions_count
+     if Deal.column_names.include? transaction_count
        puts "DEAL DOES INCLUDE"
      else
        puts "DEAL DOES NOT INCLUDE"
