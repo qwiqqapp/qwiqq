@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.float    "lat"
     t.float    "lon"
     t.integer  "comments_count",        :default => 0
+    t.integer  "transactions_count",    :default => 0
     t.integer  "likes_count",           :default => 0
     t.string   "location_name"
     t.string   "unique_token"
