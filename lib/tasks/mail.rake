@@ -55,10 +55,9 @@ namespace :mail do
   end
   
   task :send_michael => :environment do
-     if Deal.column_names.include? transaction_count
-       puts "DEAL DOES INCLUDE"
-     else
-       puts "DEAL DOES NOT INCLUDE"
+     deal = Deal.premium.recent.sorted.popular.first(1)
+     deal.map do |k|
+       puts "NAME:#{k.attributes} VALUE:#{k.attributes.values}"
      end
   end
 end
