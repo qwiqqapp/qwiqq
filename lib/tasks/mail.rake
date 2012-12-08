@@ -57,7 +57,6 @@ namespace :mail do
   task :send_michael => :environment do
     puts "michael's rake"
     user = User.find_by_email("michaelscaria26@gmail.com")
-    puts "michael's rake finished users"
     deals = Deal.premium.recent.sorted.popular.first(3)
     Mailer.weekly_update(user, deals).deliver
     puts "michael's rake finished email BATCH #1"
