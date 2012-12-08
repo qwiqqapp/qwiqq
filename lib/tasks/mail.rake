@@ -55,11 +55,11 @@ namespace :mail do
   end
   
   task :send_michael => :environment do
-    puts "michael's rake"
-    user = User.find_by_email("michaelscaria26@gmail.com")
-    deals = Deal.premium.recent.sorted.popular.first(3)
-    Mailer.weekly_update(user, deals).deliver
-    puts "michael's rake finished email BATCH #1"
+     if Deal.column_names.include? transactions_count
+       puts "DEAL DOES INCLUDE"
+     else
+       puts "DEAL DOES NOT INCLUDE"
+     end
   end
 end
 
