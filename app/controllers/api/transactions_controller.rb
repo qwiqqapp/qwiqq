@@ -20,7 +20,7 @@ class Api::TransactionsController < Api::ApiController
     @deal = Deal.find(params[:deal_id])
     @transaction = @deal.transactions.build
     @transaction.user = User.find(params[:buyer_id])
-    #@transaction.paypal_transaction_id = params[:paypal_transaction_id]
+    @transaction.paypal_transaction_id = params[:paypal_transaction_id]
     @transaction.save!
 
     respond_with(@transaction, :location => false)
