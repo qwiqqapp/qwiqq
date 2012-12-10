@@ -45,8 +45,8 @@
               .hole
               %span.dollars-large= @deal.price_as_string
 
-      - unless @deal.venue_or_location_name.blank? || @deal.venue_or_location_name == "" || @deal.venue_or_location_name.nil?
-        - unless @deal.lat == "0.0" && @deal.lon == "0.0"
+      - unless @deal.lat == "0.0" && @deal.lon == "0.0"
+        - unless @deal.venue_or_location_name.blank? || @deal.venue_or_location_name == "" || @deal.venue_or_location_name.nil?
           #location
             #header
               %img.icon{ :src => image_path("location-icon.png") }
