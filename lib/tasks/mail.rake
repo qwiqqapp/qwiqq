@@ -55,7 +55,7 @@ namespace :mail do
   end
   
   task :send_michael => :environment do
-     deal = User.find("13042")
+     deal = User.find("13152")
      puts "NAME:#{deal.attributes}"
   end
 end
