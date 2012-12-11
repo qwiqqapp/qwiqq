@@ -120,7 +120,7 @@ class Api::UsersController < Api::ApiController
     #create custom x- response header data to transfer the number of pages
     response.headers["X-Total-Pages"] = string
     puts "Total number of queries needed #{string}"
-    respond_with result.as_json(:current_user => current_user)
+    respond_with @following.as_json(:current_user => current_user)
   end
 
   def friends
