@@ -229,6 +229,7 @@ class User < ActiveRecord::Base
       :like_count            => likes_count,
       :deal_count            => deals_count,
       :comment_count         => comments_count,
+      :transaction_count     => transactions_count,
       
       # conditional
       :deals                 => options[:deals]    ? deals.sorted.limit(20) : nil,
