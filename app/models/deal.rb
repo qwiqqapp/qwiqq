@@ -176,7 +176,7 @@ class Deal < ActiveRecord::Base
       json[:category]       = category.try(:name)
       json[:events]         = events.limit(60)
       json[:comments]       = comments.limit(3)
-      json[:transactions]       = transactions.limit(3)
+      json[:transactions]   = transactions.limit(3)
       json[:liked_by_users] = liked_by_users.limit(6)
       json[:user]           = user.try(:as_json)
     end
