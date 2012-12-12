@@ -7,10 +7,10 @@ gem 'aws-sdk'
 gem 'newrelic_rpm'
 
 # base
-gem "rails", "3.2.1"
+gem "rails", "3.2.0"
 gem "railties"
 gem "actionpack"
-gem "rake", "0.8.7"
+gem "rake"
 gem "pg", "0.11.0"
 gem "bcrypt-ruby", :require => "bcrypt"
 gem "activerecord-import"
