@@ -6,13 +6,15 @@ gem 'aws-sdk'
 # performance
 gem 'newrelic_rpm'
 
-
 # base
-gem "rails", "3.1.3"
+gem "rails", "3.2.1"
+gem "railties"
+gem "actionpack"
 gem "rake", "0.8.7"
 gem "pg", "0.11.0"
 gem "bcrypt-ruby", :require => "bcrypt"
 gem "activerecord-import"
+gem "coffee-rails"
 
 # views
 gem "haml-rails"
@@ -39,7 +41,7 @@ gem "rails_autolink"
 # search
 gem "riddle", "1.5.0"
 gem "thinking-sphinx", "2.0.10"
-gem "flying-sphinx", "0.7.0"  #need to upgrade to 0.6.4, recommended on flysphinx docs
+gem "flying-sphinx", "0.7.0"
 gem "kaminari"
 
 # mail
@@ -81,7 +83,6 @@ end
 
 group :assets do
   gem "uglifier"
-  gem "coffee-rails"
 end
 
 group :production do
