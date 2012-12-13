@@ -38,6 +38,10 @@ gem "skittles", "0.6.0" # foursquare, update to 0.6?
 gem "httparty"
 gem "rails_autolink"
 
+# PayPal
+gem "paypal", "~> 2.0.0"
+
+
 # search
 gem "riddle", "1.5.0"
 gem "thinking-sphinx", "2.0.10"
@@ -47,6 +51,7 @@ gem "kaminari"
 # mail
 gem "postmark"
 gem "postmark-rails", "0.4.0"
+gem "paypal_adaptive"
 
 # admin
 gem "activeadmin"
