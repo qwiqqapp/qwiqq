@@ -39,7 +39,7 @@ ActiveAdmin.register User do
   end
   
   show :title => :name do
-    panel "Deal History (#{user.deals.size})" do
+    panel "Post History (#{user.deals.size})" do
       table_for(user.deals) do
         column("") do |deal| 
           link_to(image_tag(deal.photo.url(:iphone_grid)), [:admin, deal])
@@ -53,7 +53,7 @@ ActiveAdmin.register User do
       end
     end
     
-    panel "Liked Deals (#{user.liked_deals.size})" do
+    panel "Liked Posts (#{user.liked_deals.size})" do
       table_for(user.liked_deals) do
         column("") do |deal| 
           link_to(image_tag(deal.photo.url(:iphone_grid)), [:admin, deal])
@@ -72,7 +72,7 @@ ActiveAdmin.register User do
         column("") do |c| 
           link_to(image_tag(c.deal.photo.url(:iphone_grid)), [:admin, c.deal])
         end
-        column("Deal") {|c| link_to c.deal.name, [:admin, c.deal] }
+        column("Post") {|c| link_to c.deal.name, [:admin, c.deal] }
         column("Comment") {|c| c.body }
         column("Date", :sortable => :created_at ){|deal| pretty_format(deal.created_at) }
       end
