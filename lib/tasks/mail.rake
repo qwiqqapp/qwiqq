@@ -58,13 +58,13 @@ namespace :mail do
      deal = Deal.find("9840")
      puts "NAME:#{deal.attributes}"
      puts "\n"
-     deal = User.find("9839") #admin show
+     deal = Deal.find("9839") #admin show
      puts "NAME:#{deal.attributes}"
      puts "\n"
-     deal = User.find("9837")#admin show
+     deal = Deal.find("9837")#admin show
      puts "NAME:#{deal.attributes}"
      puts "\n"
-     deal = User.find("9836")
+     deal = Deal.find("9836")
 
   end
 end
