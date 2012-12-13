@@ -58,5 +58,16 @@ namespace :deals do
     end
    end
   end
+  
+    desc "Remove deals older than age"
+  task :update_4SQ_deals => :environment do
+     deals = Deal.all
+     deals.each do |d|
+       if d.foursquare_venue_id? && d.foursquare_venue_name.nil?
+       
+       end
+     end
+     puts "success!"
+  end
 end
 
