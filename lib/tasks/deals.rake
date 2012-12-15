@@ -61,11 +61,11 @@ namespace :deals do
   
     desc "Remove deals older than age"
   task :update_4SQ_deals => :environment do
-     deals = Deal.all
+     deals = Deal.where('foursquare_venue_id IS NOT NULL')
+     puts "4SQ COUNT:#{deals.count}"
      deals.each do |d|
-       puts "4SQ COUNT:#{deals.count}"
        if d.foursquare_venue_id? && d.foursquare_venue_name.nil?
-         d.locate!
+         d.locate! rescue nil
          puts "Deal now has 4SQ Location:#{d.foursquare_venue_name}"
        end
      end
