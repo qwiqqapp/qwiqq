@@ -63,11 +63,10 @@ namespace :deals do
   task :update_4SQ_deals => :environment do
      deals = Deal.all
      deals.each do |d|
+       puts "4SQ COUNT:#{deals.count}"
        if d.foursquare_venue_id? && d.foursquare_venue_name.nil?
-         if d.name == "Williamsville, NY is looking good on @QWIQQ!  Welcome @mkherrera3."
-           puts "4SQ Deal error found: William"
-         end
-         puts "4SQ Deal error found"
+         d.locate!
+         puts "Deal now has 4SQ Location:#{d.foursquare_venue_name}"
        end
      end
      puts "success!"
