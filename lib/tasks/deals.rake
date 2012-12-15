@@ -64,7 +64,10 @@ namespace :deals do
      deals = Deal.all
      deals.each do |d|
        if d.foursquare_venue_id? && d.foursquare_venue_name.nil?
-       
+         if d.name == "Williamsville, NY is looking good on @QWIQQ!  Welcome @mkherrera3."
+           puts "4SQ Deal error found: William"
+         end
+         puts "4SQ Deal error found"
        end
      end
      puts "success!"
