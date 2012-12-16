@@ -62,6 +62,7 @@ class Api::DealsController < Api::ApiController
     @deal.category = category
     @deal.user = current_user
     @deal.save
+    @deal.locate!
     #In 30 DAYS check to see if user has shared
     scheduler = Rufus::Scheduler.start_new
     #original current_user.deals_count should be out of scope, so we store it
