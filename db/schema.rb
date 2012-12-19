@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120523181131) do
+ActiveRecord::Schema.define(:version => 20121209075023) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.integer  "author_id"
     t.string   "author_type"
     t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.string   "namespace"
   end
 
@@ -29,53 +29,27 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
   create_table "admin_users", :force => true do |t|
-    t.string   "email",                                                :null => false
-    t.string   "encrypted_password",     :limit => 128,                :null => false
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
+    t.integer  "sign_in_count",          :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
 
-  create_table "apn_devices", :force => true do |t|
-    t.string   "token",              :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "last_registered_at"
-    t.integer  "user_id"
-  end
-
-  add_index "apn_devices", ["token"], :name => "index_apn_devices_on_token", :unique => true
-  add_index "apn_devices", ["user_id"], :name => "index_apn_devices_on_user_id"
-
-  create_table "apn_notifications", :force => true do |t|
-    t.integer  "device_id",                        :null => false
-    t.integer  "errors_nb",         :default => 0
-    t.string   "device_language"
-    t.string   "sound"
-    t.string   "alert"
-    t.integer  "badge"
-    t.text     "custom_properties"
-    t.datetime "sent_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "apn_notifications", ["device_id"], :name => "index_apn_notifications_on_device_id"
-
   create_table "categories", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "categories", ["name"], :name => "index_categories_on_name"
@@ -84,8 +58,8 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.integer  "user_id"
     t.integer  "deal_id"
     t.string   "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.datetime "notification_sent_at"
   end
 
@@ -97,8 +71,8 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.integer  "percent"
     t.integer  "user_id"
     t.integer  "category_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
@@ -107,11 +81,10 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.float    "lat"
     t.float    "lon"
     t.integer  "comments_count",        :default => 0
-    t.integer  "transactions_count",    :default => 0
     t.integer  "likes_count",           :default => 0
     t.string   "location_name"
-    t.string   "unique_token"
     t.datetime "indexed_at"
+    t.string   "unique_token"
     t.string   "foursquare_venue_id"
     t.string   "user_photo"
     t.string   "user_photo_2x"
@@ -121,15 +94,16 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.boolean  "coupon",                :default => false
     t.integer  "coupon_count",          :default => 0
     t.integer  "number_users_shared",   :default => 0
-    t.integer  "num_for_sale",          :default => 0
-    t.integer  "num_left_for_sale",     :default => 0
     t.boolean  "for_sale_on_paypal",    :default => false
+    t.integer  "num_left_for_sale",     :default => 0
+    t.integer  "num_for_sale",          :default => 0
     t.string   "currency"
     t.string   "paypal_email"
-
+    t.integer  "transactions_count",    :default => 0
   end
 
   add_index "deals", ["likes_count", "comments_count"], :name => "index_deals_on_likes_count_and_comments_count"
+  add_index "deals", ["transactions_count"], :name => "index_deals_on_transactions_count"
   add_index "deals", ["unique_token"], :name => "index_deals_on_unique_token", :unique => true
   add_index "deals", ["user_id"], :name => "index_deals_on_user_id"
 
@@ -169,8 +143,8 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.text     "article_title"
     t.datetime "published_at"
     t.string   "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   add_index "press_links", ["published_at"], :name => "index_press_links_on_published_at"
@@ -179,8 +153,8 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.string   "token",              :null => false
     t.integer  "user_id"
     t.datetime "last_registered_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   add_index "push_devices", ["token"], :name => "index_push_devices_on_token", :unique => true
@@ -188,8 +162,8 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
   create_table "relationships", :force => true do |t|
     t.integer  "user_id"
     t.integer  "target_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.datetime "notification_sent_at"
     t.boolean  "friends",              :default => false
   end
@@ -202,8 +176,8 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
   create_table "reposts", :force => true do |t|
     t.integer  "user_id"
     t.integer  "deal_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "reposts", ["user_id"], :name => "index_reposts_on_user_id"
@@ -220,6 +194,15 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.string   "facebook_page_id"
   end
 
+  create_table "transactions", :force => true do |t|
+    t.integer  "paypal_transaction_id"
+    t.integer  "deal_id"
+    t.integer  "buyer_id"
+    t.integer  "user_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
   create_table "user_events", :force => true do |t|
     t.integer  "user_id",                                      :null => false
     t.integer  "comment_id"
@@ -234,8 +217,8 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.string   "created_by_username",                          :null => false
     t.string   "event_type",                                   :null => false
     t.text     "metadata"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
     t.boolean  "read",                      :default => false
     t.datetime "push_notification_sent_at"
   end
@@ -246,8 +229,8 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.string   "country"
     t.string   "password_hash"
     t.string   "password_salt"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
@@ -258,7 +241,6 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.string   "facebook_access_token"
     t.string   "twitter_access_token"
     t.boolean  "send_notifications",       :default => true
-    #t.boolean  "has_sent_facebook_push",   :default => false
     t.integer  "followers_count",          :default => 0,     :null => false
     t.integer  "following_count",          :default => 0,     :null => false
     t.integer  "friends_count",            :default => 0,     :null => false
@@ -277,9 +259,11 @@ ActiveRecord::Schema.define(:version => 20120523181131) do
     t.string   "phone"
     t.string   "website"
     t.boolean  "suggested",                :default => false
-    t.string   "current_facebook_page_id",
-    t.boolean   "sent_facebook_push",        :default => false
+    t.string   "current_facebook_page_id"
+    t.string   "fbid"
+    t.boolean  "sent_facebook_push",       :default => false
     t.string   "paypal_email"
+    t.integer  "transactions_count",       :default => 0
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
