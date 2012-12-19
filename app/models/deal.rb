@@ -64,7 +64,7 @@ class Deal < ActiveRecord::Base
   
   before_create :set_user_photo
   after_create :populate_feed
-  #after_create :async_locate
+  after_create :async_locate
   
   scope :today, lambda { where("DATE(created_at) = ?", Date.today) }
   scope :recent, lambda { where("DATE(created_at) > ?", 30.days.ago) }
