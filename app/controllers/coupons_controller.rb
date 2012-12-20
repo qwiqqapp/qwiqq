@@ -11,6 +11,10 @@ class CouponsController < ApplicationController
   def redeemed?
     @redeemed
   end
+  
+  def test_paypal
+    puts "TESTED"
+  end
 
 private
   def find_deal
