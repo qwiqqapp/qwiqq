@@ -108,8 +108,8 @@ ActiveAdmin.register User do
      f.input :last_name
      f.input :username
      f.input :email
-     f.input :password
-     f.input :confirm_password
+     #f.input :password
+     #f.input :confirm_password
      f.input :city
      f.input :phone
      f.input :website
