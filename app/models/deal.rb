@@ -362,7 +362,7 @@ class Deal < ActiveRecord::Base
   end
 
   def test_paypal
-    puts "TESTED"
+    puts "PAYPAL TESTED"
   end
   
   def redeem_coupon!
