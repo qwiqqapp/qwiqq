@@ -896,7 +896,9 @@ p.empty-deals{
 
 #about .bio {
   min-height: 200px;
+}
 
+.bio {
   /*This wraps links*/
   white-space: pre;           /* CSS 2.0 */
   white-space: pre-wrap;      /* CSS 2.1 */
