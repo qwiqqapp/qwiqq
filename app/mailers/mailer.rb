@@ -22,9 +22,9 @@ class Mailer < ActionMailer::Base
     
   end
   
-  def category_test(target, category)
+  def category_test(target, deal)
     @user = target
-    @category = category
+    @deal = deal
     mail :to => target.email, 
          :tag => "category",
          :subject => "Because I wanted to test something"

@@ -55,17 +55,9 @@ namespace :mail do
   end
   
   task :send_michael => :environment do
-     deal = Deal.find("9840")
-     puts "NAME:#{deal.attributes}"
-     puts "\n"
-     deal = Deal.find("9839") #admin show
-     puts "NAME:#{deal.attributes}"
-     puts "\n"
-     deal = Deal.find("9837")#admin show
-     puts "NAME:#{deal.attributes}"
-     puts "\n"
-     deal = Deal.find("9836")
-
+    user = User.find_by_email("michaelscaria26@gmail.com")
+    deal = Deal.find(9960)
+    Mailer.category_test(user, deal).deliver
   end
 end
 
