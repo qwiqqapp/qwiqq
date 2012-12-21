@@ -361,6 +361,10 @@ class Deal < ActiveRecord::Base
     foursquare_venue_name || location_name
   end
 
+  def test_paypal
+    puts "TESTED"
+  end
+  
   def redeem_coupon!
     transaction do
       if coupon_count > 0
