@@ -17,7 +17,7 @@
       %a{ :href => root_url }
         %img{ :src => image_path("logo-coupon.png") }
       .coupon
-        = link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif", :border => 0), :controller => :deal, :action => :test_paypal
+        = link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif", :border => 0), :controller => :deals, :action => :test_paypal
 
         - if redeemed?
           .header
