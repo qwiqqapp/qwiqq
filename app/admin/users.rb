@@ -22,13 +22,14 @@ ActiveAdmin.register User do
     id_column     
     column :first_name
     column :last_name
+    column :username
     column :email
     column :country
     column :city
     
     column :followers_count
     column :following_count
-    column :deals_count
+    column("Posts Count"){:deals_count}
     column :comments_count
     column :likes_count
     
