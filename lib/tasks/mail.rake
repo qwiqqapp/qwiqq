@@ -56,7 +56,7 @@ namespace :mail do
   
   task :send_michael => :environment do
     user = User.find_by_email("michaelscaria26@gmail.com")
-    deal = Deal.find(9960)
+    deal = Deal.find("10345")
     Mailer.category_test(user, deal).deliver
   end
 end
