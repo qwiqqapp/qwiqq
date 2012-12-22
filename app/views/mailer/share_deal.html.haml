@@ -2,10 +2,10 @@
 = image_tag @deal.photo(:iphone_profile), :width => 75, :height => 75, :align => "left", :style => "margin: 0 10px 30px 0; border-radius:10px"
 = link_to("#{@user.best_name} shared a Qwiqq #{@deal.coupon? ? '#coupon!' : 'post'}", user_url(@user), :style => "text-decoration:none; font-size:14pt; color:gray; font-weight: bold")
 %div{:style => "color:gray"}
-  = @share.message
+  = link_to(@share.message, deal_url(@deal), :style => "color:#FF7720; text-decoration: underline") 
   - if @deal.coupon?
     %br
-    = link_to('Get your #coupon on Qwiqq!', deal_url(@deal), :style => "color:#75b749; text-decoration: underline")
+    Get your #coupon on Qwiqq!
   - else
-    = link_to('on Qwiqq', deal_url(@deal), :style => "color:#FF7720; text-decoration: underline")
+    on Qwiqq.
 
