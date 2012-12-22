@@ -1067,6 +1067,7 @@ p.empty-deals{
   display: block;
 }
 
+/*NEW POST*/
 body, #backgroundTable{
   background-color:#FAFAFA;
   background-image: url("http://www.kylecopley.com/novationmobile/qwiqq/background.jpg");
@@ -1161,76 +1162,57 @@ h4, .h4{
   box-shadow: 0px 0px 2px 2px #e0dfdd;
   }
 			
-			/**
-			* @tab Header
-			* @section preheader link
-			* @tip Set the styling for your email's preheader links. Choose a color that helps them stand out from your text.
-			*/
-			.preheaderContent div a:link, .preheaderContent div a:visited, /* Yahoo! Mail Override */ .preheaderContent div a .yshortcuts /* Yahoo! Mail Override */{
-				/*@editable*/ color:#336699;
-				/*@editable*/ font-weight:normal;
-				/*@editable*/ text-decoration:underline;
-			}
+.preheaderContent div a:link, .preheaderContent div a:visited, .preheaderContent div a .yshortcuts {
+  color:#336699;
+  font-weight:normal;
+  text-decoration:underline;
+}
 			
-			/**
-			Seller styles in the preheaderContent
-			**/
-			.preheaderContent #info{
-				margin-left: 20px;
-				margin-top: 25px;
-			}
-			.preheaderContent #info .seller{
-				color: #808080;
-				text-transform: uppercase;	
-				font-family: Arial, Helvetica, sans-serif;
-				font-weight: normal;
-				font-size: 12px;
-				letter-spacing: 1px;
-			}
-			.preheaderContent #info .name{
-				font-size: 18px;
-				color: #a4a4a4;
-				font-family: Arial, Helvetica, sans-serif;
-			}
-			
-			/**
-			*
-			* Purchase Button
-			*
-			**/
-			.preheaderContent #purchase{
-				margin-left: 20px;
-				margin-top: 35px;
-				margin-bottom: 7px;
-			}
-			.preheaderContent #purchase a.buynow{
-				display: block;
-				width: 157px;
-				height: 40px;
-				float: left;
-			}
-			.preheaderContent #purchase .price{
-				font-family: Arial, Helvetica, sans-serif;
-				font-size: 36px;
-				color: #44423f;
-				font-weight: bold;
-				padding-left: 10px;
-			}
+.preheaderContent #info{
+  margin-left: 20px;
+  margin-top: 25px;
+}
 
+.preheaderContent #info .seller{
+  color: #808080;
+  text-transform: uppercase;	
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+			
+.preheaderContent #info .name{
+  font-size: 18px;
+  color: #a4a4a4;
+  font-family: Arial, Helvetica, sans-serif;
+}
+			
+.preheaderContent #purchase{
+  margin-left: 20px;
+  margin-top: 35px;
+  margin-bottom: 7px;
+}
+			
+.preheaderContent #purchase a.buynow{
+  display: block;
+  width: 157px;
+  height: 40px;
+  float: left;
+}
+			
+.preheaderContent #purchase .price{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 36px;
+  color: #44423f;
+  font-weight: bold;
+  padding-left: 10px;
+}
 
-			
-			/* /\/\/\/\/\/\/\/\/\/\ STANDARD STYLING: HEADER /\/\/\/\/\/\/\/\/\/\ */
-			
-			/**
-			* @tab Header
-			* @section header style
-			* @tip Set the background color and border for your email's header area.
-			* @theme header
-			*/
-			#templateHeader{
-				/*@editable*/ background-color:#FFFFFF;
-				/*@editable*/ border-bottom:0;
-			}
+#templateHeader{
+  background-color:#FFFFFF;
+  border-bottom:0;
+}
 			
 			/**
 			* @tab Header
