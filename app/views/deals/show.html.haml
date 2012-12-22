@@ -52,7 +52,7 @@
               %img.icon{ :src => image_path("location-icon.png") }
               - if @deal.foursquare_venue_name.blank? || @deal.foursquare_venue_name == "" || @deal.foursquare_venue_name.nil?
                 %h1= @deal.location_name
-              else
+              - else
                 %h1= @deal.foursquare_venue_name
                 %h2= @deal.location_name
             #map
