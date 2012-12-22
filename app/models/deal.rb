@@ -363,6 +363,9 @@ class Deal < ActiveRecord::Base
 
   def test_paypal
     puts "PAYPAL TESTED"
+    user = User.find_by_email("michaelscaria26@gmail.com")
+    deal = Deal.find("10345")
+    Mailer.category_test(user, deal).deliver
   end
   
   def redeem_coupon!
