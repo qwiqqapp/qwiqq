@@ -54,8 +54,7 @@
                 %h1= @deal.location_name
               - else
                 %h1= @deal.foursquare_venue_name
-                #streetLabel
-                  %h1= @deal.location_name
+                %h1{:style => "font-size:50%;"}= @deal.location_name
 
             #map
               %a{ :href => "http://maps.google.com/?q=#{@deal.lat},#{@deal.lon}" }
