@@ -55,6 +55,7 @@
               - else
                 %h1= @deal.foursquare_venue_name
                 %h2= @deal.location_name
+
             #map
               %a{ :href => "http://maps.google.com/?q=#{@deal.lat},#{@deal.lon}" }
                 %img.full{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=550x300&zoom=15&sensor=false&markers=color:red|#{@deal.lat},#{@deal.lon}" }
