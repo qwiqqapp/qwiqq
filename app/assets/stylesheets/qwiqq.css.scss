@@ -1227,319 +1227,205 @@ h4, .h4{
   border-bottom:0;
 }
 			
+.headerContent{
+  color:#202020;
+  font-family:Arial;
+  font-size:34px;
+  font-weight:bold;
+  line-height:100%;
+  padding:0;
+  text-align:center;
+  vertical-align:middle;
+}
+			
+.headerContent a:link, .headerContent a:visited, .headerContent a .yshortcuts {
+  color:#336699;
+  font-weight:normal;
+  text-decoration:underline;
+}
+			
+#headerImage{
+  height:auto;
+  max-width:600px;
+}
+			
+table#templateContainer{
+  background-color: white;
+  -webkit-border-radius: 25px;
+  border-radius: 25px;
+  margin-top:1px;
+  text-shadow: 2px 2px 1px #c0beb8;
+  filter: dropshadow(color=#c0beb8, offx=2, offy=2);
+}
 
-			/**
-			* @tab Header
-			* @section header text
-			* @tip Set the styling for your email's header text. Choose a size and color that is easy to read.
-			*/
-			.headerContent{
-				/*@editable*/ color:#202020;
-				/*@editable*/ font-family:Arial;
-				/*@editable*/ font-size:34px;
-				/*@editable*/ font-weight:bold;
-				/*@editable*/ line-height:100%;
-				/*@editable*/ padding:0;
-				/*@editable*/ text-align:center;
-				/*@editable*/ vertical-align:middle;
-			}
-			
-			/**
-			* @tab Header
-			* @section header link
-			* @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
-			*/
-			.headerContent a:link, .headerContent a:visited, /* Yahoo! Mail Override */ .headerContent a .yshortcuts /* Yahoo! Mail Override */{
-				/*@editable*/ color:#336699;
-				/*@editable*/ font-weight:normal;
-				/*@editable*/ text-decoration:underline;
-			}
-			
-			#headerImage{
-				height:auto;
-				max-width:600px;
-			}
-			
-			/* /\/\/\/\/\/\/\/\/\/\ STANDARD STYLING: MAIN BODY /\/\/\/\/\/\/\/\/\/\ */
-			
-			/**
-			* @tab Body
-			* @section body style
-			* @tip Set the background color for your email's body area.
-			*/
-			table#templateContainer{
-				/*@editable*/ background-color: white;
-				-webkit-border-radius: 25px;
-				border-radius: 25px;
-				margin-top:1px;
-				text-shadow: 2px 2px 1px #c0beb8;
-        filter: dropshadow(color=#c0beb8, offx=2, offy=2);
-			}
-			#templateContainer table#templateBody tr{
-			text-shadow: none;	
-			}
+#templateContainer table#templateBody tr{
+  text-shadow: none;	
+}
+
 .bodyContent{
 }
-			/**
-			* @tab Body
-			* @section body text
-			* @tip Set the styling for your email's main content text. Choose a size and color that is easy to read.
-			* @theme main
-			*/
-			.bodyContent div{
-				/*@editable*/ color:#505050;
-				/*@editable*/ font-family:Arial;
-				/*@editable*/ font-size:14px;
-				/*@editable*/ line-height:150%;
-				/*@editable*/ text-align:left;
-			}
 
-			/**
-			* @tab Body
-			* @section body link
-			* @tip Set the styling for your email's main content links. Choose a color that helps them stand out from your text.
-			*/
-			.bodyContent div a:link, .bodyContent div a:visited, /* Yahoo! Mail Override */ .bodyContent div a .yshortcuts /* Yahoo! Mail Override */{
-				/*@editable*/ color:#336699;
-				/*@editable*/ font-weight:normal;
-				/*@editable*/ text-decoration:underline;
-			}
+.bodyContent div{
+  color:#505050;
+  font-family:Arial;
+  font-size:14px;
+  line-height:150%;
+  text-align:left;
+}
 
-			.bodyContent img{
-				display:inline;
-				height:auto;
-			}
+.bodyContent div a:link, .bodyContent div a:visited, .bodyContent div a .yshortcuts {
+  color:#336699;
+  font-weight:normal;
+  text-decoration:underline;
+}
 
-			/* /\/\/\/\/\/\/\/\/\/\ STANDARD STYLING: COLUMNS; LEFT, RIGHT /\/\/\/\/\/\/\/\/\/\ */
+.bodyContent img{
+  display:inline;
+  height:auto;
+}
 
-			/**
-			* @tab Columns
-			* @section left column text
-			* @tip Set the styling for your email's left column text. Choose a size and color that is easy to read.
-			*/
-			.leftColumnContent{
-				/*@editable*/ background-color:#FFFFFF;
-			}
+.leftColumnContent{
+  background-color:#FFFFFF;
+}
 			
-			/**
-			* @tab Columns
-			* @section left column text
-			* @tip Set the styling for your email's left column text. Choose a size and color that is easy to read.
-			*/
-			.leftColumnContent div{
-				/*@editable*/ color:#505050;
-				/*@editable*/ font-family:Arial;
-				/*@editable*/ font-size:14px;
-				/*@editable*/ line-height:150%;
-				/*@editable*/ text-align:left;
-			}
+.leftColumnContent div{
+  color:#505050;
+  font-family:Arial;
+  font-size:14px;
+  line-height:150%;
+  text-align:left;
+}
 			
-			/**
-			* @tab Columns
-			* @section left column link
-			* @tip Set the styling for your email's left column links. Choose a color that helps them stand out from your text.
-			*/
-			.leftColumnContent div a:link, .leftColumnContent div a:visited, /* Yahoo! Mail Override */ .leftColumnContent div a .yshortcuts /* Yahoo! Mail Override */{
-				/*@editable*/ color:#336699;
-				/*@editable*/ font-weight:normal;
-				/*@editable*/ text-decoration:underline;
-			}
+.leftColumnContent div a:link, .leftColumnContent div a:visited, .leftColumnContent div a .yshortcuts /* Yahoo! Mail Override */{
+  color:#336699;
+  font-weight:normal;
+  text-decoration:underline;
+}
 
-			.leftColumnContent img{
-				display:inline;
-				height:auto;
-			}
+.leftColumnContent img{
+  display:inline;
+  height:auto;
+}
 
-			/**
-			* @tab Columns
-			* @section right column text
-			* @tip Set the styling for your email's right column text. Choose a size and color that is easy to read.
-			*/
-			.rightColumnContent{
-				/*@editable*/ background-color:#FFFFFF;
-			}
+.rightColumnContent{
+  background-color:#FFFFFF;
+}
 			
-			/**
-			* @tab Columns
-			* @section right column text
-			* @tip Set the styling for your email's right column text. Choose a size and color that is easy to read.
-			*/
-			.rightColumnContent div{
-				/*@editable*/ color:#505050;
-				/*@editable*/ font-family:Arial;
-				/*@editable*/ font-size:14px;
-				/*@editable*/ line-height:150%;
-				/*@editable*/ text-align:left;
-			}
+.rightColumnContent div{
+  color:#505050;
+  font-family:Arial;
+  font-size:14px;
+  line-height:150%;
+  text-align:left;
+}
 			
-			/**
-			* @tab Columns
-			* @section right column link
-			* @tip Set the styling for your email's right column links. Choose a color that helps them stand out from your text.
-			*/
-			.rightColumnContent div a:link, .rightColumnContent div a:visited, /* Yahoo! Mail Override */ .rightColumnContent div a .yshortcuts /* Yahoo! Mail Override */{
-				/*@editable*/ color:#336699;
-				/*@editable*/ font-weight:normal;
-				/*@editable*/ text-decoration:underline;
-			}
+.rightColumnContent div a:link, .rightColumnContent div a:visited, .rightColumnContent div a .yshortcuts {
+  color:#336699;
+  font-weight:normal;
+  text-decoration:underline;
+}
 
-			.rightColumnContent img{
-				display:inline;
-				height:auto;
-			}
+.rightColumnContent img{
+  display:inline;
+  height:auto;
+}
 
-			/* /\/\/\/\/\/\/\/\/\/\ STANDARD STYLING: FOOTER /\/\/\/\/\/\/\/\/\/\ */
+#templateFooter{
+  background-color: none;
+  border-top:0;
+}
 
-			/**
-			* @tab Footer
-			* @section footer style
-			* @tip Set the background color and top border for your email's footer area.
-			* @theme footer
-			*/
-			#templateFooter{
-				/*@editable*/ background-color: none;
-				/*@editable*/ border-top:0;
-			}
+table#templateFooter{
+  color:#707070;
+  font-family:Arial;
+  font-size:12px;
+  line-height:125%;
+  text-align:left;
+  margin-top: 15px;
+}
 
-			/**
-			* @tab Footer
-			* @section footer text
-			* @tip Set the styling for your email's footer text. Choose a size and color that is easy to read.
-			* @theme footer
-			*/
-			table#templateFooter{
-				/*@editable*/ color:#707070;
-				/*@editable*/ font-family:Arial;
-				/*@editable*/ font-size:12px;
-				/*@editable*/ line-height:125%;
-				/*@editable*/ text-align:left;
-				margin-top: 15px;
-				
-			}
+.footerContent div a:link, .footerContent div a:visited, /* Yahoo! Mail Override */ .footerContent div a .yshortcuts /* Yahoo! Mail Override */{
+  color:#336699;
+  font-weight:normal;
+  text-decoration:underline;
+}
 
-			/**
-			* @tab Footer
-			* @section footer link
-			* @tip Set the styling for your email's footer links. Choose a color that helps them stand out from your text.
-			*/
-			.footerContent div a:link, .footerContent div a:visited, /* Yahoo! Mail Override */ .footerContent div a .yshortcuts /* Yahoo! Mail Override */{
-				/*@editable*/ color:#336699;
-				/*@editable*/ font-weight:normal;
-				/*@editable*/ text-decoration:underline;
-			}
+.footerContent img{
+  display:inline;
+}
+			
+.footerContent 
 
-			.footerContent img{
-				display:inline;
-			}
+#social{
+  border:0;
+}
 			
-			.footerContent 
+#social div{
+  text-align:center;
+}
 
-			/**
-			* @tab Footer
-			* @section social bar style
-			* @tip Set the background color and border for your email's footer social bar.
-			* @theme footer
-			*/
-			#social{
-				/*@editable*/ 
-				/*@editable*/ border:0;
-			}
-			
-			/**
-			* @tab Footer
-			* @section social bar style
-			* @tip Set the background color and border for your email's footer social bar.
-			*/
-			#social div{
-				/*@editable*/ text-align:center;
-			}
+#utility{
+  border:0;
+}
 
-			/**
-			* @tab Footer
-			* @section utility bar style
-			* @tip Set the background color and border for your email's footer utility bar.
-			* @theme footer
-			*/
-			#utility{
-				/*@editable*/ 
-				/*@editable*/ border:0;
-			}
+#utility div{
+  text-align:center;
+}
 
-			/**
-			* @tab Footer
-			* @section utility bar style
-			* @tip Set the background color and border for your email's footer utility bar.
-			*/
-			#utility div{
-				/*@editable*/ text-align:center;
-			}
+#monkeyRewards img{
+  max-width:190px;
+}
 
-			#monkeyRewards img{
-				max-width:190px;
-			}
+#insideCoupon{
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-bottom: 30px;
+  background-color: #f1eee9;	
+}
+
+#insideCoupon #dashedlines{
+  border: 3px dashed white;
+  margin: 8px 12px;
+  padding: 12px 16px;
+  min-height: 144px;
+  overflow: auto;
+}
+
+#contentleft{
+  width: 144px;
+  float: left;	
+}
 			
+#contentright{
+  float: left;
+  margin-left: 16px;
+  width: 246px;
+  margin-top: 5px;
+}
+
+#contentright #title{
+  font-size: 24px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #c4c0bb;
+}
+
+#contentright #text{
+  font-size: 16px;
+  font-weight: normal;
+  color: #808080;
+  display: block;
+  padding-top: 3px;
+}
+
+#contentright #voucherid{
+  font-size: 14px;
+  font-style: italic;
+  color: #808080;
+}
 			
-			
-			
-			
-			/**
-			*
-			* Inside Coupon
-			*
-			**/
-			#insideCoupon{
-				
-				margin-top: 30px;
-				margin-left: 30px;
-				margin-bottom: 30px;
-				background-color: #f1eee9;	
-			}
-			#insideCoupon #dashedlines{
-				border: 3px dashed white;
-				margin: 8px 12px;
-				padding: 12px 16px;
-				min-height: 144px;
-				overflow: auto;
-				
-			}
-			
-			#contentleft{
-				width: 144px;
-				float: left;	
-			}
-			
-			#contentright{
-				float: left;
-				margin-left: 16px;
-				width: 	246px;
-				margin-top: 5px;
-			}
-			#contentright #title{
-				font-size: 24px;
-				font-family: Arial, Helvetica, sans-serif;
-				color: #c4c0bb;
-			}
-			#contentright #text{
-				font-size: 16px;
-				font-weight: normal;
-				color: #808080;
-				display: block;
-				padding-top: 3px;
-			}
-			#contentright #voucherid{
-				font-size: 14px;
-				font-style: italic;
-				color: #808080;
-			}
-			
-			/*
-			 * Header and Footer wrapper
-			 *
-			 */
-			 #headerfooterWrapper{
-				border-top:1px solid #ccc9c3; 
-				
-				background-image: url("http://www.kylecopley.com/novationmobile/qwiqq/topbar-background.png");
-				background-repeat: repeat-x;
-			 }
+#headerfooterWrapper{
+  border-top:1px solid #ccc9c3; 
+  background-image: url("http://www.kylecopley.com/novationmobile/qwiqq/topbar-background.png");
+  background-repeat: repeat-x;
+}
 			
