@@ -733,6 +733,10 @@ p.empty-deals{
   
 }
 
+#streetLabel {
+    font-size:50%;
+}
+
 .post .metadata .stats {
   position: relative;
   top: 2px;
@@ -1227,9 +1231,7 @@ h4, .h4{
   border-bottom:0;
 }
 			
-.dealcommented {
-    display: block;
-}
+
 			/**
 			* @tab Header
 			* @section header text
