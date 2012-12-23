@@ -53,10 +53,10 @@
               - if @deal.foursquare_venue_name.blank? || @deal.foursquare_venue_name == "" || @deal.foursquare_venue_name.nil?
                 %h1= @deal.location_name
               - else
-                %h1{:style => "margin-top: -8px;"}= @deal.foursquare_venue_name
+                %h1{:style => "margin-top: -6px;"}= @deal.foursquare_venue_name
                 %br
                 %br
-                %h1{:style => "font-size:95%; margin-top: -18px; margin-left: 17px;"}= @deal.location_name
+                %h1{:style => "font-size:95%; margin-top: -17px; margin-left: 16px;"}= @deal.location_name
 
             #map
               %a{ :href => "http://maps.google.com/?q=#{@deal.lat},#{@deal.lon}" }
