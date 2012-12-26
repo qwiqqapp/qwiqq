@@ -18,7 +18,7 @@
         %img{ :src => image_path("logo-coupon.png") }
       .coupon
         = link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif", :border => 0), :controller => "app/models/deals", :action => "test_paypal"
-        = button_to_function "Greeting", "myFunction()", :class => "ok" 
+        = button_to_function "Greeting", "myFunction();", :class => "ok" 
 
         - if redeemed?
           .header

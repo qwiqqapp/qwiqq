@@ -7,7 +7,7 @@ jQuery.fn.exists = function() {
 
 function myFunction()
 {
-    alert("Hello World!");
+    alert("Hello World!!!");
 }
 
 $(function() {
