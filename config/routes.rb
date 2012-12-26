@@ -8,6 +8,7 @@ Qwiqq::Application.routes.draw do
   resources :posts, :only => [:index, :show], :as => "deals", :controller => "deals" do
     get :nearby, :on => :collection
     resource :coupon, :only => [:show]
+    match "buy",    :to => "deal#test_paypal"
   end
   resources :users, :only => [:show]
   
