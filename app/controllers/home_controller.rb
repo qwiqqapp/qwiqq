@@ -12,6 +12,7 @@ class HomeController < ApplicationController
   end
 
   def terms
+    puts "MARK TERMS TEST"
   end
 
   def privacy
