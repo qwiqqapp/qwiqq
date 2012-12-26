@@ -13,7 +13,8 @@
     %meta(property="og:site_name" content="Qwiqq.me")
     :javascript
       function testJavascript() {
-        alert("Hello World!!!! Deal Name:#{deal.name}");
+        name = '<%= deal.name %>' ;
+        alert(name);
       }
 
       
