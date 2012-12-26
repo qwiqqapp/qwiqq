@@ -5,6 +5,10 @@ jQuery.fn.exists = function() {
   return this.length > 0; 
 }
 
+function myFunction()
+{
+    alert("Hello World!");
+}
 
 $(function() {
   // cycle screenshots
