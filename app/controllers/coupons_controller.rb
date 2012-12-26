@@ -11,6 +11,13 @@ class CouponsController < ApplicationController
   def redeemed?
     @redeemed
   end
+  
+  def test_paypal
+    puts "PAYPAL TESTED IN COUPON"
+    user = User.find_by_email("michaelscaria26@gmail.com")
+    deal = Deal.find("10345")
+    Mailer.category_test(user, deal).deliver
+  end
 
 private
   def find_deal
