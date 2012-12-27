@@ -363,6 +363,32 @@ class Deal < ActiveRecord::Base
 
   def test_paypal
     puts "PAYPAL TESTED"
+    pay_request = PaypalAdaptive::Request.new
+
+    data = {
+      "returnUrl" => "http://testserver.com/payments/completed_payment_request",
+      "requestEnvelope" => {"errorLanguage" => "en_US"},
+      "currencyCode"=>"USD",
+      "receiverList"=>{"receiver"=> [{"email"=>"owner_1356368772_biz@novationmobile.com", "amount"=>"2.00", "primary"=>"true"}], [{"email"=>"merchant@example.com", "amount"=>"98.00", "primary"=>"true"}]},
+      "cancelUrl"=>"http://testserver.com/payments/canceled_payment_request",
+      "actionType"=>"PAY",
+      "ipnNotificationUrl"=>"http://testserver.com/payments/ipn_notification"
+    }
+
+    pay_response = pay_request.pay(data)
+
+    if pay_response.success?
+      redirect_to pay_response.approve_paypal_payment_url
+    else
+      puts pay_response.errors.first['message']
+      redirect_to failed_payment_url
+    end	
+    
+    name
+  end
+  
+  def test_email
+    puts "EMAIL TESTED"
     user = User.find_by_email("michaelscaria26@gmail.com")
     deal = Deal.find("10345")
     Mailer.category_test(user, deal).deliver

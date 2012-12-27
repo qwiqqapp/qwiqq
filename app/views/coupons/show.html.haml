@@ -12,8 +12,13 @@
     %meta(property="fb:app_id" content="236767206341724")
     %meta(property="og:site_name" content="Qwiqq.me")
     :javascript
-      function testJavascript() {
-        name = '#{deal.test_paypal}' ;
+      function testPaypal() {
+        name = 'Tested Paypal!' ;
+        alert(name);
+      }
+
+      function testEmail() {
+        name = 'Tested Email!' ;
         alert(name);
       }
 
@@ -23,8 +28,9 @@
       %a{ :href => root_url }
         %img{ :src => image_path("logo-coupon.png") }
       .coupon
-        = link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif", :border => 0), :action => :test_paypal
-        = button_to_function "Greeting", "testJavascript();", :class => "ok"
+        = link_to , :action => :test_paypal
+        = button_to_function image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif", :border => 0), "testPaypal();", :class => "ok"
+        = button_to_function "Email", "testEmail();", :class => "ok"
         - if redeemed?
           .header
             .inner Yay, you snagged a Qwiqq #coupon!
