@@ -1159,7 +1159,7 @@ h4, .h4{
     }
 }
 
-.preheaderContent .logo {
+#preheaderContent .logo {
     color: #505050;
     font-family: Arial;
     font-size: 10px;
@@ -1174,8 +1174,41 @@ h4, .h4{
     box-shadow: 0px 0px 2px 2px #e0dfdd;
 }
 
-.preheaderContent #link #visited #yshortcuts {
+#preheaderContent #link #visited #yshortcuts {
   color: #336699;
   font-weight: normal;
   text-decoration: underline;
+}
+
+#preheaderContent .info {
+  margin-left: 20px;
+  margin-top: 25px;
+}
+    
+#preheaderContent .info .seller {
+  color: #808080;
+  text-transform: uppercase;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+#preheaderContent .info .name {
+  font-size: 18px;
+  color: #a4a4a4;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#preheaderContent #purchase {
+  margin-left: 20px;
+  margin-top: 35px;
+  margin-bottom: 7px;
+}
+
+#preheaderContent #purchase .buynow {
+  display: block;
+  width: 157px;
+  height: 40px;
+  float: left;
 }
