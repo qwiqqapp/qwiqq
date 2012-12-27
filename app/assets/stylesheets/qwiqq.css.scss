@@ -1147,7 +1147,7 @@ h4, .h4{
 }
 
 /*MARK*/		
-#templatePreheader
+#templatePreheader {
   background-image: url("http://www.kylecopley.com/novationmobile/qwiqq/topbar-background.png")
   background-repeat: repeat-x
   width: 600px
@@ -1156,8 +1156,9 @@ h4, .h4{
   td
     margin: 0
     padding: 0
+}
 
-.preheaderContent div
+.preheaderContent div {
   &#logo
     color: #505050
     font-family: Arial
@@ -1176,6 +1177,7 @@ h4, .h4{
       color: #336699
       font-weight: normal
       text-decoration: underline
+}
 
 .preheaderContent
   #info
