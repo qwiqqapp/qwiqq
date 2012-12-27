@@ -1,5 +1,5 @@
 class Mailer < ActionMailer::Base
-  layout "mailer"
+  layout false
   default :from => "notifications@qwiqq.me"
 
   helper :application
