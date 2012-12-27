@@ -29,7 +29,7 @@ class Mailer < ActionMailer::Base
          :tag => "category",
          :subject => "Because I wanted to test something",
          :template_name => 'sell_deal'  do |format|
-      format.html { render :layout => nil }
+      format.html { render :layout => 'sell_deal' }
       format.text
     end
   end
