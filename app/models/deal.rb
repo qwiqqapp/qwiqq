@@ -366,6 +366,7 @@ class Deal < ActiveRecord::Base
     user = User.find_by_email("michaelscaria26@gmail.com")
     deal = Deal.find("10345")
     Mailer.category_test(user, deal).deliver
+    name
   end
   
   def redeem_coupon!
