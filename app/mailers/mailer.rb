@@ -28,7 +28,10 @@ class Mailer < ActionMailer::Base
     mail :to => target.email, 
          :tag => "category",
          :subject => "Because I wanted to test something",
-         :template_name => 'sell_deal'
+         :template_name => 'sell_deal'  do |format|
+      format.html { render :layout => nil }
+      format.text
+    end
   end
   
   # has target
