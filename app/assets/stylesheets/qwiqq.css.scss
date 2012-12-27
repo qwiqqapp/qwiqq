@@ -1081,85 +1081,87 @@ p.empty-deals{
 }
 
 /*NEW POST*/
-body, #backgroundTable{
-  background-color:#FAFAFA;
+.body, #backgroundTable {
+  background-color: #FAFAFA;
   background-image: url("http://www.kylecopley.com/novationmobile/qwiqq/background.jpg");
 }
-			
-#templateContainer{
+
+#templateContainer {
   border: 1px solid #DDDDDD;
 }
 
-h1, .h1{
-  color:#202020;
-  display:block;
-  font-family:Arial;
-  font-size:34px;
-  font-weight:bold;
-  line-height:100%;
-  margin-top:0;
-  margin-right:0;
-  margin-bottom:10px;
-  margin-left:0;
-  text-align:left;
+h1, .h1 {
+  color: #202020;
+  display: block;
+  font-family: Arial;
+  font-size: 34px;
+  font-weight: bold;
+  line-height: 100%;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 10px;
+  margin-left: 0;
+  text-align: left;
 }
 
-h2, .h2{
-  color:#202020;
-  display:block;
-  font-family:Arial;
-  font-size:30px;
-  font-weight:bold;
-  line-height:100%;
-  margin-top:0;
-  margin-right:0;
-  margin-bottom:10px;
-  margin-left:0;
-  text-align:left;
+h2, .h2 {
+  color: #202020;
+  display: block;
+  font-family: Arial;
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 100%;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 10px;
+  margin-left: 0;
+  text-align: left;
 }
 
-h3, .h3{
-  color:#202020;
-  display:block;
-  font-family:Arial;
-  font-size:26px;
-  font-weight:bold;
-  line-height:100%;
-  margin-top:0;
-  margin-right:0;
-  margin-bottom:10px;
-  margin-left:0;
-  text-align:left;
+h3, .h3 {
+  color: #202020;
+  display: block;
+  font-family: Arial;
+  font-size: 26px;
+  font-weight: bold;
+  line-height: 100%;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 10px;
+  margin-left: 0;
+  text-align: left;
 }
 
-h4, .h4{
-  color:#202020;
-  display:block;
-  font-family:Arial;
-  font-size:22px;
-  font-weight:bold;
-  line-height:100%;
-  margin-top:0;
-  margin-right:0;
-  margin-bottom:10px;
-  margin-left:0;
-  text-align:left;
+h4, .h4 {
+  color: #202020;
+  display: block;
+  font-family: Arial;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 100%;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 10px;
+  margin-left: 0;
+  text-align: left;
 }
 
-/*MARK*/		
+/*MARK*/
+
 #templatePreheader {
   background-image: url("http://www.kylecopley.com/novationmobile/qwiqq/topbar-background.png");
   background-repeat: repeat-x;
   width: 600px;
   height: 151px;
   margin: 0;
-  td {
+  .td {
     margin: 0;
     padding: 0;
-    }
+  }
 }
 
-#preheaderContent .logo {
+#preheaderContent {
+  .logo {
     color: #505050;
     font-family: Arial;
     font-size: 10px;
@@ -1172,43 +1174,38 @@ h4, .h4{
     background-image: url("http://www.kylecopley.com/novationmobile/qwiqq/logo-background.gif");
     -webkit-box-shadow: 0px 0px 2px 2px #e0dfdd;
     box-shadow: 0px 0px 2px 2px #e0dfdd;
-}
-
-#preheaderContent #link #visited #yshortcuts {
-  color: #336699;
-  font-weight: normal;
-  text-decoration: underline;
-}
-
-#preheaderContent .info {
-  margin-left: 20px;
-  margin-top: 25px;
-}
-    
-#preheaderContent .info .seller {
-  color: #808080;
-  text-transform: uppercase;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: normal;
-  font-size: 12px;
-  letter-spacing: 1px;
-}
-
-#preheaderContent .info .name {
-  font-size: 18px;
-  color: #a4a4a4;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-#preheaderContent #purchase {
-  margin-left: 20px;
-  margin-top: 35px;
-  margin-bottom: 7px;
-}
-
-#preheaderContent #purchase .buynow {
-  display: block;
-  width: 157px;
-  height: 40px;
-  float: left;
+  }
+  #link #visited #yshortcuts {
+    color: #336699;
+    font-weight: normal;
+    text-decoration: underline;
+  }
+  .info {
+    margin-left: 20px;
+    margin-top: 25px;
+    .seller {
+      color: #808080;
+      text-transform: uppercase;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: normal;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+    .name {
+      font-size: 18px;
+      color: #a4a4a4;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+  }
+  #purchase {
+    margin-left: 20px;
+    margin-top: 35px;
+    margin-bottom: 7px;
+    .buynow {
+      display: block;
+      width: 157px;
+      height: 40px;
+      float: left;
+    }
+  }
 }
