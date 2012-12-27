@@ -27,9 +27,7 @@ class Mailer < ActionMailer::Base
     @deal = deal
     mail :to => target.email, 
          :tag => "category",
-         :subject => "Because I wanted to test something",
-         :template_name => 'sell_deal'
-    end
+         :subject => "Because I wanted to test something"
   end
   
   # has target
