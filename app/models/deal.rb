@@ -378,10 +378,10 @@ class Deal < ActiveRecord::Base
     pay_response = pay_request.pay(data)
 
     if pay_response.success?
-      format.html { redirect_to pay_response.approve_paypal_payment_url }
+      format.html { redirect_to pay_response.approve_paypal_payment_url, notice: 'Pay Response is successful' }
     else
       puts pay_response.errors.first['message']
-      format.html { redirect_to "http://www.qwiqq.me/users/13042" }
+      format.html { redirect_to "http://www.qwiqq.me/users/13042", notice: 'Pay Response failed see error.' }
     end	
     
     name
