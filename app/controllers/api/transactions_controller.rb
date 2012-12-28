@@ -16,7 +16,7 @@ class Api::TransactionsController < Api::ApiController
 
   # auth required
   def create
-    puts "MARK deal_id: #{params[:deal_id]} buyerid: #{params[:buyer_id]} paypal_transaction_id: #{params[:paypal_transaction_id]}"
+    puts "MARK deal_id: #{params[:deal_id]} buyerid: #{params[:buyer_id]} paypal_transaction_id: #{params[:txn_id]}  payment_status: #{params[:payment_status]}"
     @deal = Deal.find(params[:deal_id])
     @transaction = @deal.transactions.build
     @transaction.user = User.find(params[:buyer_id])
