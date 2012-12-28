@@ -1,5 +1,5 @@
 class Mailer < ActionMailer::Base
-  layout false
+  layout false, :only [:category_test]
   default :from => "notifications@qwiqq.me"
 
   helper :application
