@@ -13,8 +13,13 @@
     %meta(property="og:site_name" content="Qwiqq.me")
     :javascript
       function testPaypal() {
-        var = 'deal.test_paypal'
+        var = '#{deal.test_paypal}'
         name = 'Tested Paypal!' ;
+        alert(name);
+      }
+      function testEmail() {
+        var = '#{deal.test_email}'
+        name = 'Tested Email!' ;
         alert(name);
       }
 
@@ -26,6 +31,8 @@
         %img{ :src => image_path("logo-coupon.png") }
       .coupon
         = button_to_function "Paypal", "testPaypal();", :class => "ok"
+        = button_to_function "Email", "testEmail();", :class => "ok"
+
         - if redeemed?
           .header
             .inner Yay, you snagged a Qwiqq #coupon!
