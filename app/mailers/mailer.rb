@@ -29,7 +29,7 @@ class Mailer < ActionMailer::Base
          :tag => "category",
          :subject => "Because I wanted to test something",
          :template_name => 'sell_deal',
-         :layout => "basic"
+         :layout => false
   end
   
   # has target
