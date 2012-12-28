@@ -28,7 +28,6 @@
       %a{ :href => root_url }
         %img{ :src => image_path("logo-coupon.png") }
       .coupon
-        = link_to , :action => :test_paypal
         = button_to_function image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif", :border => 0), "testPaypal();", :class => "ok"
         = button_to_function "Email", "testEmail();", :class => "ok"
         - if redeemed?
