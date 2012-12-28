@@ -369,7 +369,7 @@ class Deal < ActiveRecord::Base
       "returnUrl" => "http://testserver.com/payments/completed_payment_request",
       "requestEnvelope" => {"errorLanguage" => "en_US"},
       "currencyCode"=>"USD",
-      "receiverList"=>{"receiver"=> [{"email"=>"owner_1356368772_biz@novationmobile.com", "amount"=>"2.00", "primary"=>"true"}], [{"email"=>"merchant@example.com", "amount"=>"98.00", "primary"=>"true"}]},
+      "receiverList"=>{"receiver"=> [{"email"=>"owner_1356368772_biz@novationmobile.com", "amount"=>"2.00", "primary"=>"true"}]},
       "cancelUrl"=>"http://testserver.com/payments/canceled_payment_request",
       "actionType"=>"PAY",
       "ipnNotificationUrl"=>"http://testserver.com/payments/ipn_notification"
