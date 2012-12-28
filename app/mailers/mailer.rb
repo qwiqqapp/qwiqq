@@ -1,5 +1,5 @@
 class Mailer < ActionMailer::Base
-  layout("mailer", {:except => :category_test})
+  layout "mailer", except: [:category_test]
   default :from => "notifications@qwiqq.me"
 
   helper :application
@@ -28,10 +28,9 @@ class Mailer < ActionMailer::Base
     mail :to => target.email, 
          :tag => "category",
          :subject => "Because I wanted to test something",
-         :template_name => 'sell_deal',
-         :render_layout => false
+         :template_name => 'sell_deal'
   end
-
+  
   # has target
   def password_reset(target)
     @user = target
