@@ -379,13 +379,13 @@ class Deal < ActiveRecord::Base
 
     if pay_response.success?
       #format.html { redirect_to pay_response.approve_paypal_payment_url, notice: 'Pay Response is successful' }
-      respond_to do |format|
+      responds_to do |format|
         format.html { redirect_to pay_response.approve_paypal_payment_url } #, flash[:success] = "holder updated")
       end
     else
       puts pay_response.errors.first['message']
       #format.html { redirect_to "http://www.qwiqq.me/users/13042", notice: 'Pay Response failed see error.' }
-      respond_to do |format|
+      responds_to do |format|
         format.html { redirect_to "http://www.qwiqq.me/users/13042"}
       end
     end	
