@@ -1,5 +1,5 @@
 class Mailer < ActionMailer::Base
-  layout("mailer", :except => :category_test)
+  layout("mailer", conditions = {:except => :category_test})
   default :from => "notifications@qwiqq.me"
 
   helper :application
