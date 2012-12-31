@@ -328,6 +328,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def disable_socialyzer!
+    update_attributes(:socialyzer_times => nil, :socialyzer_enabled_at => nil, :twitter_utc_offset => nil)
+  end
+
   def next_socialyzer_time(alerts_per_day=1)
     sorted_times = socialyzer_times.map do |dayname, timestamps|
       timestamps.split.first(alerts_per_day).map do |timestamp|
