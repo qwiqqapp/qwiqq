@@ -28,8 +28,6 @@ class Api::SearchController < Api::ApiController
   # - params[:category]
 
   def deals
-    userm = User.find_by_email("mscaria@novationmobile.com")
-
     if  params[:range] == "10000000"
       @deals = Deal.filtered_url_search(
       :category => params[:category] == "all" ? nil : params[:category],
