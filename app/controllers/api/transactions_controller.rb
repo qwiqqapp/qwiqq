@@ -1,6 +1,7 @@
 class Api::TransactionsController < Api::ApiController
 
-  before_filter :require_user, :only => [:create]
+skip_before_filter :verify_authenticity_token, :only => [:create]
+before_filter :require_user, :only => [:create]
   caches_action :index, :cache_path => lambda {|c| "#{c.find_parent.cache_key}/transactions" },
     :unless => lambda {|c| c.params[:page] }
 
