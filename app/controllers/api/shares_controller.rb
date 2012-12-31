@@ -1,5 +1,8 @@
 class Api::SharesController < Api::ApiController
 
+  def socialyze
+    
+  end
 
   def create
     deal = Deal.find(params[:deal_id])

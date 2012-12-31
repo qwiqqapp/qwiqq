@@ -37,6 +37,7 @@ gem "daemons", :require => false
 gem "skittles", "0.6.0" # foursquare, update to 0.6?
 gem "httparty"
 gem "rails_autolink"
+gem "socialyzer"
 
 # PayPal
 gem "paypal", "~> 2.0.0"
@@ -84,6 +85,7 @@ group :development do
   gem "heroku"
   gem "taps"
   gem "faker"
+  gem "sqlite3"
 end
 
 group :assets do
