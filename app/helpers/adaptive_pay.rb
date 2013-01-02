@@ -10,6 +10,7 @@ module AdaptivePay
     end
 
     def valid?
+      puts "START VALID"
       uri = URI.parse(AdaptivePay::Interface.new.base_page_url + '/webscr?cmd=_notify-validate')
 
       http = Net::HTTP.new(uri.host, uri.port)
