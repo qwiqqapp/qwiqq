@@ -29,7 +29,7 @@ module AdaptivePay
     end
 
     def completed?
-      status == "COMPLETED"
+      @params[:payment_status] == "COMPLETED"
     end
   end
 end
