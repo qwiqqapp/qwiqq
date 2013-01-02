@@ -29,6 +29,8 @@ class Api::TransactionsController < Api::ApiController
       @transaction.user = User.find(params[:buyer_id])
       @transaction.paypal_transaction_id = params[:txn_id]
       @transaction.save!
+    else
+      puts "TRANSACTION NOT VERIFIED"
     end
     respond_with(@transaction, :location => false)
   end
