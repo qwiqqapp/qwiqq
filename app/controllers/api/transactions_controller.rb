@@ -17,31 +17,17 @@ class Api::TransactionsController < Api::ApiController
   # auth required
   def create
     puts "TEST TRANSACTION"
-    if env["PATH_INFO"] =~ /^\/paypal_ipn/
-      puts "MARK deal_id: #{params[:deal_id]} buyerid: #{params[:buyer_id]} paypal_transaction_id: #{params[:txn_id]}  payment_status: #{params[:payment_status]}"
-      request = Rack::Request.new(env)
-      params = request.params
-      
-      ipn = PaypalAdaptive::IpnNotification.new
-      ipn.send_back(env['rack.request.form_vars'])
-      if ipn.verified?
-        #mark transaction as completed in your DB
-        output = "Verified."
-        puts "TRANSACTION VERIFIED"
-      else
-        output = "Not Verified."
-        puts "TRANSACTION NOT VERIFIED"
-      end
+    paypal_response = AdaptivePay::Callback.new(params, request.raw_post)
+
+    if paypal_response.completed? && paypal_response.valid?
+      # mark your payment as complete and make them unicorns happy!
+      puts "TRANSACTION VERIFIED"
       @deal = Deal.find(params[:deal_id])
       @transaction = @deal.transactions.build
       @transaction.user = User.find(params[:buyer_id])
       @transaction.paypal_transaction_id = params[:txn_id]
       @transaction.save!
-      [200, {"Content-Type" => "text/html"}, [output]]
-    else
-      [404, {"Content-Type" => "text/html"}, ["Not Found"]]
     end
-
     respond_with(@transaction, :location => false)
   end
   
