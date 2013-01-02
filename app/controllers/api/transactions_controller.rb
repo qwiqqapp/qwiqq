@@ -1,4 +1,4 @@
-require 'app/helpers/adaptive_pay'
+require 'adaptive_pay'
 
 class Api::TransactionsController < Api::ApiController
 
