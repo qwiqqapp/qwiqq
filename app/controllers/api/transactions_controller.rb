@@ -1,3 +1,5 @@
+require 'app/helpers/adaptive_pay'
+
 class Api::TransactionsController < Api::ApiController
 
   skip_before_filter :require_user
