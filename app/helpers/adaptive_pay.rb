@@ -24,12 +24,13 @@ module AdaptivePay
 
       raise StandardError.new("Faulty paypal result: #{response}") unless ["VERIFIED", "INVALID"].include?(response)
       raise StandardError.new("Invalid IPN: #{response}") unless response == "VERIFIED"
-
+      puts "VALID END"
       true
     end
 
     def completed?
-      @params[:payment_status] == "COMPLETED"
+      puts "PAYMENT_STATUS:#{@params[:payment_status]}"
+      @params[:payment_status] == "Completed"
     end
   end
 end
