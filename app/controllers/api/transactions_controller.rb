@@ -21,7 +21,7 @@ class Api::TransactionsController < Api::ApiController
     puts "TEST TRANSACTION"
     paypal_response = AdaptivePay::Callback.new(params, request.raw_post)
 
-    if paypal_response.completed? && paypal_response.valid?
+    if paypal_response.valid?
       # mark your payment as complete and make them unicorns happy!
       puts "TRANSACTION VERIFIED"
       @deal = Deal.find(params[:deal_id])
