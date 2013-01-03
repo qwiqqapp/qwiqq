@@ -3,6 +3,7 @@ require 'adaptive_pay'
 class Api::TransactionsController < Api::ApiController
 
   skip_before_filter :require_user
+  skip_before_filter :verify_authenticity_token, :only => [:ipn]
   caches_action :index, :cache_path => lambda {|c| "#{c.find_parent.cache_key}/transactions" },
     :unless => lambda {|c| c.params[:page] }
 
@@ -16,7 +17,7 @@ class Api::TransactionsController < Api::ApiController
     respond_with(paginate(@transactions), :include => [:user])
   end
 
-  # auth required
+  # auth not required
   def create
     puts "TEST TRANSACTION"
     paypal_response = AdaptivePay::Callback.new(params, request.raw_post)
