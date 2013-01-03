@@ -15,16 +15,17 @@ ActiveAdmin.register Transaction do
     column("Deal ID") {|transaction| transaction.deal.id.try(:to_s)}
   end
     
+
   index do
-    column("Buyer", :sortable => :user.name) do |transaction|  
+    column("Buyer", :sortable => :name) do |transaction|  
       link_to(transaction.user.name, [ :admin, transaction.user ]) if transaction.user
     end
     
-    column("Seller", :sortable => :deal.user.name) do |transaction|  
+    column("Seller", :sortable => :name) do |transaction|  
       link_to(transaction.deal.user.name, [ :admin, transaction.deal.user ]) if transaction.deal.user
     end
     
-    column("Deal", :sortable => :deal.name) do |transaction|  
+    column("Deal", :sortable => :name) do |transaction|  
       link_to(transaction.deal.name, [ :admin, transaction.deal ]) if transaction.deal
     end
 
