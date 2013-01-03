@@ -24,6 +24,7 @@ class Api::TransactionsController < Api::ApiController
     if paypal_response.completed? && paypal_response.valid?
       # mark your payment as complete and make them unicorns happy!
       puts "TRANSACTION VERIFIED"
+      puts "MARK deal_id: #{params[:deal_id]} buyerid: #{params[:buyer_id]} paypal_transaction_id: #{params[:txn_id]}  payment_status: #{params[:payment_status]}"
       @deal = Deal.find(params[:deal_id])
       @transaction = @deal.transactions.build
       @transaction.user = User.find(params[:buyer_id])

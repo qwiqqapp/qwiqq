@@ -5,7 +5,6 @@ require 'adaptive_pay/interface'
 module AdaptivePay
   class Callback
     def initialize(params, raw_post)
-      puts "MARK deal_id: #{params[:deal_id]} buyerid: #{params[:buyer_id]} paypal_transaction_id: #{params[:txn_id]}  payment_status: #{params[:payment_status]}"
       @params = params
       @raw = raw_post
     end
