@@ -1,6 +1,6 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
-require 'interface'
+require 'adaptive_pay/interface'
 
 module AdaptivePay
   class Callback
