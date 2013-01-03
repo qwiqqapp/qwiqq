@@ -4,7 +4,7 @@ development:
   password: "1356374345"
   signature: "A3nhyYdJ.1KKuvMSCddnwJvnVdAWADtFSv31ZxzBbzThtckGXTxhl4Fv"
   application_id: "APP-80W284485P519543T"
-  api_cert_file:
+  api_cert_file: "/path/to_cert"
 
 test:
   environment: "sandbox"
@@ -16,8 +16,8 @@ test:
 
 production:
   environment: "production"
-  username: "my_production_username"
-  password: "my_production_password"
-  signature: "my_production_signature"
+  username: "john_api1.qwiqq.me"
+  password: "3JDZZY9VYXB6Q5TZ"
+  signature: "AFcWxV21C7fd0v3bYYYRCpSSRl31A1s7XP94yCP.a3BcpSz3430646nm"
   application_id: "my_production_app_id"
   api_cert_file: "/path/to_cert"
