@@ -35,12 +35,14 @@ class Api::TransactionsController < Api::ApiController
     else
       puts "TRANSACTION NOT VERIFIED"
     end
-    respond_with(@transaction, :location => false)
+    render :nothing => true
   end
+
   
   def ipn
     puts "TEST TRANSACTION IN IPN"
     puts "MARK deal_id: #{params[:deal_id]} buyerid: #{params[:buyer_id]} paypal_transaction_id: #{params[:txn_id]}  payment_status: #{params[:payment_status]} IN IPN"
+    render :nothing => true
   end
   
   def destroy
