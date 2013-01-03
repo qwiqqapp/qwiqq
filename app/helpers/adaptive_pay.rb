@@ -24,7 +24,7 @@ module AdaptivePay
                           'User-Agent' => "My custom user agent"
                         ).body
                         
-      puts "VALID FIRST ASSERT WITH RESPONSE:#{response}"
+      puts "VALID FIRST ASSERT"
       raise StandardError.new("Faulty paypal result: #{response}") unless ["VERIFIED", "INVALID"].include?(response)
       puts "VALID SECOND ASSERT"
       raise StandardError.new("Invalid IPN: #{response}") unless response == "VERIFIED"
