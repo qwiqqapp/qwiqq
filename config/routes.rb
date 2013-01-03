@@ -79,7 +79,7 @@ Qwiqq::Application.routes.draw do
     resources :venues, :only => [:index]
     
     # search controller custom methods
-    post "transactions/ipn" => "transaction#ipn", :as => "ipn"
+    post "transactions/ipn" => "transactions#ipn", :as => "ipn"
     
     get "search/users" => "search#users", :as => "search_users"
     get "search/deals" => "search#deals", :as => "search_deals"
