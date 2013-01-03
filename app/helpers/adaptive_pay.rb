@@ -9,7 +9,7 @@ module AdaptivePay
       @raw = raw_post
     end
 
-    def valid?
+    def valid
       puts "START VALID"
       uri = URI.parse(AdaptivePay::Interface.new.base_page_url + '/webscr?cmd=_notify-validate')
 
@@ -31,7 +31,7 @@ module AdaptivePay
       true
     end
 
-    def completed?
+    def completed
       puts "PAYMENT_STATUS:#{@params[:payment_status]}"
       @params[:payment_status] == "Completed"
     end
