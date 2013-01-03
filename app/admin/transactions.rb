@@ -4,6 +4,7 @@ ActiveAdmin.register Transaction do
   actions :index, :destroy
   
   scope :all, :default => true
+  filter :created_at 
   
   csv do
     column("ID"){|transaction| transaction.id.try(:to_s)}
@@ -13,6 +14,7 @@ ActiveAdmin.register Transaction do
     column("Seller ID"){ |transaction| transaction.deal.user.id }
     column("Seller Username"){ |transaction| transaction.deal.user.username }
     column("Deal ID") {|transaction| transaction.deal.id.try(:to_s)}
+    column(:created_at)
   end
     
  
@@ -30,7 +32,7 @@ ActiveAdmin.register Transaction do
     end
 
     column("Paypal Transaction ID"){ |transaction| transaction.paypal_transaction_id }
-    
+    column(:created_at)
     default_actions
   end
 end

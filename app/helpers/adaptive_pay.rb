@@ -10,7 +10,6 @@ module AdaptivePay
     end
 
     def valid?
-      puts "START VALID"
       uri = URI.parse('https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_notify-validate')
 
       http = Net::HTTP.new(uri.host, uri.port)
@@ -23,11 +22,9 @@ module AdaptivePay
                           'User-Agent' => "My custom user agent"
                         ).body
                         
-      puts "VALID FIRST ASSERT"
       raise StandardError.new("Faulty paypal result: #{response}") unless ["VERIFIED", "INVALID"].include?(response)
-      puts "VALID SECOND ASSERT"
       raise StandardError.new("Invalid IPN: #{response}") unless response == "VERIFIED"
-      puts "VALID END"
+      puts "IPN VALID"
       true
     end
 
