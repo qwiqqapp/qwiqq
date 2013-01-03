@@ -2,8 +2,8 @@ require 'adaptive_pay'
 
 class Api::TransactionsController < Api::ApiController
 
-  skip_before_filter :require_user
-  skip_before_filter :verify_authenticity_token, :only => [:ipn]
+  #skip_before_filter :require_user
+  skip_before_filter :verify_authenticity_token, :only => [:create]
   caches_action :index, :cache_path => lambda {|c| "#{c.find_parent.cache_key}/transactions" },
     :unless => lambda {|c| c.params[:page] }
 
@@ -34,13 +34,6 @@ class Api::TransactionsController < Api::ApiController
     else
       puts "TRANSACTION NOT VERIFIED"
     end
-    render :nothing => true
-  end
-
-  
-  def ipn
-    puts "TEST TRANSACTION IN IPN"
-    puts "MARK deal_id: #{params[:deal_id]} buyerid: #{params[:buyer_id]} paypal_transaction_id: #{params[:txn_id]}  payment_status: #{params[:payment_status]} IN IPN"
     render :nothing => true
   end
   

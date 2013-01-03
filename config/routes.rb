@@ -67,8 +67,6 @@ Qwiqq::Application.routes.draw do
       get "popular", :on => :collection
       post "repost", :on => :member
       get "events",  :on => :member
-        
-      post "transactions/ipn" => "transactions#ipn"
       
       resources :likes,         :only => [:index]
       resource :like,           :only => [:create, :destroy] #should merge this with above resource likes
@@ -80,7 +78,7 @@ Qwiqq::Application.routes.draw do
     resources :transactions, :only => [:destroy]
     resources :venues, :only => [:index]
     
-    # search controller custom methods    
+    # search controller custom methods
     get "search/users" => "search#users", :as => "search_users"
     get "search/deals" => "search#deals", :as => "search_deals"
 
