@@ -52,6 +52,7 @@ Qwiqq::Application.routes.draw do
       
       resources :deals, :only => [:index] do
         resources :shares, :only => [:create]
+        post "transactions/ipn" => "transactions#ipn"
       end
       
       post "find_friends" => "friends#find"
@@ -78,9 +79,7 @@ Qwiqq::Application.routes.draw do
     resources :transactions, :only => [:destroy]
     resources :venues, :only => [:index]
     
-    # search controller custom methods
-    post "transactions/ipn" => "transactions#ipn", :as => "ipn"
-    
+    # search controller custom methods    
     get "search/users" => "search#users", :as => "search_users"
     get "search/deals" => "search#deals", :as => "search_deals"
 
