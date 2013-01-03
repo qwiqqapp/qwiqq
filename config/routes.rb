@@ -52,7 +52,6 @@ Qwiqq::Application.routes.draw do
       
       resources :deals, :only => [:index] do
         resources :shares, :only => [:create]
-        post "transactions/ipn" => "transactions#ipn"
       end
       
       post "find_friends" => "friends#find"
@@ -68,6 +67,8 @@ Qwiqq::Application.routes.draw do
       get "popular", :on => :collection
       post "repost", :on => :member
       get "events",  :on => :member
+        
+      post "transactions/ipn" => "transactions#ipn"
       
       resources :likes,         :only => [:index]
       resource :like,           :only => [:create, :destroy] #should merge this with above resource likes
