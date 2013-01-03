@@ -12,7 +12,7 @@ module AdaptivePay
 
     def valid?
       puts "START VALID"
-      uri = URI.parse('https://www.paypal.com/webscr?cmd=_notify-validate')
+      uri = URI.parse('https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_notify-validate')
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.open_timeout = 60
@@ -24,7 +24,7 @@ module AdaptivePay
                           'User-Agent' => "My custom user agent"
                         ).body
                         
-      puts "VALID FIRST ASSERT"
+      puts "VALID FIRST ASSERT WITH RESPONSE:#{response}"
       raise StandardError.new("Faulty paypal result: #{response}") unless ["VERIFIED", "INVALID"].include?(response)
       puts "VALID SECOND ASSERT"
       raise StandardError.new("Invalid IPN: #{response}") unless response == "VERIFIED"

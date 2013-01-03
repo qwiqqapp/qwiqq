@@ -18,7 +18,7 @@ class Api::TransactionsController < Api::ApiController
 
   # auth required
   def create
-    puts "TEST TRANSACTION RAW POST:#{request.raw_post}"
+    puts "TEST TRANSACTION"
     paypal_response = AdaptivePay::Callback.new(params, request.raw_post)
 
     if paypal_response.completed? && paypal_response.valid?
