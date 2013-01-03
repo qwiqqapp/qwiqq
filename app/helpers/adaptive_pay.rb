@@ -10,6 +10,7 @@ module AdaptivePay
     end
 
     def valid?
+      
       if Rails.env.production?
         url = 'https://www.paypal.com/cgi-bin/webscr?cmd=_notify-validate' 
       else
