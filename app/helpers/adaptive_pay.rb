@@ -23,7 +23,6 @@ module AdaptivePay
                           'Content-Length' => "#{@raw.size}",
                           'User-Agent' => "My custom user agent"
                         ).body
-
       puts "VALID FIRST ASSERT"
       raise StandardError.new("Faulty paypal result: #{response}") unless ["VERIFIED", "INVALID"].include?(response)
       puts "VALID SECOND ASSERT"
