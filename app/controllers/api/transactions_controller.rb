@@ -30,10 +30,16 @@ class Api::TransactionsController < Api::ApiController
       @transaction.user = User.find(params[:buyer_id])
       @transaction.paypal_transaction_id = params[:txn_id]
       @transaction.save!
+      respond_with(@transaction, :location => false)
     else
       puts "TRANSACTION NOT VERIFIED"
     end
     respond_with(@transaction, :location => false)
+  end
+  
+  def ipn
+    puts "TEST TRANSACTION IN IPN"
+    puts "MARK deal_id: #{params[:deal_id]} buyerid: #{params[:buyer_id]} paypal_transaction_id: #{params[:txn_id]}  payment_status: #{params[:payment_status]} IN IPN"
   end
   
   def destroy
