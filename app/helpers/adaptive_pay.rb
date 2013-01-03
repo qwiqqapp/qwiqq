@@ -12,7 +12,7 @@ module AdaptivePay
 
     def valid?
       puts "START VALID"
-      uri = URI.parse(AdaptivePay::Interface.new(false).base_page_url + '/webscr?cmd=_notify-validate')
+      uri = URI.parse('https://www.paypal.com/webscr?cmd=_notify-validate')
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.open_timeout = 60
