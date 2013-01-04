@@ -14,8 +14,8 @@ module AdaptivePay
       puts "THE IPN DETERMINE IF SANDBOX:#{@params[:test_ipn]}"
       
       string = "sandbox." if @params[:sandbox] == true
-      puts "TEST STRING'#{string.to_s}'"
-      url = 'https://www.' + string.to_s + 'paypal.com/cgi-bin/webscr?cmd=_notify-validate'
+      puts "TEST STRING'#{string}'"
+      url = 'https://www.' + (string || "") + 'paypal.com/cgi-bin/webscr?cmd=_notify-validate'
       puts "TEST URL'#{url}'"
       uri = URI.parse(url)
 
