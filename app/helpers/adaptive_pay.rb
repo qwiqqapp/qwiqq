@@ -13,6 +13,7 @@ module AdaptivePay
       puts "BEGIN VALIDATION SANDBOX:#{@params[:sandbox]}"
       uri = URI.parse('https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_notify-validate')
       if @params[:sandbox] == false || @params[:sandbox] == nil
+        puts "SANDBOX MODE"
         uri = URI.parse('https://www.paypal.com/cgi-bin/webscr?cmd=_notify-validate')
         puts "SANDBOX URI:#{uri}"
       end
