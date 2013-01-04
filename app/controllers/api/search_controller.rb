@@ -16,6 +16,7 @@ class Api::SearchController < Api::ApiController
   # - params[:q]
   def users
     @users = User.search(params[:q])
+    puts "SEARCH USERS COUNT:#{@users.count}"
     render :json => @users.as_json(:current_user => current_user)
   end
   
