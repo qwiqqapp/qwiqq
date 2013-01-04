@@ -15,7 +15,7 @@ module AdaptivePay
       
       string = "sandbox." if @params[:sandbox] == true
       puts "TEST STRING'#{string}'"
-      url = 'https://www.' + (string || "") + 'paypal.com/cgi-bin/webscr?cmd=_notify-validate'
+      url = "https://www.#{string}paypal.com/cgi-bin/webscr?cmd=_notify-validate"
       puts "TEST URL'#{url}'"
       uri = URI.parse(url)
 
