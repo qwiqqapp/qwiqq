@@ -10,13 +10,7 @@ module AdaptivePay
     end
 
     def valid?
-      
-      if Rails.env.production?
-        url = 'https://www.paypal.com/cgi-bin/webscr?cmd=_notify-validate' 
-      else
-        url = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_notify-validate'
-      end
-      uri = URI.parse(url)
+      uri = URI.parse('https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_notify-validate')
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.open_timeout = 60
