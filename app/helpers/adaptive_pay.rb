@@ -11,6 +11,7 @@ module AdaptivePay
 
     def valid?
       puts "BEGIN VALIDATION SANDBOX:#{@params[:sandbox]}"
+      puts "THE IPN DETERMINE IF SANDBOX:#{@params[:test_ipn]}"
       
       string = "sandbox." if @params[:sandbox] == true
       url = 'https://www.' + string + 'paypal.com/cgi-bin/webscr?cmd=_notify-validate'
