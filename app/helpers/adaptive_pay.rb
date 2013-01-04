@@ -10,7 +10,12 @@ module AdaptivePay
     end
 
     def valid?
+
       uri = URI.parse('https://www.paypal.com/cgi-bin/webscr?cmd=_notify-validate')
+      if @params[:sandbox] == true
+        puts "SANDBOX URI"
+        uri = URI.parse('https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_notify-validate')
+      end
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.open_timeout = 60
