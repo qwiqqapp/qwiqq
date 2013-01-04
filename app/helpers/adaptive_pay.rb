@@ -17,6 +17,9 @@ module AdaptivePay
         uri = URI.parse('https://www.paypal.com/cgi-bin/webscr?cmd=_notify-validate')
         puts "SANDBOX URI:#{uri}"
       end
+      
+      string = "sandbox." if @params[:sandbox]
+      puts "TEST STRING:'#{string}'"
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.open_timeout = 60
