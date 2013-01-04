@@ -48,7 +48,7 @@ class Api::SearchController < Api::ApiController
       :page => params[:page])
     end
     
-
+    puts "SEARCH DEAL COUNT:#{@deals.count}"
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
     render :json => paginate(@deals).compact.as_json(options)
