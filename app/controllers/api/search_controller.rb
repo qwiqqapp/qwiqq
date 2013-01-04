@@ -15,6 +15,7 @@ class Api::SearchController < Api::ApiController
   # required param:
   # - params[:q]
   def users
+    puts "SEARCH USERS"
     @users = User.search(params[:q])
     puts "SEARCH USERS COUNT:#{@users.count}"
     render :json => @users.as_json(:current_user => current_user)
