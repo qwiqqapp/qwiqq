@@ -40,8 +40,14 @@ module AdaptivePay
     end
 
     def completed?
-      puts "PAYMENT_STATUS:#{@params[:payment_status]}"
-      @params[:payment_status] == "Completed"
+      if @params[:sandbox] == 'true'
+        puts ":PAYMENT_STATUS:#{@params[:payment_status]}"
+        @params[:payment_status] == "Completed"
+      else
+        puts ":STATUS:#{@params[:status]}"
+        @params[:status] == "Completed"
+      end
     end
+    
   end
 end
