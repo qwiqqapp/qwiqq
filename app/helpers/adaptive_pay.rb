@@ -45,7 +45,7 @@ module AdaptivePay
         @params[:payment_status] == "Completed"
       else
         puts ":STATUS:#{@params[:status]}"
-        @params[:status] == "Completed"
+        @params[:status] == "COMPLETED"
       end
     end
     
