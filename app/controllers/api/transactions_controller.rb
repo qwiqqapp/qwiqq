@@ -23,6 +23,14 @@ class Api::TransactionsController < Api::ApiController
     firstReceiver = trans[0]
     puts "TRANSACTION AT [0]#{trans}"
     theID = firstReceiver[:id_for_sender_txn]
+    
+    val = URI.escape("transaction[0]")
+    puts "URI ESCAPE:#{val}"
+    
+    pairs = request.raw_post.split('&')
+    names, values = pairs[3].split('=').map{|v| CGI.unescape(v)}
+    puts "KEYS:#{names} VALUES:#{values}"
+    
     puts "RECEVIER ID:#{theID}"
     puts "PARAMS[TRANSACTION]:#{params[:transaction]}"
     paypal_response = AdaptivePay::Callback.new(params, request.raw_post)
