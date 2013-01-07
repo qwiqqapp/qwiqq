@@ -18,18 +18,15 @@ class Api::TransactionsController < Api::ApiController
 
   # auth not required
   def create
-    puts "BEGIN TRANSACTION AUTH PARAMS:#{params}"
+    #puts "BEGIN TRANSACTION AUTH PARAMS:#{params}"
     trans = params[:transaction]
-    firstReceiver = trans[0]
+    firstReceiver = trans[:0]
     puts "TRANSACTION AT [0]#{trans}"
+    puts "FIRST RECEIVER:#{firstReceiver}"
     theID = firstReceiver[:id_for_sender_txn]
     
     val = URI.escape("transaction[0]")
     puts "URI ESCAPE:#{val}"
-    
-    pairs = request.raw_post.split('&')
-    names, values = pairs[3].split('=').map{|v| CGI.unescape(v)}
-    puts "KEYS:#{names} VALUES:#{values}"
     
     puts "RECEVIER ID:#{theID}"
     puts "PARAMS[TRANSACTION]:#{params[:transaction]}"
