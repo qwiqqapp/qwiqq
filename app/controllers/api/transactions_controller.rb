@@ -21,7 +21,7 @@ class Api::TransactionsController < Api::ApiController
     puts "BEGIN TRANSACTION AUTH PARAMS:#{params}"
     trans = params[:transaction]
     firstReceiver = trans[0]
-    puts "FIRST RECIEVER:#{firstReceiver}"
+    puts "TRANSACTION AT [0]#{trans}"
     theID = firstReceiver[:id_for_sender_txn]
     puts "RECEVIER ID:#{theID}"
     puts "PARAMS[TRANSACTION]:#{params[:transaction]}"
