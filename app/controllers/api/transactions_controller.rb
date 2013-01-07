@@ -19,6 +19,11 @@ class Api::TransactionsController < Api::ApiController
   # auth not required
   def create
     puts "BEGIN TRANSACTION AUTH PARAMS:#{params}"
+    trans = params[:transaction]
+    firstReceiver = trans[0]
+    puts "FIRST RECIEVER:#{firstReceiver}"
+    theID = firstReceiver[:id_for_sender_txn]
+    puts "RECEVIER ID:#{theID}"
     puts "PARAMS[TRANSACTION]:#{params[:transaction]}"
     paypal_response = AdaptivePay::Callback.new(params, request.raw_post)
 
