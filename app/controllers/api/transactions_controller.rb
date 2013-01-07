@@ -19,26 +19,23 @@ class Api::TransactionsController < Api::ApiController
   # auth not required
   def create
     #puts "BEGIN TRANSACTION AUTH PARAMS:#{params}"
-    trans = params[:transaction]
-    firstReceiver = trans['0']
-    puts "FIRST RECEIVER:#{firstReceiver}"
-    theID = firstReceiver['.id_for_sender_txn']
-    
-    puts "RECEVIER ID:#{theID}"
     paypal_response = AdaptivePay::Callback.new(params, request.raw_post)
 
     if paypal_response.completed? && paypal_response.valid?
       # mark your payment as complete and make them unicorns happy!
       puts "TRANSACTION VERIFIED"
-      puts "MARK deal_id: #{params[:deal_id]} buyerid: #{params[:buyer_id]} paypal_transaction_id: #{params[:txn_id]}  payment_status: #{params[:payment_status]}"
       @deal = Deal.find(params[:deal_id])
       @transaction = @deal.transactions.build
       @transaction.user = User.find(params[:buyer_id])
       
       if @params[:sandbox] == 'true'
-        @transaction.paypal_transaction_id = params[:txn_id]
+        @transaction.paypal_transaction_id = params[:txn_id] if params[:txn_id]
       else
-        @transaction.paypal_transaction_id = theID
+        trans = params[:transaction]
+        firstReceiver = trans['0']
+        theID = firstReceiver['.id_for_sender_txn']
+        puts "RECEVIER ID:#{theID}"
+        @transaction.paypal_transaction_id = theID if theID != nil
       end
       
       @transaction.save!
