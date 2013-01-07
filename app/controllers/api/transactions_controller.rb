@@ -28,7 +28,7 @@ class Api::TransactionsController < Api::ApiController
       @transaction = @deal.transactions.build
       @transaction.user = User.find(params[:buyer_id])
       
-      if @params[:sandbox] == 'true'
+      if params[:sandbox] == 'true'
         @transaction.paypal_transaction_id = params[:txn_id] if params[:txn_id]
       else
         trans = params[:transaction]
