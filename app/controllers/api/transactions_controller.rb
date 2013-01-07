@@ -19,6 +19,7 @@ class Api::TransactionsController < Api::ApiController
   # auth not required
   def create
     puts "BEGIN TRANSACTION AUTH PARAMS:#{params}"
+    puts "PARAMS[TRANSACTION]:#{params[:transaction]}"
     paypal_response = AdaptivePay::Callback.new(params, request.raw_post)
 
     if paypal_response.completed? && paypal_response.valid?
@@ -32,8 +33,8 @@ class Api::TransactionsController < Api::ApiController
       if @params[:sandbox] == 'true'
         @transaction.paypal_transaction_id = params[:txn_id]
       else
-        puts "TRANSACTION ID FOR LIVE:#{params[:transaction[0].id_for_sender_txn]}"
-        @transaction.paypal_transaction_id = params[:transaction[0].id_for_sender_txn]
+        #puts "TRANSACTION ID FOR LIVE:#{params[:transaction[0].id_for_sender_txn]}"
+        #@transaction.paypal_transaction_id = params[:transaction[0].id_for_sender_txn]
       end
       
       @transaction.save!
