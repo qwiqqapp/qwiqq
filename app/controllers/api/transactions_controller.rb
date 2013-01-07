@@ -21,15 +21,10 @@ class Api::TransactionsController < Api::ApiController
     #puts "BEGIN TRANSACTION AUTH PARAMS:#{params}"
     trans = params[:transaction]
     firstReceiver = trans['0']
-    puts "TRANSACTION AT [0]#{trans}"
     puts "FIRST RECEIVER:#{firstReceiver}"
-    theID = firstReceiver[:id_for_sender_txn]
-    
-    val = URI.escape("transaction[0]")
-    puts "URI ESCAPE:#{val}"
+    theID = firstReceiver['.id_for_sender_txn']
     
     puts "RECEVIER ID:#{theID}"
-    puts "PARAMS[TRANSACTION]:#{params[:transaction]}"
     paypal_response = AdaptivePay::Callback.new(params, request.raw_post)
 
     if paypal_response.completed? && paypal_response.valid?
@@ -43,8 +38,7 @@ class Api::TransactionsController < Api::ApiController
       if @params[:sandbox] == 'true'
         @transaction.paypal_transaction_id = params[:txn_id]
       else
-        #puts "TRANSACTION ID FOR LIVE:#{params[:transaction[0].id_for_sender_txn]}"
-        #@transaction.paypal_transaction_id = params[:transaction[0].id_for_sender_txn]
+        @transaction.paypal_transaction_id = theID
       end
       
       @transaction.save!
