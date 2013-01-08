@@ -24,7 +24,8 @@
                               %span.seller
                                 Seller
                                 %br
-                              %span.name Paramount Music Hall
+                              %span.name 
+                                = @deal.user.best_name
                             #purchase
                               %a.buynow{:href => "#"}
                                 %img{:src => "http://www.kylecopley.com/novationmobile/qwiqq/buynow.gif"}
