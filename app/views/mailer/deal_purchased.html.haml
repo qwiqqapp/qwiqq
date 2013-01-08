@@ -43,10 +43,12 @@
                                     %img{:align => "top", :src => "http://www.kylecopley.com/novationmobile/qwiqq/content-top.jpg"}
                                     #dashedlines
                                       #contentleft
-                                        %img{:src => "http://www.kylecopley.com/novationmobile/qwiqq/main-image.jpg"}
+                                        %img{:src => grid_deal.photo.url(:iphone_zoom), :width => "144", :height => "144" }
                                       #contentright
-                                        %span#title Paramount Purchase
-                                        %span#text $29 for awesome Paramount Music Hall t-shirt
+                                        %span#title 
+                                          = @user.best_name
+                                        %span#text 
+                                          = @deal.name
                                         %span#voucherid Voucher ID: 39183
                                         %a{:href => "#"}
                                           %img{:src => "http://www.kylecopley.com/novationmobile/qwiqq/print.gif", :style => "padding-top:8px;"}
