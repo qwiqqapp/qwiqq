@@ -41,19 +41,19 @@
                               %table#insideCoupon{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "472", :style => "margin-top: 30px;margin-left: 30px;margin-bottom: 30px;background-color: #f1eee9;"}
                                 %tr
                                   %td{:style => "position: relative", :valign => "top", :style => "margin:0;padding:0;"}
-                                    %img{:align => "top", :src => "http://www.kylecopley.com/novationmobile/qwiqq/content-top.jpg"}
-                                    #dashedlines
-                                      #contentleft
-                                        %img{:src => @deal.photo.url(:iphone_zoom), :width => "144", :height => "144" }
-                                      #contentright
-                                        %span#title 
+                                    %img{:align => "top", :src => "http://www.kylecopley.com/novationmobile/qwiqq/content-top.jpg", :style => "display:inline;height:auto;"}
+                                    #dashedlines{:style => "border: 3px dashed white;margin: 8px 12px;padding: 12px 16px;min-height: 144px;overflow: auto;"}
+                                      #contentleft{:style => "width: 144px;float: left;"}
+                                        %img{:src => @deal.photo.url(:iphone_zoom), :width => "144", :height => "144", :style => "display:inline;height:auto;"}
+                                      #contentright{:style => "float: left;margin-left: 16px;width: 246px;margin-top: 5px;"}
+                                        %span#title{:style => "font-size: 24px;font-family: Arial, Helvetica, sans-serif;color: #c4c0bb;"}
                                           = @deal.user.best_name
-                                        %span#text 
+                                        %span#text{:style => "font-size: 16px;font-weight: normal;color: #808080;display: block;padding-top: 3px;"}
                                           = @deal.name
-                                        %span#voucherid Voucher ID: 39183
+                                        %span#voucherid{:style => "font-size: 14px;font-style: italic;color: #808080;"} Voucher ID: 39183
                                         %a{:href => "#"}
-                                          %img{:src => "http://www.kylecopley.com/novationmobile/qwiqq/print.gif", :style => "padding-top:8px;"}
-                                    %img{:align => "bottom", :src => "http://www.kylecopley.com/novationmobile/qwiqq/content-bottom.jpg", :style => "clear: both; position: bottom"}
+                                          %img{:src => "http://www.kylecopley.com/novationmobile/qwiqq/print.gif", :style => "padding-top:8px;display:inline;height:auto;"}
+                                    %img{:align => "bottom", :src => image_path("email/content-bottom.jpg"), :style => "clear: both; position: bottom;display:inline;height:auto;"}
                     %tr
                       %td{:align => "center", :valign => "top"}
                   - if @target
