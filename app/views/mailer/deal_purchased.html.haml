@@ -28,7 +28,8 @@
                             #purchase
                               %a.buynow{:href => "#"}
                                 %img{:src => "http://www.kylecopley.com/novationmobile/qwiqq/buynow.gif"}
-                              %span.price = @deal.price_as_string
+                              %span.price
+                                = @deal.price_as_string
                     %table#templateContainer{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "532"}
                       %tr
                         %td{:align => "center", :valign => "top"}
