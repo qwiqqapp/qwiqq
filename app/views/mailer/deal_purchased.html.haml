@@ -9,7 +9,7 @@
       %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :height => "100%", :width => "100%", :id => "backgroundTable", :style => "color:red;background-image: url(http://qwiqq.me/assets/email/background-patter.jpg)"}
         %tr
           %td{:align => "center", :valign => "top"}
-            #headerfooterWrapper{:style => "border-top:1px solid #ccc9c3;background-image: url('http://www.kylecopley.com/novationmobile/qwiqq/topbar-background.png');background-repeat: repeat-x;"}
+            #headerfooterWrapper{:style => "border-top:1px solid #ccc9c3;background-image: url('http://www.qwiqq.me/assets/email/topbar-background.png');background-repeat: repeat-x;"}
               %table#templatePreheader{:border => "0", :cellpadding => "0", :cellspacing => "0", :style => "width: 600px;height: 151px;margin: 0;"}
                 %tr
                   %td.preheaderContent{:align => "center", :valign => "top", :style => ""}
@@ -27,8 +27,8 @@
                                 %br
                               %span.name{:style => "font-size: 18px;color: #a4a4a4;font-family: Arial, Helvetica, sans-serif;"}
                                 = @deal.user.best_name
-                            #purchase
-                              %a.buynow{:href => "#"}
+                            #purchase{:style => "margin-left: 20px;margin-top: 35px;margin-bottom: 7px;"}
+                              %a.buynow{:href => "#", :style => "display: block;width: 157px;height: 40px;float: left;"}
                                 %img{:src => image_path("email/buynow.gif")}
                               %span.price
                                 = @deal.price_as_string
@@ -52,7 +52,7 @@
                                           = @deal.name
                                         %span#voucherid{:style => "font-size: 14px;font-style: italic;color: #808080;"} Voucher ID: 39183
                                         %a{:href => "#"}
-                                          %img{:src => "http://www.kylecopley.com/novationmobile/qwiqq/print.gif", :style => "padding-top:8px;display:inline;height:auto;"}
+                                          %img{:src => image_path("email/print.gif"), :style => "padding-top:8px;display:inline;height:auto;"}
                                     %img{:align => "bottom", :src => image_path("email/content-bottom.jpg"), :style => "clear: both; position: bottom;display:inline;height:auto;"}
                     %tr
                       %td{:align => "center", :valign => "top"}
