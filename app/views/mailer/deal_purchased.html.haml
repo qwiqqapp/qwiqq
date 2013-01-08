@@ -6,7 +6,7 @@
     <link href="http://www.qwiqq.me/assets/deal_purchase_email.css" rel="stylesheet" type="text/css">
   %body{:leftmargin => "0", :marginheight => "0", :marginwidth => "0", :offset => "0", :topmargin => "0"}
     %center
-      %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :height => "100%", :width => "100%", :id => "backgroundTable", :style => "color:red;background-image: url(email/background-patter.jpg)"}
+      %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :height => "100%", :width => "100%", :id => "backgroundTable", :style => "color:red;background-image: url(http://qwiqq.me/assets/email/background-patter.jpg)"}
         %tr
           %td{:align => "center", :valign => "top"}
             #headerfooterWrapper
@@ -16,9 +16,9 @@
                     %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "532"}
                       %tr
                         %td{:valign => "top", :width => "143"}
-                          #logo{"mc:edit" => "std_preheader_content",:style => "color:#505050;font-family:Arial;font-size:10px;line-height:100%;text-align:left;margin-left: 60px;diplay: block;width: 143px;height: 141px;background-image: url('http://www.kylecopley.com/novationmobile/qwiqq/logo-background.gif');-webkit-box-shadow: 0px 0px 2px 2px #e0dfdd;box-shadow: 0px 0px 2px 2px #e0dfdd;"}
+                          #logo{"mc:edit" => "std_preheader_content",:style => "color:#505050;font-family:Arial;font-size:10px;line-height:100%;text-align:left;margin-left: 60px;diplay: block;width: 143px;height: 141px;background-image: url('http://www.qwiqq.me/assets/email/logo-background.gif');-webkit-box-shadow: 0px 0px 2px 2px #e0dfdd;box-shadow: 0px 0px 2px 2px #e0dfdd;"}
                             %a{:href => "#", :style => ""}
-                              %img{:src => "assets/email/logo.jpg", :style => "padding-left:1px; border: 1px solid #e7e7e7; margin-left: 5px; margin-top: 3px;"}
+                              %img{:src => image_path('email/logo.jpg'), :style => "padding-left:1px; border: 1px solid #e7e7e7; margin-left: 5px; margin-top: 3px;"}
                         %td{:valign => "top"}
                           %div{"mc:edit" => "std_preheader_links"}
                             #info
@@ -29,7 +29,7 @@
                                 = @deal.user.best_name
                             #purchase
                               %a.buynow{:href => "#"}
-                                %img{:src => "assets/email/buynow.gif"}
+                                %img{:src => image_path("email/buynow.gif")}
                               %span.price
                                 = @deal.price_as_string
                     %table#templateContainer{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "532", :style =>"border:1 px solid #DDDDDD"}
