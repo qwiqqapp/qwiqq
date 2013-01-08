@@ -52,21 +52,3 @@
                                       %img{:align => "bottom", :src => "http://www.kylecopley.com/novationmobile/qwiqq/content-bottom.jpg", :style => "clear: both; position: bottom"}
                     %tr
                       %td{:align => "center", :valign => "top"}
-        - if @target
-          %tr
-            %td
-              %div{:style => "width:540px; margin:0 auto; color:#404040; font-size:8pt; padding:20px; text-align:center"}
-                #{link_to("Unsubscribe", update_user_notifications_url(@target), :style => "color:#404040")} from all Qwiqq notifications. If you would like to resubscribe you can change notification settings directly from your Qwiqq iPhone App.
-        %tr
-          %td{:style => "text-align:center; vertical-align:top; padding:20px"}
-            = image_tag "email/tagline.png"
-        %tr
-          %td{:style => "text-align:center; padding-bottom: 20px"}
-            = link_to "http://www.facebook.com/sharer/sharer.php?u=http://qwiqq.me", :style => "text-decoration: none; border: none"  do
-              = image_tag "email/facebook.png"
-            &nbsp;
-            = link_to "http://twitter.com/share?text=#{CGI::escape("I'm using @Qwiqq to share what I love to buy. http://qwiqq.me")}", :style => "text-decoration: none; border: none"  do
-              = image_tag "email/twitter.png"
-            &nbsp;
-            = link_to "mailto:?subject=Checkout Qwiqq!&body=http://qwiqq.me", :style => "text-decoration: none; border: none" do
-            = image_tag "email/email.png"
