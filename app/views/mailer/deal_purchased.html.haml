@@ -12,13 +12,13 @@
             #headerfooterWrapper
               %table#templatePreheader{:border => "0", :cellpadding => "0", :cellspacing => "0", :style => "width: 600px;height: 151px;margin: 0;"}
                 %tr
-                  %td.preheaderContent{:align => "center", :valign => "top"}
+                  %td.preheaderContent{:align => "center", :valign => "top", :style => ""}
                     %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "532"}
                       %tr
                         %td{:valign => "top", :width => "143"}
-                          #logo{"mc:edit" => "std_preheader_content"}
-                            %a{:href => "#"}
-                              %img{:src => "http://www.kylecopley.com/novationmobile/qwiqq/logo.jpg", :style => "padding-left:1px; border: 1px solid #e7e7e7; margin-left: 5px; margin-top: 3px;"}
+                          #logo{"mc:edit" => "std_preheader_content",:style => "color:#505050;font-family:Arial;font-size:10px;line-height:100%;text-align:left;margin-left: 60px;diplay: block;width: 143px;height: 141px;background-image: url("http://www.kylecopley.com/novationmobile/qwiqq/logo-background.gif");-webkit-box-shadow: 0px 0px 2px 2px #e0dfdd;box-shadow: 0px 0px 2px 2px #e0dfdd;"}
+                            %a{:href => "#", :style => ""}
+                              %img{:src => "assets/email/logo.jpg", :style => "padding-left:1px; border: 1px solid #e7e7e7; margin-left: 5px; margin-top: 3px;"}
                         %td{:valign => "top"}
                           %div{"mc:edit" => "std_preheader_links"}
                             #info
@@ -29,7 +29,7 @@
                                 = @deal.user.best_name
                             #purchase
                               %a.buynow{:href => "#"}
-                                %img{:src => "email/buynow.gif"}
+                                %img{:src => "assets/email/buynow.gif"}
                               %span.price
                                 = @deal.price_as_string
                     %table#templateContainer{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "532", :style =>"border:1 px solid #DDDDDD"}
@@ -40,7 +40,7 @@
                             %td.bodyContent{:valign => "top", :width => "560"}
                               %table#insideCoupon{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "472"}
                                 %tr
-                                  %td{:style => "position: relative", :valign => "top"}
+                                  %td{:style => "position: relative", :valign => "top", :style => "margin:0;padding:0;"}
                                     %img{:align => "top", :src => "http://www.kylecopley.com/novationmobile/qwiqq/content-top.jpg"}
                                     #dashedlines
                                       #contentleft
