@@ -10,7 +10,7 @@
         %tr
           %td{:align => "center", :valign => "top"}
             #headerfooterWrapper
-              %table#templatePreheader{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+              %table#templatePreheader{:border => "0", :cellpadding => "0", :cellspacing => "0", :style => "width: 600px;height: 151px;margin: 0;"}
                 %tr
                   %td.preheaderContent{:align => "center", :valign => "top"}
                     %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "532"}
@@ -29,10 +29,10 @@
                                 = @deal.user.best_name
                             #purchase
                               %a.buynow{:href => "#"}
-                                %img{:src => "http://www.kylecopley.com/novationmobile/qwiqq/buynow.gif"}
+                                %img{:src => "email/buynow.gif"}
                               %span.price
                                 = @deal.price_as_string
-                    %table#templateContainer{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "532"}
+                    %table#templateContainer{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "532", :style =>"border:1 px solid #DDDDDD"}
                       %tr
                         %td{:align => "center", :valign => "top"}
                           <table border="0" border-spacing: "0" cellpadding="0" cellspacing="0" width="532" id="templateBody">
