@@ -32,10 +32,11 @@ class Mailer < ActionMailer::Base
          :template_name => 'deal_purchased'
   end
   
-  def deal_purchased(target,deal)
+  def deal_purchased(target,deal, transaction)
     @target = target
     @user = target
     @deal = deal
+    @transaction = transaction
     mail :to => target.email, 
          :tag => "voucher",
          :subject => "Because you just bought something",
