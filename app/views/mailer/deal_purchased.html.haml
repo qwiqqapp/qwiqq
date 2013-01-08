@@ -4,9 +4,9 @@
     %title
       My Title
     <link href="http://www.qwiqq.me/assets/deal_purchase_email.css" rel="stylesheet" type="text/css">
-  %body{:leftmargin => "0", :marginheight => "0", :marginwidth => "0", :offset => "0", :topmargin => "0", :style => "url(http://qwiqq.me/assets/email/background-patter.jpg)"}
+  %body{:leftmargin => "0", :marginheight => "0", :marginwidth => "0", :offset => "0", :topmargin => "0", :style => "url(http://qwiqq.me/assets/email/background-pattern.jpg)"}
     %center
-      %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :height => "100%", :width => "100%", :id => "backgroundTable", :style => "color:red;background-image: url(http://qwiqq.me/assets/email/background-patter.jpg)"}
+      %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :height => "100%", :width => "100%", :id => "backgroundTable", :style => "color:red;background-image: url(http://qwiqq.me/assets/email/background-pattern.jpg)"}
         %tr
           %td{:align => "center", :valign => "top"}
             #headerfooterWrapper{:style => "border-top:1px solid #ccc9c3;background-image: url('http://www.qwiqq.me/assets/email/topbar-background.png');background-repeat: repeat-x;"}
@@ -30,8 +30,8 @@
                             #purchase{:style => "margin-left: 20px;margin-top: 35px;margin-bottom: 7px;"}
                               %a.buynow{:href => "#", :style => "display: block;width: 157px;height: 40px;float: left;"}
                                 %img{:src => image_path("email/buynow.gif")}
-                              %span.price{:style => "font-family: Arial, Helvetica, sans-serif;font-size: 36px;color: #44423f;font-weight: bold;padding-left: 10px;"}
-                                = @deal.price_as_string
+                              %span.price
+                                = @deal.price_as_string{:style => "font-family: Arial, Helvetica, sans-serif;font-size: 36px;color: #44423f;font-weight: bold;padding-left: 10px;"}
                     %table#templateContainer{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "532", :style =>"border:1 px solid #DDDDDD;/*@editable*/ background-color: white;-webkit-border-radius: 25px;border-radius: 25px;margin-top:1px;text-shadow: 2px 2px 1px #c0beb8;filter: dropshadow(color=#c0beb8, offx=2, offy=2);"}
                       %tr
                         %td{:align => "center", :valign => "top"}
