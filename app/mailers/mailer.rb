@@ -33,6 +33,7 @@ class Mailer < ActionMailer::Base
   end
   
   def deal_purchased(target,deal)
+    @target = target
     @user = target
     @deal = deal
     mail :to => target.email, 
