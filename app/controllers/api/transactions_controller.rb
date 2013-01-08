@@ -29,8 +29,7 @@ class Api::TransactionsController < Api::ApiController
       @transaction.user = User.find(params[:buyer_id])
       
       if params[:sandbox] == 'true'
-        #@transaction.paypal_transaction_id = params[:txn_id] if params[:txn_id]
-        @transaction.paypal_transaction_id = 1234567890
+        @transaction.paypal_transaction_id = params[:txn_id] if params[:txn_id]
       else
         trans = params[:transaction]
         firstReceiver = trans['0']
