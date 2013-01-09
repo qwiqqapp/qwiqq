@@ -54,12 +54,20 @@ class Api::TransactionsController < Api::ApiController
           puts trans
           
           firstReceiver = trans['0']
-          theID = firstReceiver['.id_for_sender_txn']
+          theID = firstReceiver['.id']
           puts "RECEVIER ID:#{theID}"
+          
+          if transaction.find_by_transaction_id(theID)
+            puts 'the transaction already exists...therefore we dont send an email'
+          else
+            Mailer.deal_purchased(@transaction.user, @deal, @transaction).deliver
+            puts 'transaction doesnt look like a repeat so we emailed the user'
+          end
+          
           @transaction.paypal_transaction_id = theID if theID != nil
         end
         
-        Mailer.deal_purchased(@transaction.user, @deal, @transaction).deliver
+        
         
         @transaction.save!
       else
