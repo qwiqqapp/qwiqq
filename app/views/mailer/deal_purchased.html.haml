@@ -51,7 +51,7 @@
                                         %span#text{:style => "font-size: 16px;font-weight: normal;color: #808080;display: block;padding-top: 3px;"}
                                           = @deal.name
                                         %span#voucherid{:style => "font-size: 14px;font-style: italic;color: #808080;"} Voucher ID: #{@transaction.paypal_transaction_id}
-                                        %a{:href => "#" onClick="print();return false;"}
+                                        %a{:href => "#", :onClick => "print();return false;"}
                                           %img{:src => image_path("email/print.gif"), :style => "padding-top:8px;display:inline;height:auto;"}
                                     %img{:align => "bottom", :src => image_path("email/content-bottom.jpg"), :style => "clear: both; position: bottom;display:inline;height:auto;"}
                     %tr
