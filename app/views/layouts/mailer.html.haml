@@ -28,4 +28,7 @@
           &nbsp;
           = link_to "mailto:?subject=Checkout Qwiqq!&body=http://qwiqq.me", :style => "text-decoration: none; border: none" do
             = image_tag "email/email.png"
-  
+          - if @deal
+            &nbsp;
+            = link_to pinterest_url_for(@deal), :style => "text-decoration: none; border: none" do
+              = image_tag "email/pinterest.png"
