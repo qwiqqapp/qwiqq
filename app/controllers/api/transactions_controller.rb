@@ -24,33 +24,39 @@ class Api::TransactionsController < Api::ApiController
     
     paypal_response = AdaptivePay::Callback.new(params, request.raw_post)
     
-    if paypal_response.completed? && paypal_response.valid?
-      # mark your payment as complete and make them unicorns happy!
-      puts "TRANSACTION VERIFIED"
-      
-      @deal = Deal.find(params[:deal_id])
-      @deal.num_left_for_sale=@deal.num_left_for_sale-1
-      @deal.save!
-      
-      @transaction = @deal.transactions.build
-      @transaction.user = User.find(params[:buyer_id])
-
-
-      if params[:sandbox] == 'true'
-        @transaction.paypal_transaction_id = params[:txn_id] if params[:txn_id]
+    if paypal_response.completed?
+      if paypal_response.valid?
+        # mark your payment as complete and make them unicorns happy!
+        puts "TRANSACTION VERIFIED"
+        
+        @deal = Deal.find(params[:deal_id])
+        @deal.num_left_for_sale=@deal.num_left_for_sale-1
+        @deal.save!
+        
+        @transaction = @deal.transactions.build
+        @transaction.user = User.find(params[:buyer_id])
+  
+  
+        if params[:sandbox] == 'true'
+          @transaction.paypal_transaction_id = params[:txn_id] if params[:txn_id]
+        else
+          trans = params[:transaction]
+          firstReceiver = trans['0']
+          theID = firstReceiver['.id_for_sender_txn']
+          puts "RECEVIER ID:#{theID}"
+          @transaction.paypal_transaction_id = theID if theID != nil
+        end
+        
+        Mailer.deal_purchased(@transaction.user, @deal, @transaction).deliver
+        
+        @transaction.save!
       else
-        trans = params[:transaction]
-        firstReceiver = trans['0']
-        theID = firstReceiver['.id_for_sender_txn']
-        puts "RECEVIER ID:#{theID}"
-        @transaction.paypal_transaction_id = theID if theID != nil
+        puts 'Well this is a huge security issue, someone is trying to steal from us!!, or we are testing things...'
       end
-      
-      Mailer.deal_purchased(@transaction.user, @deal, @transaction).deliver
-      
-      @transaction.save!
     else
       puts "TRANSACTION NOT VERIFIED"
+    end
+      
     end
     render :nothing => true
   end
