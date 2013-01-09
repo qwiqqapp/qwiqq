@@ -59,9 +59,10 @@ namespace :mail do
     deal = Deal.find("10345")
     deals = Deal.premium.recent.sorted.popular.first(3)
     transaction = Transaction.find("121") 
-    #Mailer.deal_purchased(user, deal, transaction).deliver
+    Mailer.deal_purchased(user, deal, transaction).deliver
     Mailer.weekly_update(user, deals, deal).deliver
-  end
+    puts "Finished Rake"
+  end 
   
   task :send_brandon => :environment do
     user = User.find_by_email("copley.brandon@gmail.com")
