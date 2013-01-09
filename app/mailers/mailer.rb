@@ -28,8 +28,7 @@ class Mailer < ActionMailer::Base
     @deal = deal
     mail :to => target.email, 
          :tag => "category",
-         :subject => "Because I wanted to test something",
-         :template_name => 'deal_purchased'
+         :subject => "Because I wanted to test something"
   end
   
   def deal_purchased(target,deal, transaction)
@@ -100,11 +99,10 @@ class Mailer < ActionMailer::Base
          :subject => "You haven't updated your profile!!!"
   end
   
-  def weekly_update(target, deals, deal)
+  def weekly_update(target, deals)
     @target = target
     @user = target
     @deals = deals
-    @deal = deal
     mail :to => target.email, 
          :tag => "update",
          :subject => "What's the community sharing on Qwiqq!"
