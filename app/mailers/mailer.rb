@@ -100,9 +100,10 @@ class Mailer < ActionMailer::Base
          :subject => "You haven't updated your profile!!!"
   end
   
-  def weekly_update(target, deal)
+  def weekly_update(target, deals, deal)
     @target = target
     @user = target
+    @deals = deals
     @deal = deal
     mail :to => target.email, 
          :tag => "update",
