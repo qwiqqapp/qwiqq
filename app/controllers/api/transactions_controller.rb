@@ -22,7 +22,14 @@ class Api::TransactionsController < Api::ApiController
     
     puts 'trying to create transaction'
     
-    paypal_response = AdaptivePay::Callback.new(params, request.raw_post)
+    #michael's way
+    #paypal_response = AdaptivePay::Callback.new(params, request.raw_post)
+    
+    #notes from here...https://github.com/derfred/adaptive_pay
+    paypal_response = AdaptivePay::Callback.new params
+    
+    puts 'params: '
+    puts params
     
     if paypal_response.completed?
       if paypal_response.valid?
@@ -41,6 +48,11 @@ class Api::TransactionsController < Api::ApiController
           @transaction.paypal_transaction_id = params[:txn_id] if params[:txn_id]
         else
           trans = params[:transaction]
+          
+          
+          puts 'trans: '
+          puts trans
+          
           firstReceiver = trans['0']
           theID = firstReceiver['.id_for_sender_txn']
           puts "RECEVIER ID:#{theID}"
