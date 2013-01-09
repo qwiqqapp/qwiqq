@@ -31,7 +31,7 @@ class Mailer < ActionMailer::Base
          :subject => "Because I wanted to test something"
   end
   
-  def deal_purchased(target,deal, transaction)
+  def deal_purchased(target,deal,transaction)
     @target = target
     @user = target
     @deal = deal
