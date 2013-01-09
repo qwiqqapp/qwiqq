@@ -18,8 +18,7 @@
                         %td{:valign => "top", :width => "143"}
                           #logo{"mc:edit" => "std_preheader_content",:style => "color:#505050;font-family:Arial;font-size:10px;line-height:100%;text-align:left;margin-left: 60px;diplay: block;width: 143px;height: 141px;background-image: url('http://www.qwiqq.me/assets/email/logo-background.gif');-webkit-box-shadow: 0px 0px 2px 2px #e0dfdd;box-shadow: 0px 0px 2px 2px #e0dfdd;"}
                             %a{:href => "#", :style => ""}
-                            = image_tag @user.photo(:iphone_profile), :width => 129, :height => 129, :align => "left"
-                              / %img{:src => image_path(@deal.), :style => "padding-left:1px; border: 1px solid #e7e7e7; margin-left: 5px; margin-top: 3px;"}
+                              %img{:src => image_path(@user.photo), :style => "padding-left:1px; border: 1px solid #e7e7e7; margin-left: 5px; margin-top: 3px;"}
                         %td{:valign => "top"}
                           %div{"mc:edit" => "std_preheader_links"}
                             #info{:style => "margin-left: 20px;margin-top: 25px;"}
