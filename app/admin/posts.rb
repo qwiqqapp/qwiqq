@@ -62,6 +62,11 @@ ActiveAdmin.register Deal do
     column("Price", :sortable => :price) {|deal| deal.price ? number_to_currency(deal.price.to_f/100) : "" }
     
     column :created_at
+    
+    column :for_sale_on_paypal
+    column :num_for_sale
+    column :num_left_for_sale
+    
     default_actions
   end
   
@@ -74,6 +79,9 @@ ActiveAdmin.register Deal do
      f.input :premium
      f.input :coupon
      f.input :coupon_count
+     f.input :for_sale_on_paypal
+     f.input :num_for_sale
+     f.input :num_left_for_sale
    end
    
    f.inputs "Location" do
@@ -118,6 +126,6 @@ ActiveAdmin.register Deal do
   end
     
   sidebar "Details (raw data)", :only => :show do
-    attributes_table_for deal, :name, :price, :lat, :lon,  :likes_count, :comments_count, :premium, :created_at, :updated_at, :coupon, :coupon_count, :number_users_shared
+    attributes_table_for deal, :name, :price, :lat, :lon,  :likes_count, :comments_count, :premium, :created_at, :updated_at, :coupon, :coupon_count, :number_users_shared, :for_sale_on_paypal, :num_for_sale, :num_left_for_sale
   end
 end
