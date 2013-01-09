@@ -23,10 +23,10 @@ class Api::TransactionsController < Api::ApiController
     puts 'trying to create transaction'
     
     #michael's way
-    #paypal_response = AdaptivePay::Callback.new(params, request.raw_post)
+    paypal_response = AdaptivePay::Callback.new(params, request.raw_post)
     
     #notes from here...https://github.com/derfred/adaptive_pay
-    paypal_response = AdaptivePay::Callback.new params
+    #paypal_response = AdaptivePay::Callback.new params
     
     puts 'params: '
     puts params
