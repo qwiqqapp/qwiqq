@@ -37,8 +37,7 @@ class Api::TransactionsController < Api::ApiController
         puts "TRANSACTION VERIFIED"
         
         @deal = Deal.find(params[:deal_id])
-        @deal.num_left_for_sale=@deal.num_left_for_sale-1
-        @deal.save!
+        
         
         @transaction = @deal.transactions.build
         @transaction.user = User.find(params[:buyer_id])
@@ -60,6 +59,8 @@ class Api::TransactionsController < Api::ApiController
           if Transaction.exists?(:paypal_transaction_id => theID)
             puts 'the transaction already exists...therefore we dont send an email'
           else
+            @deal.num_left_for_sale=@deal.num_left_for_sale-1
+            @deal.save!
             Mailer.deal_purchased(@transaction.user, @deal, @transaction).deliver
             puts 'transaction doesnt look like a repeat so we emailed the user'
           end
