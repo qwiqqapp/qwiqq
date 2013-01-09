@@ -35,6 +35,9 @@ ActiveAdmin.register Deal do
     column :coupon
     column :shares_count
     column :number_users_shared
+    column :for_sale_on_paypal
+    column :num_for_sale
+    column :num_left_for_sale
   end
     
   index do
