@@ -38,7 +38,7 @@ class Mailer < ActionMailer::Base
     @transaction = transaction
     mail :to => target.email, 
          :tag => "voucher",
-         :subject => "Because you just bought something",
+         :subject => "You just bought something on Qwiqq!",
          :template_name => 'deal_purchased'
   end
   
