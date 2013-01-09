@@ -1,9 +1,9 @@
 class ChangeTypeOfPayPalTransactionIdToString < ActiveRecord::Migration
   def self.up
-    change_column :transactions, :paypal_transaction_id, :string
+    change_column :transaction, :paypal_transaction_id, :string
   end
 
   def self.down
-    change_column :transactions, :paypal_transaction_id, :integer
+    change_column :transaction, :paypal_transaction_id, :integer
   end
 end
