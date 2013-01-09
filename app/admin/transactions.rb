@@ -19,6 +19,7 @@ ActiveAdmin.register Transaction do
     
  
   index do
+    column("ID"){|transaction| transaction.id.try(:to_s)}
     column("Buyer", :sortable => :user) do |transaction|  
       link_to(transaction.user.name, [ :admin, transaction.user ]) if transaction.user
     end
