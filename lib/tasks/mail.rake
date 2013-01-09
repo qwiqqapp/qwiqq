@@ -57,8 +57,10 @@ namespace :mail do
   task :send_michael => :environment do
     user = User.find_by_email("michaelscaria26@gmail.com")
     deal = Deal.find("10345")
-    transaction = Transaction.find("121")
-    Mailer.deal_purchased(user, deal, transaction).deliver
+    deals = Deal.premium.recent.sorted.popular.first(3)
+    transaction = Transaction.find("121") 
+    #Mailer.deal_purchased(user, deal, transaction).deliver
+    Mailer.weekly_update(user, deals, deal).deliver
   end
   
   task :send_brandon => :environment do
