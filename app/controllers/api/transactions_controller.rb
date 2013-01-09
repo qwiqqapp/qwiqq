@@ -56,8 +56,7 @@ class Api::TransactionsController < Api::ApiController
     else
       puts "TRANSACTION NOT VERIFIED"
     end
-      
-    end
+    
     render :nothing => true
   end
   
