@@ -2,6 +2,7 @@ class FacebookInvalidTokenException < Exception; end
 
 class User < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
+  serialize :socialyzer_times, Hash
   
   define_index do
     indexes first_name
@@ -42,6 +43,8 @@ class User < ActiveRecord::Base
   scope :connected_to_facebook, where('facebook_access_token is NOT NULL')
   scope :connected_to_twitter, where('twitter_access_token is NOT NULL')
   scope :connected_to_foursquare, where('foursquare_access_token is NOT NULL')
+  scope :socialyzer_enabled, where('socialyzer_enabled_at IS NOT NULL')
+  scope :socialyzer_ready, where('socialyzer_times IS NOT NULL')
     
   attr_accessible :first_name, 
                   :last_name, 
@@ -66,7 +69,9 @@ class User < ActiveRecord::Base
                   :suggested,
                   :photo_service,
                   :sent_facebook_push,
-                  :paypal_email
+                  :paypal_email,
+                  :socialyzer_times,
+                  :socialyzer_enabled_at
 
   attr_accessor :push_token
   attr_accessor :password
@@ -203,6 +208,8 @@ class User < ActiveRecord::Base
       :facebook_authorized   => !facebook_access_token.blank?,
       :twitter_authorized    => !twitter_access_token.blank?,
       :foursquare_authorized => !foursquare_access_token.blank?,
+      :socialyzer_enabled    => socialyzer_enabled?,
+      :socialyzer_ready      => socialyzer_ready?,
       :followers_count       => followers_count,
       :following_count       => following_count,
       :phone                 => phone,
@@ -277,6 +284,63 @@ class User < ActiveRecord::Base
       twitter_ids << result.users.map {|f| f["id"].to_s } if result.users
     end while cursor != 0
     twitter_ids.flatten
+  end
+
+  def socialyzer_enabled?
+    !!socialyzer_enabled_at
+  end
+
+  # If false, check with Socialyzer API and update if appropriate
+  #
+  def socialyzer_ready?
+    if twitter_id.present? and socialyzer_enabled?
+      socialyzer_times.present? || engage_socialyzer!
+    end
+  end
+
+  def engage_socialyzer!(force_update=false)
+    if (socialyzer_times.present? && force_update) || socialyzer_times.blank?
+      times_hash = Socialyzer.daily_best(twitter_id)
+      unless times_hash.nil? or times_hash.empty?
+        self.socialyzer_times = times_hash
+        save
+      end
+    end
+    get_twitter_utc_offset
+    self.socialyzer_times.present?
+  end
+
+  def get_twitter_utc_offset
+    return (self.twitter_utc_offset || -5) if self.twitter_utc_offset.present?
+    twitter_user = Socialyzer.twitter_user(twitter_id)
+    if twitter_user
+      update_attribute(:twitter_utc_offset, twitter_user["utc_offset"] || -5)
+    end
+    self.twitter_utc_offset
+  end
+
+  def enable_socialyzer!
+    res = Socialyzer.add_twitter_user(twitter_id)
+    if res["success"]
+      touch :socialyzer_enabled_at
+    else
+      res
+    end
+  end
+
+  def disable_socialyzer!
+    update_attributes(:socialyzer_times => nil, :socialyzer_enabled_at => nil, :twitter_utc_offset => nil)
+  end
+
+  def next_socialyzer_time(alerts_per_day=1)
+    sorted_times = socialyzer_times.map do |dayname, timestamps|
+      timestamps.split.first(alerts_per_day).map do |timestamp|
+        # subtract UTC offset to compensate for Socialyzer's adding it,
+        # since we return times in UTC, and randomize minutes
+        DateTime.parse("#{dayname} #{timestamp}") - get_twitter_utc_offset.hours + (30-rand(60)).minutes
+      end
+    end.flatten.select(&:future?).sort_by(&:to_i)
+    sorted_times.first
   end
   
   # can raise Facebook::InvalidAccessTokenError if token missing or invalid

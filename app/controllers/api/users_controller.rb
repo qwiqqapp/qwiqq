@@ -141,6 +141,18 @@ class Api::UsersController < Api::ApiController
     render :status => 200, :nothing => true
   end
 
+  def enable_socialyzer
+    requested_user
+    @user.enable_socialyzer!
+    render :status => 200, :nothing => true
+  end
+
+  def disable_socialyzer
+    requested_user
+    @user.disable_socialyzer!
+    render :status => 200, :nothing => true
+  end
+
   def suggested
     @users = User.suggested
     respond_with @users.as_json(:current_user => current_user)
