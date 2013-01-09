@@ -57,7 +57,7 @@ class Api::TransactionsController < Api::ApiController
           theID = firstReceiver['.id']
           puts "RECEVIER ID:#{theID}"
           
-          if Transaction.find_by_transaction_id(theID)
+          if Transaction.exists?(:transaction => theID)
             puts 'the transaction already exists...therefore we dont send an email'
           else
             Mailer.deal_purchased(@transaction.user, @deal, @transaction).deliver
