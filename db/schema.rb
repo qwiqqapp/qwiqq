@@ -195,7 +195,7 @@ ActiveRecord::Schema.define(:version => 20121230195512) do
   end
 
   create_table "transactions", :force => true do |t|
-    t.integer   "paypal_transaction_id"
+    t.string   "paypal_transaction_id"
     t.integer   "deal_id"
     t.integer   "user_id"
     t.timestamp "created_at"
