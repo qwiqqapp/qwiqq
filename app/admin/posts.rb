@@ -1,10 +1,8 @@
-ActiveAdmin.register Deal do
+ActiveAdmin.register Deal, :as => 'Posts' do
   #ActiveAdmin.register Deal, :as => "Deals" do
   menu :label => "Posts"
   
-  show :title => "Posts"
-  
-  actions :index, :show, :edit, :update, :destroy  
+  actions :index, :show, :edit, :update, :destroy  => 'DESTROY HUMANS'
   
   scope :all, :default => true
   scope :today
