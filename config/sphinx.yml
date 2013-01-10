@@ -1,6 +1,10 @@
 test:
   port: 9313
 
+development:
+   bin_path: "/usr/local/bin"
+   port: 9313
+
 staging:
   version: 1.10-beta
   min_prefix_len: 3
