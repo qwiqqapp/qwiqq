@@ -42,11 +42,10 @@ gem "socialyzer"
 # PayPal
 gem "paypal", "~> 2.0.0"
 
-
 # search
 gem "riddle"
 gem "thinking-sphinx"
-gem "flying-sphinx", "0.8.5"
+gem "flying-sphinx"
 gem "kaminari"
 
 # mail
