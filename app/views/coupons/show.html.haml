@@ -26,9 +26,9 @@
       %a{ :href => root_url }
         %img{ :src => image_path("logo-coupon.png") }
       .coupon
-        %a{:href => "#"}
-          %img{:onClick => "showUp(); return false;", :src => "https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"}
-​
+        = link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif", :border => 0), :onclick => "showUp(); return false;"
+        %a{ :href => "http://maps.google.com/?q=#{deal.lat},#{deal.lon}", :target => '_blank' }
+          %img{ :src => "http://maps.googleapis.com/maps/api/staticmap?size=280x200&zoom=15&sensor=false&markers=color:red|#{deal.lat},#{deal.lon}" }
 
 
         - if redeemed?
