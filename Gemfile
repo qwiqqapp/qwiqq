@@ -44,9 +44,9 @@ gem "paypal", "~> 2.0.0"
 
 
 # search
-gem "riddle", "~> 1.5.4"
-gem "thinking-sphinx", "2.0.10"
-gem "flying-sphinx", "0.7.0"
+gem "riddle"
+gem "thinking-sphinx"
+gem "flying-sphinx", "0.8.5"
 gem "kaminari"
 
 # mail
