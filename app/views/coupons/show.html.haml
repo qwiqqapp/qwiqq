@@ -25,8 +25,8 @@
     .coupon-container
       %a{ :href => root_url }
         %img{ :src => image_path("logo-coupon.png") }
-      %a{ :href => "http://maps.google.com/?q=#{deal.lat},#{deal.lon}"}
-        %img{ :src => "https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" }
+      %a{ :href => "#"}
+        %img{:onClick => "showUp(); return false;", :src => "https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" }
       .coupon
         - if redeemed?
           .header
