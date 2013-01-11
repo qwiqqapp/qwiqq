@@ -2,8 +2,7 @@ test:
   port: 9313
 
 development:
-   bin_path: "/usr/local/bin"
-   port: 9313
+  port: 9312
 
 staging:
   version: 1.10-beta
