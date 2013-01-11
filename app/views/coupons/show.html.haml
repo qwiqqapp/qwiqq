@@ -19,13 +19,14 @@
       }
       function showUp{
         alert(’Hello There’);
+        return false;
       }()
 
   %body
     .coupon-container
       %a{ :href => root_url }
         %img{ :src => image_path("logo-coupon.png") }
-      %a{ :href => "#"}
+      %a{ :href => "javascript:void(0)"}
         %img{:onClick => "showUp(); return false;", :src => "https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" }
       .coupon
         - if redeemed?
