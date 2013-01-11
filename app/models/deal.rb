@@ -153,17 +153,17 @@ class Deal < ActiveRecord::Base
       :share_count    => shares_count,
       
       :for_sale_on_paypal      => for_sale_on_paypal,
+      :currency               => currency,
       #:number_users_shared    => number_users_shared,
       #:num_left_for_sale      => num_left_for_sale,
       #:num_for_sale           => num_for_sale,
-      #:currency               => currency,
       #:paypal_email           => paypal_email
     }
     
     if for_sale_on_paypal?
       json[:num_left_for_sale]  = num_left_for_sale
       json[:num_for_sale]       = num_for_sale
-      json[:currency]           = currency
+      #json[:currency]           = currency
       json[:paypal_email]       = paypal_email
     end
     
