@@ -29,10 +29,9 @@
       %a{ :href => root_url }
         %img{ :src => image_path("logo-coupon.png") }
 
+      %a{ :href => "#" onclick="myFunc(); return false;"}
+        %img{ :src => "https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" }
 
-
-      %button{:style => "border: 0; background: transparent", :type => "submit", :onclick => "myFunc();"}
-        %img{:alt => "buy", :src => "https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"}
 
       .coupon
         - if redeemed?
