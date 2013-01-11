@@ -197,8 +197,11 @@ class Deal < ActiveRecord::Base
   
   def price_as_string
     if self.price > 0
-      if self.currency number_to_currency(price.to_f / 100, :unit => self.currency)
-      number_to_currency(price.to_f / 100)
+      if self.currency
+        number_to_currency(price.to_f / 100, :unit => self.currency)
+      else
+        number_to_currency(price.to_f / 100)
+      end
     else
       "Free"
     end
