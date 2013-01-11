@@ -7,7 +7,7 @@ gem 'aws-sdk'
 gem 'newrelic_rpm'
 
 # base
-gem "rails", "3.2.0"
+gem "rails", "3.2.11"
 gem "railties"
 gem "actionpack"
 gem "rake"
