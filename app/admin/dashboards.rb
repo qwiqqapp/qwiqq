@@ -3,7 +3,7 @@ ActiveAdmin::Dashboards.build do
    section "New Posts", :priority => 1 do
      table_for Deal.order("created_at desc").limit(9) do
        column("") {|deal| link_to(image_tag(deal.photo.url(:iphone_list)), [:admin, deal])}
-       column("") {|deal|  link_to deal.name, admin_deal_path(deal)}
+       column("") {|deal|  link_to deal.name, admin_post_path(deal)}
        column("") {|deal| status_tag(deal.try(:category).try(:name)) }
        column("") {|deal| deal.created_at.to_s(:short) }
      end
@@ -12,7 +12,7 @@ ActiveAdmin::Dashboards.build do
    section "Popular Posts", :priority => 2 do
      table_for Deal.popular.limit(9) do
        column("") {|deal| link_to(image_tag(deal.photo.url(:iphone_list)), [:admin, deal])}
-       column("") {|deal|  link_to deal.name, admin_deal_path(deal)}
+       column("") {|deal|  link_to deal.name, admin_post_path(deal)}
        column("") {|deal| status_tag(deal.try(:category).try(:name)) }
        column("") {|deal| deal.created_at.to_s(:short) }
      end
