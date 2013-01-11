@@ -1,5 +1,11 @@
 test:
-  port: 9313
+  address: ec2-23-22-6-59.compute-1.amazonaws.com
+  port: 9352
+
+development:
+  bin_path: '/usr/local/bin'
+  searchd_binary_name: 'searchd'
+  indexer_binary_name: 'indexer'
 
 staging:
   version: 1.10-beta

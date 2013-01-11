@@ -1,7 +1,8 @@
-ActiveAdmin.register Deal do
+ActiveAdmin.register Deal, :as => 'Posts' do
   #ActiveAdmin.register Deal, :as => "Deals" do
   menu :label => "Posts"
-  actions :index, :show, :edit, :update, :destroy
+  
+  actions :index, :show, :edit, :update, :destroy  => 'DESTROY HUMANS'
   
   scope :all, :default => true
   scope :today
@@ -103,8 +104,8 @@ ActiveAdmin.register Deal do
         column('Comment'){|c| c.body}
         column(:created_at)
         column("") do |comment| 
-          links  = link_to("View", admin_deal_comment_path(comment), :class => "member_link view_link")
-          links += link_to("Edit", edit_admin_deal_comment_path(comment))
+          links  = link_to("View", admin_post_comment_path(comment), :class => "member_link view_link")
+          links += link_to("Edit", edit_admin_post_comment_path(comment))
           links
         end
       end
