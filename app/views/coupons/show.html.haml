@@ -21,7 +21,9 @@
         alert(’Hello There’);
         return false;
       }
-
+      function myFunc (){
+        alert(’Hello There -myFunc’);
+      }
   %body
     .coupon-container
       %a{ :href => root_url }
@@ -30,7 +32,7 @@
       %a{ :href => "javascript:void(0)"}
         %img{:onClick => "showUp();", :src => "https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" }
 
-      %button{:style => "border: 0; background: transparent", :type => "image"}
+      %button{:style => "border: 0; background: transparent", :type => "image", :onclick => "myFunc()"}
         %img{:alt => "buy", :src => "https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"}
 
       .coupon
