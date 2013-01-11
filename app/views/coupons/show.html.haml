@@ -30,9 +30,7 @@
 
         %a{ :href => "http://maps.google.com/?q=#{deal.lat},#{deal.lon}", :target => '_blank' }
           %img{ :src => "https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" }
-​        %a{:href => "#"}
-          %img{:onClick => "showUp(); return false;", :src => "https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"}
-
+​        
 
         - if redeemed?
           .header
