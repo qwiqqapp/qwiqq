@@ -2,7 +2,8 @@
 ActiveAdmin.register Deal do
   #ActiveAdmin.register Deal, :as => "Deals" do
   
-  menu false
+  menu :label => "Posts"
+  #menu false
   
   actions :index, :show, :edit, :update, :destroy  => 'DESTROY HUMANS'
   
@@ -76,6 +77,7 @@ ActiveAdmin.register Deal do
   form(:html => {:multipart => true}) do |f|
    f.inputs "Details" do
      f.input :name
+     f.input :currency
      f.input :price, :hint => "Stored in cents. Example: 1000c = $10.00"
      f.input :category
      f.input :photo, :as => :file
