@@ -1,38 +1,44 @@
 ActiveAdmin::Dashboards.build do
 
-   section "New Posts", :priority => 1 do
-     table_for Deal.order("created_at desc").limit(9) do
-       column("") {|deal| link_to(image_tag(deal.photo.url(:iphone_list)), [:admin, deal])}
-       column("") {|deal|  link_to deal.name, admin_post_path(deal)}
-       column("") {|deal| status_tag(deal.try(:category).try(:name)) }
-       column("") {|deal| deal.created_at.to_s(:short) }
-     end
-   end
+  # section "New Posts", :priority => 1 do
+  #   table_for Deal.order("created_at desc").limit(9) do
+  #     column("") {|deal| link_to(image_tag(deal.photo.url(:iphone_list)), [:admin, deal])}
+  #     column("") {|deal|  link_to deal.name, admin_post_path(deal)}
+  #     column("") {|deal| status_tag(deal.try(:category).try(:name)) }
+  #     column("") {|deal| deal.created_at.to_s(:short) }
+  #   end
+  # end
    
-   section "Popular Posts", :priority => 2 do
-     table_for Deal.popular.limit(9) do
-       column("") {|deal| link_to(image_tag(deal.photo.url(:iphone_list)), [:admin, deal])}
-       column("") {|deal|  link_to deal.name, admin_post_path(deal)}
-       column("") {|deal| status_tag(deal.try(:category).try(:name)) }
-       column("") {|deal| deal.created_at.to_s(:short) }
-     end
-   end
+  # section "Popular Posts", :priority => 2 do
+  #   table_for Deal.popular.limit(9) do
+  #     column("") {|deal| link_to(image_tag(deal.photo.url(:iphone_list)), [:admin, deal])}
+  #     column("") {|deal|  link_to deal.name, admin_post_path(deal)}
+  #     column("") {|deal| status_tag(deal.try(:category).try(:name)) }
+  #     column("") {|deal| deal.created_at.to_s(:short) }
+  #   end
+  # end
    
-   section "Current Home Page Posts", :priority => 3 do
-     table_for Deal.premium.recent.sorted.popular.first(9) do
-       column("") {|deal| link_to(image_tag(deal.photo.url(:iphone_list)), [:admin, deal])}
-       column("") {|deal|  link_to deal.name, admin_post_path(deal)}
-       column("") {|deal| status_tag(deal.try(:category).try(:name)) }
-       column("") {|deal| deal.created_at.to_s(:short) }
-     end
-   end
+  # section "Current Home Page Posts", :priority => 3 do
+  #   table_for Deal.premium.recent.sorted.popular.first(9) do
+  #     column("") {|deal| link_to(image_tag(deal.photo.url(:iphone_list)), [:admin, deal])}
+  #     column("") {|deal|  link_to deal.name, admin_post_path(deal)}
+  #     column("") {|deal| status_tag(deal.try(:category).try(:name)) }
+  #     column("") {|deal| deal.created_at.to_s(:short) }
+  #   end
+  # end
 
-   section "Performance", :priority => 4 do
-      div do
-        br
-        text_node %{<iframe src="https://heroku.newrelic.com/public/charts/lD4xesY05Oe" width="500" height="300" scrolling="no" frameborder="no"></iframe>}.html_safe
-      end
-    end
+  # section "Performance", :priority => 4 do
+  #    div do
+  #      br
+  #      text_node %{<iframe src="https://heroku.newrelic.com/public/charts/lD4xesY05Oe" width="500" height="300" scrolling="no" frameborder="no"></iframe>}.html_safe
+  #    end
+  #  end
+  
+  
+  
+  
+  
+  
   
   
   # Define your dashboard sections here. Each block will be
