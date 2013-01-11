@@ -104,8 +104,8 @@ ActiveAdmin.register Deal, :as => 'Posts' do
         column('Comment'){|c| c.body}
         column(:created_at)
         column("") do |comment| 
-          links  = link_to("View", admin_deal_comment_path(comment), :class => "member_link view_link")
-          links += link_to("Edit", edit_admin_deal_comment_path(comment))
+          links  = link_to("View", admin_post_comment_path(comment), :class => "member_link view_link")
+          links += link_to("Edit", edit_admin_post_comment_path(comment))
           links
         end
       end
