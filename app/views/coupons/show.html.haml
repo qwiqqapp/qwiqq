@@ -17,16 +17,23 @@
         name = 'Tested Email!' ;
         alert(name);
       }
-      function showUp{
+      function showUp (){
         alert(’Hello There’);
-      }()
-
+        return false;
+      }
+      function myFunc (){
+        alert(’Hello There -myFunc’);
+      }
   %body
     .coupon-container
       %a{ :href => root_url }
         %img{ :src => image_path("logo-coupon.png") }
-      %a{ :href => "#"}
-        %img{:onClick => "showUp(); return false;", :src => "https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" }
+
+
+
+      %button{:style => "border: 0; background: transparent", :type => "Button", :onclick => "myFunc();"}
+        %img{:alt => "buy", :src => "https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"}
+
       .coupon
         - if redeemed?
           .header
