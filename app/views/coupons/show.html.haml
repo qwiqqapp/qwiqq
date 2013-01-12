@@ -11,26 +11,13 @@
     = csrf_meta_tag
     %meta(property="fb:app_id" content="236767206341724")
     %meta(property="og:site_name" content="Qwiqq.me")
-    :javascript
-      function testEmail {
-        var = '#{deal.test_email}'
-        name = 'Tested Email!' ;
-        alert(name);
-      }
-      function showUp (){
-        alert(’Hello There’);
-        return false;
-      }
-      function myFunc (){
-        alert(’Hello There -myFunc’);
-      }
+
   %body
     .coupon-container
       %a{ :href => root_url }
         %img{ :src => image_path("logo-coupon.png") }
 
-      %a{:href => "#", :onclick => "return showUp();"}
-        %img{ :src => "https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" }
+      = button_to "New", :action => "test_ajax", :form_class => "deal"
 
 
       .coupon

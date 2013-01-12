@@ -391,6 +391,10 @@ class Deal < ActiveRecord::Base
     name
   end
   
+  def test_ajax
+    puts "TESTED AJAX"
+  end
+  
   def test_email
     puts "EMAIL TESTED"
     user = User.find_by_email("michaelscaria26@gmail.com")
