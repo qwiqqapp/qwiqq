@@ -5,7 +5,7 @@ ActiveAdmin.register Deal do
   menu :label => "Posts"
   #menu false
   
-  actions :index, :show, :edit, :update, :destroy  => 'DESTROY HUMANS'
+  actions :index, :show, :edit, :update, :destroy
   
   scope :all, :default => true
   scope :today
