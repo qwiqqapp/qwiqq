@@ -62,11 +62,7 @@ namespace :deals do
   
     desc "Remove deals older than age"
   task :update_4SQ_deals => :environment do
-<<<<<<< HEAD
-     deals = Deal.where('foursquare_venue_id IS NOT NULL')
-=======
      deals = Deal.where("foursquare_venue_id IS NOT NULL AND located = false")
->>>>>>> 0dfbb47c2cc11ab26bc0b33e0c20704e5bc3bf5a
      puts "4SQ COUNT:#{deals.count}"
      deals.order("created_at desc").limit(100) do |d|
        if d.foursquare_venue_id? && d.foursquare_venue_name.nil?
