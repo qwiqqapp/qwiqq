@@ -74,7 +74,6 @@ namespace :deals do
          puts "Deal now has 4SQ Location:#{d.foursquare_venue_name}"
        end
      end
-     deals.destroy_all
      puts "success!"
   end
 end
