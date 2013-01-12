@@ -16,7 +16,7 @@
     .coupon-container
       %a{ :href => root_url }
         %img{ :src => image_path("logo-coupon.png") }
-      = link_to "Link To", :action => "test_ajax", :remote => true, :method => "get"
+      = link_to "Link To", :action => "test_ajax", :method => "get", :controller => "coupons"
 
 
       .coupon
