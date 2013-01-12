@@ -64,12 +64,10 @@ namespace :deals do
   task :update_4SQ_deals => :environment do
      deals = Deal.where('foursquare_venue_id IS NOT NULL AND located=FALSE')
      puts "4SQ COUNT:#{deals.count}"
-     deals.order("created_at desc").limit(1000) do |d|
+     deals.order("created_at desc").limit(10) do |d|
        if d.foursquare_venue_id? && d.foursquare_venue_name.nil?
          d.locate! rescue nil
          puts "Deal now has 4SQ Location:#{d.foursquare_venue_name}"
-         d.located = true
-         d.save
        end
      end
      puts "success!"
