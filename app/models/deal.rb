@@ -392,7 +392,7 @@ class Deal < ActiveRecord::Base
   end
   
   def test_ajax
-    puts "TESTED AJAX"
+    puts "TESTED AJAX DEAL"
   end
   
   def test_email
