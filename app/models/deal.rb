@@ -74,6 +74,8 @@ class Deal < ActiveRecord::Base
   scope :coupon, where(:coupon => true)
   scope :most_shared, where(:premium => true)
   
+  helper_method :test_ajax
+  
   # all images are cropped
   # see initializers/auto_orient.rb for new processor
   #  TODO review all image sizes, need to reduce/reuse
