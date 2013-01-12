@@ -9,7 +9,7 @@ Qwiqq::Application.routes.draw do
   
   resources :posts, :only => [:index, :show], :as => "deals", :controller => "deals" do
     get :nearby, :on => :collection
-    resource :coupon, :only => [:show], :as => "coupons", controller => "coupons" do
+    resource :coupon, :only => [:show], :as => "coupons", :controller => "coupons" do
       get "test_ajax", :on => :member
     end
   end
