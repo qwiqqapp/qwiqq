@@ -5,12 +5,15 @@ Qwiqq::Application.routes.draw do
 
   # public web
   root :to => "deals#index"
+  connect '/posts/ajax_test', :controller => 'deals', :action => 'ajax_test'
+  
   resources :posts, :only => [:index, :show], :as => "deals", :controller => "deals" do
     get :nearby, :on => :collection
     resource :coupon, :only => [:show]
-    match 'buy' => 'deal#test_paypal'
+    match 'ajax_test' => 'deal#test_paypal'
   end
   resources :users, :only => [:show]
+  
   
   # home routes
   match "about",    :to => "home#about",    :as => :about

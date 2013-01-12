@@ -73,7 +73,7 @@ class Deal < ActiveRecord::Base
   scope :popular, order("likes_count desc, comments_count desc")
   scope :coupon, where(:coupon => true)
   scope :most_shared, where(:premium => true)
-  
+    
   # all images are cropped
   # see initializers/auto_orient.rb for new processor
   #  TODO review all image sizes, need to reduce/reuse
@@ -389,6 +389,10 @@ class Deal < ActiveRecord::Base
     end	
     
     name
+  end
+  
+  def test_ajax
+    puts "TESTED AJAX DEAL"
   end
   
   def test_email
