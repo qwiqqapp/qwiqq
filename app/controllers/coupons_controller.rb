@@ -2,7 +2,7 @@ class CouponsController < ApplicationController
   layout false
   before_filter :find_deal
   attr_reader :deal
-  helper_method :deal, :redeemed?, :test_ajax
+  helper_method :deal, :redeemed?
 
   def show
     @redeemed = deal.redeem_coupon!
