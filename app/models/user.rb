@@ -232,71 +232,39 @@ class User < ActiveRecord::Base
       :photo_small           => photo.url(:iphone_small),
       :photo_small_2x        => photo.url(:iphone_small_2x),
       
-      # counts
-      :like_count            => likes_count,
-      :deal_count            => deals_count,
-      :comment_count         => comments_count,
-      :transaction_count     => transactions_count,
-      
-      # conditional
-      :deals                 => options[:deals]    ? deals.sorted.limit(20) : nil,
-      :liked_deals           => options[:deals]    ? liked_deals.sorted.limit(6) : nil,
-      :comments              => options[:comments] ? comments.limit(3) : nil,
-      :events                => options[:events]   ? events.limit(60) : nil
     }
+    
+    unless options[:minimal]
+        # counts
+        json[:like_count] = likes_count,
+        json[:deal_count] = deals_count,
+        json[:comment_count] = comments_count,
+        json[:transaction_count] = transactions_count,
+        
+        # conditional
+        json[:deals] = options[:deals]    ? deals.sorted.limit(20) : nil,
+        json[:liked_deals] = options[:deals]    ? liked_deals.sorted.limit(6) : nil,
+        json[:comments] = options[:comments] ? comments.limit(3) : nil,
+        json[:events] = options[:events]   ? events.limit(60) : nil
+      end
+    
 
-    # add is_following and is_followed if possible
-    if current_user = options[:current_user] 
-      if current_user == self
-        json[:email] = email
-
-        # add the cached facebook page and token if present
-        json[:current_facebook_page_id] = current_facebook_page_id if current_facebook_page_id.present?
-        json[:facebook_access_token] = facebook_access_token if facebook_access_token.present?
-        json[:facebook_id] = self.facebook_id if facebook_id.present?
-      else
-        json[:is_following] = current_user.following?(self)
-        json[:is_followed] = self.following?(current_user)
+    unless options[:minimal]
+      # add is_following and is_followed if possible
+      if current_user = options[:current_user] 
+        if current_user == self
+          json[:email] = email
+  
+          # add the cached facebook page and token if present
+          json[:current_facebook_page_id] = current_facebook_page_id if current_facebook_page_id.present?
+          json[:facebook_access_token] = facebook_access_token if facebook_access_token.present?
+          json[:facebook_id] = self.facebook_id if facebook_id.present?
+        else
+          json[:is_following] = current_user.following?(self)
+          json[:is_followed] = self.following?(current_user)
+        end
       end
     end
-
-    json
-  end
-
-  def as_json_min(options={})
-    options ||= {}
-    options.reverse_merge!(:deals => false, :comments => false)
-    json = {
-      :user_id               => id.try(:to_s),
-      :first_name            => first_name,
-      :last_name             => last_name,
-      :user_name             => username,
-      :city                  => city,
-      :send_notifications    => send_notifications,
-      :followers_count       => followers_count,
-      :following_count       => following_count,
-
-      # user detail photo
-      :photo                 => photo.url(:iphone),
-      :photo_2x              => photo.url(:iphone2x),
-      
-      # user detail photo zoom
-      :photo_zoom            => photo.url(:iphone_zoom),
-      :photo_zoom_2x         => photo.url(:iphone_zoom_2x),
-      
-      # profile image on deal detail screen
-      :photo_profile         => photo.url(:iphone_profile),
-      :photo_profile_2x      => photo.url(:iphone_profile_2x),      
-
-      :photo_small           => photo.url(:iphone_small),
-      :photo_small_2x        => photo.url(:iphone_small_2x),
-      
-      # counts
-      :like_count            => likes_count,
-      :deal_count            => deals_count,
-      :comment_count         => comments_count,
-      :transaction_count     => transactions_count,
-    }
 
     json
   end
