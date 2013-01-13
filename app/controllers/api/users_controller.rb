@@ -117,10 +117,11 @@ class Api::UsersController < Api::ApiController
     puts @following.count
     puts 'page:'
     puts params[:page]
-    result = @following.page(params[:page])
-    puts 'result:'
-    puts result
-    string = (@following.count / result.default_per_page.to_f).ceil.to_s
+    #result = @following.page(params[:page])
+    #puts 'result:'
+    #puts result
+    #string = (@following.count / result.default_per_page.to_f).ceil.to_s
+    string = '1'
     puts 'string'
     puts string
     #create custom x- response header data to transfer the number of pages
