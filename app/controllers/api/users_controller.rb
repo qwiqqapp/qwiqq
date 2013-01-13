@@ -125,7 +125,7 @@ class Api::UsersController < Api::ApiController
     puts "Total number of queries needed #{string}"
     returnString = @following.as_json(:minimal => true, :current_user => current_user)
     puts 'file size'
-    puts returnString.size
+    puts returnString
     respond_with returnString
   end
 
