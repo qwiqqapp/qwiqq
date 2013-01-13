@@ -263,6 +263,43 @@ class User < ActiveRecord::Base
     json
   end
 
+  def as_json_min(options={})
+    options ||= {}
+    options.reverse_merge!(:deals => false, :comments => false)
+    json = {
+      :user_id               => id.try(:to_s),
+      :first_name            => first_name,
+      :last_name             => last_name,
+      :user_name             => username,
+      :city                  => city,
+      :send_notifications    => send_notifications,
+      :followers_count       => followers_count,
+      :following_count       => following_count,
+
+      # user detail photo
+      :photo                 => photo.url(:iphone),
+      :photo_2x              => photo.url(:iphone2x),
+      
+      # user detail photo zoom
+      :photo_zoom            => photo.url(:iphone_zoom),
+      :photo_zoom_2x         => photo.url(:iphone_zoom_2x),
+      
+      # profile image on deal detail screen
+      :photo_profile         => photo.url(:iphone_profile),
+      :photo_profile_2x      => photo.url(:iphone_profile_2x),      
+
+      :photo_small           => photo.url(:iphone_small),
+      :photo_small_2x        => photo.url(:iphone_small_2x),
+      
+      # counts
+      :like_count            => likes_count,
+      :deal_count            => deals_count,
+      :comment_count         => comments_count,
+      :transaction_count     => transactions_count,
+    }
+
+    json
+  end
 
   def twitter_client
     @twitter_client = Twitter::Client.new(
