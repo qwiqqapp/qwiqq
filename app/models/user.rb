@@ -215,7 +215,6 @@ class User < ActiveRecord::Base
       :phone                 => phone,
       :website               => website,
       :location              => location,
-      :paypal_email          => paypal_email,
 
       # user detail photo
       :photo                 => photo.url(:iphone),
@@ -235,16 +234,18 @@ class User < ActiveRecord::Base
     }
     
     unless options[:minimal]
+        json[:paypal_email] = paypal_email
+      
         # counts
-        json[:like_count] = likes_count,
-        json[:deal_count] = deals_count,
-        json[:comment_count] = comments_count,
-        json[:transaction_count] = transactions_count,
+        json[:like_count] = likes_count
+        json[:deal_count] = deals_count
+        json[:comment_count] = comments_count
+        json[:transaction_count] = transactions_count
         
         # conditional
-        json[:deals] = options[:deals]    ? deals.sorted.limit(20) : nil,
-        json[:liked_deals] = options[:deals]    ? liked_deals.sorted.limit(6) : nil,
-        json[:comments] = options[:comments] ? comments.limit(3) : nil,
+        json[:deals] = options[:deals]    ? deals.sorted.limit(20) : nil
+        json[:liked_deals] = options[:deals]    ? liked_deals.sorted.limit(6) : nil
+        json[:comments] = options[:comments] ? comments.limit(3) : nil
         json[:events] = options[:events]   ? events.limit(60) : nil
       end
     
