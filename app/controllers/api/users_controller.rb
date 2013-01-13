@@ -114,7 +114,7 @@ class Api::UsersController < Api::ApiController
     requested_user
     @following = @user.following.sorted
     puts 'following: '
-    puts @following
+    puts params[:page]
     result = @following.page(params[:page])
     string = (@following.count / result.default_per_page.to_f).ceil.to_s
     puts 'string'
