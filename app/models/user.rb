@@ -193,46 +193,55 @@ class User < ActiveRecord::Base
   def as_json(options={})
     options ||= {}
     options.reverse_merge!(:deals => false, :comments => false)
-    json = {
-      :user_id               => id.try(:to_s),
-      :first_name            => first_name,
-      :last_name             => last_name,
-      :user_name             => username,
-      :city                  => city,
-      :bio                   => bio,
-      :country               => country,
-      :created_at            => created_at,
-      :updated_at            => updated_at,
-      :join_date             => created_at.to_date.to_s(:long).gsub(/\s+/, " "),
-      :send_notifications    => send_notifications,
-      :facebook_authorized   => !facebook_access_token.blank?,
-      :twitter_authorized    => !twitter_access_token.blank?,
-      :foursquare_authorized => !foursquare_access_token.blank?,
-      :socialyzer_enabled    => socialyzer_enabled?,
-      :socialyzer_ready      => socialyzer_ready?,
-      :followers_count       => followers_count,
-      :following_count       => following_count,
-      :phone                 => phone,
-      :website               => website,
-      :location              => location,
-
-      # user detail photo
-      :photo                 => photo.url(:iphone),
-      :photo_2x              => photo.url(:iphone2x),
-      
-      # user detail photo zoom
-      :photo_zoom            => photo.url(:iphone_zoom),
-      :photo_zoom_2x         => photo.url(:iphone_zoom_2x),
-      
-      # profile image on deal detail screen
-      :photo_profile         => photo.url(:iphone_profile),
-      :photo_profile_2x      => photo.url(:iphone_profile_2x),      
-
-      :photo_small           => photo.url(:iphone_small),
-      :photo_small_2x        => photo.url(:iphone_small_2x),
-      
-    }
     
+    unless options[:minimal]
+      json = {
+        :user_id               => id.try(:to_s),
+        :first_name            => first_name,
+        :last_name             => last_name,
+        :user_name             => username,
+        :city                  => city,
+        :bio                   => bio,
+        :country               => country,
+        :created_at            => created_at,
+        :updated_at            => updated_at,
+        :join_date             => created_at.to_date.to_s(:long).gsub(/\s+/, " "),
+        :send_notifications    => send_notifications,
+        :facebook_authorized   => !facebook_access_token.blank?,
+        :twitter_authorized    => !twitter_access_token.blank?,
+        :foursquare_authorized => !foursquare_access_token.blank?,
+        :socialyzer_enabled    => socialyzer_enabled?,
+        :socialyzer_ready      => socialyzer_ready?,
+        :followers_count       => followers_count,
+        :following_count       => following_count,
+        :phone                 => phone,
+        :website               => website,
+        :location              => location,
+  
+        # user detail photo
+        :photo                 => photo.url(:iphone),
+        :photo_2x              => photo.url(:iphone2x),
+        
+        # user detail photo zoom
+        :photo_zoom            => photo.url(:iphone_zoom),
+        :photo_zoom_2x         => photo.url(:iphone_zoom_2x),
+        
+        # profile image on deal detail screen
+        :photo_profile         => photo.url(:iphone_profile),
+        :photo_profile_2x      => photo.url(:iphone_profile_2x),      
+  
+        :photo_small           => photo.url(:iphone_small),
+        :photo_small_2x        => photo.url(:iphone_small_2x),
+        
+      }
+    else
+      json = {
+        :user_id               => id.try(:to_s),
+        :first_name            => first_name,
+        :last_name             => last_name,
+        :user_name             => username
+      }
+    end
     unless options[:minimal]
         json[:paypal_email] = paypal_email
       
