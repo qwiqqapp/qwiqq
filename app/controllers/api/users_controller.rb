@@ -113,10 +113,12 @@ class Api::UsersController < Api::ApiController
   def following
     requested_user
     @following = @user.following.sorted
-    
+    puts 'following: '
+    puts @following
     result = @following.page(params[:page])
-    #puts "Count following:#{@following.count} result count:#{result.count}"
     string = (@following.count / result.default_per_page.to_f).ceil.to_s
+    puts 'string'
+    puts string
     #create custom x- response header data to transfer the number of pages
     response.headers["X-Total-Pages"] = string
     puts "Total number of queries needed #{string}"
