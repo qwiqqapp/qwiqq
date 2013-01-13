@@ -115,20 +115,14 @@ class Api::UsersController < Api::ApiController
     @following = @user.following.sorted
     puts 'following: '
     puts @following.count
-    puts 'page:'
-    puts params[:page]
     #result = @following.page(params[:page])
     #puts 'result:'
     #puts result
     #string = (@following.count / result.default_per_page.to_f).ceil.to_s
     string = '1'
-    puts 'string'
-    puts string
     #create custom x- response header data to transfer the number of pages
     response.headers["X-Total-Pages"] = string
     puts "Total number of queries needed #{string}"
-    puts @following.as_json(:current_user => current_user)
-    
     respond_with @following.as_json(:current_user => current_user)
   end
 
