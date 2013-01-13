@@ -118,6 +118,8 @@ class Api::UsersController < Api::ApiController
     puts 'page:'
     puts params[:page]
     result = @following.page(params[:page])
+    puts 'result:'
+    puts result
     string = (@following.count / result.default_per_page.to_f).ceil.to_s
     puts 'string'
     puts string
