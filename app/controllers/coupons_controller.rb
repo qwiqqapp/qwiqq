@@ -14,10 +14,7 @@ class CouponsController < ApplicationController
   
   def test_ajax
     puts "TESTED AJAX"
-    respond_to do |format|
-      format.html { render :layout => !request.xhr? }
-      # other formats
-    end
+    redirect_to root_url and return
   end
  
 
