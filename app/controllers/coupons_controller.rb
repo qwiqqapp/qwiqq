@@ -16,7 +16,7 @@ class CouponsController < ApplicationController
   
   def test_ajax
     puts "TESTED AJAX"
-    interface = AdaptivePay::Interface.new(:rails_env => false)
+    interface = AdaptivePay::Interface.new(false)
     response = interface.request_payment do |request|
       request.currency_code = "USD"
 
