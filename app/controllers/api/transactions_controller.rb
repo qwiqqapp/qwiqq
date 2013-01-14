@@ -28,9 +28,6 @@ class Api::TransactionsController < Api::ApiController
     #notes from here...https://github.com/derfred/adaptive_pay
     #paypal_response = AdaptivePay::Callback.new params
     
-    puts 'params: '
-    puts params
-    
     if paypal_response.completed?
       if paypal_response.valid?
         # mark your payment as complete and make them unicorns happy!
@@ -38,15 +35,13 @@ class Api::TransactionsController < Api::ApiController
         
         @deal = Deal.find(params[:deal_id])
         
-        @transaction = Transaction.new(params[:transaction])
-        @transaction.user = User.find(params[:buyer_id])
-        @transaction.deal = @deal
-        
+        puts 'deal'
+        puts @deal
         
   
         if params[:sandbox] == 'true'
           puts 'well we are in the sandbox...'
-          @transaction.paypal_transaction_id = params[:txn_id] if params[:txn_id]
+          #@transaction.paypal_transaction_id = params[:txn_id] if params[:txn_id]
         else
           trans = params[:transaction]
           
@@ -61,18 +56,27 @@ class Api::TransactionsController < Api::ApiController
           if Transaction.exists?(:paypal_transaction_id => theID)
             puts 'the transaction already exists...therefore we dont send an email'
           else
+            
+            @transaction = Transaction.create(:user => User.find(params[:buyer_id]), :deal => @deal)
+            #@transaction.deal = @deal
+            puts 'saving transaction...'
+            @transaction.save!
+            
             @deal.num_left_for_sale=@deal.num_left_for_sale-1
             @deal.save!
+            
+            
+            
             Mailer.deal_purchased(@transaction.user, @deal, @transaction).deliver
             puts 'transaction doesnt look like a repeat so we emailed the user'
+            
+            
+            
           end
           
           @transaction.paypal_transaction_id = theID if theID != nil
         end
         
-        
-        puts 'saving transaction...'
-        @transaction.save!
       else
         puts 'Well this is a huge security issue, someone is trying to steal from us!!, or we are testing things...'
       end
