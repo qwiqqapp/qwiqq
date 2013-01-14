@@ -66,7 +66,6 @@ namespace :deals do
      puts "4SQ COUNT:#{deals.count}"
      
      deals.order("created_at desc").limit(100) do |d|
-       
        if d.foursquare_venue_id?
          d.locate! rescue nil
          d.located = true
