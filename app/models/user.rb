@@ -244,7 +244,9 @@ class User < ActiveRecord::Base
         :user_id               => id.try(:to_s),
         :first_name            => first_name,
         :last_name             => last_name,
-        :user_name             => username
+        :user_name             => username,
+        :photo                 => photo.url(:iphone),
+        :photo_2x              => photo.url(:iphone2x)
       }
     end
     unless options[:minimal]
