@@ -127,7 +127,7 @@ class User < ActiveRecord::Base
 
   def num_for_sale_on_paypal
     #SELECT COUNT(*) FROM deals WHERE deals.user_id = 13527 AND for_sale_on_paypal=TRUE;
-    return DEAL.where('user_id=? AND for_sale_on_paypal=TRUE',self.id).count
+    return Deal.where('user_id=? AND for_sale_on_paypal=TRUE',self.id).count
   end
 
   def location
