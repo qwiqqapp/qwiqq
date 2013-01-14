@@ -66,15 +66,15 @@ namespace :mail do
   
   task :send_brandon => :environment do
     user = User.find_by_email("copley.brandon@gmail.com")
-    deal = Deal.find("10345")
-    transaction = Transaction.find("144")
+    transaction = Transaction.first
+    deal = transaction.deal
     Mailer.deal_purchased(user, deal, transaction).deliver
   end
   
   task :send_kyle => :environment do
     user = User.find_by_email("copley.kyle@gmail.com")
-    deal = Deal.find("10345")
-    transaction = Transaction.find("144")
+    transaction = Transaction.first
+    deal = transaction.deal
     Mailer.deal_purchased(user, deal, transaction).deliver
   end
   
