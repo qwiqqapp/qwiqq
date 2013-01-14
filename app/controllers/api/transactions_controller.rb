@@ -38,10 +38,14 @@ class Api::TransactionsController < Api::ApiController
         
         @deal = Deal.find(params[:deal_id])
         
-        @transaction = @deal.transactions.build
+        @transaction = Transaction.new(params[:transaction])
         @transaction.user = User.find(params[:buyer_id])
+        @transaction.deal = @deal
+        
+        
   
         if params[:sandbox] == 'true'
+          puts 'well we are in the sandbox...'
           @transaction.paypal_transaction_id = params[:txn_id] if params[:txn_id]
         else
           trans = params[:transaction]
@@ -67,7 +71,7 @@ class Api::TransactionsController < Api::ApiController
         end
         
         
-        
+        puts 'saving transaction...'
         @transaction.save!
       else
         puts 'Well this is a huge security issue, someone is trying to steal from us!!, or we are testing things...'
