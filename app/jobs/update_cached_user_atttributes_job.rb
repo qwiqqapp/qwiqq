@@ -10,4 +10,3 @@ class UpdateCachedUserAttributesJob
     end
   end
 end
-

@@ -125,6 +125,11 @@ class User < ActiveRecord::Base
 
   strip_attrs :email, :city, :country, :first_name, :last_name, :username, :bio, :phone, :website
 
+  def num_for_sale_on_paypal
+    #SELECT COUNT(*) FROM deals WHERE deals.user_id = 13527 AND for_sale_on_paypal=TRUE;
+    return DEAL.where('user_id=? AND for_sale_on_paypal=TRUE',self.id).count
+  end
+
   def location
     if !city.blank? && !country.blank?
       "#{city}, #{country}"

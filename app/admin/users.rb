@@ -33,6 +33,8 @@ ActiveAdmin.register User do
     column :comments_count
     column :likes_count
     
+    column :num_for_sale_on_paypal
+    
     column :created_at
     column :updated_at
     
