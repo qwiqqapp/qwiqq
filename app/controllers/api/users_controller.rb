@@ -124,7 +124,7 @@ class Api::UsersController < Api::ApiController
     response.headers["X-Total-Pages"] = string
     puts "Total number of queries needed #{string}"
     returnString = @following.as_json(:minimal => true, :current_user => current_user)
-    puts 'returnString'
+    #puts 'returnString'
     #puts returnString
     respond_with returnString
   end

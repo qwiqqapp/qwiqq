@@ -2,6 +2,8 @@
 ActiveAdmin.register Deal do
   #ActiveAdmin.register Deal, :as => "Deals" do
   
+  show :title => 'Posts'
+  
   menu :label => "Posts"
   #menu false
   

@@ -14,6 +14,7 @@ ActiveAdmin.register Transaction do
     column("Seller ID"){ |transaction| transaction.deal.user.id }
     column("Seller Username"){ |transaction| transaction.deal.user.username }
     column("Deal ID") {|transaction| transaction.deal.id.try(:to_s)}
+    column("Amount") {|transaction| transaction.deal.price}
     column(:created_at)
   end
     
@@ -33,7 +34,10 @@ ActiveAdmin.register Transaction do
     end
 
     column("Paypal Transaction ID"){ |transaction| transaction.paypal_transaction_id }
+    
+    column("Amount") {|transaction| transaction.deal.price_as_string}
+    
     column(:created_at)
-    default_actions
+    #default_actions
   end
 end
