@@ -242,11 +242,11 @@ class User < ActiveRecord::Base
     else
       json = {
         :user_id               => id.try(:to_s),
-        :first_name            => first_name.try(:to_s),
-        :last_name             => last_name.try(:to_s),
-        :user_name             => username.try(:to_s),
+        :first_name            => first_name.to_s,
+        :last_name             => last_name.to_s,
+        :user_name             => username.to_s,
         #:photo                 => photo.url(:iphone).try(:to_s),
-        :photo_2x              => photo.url(:iphone2x).try(:to_s)
+        :photo_2x              => photo.url(:iphone2x).to_s
       }
     end
     unless options[:minimal]
