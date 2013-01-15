@@ -202,9 +202,9 @@ class User < ActiveRecord::Base
     unless options[:minimal]
       json = {
         :user_id               => id.try(:to_s),
-        :first_name            => first_name,
-        :last_name             => last_name,
-        :user_name             => username,
+        :first_name            => first_name.try(:to_s),
+        :last_name             => last_name.try(:to_s),
+        :user_name             => username.try(:to_s),
         :city                  => city,
         :bio                   => bio,
         :country               => country,
@@ -242,11 +242,11 @@ class User < ActiveRecord::Base
     else
       json = {
         :user_id               => id.try(:to_s),
-        :first_name            => first_name,
-        :last_name             => last_name,
-        :user_name             => username,
-        :photo                 => photo.url(:iphone),
-        :photo_2x              => photo.url(:iphone2x)
+        :first_name            => first_name.try(:to_s),
+        :last_name             => last_name.try(:to_s),
+        :user_name             => username.try(:to_s),
+        :photo                 => photo.url(:iphone).try(:to_s),
+        :photo_2x              => photo.url(:iphone2x).try(:to_s)
       }
     end
     unless options[:minimal]
