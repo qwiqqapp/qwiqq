@@ -283,7 +283,7 @@ class User < ActiveRecord::Base
       end
     end
 
-    json.to_json
+    json
   end
 
   def twitter_client
