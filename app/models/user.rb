@@ -245,7 +245,7 @@ class User < ActiveRecord::Base
         :first_name            => first_name.try(:to_s),
         :last_name             => last_name.try(:to_s),
         :user_name             => username.try(:to_s),
-        :photo                 => photo.url(:iphone).try(:to_s),
+        #:photo                 => photo.url(:iphone).try(:to_s),
         :photo_2x              => photo.url(:iphone2x).try(:to_s)
       }
     end
