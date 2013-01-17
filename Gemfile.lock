@@ -43,7 +43,6 @@ GEM
     activesupport (3.2.11)
       i18n (~> 0.6)
       multi_json (~> 1.0)
-    adaptive_pay (0.1.1)
     addressable (2.3.2)
     airbrake (3.1.6)
       builder
@@ -328,7 +327,6 @@ DEPENDENCIES
   actionpack
   activeadmin
   activerecord-import
-  adaptive_pay
   airbrake
   aws-sdk
   bcrypt-ruby
