@@ -5,10 +5,11 @@ jQuery.fn.exists = function() {
   return this.length > 0; 
 }
 
-function myFunction()
-{
-    alert("Hello World!!!! TEST");
+function testJavascript() {
+  name = '#{deal.test_email}' ;
+  alert(name);
 }
+      
 
 $(function() {
   // cycle screenshots
