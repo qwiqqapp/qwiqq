@@ -3,15 +3,16 @@ Qwiqq::Application.routes.draw do
   ActiveAdmin.routes(self)
   devise_for :admin_users, ActiveAdmin::Devise.config
 
+      #For Ajax method
+    #resource :coupon, :only => [:show], :as => "coupons", :controller => "coupons" do
+    #  get "test_ajax", :on => :member
+    #end
+   
   # public web
   root :to => "deals#index"
-  #connect '/posts/ajax_test', :controller => 'deals', :action => 'ajax_test'
-  
   resources :posts, :only => [:index, :show], :as => "deals", :controller => "deals" do
     get :nearby, :on => :collection
-    resource :coupon, :only => [:show], :as => "coupons", :controller => "coupons" do
-      get "test_ajax", :on => :member
-    end
+    resource :coupon, :only => [:show]
   end
   resources :users, :only => [:show]
   
