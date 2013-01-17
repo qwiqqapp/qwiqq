@@ -365,36 +365,6 @@ class Deal < ActiveRecord::Base
     foursquare_venue_name || location_name
   end
 
-  def test_paypal
-    puts "PAYPAL TESTED"
-    pay_request = PaypalAdaptive::Request.new
-
-    data = {
-      "returnUrl" => "http://testserver.com/payments/completed_payment_request",
-      "requestEnvelope" => {"errorLanguage" => "en_US"},
-      "currencyCode"=>"USD",
-      "receiverList"=>{"receiver"=> [{"email"=>"owner_1356368772_biz@novationmobile.com", "amount"=>"2.00", "primary"=>"true"}]},
-      "cancelUrl"=>"http://testserver.com/payments/canceled_payment_request",
-      "actionType"=>"PAY",
-      "ipnNotificationUrl"=>"http://testserver.com/payments/ipn_notification"
-    }
-
-    pay_response = pay_request.pay(data)
-
-    if pay_response.success?
-      redirect_to pay_response.approve_paypal_payment_url
-    else
-      puts pay_response.errors.first['message']
-      redirect_to "http://www.qwiqq.me/users/13042"
-    end	
-    
-    name
-  end
-  
-  def test_ajax
-    puts "TESTED AJAX DEAL"
-  end
-  
   def test_email
     puts "EMAIL TESTED"
     user = User.find_by_email("michaelscaria26@gmail.com")
