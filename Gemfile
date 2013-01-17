@@ -52,7 +52,6 @@ gem "kaminari"
 # mail
 gem "postmark"
 gem "postmark-rails", "0.4.0"
-gem "paypal_adaptive"
 
 # admin
 gem "activeadmin"
