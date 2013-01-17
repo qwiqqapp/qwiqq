@@ -41,7 +41,6 @@ gem "socialyzer"
 
 # PayPal
 gem "paypal", "~> 2.0.0"
-gem "adaptive_pay"
 
 # search
 gem "riddle", "~> 1.5.4"
