@@ -31,13 +31,14 @@ gem "rufus-scheduler", "~> 2.0.17"
 # services
 gem "geokit"
 gem "koala", "1.5.0" # facebook
-gem "twitter", "~> 2.0.0"
+gem "twitter", "~> 2.5.0"
 gem "airbrake"
 gem "daemons", :require => false
 gem "skittles", "0.6.0" # foursquare, update to 0.6?
 gem "httparty"
 gem "rails_autolink"
 gem "socialyzer"
+gem "adaptive_pay"
 
 # PayPal
 gem "paypal", "~> 2.0.0"
