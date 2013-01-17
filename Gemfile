@@ -38,11 +38,10 @@ gem "skittles", "0.6.0" # foursquare, update to 0.6?
 gem "httparty"
 gem "rails_autolink"
 gem "socialyzer"
-gem "adaptive_pay"
 
 # PayPal
 gem "paypal", "~> 2.0.0"
-gem "adaptive_pay", "~> 0.1.1"
+gem "adaptive_pay"
 
 # search
 gem "riddle", "~> 1.5.4"
