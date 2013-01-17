@@ -12,7 +12,7 @@ gem "railties"
 gem "actionpack"
 gem "rake"
 gem "pg", "0.11.0"
-gem "bcrypt-ruby", :require => "bcrypt"
+gem "bcrypt-ruby"
 gem "activerecord-import"
 gem "coffee-rails"
 
