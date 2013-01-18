@@ -14,24 +14,54 @@ class CouponsController < ApplicationController
   
   def paypal_test
     puts "AJAX WORKED"
-    http = Net::HTTP.new('https://svcs.paypal.com', 80)
-    path = '/AdaptivePayments/Pay'
+    http = Net::HTTP.new
+    
+    credentials = {
+        'USER' => 'payer_1342623102_biz_api1.gmail.com',
+       'PWD' => '1342623141',
+       'SIGNATURE' => 'Ay2zwWYEoiRoHTTVv365EK8U1lNzAESedJw09MPnj0SEIENMKd6jvnKL '
+     }
 
-    data = '{\"actionType\":\"PAY\", \"currencyCode\":\"USD\", \"receiverList\":{\"receiver\":[{\"amount\":\"1.00\",\"email\":\"rec1_1312486368_biz@gmail.com\"}]}, \"returnUrl\":\"http://www.google.com\", \"cancelUrl\":\"http://www.facebook.com\", \"requestEnvelope\":{\"errorLanguage\":\"en_US\", \"detailLevel\":\"ReturnAll\"}}'
-    headers = {
-      'Content-Type' => 'application/x-www-form-urlencoded',
+    header =      {
       "X-PAYPAL-SECURITY-USERID" => "caller_1312486258_biz_api1.gmail.com",
       "X-PAYPAL-SECURITY-PASSWORD" => "1312486294",
       "X-PAYPAL-SECURITY-SIGNATURE" => "AbtI7HV1xB428VygBUcIhARzxch4AL65.T18CTeylixNNxDZUu0iO87e",
+      "X-PAYPAL-APPLICATION-ID" => "APP-80W284485P519543T",
       "X-PAYPAL-REQUEST-DATA-FORMAT" => "JSON",
-      "X-PAYPAL-RESPONSE-DATA-FORMAT" => "JSON",
-      "X-PAYPAL-APPLICATION-ID" => "APP-80W284485P519543T"
-      
+      "X-PAYPAL-RESPONSE-DATA-FORMAT" => "JSON"
     }
+    data = {"actionType" => "PAY",
+               "receiverList.receiver(0).email"=> 'mscaria@novationmobile.com',
+               "receiverList.receiver(0).amount" => "1",
+               "currencyCode" => "USD",
+               "cancelUrl" => "http://www.google.com/",
+               "returnUrl" => "http://www.yahoo.com/",          
+               "requestEnvelope.errorLanguage" => "en_US",
+               "ipnNotificationUrl" => "http://api.qwiqq.me//api/deals/10463/transactions?buyer_id=13527&sandbox=false"
+               }
+             
+    uri = "https://svcs.sandbox.paypal.com/AdaptivePayments/Pay"
+    res = http.post(uri, data, header)
+    puts "PAYPAL SUCCESS RESPONSE: #{res}"
 
-    resp, data = http.post(path, data, headers)
-    puts "PAYPAL SUCCESS"
+  end
+  
+  def build_http(uri)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = (uri.port == 443)
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    http
+  end
 
+  def headers
+    {
+      "X-PAYPAL-SECURITY-USERID" => "caller_1312486258_biz_api1.gmail.com",
+      "X-PAYPAL-SECURITY-PASSWORD" => "1312486294",
+      "X-PAYPAL-SECURITY-SIGNATURE" => "AbtI7HV1xB428VygBUcIhARzxch4AL65.T18CTeylixNNxDZUu0iO87e",
+      "X-PAYPAL-APPLICATION-ID" => "APP-80W284485P519543T",
+      "X-PAYPAL-REQUEST-DATA-FORMAT" => "JSON",
+      "X-PAYPAL-RESPONSE-DATA-FORMAT" => "JSON"
+    }
   end
 
 private
