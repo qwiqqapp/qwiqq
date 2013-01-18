@@ -11,6 +11,10 @@ class CouponsController < ApplicationController
   def redeemed?
     @redeemed
   end
+  
+  def paypal_test
+    puts "AJAX WORKED"
+  end
 
 private
   def find_deal
