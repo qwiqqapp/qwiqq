@@ -14,7 +14,9 @@ class CouponsController < ApplicationController
   
   def paypal_test
     puts "AJAX WORKED"
-    http = Net::HTTP.new
+    uri = "https://svcs.sandbox.paypal.com/AdaptivePayments/Pay"
+    
+    http = Net::HTTP.new(uri)
     
     credentials = {
         'USER' => 'payer_1342623102_biz_api1.gmail.com',
@@ -40,7 +42,6 @@ class CouponsController < ApplicationController
                "ipnNotificationUrl" => "http://api.qwiqq.me//api/deals/10463/transactions?buyer_id=13527&sandbox=false"
                }
              
-    uri = "https://svcs.sandbox.paypal.com/AdaptivePayments/Pay"
     res = http.post(uri, data, header)
     puts "PAYPAL SUCCESS RESPONSE: #{res}"
 
