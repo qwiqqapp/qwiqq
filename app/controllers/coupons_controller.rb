@@ -19,7 +19,6 @@ class CouponsController < ApplicationController
 
     data = '{\"actionType\":\"PAY\", \"currencyCode\":\"USD\", \"receiverList\":{\"receiver\":[{\"amount\":\"1.00\",\"email\":\"rec1_1312486368_biz@gmail.com\"}]}, \"returnUrl\":\"http://www.google.com\", \"cancelUrl\":\"http://www.facebook.com\", \"requestEnvelope\":{\"errorLanguage\":\"en_US\", \"detailLevel\":\"ReturnAll\"}}'
     headers = {
-      'Cookie' => cookie,
       'Content-Type' => 'application/x-www-form-urlencoded',
       "X-PAYPAL-SECURITY-USERID" => "caller_1312486258_biz_api1.gmail.com",
       "X-PAYPAL-SECURITY-PASSWORD" => "1312486294",
