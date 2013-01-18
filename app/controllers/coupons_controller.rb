@@ -14,8 +14,8 @@ class CouponsController < ApplicationController
   
   def paypal_test
     puts "AJAX WORKED"
-    uri = "https://svcs.sandbox.paypal.com/AdaptivePayments/Pay"
-    
+    url = 'https://paypal.com/AdaptivePayments/Pay'
+    uri = URI.parse(url)
     http = Net::HTTP.new(uri.host, uri.port)
     
     credentials = {
