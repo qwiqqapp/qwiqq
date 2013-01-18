@@ -16,7 +16,7 @@ class CouponsController < ApplicationController
     puts "AJAX WORKED"
     uri = "https://svcs.sandbox.paypal.com/AdaptivePayments/Pay"
     
-    http = Net::HTTP.new(uri)
+    http = Net::HTTP.new(uri.host, uri.port)
     
     credentials = {
         'USER' => 'payer_1342623102_biz_api1.gmail.com',
