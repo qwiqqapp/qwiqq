@@ -16,7 +16,7 @@ class CouponsController < ApplicationController
   
   def paypal_test
     puts "AJAX WORKED"
-    HTTParty.post('https://svcs.sandbox.paypal.com/AdaptivePayments/Pay', :body => {:actionType => "PAY", :currencyCode => "USD"})
+    HTTParty.post('https://paypal.com/AdaptivePayments/Pay', :body => {:actionType => "PAY", :currencyCode => "USD"})
 
 #{\\":\"PAY\", \"\":\"USD\", \"\":{\"receiver\":[{\"amount\":\"1.00\",\"email\":\"rec1_1312486368_biz@gmail.com\"}]}, 
 #\"returnUrl\":\"http://www.example.com/success.html\", 
@@ -54,7 +54,12 @@ class CouponsController < ApplicationController
     res = http.post(uri, data, header)
     puts "PAYPAL SUCCESS RESPONSE: #{res}"
     
-    
+        if pay_response.success?
+      redirect_to pay_response.approve_paypal_payment_url
+    else
+      puts pay_response.errors.first['message']
+      redirect_to failed_payment_url
+    end 
   end
 
 private
