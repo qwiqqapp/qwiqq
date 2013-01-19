@@ -17,33 +17,14 @@ class CouponsController < ApplicationController
   def paypal_test
     puts "AJAX WORKED"
     
-    uri = URI.parse("http://google.com/")
-    http = Net::HTTP.new(uri.host, uri.port)
-    credentials = {
-        'USER' => 'payer_1342623102_biz_api1.gmail.com',
-       'PWD' => '1342623141',
-       'SIGNATURE' => 'Ay2zwWYEoiRoHTTVv365EK8U1lNzAESedJw09MPnj0SEIENMKd6jvnKL '
-     }
-
-    header =      {
-      "X-PAYPAL-SECURITY-USERID" => "caller_1312486258_biz_api1.gmail.com",
-      "X-PAYPAL-SECURITY-PASSWORD" => "1312486294",
-      "X-PAYPAL-SECURITY-SIGNATURE" => "AbtI7HV1xB428VygBUcIhARzxch4AL65.T18CTeylixNNxDZUu0iO87e",
-      "X-PAYPAL-APPLICATION-ID" => "APP-80W284485P519543T",
-      "X-PAYPAL-REQUEST-DATA-FORMAT" => "JSON",
-      "X-PAYPAL-RESPONSE-DATA-FORMAT" => "JSON"
-    }
-    data = {"actionType" => "PAY",
-               "receiverList.receiver(0).email"=> 'mscaria@novationmobile.com',
-               "receiverList.receiver(0).amount" => "1",
-               "currencyCode" => "USD",
-               "cancelUrl" => "http://www.google.com/",
-               "returnUrl" => "http://www.yahoo.com/",          
-               "requestEnvelope.errorLanguage" => "en_US",
-               "ipnNotificationUrl" => "http://api.qwiqq.me//api/deals/10463/transactions?buyer_id=13527&sandbox=false"
-               }
-    puts "Just before post"
-    res = http.post(uri, data, header)
+  uri = URI.parse("https://auth.api.rackspacecloud.com")
+http = Net::HTTP.new(uri.host, uri.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+request = Net::HTTP::Post.new("/v1.1/auth")
+request.add_field('Content-Type', 'application/json')
+request.body = {'credentials' => {'username' => 'username', 'key' => 'key'}}
+response = http.request(request)
     puts "PAYPAL SUCCESS RESPONSE: #{res}"
 
   end
