@@ -16,8 +16,8 @@ class CouponsController < ApplicationController
   
   def paypal_test
     puts "AJAX WORKED"
-    HTTParty.post('https://paypal.com/AdaptivePayments/Pay', :body => {:actionType => "PAY", :currencyCode => "USD"})
-
+    @result = HTTParty.post('https://paypal.com/AdaptivePayments/Pay', :body => {:actionType => "PAY", :currencyCode => "USD"})
+    puts "RESULT OF POST:#{@result}"
 #{\\":\"PAY\", \"\":\"USD\", \"\":{\"receiver\":[{\"amount\":\"1.00\",\"email\":\"rec1_1312486368_biz@gmail.com\"}]}, 
 #\"returnUrl\":\"http://www.example.com/success.html\", 
 #cancelUrl\":\"http://www.example.com/failure.html\", \"requestEnvelope\":{\"errorLanguage\":\"en_US\", \"detailLevel\":\"ReturnAll\"}}"
