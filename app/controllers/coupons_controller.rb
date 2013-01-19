@@ -16,28 +16,24 @@ class CouponsController < ApplicationController
   
   def paypal_test
     puts "AJAX WORKED"
+    HTTParty.post('https://svcs.sandbox.paypal.com/AdaptivePayments/Pay', :body => {:actionType => "PAY", :currencyCode => "USD"})
+
+#{\\":\"PAY\", \"\":\"USD\", \"\":{\"receiver\":[{\"amount\":\"1.00\",\"email\":\"rec1_1312486368_biz@gmail.com\"}]}, 
+#\"returnUrl\":\"http://www.example.com/success.html\", 
+#cancelUrl\":\"http://www.example.com/failure.html\", \"requestEnvelope\":{\"errorLanguage\":\"en_US\", \"detailLevel\":\"ReturnAll\"}}"
+  end
+
+  def test
     
-  uri = URI.parse("https://auth.api.rackspacecloud.com")
-http = Net::HTTP.new(uri.host, uri.port)
-http.use_ssl = true
-http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-request = Net::HTTP::Post.new("/v1.1/auth")
-request.add_field('Content-Type', 'application/json')
-request.body = {'credentials' => {'username' => 'username', 'key' => 'key'}}
-response = http.request(request)
-    puts "PAYPAL SUCCESS RESPONSE: #{res}"
-
-  end
-  
-  def build_http(uri)
+    uri = URI.parse("http://google.com/")
     http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = (uri.port == 443)
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    http
-  end
+    credentials = {
+        'USER' => 'payer_1342623102_biz_api1.gmail.com',
+       'PWD' => '1342623141',
+       'SIGNATURE' => 'Ay2zwWYEoiRoHTTVv365EK8U1lNzAESedJw09MPnj0SEIENMKd6jvnKL '
+     }
 
-  def headers
-    {
+    header =      {
       "X-PAYPAL-SECURITY-USERID" => "caller_1312486258_biz_api1.gmail.com",
       "X-PAYPAL-SECURITY-PASSWORD" => "1312486294",
       "X-PAYPAL-SECURITY-SIGNATURE" => "AbtI7HV1xB428VygBUcIhARzxch4AL65.T18CTeylixNNxDZUu0iO87e",
@@ -45,6 +41,20 @@ response = http.request(request)
       "X-PAYPAL-REQUEST-DATA-FORMAT" => "JSON",
       "X-PAYPAL-RESPONSE-DATA-FORMAT" => "JSON"
     }
+    data = {"actionType" => "PAY",
+               "receiverList.receiver(0).email"=> 'mscaria@novationmobile.com',
+               "receiverList.receiver(0).amount" => "1",
+               "currencyCode" => "USD",
+               "cancelUrl" => "http://www.google.com/",
+               "returnUrl" => "http://www.yahoo.com/",          
+               "requestEnvelope.errorLanguage" => "en_US",
+               "ipnNotificationUrl" => "http://api.qwiqq.me//api/deals/10463/transactions?buyer_id=13527&sandbox=false"
+               }
+    puts "Just before posting"
+    res = http.post(uri, data, header)
+    puts "PAYPAL SUCCESS RESPONSE: #{res}"
+    
+    
   end
 
 private
