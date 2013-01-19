@@ -19,7 +19,6 @@ class CouponsController < ApplicationController
     
     uri = URI.parse("http://google.com/")
     http = Net::HTTP.new(uri.host, uri.port)
-    puts "Finished initialization"
     credentials = {
         'USER' => 'payer_1342623102_biz_api1.gmail.com',
        'PWD' => '1342623141',
@@ -43,7 +42,7 @@ class CouponsController < ApplicationController
                "requestEnvelope.errorLanguage" => "en_US",
                "ipnNotificationUrl" => "http://api.qwiqq.me//api/deals/10463/transactions?buyer_id=13527&sandbox=false"
                }
-             
+    puts "Just before post"
     res = http.post(uri, data, header)
     puts "PAYPAL SUCCESS RESPONSE: #{res}"
 
