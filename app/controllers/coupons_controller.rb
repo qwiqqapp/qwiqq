@@ -19,7 +19,7 @@ class CouponsController < ApplicationController
     
     uri = URI.parse("http://google.com/")
     http = Net::HTTP.new(uri.host, uri.port)
-    
+    puts "Finished initialization"
     credentials = {
         'USER' => 'payer_1342623102_biz_api1.gmail.com',
        'PWD' => '1342623141',
