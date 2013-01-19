@@ -1,3 +1,5 @@
+require "net/http"
+require "uri"
 class CouponsController < ApplicationController
   layout false
   before_filter :find_deal
@@ -15,8 +17,8 @@ class CouponsController < ApplicationController
   def paypal_test
     puts "AJAX WORKED"
     
-    uri = URI.parse("https://paypal.com/AdaptivePayments/Pay/")
-    http = Net::HTTP::Post.new uri.request_uri
+    uri = URI.parse("http://google.com/")
+    http = Net::HTTP.new(uri.host, uri.port)
     
     credentials = {
         'USER' => 'payer_1342623102_biz_api1.gmail.com',
