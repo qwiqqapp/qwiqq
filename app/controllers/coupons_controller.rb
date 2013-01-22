@@ -17,17 +17,7 @@ class CouponsController < ApplicationController
   def paypal_test
     puts "AJAX WORKED"
      #@result = HTTParty.post('https://svcs.sandbox.paypal.com/AdaptivePayments/Pay', :body => {:actionType => "PAY", :currencyCode => "USD", :receiverList => {:receiver => [{:amount => "1.00", :email => "rec1_1312486368_biz@gmail.com"}]}, :returnUrl => "www.yahoo.com", :cancelUrl => "gizmodo.com", :requestEnvelope => {:errorLanguage => "en_US", :detailLevel => "ReturnAll"}}, :headers => {"X-PAYPAL-SECURITY-USERID" => "caller_1312486258_biz_api1.gmail.com", "X-PAYPAL-SECURITY-PASSWORD" => "1312486294", "X-PAYPAL-SECURITY-SIGNATURE" => "AbtI7HV1xB428VygBUcIhARzxch4AL65.T18CTeylixNNxDZUu0iO87e","X-PAYPAL-APPLICATION-ID" => "APP-80W284485P519543T","X-PAYPAL-REQUEST-DATA-FORMAT" => "JSON", "X-PAYPAL-RESPONSE-DATA-FORMAT" => "JSON"})
-    data = {"actionType" => "PAY",
-               "receiverList.receiver(0).email"=> 'mscaria@novationmobile.com',
-               "receiverList.receiver(0).amount" => "1",
-               "currencyCode" => "USD",
-               "cancelUrl" => "http://www.google.com/",
-               "returnUrl" => "http://www.yahoo.com/",          
-               "requestEnvelope.errorLanguage" => "en_US",
-               "ipnNotificationUrl" => "http://api.qwiqq.me//api/deals/10463/transactions?buyer_id=13527&sandbox=false"
-               } 
-    @result = HTTParty.post('https://svcs.sandbox.paypal.com/AdaptivePayments/Pay', :body => data, :headers => {"X-PAYPAL-SECURITY-USERID" => "caller_1312486258_biz_api1.gmail.com", "X-PAYPAL-SECURITY-PASSWORD" => "1312486294", "X-PAYPAL-SECURITY-SIGNATURE" => "AbtI7HV1xB428VygBUcIhARzxch4AL65.T18CTeylixNNxDZUu0iO87e","X-PAYPAL-APPLICATION-ID" => "APP-80W284485P519543T","X-PAYPAL-REQUEST-DATA-FORMAT" => "JSON", "X-PAYPAL-RESPONSE-DATA-FORMAT" => "JSON"})
-
+     @result = HTTParty.post('https://svcs.sandbox.paypal.com/AdaptivePayments/Pay', :body => {:actionType => "PAY", :currencyCode => "USD", "receiverList.receiver(0).email".to_sym => "rec1_1312486368_biz@gmail.com", "receiverList.receiver(0).amount".to_sym => "1.00", :returnUrl => "www.yahoo.com", :cancelUrl => "gizmodo.com", :requestEnvelope => {:errorLanguage => "en_US", :detailLevel => "ReturnAll"}}, :headers => {"X-PAYPAL-SECURITY-USERID" => "caller_1312486258_biz_api1.gmail.com", "X-PAYPAL-SECURITY-PASSWORD" => "1312486294", "X-PAYPAL-SECURITY-SIGNATURE" => "AbtI7HV1xB428VygBUcIhARzxch4AL65.T18CTeylixNNxDZUu0iO87e","X-PAYPAL-APPLICATION-ID" => "APP-80W284485P519543T","X-PAYPAL-REQUEST-DATA-FORMAT" => "JSON", "X-PAYPAL-RESPONSE-DATA-FORMAT" => "JSON"})
     puts "RESULT OF POST:#{@result}"
     
     redirect_to "http://www.google.com/"
