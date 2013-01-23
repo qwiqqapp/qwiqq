@@ -37,7 +37,7 @@ class DealsController < ApplicationController
   end
   
   def paypal_test
-    puts "AJAX WORKED"
+    puts "AJAX WORKED NAME:#{@deal.name}"
     gateway =  ActiveMerchant::Billing::PaypalAdaptivePayment.new( 
                   :login => "acutio_1313133342_biz_api1.gmail.com",
                   :password => "1255043567",
