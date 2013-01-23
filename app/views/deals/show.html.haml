@@ -44,7 +44,7 @@
             .price
               .hole
               %span.dollars-large= @deal.price_as_string
-          if for_sale_on_paypal?
+          if @deal.for_sale_on_paypal? && @deal.num_left_for_sale > 0
             %img{:src => image_path("email/buynow.gif")}
 
       - unless @deal.lat == 0.0 && @deal.lon == 0.0
