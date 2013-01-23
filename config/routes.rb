@@ -7,9 +7,8 @@ Qwiqq::Application.routes.draw do
   root :to => "deals#index"
   resources :posts, :only => [:index, :show], :as => "deals", :controller => "deals" do
     get :nearby, :on => :collection
-    resource :coupon, :only => [:show], :as => "coupons", :controller => "coupons" do
-      get "paypal_test", :on => :member
-    end
+    resource :coupon, :only => [:show], :as => "coupons"
+    get "paypal_test", :on => :member
   end
 
   resources :users, :only => [:show]
