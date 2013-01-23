@@ -17,7 +17,7 @@
     .coupon-container
       %a{ :href => root_url }
         %img{ :src => image_path("logo-coupon.png") }
-      = link_to "Link To", :action => "paypal_test", :method => "get", :controller => "coupons", :remote => true
+      
 
       .coupon
         - if redeemed?
