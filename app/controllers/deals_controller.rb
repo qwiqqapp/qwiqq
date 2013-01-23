@@ -44,19 +44,26 @@ class DealsController < ApplicationController
                   :password => "3JDZZY9VYXB6Q5TZ",
                   :signature => "AFcWxV21C7fd0v3bYYYRCpSSRl31A1s7XP94yCP.a3BcpSz3430646nm",
                   :appid => "APP-9A930492654909518" )
-                
-    recipients = [{:email => 'copley.brandon@gmail.com',
-                 :amount => 0.50,
+    
+    amt = deal.price*0.03
+    amt = if amt<0.01 
+            0.01
+          else
+            amt
+          end
+               
+    recipients = [{:email => deal.user.email,
+                 :amount => deal.price,
                  :primary => true},
                 {:email => 'john@qwiqq.me',
-                 :amount => 0.50,
+                 :amount => amt,
                  :primary => false}
                  ]
     response = gateway.setup_purchase(
       :currency_code => deal.currency,
-      :return_url => "http://www.google.com",
-      :cancel_url => "http://www.yahoo.com",
-      :ipn_notification_url => "http://api.qwiqq.me//api/deals/10463/transactions?buyer_id=13527&sandbox=false",
+      :return_url => "http://api.qwiqq.me/posts/#{deal.id}",
+      :cancel_url => "http://api.qwiqq.me/posts/#{deal.id}",
+      :ipn_notification_url => "http://api.qwiqq.me/api/deals/#{deal.id}/transactions?buyer_id=#{current_user.id}&sandbox=false",
       :receiver_list => recipients
   )
   puts "RESPONSE:#{response}"

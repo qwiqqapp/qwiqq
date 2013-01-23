@@ -11,6 +11,7 @@ ActiveAdmin.register Transaction do
     column("Paypal Transaction ID"){ |transaction| transaction.paypal_transaction_id }
     column("Buyer ID"){ |transaction| transaction.user.id }
     column("Buyer Username"){ |transaction| transaction.user.username }
+    column("Buyer Email"){ |transaction| transaction.email }
     column("Seller ID"){ |transaction| transaction.deal.user.id }
     column("Seller Username"){ |transaction| transaction.deal.user.username }
     column("Deal ID") {|transaction| transaction.deal.id.try(:to_s)}
@@ -24,6 +25,8 @@ ActiveAdmin.register Transaction do
     column("Buyer", :sortable => :user) do |transaction|  
       link_to(transaction.user.name, [ :admin, transaction.user ]) if transaction.user
     end
+    
+    column("Buyer Email", :sortable => :email) {|transaction| transaction.email}
     
     column("Seller", :sortable => :deal) do |transaction|  
       link_to(transaction.deal.user.name, [ :admin, transaction.deal.user ]) if transaction.deal.user

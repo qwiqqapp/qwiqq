@@ -46,8 +46,8 @@ class Api::TransactionsController < Api::ApiController
           trans = params[:transaction]
           
           
-          puts 'trans: '
-          puts trans
+          puts 'params: '
+          puts params
           
           firstReceiver = trans['0']
           theID = firstReceiver['.id']
@@ -66,8 +66,8 @@ class Api::TransactionsController < Api::ApiController
             @deal.save!
             
             
-            
             Mailer.deal_purchased(@transaction.user, @deal, @transaction).deliver
+            #Mailer.deal_purchased('', @deal, @transaction).deliver
             puts 'transaction doesnt look like a repeat so we emailed the user'
             
             
