@@ -1,5 +1,4 @@
 class Mailer < ActionMailer::Base
-  layout false, :only => [:send_deal]
   layout false, :only => [:deal_purchased]
   default :from => "notifications@qwiqq.me"
 
