@@ -40,10 +40,10 @@ class DealsController < ApplicationController
     deal = Deal.find(params[:id])
     puts "AJAX WORKED PARAMS#{deal.price}"
     gateway =  ActiveMerchant::Billing::PaypalAdaptivePayment.new( 
-                  :login => "acutio_1313133342_biz_api1.gmail.com",
-                  :password => "1255043567",
-                  :signature => "Abg0gYcQlsdkls2HDJkKtA-p6pqhA1k-KTYE0Gcy1diujFio4io5Vqjf",
-                  :appid => "APP-80W284485P519543T" )
+                  :login => "john_api1.qwiqq.me",
+                  :password => "3JDZZY9VYXB6Q5TZ",
+                  :signature => "AFcWxV21C7fd0v3bYYYRCpSSRl31A1s7XP94yCP.a3BcpSz3430646nm",
+                  :appid => "APP-9A930492654909518" )
                 
     recipients = [{:email => 'copley.brandon@gmail.com',
                  :amount => 0.50,
