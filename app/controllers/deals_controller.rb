@@ -59,7 +59,7 @@ class DealsController < ApplicationController
       :ipn_notification_url => "http://api.qwiqq.me//api/deals/10463/transactions?buyer_id=13527&sandbox=false",
       :receiver_list => recipients
   )
-
+  puts "RESPONSE:#{response}"
   # For redirecting the customer to the actual paypal site to finish the payment.
   redirect_to (gateway.redirect_url_for(response["payKey"]))
 
