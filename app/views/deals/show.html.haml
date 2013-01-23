@@ -45,7 +45,7 @@
               .hole
               %span.dollars-large= @deal.price_as_string
           - if @deal.for_sale_on_paypal? && @deal.num_left_for_sale > 0
-            = link_to image_path("email/buynow.gif"), :action => "paypal_test", :method => "get", :controller => "coupons", :remote => true
+            = link_to(image_tag(image_path("email/buynow.gif"))), :action => "paypal_test", :method => "get", :controller => "coupons", :remote => true
 
       - unless @deal.lat == 0.0 && @deal.lon == 0.0
         - unless @deal.venue_or_location_name.blank? || @deal.venue_or_location_name == "" || @deal.venue_or_location_name.nil?
