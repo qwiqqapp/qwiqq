@@ -37,7 +37,8 @@ class DealsController < ApplicationController
   end
   
   def paypal_test
-    puts "AJAX WORKED PARAMS#{params}"
+    deal = Deal.find(params[:id])
+    puts "AJAX WORKED PARAMS#{deal.price}"
     gateway =  ActiveMerchant::Billing::PaypalAdaptivePayment.new( 
                   :login => "acutio_1313133342_biz_api1.gmail.com",
                   :password => "1255043567",
@@ -52,6 +53,7 @@ class DealsController < ApplicationController
                  :primary => false}
                  ]
     response = gateway.setup_purchase(
+      :currency_code => deal.currency,
       :return_url => "http://www.google.com",
       :cancel_url => "http://www.yahoo.com",
       :ipn_notification_url => "http://api.qwiqq.me//api/deals/10463/transactions?buyer_id=13527&sandbox=false",
