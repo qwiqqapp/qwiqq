@@ -1,5 +1,3 @@
-require "net/http"
-require "uri"
 class CouponsController < ApplicationController
   layout false
   before_filter :find_deal
@@ -16,56 +14,31 @@ class CouponsController < ApplicationController
   
   def paypal_test
     puts "AJAX WORKED"
-     #@result = HTTParty.post('https://svcs.sandbox.paypal.com/AdaptivePayments/Pay', :body => {:actionType => "PAY", :currencyCode => "USD", :senderEmail => "caller_1312486258_biz_api1.gmail.com", :receiverList => {:receiver => [{:amount => "1.00", :email => "rec1_1312486368_biz@gmail.com"}]}, :returnUrl => "http://www.yahoo.com/", :cancelUrl => "http://www.gizmodo.com/", :ipnNotificationUrl => "http://api.qwiqq.me//api/deals/10463/transactions?buyer_id=13527&sandbox=false", :feesPayer => "EACHRECEIVER", :method => "post", :requestEnvelope => {:errorLanguage => "en_US", :detailLevel => "ReturnAll"}}, :headers => {"X-PAYPAL-SECURITY-USERID" => "caller_1312486258_biz_api1.gmail.com", "X-PAYPAL-SECURITY-PASSWORD" => "1312486294", "X-PAYPAL-SECURITY-SIGNATURE" => "AbtI7HV1xB428VygBUcIhARzxch4AL65.T18CTeylixNNxDZUu0iO87e","X-PAYPAL-APPLICATION-ID" => "APP-80W284485P519543T","X-PAYPAL-REQUEST-DATA-FORMAT" => "JSON", "X-PAYPAL-RESPONSE-DATA-FORMAT" => "JSON"})
-     @result = HTTParty.post('https://svcs.sandbox.paypal.com/AdaptivePayments/Pay', :body => {:actionType => "PAY", :cancelUrl => "http://www.gizmodo.com", :currencyCode => "USD", 'receiverList.receiver(0).amount'.to_sym => 1, 'receiverList.receiver(0).email'.to_sym => 'sandbox_test_account@email.com', 'receiverList.receiver(1).amount'.to_sym => 1, 'receiverList.receiver(1).email'.to_sym => 'sandbox_test_account@email.com', :returnUrl => "http://www.yahoo.com/", :cancelUrl => "http://www.gizmodo.com/", :ipnNotificationUrl => "http://api.qwiqq.me//api/deals/10463/transactions?buyer_id=13527&sandbox=false", :feesPayer => "EACHRECEIVER", :method => "post", :requestEnvelope => {:errorLanguage => "en_US", :detailLevel => "ReturnAll"}}, :headers => {"X-PAYPAL-SECURITY-USERID" => "caller_1312486258_biz_api1.gmail.com", "X-PAYPAL-SECURITY-PASSWORD" => "1312486294", "X-PAYPAL-SECURITY-SIGNATURE" => "AbtI7HV1xB428VygBUcIhARzxch4AL65.T18CTeylixNNxDZUu0iO87e","X-PAYPAL-APPLICATION-ID" => "APP-80W284485P519543T","X-PAYPAL-REQUEST-DATA-FORMAT" => "JSON", "X-PAYPAL-RESPONSE-DATA-FORMAT" => "JSON"})
+    gateway =  ActiveMerchant::Billing::PaypalAdaptivePayment.new( 
+                  :login => "acutio_1313133342_biz_api1.gmail.com",
+                  :password => "1255043567",
+                  :signature => "Abg0gYcQlsdkls2HDJkKtA-p6pqhA1k-KTYE0Gcy1diujFio4io5Vqjf",
+                  :appid => "APP-80W284485P519543T" )
+                
+      recipients = [{:email => 'copley.brandon@gmail.com',
+                 :amount => 0.50,
+                 :primary => true},
+                {:email => 'john@qwiqq.me',
+                 :amount => 0.50,
+                 :primary => false}
+                 ]
+  response = gateway.setup_purchase(
+    :return_url => "http://www.google.com",
+    :cancel_url => "http://www.yahoo.com",
+    :ipn_notification_url => "http://api.qwiqq.me//api/deals/10463/transactions?buyer_id=13527&sandbox=false",
+    :receiver_list => recipients
+  )
 
-     #@result = HTTParty.post('https://svcs.sandbox.paypal.com/AdaptivePayments/Pay', :senderEmail => "happy_1349101075_biz@onehappystudent.com", :method => "POST", :body => {:actionType => "PAY", :currencyCode => "USD", "receiverList.receiver(0).email".to_sym => "rec1_1312486368_biz@gmail.com", "receiverList.receiver(0).amount".to_sym => "1.00", "receiverList.receiver(0).primary" => "true", "receiverList.receiver(1).email".to_sym => "rec1_1313486368_biz@gmail.com", "receiverList.receiver(1).amount".to_sym => "1.00", "receiverList.receiver(1).primary" => "false", :returnUrl => "www.yahoo.com", :cancelUrl => "gizmodo.com", :requestEnvelope => {:errorLanguage => "en_US", :detailLevel => "ReturnAll"}}, :headers => {"X-PAYPAL-SECURITY-USERID" => "caller_1312486258_biz_api1.gmail.com", "X-PAYPAL-SECURITY-PASSWORD" => "1312486294", "X-PAYPAL-SECURITY-SIGNATURE" => "AbtI7HV1xB428VygBUcIhARzxch4AL65.T18CTeylixNNxDZUu0iO87e","X-PAYPAL-APPLICATION-ID" => "APP-80W284485P519543T","X-PAYPAL-REQUEST-DATA-FORMAT" => "JSON", "X-PAYPAL-RESPONSE-DATA-FORMAT" => "JSON"})
-    puts "RESULT OF POST:#{@result}"
-    
-    redirect_to "http://www.google.com"
-#{\\":\"PAY\", \"\":\"USD\", \"\":{\"receiver\":[{\"amount\":\"1.00\",\"email\":\"\"}]}, 
-#\"\":\"http://www.example.com/success.html\", 
-#cancelUrl\":\"http://www.example.com/failure.html\", \"\":{\"\":\"en_US\", \"\":\"\"}}"
+  # For redirecting the customer to the actual paypal site to finish the payment.
+  redirect_to (gateway.redirect_url_for(response["payKey"]))
+
   end
 
-  def test
-    
-    uri = URI.parse("http://google.com/")
-    http = Net::HTTP.new(uri.host, uri.port)
-    credentials = {
-        'USER' => 'payer_1342623102_biz_api1.gmail.com',
-       'PWD' => '1342623141',
-       'SIGNATURE' => 'Ay2zwWYEoiRoHTTVv365EK8U1lNzAESedJw09MPnj0SEIENMKd6jvnKL '
-     }
-
-    header =      {
-      "X-PAYPAL-SECURITY-USERID" => "caller_1312486258_biz_api1.gmail.com",
-      "X-PAYPAL-SECURITY-PASSWORD" => "1312486294",
-      "X-PAYPAL-SECURITY-SIGNATURE" => "AbtI7HV1xB428VygBUcIhARzxch4AL65.T18CTeylixNNxDZUu0iO87e",
-      "X-PAYPAL-APPLICATION-ID" => "APP-80W284485P519543T",
-      "X-PAYPAL-REQUEST-DATA-FORMAT" => "JSON",
-      "X-PAYPAL-RESPONSE-DATA-FORMAT" => "JSON"
-    }
-    data = {"actionType" => "PAY",
-               "receiverList.receiver(0).email"=> 'mscaria@novationmobile.com',
-               "receiverList.receiver(0).amount" => "1",
-               "currencyCode" => "USD",
-               "cancelUrl" => "http://www.google.com/",
-               "returnUrl" => "http://www.yahoo.com/",          
-               "requestEnvelope.errorLanguage" => "en_US",
-               "ipnNotificationUrl" => "http://api.qwiqq.me//api/deals/10463/transactions?buyer_id=13527&sandbox=false"
-               }
-    puts "Just before posting"
-    res = http.post(uri, data, header)
-    puts "PAYPAL SUCCESS RESPONSE: #{res}"
-    
-        if pay_response.success?
-      redirect_to pay_response.approve_paypal_payment_url
-    else
-      puts pay_response.errors.first['message']
-      redirect_to failed_payment_url
-    end 
-  end
 
 private
   def find_deal
