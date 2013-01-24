@@ -52,7 +52,7 @@ class DealsController < ApplicationController
             amt
           end
                
-    recipients = [{:email => deal.user.email,
+    recipients = [{:email => 'john@qwiqq.me',#deal.user.email,
                  :amount => deal.price,
                  :primary => true},
                 {:email => 'john@qwiqq.me',
