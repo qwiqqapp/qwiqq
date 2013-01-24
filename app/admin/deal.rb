@@ -88,6 +88,7 @@ ActiveAdmin.register Deal do
      f.input :premium
      f.input :coupon
      f.input :coupon_count
+     f.input :paypal_email
      f.input :for_sale_on_paypal
      f.input :num_for_sale
      f.input :num_left_for_sale
