@@ -59,6 +59,7 @@ class DealsController < ApplicationController
                  :amount => deal.price,
                  :primary => true}
                  ]
+                 
     response = gateway.setup_purchase(
       :currency_code => deal.currency,
       :return_url => "http://api.qwiqq.me/posts/#{deal.id}",
