@@ -43,7 +43,7 @@
             .name= auto_link(@deal.name)
             - if @deal.for_sale_on_paypal? && @deal.num_left_for_sale > 0
               = link_to(image_tag(image_path("buy-button.png")), :action => "paypal_test", :method => "get", :controller => "deals", :remote => true)
-              %div{:style => "position:absolute; top:25px; left:20px; width:200px; height:25px"}
+              %div{:style => "position:relative; top:0px; left:200px; width:500px; height:35px"}
                 %span.dollars-large= @deal.price_as_string
             - else
               .price
