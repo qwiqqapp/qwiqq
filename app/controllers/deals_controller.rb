@@ -65,7 +65,7 @@ class DealsController < ApplicationController
       :return_url => "http://api.qwiqq.me/posts/#{deal.id}",
       :cancel_url => "http://api.qwiqq.me/posts/#{deal.id}",
       :ipn_notification_url => "http://api.qwiqq.me/api/deals/#{deal.id}/transactions?sandbox=false",
-      //:ipn_notification_url => "http://api.qwiqq.me/api/deals/#{deal.id}/transactions?buyer_id=#{current_user.id}&sandbox=false",
+      #:ipn_notification_url => "http://api.qwiqq.me/api/deals/#{deal.id}/transactions?buyer_id=#{current_user.id}&sandbox=false",
       :receiver_list => recipients
   )
   puts "RESPONSE:#{response}"
