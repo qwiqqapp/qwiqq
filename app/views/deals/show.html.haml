@@ -45,7 +45,7 @@
               %div{:style => "position:relative;width:100%"}
                 = link_to(image_tag(image_path("buy-button.png")), :action => "paypal_test", :method => "get", :controller => "deals", :remote => true)
                 %div{:style => "position:absolute; top:75px left:-175px;"}
--                  %span.dollars-large= @deal.price_as_string
+                  %span.dollars-large= @deal.price_as_string
             - else
               .price
                 .hole
