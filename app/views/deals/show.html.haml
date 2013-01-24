@@ -41,12 +41,13 @@
           %img.post-photo{ :src => @deal.photo(:iphone_zoom_2x), :width => "504", :height => "504" }
           .clearfix{:style => "display:inline;height:auto;"}
             .name= auto_link(@deal.name)
-            .price
-              .hole
-              %span.dollars-large= @deal.price_as_string
-          - if @deal.for_sale_on_paypal? && @deal.num_left_for_sale > 0
-            %div{:style => "padding:0px 0px 0px 20px;"}
-              = link_to(image_tag(image_path("email/buynow.gif")), :action => "paypal_test", :method => "get", :controller => "deals", :remote => true)
+            - if @deal.for_sale_on_paypal? && @deal.num_left_for_sale > 0
+              .price
+                .hole
+                %span.dollars-large= @deal.price_as_string
+            - else
+              = link_to(image_tag(image_path("buy-button.png")), :action => "paypal_test", :method => "get", :controller => "deals", :remote => true)
+                %span.dollars-large= @deal.price_as_string
 
       - unless @deal.lat == 0.0 && @deal.lon == 0.0
         - unless @deal.venue_or_location_name.blank? || @deal.venue_or_location_name == "" || @deal.venue_or_location_name.nil?
