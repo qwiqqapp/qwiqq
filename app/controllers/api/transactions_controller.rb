@@ -59,7 +59,12 @@ class Api::TransactionsController < Api::ApiController
             puts 'the transaction already exists...therefore we dont send an email'
           else
             
-            @transaction = Transaction.create(:user => User.find(params[:buyer_id]), :deal => @deal, :paypal_transaction_id => theID)
+            @transaction = Transaction.create(:deal => @deal, :paypal_transaction_id => theID)
+            if params[:buyer_id]
+              @transaction.user = User.find(params[:buyer_id])
+            else
+              #web purchase
+            end
             #@transaction.deal = @deal
             puts 'saving transaction...'
             @transaction.save!
