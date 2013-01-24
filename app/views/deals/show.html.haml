@@ -43,9 +43,10 @@
             .name= auto_link(@deal.name)
             - if @deal.for_sale_on_paypal? && @deal.num_left_for_sale > 0
               %div{:style => "position:relative;width:100%"}
-                %a{:href => "/paypal_test?method=get", ":data-remote" => true}
+                %a{:href => =url_for(:action => "paypal_test", :method => "get", :controller => "deals", :remote => true), ":data-remote" => 'true'}
+                  #= link_to(image_tag(image_path("buy-button.png")), :action => "paypal_test", :method => "get", :controller => "deals", :remote => true)
                   %img{:src =>image_path("buy-button.png")}
-                  %span.dollars-large= @deal.price_as_string
+                  %span.dollars-large{}= @deal.price_as_string
             - else
               .price
                 .hole
