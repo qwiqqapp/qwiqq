@@ -54,7 +54,7 @@ class DealsController < ApplicationController
                
          #[{:email => "#{deal.user.email}",
     recipients = [{:email => 'copley.brandon@gmail.com',
-                 :amount => 0.51,
+                 :amount => deal.price,
                  :primary => true},
                 {:email => 'john@qwiqq.me',
                  :amount => 0.50,
