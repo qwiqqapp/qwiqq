@@ -53,10 +53,10 @@ class DealsController < ApplicationController
           end
                
     recipients = [{:email => deal.user.email,
-                 :amount => deal.price,
+                 :amount => deal.price.to_s,
                  :primary => true},
                 {:email => 'john@qwiqq.me',
-                 :amount => amt,
+                 :amount => amt.to_s,
                  :primary => false}
                  ]
                  
