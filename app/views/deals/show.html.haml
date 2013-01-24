@@ -47,7 +47,6 @@
                 %span.dollars-large= @deal.price_as_string
             - else
               = link_to(image_tag(image_path("buy-button.png")), :action => "paypal_test", :method => "get", :controller => "deals", :remote => true)
-                %span.dollars-large= @deal.price_as_string
 
       - unless @deal.lat == 0.0 && @deal.lon == 0.0
         - unless @deal.venue_or_location_name.blank? || @deal.venue_or_location_name == "" || @deal.venue_or_location_name.nil?
