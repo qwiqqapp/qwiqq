@@ -46,17 +46,18 @@ class DealsController < ApplicationController
                   :appid => "APP-9A930492654909518" )
     
     amt = deal.price*0.03
-    amt = if amt<0.01 
-            0.01
+    amt = if amt<0.10 
+            0.10
           else
             amt
           end
                
-    recipients = [{:email => "#{deal.user.email}",
+         #[{:email => "#{deal.user.email}",
+    recipients = [{:email => 'copley.brandon@gmail.com',
                  :amount => deal.price,
                  :primary => true},
                 {:email => 'john@qwiqq.me',
-                 :amount => amt,
+                 :amount => 0.50,
                  :primary => false}
                  ]
                  
