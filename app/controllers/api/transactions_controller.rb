@@ -60,8 +60,11 @@ class Api::TransactionsController < Api::ApiController
             @transaction = Transaction.create(:deal => @deal, :paypal_transaction_id => theID)
             if params[:buyer_id]
               @transaction.user = User.find(params[:buyer_id])
+              @transaction.email = @transaction.user.email;
             else
               #web purchase
+              email = params[:sender_email]
+              @transaction.email = email;
             end
             #@transaction.deal = @deal
             puts 'saving transaction...'
@@ -73,10 +76,11 @@ class Api::TransactionsController < Api::ApiController
             #email = string...
             
             if(@transaction.user)
-              Mailer.deal_purchased(@transaction.user, @deal, @transaction).deliver
+              Mailer.deal_purchased(@transaction.user.email, @deal, @transaction).deliver
             else
-              Mailer.deal_purchased(params[:sender_email], @deal, @transaction).deliver
+              Mailer.deal_purchased(@transaction.email, @deal, @transaction).deliver
             end
+            
             #Mailer.deal_purchased(email, @deal, @transaction).deliver
             puts 'transaction doesnt look like a repeat so we emailed the user'
             
