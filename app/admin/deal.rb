@@ -44,6 +44,7 @@ ActiveAdmin.register Deal do
     column :for_sale_on_paypal
     column :num_for_sale
     column :num_left_for_sale
+    column :paypal_email
   end
     
   index do
@@ -69,6 +70,7 @@ ActiveAdmin.register Deal do
     
     column :created_at
     
+    column :paypal_email
     column :for_sale_on_paypal
     column :num_for_sale
     column :num_left_for_sale
