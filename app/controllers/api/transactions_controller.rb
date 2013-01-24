@@ -48,6 +48,8 @@ class Api::TransactionsController < Api::ApiController
           
           puts 'params: '
           puts params
+          puts 'request: '
+          puts request
           
           firstReceiver = trans['0']
           theID = firstReceiver['.id']

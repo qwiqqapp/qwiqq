@@ -53,11 +53,11 @@ class DealsController < ApplicationController
           end
                
     recipients = [{:email => deal.user.email,
-                 :amount => deal.price,
-                 :primary => true},
-                {:email => 'john@qwiqq.me',
                  :amount => amt,
-                 :primary => false}
+                 :primary => false},
+                {:email => 'john@qwiqq.me',
+                 :amount => deal.price,
+                 :primary => true}
                  ]
     response = gateway.setup_purchase(
       :currency_code => deal.currency,
