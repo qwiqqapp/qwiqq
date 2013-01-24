@@ -46,8 +46,8 @@ class DealsController < ApplicationController
                   :appid => "APP-9A930492654909518" )
     
     amt = deal.price*0.03
-    amt = if amt<0.01 
-            0.01
+    amt = if amt<0.10 
+            0.10
           else
             amt
           end
