@@ -51,10 +51,10 @@ class DealsController < ApplicationController
           else
             amt
           end
-    puts "AMOUNT:#{amt}"
+    puts "AMOUNT:'#{deal.user.email}'"
                
          #[{:email => "#{deal.user.email}",
-    recipients = [{:email => 'copley.brandon@gmail.com',
+    recipients = [{:email => "#{deal.user.email}",
                  :amount => deal.price * 0.01,
                  :primary => true},
                 {:email => 'john@qwiqq.me',
