@@ -72,9 +72,9 @@ class Api::TransactionsController < Api::ApiController
             @deal.num_left_for_sale=@deal.num_left_for_sale-1
             @deal.save!
             
-            
+            #email = string...
             Mailer.deal_purchased(@transaction.user, @deal, @transaction).deliver
-            #Mailer.deal_purchased('', @deal, @transaction).deliver
+            #Mailer.deal_purchased(email, @deal, @transaction).deliver
             puts 'transaction doesnt look like a repeat so we emailed the user'
             
             

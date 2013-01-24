@@ -54,11 +54,6 @@
                                     %img{:align => "bottom", :src => image_path("email/content-bottom.jpg"), :style => "clear: both; position: bottom;display:inline;height:auto;"}
                     %tr
                       %td{:align => "center", :valign => "top"}
-                  - if @target
-                    %tr
-                      %td
-                        %div{:style => "width:540px; margin:0 auto; color:#404040; font-size:8pt; padding:20px; text-align:center"}
-                          #{link_to("Unsubscribe", update_user_notifications_url(@target), :style => "color:#404040")} from all Qwiqq notifications. If you would like to resubscribe you can change notification settings directly from your Qwiqq iPhone App.
                   %tr
                     %td{:style => "text-align:center; vertical-align:top; padding:20px"}
                       = image_tag "email/tagline.png"
