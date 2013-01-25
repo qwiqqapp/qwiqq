@@ -55,12 +55,9 @@ namespace :mail do
   end
   
   task :send_michael => :environment do
-    user = User.find_by_email("michaelscaria26@gmail.com")
-    deal = Deal.find("10345")
-    deals = Deal.premium.recent.sorted.popular.first(3)
-    transaction = Transaction.find("121") 
-    #Mailer.deal_purchased(user, deal, transaction).deliver
-    Mailer.category_test(user, deal).deliver
+    deal = Deal.find("11049")
+    transaction = Transaction.find("187") 
+    Mailer.deal_purchased("michaelscaria26@gmail.com",deal,transaction).deliver
     puts "Finished Rake"
   end 
   
