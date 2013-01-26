@@ -75,6 +75,12 @@ class UserEvent < ActiveRecord::Base
     self.created_by_username = created_by.username
     self.deal_name = deal.name if deal
   end
+  
+  def mentioned_users
+    body.scan(/@([\w-]+)/).map {|match| 
+    puts "EVENT MENTIONED:#{match} @ ZERO:#{match[0]}"
+    User.find_by_username(match[0])}.compact
+  end
 
   private
   def push_page

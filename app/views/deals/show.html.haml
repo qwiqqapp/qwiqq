@@ -86,7 +86,7 @@
             .empty
               The latest buzz on this post will show up here
           - @events.each_with_index do |event, i|
-            - if event.event_type == "comment" && @deal.id.to_s == "10461"
+            - if event.event_type == "comment" && @deal.id.to_s == "10461" && event.created_by && event.mentioned_users
               .event{ :class => ""}
                 %a{ :href => user_url(event.created_by) }
                   %img.user-photo{ :src => event.created_by.photo(:iphone2x), :width => "80", :height => "80" }
