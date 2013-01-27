@@ -89,29 +89,23 @@ class UserEvent < ActiveRecord::Base
   def mentioned_users_body
     body = metadata[:body].scan(/@([\w-]+)/)
     puts "mention users body:'#{body}'"
-    unless body.empty?
-      names = []
-      names << body.map do |match| 
-        match[0]
-      #User.find_by_username(match[0])
-      end
-      comment_body = metadata[:body]
-      names[0].each { |username|
-        puts "username:#{username.downcase}"
-        user = User.find(:first, :conditions => [ "lower(username) = ?", username.downcase ])
-        if !user.nil?
-          puts "FULL:<a href='http://www.qwiqq.me/users/#{user.id}'>@#{username}</a>"
-          link = "<a href='http://www.qwiqq.me/users/#{user.id}'>@#{username}</a>"
-          comment_body["@#{username}"] = link
-        end
-      }
-      comment_body = emojify "@#{self.created_by.username} said \"#{comment_body}\""
-      puts "FINAL COMMENT_BODY:#{comment_body}"
-      comment_body
-    else
-      metadata[:body]
+    names = []
+    names << body.map do |match| 
+      match[0]
     end
-    #names
+    comment_body = metadata[:body]
+    names[0].each { |username|
+      puts "username:#{username.downcase}"
+      user = User.find(:first, :conditions => [ "lower(username) = ?", username.downcase ])
+      if !user.nil?
+        puts "FULL:<a href='http://www.qwiqq.me/users/#{user.id}'>@#{username}</a>"
+        link = "<a href='http://www.qwiqq.me/users/#{user.id}'>@#{username}</a>"
+        comment_body["@#{username}"] = link
+      end
+    }
+    comment_body = emojify "@#{self.created_by.username} said \"#{comment_body}\""
+    puts "FINAL COMMENT_BODY:#{comment_body}"
+    comment_body.html_safe
   end
 
   private
