@@ -79,6 +79,7 @@ class UserEvent < ActiveRecord::Base
   def mentioned_users
     body = metadata[:body].scan(/@([\w-]+)/)
     puts "mention users body:'#{body}'"
+    names = []
     names << body.map do |match| 
       puts "EVENT MENTIONED:#{match} @ COMPACT:#{match.compact}"
       #User.find_by_username(match[0])
