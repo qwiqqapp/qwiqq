@@ -1,4 +1,5 @@
 class UserEvent < ActiveRecord::Base
+  include ApplicationHelper
   include ActionView::Helpers::DateHelper
 
   belongs_to :user
