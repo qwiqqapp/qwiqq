@@ -87,7 +87,7 @@ class Api::UsersController < Api::ApiController
   def update
     raise ActiveRecord::RecordNotFound unless params[:id] == "current"
     @user = current_user
-    puts "updating user: #{@user.id}"
+    puts "updating user from app: #{@user.id}"
     @user.update_attributes(params[:user])
     respond_with(:api, @user) do
       if @user.valid?

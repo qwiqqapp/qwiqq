@@ -4,6 +4,7 @@ namespace :users do
     fixed = 0
     User.find_each do |user|
       if Qwiqq.email?(user.city)
+        puts "updating user, clear city fields?: #{@user.id}"
         user.update_attribute(:city, "")
         fixed += 1
       end

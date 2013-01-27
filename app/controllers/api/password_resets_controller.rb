@@ -18,6 +18,7 @@ class Api::PasswordResetsController < Api::ApiController
     @user = User.validate_password_reset(params[:id])
     
     if @user
+      puts "updating user for password reset: #{@user.id}"
       @user.update_attributes(:password => params[:password]) #update with posted password
       session[:user_id] = @user.id if @user.valid?            #login if @user is valid
       respond_with(:api, @user) do
