@@ -100,14 +100,14 @@ class UserEvent < ActiveRecord::Base
         puts "username:#{username.downcase}"
         user = User.find(:first, :conditions => [ "lower(username) = ?", username.downcase ])
         if !user.nil?
-          puts "username_email:#{user.email}"
-          puts "username_id:#{user.id.to_s}"
           puts "FULL:<a href='http://www.qwiqq.me/users/#{user.id}'>@#{username}</a>"
           link = "<a href='http://www.qwiqq.me/users/#{user.id}'>@#{username}</a>"
           comment_body["@#{username}"] = link
         end
       }
-      emojify "@#{self.created_by.username} said \"#{comment_body}\""
+      comment_body = emojify "@#{self.created_by.username} said \"#{comment_body}\""
+      puts "FINAL COMMENT_BODY:#{comment_body}"
+      comment_body
     else
       metadata[:body]
     end
