@@ -88,9 +88,10 @@ class UserEvent < ActiveRecord::Base
       comment_body = metadata[:body]
       names[0].each { |username|
         puts "username:#{username.downcase}"
-        user = User.find(:all, :conditions => [ "lower(username) = ?", username.downcase ])
+        user = User.find(:first, :conditions => [ "lower(username) = ?", username.downcase ])
         if !user.nil?
-          puts "username_id:#{user.id}"
+          puts "username_email:#{user.email}"
+          puts "username_id:#{user.id.to_s}"
           puts "FULL:<a href='http://www.qwiqq.me/users/#{user.id}'>@#{username}</a>"
           link = "<a href='http://www.qwiqq.me/users/#{user.id}'>@#{username}</a>"
           comment_body["@#{username}"] = link
