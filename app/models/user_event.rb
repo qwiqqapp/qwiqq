@@ -80,18 +80,20 @@ class UserEvent < ActiveRecord::Base
     body = metadata[:body].scan(/@([\w-]+)/)
     puts "mention users body:'#{body}'"
     unless body.empty?
-      puts "cleared"
       names = []
       names << body.map do |match| 
         match[0]
       #User.find_by_username(match[0])
       end
-      puts "Zero:#{names[0][0]}"
-      first = User.find_by_username(names[0][0])
-      the_id = first.id
-      puts "FULL:<a href='http://www.qwiqq.me/users/#{the_id}'>Visit Qwiqq</a>"
-      temp = "<a href='http://www.qwiqq.me/users/#{the_id}'>Visit Qwiqq</a>"
-      temp
+      comment_body = metadata[:body]
+      names[0].each { |username|
+        user = User.find_by_username(username)
+        the_id = first.id
+        puts "FULL:<a href='http://www.qwiqq.me/users/#{user.id}'>@#{username}</a>"
+        link = "<a href='http://www.qwiqq.me/users/#{user.id}'>@#{username}</a>"
+        comment_body[username] = link
+      }
+      comment_body
     else
       metadata[:body]
     end
