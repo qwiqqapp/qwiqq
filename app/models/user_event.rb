@@ -88,7 +88,6 @@ class UserEvent < ActiveRecord::Base
       comment_body = metadata[:body]
       names[0].each { |username|
         user = User.find_by_username(username)
-        the_id = first.id
         puts "FULL:<a href='http://www.qwiqq.me/users/#{user.id}'>@#{username}</a>"
         link = "<a href='http://www.qwiqq.me/users/#{user.id}'>@#{username}</a>"
         comment_body[username] = link
