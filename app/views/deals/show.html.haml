@@ -92,7 +92,7 @@
                   %img.user-photo{ :src => event.created_by.photo(:iphone2x), :width => "80", :height => "80" }
                 %img.icon{ :src => image_path(event_icon(event)) }  
                 .body
-                  = auto_link(event_body(event))
+                  = event.mentioned_users.html_safe
             - if event.created_by
               .event{ :class => ""}
                 %a{ :href => user_url(event.created_by) }
