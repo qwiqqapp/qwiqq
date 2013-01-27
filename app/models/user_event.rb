@@ -78,6 +78,15 @@ class UserEvent < ActiveRecord::Base
   
   def mentioned_users
     body = metadata[:body].scan(/@([\w-]+)/)
+    if body.empty?
+      false
+    else
+      true
+    end
+  end
+  
+  def mentioned_users_body
+    body = metadata[:body].scan(/@([\w-]+)/)
     puts "mention users body:'#{body}'"
     unless body.empty?
       names = []
@@ -97,6 +106,8 @@ class UserEvent < ActiveRecord::Base
           comment_body["@#{username}"] = link
         end
       }
+      emojify "@#{self.created_by.username} said \"#{comment_body}\""
+      puts "COMMENT:#{comment_body}"
       comment_body
     else
       metadata[:body]
