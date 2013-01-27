@@ -103,9 +103,10 @@ class UserEvent < ActiveRecord::Base
         comment_body["@#{username}"] = link
       end
     }
-    comment_body = emojify "@#{self.created_by.username} said \"#{comment_body}\""
+    #comment_body = emojify "@#{self.created_by.username} said \"#{comment_body}\""
+    comment_body = "@#{self.created_by.username} said \"#{comment_body}\""
     puts "FINAL COMMENT_BODY:#{comment_body}"
-    comment_body.html_safe
+    comment_body
   end
 
   private
