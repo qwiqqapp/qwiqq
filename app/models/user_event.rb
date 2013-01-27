@@ -86,8 +86,8 @@ class UserEvent < ActiveRecord::Base
     end
     puts "NAMES:#{names} zero:#{names[0][0]}"
     first = User.find_by_username(names[0][0])
-    puts "URL:#{user_url(first)} FULL:<a href='#{user_url(first)}'>Visit Qwiqq</a>"
-    temp = "<a href='#{user_url(first)}'>Visit Qwiqq</a>"
+    puts "URL:http://www.qwiqq.me/users/#{first.id.to_s} FULL:<a href='http://www.qwiqq.me/users/#{first.id.to_s}'>Visit Qwiqq</a>"
+    temp = "<a href='http://www.qwiqq.me/users/#{first.id.to_s}'>Visit Qwiqq</a>"
     temp
     #names
   end
