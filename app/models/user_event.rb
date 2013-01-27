@@ -79,17 +79,22 @@ class UserEvent < ActiveRecord::Base
   def mentioned_users
     body = metadata[:body].scan(/@([\w-]+)/)
     puts "mention users body:'#{body}'"
-    names = []
-    names << body.map do |match| 
-      match[0]
+    unless body.empty?
+      puts "cleared"
+      names = []
+      names << body.map do |match| 
+        match[0]
       #User.find_by_username(match[0])
+      end
+      puts "Zero:#{names[0][0]}"
+      first = User.find_by_username(names[0][0])
+      the_id = first.id
+      puts "FULL:<a href='http://www.qwiqq.me/users/#{the_id}'>Visit Qwiqq</a>"
+      temp = "<a href='http://www.qwiqq.me/users/#{the_id}'>Visit Qwiqq</a>"
+      temp
+    else
+      metadata[:body]
     end
-    puts "NAMES:#{names} zero:#{names[0][0]}"
-    first = User.find_by_username(names[0][0])
-    the_id = first.id.to_s
-    puts "URL:http://www.qwiqq.me/users/#{the_id} FULL:<a href='http://www.qwiqq.me/users/#{the_id}'>Visit Qwiqq</a>"
-    temp = "<a href='http://www.qwiqq.me/users/#{the_id}'>Visit Qwiqq</a>"
-    temp
     #names
   end
 
