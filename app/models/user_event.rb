@@ -90,7 +90,7 @@ class UserEvent < ActiveRecord::Base
         user = User.find_by_username(username)
         puts "FULL:<a href='http://www.qwiqq.me/users/#{user.id}'>@#{username}</a>"
         link = "<a href='http://www.qwiqq.me/users/#{user.id}'>@#{username}</a>"
-        comment_body[username] = link
+        comment_body["@#{username}"] = link
       }
       comment_body
     else
