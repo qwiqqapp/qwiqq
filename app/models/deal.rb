@@ -317,20 +317,7 @@ class Deal < ActiveRecord::Base
     venue = Qwiqq.foursquare_client.venue(foursquare_venue_id) if foursquare_venue_id
     if venue
       if venue["location"]["lat"] != 0.0 && venue["location"]["lng"] != 0.0
-        update_attributes(
-          :lat => venue["location"]["lat"],
-          :lon => venue["location"]["lng"],
-          :foursquare_venue_name => venue["name"],
-          :location_name => venue["location"]["address"])
-      end
-    end
-    
-  end
-
-  def locate_via_foursquare!
-    venue = Qwiqq.foursquare_client.venue(foursquare_venue_id) if foursquare_venue_id
-    if venue
-      if venue["location"]["lat"] != 0.0 && venue["location"]["lng"] != 0.0
+        puts "TEST update locationvia4sq"
         update_attributes(
           :lat => venue["location"]["lat"],
           :lon => venue["location"]["lng"],

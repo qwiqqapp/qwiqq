@@ -83,6 +83,7 @@ class Api::DealsController < Api::ApiController
 
   def update
     @deal = current_user.deals.find(params[:id])
+    puts "TEST update users api"
     @deal.update_attributes(params[:deal])
     respond_with @deal
   end
