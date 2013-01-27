@@ -108,8 +108,6 @@ class UserEvent < ActiveRecord::Base
         end
       }
       emojify "@#{self.created_by.username} said \"#{comment_body}\""
-      puts "COMMENT:#{comment_body}"
-      comment_body
     else
       metadata[:body]
     end
