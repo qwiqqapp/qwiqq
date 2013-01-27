@@ -84,8 +84,10 @@ class UserEvent < ActiveRecord::Base
       match[0]
       #User.find_by_username(match[0])
     end
-    puts "NAMES:#{names} zero:#{names[0]}"
-    temp = "<a href='http://www.qwiqq.me'>Visit Qwiqq</a>"
+    puts "NAMES:#{names} zero:#{names[0][0]}"
+    first = User.find_by_username(names[0][0])
+    puts "URL:#{user_url(first)} FULL:<a href='#{user_url(first)}'>Visit Qwiqq</a>"
+    temp = "<a href='#{user_url(first)}'>Visit Qwiqq</a>"
     temp
     #names
   end
