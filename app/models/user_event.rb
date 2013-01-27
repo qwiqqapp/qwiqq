@@ -85,7 +85,7 @@ class UserEvent < ActiveRecord::Base
       #User.find_by_username(match[0])
     end
     puts "NAMES:#{names} zero:#{names[0]}"
-    temp = "<b>Hi</b>"
+    temp = "<a href='http://www.qwiqq.me'>Visit Qwiqq</a>"
     temp
     #names
   end
