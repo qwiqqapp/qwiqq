@@ -81,11 +81,10 @@ class UserEvent < ActiveRecord::Base
     puts "mention users body:'#{body}'"
     names = []
     names << body.map do |match| 
-      puts "EVENT MENTIONED:#{match} @ COMPACT:#{match[0]}"
       match[0]
       #User.find_by_username(match[0])
     end
-    puts "NAMES:#{names}"
+    puts "NAMES:#{names} zero:#{names[0]}"
   end
 
   private
