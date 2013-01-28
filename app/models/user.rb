@@ -351,6 +351,7 @@ class User < ActiveRecord::Base
   end
 
   def disable_socialyzer!
+    puts "TEST update disable_socialyzer!"
     update_attributes(:socialyzer_times => nil, :socialyzer_enabled_at => nil, :twitter_utc_offset => nil)
   end
 
