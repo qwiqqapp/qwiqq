@@ -112,6 +112,7 @@ class Api::UsersController < Api::ApiController
   end
 
   def following
+    puts "users with id: #{@user.id} following..."
     requested_user
     @following = @user.following.sorted
     puts 'following: '
