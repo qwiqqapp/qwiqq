@@ -104,8 +104,13 @@ class UserEvent < ActiveRecord::Base
         comment_body["@#{username}"] = link
       end
     }
-    #comment_body = emojify "@#{self.created_by.username} said \"#{comment_body}\""
-    comment_body = "@#{self.created_by.username} said \"#{comment_body}\""
+    created_link = self.created_by.username
+    created_user = User.find(:first, :conditions => [ "lower(username) = ?", username.downcase ])
+      if !created_user.nil?
+        created_link = "<a href='http://www.qwiqq.me/users/#{user.id}'>@#{username}</a>"
+      end
+    created_link = "<a href='http://www.qwiqq.me/users/#{created_user.id}'>@#{created_user.username}</a>"
+    comment_body = "#{created_link} said \"#{comment_body}\""
     puts "FINAL COMMENT_BODY:#{comment_body}"
     comment_body
   end
