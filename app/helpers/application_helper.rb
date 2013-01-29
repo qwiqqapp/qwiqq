@@ -32,19 +32,24 @@ module ApplicationHelper
   end
 
   def event_body(event)
+    linked_name = "@#{event.created_by.username}"
+    user = User.find(:first, :conditions => [ "lower(username) = ?", event.created_by.username.downcase ])
+    if !user.nil?
+        linked_name = "<a href='http://www.qwiqq.me/users/#{user.id}'>@#{user.username}</a>"
+    end
     case event.event_type
     when "like"
-      "@#{event.created_by.username} loved this"
+      "#{linked_name} loved this"
     when "comment"
-      emojify "@#{event.created_by.username} said \"#{event.metadata[:body]}\""
+      "#{linked_name} said \"#{event.metadata[:body]}\""
     when "share"
       case event.metadata[:service]
       when "sms"
-      "@#{event.created_by_username} shared on SMS"
+      "#{linked_name} shared on SMS"
       when "constantcontact"
-      "@#{event.created_by_username} shared on Constant Contact"
+      "#{linked_name} shared on Constant Contact"
       else
-      "@#{event.created_by_username} shared on #{event.metadata[:service].titleize}"
+      "#{linked_name} shared on #{event.metadata[:service].titleize}"
       end
     end
   end
