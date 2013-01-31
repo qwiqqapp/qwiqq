@@ -71,7 +71,7 @@ class Api::ExploreController < Api::ApiController
       :page => params[:page])
 
     
-    userm = User.find_by_email("mscaria@novationmobile.com")
+    #userm = User.find_by_email("mscaria@novationmobile.com")
     #Mailer.weekly_update(userm, @deals).deliver
     
     options = { :minimal => true }
