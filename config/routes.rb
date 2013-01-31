@@ -79,10 +79,11 @@ Qwiqq::Application.routes.draw do
     resources :comments, :only => [:destroy]
     resources :transactions, :only => [:destroy]
     resources :venues, :only => [:index]
-    
+
     # search controller custom methods
     get "search/users" => "search#users", :as => "search_users"
     get "search/deals" => "search#deals", :as => "search_deals"
+    get "explore/deals" => "explore#deals", :as => "explore_deals"
 
     # TODO deprecate
     get "search/deals/nearby" => "search#deals", :as => "search_deals"
