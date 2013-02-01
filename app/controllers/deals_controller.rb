@@ -45,7 +45,8 @@ class DealsController < ApplicationController
                   :signature => "AFcWxV21C7fd0v3bYYYRCpSSRl31A1s7XP94yCP.a3BcpSz3430646nm",
                   :appid => "APP-9A930492654909518" )
     
-    amt = deal.price*0.003
+    amt = deal.price*0.3
+    amt = amt.round
     amt = if amt<0.01 
             0.01
           else
