@@ -45,8 +45,7 @@ class DealsController < ApplicationController
                   :signature => "AFcWxV21C7fd0v3bYYYRCpSSRl31A1s7XP94yCP.a3BcpSz3430646nm",
                   :appid => "APP-9A930492654909518" )
     
-    amt = deal.price*0.3
-    amt = amt.round*0.01
+    amt = deal.price*0.003
     amt = if amt<0.01 
             0.01
           else
@@ -56,10 +55,10 @@ class DealsController < ApplicationController
     puts "#{deal.price} + #{amt}"
          #[{:email => "#{deal.user.email}",
     recipients = [{:email => "#{deal.paypal_email}",
-                 :amount => deal.price * 0.01,
+                 :amount => (deal.price * 0.01).round(2),
                  :primary => true},
                 {:email => 'john@qwiqq.me',
-                 :amount => amt,
+                 :amount => amt.round(2),
                  :primary => false}
                  ]
                  
