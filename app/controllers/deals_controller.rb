@@ -51,8 +51,8 @@ class DealsController < ApplicationController
           else
             amt
           end
-    puts "AMOUNT:'#{deal.paypal_email}'"
-               
+    puts "PAYEE:'#{deal.paypal_email}'"
+    puts "#{deal.price} + #{amt}"
          #[{:email => "#{deal.user.email}",
     recipients = [{:email => "#{deal.paypal_email}",
                  :amount => deal.price * 0.01,
