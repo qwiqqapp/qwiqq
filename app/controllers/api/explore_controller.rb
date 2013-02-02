@@ -55,6 +55,16 @@ class Api::ExploreController < Api::ApiController
     options[:current_user] = current_user if current_user
     render :json => paginate(@deals).compact.as_json(options)
   end
+  
+  def popular
+    Deal.premium.today.first(18)
+  end
+    
+    puts "SEARCH DEAL COUNT:#{@deals.count}"
+    options = { :minimal => true }
+    options[:current_user] = current_user if current_user
+    render :json => paginate(@deals).compact.as_json(options)
+  end
 
   # example: api/search/category/:name/deals
   # required param: 

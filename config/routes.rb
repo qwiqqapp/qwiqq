@@ -84,6 +84,7 @@ Qwiqq::Application.routes.draw do
     get "search/users" => "search#users", :as => "search_users"
     get "search/deals" => "search#deals", :as => "search_deals"
     get "explore/deals" => "explore#deals", :as => "explore_deals"
+    get "explore/popular" => "explore#popular", :as => "explore_popular"
 
     # TODO deprecate
     get "search/deals/nearby" => "search#deals", :as => "search_deals"

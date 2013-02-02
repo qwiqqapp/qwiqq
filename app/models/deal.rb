@@ -67,6 +67,7 @@ class Deal < ActiveRecord::Base
   after_create :async_locate
   
   scope :today, lambda { where("DATE(created_at) = ?", Date.today) }
+  scope :recent, lambda { where("DATE(created_at) > ?", 5.days.ago) }
   scope :recent, lambda { where("DATE(created_at) > ?", 30.days.ago) }
   scope :premium, where(:premium => true)
   scope :sorted, :order => "created_at desc"
