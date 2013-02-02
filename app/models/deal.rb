@@ -312,9 +312,9 @@ class Deal < ActiveRecord::Base
     
   end
 
-  def self.search(search)
-    puts "WITHIN SELF.SEARCH:#{search}"
-    search_condition = "%" + search + "%"
+  def self.search(query, options)
+    puts "WITHIN SELF.SEARCH QUERY:#{query} OPTIONS:#{options}"
+    search_condition = "%" + query + "%"
     find(:all, :conditions => ['name LIKE ?', search_condition])
   end
 
