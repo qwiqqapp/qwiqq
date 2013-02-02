@@ -57,6 +57,7 @@ class Api::ExploreController < Api::ApiController
   end
   
   def popular
+    puts "POPULAR FOUND TEST"
     Deal.premium.recent_explore.first(18)
   end
 
