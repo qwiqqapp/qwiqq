@@ -67,7 +67,6 @@ class Deal < ActiveRecord::Base
   after_create :async_locate
   
   scope :today, lambda { where("DATE(created_at) = ?", Date.today) }
-  scope :recent_explore, lambda { where("DATE(created_at) > ?", 5.days.ago) }
   scope :recent, lambda { where("DATE(created_at) > ?", 30.days.ago) }
   scope :premium, where(:premium => true)
   scope :sorted, :order => "created_at desc"
@@ -313,6 +312,10 @@ class Deal < ActiveRecord::Base
     
   end
 
+  def self.search(search)
+    search_condition = "%" + search + "%"
+    find(:all, :conditions => ['title LIKE ? OR description LIKE ?', search_condition, search_condition])
+  end
 
   def locate_via_foursquare!
     venue = Qwiqq.foursquare_client.venue(foursquare_venue_id) if foursquare_venue_id
