@@ -57,7 +57,7 @@ class Api::ExploreController < Api::ApiController
   end
   
   def popular
-    Deal.premium.today.first(18)
+    Deal.premium.recent_explore.first(18)
   end
     
     puts "SEARCH DEAL COUNT:#{@deals.count}"
