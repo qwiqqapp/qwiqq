@@ -42,7 +42,7 @@
           .clearfix{:style => "height:auto;"}
             .name= auto_link(@deal.name)
             - if @deal.for_sale_on_paypal? && @deal.num_left_for_sale > 0
-              %div{:style => "position:relative;width:100%"}
+              %div{:style => "position:relative;width:100%;margin-top:12px;"}
                 %a{:href => "#{@deal.id}/paypal_test", ":data-remote" => 'true'}
                   %img{:src =>image_path("buy-button.png")}
                   %span.dollars-large{:style => "position:absolute;top:8px;left:20px;font-size:26px;"}= @deal.price_as_string
