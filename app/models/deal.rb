@@ -312,11 +312,6 @@ class Deal < ActiveRecord::Base
     
   end
 
-  def self.search(query, options)
-    puts "WITHIN SELF.SEARCH QUERY:#{query} OPTIONS:#{options}"
-    search_condition = "%" + query + "%"
-    find(:all, :conditions => search_condition)
-  end
 
   def locate_via_foursquare!
     venue = Qwiqq.foursquare_client.venue(foursquare_venue_id) if foursquare_venue_id
