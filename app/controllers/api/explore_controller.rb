@@ -59,6 +59,7 @@ class Api::ExploreController < Api::ApiController
   def popular
     puts "POPULAR FOUND TEST"
     @deals = Deal.premium.recent_explore.first(18)
+    puts @deals
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
     render :json => paginate(@deals).compact.as_json(options)
