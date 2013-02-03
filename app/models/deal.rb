@@ -311,6 +311,48 @@ class Deal < ActiveRecord::Base
     self.search(options[:query], search_options)
     
   end
+  
+   def self.filtered_test_search(options={})
+  # bail early if the provided query is invalid
+
+    return [] if options[:query] and options[:query].blank?
+
+    lat, lon = options[:lat], options[:lon]
+
+    if options[:category] != "url" && options[:category] != nil
+      raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank?
+    end
+     
+    range = (options[:range] || 10_000).to_f
+
+    # filtering options
+    conditions = {}
+    conditions[:category] = options[:category] unless options[:category].nil?
+
+    with = {}
+    with[:created_at] = options[:age].ago..Time.now unless options[:age].nil?
+
+    search_options = {}
+
+    if options[:category] != "url" && options[:category] != nil
+      with["@geodist"] = 0.0..range
+      search_options[:order] = "@geodist ASC, @relevance DESC"
+    else
+      if options[:category] != "url"
+        search_options[:order] = "created_at desc"
+      end
+
+    end
+    
+    search_options[:geo] = geo_radians(lat, lon) unless lat.nil? && lon.nil?
+    search_options[:conditions] = conditions unless conditions.empty?
+    search_options[:with] = with unless with.empty?
+    search_options[:page] = options[:page] unless options[:page].nil?
+    search_options[:max_matches] = options[:limit] unless options[:limit].nil?
+    search_query = "%" + options[:query] + "%"
+    self.search(search_query, search_options)
+    
+  end
 
 
   def locate_via_foursquare!
