@@ -58,10 +58,16 @@ class Api::ExploreController < Api::ApiController
   
   def popular
     puts "POPULAR FOUND TEST"
-    @deals = Deal.premium.recent.first(18)
-    puts @deals
+    @deals = Deal.recent
+    puts @deals.count
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
+    #18.0 is the number of deals we need per page
+    result = @deals.page(params[:page])
+    puts "RESULT:#{result}"
+    string = (@deals.count / result.default_per_page.to_f).ceil.to_s
+    puts "STRING:#{string}"
+    response.headers["X-Total-Pages"] = string
     render :json => paginate(@deals).compact.as_json(options)
   end
 
