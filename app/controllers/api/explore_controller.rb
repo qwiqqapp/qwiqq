@@ -31,6 +31,7 @@ class Api::ExploreController < Api::ApiController
 
   def deals
     if  params[:range] == "10000000"
+      puts "GLOBAL SEARCH"
       @deals = Deal.filtered_test_search(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
