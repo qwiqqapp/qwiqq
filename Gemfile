@@ -31,7 +31,7 @@ gem "rufus-scheduler", "~> 2.0.17"
 # services
 gem "geokit"
 gem "koala", "1.5.0" # facebook
-gem "twitter", "~> 2.5.0"
+gem "twitter", "~> 4.5.0"
 gem "airbrake"
 gem "daemons", :require => false
 gem "skittles", "0.6.0" # foursquare, update to 0.6?
