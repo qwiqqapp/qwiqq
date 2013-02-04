@@ -319,6 +319,10 @@ class Deal < ActiveRecord::Base
 
     lat, lon = options[:lat], options[:lon]
 
+    if options[:category] != "url" && options[:category] != nil
+      raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank?
+    end
+     
     range = (options[:range] || 10_000).to_f
 
     # filtering options
@@ -345,11 +349,10 @@ class Deal < ActiveRecord::Base
     search_options[:with] = with unless with.empty?
     search_options[:page] = options[:page] unless options[:page].nil?
     search_options[:max_matches] = options[:limit] unless options[:limit].nil?
-    puts "CHECK CONDITIONS:#{conditions} WITH:#{with} AND OPTIONS:#{options}"
     search_query = "%" + options[:query] + "%"
-    #self.search(search_query, search_options)
-    self.search(search_query, :conditions => conditions, :with  => {:created_at => 1.month.ago..Time.now})
-   end  
+    self.search(search_query, search_options)
+    
+  end
 
 
   def locate_via_foursquare!
