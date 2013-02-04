@@ -302,6 +302,8 @@ class User < ActiveRecord::Base
     twitter_ids = []
     begin
       result = twitter_client.friend_ids(:cursor => (cursor ||= -1))
+      puts 'Twitter friend_ids: '
+      puts result
       cursor = result.next_cursor
       twitter_ids << result.users.map {|f| f["id"].to_s } if result.users
     end while cursor != 0
