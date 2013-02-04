@@ -347,9 +347,11 @@ class Deal < ActiveRecord::Base
     search_options[:max_matches] = options[:limit] unless options[:limit].nil?
     puts "CHECK CONDITIONS:#{conditions} WITH:#{with} AND OPTIONS:#{options}"
     search_query = "%" + options[:query] + "%"
-    self.search(search_query, search_options)
-    
-  end
+    #self.search(search_query, search_options)
+    self.search search_query,
+      :conditions => {:category => options[:category]},
+      :with       => {:created_at => 1.month.ago..Time.now}
+   end  
 
 
   def locate_via_foursquare!
