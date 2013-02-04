@@ -348,9 +348,7 @@ class Deal < ActiveRecord::Base
     puts "CHECK CONDITIONS:#{conditions} WITH:#{with} AND OPTIONS:#{options}"
     search_query = "%" + options[:query] + "%"
     #self.search(search_query, search_options)
-    self.search search_query,
-      :conditions => {:category => options[:category]},
-      :with       => {:created_at => 1.month.ago..Time.now}
+    self.search(search_query, :conditions => {:category => options[:category]}, :with  => {:created_at => 1.month.ago..Time.now})
    end  
 
 
