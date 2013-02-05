@@ -472,8 +472,8 @@ class Deal < ActiveRecord::Base
   end
 
   def set_coupon_attributes
-    self.coupon = (self.name =~ /#{COUPON_TAG}/).present?
-    self.coupon_count = DEFAULT_COUPON_COUNT if coupon?
+    #self.coupon = (self.name =~ /#{COUPON_TAG}/).present?
+    #self.coupon_count = DEFAULT_COUPON_COUNT if coupon?
     true
   end
 end
