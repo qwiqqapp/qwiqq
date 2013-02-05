@@ -301,7 +301,7 @@ class User < ActiveRecord::Base
   def twitter_friend_ids
     twitter_ids = []
     begin
-      result = twitter_client.friend_ids(:cursor => (cursor ||= -1))
+      result = twitter_client.friends(:cursor => (cursor ||= -1))
       puts 'Twitter friend_ids: '
       puts result
       cursor = result.next_cursor
