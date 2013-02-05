@@ -41,7 +41,7 @@ class Api::ExploreController < Api::ApiController
       :age => Deal::MAX_AGE.days,
       :page => params[:page])
     else
-      @deals = Deal.filtered_search(
+      @deals = Deal.filtered_search_3_0(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
       :lat => params[:lat],
