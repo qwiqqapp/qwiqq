@@ -39,6 +39,15 @@ class Mailer < ActionMailer::Base
          :template_name => 'deal_purchased'
   end
   
+  def deal_sold(target_email,deal,transaction)
+    @deal = deal
+    @transaction = transaction
+    mail :to => target_email, 
+         :tag => "voucher",
+         :subject => "You just sold something on Qwiqq!",
+         :template_name => 'deal_sold'
+  end
+  
   # has target
   def password_reset(target)
     @user = target
