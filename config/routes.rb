@@ -15,6 +15,7 @@ Qwiqq::Application.routes.draw do
   
   
   # home routes
+  match "merchants",:to => "home#merchants",:as => :merchants
   match "about",    :to => "home#about",    :as => :about
   match "terms",    :to => "home#terms",    :as => :terms
   match "privacy",  :to => "home#privacy",  :as => :privacy
