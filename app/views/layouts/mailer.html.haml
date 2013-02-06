@@ -3,18 +3,11 @@
   %head
   %body
     %table{:style => "width:100%; margin:auto; border-collapse:collapse;", :background => image_path("email/background-pattern.png") }
-      %tr
-        %td{:style => "text-align:center; padding-top:40px"}
-          = image_tag "email/logo.png", :style => "margin: 0 auto"
+
       %tr
         %td{:align => "center"}
           %div{:style => "font-family: Helvetica, Arial; background-color:#fcfcfb; -webkit-box-shadow:  1px 1px 0px 1px #c6c2bd; box-shadow:  1px 1px 0px 1px #c6c2bd;padding:16px; border-radius:16px; margin:20px; font-size:13pt; width:500px; min-height:75px; line-height:25px"}
             = yield
-      - if @target
-        %tr
-          %td
-            %div{:style => "width:540px; margin:0 auto; color:#404040; font-size:8pt; padding:20px; text-align:center"}
-              #{link_to("Unsubscribe", update_user_notifications_url(@target), :style => "color:#404040")} from all Qwiqq notifications. If you would like to resubscribe you can change notification settings directly from your Qwiqq iPhone App.
       %tr
         %td{:style => "text-align:center; vertical-align:top; padding:20px"}
           = image_tag "email/tagline.png"
@@ -32,3 +25,12 @@
           &nbsp;
           = link_to "mailto:?subject=Checkout Qwiqq!&body=http://qwiqq.me", :style => "text-decoration: none; border: none" do
             = image_tag "email/email.png"
+      %tr
+        %td{:style => "text-align:center; padding-top:40px"}
+          = image_tag "email/logo.png", :style => "margin: 0 auto"
+      - if @target
+        %tr
+          %td
+            %div{:style => "width:540px; margin:0 auto; color:#404040; font-size:8pt; padding:20px; text-align:center"}
+              #{link_to("Unsubscribe", update_user_notifications_url(@target), :style => "color:#404040")} from all Qwiqq notifications. If you would like to resubscribe you can change notification settings directly from your Qwiqq iPhone App.
+        
