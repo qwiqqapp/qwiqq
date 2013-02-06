@@ -63,7 +63,8 @@
                         = image_tag "email/facebook.png"
                       = link_to "http://twitter.com/share?text=#{CGI::escape("I just bought this awesome deal via Qwiqq. #{deal_url(@deal)}")}", :style => "text-decoration: none; border: none"  do
                         = image_tag "email/twitter.png"
-                      = link_to "mailto:?subject=I made a Qwiqq purchase!&body=I just bought this awesome deal via Qwiqq. #{deal_url(@deal)}", :style => "text-decoration: none; border: none" do
-                        = image_tag "email/email.png"
                       = link_to pinterest_url_for(@deal), :style => "text-decoration: none; border: none" do
                         = image_tag "email/pinterest.png"
+                      = link_to "mailto:?subject=I made a Qwiqq purchase!&body=I just bought this awesome deal via Qwiqq. #{deal_url(@deal)}", :style => "text-decoration: none; border: none" do
+                        = image_tag "email/email.png"
+
