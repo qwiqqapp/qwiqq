@@ -75,10 +75,10 @@ class Api::TransactionsController < Api::ApiController
             
             #email = string...
             
-            if(@transaction.user)
-              Mailer.deal_purchased(@transaction.user.email, @deal, @transaction).deliver
-            else
+            if(@transaction.user.nil?)
               Mailer.deal_purchased(@transaction.email, @deal, @transaction).deliver
+            else
+              Mailer.deal_purchased(@transaction.user.email, @deal, @transaction).deliver
             end
             
             #Mailer.deal_purchased(email, @deal, @transaction).deliver
