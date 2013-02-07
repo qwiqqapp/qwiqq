@@ -8,6 +8,11 @@ class DealsController < ApplicationController
     render layout: 'home'
   end
   
+  def merchants
+    @deals = Deal.premium.recent.sorted.popular.first(9)
+    render layout: 'home'
+  end
+  
   def show
     @deal = find_deal
     @events = @deal.events
