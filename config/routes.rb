@@ -5,6 +5,7 @@ Qwiqq::Application.routes.draw do
 
   # public web
   root :to => "deals#index"
+  match "merchants",:to => "deals#merchants"
   resources :posts, :only => [:index, :show], :as => "deals", :controller => "deals" do
     get :nearby, :on => :collection
     resource :coupon, :only => [:show], :as => "coupons"
@@ -15,7 +16,6 @@ Qwiqq::Application.routes.draw do
   
   
   # home routes
-  match "merchants",:to => "home#merchants",:as => :merchants
   match "about",    :to => "home#about",    :as => :about
   match "terms",    :to => "home#terms",    :as => :terms
   match "privacy",  :to => "home#privacy",  :as => :privacy
