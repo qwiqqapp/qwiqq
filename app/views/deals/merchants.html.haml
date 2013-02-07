@@ -19,7 +19,8 @@
         %fieldset
           %legend
             %span.title Featured Local Merchant Posts
-
+        #grid
+          = render partial: 'grid_deal', collection: @deals
         #quotes
           %p
             One post. Shared everywhere. With a BUY button. Brilliant!
@@ -61,7 +62,6 @@
           %p
             "I can't think of an easier way for our restaraunt members to share specific deals than this app! Super easy, quick and efficient!" Courtney G, Member Relations Manager, Texas Restaraunt Association
           %br        
-        #grid
-          = render partial: 'grid_deal', collection: @deals
+
         
           
