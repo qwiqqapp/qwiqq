@@ -9,6 +9,7 @@ tfb.isInArray=function(str,ar){
   return false;
 }
 tfb.showbadge=function(){
+  console.log('showbadge');
   if(!window.XMLHttpRequest){
     return;
   }
@@ -57,6 +58,8 @@ tfb.showbadge=function(){
   
   tfbMainDiv.innerHTML='<div id="tfbTab" style="'+tfb.tabStyleCode+
     '"></div><div id="tfbAbout" style="'+tfb.aboutStyleCode+'"></div>';
+    
+    console.log('badge shown');
   document.getElementById('tfbTab').onclick=function(){
     window.open(newURL);
   }
