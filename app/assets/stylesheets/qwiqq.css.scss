@@ -1704,3 +1704,17 @@ table#templateFooter {
   border-top: 1px solid #ccc9c3;
   background-image: url("http://www.kylecopley.com/novationmobile/qwiqq/topbar-background.png");
   background-repeat: repeat-x; }
+  
+#quotes{
+  text-align:left;
+}
+
+#quotes #benefits li{
+  list-style-position:inside;
+}
+
+#quotes ul, #quotes li{
+  padding:0px 0px 0px 10px;
+}
+
+

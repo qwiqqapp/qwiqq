@@ -20,13 +20,48 @@
           %legend
             %span.title Featured Local Merchant Posts
 
+        #quotes
+          %p
+            One post. Shared everywhere. With a BUY button. Brilliant!
+          %br
+          %p
+            The fastest, easiest way for businesses to sell anytime & anywhere, on social platforms that matter!
+          %br
+          %p
+            Benefits include:
+          %br
+          %ul#benefits
+            %li
+              %p
+                FREE unlimited posts and sharing! 3.5% transaction fee only when something sells!
+              %br
+            %li
+              %p
+                Qwiqq is your mobile optimized website! Your Qwiqq profile includes all the information customers need in order to buy from you!
+              %br
+            %li
+              %p
+                Want to sell internationally? Qwiqq is used worldwide and with PayPal integration, customers from around the world can buy your profucts.
+              %br
+            %li
+              %p
+                We've integrated Constant Contact making it easier than ever to create an email campaign around what you want to sell. A flash sale that actually sells!
+            %br
+          %p
+            Learn more here:
+            %a{:href=>'http://www.youtube.com/user/QwiqqHQ'}
+              QWIQQHQ on YouTube
+          %br
+          %p
+            What small businesses are saying:
+          %br
+          %p
+            "This answers all my social media prayers. WOW!" by Pam G, Owner, Sweet Gourmet
+          %br
+          %p
+            "I can't think of an easier way for our restaraunt members to share specific deals than this app! Super easy, quick and efficient!" Courtney G, Member Relations Manager, Texas Restaraunt Association
+          %br        
         #grid
-          - if @deals.empty?
-            %p 
-              Want to see your posts here?
-              %br
-              = link_to 'Download Qwiqq', 'http://get.qwiqq.me'
-              and start Posting!
-              %br
-          - else
-            = render partial: 'grid_deal', collection: @deals
+          = render partial: 'grid_deal', collection: @deals
+        
+          
