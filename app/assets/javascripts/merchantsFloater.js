@@ -28,13 +28,21 @@ tfb.showbadge=function(){
   if(tfb.side!='l'){
     tfb.side='r';
   }
+  
+  var newURL = '/';
+  var imageUrl = 'http://qwiqq.me/assets/consumers-2.png';
+  if(window.location.pathname==='/'){
+    newURL = '/merchants';
+    imageUrl = 'http://qwiqq.me/assets/merchants-2.png';
+  }
+  
   tfb.tabStyleCode='position:fixed;'
     +'top:'+tfb.top+'px;'
     +'width:59px;'
     +'height:162px;'
     +'z-index:8765;'
     +'cursor:pointer;'
-    +'background:url(http://qwiqq.me/assets/merchants-2.png);'
+    +'background:url(' + + ');'
     +'background-repeat:no-repeat;';
  if(tfb.side=='l'){
     tfb.tabStyleCode+='left:0; background-position:right top;';
@@ -45,10 +53,7 @@ tfb.showbadge=function(){
   tfbMainDiv.setAttribute('id','twitterFollowBadge');
   document.body.appendChild(tfbMainDiv);
 
-  var newURL = '/';
-  if(window.location.pathname==='/'){
-    newURL = '/merchants';
-  }
+  
   
   tfbMainDiv.innerHTML='<div id="tfbTab" style="'+tfb.tabStyleCode+
     '"></div><div id="tfbAbout" style="'+tfb.aboutStyleCode+'"></div>';
