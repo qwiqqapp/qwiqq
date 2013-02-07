@@ -10,7 +10,7 @@ class DealsController < ApplicationController
   
   def merchants
     @deals = Deal.premium.recent.sorted.popular.first(9)
-    render layout: 'home'
+    render layout: 'home_merchants'
   end
   
   def show
