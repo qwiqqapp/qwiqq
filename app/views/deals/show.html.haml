@@ -3,8 +3,6 @@
   
 #post
   .container
-    - if @deal.coupon?
-      = render "coupon"
 
     #info
       %a{ :href => user_url(@deal.user) }

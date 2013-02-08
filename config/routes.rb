@@ -23,7 +23,8 @@ Qwiqq::Application.routes.draw do
   match "download", :to => "home#download", :as => :download
   match "media",    :to => "home#media",    :as => :media
   match 'reports' => 'reports#report'
-  match 'testing' => 'testing#deal_purchased'
+  match 'mailers/deal_purchased' => 'testing#deal_purchased'
+  match 'mailers/deal_sold' => 'testing#deal_sold'
   
   # iphone routes
   match "iphone/about",   :to => "home#about",    :as => :iphone_about
