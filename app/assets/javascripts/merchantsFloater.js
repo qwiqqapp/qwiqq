@@ -39,7 +39,7 @@ tfb.showbadge=function(){
   
   tfb.tabStyleCode='position:fixed;'
     +'top:'+tfb.top+'px;'
-    +'width:59px;'
+    +'width:58px;'
     +'height:162px;'
     +'z-index:8765;'
     +'cursor:pointer;'
