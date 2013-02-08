@@ -76,6 +76,7 @@ class Api::TransactionsController < Api::ApiController
             #email = string...
             
             if(@transaction.user.nil?)
+              puts "user should be nil"
               Mailer.deal_purchased(@transaction.email, @deal, @transaction).deliver
               Mailer.deal_sold(@deal.user.email, @deal, @transaction).deliver
             else
