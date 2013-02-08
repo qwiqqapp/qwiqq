@@ -10,6 +10,7 @@ Qwiqq::Application.routes.draw do
     get :nearby, :on => :collection
     resource :coupon, :only => [:show], :as => "coupons"
     get "paypal_test", :on => :member
+    get "purchase", :on => :member
   end
 
   resources :users, :only => [:show]
