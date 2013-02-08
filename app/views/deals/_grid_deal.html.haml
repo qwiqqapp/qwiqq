@@ -3,17 +3,16 @@
     .details
       %img.post-photo{ :src => grid_deal.photo.url(:iphone_zoom), :width => "240", :height => "240" }
       .name= grid_deal.name
-      .price
-        .hole  
-        - if grid_deal.for_sale_on_paypal? && grid_deal.num_left_for_sale > 0
-          %div{:style => "position:relative;width:100%;margin-top:12px;"}
-            %a{:href => "#{grid_deal.id}/paypal_test", ":data-remote" => 'true'}
-              %img{:src =>image_path("buy-button.png")}
-              %span.dollars-large{:style => "position:absolute;top:8px;left:20px;font-size:26px;"}= grid_deal.price_as_string
-        - else
-          .price
-            .hole
-            %span.dollars-large{:style=> ""}= grid_deal.price_as_string
+      - if grid_deal.for_sale_on_paypal? && grid_deal.num_left_for_sale > 0
+        %div{:style => "position:relative;width:100%;margin-top:12px;"}
+          %a{:href => "#{grid_deal.id}/paypal_test", ":data-remote" => 'true'}
+            %img{:src =>image_path("buy-button.png")}
+            %span.dollars-large{:style => "position:absolute;top:8px;left:20px;font-size:26px;"}= grid_deal.price_as_string
+      - else
+        .price
+          .hole
+          %span.dollars-large{:style=> ""}= grid_deal.price_as_string
+        
 
   %a{ :href => user_url(grid_deal.user) }
     .metadata
