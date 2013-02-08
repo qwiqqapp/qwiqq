@@ -43,7 +43,7 @@ tfb.showbadge=function(){
     +'height:162px;'
     +'z-index:8765;'
     +'cursor:pointer;'
-    +'background:url(' + + ');'
+    +'background:url(' + imageUrl + ');'
     +'background-repeat:no-repeat;';
  if(tfb.side=='l'){
     tfb.tabStyleCode+='left:0; background-position:right top;';
