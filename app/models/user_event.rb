@@ -13,7 +13,7 @@ class UserEvent < ActiveRecord::Base
   
   after_create :deliver_push_notification
   
-  validates :event_type, :inclusion => [ "comment", "like", "share", "follower", "mention", "push" ]
+  validates :event_type, :inclusion => [ "comment", "like", "share", "follower", "mention", "push", "purchase", "sold"]
   validates :user, :presence => true
   validates :created_by, :presence => true
   
@@ -57,7 +57,7 @@ class UserEvent < ActiveRecord::Base
   def deliver_push_notification
     return unless push_notification_sent_at.nil?      # avoid double send
     return if self.user == self.created_by            # dont deliver if user liked own post
-    return if event_type == "push"
+    return if event_type == "push" || event_type == "purchase"
     device_tokens = self.user.push_devices.map(&:token)
     return if device_tokens.blank?
     
@@ -116,7 +116,7 @@ class UserEvent < ActiveRecord::Base
     case self.event_type
       when /follower/i
         "users/#{created_by_id}"
-      when /comment|like|share|mention/
+      when /comment|like|share|mention|sold/
         "deals/#{deal_id}"
       else
         ""
@@ -135,6 +135,8 @@ class UserEvent < ActiveRecord::Base
         "started following you"
       when "mention"
         "mentioned you in a comment: #{metadata[:body]}"
+      when "sold"
+        "just bought your post"
       else
         raise ArgumentError, "Unable to create notification message for event #{id} with type #{event_type}"
       end 

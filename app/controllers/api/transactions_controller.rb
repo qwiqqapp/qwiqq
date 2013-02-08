@@ -81,12 +81,24 @@ class Api::TransactionsController < Api::ApiController
             else
               Mailer.deal_purchased(@transaction.user.email, @deal, @transaction).deliver
               Mailer.deal_sold(@deal.user.email, @deal, @transaction).deliver
+              
+              #send a push notification to seller and create event for seller's deal
+              @deal.events.create (
+                :event_type => "sold",
+                :user => @deal.user,
+                :created_by => @transaction.user)
+              
+              #create user event for buyer
+              @transaction.user.events.create(
+                :event_type => "purchase", 
+                :deal => @deal,
+                :user => @deal.user, 
+                :created_by => @transaction.user)
             end
             
             #Mailer.deal_purchased(email, @deal, @transaction).deliver
             puts 'transaction doesnt look like a repeat so we emailed the user'
-            
-            
+
             
           end
           
