@@ -82,6 +82,7 @@ class Api::TransactionsController < Api::ApiController
               Mailer.deal_purchased(@transaction.user.email, @deal, @transaction).deliver
               Mailer.deal_sold(@deal.user.email, @deal, @transaction).deliver
               
+              puts "create sold event"
               #send a push notification to seller and create event for seller's deal
               @deal.events.create(
                 :event_type => "sold",
@@ -89,6 +90,7 @@ class Api::TransactionsController < Api::ApiController
                 :created_by => @transaction.user,
                 :is_web_event => true)
               
+              puts "create purchased event"
               #create user event for buyer
               @transaction.user.events.create(
                 :event_type => "purchase", 
@@ -96,6 +98,8 @@ class Api::TransactionsController < Api::ApiController
                 :user => @deal.user, 
                 :created_by => @transaction.user,
                 :is_web_event => true)
+              
+              puts "create event successful"
             end
             
             #Mailer.deal_purchased(email, @deal, @transaction).deliver
