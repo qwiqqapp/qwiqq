@@ -5,7 +5,7 @@
       .name= grid_deal.name
       - if grid_deal.for_sale_on_paypal? && grid_deal.num_left_for_sale > 0
         %div{:style => "position:relative;width:100%;margin-top:12px;"}
-          %a{:href => "#{grid_deal.id}/purchase", ":data-remote" => 'true'}
+          %a{:href => "http://qwiqq.me/posts/#{grid_deal.id}/purchase", ":data-remote" => 'true'}
             %img{:src =>image_path("buy-button.png"), :width => "170"}
             %span.dollars-large{:style => "position:absolute;top:7px;left:20px;font-size:18px;color:#6cb340;"}= grid_deal.price_as_string
       - else
