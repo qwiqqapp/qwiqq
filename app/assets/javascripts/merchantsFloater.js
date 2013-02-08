@@ -61,7 +61,7 @@ tfb.showbadge=function(){
     
     console.log('badge shown');
   document.getElementById('tfbTab').onclick=function(){
-    window.open(newURL);
+    window.open(newURL,'_self');
   }
 }
 
