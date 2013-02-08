@@ -83,7 +83,7 @@ class Api::TransactionsController < Api::ApiController
               Mailer.deal_sold(@deal.user.email, @deal, @transaction).deliver
               
               #send a push notification to seller and create event for seller's deal
-              @deal.events.create (
+              @deal.events.create(
                 :event_type => "sold",
                 :user => @deal.user,
                 :created_by => @transaction.user)
