@@ -86,14 +86,16 @@ class Api::TransactionsController < Api::ApiController
               @deal.events.create(
                 :event_type => "sold",
                 :user => @deal.user,
-                :created_by => @transaction.user)
+                :created_by => @transaction.user,
+                :is_web_event => true)
               
               #create user event for buyer
               @transaction.user.events.create(
                 :event_type => "purchase", 
                 :deal => @deal,
                 :user => @deal.user, 
-                :created_by => @transaction.user)
+                :created_by => @transaction.user,
+                :is_web_event => true)
             end
             
             #Mailer.deal_purchased(email, @deal, @transaction).deliver

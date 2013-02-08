@@ -33,7 +33,8 @@ class UserEvent < ActiveRecord::Base
       :created_by_username => created_by_username,
       :created_by_photo => created_by_photo,
       :created_by_photo_2x => created_by_photo_2x,
-      :short_age => short_time_ago_in_words(created_at)
+      :short_age => short_time_ago_in_words(created_at),
+      :is_web_event => is_web_event
     }
     
     if deal
