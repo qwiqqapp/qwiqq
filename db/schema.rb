@@ -219,6 +219,7 @@ ActiveRecord::Schema.define(:version => 20121230195512) do
     t.timestamp "created_at"
     t.timestamp "updated_at"
     t.boolean   "read",                      :default => false
+    t.boolean   "is_web_event",              :default => false
     t.timestamp "push_notification_sent_at"
   end
 
