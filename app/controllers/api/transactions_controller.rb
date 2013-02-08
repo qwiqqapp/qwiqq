@@ -79,6 +79,13 @@ class Api::TransactionsController < Api::ApiController
               puts "user should be nil"
               Mailer.deal_purchased(@transaction.email, @deal, @transaction).deliver
               Mailer.deal_sold(@deal.user.email, @deal, @transaction).deliver
+              puts "create websold event"
+              #send a push notification to seller and create generic event for seller's deal
+              @deal.events.create(
+                :event_type => "sold",
+                :user => @deal.user,
+                :is_web_event => true)
+
             else
               Mailer.deal_purchased(@transaction.user.email, @deal, @transaction).deliver
               Mailer.deal_sold(@deal.user.email, @deal, @transaction).deliver

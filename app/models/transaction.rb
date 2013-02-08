@@ -2,7 +2,7 @@ class Transaction < ActiveRecord::Base
   belongs_to :user, :counter_cache => true, :touch => true
   belongs_to :deal, :counter_cache => true, :touch => true
   
-  validates_presence_of :deal, :user, :paypal_transaction_id
+  validates_presence_of :deal, :paypal_transaction_id
 
   default_scope :order => 'created_at desc'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}

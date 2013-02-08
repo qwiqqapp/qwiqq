@@ -35,7 +35,9 @@ module ApplicationHelper
     linked_name = "@#{event.created_by.username}"
     user = User.find(:first, :conditions => [ "lower(username) = ?", event.created_by.username.downcase ])
     if !user.nil?
-        linked_name = "<a href='http://www.qwiqq.me/users/#{user.id}'>@#{user.username}</a>"
+      linked_name = "<a href='http://www.qwiqq.me/users/#{user.id}'>@#{user.username}</a>"
+    else 
+      linked_name = "Somebody"
     end
     case event.event_type
     when "like"
