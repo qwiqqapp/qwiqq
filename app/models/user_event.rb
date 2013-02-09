@@ -58,8 +58,8 @@ class UserEvent < ActiveRecord::Base
   end
   
   def is_on_web?
-    puts "IS ON WEB VALIDATION:#{self.is_web_event}"
-    self.is_web_event
+    puts "IS ON WEB VALIDATION:#{!self.is_web_event}"
+    !self.is_web_event
   end
   
   # TODO move to separate notification class
