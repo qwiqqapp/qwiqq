@@ -29,13 +29,16 @@ class UserEvent < ActiveRecord::Base
   def as_json(options={})
     json = { 
       :type => event_type,
-      :created_by_id => created_by_id,
-      :created_by_username => created_by_username,
-      :created_by_photo => created_by_photo,
-      :created_by_photo_2x => created_by_photo_2x,
       :short_age => short_time_ago_in_words(created_at),
       :is_web_event => is_web_event
     }
+    
+    if is_web_event
+      json[:created_by_id] = created_by_id
+      json[:deal_id] = created_by_username
+      json[:created_by_photo] = created_by_username
+      json[:created_by_photo_2x] = created_by_photo
+    end
     
     if deal
       json[:deal_name] = deal_name
