@@ -41,11 +41,15 @@ class Api::TransactionsController < Api::ApiController
   
         if params[:sandbox] == 'true'
           puts 'well we are in the sandbox...'
-          @deal.events.create(
-                :event_type => "sold",
-                :user => @deal.user,
-                :is_web_event => false)
-          puts "created sandbox web event"
+          temp_user = User.find(params[:buyer_id])
+          temp_user.events.create(
+          :event_type => "push", 
+          :user => user_send, 
+          :created_by => self,
+          :metadata => { :body => temp_user.username } 
+          )
+          puts "created sandbox web fb push test"
+          #puts "created sandbox web event"
         else
           trans = params[:transaction]
           
