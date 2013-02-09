@@ -77,9 +77,11 @@ class UserEvent < ActiveRecord::Base
   end
  
   def update_cached_attributes
-    self.created_by_photo = created_by.photo(:iphone_small)
-    self.created_by_photo_2x = created_by.photo(:iphone_small_2x)
-    self.created_by_username = created_by.username
+    unless self.is_web_event
+      self.created_by_photo = created_by.photo(:iphone_small)
+      self.created_by_photo_2x = created_by.photo(:iphone_small_2x)
+      self.created_by_username = created_by.username
+    end
     self.deal_name = deal.name if deal
   end
   
