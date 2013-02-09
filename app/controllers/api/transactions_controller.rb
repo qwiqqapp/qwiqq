@@ -41,7 +41,11 @@ class Api::TransactionsController < Api::ApiController
   
         if params[:sandbox] == 'true'
           puts 'well we are in the sandbox...'
-          #@transaction.paypal_transaction_id = params[:txn_id] if params[:txn_id]
+          @deal.events.create(
+                :event_type => "sold",
+                :user => @deal.user,
+                :is_web_event => true)
+          puts "created sandbox web event"
         else
           trans = params[:transaction]
           
