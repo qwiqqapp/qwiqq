@@ -42,10 +42,9 @@ class Api::TransactionsController < Api::ApiController
         if params[:sandbox] == 'true'
           puts 'well we are in the sandbox...'
           temp_user = User.find(params[:buyer_id])
-          events.create(
+          @deal.events.create(
             :event_type => "sold", 
             :metadata => { :body => "sold" }, 
-            :deal => @deal,
             :user => @deal.user, 
             :created_by => temp_user)
           puts "created sandbox web sold test"
