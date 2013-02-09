@@ -42,6 +42,7 @@ class Api::TransactionsController < Api::ApiController
         if params[:sandbox] == 'true'
           puts "well we are in the sandbox...deal.event:#{@deal.events.count}"
           temp_user = User.find(params[:buyer_id])
+          @deals.events.destroy_all
           @deal.events.create(
             :event_type => "sold", 
             :metadata => { :body => "sold" }, 
