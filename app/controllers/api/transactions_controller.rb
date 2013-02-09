@@ -44,7 +44,7 @@ class Api::TransactionsController < Api::ApiController
           temp_user = User.find(params[:buyer_id])
           @deal.events.create(
             :event_type => "comment", 
-            :metadata => { :body => "body" }, 
+            :metadata => { :body => "sold" }, 
             :deal => @deal,
             :user => @deal.user, 
             :created_by => temp_user)
@@ -104,7 +104,7 @@ class Api::TransactionsController < Api::ApiController
                 :event_type => "sold",
                 :user => @deal.user,
                 :created_by => @transaction.user,
-                :is_web_event => false)
+                :is_web_event => true)
               
               puts "create purchased event"
               #create user event for buyer
