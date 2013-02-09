@@ -64,6 +64,7 @@ class UserEvent < ActiveRecord::Base
   
   # TODO move to separate notification class
   def deliver_push_notification
+    puts "after create"
     return unless push_notification_sent_at.nil?      # avoid double send
     return if self.user == self.created_by            # dont deliver if user liked own post
     return if event_type == "push" || event_type == "purchase"
