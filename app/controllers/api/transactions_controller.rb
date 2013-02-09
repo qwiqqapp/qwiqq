@@ -44,7 +44,7 @@ class Api::TransactionsController < Api::ApiController
           temp_user = User.find(params[:buyer_id])
           temp_user.events.create(
           :event_type => "push", 
-          :user => user_send, 
+          :user => temp_user, 
           :created_by => self,
           :metadata => { :body => temp_user.username } 
           )
