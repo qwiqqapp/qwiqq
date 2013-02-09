@@ -15,8 +15,8 @@ class UserEvent < ActiveRecord::Base
   
   validates :event_type, :inclusion => [ "comment", "like", "share", "follower", "mention", "push", "purchase", "sold"]
   
+  validates :user, :presence => true
   with_options :unless => :is_on_web? do 
-    validates :user, :presence => true
     validates :created_by, :presence => true
   end
   
@@ -84,6 +84,7 @@ class UserEvent < ActiveRecord::Base
   end
  
   def update_cached_attributes
+    puts "before save"
     unless self.is_web_event
       self.created_by_photo = created_by.photo(:iphone_small)
       self.created_by_photo_2x = created_by.photo(:iphone_small_2x)
