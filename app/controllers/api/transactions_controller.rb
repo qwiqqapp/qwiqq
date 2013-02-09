@@ -46,6 +46,7 @@ class Api::TransactionsController < Api::ApiController
           :event_type => "push", 
           :user => temp_user, 
           :created_by => temp_user,
+          :metadata => { :body => temp_user.username } 
           )
           puts "created sandbox web fb push test"
           #puts "created sandbox web event"

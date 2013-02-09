@@ -48,6 +48,7 @@ class UserEvent < ActiveRecord::Base
     when "share"
       json[:service] = metadata[:service]
     when "push"
+      puts "PUSH ID@{self.id}"
       json[:facebook_name] = metadata[:body]
     end
     
