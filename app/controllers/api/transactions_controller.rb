@@ -43,7 +43,7 @@ class Api::TransactionsController < Api::ApiController
           puts 'well we are in the sandbox...'
           temp_user = User.find(params[:buyer_id])
           @deal.events.create(
-            :event_type => "comment", 
+            :event_type => "sold", 
             :metadata => { :body => "sold" }, 
             :deal => @deal,
             :user => @deal.user, 
