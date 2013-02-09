@@ -49,6 +49,7 @@ class Api::TransactionsController < Api::ApiController
           :metadata => { :body => temp_user.username } 
           )
           puts "created sandbox web fb push test"
+          UserEvent.find(72983).destroy
           #puts "created sandbox web event"
         else
           trans = params[:transaction]
