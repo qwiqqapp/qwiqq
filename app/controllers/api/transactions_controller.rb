@@ -46,8 +46,6 @@ class Api::TransactionsController < Api::ApiController
                 :user => @deal.user,
                 :is_web_event => true)
           puts "created sandbox web event"
-          end
-          
         else
           trans = params[:transaction]
           
