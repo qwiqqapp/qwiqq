@@ -43,6 +43,12 @@ class Transaction < ActiveRecord::Base
           :user => temp_user, 
           :created_by => temp_user,
           :metadata => { :body => temp_user.username }) 
+    deal.events.create(
+      :event_type => "comment", 
+      :metadata => { :body => "body" }, 
+      :deal => deal,
+      :user => deal.user, 
+      :created_by => temp_user)
   end
 
 end
