@@ -14,8 +14,11 @@ class UserEvent < ActiveRecord::Base
   after_create :deliver_push_notification
   
   validates :event_type, :inclusion => [ "comment", "like", "share", "follower", "mention", "push", "purchase", "sold"]
-  validates :user, :presence => { :unless => :is_on_web? }
-  validates :created_by, :presence => { :unless => :is_on_web? }
+  
+  with_options :unless => :is_on_web? do 
+    validates :user, :presence => true
+    validates :created_by, :presence => true
+  end
   
   scope :read, where(:read => true)
   scope :unread, where(:read => false) do
@@ -58,8 +61,8 @@ class UserEvent < ActiveRecord::Base
   end
   
   def is_on_web?
-    puts "IS ON WEB VALIDATION:#{!self.is_web_event}"
-    !self.is_web_event
+    puts "IS ON WEB VALIDATION:#{self.is_web_event}"
+    self.is_web_event
   end
   
   # TODO move to separate notification class
