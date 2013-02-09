@@ -14,11 +14,8 @@ class UserEvent < ActiveRecord::Base
   after_create :deliver_push_notification
   
   validates :event_type, :inclusion => [ "comment", "like", "share", "follower", "mention", "push", "purchase", "sold"]
-  
-  validates :user, :presence => true
-  #with_options :unless => :is_on_web? do 
-    validates :created_by, :presence => true
-  #end
+  validates :user, :presence => { :unless => :is_on_web? }
+  validates :created_by, :presence => { :unless => :is_on_web? }
   
   scope :read, where(:read => true)
   scope :unread, where(:read => false) do
@@ -32,16 +29,13 @@ class UserEvent < ActiveRecord::Base
   def as_json(options={})
     json = { 
       :type => event_type,
+      :created_by_id => created_by_id,
+      :created_by_username => created_by_username,
+      :created_by_photo => created_by_photo,
+      :created_by_photo_2x => created_by_photo_2x,
       :short_age => short_time_ago_in_words(created_at),
       :is_web_event => is_web_event
     }
-    
-    if is_web_event
-      json[:created_by_id] = created_by_id
-      json[:deal_id] = created_by_username
-      json[:created_by_photo] = created_by_username
-      json[:created_by_photo_2x] = created_by_photo
-    end
     
     if deal
       json[:deal_name] = deal_name
@@ -67,7 +61,6 @@ class UserEvent < ActiveRecord::Base
   
   # TODO move to separate notification class
   def deliver_push_notification
-    puts "after create"
     return unless push_notification_sent_at.nil?      # avoid double send
     return if self.user == self.created_by            # dont deliver if user liked own post
     return if event_type == "push" || event_type == "purchase"
@@ -84,12 +77,9 @@ class UserEvent < ActiveRecord::Base
   end
  
   def update_cached_attributes
-    puts "before save"
-    unless self.is_web_event
-      self.created_by_photo = created_by.photo(:iphone_small)
-      self.created_by_photo_2x = created_by.photo(:iphone_small_2x)
-      self.created_by_username = created_by.username
-    end
+    self.created_by_photo = created_by.photo(:iphone_small)
+    self.created_by_photo_2x = created_by.photo(:iphone_small_2x)
+    self.created_by_username = created_by.username
     self.deal_name = deal.name if deal
   end
   
@@ -159,4 +149,3 @@ class UserEvent < ActiveRecord::Base
     "#{created_by.best_name} #{action}"
   end
 end
-
