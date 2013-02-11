@@ -62,7 +62,7 @@ class DealsController < ApplicationController
     recipients = [{:email => "#{deal.paypal_email}",
                  :amount => (deal.price * 0.01).round(2),
                  :primary => true},
-                {:email => 'john@qwiqq.me',
+                {:email => 'payments@qwiqq.me',
                  :amount => amt.round(2),
                  :primary => false}
                  ]
@@ -101,7 +101,7 @@ class DealsController < ApplicationController
     recipients = [{:email => "#{deal.paypal_email}",
                  :amount => (deal.price * 0.01).round(2),
                  :primary => true},
-                {:email => 'john@qwiqq.me',
+                {:email => 'payments@qwiqq.me',
                  :amount => amt.round(2),
                  :primary => false}
                  ]
