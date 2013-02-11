@@ -1,4 +1,4 @@
-ActiveAdmin.register UserEvents do
+ActiveAdmin.register UserEvent do
 
   
   index do
