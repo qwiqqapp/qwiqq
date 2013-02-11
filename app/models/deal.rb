@@ -200,7 +200,7 @@ class Deal < ActiveRecord::Base
       if self.currency
         number_to_currency(price.to_f / 100, :unit => self.currency).sub( "USD", "$" )
       else
-        number_to_currency(price.to_f / 100)
+        "$ #{number_to_currency(price.to_f / 100)}" 
       end
     else
       "Free"
