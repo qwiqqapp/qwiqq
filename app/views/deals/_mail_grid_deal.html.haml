@@ -3,11 +3,11 @@
     .details{:style => "background-color: white;border: 1px solid #cdcdcc; border-radius: 6px 6px 6px 6px;-webkit-border-radius: 6px;box-shadow: 0 0 6px #8C8C8C;-webkit-box-shadow: 0 0 6px #8C8C8C;color: #333333;font-size: 16px;height: 370px;margin: 8px;padding: 10px;text-align: left;width: 240px;"}
       %img.post-photo{:height => "240", :src => mail_grid_deal.photo.url(:iphone_zoom), :style => "border-radius: 6px 6px 6px 6px;-webkit-border-radius: 6px;", :width => "240"}
         .name{:style => "height: 60px;padding: 4px 0;"}= mail_grid_deal.name
-        - if grid_deal.for_sale_on_paypal? && grid_deal.num_left_for_sale > 0
+        - if mail_grid_deal.for_sale_on_paypal? && mail_grid_deal.num_left_for_sale > 0
           %div{:style => "position:relative;width:100%;margin-top:12px;"}
-            %a{:href => "http://qwiqq.me/posts/#{grid_deal.id}/purchase", ":data-remote" => 'true'}
+            %a{:href => "http://qwiqq.me/posts/#{mail_grid_deal.id}/purchase", ":data-remote" => 'true'}
               %img{:src =>image_path("buy-button.png"), :width => "170"}
-              %span.dollars-large{:style => "position:absolute;top:7px;left:20px;font-size:18px;color:#6cb340;"}= grid_deal.price_as_string
+              %span.dollars-large{:style => "position:absolute;top:7px;left:20px;font-size:18px;color:#6cb340;"}= mail_grid_deal.price_as_string
         - else
           .price{:style => "padding: 2px 8px 0px 10px; background-color: #EDEDED; border: 2px solid #DEDEDE; -webkit-border-radius: 6px 6px 6px 6px; border-radius: 6px 6px 6px 6px;float: left;margin-top: 10px;"}
             .hole{:style => "left: -5px;top: 5px;background-color: white;border: 2px solid #DEDEDE;border-radius: 6px 6px 6px 6px;-webkit-border-radius: 6px 6px 6px 6px;float: left;height: 5px;margin: 0;position: relative;width: 5px;"}
