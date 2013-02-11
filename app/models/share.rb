@@ -159,7 +159,11 @@ class Share < ActiveRecord::Base
   # construct message meta string, example: $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259
   def message_meta
     url = Rails.application.routes.url_helpers.deal_url(self.deal, :host => "qwiqq.me")
-    meta = deal.price_as_string || ""
+    meta = ''
+    if deal.for_sale_on_paypal
+      meta << "Buy Now: "
+    end
+    meta << deal.price_as_string || ""
     if deal.foursquare_venue_name && service != "foursquare" && deal.foursquare_venue_name != "Approximate Location"
       meta << " @ #{deal.foursquare_venue_name}"
     end
