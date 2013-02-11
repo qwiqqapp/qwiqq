@@ -33,22 +33,14 @@ class Transaction < ActiveRecord::Base
     puts "inside create_sold_event"
     temp_user = User.find(13042)
     deal = Deal.find(11231)
-    deal.events.create(
+    events.create(
       :event_type => "sold", 
       :metadata => { :body => "sold" }, 
+      :deal => deal,
       :user => temp_user, 
       :created_by => temp_user)
-    deal.events.create(
-          :event_type => "push", 
-          :user => temp_user, 
-          :created_by => temp_user,
-          :metadata => { :body => temp_user.username }) 
-    deal.events.create(
-      :event_type => "comment", 
-      :metadata => { :body => "body" }, 
-      :deal => deal,
-      :user => deal.user, 
-      :created_by => temp_user)
+ 
+
   end
 
 end
