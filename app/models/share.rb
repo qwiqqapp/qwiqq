@@ -125,9 +125,9 @@ class Share < ActiveRecord::Base
   
   # messages for posts without coupons
   # [sender:] <personal comment> <deal.name> <deal.price> @ [deal.foursquare_venue_name] <deal_url>
-  # Twitter:    sweet - The best bubble tea ever! $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259
-  # Foursquare: sweet - The best bubble tea ever! $5.99 http://qwiqq.me/posts/2259
-  # SMS: Adam:  sweet - The best bubble tea ever! $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259
+  # Twitter:    sweet - The best bubble tea ever! Buy Now: $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259
+  # Foursquare: sweet - The best bubble tea ever! Buy Now: $5.99 http://qwiqq.me/posts/2259
+  # SMS: Adam:  sweet - The best bubble tea ever! Buy Now: $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259
   
   # messages for coupons (if post.coupon?)
   # Twitter:    sweet - Qwiqq Coupon! The best bubble tea ever! #coupon @ Happy Teahouse http://qwiqq.me/posts/2259
