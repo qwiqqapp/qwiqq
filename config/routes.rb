@@ -19,6 +19,7 @@ Qwiqq::Application.routes.draw do
   # home routes
   match "about",    :to => "home#about",    :as => :about
   match "terms",    :to => "home#terms",    :as => :terms
+  match "fees",     :to => "home#fees",     :as => :fees
   match "privacy",  :to => "home#privacy",  :as => :privacy
   match "blog",     :to => "home#blog",     :as => :blog
   match "download", :to => "home#download", :as => :download
@@ -30,6 +31,7 @@ Qwiqq::Application.routes.draw do
   # iphone routes
   match "iphone/about",   :to => "home#about",    :as => :iphone_about
   match "iphone/terms",   :to => "home#terms",    :as => :iphone_terms
+  match "iphone/fees",   :to => "home#fees",    :as => :iphone_fees
   match "iphone/privacy", :to => "home#privacy",  :as => :iphone_privacy
 
   match "r", :to => 'home#redirect', :as => :iphone_redirect
