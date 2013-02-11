@@ -10,8 +10,11 @@ ActiveAdmin.register UserEvent do
     column("Deal", :sortable => :name) do |event|  
       link_to(event.deal.name, [ :admin, event.deal ]) if event.deal
     end  
+    
+    column(:event_type)
     column :created_at
     column :updated_at
+    
     
     default_actions
   end
