@@ -33,14 +33,12 @@ class Transaction < ActiveRecord::Base
   
   def create_sold_event(params)
     puts "inside create_sold_event"
-    self.events.create(
+    events.create(
       :event_type => "sold", 
       :metadata => { :body => "sold" }, 
       :deal => deal,
       :user => user, 
       :created_by => user)
- 
-
   end
 
 end
