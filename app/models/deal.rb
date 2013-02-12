@@ -202,7 +202,7 @@ class Deal < ActiveRecord::Base
         number_to_currency(price.to_f / 100, :unit => self.currency).sub( "USD", "$" )
       else
         puts "money sign being inserted: $ #{number_to_currency(price.to_f / 100)}" 
-        "$ #{number_to_currency(price.to_f / 100)}" 
+        "#{number_to_currency(price.to_f / 100)}" 
       end
     else
       "Free"
