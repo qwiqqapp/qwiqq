@@ -99,7 +99,7 @@
                   %img.icon{ :src => image_path(event_icon(event)) }  
                   .body
                     = auto_link(event_body(event))
-            - else if event.event_type == "sold"
+            - elsif event.event_type == "sold"
               .event{ :class => ""}
                 .body
                   = Somebody bought this.
