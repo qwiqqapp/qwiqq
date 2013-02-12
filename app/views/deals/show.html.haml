@@ -99,3 +99,5 @@
                   %img.icon{ :src => image_path(event_icon(event)) }  
                   .body
                     = auto_link(event_body(event))
+           - else
+             %h1 Hmm not created by anyone...
