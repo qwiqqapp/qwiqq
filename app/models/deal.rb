@@ -197,7 +197,7 @@ class Deal < ActiveRecord::Base
   
   def price_as_string
     if self.price > 0
-      if self.currency
+      if self.currency.empty?
         puts "money sign is curreny #{number_to_currency(price.to_f / 100, :unit => self.currency).sub( "USD", "$" )}" 
         number_to_currency(price.to_f / 100, :unit => self.currency).sub( "USD", "$" )
       else
