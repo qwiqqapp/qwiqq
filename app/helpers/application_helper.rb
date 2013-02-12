@@ -65,6 +65,8 @@ module ApplicationHelper
       "buzz-love-icon.png"
     when "comment"
       "buzz-comment-icon.png"
+    when "sold"
+      "buzz-paypal-icon.png"
     when "share"
       case event.metadata[:service]
       when "facebook"
