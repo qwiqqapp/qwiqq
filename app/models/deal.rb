@@ -30,7 +30,7 @@ class Deal < ActiveRecord::Base
   has_many :liked_by_users, :through => :likes, :source => :user
   has_many :feedlets, :dependent => :destroy
   has_many :events, :class_name => "UserEvent", 
-    :conditions => [ "event_type IN (?)", [ "comment", "like", "share" ] ], 
+    :conditions => [ "event_type IN (?)", [ "comment", "like", "share", "sold" ] ], 
     :dependent => :destroy
   
   #TODO update to 3.1 and use role based attr_accessible for premium
