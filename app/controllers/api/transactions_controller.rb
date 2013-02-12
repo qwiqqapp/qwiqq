@@ -43,14 +43,13 @@ class Api::TransactionsController < Api::ApiController
           puts "well we are in the sandbox...deal.event:#{@deal.events.count}"
           @transaction = Transaction.create(:deal => @deal, :paypal_transaction_id => params[:txn_id])
           @transaction.user = User.find(params[:buyer_id])
-          @deal.events.build(
+          @deal.events.create(
           :event_type => "sold", 
          :metadata => { :body => "sold" }, 
          :deal => @deal,
          :user => @deal.user, 
          :transaction => @transaction,
-         :created_by => @transaction.user)
-         @deal.save!
+         :created_by => @transaction.user)!
           puts "created sandbox web sold test:#{@deal.events.count}"
           #puts "created sandbox web event"
         else
