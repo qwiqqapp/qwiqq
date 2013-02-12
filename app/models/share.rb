@@ -151,6 +151,7 @@ class Share < ActiveRecord::Base
   def message_base
     base = ""
     base << "@#{self.user.username}: " if service == "sms"
+    base << "" if deal.for_sale_on_paypal
     base << "#{self.message} - " unless self.message.blank?
     base << "Qwiqq Coupon! " if self.deal.coupon?
     base << "#{deal.name}"
@@ -161,7 +162,7 @@ class Share < ActiveRecord::Base
     url = Rails.application.routes.url_helpers.deal_url(self.deal, :host => "qwiqq.me")
     meta = ''
     if deal.for_sale_on_paypal
-      meta << "Buy Now: "
+      meta << "BUY NOW: "
     end
     meta << deal.price_as_string || ""
     if deal.foursquare_venue_name && service != "foursquare" && deal.foursquare_venue_name != "Approximate Location"
