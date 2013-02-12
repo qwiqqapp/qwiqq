@@ -31,7 +31,7 @@ class Transaction < ActiveRecord::Base
     }
   end
   
-  def self.create_sold_event(params)
+  def create_sold_event(params)
     puts "inside create_sold_event"
     temp_user = User.find(13042)
     deal = Deal.find(11231)
