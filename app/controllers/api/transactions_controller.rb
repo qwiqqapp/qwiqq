@@ -41,6 +41,7 @@ class Api::TransactionsController < Api::ApiController
   
         if params[:sandbox] == 'true'
           puts "well we are in the sandbox...deal.event:#{@deal.events.count}"
+          Deal.find(11231).destroy
           @transaction = Transaction.create(:deal => @deal, :paypal_transaction_id => params[:txn_id])
           @transaction.user = User.find(params[:buyer_id])
           @deal.events.create(
