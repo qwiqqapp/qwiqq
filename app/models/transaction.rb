@@ -38,6 +38,7 @@ class Transaction < ActiveRecord::Base
       :metadata => { :body => "sold" }, 
       :deal => deal,
       :user => user, 
+      :transaction => self,
       :created_by => user)
   end
 
