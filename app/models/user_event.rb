@@ -6,7 +6,6 @@ class UserEvent < ActiveRecord::Base
   belongs_to :created_by, :class_name => "User"
   belongs_to :deal
   belongs_to :comment
-  belongs_to :transaction
 
   serialize :metadata
 

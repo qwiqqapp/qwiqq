@@ -2,8 +2,6 @@ class Transaction < ActiveRecord::Base
   belongs_to :user, :counter_cache => true, :touch => true
   belongs_to :deal, :counter_cache => true, :touch => true
   
-  has_many :events, :class_name => "UserEvent", :dependent => :destroy
-
   validates_presence_of :deal, :paypal_transaction_id
 
   default_scope :order => 'created_at desc'
