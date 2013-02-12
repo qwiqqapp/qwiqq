@@ -30,6 +30,40 @@ class Api::ExploreController < Api::ApiController
   # - params[:category]
 
   def deals
+    puts params[:category]
+    puts params[:q]
+    puts params[:lat]
+    puts params[:long]
+    puts params[:range]
+    puts params[:page]
+    
+    if  params[:range] == "10000000"
+      @deals = Deal.filtered_url_search(
+      :category => params[:category] == "all" ? nil : params[:category],
+      :query => params[:q],
+      :lat => params[:lat],
+      :lon => params[:long],
+      :range => params[:range] || Deal::MAX_RANGE,
+      :age => Deal::MAX_AGE.days,
+      :page => params[:page])
+    else
+      @deals = Deal.filtered_search(
+      :category => params[:category] == "all" ? nil : params[:category],
+      :query => params[:q],
+      :lat => params[:lat],
+      :lon => params[:long],
+      :range => params[:range] || Deal::MAX_RANGE,
+      :age => Deal::MAX_AGE.days,
+      :page => params[:page])
+    end
+    
+    puts "SEARCH DEAL COUNT:#{@deals.count}"
+    options = { :minimal => true }
+    options[:current_user] = current_user if current_user
+    render :json => paginate(@deals).compact.as_json(options)
+  end  
+    
+  def test
     if  params[:range] == "10000000"
       puts "GLOBAL SEARCH"
       @deals = Deal.filtered_test_search(
