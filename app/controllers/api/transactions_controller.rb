@@ -49,7 +49,7 @@ class Api::TransactionsController < Api::ApiController
          :deal => @deal,
          :user => @deal.user, 
          :transaction => @transaction,
-         :created_by => @transaction.user)!
+         :created_by => @transaction.user)
           puts "created sandbox web sold test:#{@deal.events.count}"
           #puts "created sandbox web event"
         else
