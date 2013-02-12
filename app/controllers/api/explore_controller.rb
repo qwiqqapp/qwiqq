@@ -58,7 +58,7 @@ class Api::ExploreController < Api::ApiController
   end
   
   def popular
-    @deals = Deal.scoped.recent
+    @deals = Deal.scoped.recent.sorted
     puts @deals.count
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
