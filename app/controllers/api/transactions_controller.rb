@@ -47,7 +47,6 @@ class Api::TransactionsController < Api::ApiController
          :metadata => { :body => "sold" }, 
          :deal => @deal,
          :user => @deal.user, 
-         :created_by => u,
          :is_web_event => true)
          
           u.events.create(

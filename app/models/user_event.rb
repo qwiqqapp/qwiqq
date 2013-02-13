@@ -14,11 +14,9 @@ class UserEvent < ActiveRecord::Base
   after_create :deliver_push_notification
   
   validates :event_type, :inclusion => [ "comment", "like", "share", "follower", "mention", "push", "purchase", "sold"]
- validates :user, :presence => true
- 
-  with_options :unless => :is_on_web? do 
-    validates :created_by, :presence => true
-  end
+  validates :user, :presence => true
+  
+  validates :created_by, :presence => true, :unless => :is_on_web?
   
   scope :read, where(:read => true)
   scope :unread, where(:read => false) do
