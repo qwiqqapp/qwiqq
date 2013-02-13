@@ -136,22 +136,27 @@ class UserEvent < ActiveRecord::Base
   end
   
   def push_alert
-    action = case event_type
-      when "comment"
-        "left a comment on your post: #{metadata[:body]}"
-      when "like"
-        "loved your post"
-      when "share"
-        "shared your post on #{metadata[:service]}"
-      when "follower"
-        "started following you"
-      when "mention"
-        "mentioned you in a comment: #{metadata[:body]}"
-      when "sold"
-        "just bought your post"
-      else
-        raise ArgumentError, "Unable to create notification message for event #{id} with type #{event_type}"
-      end 
-    "#{created_by.best_name} #{action}"
+    unless event_type == "sold"
+      action = case event_type
+        when "comment"
+          "left a comment on your post: #{metadata[:body]}"
+        when "like"
+          "loved your post"
+        when "share"
+          "shared your post on #{metadata[:service]}"
+        when "follower"
+          "started following you"
+        when "mention"
+          "mentioned you in a comment: #{metadata[:body]}"
+        when "sold"
+          "just bought your post"
+        else
+          raise ArgumentError, "Unable to create notification message for event #{id} with type #{event_type}"
+        end 
+      "#{created_by.best_name} #{action}"
+    else 
+      #sold alert
+      "Someone bought your post"
+    end
   end
 end
