@@ -30,13 +30,16 @@ class UserEvent < ActiveRecord::Base
   def as_json(options={})
     json = { 
       :type => event_type,
-      :created_by_id => created_by_id,
-      :created_by_username => created_by_username,
-      :created_by_photo => created_by_photo,
-      :created_by_photo_2x => created_by_photo_2x,
       :short_age => short_time_ago_in_words(created_at),
       :is_web_event => is_web_event
     }
+    
+    if created_by
+      json[:created_by_id] = created_by_id
+      json[:created_by_username] = created_by_username
+      json[:created_by_photo] = created_by_photo
+      json[:created_by_photo_2x] = created_by_photo_2x
+    end
     
     if deal
       json[:deal_name] = deal_name
@@ -78,9 +81,11 @@ class UserEvent < ActiveRecord::Base
   end
  
   def update_cached_attributes
-    self.created_by_photo = created_by.photo(:iphone_small)
-    self.created_by_photo_2x = created_by.photo(:iphone_small_2x)
-    self.created_by_username = created_by.username
+    if created_by
+      self.created_by_photo = created_by.photo(:iphone_small)
+      self.created_by_photo_2x = created_by.photo(:iphone_small_2x)
+      self.created_by_username = created_by.username
+    end
     self.deal_name = deal.name if deal
   end
   
