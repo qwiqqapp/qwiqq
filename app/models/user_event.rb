@@ -14,11 +14,8 @@ class UserEvent < ActiveRecord::Base
   after_create :deliver_push_notification
   
   validates :event_type, :inclusion => [ "comment", "like", "share", "follower", "mention", "push", "purchase", "sold"]
- validates :user, :presence => true
- 
-  with_options :unless => :is_on_web? do 
-    validates :created_by, :presence => true
-  end
+  validates :user, :presence => true, :unless => :is_on_web?
+  validates :created_by, :presence => true, :unless => :is_on_web?
   
   scope :read, where(:read => true)
   scope :unread, where(:read => false) do
@@ -32,13 +29,16 @@ class UserEvent < ActiveRecord::Base
   def as_json(options={})
     json = { 
       :type => event_type,
-      :created_by_id => created_by_id,
-      :created_by_username => created_by_username,
-      :created_by_photo => created_by_photo,
-      :created_by_photo_2x => created_by_photo_2x,
       :short_age => short_time_ago_in_words(created_at),
       :is_web_event => is_web_event
     }
+    
+    if created_by
+      json[:created_by_id] = created_by_id
+      json[:created_by_username] = created_by_username
+      json[:created_by_photo] = created_by_photo
+      json[:created_by_photo_2x] = created_by_photo_2x
+    end
     
     if deal
       json[:deal_name] = deal_name
@@ -80,9 +80,11 @@ class UserEvent < ActiveRecord::Base
   end
  
   def update_cached_attributes
-    self.created_by_photo = created_by.photo(:iphone_small)
-    self.created_by_photo_2x = created_by.photo(:iphone_small_2x)
-    self.created_by_username = created_by.username
+    if created_by
+      self.created_by_photo = created_by.photo(:iphone_small)
+      self.created_by_photo_2x = created_by.photo(:iphone_small_2x)
+      self.created_by_username = created_by.username
+    end
     self.deal_name = deal.name if deal
   end
   
@@ -133,22 +135,27 @@ class UserEvent < ActiveRecord::Base
   end
   
   def push_alert
-    action = case event_type
-      when "comment"
-        "left a comment on your post: #{metadata[:body]}"
-      when "like"
-        "loved your post"
-      when "share"
-        "shared your post on #{metadata[:service]}"
-      when "follower"
-        "started following you"
-      when "mention"
-        "mentioned you in a comment: #{metadata[:body]}"
-      when "sold"
-        "just bought your post"
-      else
-        raise ArgumentError, "Unable to create notification message for event #{id} with type #{event_type}"
-      end 
-    "#{created_by.best_name} #{action}"
+    unless event_type == "sold"
+      action = case event_type
+        when "comment"
+          "left a comment on your post: #{metadata[:body]}"
+        when "like"
+          "loved your post"
+        when "share"
+          "shared your post on #{metadata[:service]}"
+        when "follower"
+          "started following you"
+        when "mention"
+          "mentioned you in a comment: #{metadata[:body]}"
+        when "sold"
+          "just bought your post"
+        else
+          raise ArgumentError, "Unable to create notification message for event #{id} with type #{event_type}"
+        end 
+      "#{created_by.best_name} #{action}"
+    else 
+      #sold alert
+      "Someone bought your post"
+    end
   end
 end
