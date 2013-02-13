@@ -46,14 +46,11 @@ class Api::TransactionsController < Api::ApiController
           :event_type => "sold", 
          :metadata => { :body => "sold" }, 
          :deal => @deal,
-         :user => @deal.user, 
          :is_web_event => true)
          
           u.events.create(
                 :event_type => "purchase", 
                 :deal => @deal,
-                :user => @deal.user, 
-                :created_by => @deal.user,
                 :is_web_event => true)
                
           puts "created sandbox web sold test:#{@deal.events.count}"
