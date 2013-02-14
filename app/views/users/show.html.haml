@@ -36,10 +36,17 @@
               .details
                 %img.post-photo{ :src => deal.photo(:iphone_zoom_2x), :width => "504", :height => "504" }
                 .clearfix
-                  .name= deal.name
-                  .price
-                    .hole
-                    %span.dollars-large= deal.price_as_string
+                  .name= auto_link(@deal.name)
+                  - if deal.for_sale_on_paypal? && deal.num_left_for_sale > 0
+                    %div{:style => "position:relative;width:100%;margin-top:12px;"}
+                      %a{:href => "#{deal.id}/purchase", ":data-remote" => 'true'}
+                        %img{:src =>image_path("buy-button.png")}
+                        %span.dollars-large{:style => "position:absolute;top:8px;left:20px;font-size:26px;"}= deal.price_as_string
+                  - else
+                    .price
+                      .hole
+                      %span.dollars-large{:style=> ""}= deal.price_as_string
+
 
               .metadata
                 - unless deal.venue_or_location_name.blank? || deal.venue_or_location_name == "" || deal.venue_or_location_name.nil?
