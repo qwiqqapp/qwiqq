@@ -13,8 +13,9 @@ Qwiqq::Application.routes.draw do
     get "purchase", :on => :member
   end
 
-  resources :users, :only => [:show]
-  
+  resources :users, :only => [:show], :as => "users", :controller => "users" do
+    get "purchase", :on => :member
+  end
   
   # home routes
   match "about",    :to => "home#about",    :as => :about
