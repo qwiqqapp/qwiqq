@@ -1,5 +1,5 @@
 class Mailer < ActionMailer::Base
-  layout false, :only => [:deal_purchased]
+  layout false, :only => [:deal_purchased, :deal_sold]
   default :from => "notifications@qwiqq.me"
 
   helper :application
@@ -35,8 +35,7 @@ class Mailer < ActionMailer::Base
     @transaction = transaction
     mail :to => target_email, 
          :tag => "voucher",
-         :subject => "You just bought something on Qwiqq!",
-         :template_name => 'deal_purchased'
+         :subject => "You just bought something on Qwiqq!"
   end
   
   def deal_sold(target_email,deal,transaction)
@@ -44,8 +43,7 @@ class Mailer < ActionMailer::Base
     @transaction = transaction
     mail :to => target_email, 
          :tag => "voucher",
-         :subject => "You just sold something on Qwiqq!",
-         :template_name => 'deal_sold'
+         :subject => "You just sold something on Qwiqq!"
   end
   
   # has target
