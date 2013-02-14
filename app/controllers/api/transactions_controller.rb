@@ -82,10 +82,10 @@ class Api::TransactionsController < Api::ApiController
             #@transaction.deal = @deal
             puts 'saving transaction...'
             @transaction.save!
-            
+            puts "number BEFORE sale:#{@deal.num_left_for_sale}"
             @deal.num_left_for_sale=@deal.num_left_for_sale-1
             @deal.save!
-            
+            puts "number LEFT after sale:#{@deal.num_left_for_sale}"
             #email = string...
             
             if(@transaction.user.nil?)
