@@ -33,11 +33,13 @@ class UserEvent < ActiveRecord::Base
       :is_web_event => is_web_event
     }
     
-    if created_by
-      json[:created_by_id] = created_by_id
-      json[:created_by_username] = created_by_username
-      json[:created_by_photo] = created_by_photo
-      json[:created_by_photo_2x] = created_by_photo_2x
+    if !created_by.nil?
+      if !created_by.empty?
+        json[:created_by_id] = created_by_id
+        json[:created_by_username] = created_by_username
+        json[:created_by_photo] = created_by_photo
+        json[:created_by_photo_2x] = created_by_photo_2x
+      end
     end
     
     if deal
