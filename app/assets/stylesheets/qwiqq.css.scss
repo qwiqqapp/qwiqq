@@ -198,8 +198,7 @@ img.bubbles {
 }
 
 #posts {
-  margin-top: 80px;
-  margin-bottom: 10px;
+  margin: 80px auto 10px;
   text-align: center;
   overflow: hidden;
 }
@@ -222,7 +221,7 @@ img.bubbles {
   font-size: 1.2em;
   font-weight: 300;
   color: #666;
-  margin: 200px auto 200px;
+  margin: 100px auto 300px;
   font-family: "Helvetica Neue Light", Helvetica, Arial;
   line-height: 1.6em;
 }
