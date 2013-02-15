@@ -57,7 +57,7 @@ Qwiqq::Application.routes.draw do
       resources :comments, :only => [:index]
       resources :invitations, :only => [:index, :create]
       resources :constantcontact, :only => [:create] do
-        get "email", :on => :member
+        get "email", :on => :collection
       end
       
       resources :deals, :only => [:index] do
