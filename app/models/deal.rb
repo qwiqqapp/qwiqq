@@ -171,8 +171,6 @@ class Deal < ActiveRecord::Base
     current_user = options[:current_user]
     json[:liked] = current_user.liked_deals.include?(self) if current_user
 
-    puts 'test start'
-
     # add detail if requested
     unless options[:minimal]
       json[:category]       = category.try(:name)
