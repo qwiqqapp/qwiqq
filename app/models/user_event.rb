@@ -34,12 +34,10 @@ class UserEvent < ActiveRecord::Base
     }
     
     if !created_by.nil?
-      if !created_by.empty?
-        json[:created_by_id] = created_by_id
-        json[:created_by_username] = created_by_username
-        json[:created_by_photo] = created_by_photo
-        json[:created_by_photo_2x] = created_by_photo_2x
-      end
+      json[:created_by_id] = created_by_id
+      json[:created_by_username] = created_by_username
+      json[:created_by_photo] = created_by_photo
+      json[:created_by_photo_2x] = created_by_photo_2x
     end
     
     if deal
