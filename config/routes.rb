@@ -28,7 +28,6 @@ Qwiqq::Application.routes.draw do
   match 'reports' => 'reports#report'
   match 'mailers/deal_purchased' => 'testing#deal_purchased'
   match 'mailers/deal_sold' => 'testing#deal_sold'
-  match 'mailers/constant_contact_post' => 'testing#constant_contact_post'
   
   # iphone routes
   match "iphone/about",   :to => "home#about",    :as => :iphone_about
@@ -57,9 +56,7 @@ Qwiqq::Application.routes.draw do
       resources :likes, :only => [:index]
       resources :comments, :only => [:index]
       resources :invitations, :only => [:index, :create]
-      resources :constantcontact, :only => [:create] do
-        get "email", :on => :collection
-      end
+      resources :constantcontact, :only => [:create]
       
       resources :deals, :only => [:index] do
         resources :shares, :only => [:create]
