@@ -33,12 +33,18 @@ class UserEvent < ActiveRecord::Base
       :is_web_event => is_web_event
     }
     
+    puts 'test start'
+    puts !created_by.nil?
+    puts created_by
+    
     if !created_by.nil?
       json[:created_by_id] = created_by_id
       json[:created_by_username] = created_by_username
       json[:created_by_photo] = created_by_photo
       json[:created_by_photo_2x] = created_by_photo_2x
     end
+    
+    puts 'test complete'
     
     if deal
       json[:deal_name] = deal_name
