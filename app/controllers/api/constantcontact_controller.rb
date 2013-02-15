@@ -6,4 +6,9 @@ class Api::ConstantcontactController < Api::ApiController
     Mailer.constant_contact(@user).deliver
     respond_with @user
   end
+  
+  def email
+    puts "create email to send"
+    render layout: 'share_post'
+  end
 end
