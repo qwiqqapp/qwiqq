@@ -33,10 +33,6 @@ class UserEvent < ActiveRecord::Base
       :is_web_event => is_web_event
     }
     
-    puts 'test start'
-    puts !created_by.nil?
-    puts created_by
-    
     if !created_by.nil?
       if !created_by.blank?
         json[:created_by_id] = created_by_id
@@ -46,14 +42,10 @@ class UserEvent < ActiveRecord::Base
       end
     end
     
-    puts 'test complete'
-    
     if deal
       json[:deal_name] = deal_name
       json[:deal_id] = deal_id
     end
-    
-    puts 'test complete2'
     
     case event_type
     when "comment" || "mention"
@@ -63,8 +55,6 @@ class UserEvent < ActiveRecord::Base
     when "push"
       json[:facebook_name] = metadata[:body]
     end
-    
-    puts 'test complete3'
     
     json
   end
