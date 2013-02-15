@@ -38,10 +38,12 @@ class UserEvent < ActiveRecord::Base
     puts created_by
     
     if !created_by.nil?
-      json[:created_by_id] = created_by_id
-      json[:created_by_username] = created_by_username
-      json[:created_by_photo] = created_by_photo
-      json[:created_by_photo_2x] = created_by_photo_2x
+      if !created_by.blank?
+        json[:created_by_id] = created_by_id
+        json[:created_by_username] = created_by_username
+        json[:created_by_photo] = created_by_photo
+        json[:created_by_photo_2x] = created_by_photo_2x
+      end
     end
     
     puts 'test complete'
