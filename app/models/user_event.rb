@@ -53,6 +53,8 @@ class UserEvent < ActiveRecord::Base
       json[:deal_id] = deal_id
     end
     
+    puts 'test complete2'
+    
     case event_type
     when "comment" || "mention"
       json[:body] = metadata[:body]
@@ -61,6 +63,8 @@ class UserEvent < ActiveRecord::Base
     when "push"
       json[:facebook_name] = metadata[:body]
     end
+    
+    puts 'test complete3'
     
     json
   end
