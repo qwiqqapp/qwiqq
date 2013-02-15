@@ -177,16 +177,11 @@ class Deal < ActiveRecord::Base
     unless options[:minimal]
       json[:category]       = category.try(:name)
       json[:events]         = events.limit(60)
-      puts 'test complete1'
       json[:comments]       = comments.limit(3)
-      puts 'test complete2'
-      #Should transactions really be here?
+      #Should transactions really be here? - this crashes it
       #json[:transactions]   = transactions.limit(3)
-      puts 'test complete3'
       json[:liked_by_users] = liked_by_users.limit(6)
-      puts 'test complete4'
       json[:user]           = user.try(:as_json)
-      puts 'test complete5'
     end
     
     json
