@@ -24,7 +24,7 @@ class TestingController < ApplicationController
     @transaction.email = @transaction.user.email;
     
     #@transaction = Transaction.find()
-    #mail :to => 'copley.brandon@gmail.com', 
+    #mail :to => 'copley.brandon@gmail.com', git p
     #     :tag => "voucher",
     #     :subject => "You just bought something on Qwiqq!",
     #     :template_name => 'deal_purchased' 
