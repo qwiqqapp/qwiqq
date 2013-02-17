@@ -46,7 +46,7 @@ module ApplicationHelper
     when "comment"
       "#{linked_name} said \"#{event.metadata[:body]}\""
     when "sold"
-      "#{linked_name} just bought this"
+      "Yeah! Sold another one!"
     when "share"
       case event.metadata[:service]
       when "sms"
