@@ -97,7 +97,7 @@
               - if event.event_type == "comment" && event.mentioned_users
                 .event{ :class => ""}
                   %a{ :href => user_url(event.created_by) }
-                    %img.user-photo{ :src => event.created_by.photo(:iphone2x), :width => "80", :height => "80" }
+                    %img.user-photo{ :src => event.created_by.photo(:iphone2x), :width => "80", :height => "80", :style => "vertical-align:top" }
                   %img.icon{ :src => image_path(event_icon(event)) }  
                   .body
                     = auto_link(event.mentioned_users_body).html_safe
@@ -106,7 +106,7 @@
               - else
                 .event{ :class => ""}
                   %a{ :href => user_url(event.created_by) }
-                    %img.user-photo{ :src => event.created_by.photo(:iphone2x), :width => "80", :height => "80" }
+                    %img.user-photo{ :src => event.created_by.photo(:iphone2x), :width => "80", :height => "80" , :style => "vertical-align:top"}
                   %img.icon{ :src => image_path(event_icon(event)) }  
                   .body
                     = auto_link(event_body(event))
@@ -114,7 +114,7 @@
                     = short_time_ago_in_words(event.created_at)  
             - elsif event.event_type == "sold"
               .event{ :class => ""}
-                %img.user-photo{ :src => image_path("buzz-no-user-photo.png"), :width => "80", :height => "80" }
+                %img.user-photo{ :src => image_path("buzz-no-user-photo.png"), :width => "80", :height => "80" , :style => "vertical-align:top"}
                 %img.icon{ :src => image_path(event_icon(event)) }  
                 .body
                   Yeah! Sold another one!
