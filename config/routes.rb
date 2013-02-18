@@ -43,12 +43,13 @@ Qwiqq::Application.routes.draw do
   # api
   namespace "api" do
     resources :users, :only => [:create, :show, :update] do
-      get "followers", :on => :member
-      get "following", :on => :member
-      get "friends",   :on => :member
-      get "suggested", :on => :collection
-      get "events",    :on => :member
-      post "clear_events", :on => :member
+      get "followers",         :on => :member
+      get "following",         :on => :member
+      get "following_minimal", :on => :member
+      get "friends",           :on => :member
+      get "suggested",         :on => :collection
+      get "events",            :on => :member
+      post "clear_events",     :on => :member
       
       post "following" => "relationships#create"
       delete "following/:target_id" => "relationships#destroy"

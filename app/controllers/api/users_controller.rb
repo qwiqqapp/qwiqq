@@ -110,8 +110,14 @@ class Api::UsersController < Api::ApiController
     @followers = @user.followers.sorted
     respond_with @followers.as_json(:current_user => current_user)
   end
+  
+  def followers
+    requested_user
+    @following = @user.following.sorted
+    respond_with @following.as_json(:current_user => current_user)
+  end
 
-  def following
+  def following_minimal
     
     puts "users with id: #{requested_user} following..."
     requested_user
