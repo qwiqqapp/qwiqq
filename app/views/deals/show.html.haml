@@ -102,7 +102,7 @@
             - elsif event.event_type == "sold"
               .event{ :class => ""}
                 %a{ :href => user_url(event.created_by) }
-                    %img.user-photo{ :src => image_path("buzz-no-user-photo"), :width => "80", :height => "80" }
+                  %img.user-photo{ :src => image_path("buzz-no-user-photo"), :width => "80", :height => "80" }
                 %img.icon{ :src => image_path(event_icon(event)) }  
                 .body
                   Yeah! Sold another one!
