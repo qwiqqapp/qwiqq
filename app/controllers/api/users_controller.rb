@@ -111,7 +111,7 @@ class Api::UsersController < Api::ApiController
     respond_with @followers.as_json(:current_user => current_user)
   end
   
-  def followers
+  def following
     requested_user
     @following = @user.following.sorted
     respond_with @following.as_json(:current_user => current_user)
