@@ -110,3 +110,5 @@
                 %img.icon{ :src => image_path(event_icon(event)) }  
                 .body
                   Yeah! Sold another one!
+            .time 
+              short_time_ago_in_words(event.created_at)
