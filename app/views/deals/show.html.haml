@@ -102,7 +102,7 @@
                   .body
                     = auto_link(event.mentioned_users_body).html_safe
                   %br
-                  .time 
+                  .time{:style => "margin-bottom:10px"}
                     = short_time_ago_in_words(event.created_at)
               - else
                 .event{ :class => ""}
@@ -112,7 +112,7 @@
                   .body
                     = auto_link(event_body(event))
                   %br
-                  .time 
+                  .time {:style => "margin-bottom:10px"}
                     = short_time_ago_in_words(event.created_at)  
             - elsif event.event_type == "sold"
               .event{ :class => ""}
@@ -121,6 +121,6 @@
                 .body
                   Yeah! Sold another one!
                 %br
-                .time 
+                .time{:style => "margin-bottom:10px"}
                   = short_time_ago_in_words(event.created_at)
             
