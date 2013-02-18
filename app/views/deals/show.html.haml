@@ -46,9 +46,11 @@
                   %span.dollars-large{:style => "position:absolute;top:8px;left:20px;font-size:26px;"}= @deal.price_as_string
                   
                 - if @deal.num_left_for_sale > 0
-                  %font{:color => "red"}"#{@deal.num_left_for_sale} left"
+                  %span.quantity 
+                    ="#{deal.num_left_for_sale} left"
                 - else
-                  %font{:color => "red"}Sold Out
+                  %span.quantity 
+                    Sold Out
             - else
               .price
                 .hole
@@ -97,8 +99,8 @@
                   %img.icon{ :src => image_path(event_icon(event)) }  
                   .body
                     = auto_link(event.mentioned_users_body).html_safe
-                  .time 
-                    = short_time_ago_in_words(event.created_at)
+                    .time 
+                      = short_time_ago_in_words(event.created_at)
               - else
                 .event{ :class => ""}
                   %a{ :href => user_url(event.created_by) }
@@ -106,8 +108,8 @@
                   %img.icon{ :src => image_path(event_icon(event)) }  
                   .body
                     = auto_link(event_body(event))
-                  .time 
-                    = short_time_ago_in_words(event.created_at)  
+                    .time 
+                      = short_time_ago_in_words(event.created_at)  
             - elsif event.event_type == "sold"
               .event{ :class => ""}
                 %img.user-photo{ :src => image_path("buzz-no-user-photo.png"), :width => "80", :height => "80" }
