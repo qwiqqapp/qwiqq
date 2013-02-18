@@ -47,7 +47,9 @@
                   
                 - if @deal.num_left_for_sale > 0
                   %span.quantity 
-                    ="#{@deal.num_left_for_sale} left"
+                    ="#{@deal.num_left_for_sale}"
+                    %br
+                    left
                 - else
                   %span.quantity 
                     Sold Out
