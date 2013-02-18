@@ -101,6 +101,7 @@
                   %img.icon{ :src => image_path(event_icon(event)) }  
                   .body
                     = auto_link(event.mentioned_users_body).html_safe
+                  %br
                   .time 
                     = short_time_ago_in_words(event.created_at)
               - else
@@ -110,6 +111,7 @@
                   %img.icon{ :src => image_path(event_icon(event)) }  
                   .body
                     = auto_link(event_body(event))
+                  %br
                   .time 
                     = short_time_ago_in_words(event.created_at)  
             - elsif event.event_type == "sold"
@@ -118,6 +120,7 @@
                 %img.icon{ :src => image_path(event_icon(event)) }  
                 .body
                   Yeah! Sold another one!
+                %br
                 .time 
                   = short_time_ago_in_words(event.created_at)
             
