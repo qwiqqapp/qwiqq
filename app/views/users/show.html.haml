@@ -43,7 +43,7 @@
                         %img{:src =>image_path("buy-button.png")}
                         %span.dollars-large{:style => "position:absolute;top:8px;left:20px;font-size:26px;"}= deal.price_as_string
                       - if deal.num_left_for_sale > 0
-                        %span.quantity{:style => "margin-bottom: 10px !important;"}
+                        %span.quantity
                           ="#{deal.num_left_for_sale} left"
                       - else
                         %span.quantity 
