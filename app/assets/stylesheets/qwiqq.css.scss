@@ -644,14 +644,14 @@ p.empty-deals{
 
 #post .event .user-photo {
   float: left;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 #post .event .body {
   float: left;
   margin: 20px;
   width: 360px;
-  display: table-cell;
-  vertical-align: middle;
 }
 
 #post .event .icon {
