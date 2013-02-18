@@ -42,10 +42,10 @@
                       %a{:href => "#{deal.id}/purchase", ":data-remote" => 'true'}
                         %img{:src =>image_path("buy-button.png")}
                         %span.dollars-large{:style => "position:absolute;top:8px;left:20px;font-size:26px;"}= deal.price_as_string
-                      - if @deal.num_left_for_sale > 0
-                        .body left
+                      - if deal.num_left_for_sale > 0
+                        %font{:color => "red"}"#{deal.num_left_for_sale} left"
                       - else
-                        .body Sold Out
+                        %font{:color => "red"}Sold Out
                   
                   - else
                     .price
