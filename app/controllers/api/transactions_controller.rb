@@ -44,13 +44,11 @@ class Api::TransactionsController < Api::ApiController
           u = User.find(params[:buyer_id])
           @deal.events.create(
           :event_type => "sold", 
-         :metadata => { :body => "sold" }, 
          :deal => @deal,
          :is_web_event => true)
          
          u.events.create(
           :event_type => "sold", 
-         :metadata => { :body => "sold" }, 
          :deal => @deal,
          :is_web_event => true)
          
@@ -113,13 +111,16 @@ class Api::TransactionsController < Api::ApiController
               #send a push notification to seller and create event for seller's deal
               @deal.events.create(
                :event_type => "sold", 
-               :metadata => { :body => "sold" }, 
                :deal => @deal,
                :is_web_event => true)
          
                         
               puts "create purchased event"
               #create user event for buyer
+              @transaction.user.events.create(
+               :event_type => "sold", 
+               :deal => @deal,
+               :is_web_event => true)
               @transaction.user.events.create(
                 :event_type => "purchase", 
                 :deal => @deal,
