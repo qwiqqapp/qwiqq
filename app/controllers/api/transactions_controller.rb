@@ -100,7 +100,7 @@ class Api::TransactionsController < Api::ApiController
               #send a push notification to seller and create generic event for seller's deal
               @deal.events.create(
                 :event_type => "sold",
-                :user => @deal.user,
+                :deal => @deal,
                 :is_web_event => true)
 
             else
