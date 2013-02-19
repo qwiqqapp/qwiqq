@@ -149,15 +149,13 @@ class UserEvent < ActiveRecord::Base
           "started following you"
         when "mention"
           "mentioned you in a comment: #{metadata[:body]}"
-        when "sold"
-          "just bought your post"
         else
           raise ArgumentError, "Unable to create notification message for event #{id} with type #{event_type}"
         end 
       "#{created_by.best_name} #{action}"
     else 
       #sold alert
-      "Someone bought your post"
+      "Yeah! I just sold #{deal_name}"
     end
   end
 end
