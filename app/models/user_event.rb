@@ -33,20 +33,22 @@ class UserEvent < ActiveRecord::Base
       :is_web_event => is_web_event
     }
     
-    if !created_by.nil?
-      if !created_by.blank?
-        json[:created_by_id] = created_by_id
-        json[:created_by_username] = created_by_username
-        json[:created_by_photo] = created_by_photo
-        json[:created_by_photo_2x] = created_by_photo_2x
+    if !created_by.nil? && !created_by.blank?
+      json[:created_by_id] = created_by_id
+      json[:created_by_username] = created_by_username
+      json[:created_by_photo] = created_by_photo
+      json[:created_by_photo_2x] = created_by_photo_2x
+    else 
+      if self.user
+        json[:created_by_id] = self.user.id
+        json[:created_by_username] = self.user.username
+        json[:created_by_photo] = self.user.photo(:iphone_small)
+        json[:created_by_photo_2x] = self.user.photo(:iphone_small_2x)
       end
     end
     
     if event_type == "sold"
-      json[:created_by_id] = self.user.id
-      json[:created_by_username] = self.user.username
-      json[:created_by_photo] = self.user.photo(:iphone_small)
-      json[:created_by_photo_2x] = self.user.photo(:iphone_small_2x)
+
     end
     
     if deal
