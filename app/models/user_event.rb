@@ -42,6 +42,13 @@ class UserEvent < ActiveRecord::Base
       end
     end
     
+    if event_type == "sold"
+      json[:created_by_id] = self.user.id
+      json[:created_by_username] = self.user.username
+      json[:created_by_photo] = self.user.photo(:iphone_small)
+      json[:created_by_photo_2x] = self.user.photo(:iphone_small_2x)
+    end
+    
     if deal
       json[:deal_name] = deal_name
       json[:deal_id] = deal_id
