@@ -635,7 +635,6 @@ p.empty-deals{
   border-top: 1px solid #f6f4f2;
   border-bottom: 1px solid #c9c3ba;
   overflow: hidden;
-  display: table;
 }
 
 #post .event.last {
@@ -643,19 +642,19 @@ p.empty-deals{
 }
 
 #post .event .user-photo {
+  float: left;
   vertical-align: middle;
 }
 
 #post .event .body {
+  float: left;
+  margin: 20px;
   width: 360px;
-  vertical-align: middle;
 }
 
 #post .event .icon {
+  float: right;
   margin: 20px 20px 0 0;
-  margin-left: 76%;
-  position: absolute;
-  margin-top: 4.5%;
 }
 
 #post .event .time {
@@ -780,6 +779,7 @@ p.empty-deals{
  color: red;
  margin-bottom: 10px;
 }
+
 #slider .arrow-left {
   float: left;
   position: relative;
