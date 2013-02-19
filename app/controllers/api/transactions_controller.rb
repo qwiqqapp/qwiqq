@@ -45,13 +45,9 @@ class Api::TransactionsController < Api::ApiController
           @deal.events.create(
           :event_type => "sold", 
          :deal => @deal,
+         :user => u,
          :is_web_event => true)
-         
-         u.events.create(
-          :event_type => "sold", 
-         :deal => @deal,
-         :is_web_event => true)
-         
+
           u.events.create(
                 :event_type => "purchase", 
                 :deal => @deal,
@@ -112,15 +108,13 @@ class Api::TransactionsController < Api::ApiController
               @deal.events.create(
                :event_type => "sold", 
                :deal => @deal,
+               :user => @transaction.user,
                :is_web_event => true)
          
                         
               puts "create purchased event"
               #create user event for buyer
-              @transaction.user.events.create(
-               :event_type => "sold", 
-               :deal => @deal,
-               :is_web_event => true)
+
               @transaction.user.events.create(
                 :event_type => "purchase", 
                 :deal => @deal,
