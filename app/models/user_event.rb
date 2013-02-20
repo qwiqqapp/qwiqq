@@ -46,10 +46,7 @@ class UserEvent < ActiveRecord::Base
         json[:created_by_photo_2x] = self.user.photo(:iphone_small_2x)
       end
     end
-    
-    if event_type == "sold"
 
-    end
     
     if deal
       json[:deal_name] = deal_name
