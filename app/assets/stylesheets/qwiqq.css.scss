@@ -57,6 +57,14 @@ html, body {
   margin: 0 auto;
 }
 
+.quantity {
+ font-size: 19px; 
+ color: #F47527;
+ margin-left: 10px;
+ margin-bottom: 2px;
+ position:absolute;
+}
+
 @media screen and (min-device-width : 320px) and (max-device-width : 767px) {
 #businesses {
   width: 100%;
