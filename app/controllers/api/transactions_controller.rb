@@ -29,6 +29,10 @@ class Api::TransactionsController < Api::ApiController
     #paypal_response = AdaptivePay::Callback.new params
     
     if paypal_response.completed?
+      
+      puts 'params';
+      puts params;
+      
       if paypal_response.valid?
         # mark your payment as complete and make them unicorns happy!
         puts "TRANSACTION VERIFIED"
