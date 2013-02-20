@@ -1,5 +1,7 @@
-= image_tag @user.photo(:iphone_profile), :width => 150, :height => 150, :align => "left", :style => "margin-right: 10px; border-radius:10px"
+%a{:href => user_url(@user), :style => ""}
+  = image_tag @user.photo(:iphone_profile), :width => 150, :height => 150, :align => "left", :style => "margin-right: 10px; border-radius:10px"
 %div{:style => "color:gray"}
-  Your Facebook friend #{@share} just joined Qwiqq as @#{@user.username}.
+  = link_to("Your Facebook friend #{@share} just joined Qwiqq as @#{@user.username}.", user_url(@user), :style => "text-decoration:none; font-size:13pt; color:gray; font-weight: bold")
+
 
 
