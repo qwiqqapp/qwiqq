@@ -117,9 +117,7 @@ class Api::TransactionsController < Api::ApiController
                :is_web_event => true)
          
                         
-              puts "create purchased event"
               #create user event for buyer
-
               @transaction.user.events.create(
                 :event_type => "purchase", 
                 :deal => @deal,
