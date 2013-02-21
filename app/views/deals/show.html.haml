@@ -92,7 +92,7 @@
             .empty
               The latest buzz on this post will show up here
           - @events.each_with_index do |event, i|
-            - if event.created_by
+            - if event.created_by && event.event_type != "sold"
               - if event.event_type == "comment" && event.mentioned_users
                 .event{ :class => ""}
                   %a{ :href => user_url(event.created_by) }
@@ -115,10 +115,10 @@
                     = short_time_ago_in_words(event.created_at)  
             - elsif event.event_type == "sold"
               .event{ :class => ""}
-                - if event.user.nil?
+                - if event.created_by.nil?
                   %img.user-photo{ :src => image_path("buzz-no-user-photo.png"), :width => "80", :height => "80" }
                 - else
-                  %img.user-photo{ :src => event.user.photo(:iphone2x), :width => "80", :height => "80" }
+                  %img.user-photo{ :src => event.created_by.photo(:iphone2x), :width => "80", :height => "80" }
                 %img.icon{ :src => image_path(event_icon(event)) }  
                 .body
                   Yeah! Sold another one!
