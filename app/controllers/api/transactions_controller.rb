@@ -53,10 +53,10 @@ class Api::TransactionsController < Api::ApiController
                :is_web_event => true)
 
 
-         #u.events.create(
-         #       :event_type => "purchase", 
-         #       :deal => @deal,
-         #       :is_web_event => true)
+         u.events.create(
+                :event_type => "purchase", 
+                :deal => @deal,
+                :is_web_event => true)
                
           puts "created sandbox web sold test:#{@deal.events.count}"
           #puts "created sandbox web event"
