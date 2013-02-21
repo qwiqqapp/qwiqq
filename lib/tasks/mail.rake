@@ -58,7 +58,7 @@ namespace :mail do
     u = User.find("13152")
     u_join = User.find("13042")
     fb_name = 'Michael Scaria'
-    Mailer.facebook_push(u, u_join, fb_name).deliver
+    Mailer.facebook_push(u_join, u, fb_name).deliver
     puts "Finished Rake"
   end 
   
