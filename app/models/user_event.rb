@@ -40,10 +40,10 @@ class UserEvent < ActiveRecord::Base
       json[:created_by_photo_2x] = created_by_photo_2x
     else 
       if self.user
-        json[:created_by_id] = self.user.id
-        json[:created_by_username] = self.user.username
-        json[:created_by_photo] = self.user.photo(:iphone_small)
-        json[:created_by_photo_2x] = self.user.photo(:iphone_small_2x)
+        #json[:created_by_id] = self.user.id
+        #json[:created_by_username] = self.user.username
+        #json[:created_by_photo] = self.user.photo(:iphone_small)
+        #json[:created_by_photo_2x] = self.user.photo(:iphone_small_2x)
       end
     end
 
