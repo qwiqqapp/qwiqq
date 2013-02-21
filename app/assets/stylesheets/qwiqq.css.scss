@@ -1761,9 +1761,16 @@ table#templateFooter {
   text-align:left;
 }
 
-#quotes #benefits li{
+#quotes #benefits li,#quotes #quotes li{
   list-style-position:inside;
+  color:#ff7720;
 }
+
+#quotes #benefits li p,#quotes #quotes li p{
+  color:#666666;
+}
+
+
 
 #quotes ul, #quotes li{
   padding:0px 0px 0px 10px;
