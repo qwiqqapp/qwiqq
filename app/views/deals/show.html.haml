@@ -118,7 +118,8 @@
                 - if event.created_by.nil?
                   %img.user-photo{ :src => image_path("buzz-no-user-photo.png"), :width => "80", :height => "80" }
                 - else
-                  %img.user-photo{ :src => event.created_by.photo(:iphone2x), :width => "80", :height => "80" }
+                  %a{ :href => user_url(event.created_by) }
+                    %img.user-photo{ :src => event.created_by.photo(:iphone2x), :width => "80", :height => "80" }
                 %img.icon{ :src => image_path(event_icon(event)) }  
                 .body
                   Yeah! Sold another one!
