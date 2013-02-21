@@ -115,7 +115,10 @@
                     = short_time_ago_in_words(event.created_at)  
             - elsif event.event_type == "sold"
               .event{ :class => ""}
-                %img.user-photo{ :src => image_path("buzz-no-user-photo.png"), :width => "80", :height => "80" }
+                - if event.user.nil?
+                  %img.user-photo{ :src => image_path("buzz-no-user-photo.png"), :width => "80", :height => "80" }
+                - else
+                  %img.user-photo{ :src => event.user.photo(:iphone2x), :width => "80", :height => "80" }
                 %img.icon{ :src => image_path(event_icon(event)) }  
                 .body
                   Yeah! Sold another one!
