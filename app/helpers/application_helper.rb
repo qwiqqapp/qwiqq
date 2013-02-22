@@ -28,7 +28,7 @@ module ApplicationHelper
   end
 
   def download_url
-    "get.qwiqq.me"
+    "http://get.qwiqq.me"
   end
 
   def event_body(event)
