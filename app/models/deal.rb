@@ -454,8 +454,10 @@ class Deal < ActiveRecord::Base
   def meta_content
     c = ""
     c << self.name
+    c << "#shopsmall"
+    c << "BUY NOW" if self.for_sale_on_paypal && self.num_left_for_sale > 0
     c << self.price_as_string if self.price
-    c << "BUY NOW"
+    c << deal_url(self)
     c
   end
 
