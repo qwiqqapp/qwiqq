@@ -24,6 +24,11 @@ class Api::DealsController < Api::ApiController
   
   def available
     puts "AVAILABLE TEST"
+    @deal ||= Deal.find(params[:id])
+    json = {
+      :amount_left        => @deal.num_left_for_sale
+    }
+    render :json => json
   end
   
   def popular
