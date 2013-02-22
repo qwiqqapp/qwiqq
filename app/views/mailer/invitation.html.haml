@@ -6,10 +6,10 @@
     "I use Qwiqq to share the things I love to buy!  You should too!"
   
   %div{:style => "text-align:center; font-size:13pt; color:black; margin:20px 0"}
-    = link_to("Get the <b>free</b> app".html_safe, download_url, :style => "color:#ff7720; text-decoration:underline;")
+    = link_to("Get the <b>free</b> app".html_safe, "http://get.qwiqq.me", :style => "color:#ff7720; text-decoration:underline;")
     or 
     = link_to("Learn more", root_url, :style => "color:#ff7720; text-decoration:underline;")
 
   %div{:style => "text-align:center;"}
-    = link_to download_url, :style => "border:none" do
+    = link_to "http://get.qwiqq.me", :style => "border:none" do
       = image_tag "home-app-store.png"
