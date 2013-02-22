@@ -457,7 +457,7 @@ class Deal < ActiveRecord::Base
     c << "#shopsmall"
     c << "BUY NOW" if self.for_sale_on_paypal && self.num_left_for_sale > 0
     c << self.price_as_string if self.price
-    c << deal_url(self)
+    c << Rails.application.routes.url_helpers.deal_url(self, :host => "qwiqq.me")
     c
   end
 
