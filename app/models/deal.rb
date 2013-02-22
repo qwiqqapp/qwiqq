@@ -453,11 +453,10 @@ class Deal < ActiveRecord::Base
   
   def meta_content
     c = ""
-    #c << "An Awesome Qwiqq #coupon! " if self.coupon?
-    #c << self.price_as_string if self.price
-    #c << " at #{venue_or_location_name}." unless venue_or_location_name.blank?
-    c << " TEST by @#{self.user.username}"
-    puts "META_CONTENT"
+    c << "An Awesome Qwiqq #coupon! " if self.coupon?
+    c << self.price_as_string if self.price
+    c << " at #{venue_or_location_name}." unless venue_or_location_name.blank?
+    c << " Posted by @#{self.user.username}"
     c
   end
 

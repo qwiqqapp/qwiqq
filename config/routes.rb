@@ -74,6 +74,7 @@ Qwiqq::Application.routes.draw do
     resources :deals, :only => [:show, :create, :destroy, :update] do
       get "feed",    :on => :collection
       get "popular", :on => :collection
+      get "available", :on => :member
       post "repost", :on => :member
       get "events",  :on => :member
       

@@ -22,6 +22,10 @@ class Api::DealsController < Api::ApiController
   # ------------------
   # no auth required
   
+  def available
+    puts "AVAILABLE TEST"
+  end
+  
   def popular
     @deals = Deal.unscoped.order("likes_count desc, comments_count desc").limit(64)
     options = { :minimal => true }
