@@ -6,7 +6,7 @@ module ApplicationHelper
     url << "&media=#{deal.photo.url(:iphone_zoom_2x)}"
     url << "&description=#{CGI::escape(deal.name.titleize)} #shopsmall"
     url << " BUY NOW" if deal.for_sale_on_paypal && deal.num_left_for_sale > 0
-    url << " #{deal.price_as_string}" if self.price
+    url << " #{deal.price_as_string}" if deal.price
     url << " via Qwiqq.me"
     url
   end
