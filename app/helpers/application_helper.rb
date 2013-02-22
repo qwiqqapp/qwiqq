@@ -1,10 +1,32 @@
 module ApplicationHelper
   
-  def pinterest_url_for(deal)<post name> #shopsmall BUY NOW <price> <url link>
+  def pinterest_url_for(deal)
     url = "http://pinterest.com/pin/create/button/"
     url << "?url=#{deal_url(deal)}"
     url << "&media=#{deal.photo.url(:iphone_zoom_2x)}"
     url << "&description=#{CGI::escape(deal.name.titleize)} #shopsmall"
+    url << " BUY NOW" if deal.for_sale_on_paypal && deal.num_left_for_sale > 0
+    url << " #{deal.price_as_string}" if self.price
+    url << " via Qwiqq.me"
+    url
+  end
+  
+  def pinterest_url_for_sold(deal)
+    url = "http://pinterest.com/pin/create/button/"
+    url << "?url=#{deal_url(deal)}"
+    url << "&media=#{deal.photo.url(:iphone_zoom_2x)}"
+    url << "&description=I just sold this on @Qwiqq! #{CGI::escape(deal.name.titleize)} #shopsmall"
+    url << " BUY NOW" if deal.for_sale_on_paypal && deal.num_left_for_sale > 0
+    url << " #{deal.price_as_string}" if self.price
+    url << " via Qwiqq.me"
+    url
+  end
+  
+    def pinterest_url_for_bought(deal)
+    url = "http://pinterest.com/pin/create/button/"
+    url << "?url=#{deal_url(deal)}"
+    url << "&media=#{deal.photo.url(:iphone_zoom_2x)}"
+    url << "&description=I just bought this on @Qwiqq! #{CGI::escape(deal.name.titleize)} #shopsmall"
     url << " BUY NOW" if deal.for_sale_on_paypal && deal.num_left_for_sale > 0
     url << " #{deal.price_as_string}" if self.price
     url << " via Qwiqq.me"
