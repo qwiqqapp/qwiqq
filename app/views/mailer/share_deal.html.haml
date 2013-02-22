@@ -1,5 +1,6 @@
 %div
-= image_tag @deal.photo(:iphone_profile), :width => 150, :height => 150, :align => "left", :style => "margin: 0 10px 30px 0; border-radius:10px"
+%a{:href => deal_url(@deal), :style => ""}
+  = image_tag @deal.photo(:iphone_profile), :width => 150, :height => 150, :align => "left", :style => "margin: 0 10px 30px 0; border-radius:10px"
 = link_to("#{@user.best_name} shared a Qwiqq post with you.", user_url(@user), :style => "text-decoration:none; font-size:14pt; color:gray; font-weight: bold")
 %div{:style => "color:gray"}
   = link_to(@share.message, deal_url(@deal), :style => "color:#FF7720; text-decoration: underline") 
