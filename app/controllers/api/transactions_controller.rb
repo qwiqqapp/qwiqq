@@ -42,6 +42,8 @@ class Api::TransactionsController < Api::ApiController
         puts 'deal'
         puts @deal
         
+        puts "PRICE OF DEAL:#{@deal.price} LEFT:#{@deal.num_left_for_sale}"
+        
   
         if params[:sandbox] == 'true'
           puts "well we are in the sandbox...deal.event:#{@deal.events.count}"
