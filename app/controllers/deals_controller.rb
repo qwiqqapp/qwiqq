@@ -79,7 +79,7 @@ class DealsController < ApplicationController
     # For redirecting the customer to the actual paypal site to finish the payment.
     redirect_to (gateway.redirect_url_for(response["payKey"]))
   else
-    format.html { redirect_to request.referer, :notice => 'This post is sold out.' }
+    redirect_to deal_url(deal), :flash => { :success => "This post is sold out!" }
   end
    
   end
