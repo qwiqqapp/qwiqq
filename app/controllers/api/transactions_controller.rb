@@ -130,11 +130,9 @@ class Api::TransactionsController < Api::ApiController
             
             #Mailer.deal_purchased(email, @deal, @transaction).deliver
             puts 'transaction doesnt look like a repeat so we emailed the user'
-
-            
+            puts 'TEST paypal_transaction_id= for nil:NilClass'
+            @transaction.paypal_transaction_id = theID if theID != nil
           end
-          puts 'TEST paypal_transaction_id= for nil:NilClass'
-          @transaction.paypal_transaction_id = theID if theID != nil
         end
         
       else
