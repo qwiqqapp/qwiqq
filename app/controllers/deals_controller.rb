@@ -43,7 +43,7 @@ class DealsController < ApplicationController
   
   def purchase
     deal = Deal.find(params[:id])
-    if deal.num_left_for_sale > 0
+    if deal.num_left_for_sale < 0
       puts "AJAX WORKED PARAMS#{deal.price}"
       gateway =  ActiveMerchant::Billing::PaypalAdaptivePayment.new( 
                     :login => "john_api1.qwiqq.me",
