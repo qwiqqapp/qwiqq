@@ -133,7 +133,7 @@ class Api::TransactionsController < Api::ApiController
 
             
           end
-          
+          puts 'TEST paypal_transaction_id= for nil:NilClass'
           @transaction.paypal_transaction_id = theID if theID != nil
         end
         
