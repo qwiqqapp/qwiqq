@@ -4,7 +4,7 @@
 
 #post
   .container
-    - unless flash[:notice].empty?
+    - if flash[:notice]
       :javascript
         alert("#{flash[:notice]}");
     #info
