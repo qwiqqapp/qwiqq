@@ -4,9 +4,9 @@
 
 #post
   .container
-    = javascript_tag "alert("Welcome to Qwiqq!")"
-    - if flash[:notice]
-      .notice= flash[:notice]
+    - unless flash[:notice].empty?
+      :javascript
+        alert("#{flash[:notice]}");
     #info
       %a{ :href => user_url(@deal.user) }
         %img.user-photo{ :src => @deal.user.photo.url(:iphone2x), :width => "120", :height => "120" }
