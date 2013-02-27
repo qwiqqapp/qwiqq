@@ -15,6 +15,7 @@ gem "pg", "0.11.0"
 gem "bcrypt-ruby"
 gem "activerecord-import","0.3.0"
 gem "coffee-rails"
+gem 'coffee-script-source', '~> 1.4.0' # ADD THIS LINE, 1.5.0 doesn't compile ActiveAdmin JavaScript files
 
 # views
 gem "haml-rails", "~> 0.3.5" #DO NOT UPGRADE, PREPARE FOR THIS TO BREAK HARD
