@@ -1,4 +1,4 @@
-test:
+sudo port intest:
   address: ec2-23-22-6-59.compute-1.amazonaws.com
   port: 9352
 

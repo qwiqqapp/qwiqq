@@ -1,23 +1,23 @@
 source "http://rubygems.org"
 
 # hosting
-gem 'aws-sdk'
+gem 'aws-sdk',"1.8.1.2"
 
 # performance
 gem 'newrelic_rpm'
 
 # base
-gem "rails", "3.2.11"
+gem "rails", "3.2.12"
 gem "railties"
 gem "actionpack"
 gem "rake"
 gem "pg", "0.11.0"
 gem "bcrypt-ruby"
-gem "activerecord-import"
+gem "activerecord-import","0.3.0"
 gem "coffee-rails"
 
 # views
-gem "haml-rails"
+gem "haml-rails", "~> 0.3.5" #DO NOT UPGRADE, PREPARE FOR THIS TO BREAK HARD
 gem "htmlentities"
 
 # images
@@ -56,7 +56,7 @@ gem "postmark-rails", "0.4.0"
 # admin
 gem "activeadmin"
 gem "jquery-rails"
-gem "sass-rails"
+gem "sass-rails", "~> 3.2.5"
 gem "meta_search",    '>= 1.1.0.pre'
 
 # memcached
