@@ -42,24 +42,34 @@
           %img.post-photo{ :src => @deal.photo(:iphone_zoom_2x), :width => "504", :height => "504" }
           .clearfix{:style => "height:auto;"}
             .name= auto_link(@deal.name)
-            - if @deal.for_sale_on_paypal? 
+            - if @deal.for_sale_on_paypal?
               %div{:style => "position:relative;width:100%;margin-top:12px;"}
                 %a{:href => "#{@deal.id}/purchase", ":data-remote" => 'true'}
                   %img{:src =>image_path("buy-button.png")}
                   %span.dollars-large{:style => "position:absolute;top:8px;left:20px;font-size:26px;"}= @deal.price_as_string
-                %span.quantity  
-                  - if @deal.num_left_for_sale > 0
-                    ="#{@deal.num_left_for_sale}"
-                    %br
-                    left
-                  - else
-                    .sold 
-                      Sold Out
+                - if @deal.for_sale_on_paypal?
+                  %span.quantity  
+                    - if @deal.num_left_for_sale > 0
+                      ="#{@deal.num_left_for_sale}"
+                      %br
+                      left
+                    - else
+                      .sold 
+                        Sold Out
             - else
               .price
                 .hole
                 %span.dollars-large{:style=> ""}= @deal.price_as_string
-                
+                - if @deal.for_sale_on_paypal?
+                  %span.quantity  
+                    - if @deal.num_left_for_sale > 0
+                      ="#{@deal.num_left_for_sale}"
+                      %br
+                      left
+                    - else
+                      .sold 
+                        Sold Out
+                        
       - unless @deal.lat == 0.0 && @deal.lon == 0.0
         - unless @deal.venue_or_location_name.blank? || @deal.venue_or_location_name == "" || @deal.venue_or_location_name.nil?
           #location
