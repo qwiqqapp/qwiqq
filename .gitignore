@@ -19,3 +19,5 @@ config/heroku_env.rb
 vendor/bundle
 public/assets
 /nbproject/private/
+# Ignore application configuration
+/config/application.yml

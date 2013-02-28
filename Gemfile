@@ -6,6 +6,9 @@ gem 'aws-sdk',"1.8.1.2"
 # performance
 gem 'newrelic_rpm'
 
+#env variables
+gem 'figaro'
+
 # base
 gem "rails", "3.2.12"
 gem "railties"

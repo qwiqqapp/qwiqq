@@ -57,9 +57,10 @@
                       .sold 
                         Sold Out
             - else
-              .price
-                .hole
-                %span.dollars-large{:style=> ""}= @deal.price_as_string
+              %div{:style => "position:relative;width:100%;margin-top:12px;"}
+                .price
+                  .hole
+                  %span.dollars-large{:style=> ""}= @deal.price_as_string
                 - if @deal.for_sale_on_paypal?
                   %span.quantity  
                     - if @deal.num_left_for_sale > 0
@@ -67,7 +68,7 @@
                       %br
                       left
                     - else
-                      .sold 
+                      .sold{:style=>"margin-top:16px !important"}
                         Sold Out
                         
       - unless @deal.lat == 0.0 && @deal.lon == 0.0
