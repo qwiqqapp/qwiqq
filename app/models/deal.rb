@@ -232,6 +232,14 @@ class Deal < ActiveRecord::Base
     t
   end
 
+  def mail_share_message
+    meta << "BUY NOW " if self.for_sale_on_paypal && self.num_left_for_sale > 0
+    meta << self.price_as_string if self.price
+    meta << " #{Rails.application.routes.url_helpers.deal_url(self, :host => "qwiqq.me")}"
+    t = "#{name.truncate(138 - meta.size)} #{meta}"
+    puts "SHARE_MESSAGE:#{t}"
+    t
+  end
 
   # Search deals.
   #
