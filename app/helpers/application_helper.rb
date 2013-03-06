@@ -4,10 +4,10 @@ module ApplicationHelper
     url = "http://pinterest.com/pin/create/button/"
     url << "?url=#{deal_url(deal)}"
     url << "&media=#{deal.photo.url(:iphone_zoom_2x)}"
-    url << "&description=#{CGI::escape(deal.name.titleize)} #shopsmall"
+    #url << "&description=shop#small"
+    url << "&description=#{CGI::escape(deal.name.titleize)} #{CGI::escape('#shopsmall')}"
     url << " BUY NOW" if deal.for_sale_on_paypal && deal.num_left_for_sale > 0
     url << " #{deal.price_as_string}" if deal.price
-    url << " via Qwiqq.me"
     url
   end
   
@@ -15,10 +15,9 @@ module ApplicationHelper
     url = "http://pinterest.com/pin/create/button/"
     url << "?url=#{deal_url(deal)}"
     url << "&media=#{deal.photo.url(:iphone_zoom_2x)}"
-    url << "&description=I just sold this on @Qwiqq! #{CGI::escape(deal.name.titleize)} #shopsmall"
+    url << "&description=I just sold this on @Qwiqq! #{CGI::escape(deal.name.titleize)} #{CGI::escape('#shopsmall')}"
     url << " BUY NOW" if deal.for_sale_on_paypal && deal.num_left_for_sale > 0
     url << " #{deal.price_as_string}" if deal.price
-    url << " via Qwiqq.me"
     url
   end
   
@@ -26,10 +25,9 @@ module ApplicationHelper
     url = "http://pinterest.com/pin/create/button/"
     url << "?url=#{deal_url(deal)}"
     url << "&media=#{deal.photo.url(:iphone_zoom_2x)}"
-    url << "&description=I just bought this on @Qwiqq! #{CGI::escape(deal.name.titleize)} #shopsmall"
+    url << "&description=I just bought this on @Qwiqq! #{CGI::escape(deal.name.titleize)} #{CGI::escape('#shopsmall')}"
     url << " BUY NOW" if deal.for_sale_on_paypal && deal.num_left_for_sale > 0
     url << " #{deal.price_as_string}" if deal.price
-    url << " via Qwiqq.me"
     url
   end
   
@@ -67,7 +65,7 @@ module ApplicationHelper
     when "like"
       "#{linked_name} loved this"
     when "comment"
-      "#{linked_name} said \"#{event.metadata[:body]}\""
+      "#{linked_name} said #{event.metadata[:body]}"
     when "sold"
       "Yeah! Sold another one!"
     when "share"

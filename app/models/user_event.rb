@@ -118,7 +118,7 @@ class UserEvent < ActiveRecord::Base
       if !created_user.nil?
         created_link = "<a href='http://www.qwiqq.me/users/#{created_user.id}'>@#{created_user.username}</a>"
       end
-    comment_body = "#{created_link} said \"#{comment_body}\""
+    comment_body = "#{created_link} said #{comment_body}"
     puts "FINAL COMMENT_BODY:#{comment_body}"
     comment_body
   end

@@ -55,11 +55,13 @@ namespace :mail do
   end
   
   task :send_michael => :environment do
-    u = User.find("13152")
-    u_join = User.find("13042")
-    fb_name = 'Michael Scaria'
-    Mailer.facebook_push(u_join, u, fb_name).deliver
+    user = User.find("13042")
+    transaction = Transaction.first
+    deal = transaction.deal
+    Mailer.deal_purchased(user.email, deal, transaction).deliver
+    Mailer.deal_sold(user.email, deal, transaction).deliver
     puts "Finished Rake"
+    
   end 
   
   task :send_brandon => :environment do
