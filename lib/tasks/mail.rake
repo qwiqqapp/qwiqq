@@ -58,8 +58,8 @@ namespace :mail do
     user = User.find("13042")
     transaction = Transaction.first
     deal = transaction.deal
-    Mailer.deal_purchased(user, deal, transaction).deliver
-    Mailer.deal_sold(user, deal, transaction).deliver
+    Mailer.deal_purchased(user.email, deal, transaction).deliver
+    Mailer.deal_sold(user.email, deal, transaction).deliver
     puts "Finished Rake"
     
   end 
