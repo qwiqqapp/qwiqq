@@ -65,7 +65,7 @@ module ApplicationHelper
     when "like"
       "#{linked_name} loved this"
     when "comment"
-      "#{linked_name} said \"#{event.metadata[:body]}\""
+      "#{linked_name} said #{event.metadata[:body]}"
     when "sold"
       "Yeah! Sold another one!"
     when "share"
