@@ -47,7 +47,9 @@ html, body {
 }
 
 .container {
-  width: 58em;/*$cols12;*/
+  
+  /*width: 58em;*//*$cols12;*/
+  width: 53em;
   margin: 0 auto;
 }
 
@@ -713,6 +715,10 @@ p.empty-deals{
   box-shadow: 0px 0px 6px #8c8c8c;
 }
 
+.post {
+  width:586px;
+}
+
 .post .details .name {
   font-size: 22px;
   margin-top: 20px;
@@ -773,6 +779,7 @@ p.empty-deals{
 
 .post .metadata .location {
   float: left;
+  margin-left:-18px;
 }
 
 .post .metadata .location .icon {
