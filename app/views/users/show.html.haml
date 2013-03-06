@@ -9,10 +9,11 @@
       .username= "@#{@user.username}"
       .location= @user.location
       .bio= auto_link(@user.bio)
-      - if @user.phone.length>0
-        .phone{:style=>'margin-top:10px;'}
-          %a{ :href => "tel:#{@user.phone}" }
-          = "Phone: #{@user.phone}"
+      - if @user.phone
+        - if @user.phone.length>0
+          .phone{:style=>'margin-top:10px;'}
+            %a{ :href => "tel:#{@user.phone}" }
+            = "Phone: #{@user.phone}"
       .stat
         .num= @user.deals_count
         = @user.deals_count == 1 ? 'post' : 'posts'
