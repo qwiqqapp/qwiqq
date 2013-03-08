@@ -47,10 +47,16 @@ html, body {
 }
 
 .container {
-  width: 58em;/*$cols12;*/
+  
+  /*width: 58em;*//*$cols12;*/
+  width: 53em;
   margin: 0 auto;
 }
 
+#posts {
+  width:57.5em;
+  margin-left:-2.25em;
+}
 
 .container-narrow {
   width: $cols8;
@@ -713,6 +719,10 @@ p.empty-deals{
   box-shadow: 0px 0px 6px #8c8c8c;
 }
 
+.post {
+  width:586px;
+}
+
 .post .details .name {
   font-size: 22px;
   margin-top: 20px;
@@ -772,7 +782,12 @@ p.empty-deals{
 }
 
 .post .metadata .location {
+<<<<<<< HEAD
   float: right;
+=======
+  float: left;
+  margin-left:-18px;
+>>>>>>> e5a2ae2c3be15098788a480c0714b9ce9473e039
 }
 
 .post .metadata .location .icon {
