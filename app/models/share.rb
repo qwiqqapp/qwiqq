@@ -138,7 +138,7 @@ class Share < ActiveRecord::Base
   #<optional message> <post name> #shopsmall BUY NOW <price> <url link>
   def formatted_message
     message = ""
-    message << "@#{self.user.username}: " if service == "sms"
+    message << "@#{self.user.username} sent you a Qwiqq post: " if service == "sms"
     message << "#{self.message} - " unless self.message.blank?
     message << "#{deal.name}"
     message << "#shopsmall " if service == "twitter"
