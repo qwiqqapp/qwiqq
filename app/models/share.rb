@@ -135,10 +135,20 @@ class Share < ActiveRecord::Base
   # SMS: Adam:  sweet - Qwiqq Coupon! The best bubble tea ever! #coupon $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259
   
   
+  #<optional message> <post name> #shopsmall BUY NOW <price> <url link>
   def formatted_message
-    base = message_base
-    meta = message_meta
-    "#{base.truncate(138 - meta.length)} #{meta}"
+    message = ""
+    message << "@#{self.user.username}: " if service == "sms"
+    message << "#{self.message} - " unless self.message.blank?
+    message << "#{deal.name}"
+    message << "#shopsmall " if service == "twitter"
+    message << "BUY NOW " if deal.for_sale_on_paypal
+    message << deal.price_as_string || ""
+    unless service == "email"
+      url = Rails.application.routes.url_helpers.deal_url(self.deal, :host => "qwiqq.me")
+      message << "#{url}"     
+    end
+    message
   end
   
   private
@@ -147,17 +157,18 @@ class Share < ActiveRecord::Base
     self.message = formatted_message
   end
   
-  # construct message base string, example: Yummy! The best bubble tea ever!
+  # construct message base string, example: Yummy! The best bubble tea ever! - DEPRECATED THIS ISN"T NEEDED ANYMORE"
   def message_base
     base = ""
     base << "@#{self.user.username}: " if service == "sms"
-    base << "" if deal.for_sale_on_paypal
     base << "#{self.message} - " unless self.message.blank?
+
+    base << "" if deal.for_sale_on_paypal
     base << "Qwiqq Coupon! " if self.deal.coupon?
     base << "#{deal.name}"
   end
   
-  # construct message meta string, example: $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259
+  # construct message meta string, example: $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259 - DEPRECATED THIS ISN"T NEEDED ANYMORE"
   def message_meta
     url = Rails.application.routes.url_helpers.deal_url(self.deal, :host => "qwiqq.me")
     meta = ''
@@ -165,9 +176,7 @@ class Share < ActiveRecord::Base
       meta << "BUY NOW: "
     end
     meta << deal.price_as_string || ""
-    if deal.foursquare_venue_name && service != "foursquare" && deal.foursquare_venue_name != "Approximate Location"
-      meta << " @ #{deal.foursquare_venue_name}"
-    end
+
     meta << " #{url}" unless service == 'email'# || service == 'twitter' || service == 'sms' || service == 'foursquare'
     #if Rails.env.production?
     #  meta << " #{shorten_with_bitly(url)}"  if service == 'twitter' || service == 'sms' || service == 'foursquare'
