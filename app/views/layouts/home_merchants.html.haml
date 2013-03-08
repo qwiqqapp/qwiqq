@@ -15,12 +15,12 @@
     %meta(property="og:description" content="A fun way to share the things you love to buy.")
     %meta(property="og:image" content="#{root_url.chomp('/')}#{asset_path('qwiqq-logo-merchants.png')}")
     %meta(property="og:url" content=root_url)
-    %meta{:content => "width = 380", :name => "viewport"}
+    %meta{:content => "width = 400", :name => "viewport"}
     :javascript
       if (screen.width < 700) {
         var mvp = document.getElementById('resizeViewport');
-        mvp.setAttribute('content','width=850');
-        mvp.setAttribute('content','initial-scale=.38');
+        mvp.setAttribute('content','width=950');
+        mvp.setAttribute('content','initial-scale=.34');
       }
 
 %body{ :class => "#{controller_name} #{action_name}" }
