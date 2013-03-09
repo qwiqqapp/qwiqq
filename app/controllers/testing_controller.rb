@@ -12,6 +12,11 @@ class TestingController < ApplicationController
     #     :tag => "voucher",
     #     :subject => "You just bought something on Qwiqq!",
     #     :template_name => 'deal_purchased' 
+        user = User.find("13042")
+    transaction = Transaction.first
+    deal = transaction.deal
+    Mailer.deal_purchased(user.email, deal, transaction).deliver
+    Mailer.deal_sold(user.email, deal, transaction).deliver
     render layout: 'deal_purchased'
   end
   

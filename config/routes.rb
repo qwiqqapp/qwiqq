@@ -29,6 +29,7 @@ Qwiqq::Application.routes.draw do
   match 'mailers/deal_purchased' => 'testing#deal_purchased'
   match 'mailers/deal_sold' => 'testing#deal_sold'
   
+  
   # iphone routes
   match "iphone/about",   :to => "home#about",    :as => :iphone_about
   match "iphone/terms",   :to => "home#terms",    :as => :iphone_terms
