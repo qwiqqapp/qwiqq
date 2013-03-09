@@ -5,13 +5,6 @@ class DealsController < ApplicationController
   # TODO either cache action or memoize @deals 
   def index
     @deals = Deal.premium.recent.sorted.popular.first(9)
-        puts 'TESTING THE EMAILS IN BETA'
-        user = User.find("13042")
-    transaction = Transaction.first
-    deal = transaction.deal
-    Mailer.deal_purchased(user.email, deal, transaction).deliver
-    Mailer.deal_sold(user.email, deal, transaction).deliver
-    Mailer.share_deal(user.email, Share.first).deliver
     render layout: 'home'
   end
   
