@@ -12,6 +12,7 @@ class TestingController < ApplicationController
     #     :tag => "voucher",
     #     :subject => "You just bought something on Qwiqq!",
     #     :template_name => 'deal_purchased' 
+    puts 'TESTING THE EMAILS IN BETA'
         user = User.find("13042")
     transaction = Transaction.first
     deal = transaction.deal
