@@ -17,6 +17,7 @@ class TestingController < ApplicationController
     deal = transaction.deal
     Mailer.deal_purchased(user.email, deal, transaction).deliver
     Mailer.deal_sold(user.email, deal, transaction).deliver
+    Mailer.share_deal(user.email, Share.first).deliver
     render layout: 'deal_purchased'
   end
   
