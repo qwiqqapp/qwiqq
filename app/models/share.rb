@@ -140,10 +140,10 @@ class Share < ActiveRecord::Base
     message = ""
     message << "@#{self.user.username} sent you a Qwiqq post: " if service == "sms"
     message << "#{self.message} - " unless self.message.blank?
-    message << "#{deal.name}"
+    message << "#{deal.name} "
     message << "#shopsmall " if service == "twitter"
     message << "BUY NOW " if deal.for_sale_on_paypal
-    message << deal.price_as_string || ""
+    message << "#{deal.price_as_string} " || ""
     unless service == "email"
       url = Rails.application.routes.url_helpers.deal_url(self.deal, :host => "qwiqq.me")
       message << "#{url}"     
