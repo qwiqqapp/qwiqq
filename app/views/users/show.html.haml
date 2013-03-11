@@ -60,7 +60,7 @@
 
               .metadata
                 - unless deal.venue_or_location_name.blank? || deal.venue_or_location_name == "" || deal.venue_or_location_name.nil?
-                  .location
+                  .location{:style=>"word-wrap:normal; width:69%; line-height:1.4em;"}
                     %img.icon{ :src => image_path("location-icon.png") }
                     %span= deal.venue_or_location_name 
                 .stats
