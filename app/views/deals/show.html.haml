@@ -81,9 +81,9 @@
               - else
                 %div{:style => "margin-left: 42px; padding-top: 9px; text-shadow:#808080 1px 1px 1px; color: #fff;"}
                   .venue
-                  %p= @deal.foursquare_venue_name
+                    %p= @deal.foursquare_venue_name
                   .address
-                  %p= @deal.location_name
+                    %p= @deal.location_name
 
             #map
               %a{ :href => "http://maps.google.com/?q=#{@deal.lat},#{@deal.lon}" }
