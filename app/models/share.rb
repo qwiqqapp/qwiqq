@@ -123,7 +123,7 @@ class Share < ActiveRecord::Base
       :metadata => { :service => service })
   end
   
-  # messages for posts without coupons
+  # messages for posts without coupons - DEPRECATED
   # [sender:] <personal comment> <deal.name> <deal.price> @ [deal.foursquare_venue_name] <deal_url>
   # Twitter:    sweet - The best bubble tea ever! Buy Now: $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259
   # Foursquare: sweet - The best bubble tea ever! Buy Now: $5.99 http://qwiqq.me/posts/2259
