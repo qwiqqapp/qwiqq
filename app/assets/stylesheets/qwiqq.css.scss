@@ -786,21 +786,21 @@ p.empty-deals{
   margin-left:-18px;
 }
 
-.post .metadata .venue {
+#post #slider .venue {
   margin-top: -6px; 
   font-size:23px
 }
 
-.post .metadata .address {
+#post #slider .address {
   margin-top: -6px;
   font-size: 17px;
 }
 
 @media screen and (max-device-width: 400px) and (orientation: portrait) {
-  .post .metadata .venue {
+  #post #slider .venue {
     font-size: 16px;
   }
-  .post .metadata .address {
+  #post #slider .address {
     font-size: 13px;
   }
 }
