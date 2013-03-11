@@ -772,20 +772,6 @@ p.empty-deals{
   font-size: 18px;
 }
 
-.post .metadata {
-  margin-bottom: 20px;
-  padding: 10px 24px;
-  color: #7d6f60;
-  font-size: 16px;
-  font-weight: 300;
-  overflow: hidden;
-}
-
-.post .metadata .location {
-  float: left;
-  margin-left:-18px;
-}
-
 #post #slider .venue {
   margin-top: -6px; 
   font-size:23px
@@ -804,6 +790,20 @@ p.empty-deals{
     font-size: 13px;
   }
 }
+
+.post .metadata {
+  margin-bottom: 20px;
+  padding: 10px 24px;
+  color: #7d6f60;
+  font-size: 16px;
+  font-weight: 300;
+  overflow: hidden;
+}
+
+.post .metadata .location {
+  float: left;
+}
+
 .post .metadata .location .icon {
   position: relative;
   top: 5px;
@@ -815,6 +815,7 @@ p.empty-deals{
   position: relative;
   top: 2px;
   float: right;
+  margin-right:18px;
 }
 
 .post .metadata .stat {
