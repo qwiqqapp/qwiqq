@@ -61,6 +61,12 @@ namespace :mail do
     Mailer.deal_purchased(user.email, deal, transaction).deliver
     Mailer.deal_sold(user.email, deal, transaction).deliver
     puts "Finished Rake"
+  end 
+  
+  task :escape => :environment do
+    deal = Deal.find("11771")
+    puts "#{ERB::Util.url_encode("I just bought this on Qwiqq! #{deal.name} BUY NOW #{deal.price_as_string}")}"
+    puts "Finished Rake"
     
   end 
   
