@@ -72,7 +72,7 @@
                   = image_tag "email/twitter.png"
                 = link_to pinterest_url_for_sold(@deal), :style => "text-decoration: none; border: none" do
                   = image_tag "email/pinterest.png"
-                = link_to "mailto:?subject=:I just sold this on Qwiqq!&body=#{ERB::Util.url_encode("I just sold this on Qwiqq! #{@deal.name} BUY NOW #{@deal.price_as_string} #{deal_url(@deal)}")}", :style => "text-decoration: none; border: none" do
+                = link_to "mailto:?subject=#{ERB::Util.url_encode("I just sold this on Qwiqq!")}&body=#{ERB::Util.url_encode("I just sold this on Qwiqq! #{@deal.name} BUY NOW #{@deal.price_as_string} #{deal_url(@deal)}")}", :style => "text-decoration: none; border: none" do
                   = image_tag "email/email.png"
             %tr
               %td{:style => "text-align:center; padding-top:0px"}
