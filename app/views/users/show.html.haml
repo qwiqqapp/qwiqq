@@ -41,9 +41,6 @@
                   .name= auto_link(deal.name)
                   - if deal.for_sale_on_paypal?
                     %div{:style => "position:relative;width:100%;margin-top:12px;"}
-                      %input{:type=>"image", :src=>image_path("buy-button.png"), :onclick=>"window.location.href='#{deal.id}/purchase';return;"}
-                        -#%img{:src =>image_path("buy-button.png")}
-                        text
                       %a{:href => "#{deal.id}/purchase", ":data-remote" => 'true'}
                         %img{:src =>image_path("buy-button.png")}
                         %span.dollars-large{:style => "position:absolute;top:6px;left:20px;font-size:26px;"}= deal.price_as_string
