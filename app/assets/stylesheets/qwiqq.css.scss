@@ -796,7 +796,7 @@ p.empty-deals{
   font-size: 17px;
 }
 
-@media screen and (max-device-width: 600px) and (orientation: portrait) {
+@media screen and (max-device-width: 400px) and (orientation: portrait) {
   .post .metadata .venue {
     font-size: 16px;
   }
