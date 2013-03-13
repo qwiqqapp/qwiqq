@@ -9,7 +9,7 @@ module ApplicationHelper
     if deal.for_sale_on_paypal 
       if deal.num_left_for_sale > 0
         url << " BUY NOW" 
-      elsif deal.num_left_for_sale == 0
+      else if deal.num_left_for_sale == 0
         url << " SOLD OUT" 
       end
     end
@@ -25,7 +25,7 @@ module ApplicationHelper
     if deal.for_sale_on_paypal 
       if deal.num_left_for_sale > 0
         url << " BUY NOW" 
-      elsif deal.num_left_for_sale == 0
+      else if deal.num_left_for_sale == 0
         url << " SOLD OUT" 
       end
     end
@@ -42,7 +42,7 @@ module ApplicationHelper
     if deal.for_sale_on_paypal 
       if deal.num_left_for_sale > 0
         url << " BUY NOW" 
-      elsif deal.num_left_for_sale == 0
+      else if deal.num_left_for_sale == 0
         url << " SOLD OUT" 
       end
     end
