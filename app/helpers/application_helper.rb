@@ -10,7 +10,7 @@ module ApplicationHelper
       if deal.num_left_for_sale > 0
         url << " BUY NOW" 
       elsif deal.num_left_for_sale == 0
-        url << " Sold Out" 
+        url << " SOLD OUT" 
       end
     end
     url << " #{deal.price_as_string}" if deal.price
@@ -26,7 +26,7 @@ module ApplicationHelper
       if deal.num_left_for_sale > 0
         url << " BUY NOW" 
       elsif deal.num_left_for_sale == 0
-        url << " Sold Out" 
+        url << " SOLD OUT" 
       end
     end
     
@@ -43,7 +43,7 @@ module ApplicationHelper
       if deal.num_left_for_sale > 0
         url << " BUY NOW" 
       elsif deal.num_left_for_sale == 0
-        url << " Sold Out" 
+        url << " SOLD OUT" 
       end
     end
     url << " #{deal.price_as_string}" if deal.price
