@@ -224,7 +224,13 @@ class Deal < ActiveRecord::Base
   #new message - <post name> #shopsmall BUY NOW(if paypal) <price> <url link>
   def share_message
     meta = "#shopsmall "
-    meta << "BUY NOW " if self.for_sale_on_paypal && self.num_left_for_sale > 0
+    if self.for_sale_on_paypal 
+      if self.num_left_for_sale > 0
+        meta << " BUY NOW" 
+      elsif self.num_left_for_sale == 0
+        meta << " SOLD OUT" 
+      end
+    end
     meta << self.price_as_string if self.price
     meta << " #{Rails.application.routes.url_helpers.deal_url(self, :host => "qwiqq.me")}"
     t = "#{name.truncate(138 - meta.size)} #{meta}"
@@ -233,7 +239,13 @@ class Deal < ActiveRecord::Base
   
   def share_message_without_hashtag
     meta = ""
-    meta << "BUY NOW " if self.for_sale_on_paypal && self.num_left_for_sale > 0
+    if self.for_sale_on_paypal 
+      if self.num_left_for_sale > 0
+        meta << " BUY NOW" 
+      elsif self.num_left_for_sale == 0
+        meta << " SOLD OUT" 
+      end
+    end
     meta << self.price_as_string if self.price
     meta << " #{Rails.application.routes.url_helpers.deal_url(self, :host => "qwiqq.me")}"
     t = "#{name.truncate(138 - meta.size)} #{meta}"
