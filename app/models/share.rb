@@ -142,7 +142,13 @@ class Share < ActiveRecord::Base
     message << "#{self.message} - " unless self.message.blank?
     message << "#{deal.name} "
     message << "#shopsmall " if service == "twitter"
-    message << "BUY NOW " if deal.for_sale_on_paypal
+    if deal.for_sale_on_paypal 
+      if deal.num_left_for_sale > 0
+        message << "BUY NOW " 
+      elsif deal.num_left_for_sale == 0
+        message << "SOLD OUT " 
+      end
+    end
     message << "#{deal.price_as_string} " || ""
     unless service == "email"
       url = Rails.application.routes.url_helpers.deal_url(self.deal, :host => "qwiqq.me")
@@ -172,8 +178,12 @@ class Share < ActiveRecord::Base
   def message_meta
     url = Rails.application.routes.url_helpers.deal_url(self.deal, :host => "qwiqq.me")
     meta = ''
-    if deal.for_sale_on_paypal
-      meta << "BUY NOW: "
+    if deal.for_sale_on_paypal 
+      if deal.num_left_for_sale > 0
+        meta << "BUY NOW " 
+      elsif deal.num_left_for_sale == 0
+        meta << "SOLD OUT " 
+      end
     end
     meta << deal.price_as_string || ""
 
