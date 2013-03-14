@@ -30,7 +30,7 @@
 
     #share
       %a#facebook{ :href => "https://www.facebook.com/dialog/feed?app_id=236767206341724&link=#{deal_url(@deal)}&picture=#{@deal.photo(:iphone_zoom_2x)}&name=Qwiqq&caption=get.qwiqq.me&description=#{CGI::escape(@deal.share_message_without_hashtag)}&redirect_uri=#{deal_url(@deal)}", :target => "_blank" }
-      %a#twitter{ :href => "http://twitter.com/home?status=#{CGI::escape('I’m using @Qwiqq to sell stuff socially! http://get.qwiqq.me')}", :target => "_blank" }
+      %a#twitter{ :href => "http://twitter.com/home?status=#{CGI::escape(@deal.share_message)}", :target => "_blank" }
       %a#pinterest{ :href => pinterest_url_for(@deal), :target => "_blank" } 
       %a#email{ :href => "mailto:?subject=#{ERB::Util.url_encode('Hold up! Check out this post on Qwiqq!')}&body=#{ERB::Util.url_encode(@deal.share_message_without_hashtag)}", :target => "_blank" }
                                           
