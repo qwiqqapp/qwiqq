@@ -241,9 +241,9 @@ class Deal < ActiveRecord::Base
     meta = ""
     if self.for_sale_on_paypal 
       if self.num_left_for_sale > 0
-        meta << " BUY NOW " 
+        meta << "BUY NOW " 
       elsif self.num_left_for_sale == 0
-        meta << " SOLD OUT " 
+        meta << "SOLD OUT " 
       end
     end
     meta << self.price_as_string if self.price
