@@ -233,9 +233,9 @@ class Deal < ActiveRecord::Base
     end
     meta << self.price_as_string if self.price
     meta << " #{Rails.application.routes.url_helpers.deal_url(self, :host => "qwiqq.me")}"
-    puts "3TEST SHARE MESSAGE BEFORE TRUNCATE:#{meta} WITH NAME:#{self.name}"
+    puts "4TEST SHARE MESSAGE BEFORE TRUNCATE:#{meta} WITH NAME:#{self.name}"
     t = "#{self.name.truncate(138 - meta.size)} #{meta}"
-    puts "3TEST SHARE MESSAGE:#{t}"
+    puts "4TEST SHARE MESSAGE:#{t}"
     t
   end
   
