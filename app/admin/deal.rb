@@ -139,6 +139,6 @@ ActiveAdmin.register Deal do
   end
     
   sidebar "Details (raw data)", :only => :show do
-    attributes_table_for deal, :name, :price, :lat, :lon,  :likes_count, :comments_count, :premium, :created_at, :updated_at, :coupon, :coupon_count, :number_users_shared, :for_sale_on_paypal, :num_for_sale, :num_left_for_sale
+    attributes_table_for deal, :name, :price, :lat, :lon,  :likes_count, :comments_count, :premium, :created_at, :updated_at, :coupon, :coupon_count, :number_users_shared, :for_sale_on_paypal, :num_for_sale, :num_left_for_sale, :hidden
   end
 end
