@@ -16,6 +16,16 @@ class DealsController < ApplicationController
   def show
     @deal = find_deal
     @events = @deal.events
+    
+    puts 'getting ready for the show!'
+    
+    puts @deal.hidden
+    
+    if @deal.hidden
+      puts 'should render 404...'
+      raise ActionController::RoutingError.new('Not Found')
+    end
+    
   end
 
   # the geoip service was not accurate enough so using suggested users posts as stopgap
