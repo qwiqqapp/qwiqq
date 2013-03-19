@@ -75,6 +75,7 @@ ActiveAdmin.register Deal do
     column :for_sale_on_paypal
     column :num_for_sale
     column :num_left_for_sale
+    column :hidden
     
     default_actions
   end
@@ -93,6 +94,7 @@ ActiveAdmin.register Deal do
      f.input :for_sale_on_paypal
      f.input :num_for_sale
      f.input :num_left_for_sale
+     f.input :hidden
    end
    
    f.inputs "Location" do
