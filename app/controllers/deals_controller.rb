@@ -22,7 +22,8 @@ class DealsController < ApplicationController
     puts @deal.hidden
     
     if @deal.hidden
-      render :status => 404
+      puts 'should render 404...'
+      raise ActionController::RoutingError.new('Not Found')
     end
     
   end
