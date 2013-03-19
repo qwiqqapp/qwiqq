@@ -92,7 +92,6 @@ class UserEvent < ActiveRecord::Base
   def mentioned_users
     body = metadata[:body].scan(/@([\w-]+)/)
     if body.empty?
-      puts "there aren't any mentioned users for this event:#{metadata[:body]}"
       false
     else
       true

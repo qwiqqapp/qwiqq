@@ -34,7 +34,6 @@
       %a#pinterest{ :href => pinterest_url_for(@deal), :target => "_blank" } 
       %a#email{ :href => "mailto:?subject=#{ERB::Util.url_encode('Hold up! Check out this post on Qwiqq!')}&body=#{ERB::Util.url_encode(@deal.share_message_without_hashtag)}", :target => "_blank" }
                                           
-      
     #slider
       %img.arrow-left{ :src => image_path("arrow-left.png") }
       .post

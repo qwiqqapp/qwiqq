@@ -225,7 +225,6 @@ class Deal < ActiveRecord::Base
   # construct message base string, example: The best bubble tea ever! $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259  DEPRECATED
   #new message - <post name> #shopsmall BUY NOW(if paypal) <price> <url link>
   def share_message
-    puts "5BEGIN SHARE MESSAGE WITH NAME:#{self.name}"
     meta = "#shopsmall "
     if self.for_sale_on_paypal 
       if self.num_left_for_sale > 0
@@ -236,9 +235,7 @@ class Deal < ActiveRecord::Base
     end
     meta << self.price_as_string if self.price
     meta << " #{Rails.application.routes.url_helpers.deal_url(self, :host => "qwiqq.me")}"
-    puts "5TEST SHARE MESSAGE BEFORE TRUNCATE:#{meta} WITH NAME:#{self.name}"
-    t = "#{self.name.truncate(138 - meta.size)} #{meta}"
-    puts "5TEST SHARE MESSAGE:#{t}"
+    t = "#{name.truncate(138 - meta.size)} #{meta}"
     t
   end
   
@@ -479,12 +476,11 @@ class Deal < ActiveRecord::Base
   end
   
   def meta_content
-    c = self.name
+    c = self.name.clone
     c << " #shopsmall"
     c << " BUY NOW" if self.for_sale_on_paypal && self.num_left_for_sale > 0
     c << " #{self.price_as_string}" if self.price
     c << " #{Rails.application.routes.url_helpers.deal_url(self, :host => "qwiqq.me")}"
-    puts "META_CONTENT:#{c}"
     c
   end
   def async_locate

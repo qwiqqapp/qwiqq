@@ -72,7 +72,6 @@ module ApplicationHelper
   end
 
   def event_body(event)
-    puts "EVENT TYPE:#{event.event_type}"
     linked_name = "@#{event.created_by.username}"
     user = User.find(:first, :conditions => [ "lower(username) = ?", event.created_by.username.downcase ])
     if !user.nil?
