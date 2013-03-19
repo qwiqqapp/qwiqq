@@ -223,6 +223,7 @@ class Deal < ActiveRecord::Base
   # construct message base string, example: The best bubble tea ever! $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259  DEPRECATED
   #new message - <post name> #shopsmall BUY NOW(if paypal) <price> <url link>
   def share_message
+    puts "5BEGIN SHARE MESSAGE WITH NAME:#{self.name}"
     meta = "#shopsmall "
     if self.for_sale_on_paypal 
       if self.num_left_for_sale > 0
@@ -233,9 +234,9 @@ class Deal < ActiveRecord::Base
     end
     meta << self.price_as_string if self.price
     meta << " #{Rails.application.routes.url_helpers.deal_url(self, :host => "qwiqq.me")}"
-    puts "4TEST SHARE MESSAGE BEFORE TRUNCATE:#{meta} WITH NAME:#{self.name}"
+    puts "5TEST SHARE MESSAGE BEFORE TRUNCATE:#{meta} WITH NAME:#{self.name}"
     t = "#{self.name.truncate(138 - meta.size)} #{meta}"
-    puts "4TEST SHARE MESSAGE:#{t}"
+    puts "5TEST SHARE MESSAGE:#{t}"
     t
   end
   
