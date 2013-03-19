@@ -137,6 +137,7 @@ class Share < ActiveRecord::Base
   
   #<optional message> <post name> #shopsmall BUY NOW <price> <url link>
   def formatted_message
+    puts 'TESTING FORMATTED MESSAGE FOR APP SHARE'
     message = ""
     message << "@#{self.user.username} sent you a Qwiqq post: " if service == "sms"
     message << "#{self.message} - " unless self.message.blank?
