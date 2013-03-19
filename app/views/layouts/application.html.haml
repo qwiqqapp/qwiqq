@@ -21,7 +21,7 @@
       %meta(name="twitter:card" content="summary")
       %meta(name="twitter:url" content="#{deal_url(@deal)}")
       %meta(name="twitter:title" content="#{@deal.name}")
-      %meta(name="twitter:description" content="N#{@deal.share_message}M")
+      %meta(name="twitter:description" content="#{@deal.share_message}")
       %meta(name="twitter:image" content="#{@deal.photo(:iphone_zoom_2x)}")
     - elsif @user
       %meta(property="og:type" content="profile")
