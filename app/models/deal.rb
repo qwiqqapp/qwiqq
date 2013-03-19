@@ -154,6 +154,7 @@ class Deal < ActiveRecord::Base
       
       :for_sale_on_paypal      => for_sale_on_paypal,
       :currency               => currency,
+      :hidden => hidden,
       #:number_users_shared    => number_users_shared,
       #:num_left_for_sale      => num_left_for_sale,
       #:num_for_sale           => num_for_sale,
