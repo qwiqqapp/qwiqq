@@ -5,11 +5,11 @@ jQuery.fn.exists = function() {
   return this.length > 0; 
 }
 
-function testJavascript() {
-  name = '#{deal.test_email}' ;
-  alert(name);
-}
-      
+if (window.location.href.indexOf('#_=_') > 0) {
+
+window.location = window.location.href.replace(/#.*/, '');
+
+}    
 
 $(function() {
   // cycle screenshots
