@@ -8,7 +8,7 @@
       .name= @user.name
       .username= "@#{@user.username}"
       .location= @user.location
-      .bio= auto_link(@user.bio)
+      .bio= auto_link(@user.bio, :html => { :target => '_blank' })
       - if @user.phone
         - if @user.phone.length>0
           .phone{:style=>'margin-top:10px;'}
