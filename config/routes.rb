@@ -105,4 +105,7 @@ Qwiqq::Application.routes.draw do
   match "/deals" => redirect("/posts")
   match "/deals/:id" => redirect("/posts/%{id}")
   match "/#_=_" => redirect("/posts")
+  match "/_=_" => redirect("/media")
+  match "#_=_" => redirect("/about")
+
 end
