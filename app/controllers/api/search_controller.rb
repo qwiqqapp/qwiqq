@@ -21,6 +21,15 @@ class Api::SearchController < Api::ApiController
     render :json => @users.as_json(:current_user => current_user)
   end
   
+  #get user id for username
+  def username
+    puts "SEARCH USERNAME"
+    @user = User.where(:username => params[:username]).first
+    json = {:id => @user.id}
+    puts json
+    render :json => json
+  end
+  
   # path: api/search/deals/nearby
   # path: api/search/deals
   # required params:
