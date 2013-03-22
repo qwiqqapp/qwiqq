@@ -87,6 +87,8 @@ class DealsController < ApplicationController
     )
     puts "RECIPIENTS:#{recipients}"
     puts "RESPONSE:#{response}"
+    puts "RESPONSEpaykey:#{response["paykey"]}"
+    puts "RESPONSEpayKey:#{response["payKey"]}"
     # For redirecting the customer to the actual paypal site to finish the payment.
     redirect_to (gateway.redirect_url_for(response["payKey"]))
   else
