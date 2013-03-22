@@ -1,13 +1,16 @@
 module ApplicationHelper
   
-  def link_to(*args, &block)
-    if block_given?
-      args = [(args.first || {}), (args.second || {}).merge(:target => '_blank')]
-    else
-      args = [(args.first || {}), (args.second || {}), (args.third || {}).merge(:target => '_blank')]
-    end
-    super(args, block)
-  end
+  #def link_to(*args, &block)
+  #  
+  #  puts 'block-given#{args.first}'
+  #  
+  #  if block_given?
+  #    args = [(args.first || {}), (args.second || {})]
+  #  else
+  #    args = [(args.first || {}), (args.second || {}), (args.third || {})]
+  #  end
+  #  super(args, block)
+  #end
   
   def pinterest_url_for(deal)
     url = "http://pinterest.com/pin/create/button/"
