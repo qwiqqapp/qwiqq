@@ -91,6 +91,7 @@ Qwiqq::Application.routes.draw do
 
     # search controller custom methods
     get "search/users" => "search#users", :as => "search_users"
+    get "search/username" => "search#username", :as => "search_username"
     get "search/deals" => "search#deals", :as => "search_deals"
     get "explore/deals" => "explore#deals", :as => "explore_deals"
     get "explore/popular" => "explore#popular", :as => "explore_popular"
