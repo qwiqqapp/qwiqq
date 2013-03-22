@@ -77,7 +77,7 @@ class DealsController < ApplicationController
                    :amount => amt.round(2),
                    :primary => false}
                    ]
-                 
+      
       response = gateway.setup_purchase(
         :currency_code => deal.currency,
         :return_url => "http://api.qwiqq.me/posts/#{deal.id}",
@@ -85,6 +85,7 @@ class DealsController < ApplicationController
         :ipn_notification_url => "http://www.qwiqq.me/api/deals/#{deal.id}/transactions?sandbox=false",
         :receiver_list => recipients
     )
+    puts "RECIPIENTS:#{recipients}"
     puts "RESPONSE:#{response}"
     # For redirecting the customer to the actual paypal site to finish the payment.
     redirect_to (gateway.redirect_url_for(response["payKey"]))
