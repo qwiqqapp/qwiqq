@@ -7,7 +7,7 @@ class Api::SharesController < Api::ApiController
   def create
     deal = Deal.find(params[:deal_id])
     
-    message = params[:message]
+    message = params[:message].slice(0,255)
     
     # facebook
     # share created with current_facebook_page_id
