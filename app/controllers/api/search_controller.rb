@@ -23,10 +23,8 @@ class Api::SearchController < Api::ApiController
   
   #get user id for username
   def username
-    puts "SEARCH USERNAME"
-    @user = User.where(:username => params[:username]).first
+    @user = User.where(:username => params[:username].downcase).first
     json = {:id => @user.id}
-    puts json
     render :json => json
   end
   
