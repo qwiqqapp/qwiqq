@@ -24,8 +24,12 @@ class Api::SearchController < Api::ApiController
   #get user id for username
   def username
     @user = User.where(:username => params[:username].downcase).first
+    unless @user.nil?
     json = {:id => @user.id}
     render :json => json
+    else
+      render :nothing => true
+    end
   end
   
   # path: api/search/deals/nearby
