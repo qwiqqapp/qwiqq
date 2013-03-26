@@ -25,9 +25,11 @@ class Api::SearchController < Api::ApiController
   def username
     @user = User.where(:username => params[:username].downcase).first
     unless @user.nil?
-    json = {:id => @user.id}
-    render :json => json
+      puts "username - #{@user.id}"
+      json = {:id => @user.id}
+      render :json => json
     else
+      puts "username - couldn't find #{params[:username].downcase}"
       render :nothing => true
     end
   end
