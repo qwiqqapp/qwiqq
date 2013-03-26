@@ -285,7 +285,10 @@ img.bubbles {
   text-decoration: none;
 }
 
-.post-small a:visited {
+.post-small a
+.post-small a:hover,
+.post-small a:visited,
+.post-small a:link{
   color: #333;
 }
 
