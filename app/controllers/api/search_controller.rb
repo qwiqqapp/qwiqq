@@ -23,7 +23,7 @@ class Api::SearchController < Api::ApiController
   
   #get user id for username
   def username
-    @user = User.where(:username => params[:username].downcase).first
+    @user = User.find(:first, :conditions => [ "lower(username) = ?", params[:username].downcase])
     unless @user.nil?
       puts "username - #{@user.id}"
       json = {:id => @user.id}
