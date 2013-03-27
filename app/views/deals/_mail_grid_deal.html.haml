@@ -9,7 +9,7 @@
 
   
 %body
-  .post-small{:style => "display: table; margin: 0 auto"}
+  %div{:style => "display: table; margin: 0 auto"}
     %a{:href => deal_url(mail_grid_deal), :style => "text-decoration: none;"}
       .details{:style => "background-color: white;border: 1px solid #cdcdcc; border-radius: 6px 6px 6px 6px;-webkit-border-radius: 6px;box-shadow: 0 0 6px #8C8C8C;-webkit-box-shadow: 0 0 6px #8C8C8C;color: #333333;font-size: 16px;height: 370px;margin: 8px;padding: 10px;text-align: left;width: 240px;"}
         %img.post-photo{:height => "240", :src => mail_grid_deal.photo.url(:iphone_zoom), :style => "border-radius: 6px 6px 6px 6px;-webkit-border-radius: 6px;", :width => "240"}
