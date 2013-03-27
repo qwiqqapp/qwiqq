@@ -1,5 +1,13 @@
 %head
   :css
+    DIV.post-small a
+    DIV.post-small a:hover,
+    DIV.post-small a:visited,
+    DIV.post-small a:link{
+      color: #333;
+    }
+  :css
+
     a:link, a:active, a:visited, a:hover
     { 
       color: #000000; 
@@ -7,9 +15,9 @@
 
   
 %body
-  .post-small{:style => "display: table; margin: 0 auto; color: #333"}
-    %a{:href => deal_url(mail_grid_deal), :style => "text-decoration: none;"}
-      .details{:style => "background-color: blue;border: 1px solid #cdcdcc; border-radius: 6px 6px 6px 6px;-webkit-border-radius: 6px;box-shadow: 0 0 6px #8C8C8C;-webkit-box-shadow: 0 0 6px #8C8C8C;color: #333333;font-size: 16px;height: 370px;margin: 8px;padding: 10px;text-align: left;width: 240px;"}
+  .post-small{:style => "display: table; margin: 0 auto"}
+    %a{:href => deal_url(mail_grid_deal), :style => "text-decoration: none; color: #222 !important;"}
+      .details{:style => "background-color: green;border: 1px solid #cdcdcc; border-radius: 6px 6px 6px 6px;-webkit-border-radius: 6px;box-shadow: 0 0 6px #8C8C8C;-webkit-box-shadow: 0 0 6px #8C8C8C;color: #333333;font-size: 16px;height: 370px;margin: 8px;padding: 10px;text-align: left;width: 240px;"}
         %img.post-photo{:height => "240", :src => mail_grid_deal.photo.url(:iphone_zoom), :style => "border-radius: 6px 6px 6px 6px;-webkit-border-radius: 6px;", :width => "240"}
           .name{:style => "height: 60px;padding: 4px 0;"}= mail_grid_deal.name
           - if mail_grid_deal.for_sale_on_paypal? && mail_grid_deal.num_left_for_sale > 0
