@@ -156,7 +156,7 @@ class Share < ActiveRecord::Base
       message << "#{url}"     
     end
     if service == "sms" && !self.message.blank? && message.length > 150
-      message[self.message] = "#{self.message.truncate(self.message.length - (message.length - 138))}"
+      message[self.message] = "#{self.message.truncate(self.message.length - (message.length - 145))}"
       puts "TRUNCATED SMS:#{message}"
     end
     
@@ -167,6 +167,7 @@ class Share < ActiveRecord::Base
   def build_message
     return unless service =~ /sms|twitter|foursquare|email|constantcontact/
     self.message = formatted_message
+    puts "build_message - SHARE MESSAGE:#{self.message}"
   end
   
   # construct message base string, example: Yummy! The best bubble tea ever! - DEPRECATED THIS ISN"T NEEDED ANYMORE"
