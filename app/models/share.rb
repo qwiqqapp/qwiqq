@@ -66,10 +66,8 @@ class Share < ActiveRecord::Base
 
   def deliver_to_twitter
     # post update
-    puts "DELIVERING TO TWITTER"
     user.twitter_client.update(message)
     # update record
-    puts "FINISHED DELIVERING TO TWITTER"
     update_attribute(:shared_at, Time.now)
   end
 

@@ -32,7 +32,7 @@ class Api::DealsController < Api::ApiController
   end
   
   def popular
-    @deals = Deal.unscoped.order("likes_count desc, comments_count desc").limit(64)
+    @deals = Deal.unscoped.public.order("likes_count desc, comments_count desc").limit(64)
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
     render :json => @deals.as_json(options)
@@ -44,7 +44,7 @@ class Api::DealsController < Api::ApiController
   def feed
     #feedlets are already connected upon share, as to who can see them at that point in time?
     #limit was 40 - possibly should be changed to 120?
-    @feedlets = current_user.feedlets.includes(:deal).limit(300).order("feedlets.timestamp DESC")
+    @feedlets = current_user.feedlets.includes(:deal).public.limit(300).order("feedlets.timestamp DESC")
     render :json => paginate(@feedlets).map {|f| f.as_json(:minimal => true, :current_user => current_user) }.compact
   end
   
@@ -56,7 +56,7 @@ class Api::DealsController < Api::ApiController
   # return deals for a given user
   # or return []
   def index      
-    @deals = requested_user.deals.sorted
+    @deals = requested_user.deals.public.sorted
     respond_with paginate(@deals)
   end
   

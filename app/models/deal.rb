@@ -69,6 +69,7 @@ class Deal < ActiveRecord::Base
   
   scope :today, lambda { where("DATE(created_at) = ?", Date.today) }
   scope :recent, lambda { where("DATE(created_at) > ?", 30.days.ago) }
+  scope :public, where(:hidden => false)
   scope :premium, where(:premium => true)
   scope :sorted, :order => "created_at desc"
   scope :popular, order("likes_count desc, comments_count desc")
