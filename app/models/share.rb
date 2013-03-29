@@ -157,7 +157,8 @@ class Share < ActiveRecord::Base
       message << "#{url}"     
     end
     if service == "sms" && !self.message.blank? && message.length > 150
-      message[self.message] = "#{self.message.truncate(self.message.length - (message.length - 145))}"
+      puts "BEFORE TRUNCATE SMS:#{message}"
+      message[self.message] = "#{self.message.truncate(self.message.length - (message.length - 150))}"
       puts "TRUNCATED SMS:#{message}"
     end
     message = message.truncate(145)
