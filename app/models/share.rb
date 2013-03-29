@@ -66,9 +66,7 @@ class Share < ActiveRecord::Base
 
   def deliver_to_twitter
     # post update
-    puts "deliver_to_twitter TWITTER DELIVER"
     user.twitter_client.update(message)
-    puts "deliver_to_twitter TWITTER DELIVER - SUCCESS"
     # update record
     update_attribute(:shared_at, Time.now)
   end
@@ -157,7 +155,6 @@ class Share < ActiveRecord::Base
       message << "#{url}"     
     end
     if (service == "sms" || service == "twitter") && !self.message.blank? && message.length > 150
-      puts "BEFORE TRUNCATE SMS:#{message} with message length:#{self.message.length} total:#{message.length}"
       message[self.message] = "#{self.message.truncate(self.message.length - (message.length - 140))}"
       puts "TRUNCATED SMS:#{message} with message length:#{self.message.length} total:#{message.length}"
     end
@@ -169,7 +166,6 @@ class Share < ActiveRecord::Base
   def build_message
     return unless service =~ /sms|twitter|foursquare|email|constantcontact/
     self.message = formatted_message
-    puts "build_message - SHARE MESSAGE:#{self.message}"
   end
   
   # construct message base string, example: Yummy! The best bubble tea ever! - DEPRECATED THIS ISN"T NEEDED ANYMORE"
