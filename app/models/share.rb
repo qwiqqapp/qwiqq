@@ -156,12 +156,12 @@ class Share < ActiveRecord::Base
       url = Rails.application.routes.url_helpers.deal_url(self.deal, :host => "qwiqq.me")
       message << "#{url}"     
     end
-    if service == "sms" && !self.message.blank? && message.length > 150
+    if (service == "sms" || service == "twitter") && !self.message.blank? && message.length > 150
       puts "BEFORE TRUNCATE SMS:#{message}"
       message[self.message] = "#{self.message.truncate(self.message.length - (message.length - 150))}"
       puts "TRUNCATED SMS:#{message}"
     end
-    message = message.truncate(145)
+    #message = message.truncate(145)
     message
   end
   
