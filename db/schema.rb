@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20121230195512) do
     t.integer   "photo_file_size"
     t.timestamp "photo_updated_at"
     t.boolean   "premium",               :default => false
+    t.boolean   "hidden",               :default => false
     t.float     "lat"
     t.float     "lon"
     t.integer   "comments_count",        :default => 0
