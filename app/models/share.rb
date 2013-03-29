@@ -66,8 +66,10 @@ class Share < ActiveRecord::Base
 
   def deliver_to_twitter
     # post update
+    puts "DELIVERING TO TWITTER"
     user.twitter_client.update(message)
     # update record
+    puts "FINISHED DELIVERING TO TWITTER"
     update_attribute(:shared_at, Time.now)
   end
 
@@ -158,7 +160,6 @@ class Share < ActiveRecord::Base
       message[self.message] = "#{self.message.truncate(self.message.length - (message.length - 140))}"
       puts "TRUNCATED SMS:#{message} with message length:#{self.message.length} total:#{message.length}"
     end
-    #message = message.truncate(145)
     message
   end
   
