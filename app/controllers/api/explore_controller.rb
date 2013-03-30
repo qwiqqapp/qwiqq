@@ -70,6 +70,7 @@ class Api::ExploreController < Api::ApiController
     @deals = Array.new
     
     @users.map do |user|
+      puts "user deals:#{user.deals}"
      user.deals do |deal|
        @deals.push deal
      end
