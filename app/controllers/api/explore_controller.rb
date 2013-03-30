@@ -30,7 +30,6 @@ class Api::ExploreController < Api::ApiController
   # - params[:category]
 
   def deals
-    puts "TEST EXPLORE"
     puts params[:category]
     puts params[:q]
     puts params[:lat]
@@ -59,6 +58,49 @@ class Api::ExploreController < Api::ApiController
     end
     
     puts "SEARCH DEAL COUNT:#{@deals.count}"
+    options = { :minimal => true }
+    options[:current_user] = current_user if current_user
+    render :json => paginate(@deals).compact.as_json(options)
+  end  
+    
+   def deals_test
+    @users = User.search(params[:q])
+    puts "SEARCH USERS COUNT:#{@users.count}"
+    @deals = Array.new
+    
+    @deals << @users.map do |user|
+     user.deals
+    end
+    
+    puts "TEST EXPLORE"
+    puts params[:category]
+    puts params[:q]
+    puts params[:lat]
+    puts params[:long]
+    puts params[:range]
+    puts params[:page]
+    
+    if  params[:range] == "10000000"
+      @deals << Deal.filtered_url_search(
+      :category => params[:category] == "all" ? nil : params[:category],
+      :query => params[:q],
+      :lat => params[:lat],
+      :lon => params[:long],
+      :range => params[:range] || Deal::MAX_RANGE,
+      :age => Deal::MAX_AGE.days,
+      :page => params[:page])
+    else
+      @deals << Deal.filtered_search(
+      :category => params[:category] == "all" ? nil : params[:category],
+      :query => params[:q],
+      :lat => params[:lat],
+      :lon => params[:long],
+      :range => params[:range] || Deal::MAX_RANGE,
+      :age => Deal::MAX_AGE.days,
+      :page => params[:page])
+    end
+    @deals = @deals.uniq
+    puts "EXPLORE TEST DEALS:#{@deals}"
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
     render :json => paginate(@deals).compact.as_json(options)
