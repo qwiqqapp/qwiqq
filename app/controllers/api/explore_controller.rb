@@ -64,6 +64,7 @@ class Api::ExploreController < Api::ApiController
   end  
     
    def deals_test
+    puts "TEST EXPLORE - deals_test"
     @users = User.search(params[:q])
     puts "SEARCH USERS COUNT:#{@users.count}"
     @deals = Array.new
@@ -72,7 +73,6 @@ class Api::ExploreController < Api::ApiController
      user.deals
     end
     
-    puts "TEST EXPLORE"
     puts params[:category]
     puts params[:q]
     puts params[:lat]
