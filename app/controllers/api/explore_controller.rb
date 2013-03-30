@@ -69,8 +69,10 @@ class Api::ExploreController < Api::ApiController
     puts "SEARCH USERS COUNT:#{@users.count}"
     @deals = Array.new
     
-    @deals << @users.map do |user|
-     user.deals
+    @users.map do |user|
+     user.deals do |deal|
+       @deals.push deal
+     end
     end
     
     puts params[:category]
