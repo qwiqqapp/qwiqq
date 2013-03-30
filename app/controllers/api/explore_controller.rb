@@ -75,6 +75,7 @@ class Api::ExploreController < Api::ApiController
      end
     end
     
+    puts "MAP TEST DEALS:#{@deals}"
     puts params[:category]
     puts params[:q]
     puts params[:lat]
