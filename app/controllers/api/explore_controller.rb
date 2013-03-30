@@ -99,7 +99,7 @@ class Api::ExploreController < Api::ApiController
       :age => Deal::MAX_AGE.days,
       :page => params[:page])
     end
-    @deals = @deals.uniq
+    @deals = @deals.uniq.compact!
     puts "EXPLORE TEST DEALS:#{@deals}"
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
