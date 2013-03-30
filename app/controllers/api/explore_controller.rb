@@ -64,7 +64,7 @@ class Api::ExploreController < Api::ApiController
   end  
     
    def deals_test
-    puts "TEST EXPLORE - deals_test"
+    puts "TEST EXPLORE - deals test"
     @users = User.search(params[:q])
     puts "SEARCH USERS COUNT:#{@users.count}"
     @deals = Array.new
