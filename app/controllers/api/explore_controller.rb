@@ -30,6 +30,7 @@ class Api::ExploreController < Api::ApiController
   # - params[:category]
 
   def deals
+    puts "TEST EXPLORE"
     puts params[:category]
     puts params[:q]
     puts params[:lat]
