@@ -102,10 +102,7 @@ class Api::ExploreController < Api::ApiController
       :page => params[:page])
     end
     
-    puts "BEFORE EXPLORE TEST DEALS:#{@deals}"
-    @deals = @deals.uniq
-    puts "AFTER UNIQ EXPLORE TEST DEALS:#{@deals}"
-    @deals = @deals.compact
+    @deals = @deals.flatten.uniq.compact
     puts "EXPLORE TEST DEALS:#{@deals}"
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
