@@ -101,6 +101,7 @@ class Api::ExploreController < Api::ApiController
       :range => params[:range] || Deal::MAX_RANGE,
       :page => params[:page])
     end
+    
     puts "BEFORE EXPLORE TEST DEALS:#{@deals}"
     @deals = @deals.uniq
     puts "AFTER UNIQ EXPLORE TEST DEALS:#{@deals}"
