@@ -102,8 +102,11 @@ class Api::ExploreController < Api::ApiController
       :page => params[:page])
     end
     
-    @deals = @deals.flatten.uniq.compact
+    @deals = @deals.uniq.compact
     puts "EXPLORE TEST DEALS:#{@deals}"
+    @deals = @deals.flatten
+    puts "FLATTEN EXPLORE TEST DEALS:#{@deals}"
+
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
     render :json => paginate(@deals).compact.as_json(options)
