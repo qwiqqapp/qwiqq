@@ -53,7 +53,9 @@ class Api::ApiController < ActionController::Base
       response.headers["X-Pages"] = collection.total_pages.to_s
       collection
     elsif params[:page]
-      puts "PAGINATE == '#{params[:page]}'"
+      puts "PAGINATE PAGE == '#{params[:page]}'"
+      puts "PAGINATE COLLECTION == '#{collection}'"
+      puts "PAGINATE COLLECTION PAGE ZERO == '#{collection.page(0)}'"
       result = collection.page(params[:page])
 
       response.headers["X-Pages"] = (collection.count / result.default_per_page.to_f).ceil.to_s
