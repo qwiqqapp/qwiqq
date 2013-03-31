@@ -30,12 +30,12 @@ class Api::ExploreController < Api::ApiController
   # - params[:category]
 
   def deals
-    puts params[:category]
-    puts params[:q]
-    puts params[:lat]
-    puts params[:long]
-    puts params[:range]
-    puts params[:page]
+    puts "category:#{params[:category]}"
+    puts "query:#{params[:q]}"
+    puts "lat:#{params[:lat]}"
+    puts "long:#{params[:long]}"
+    puts "range:#{params[:range]}"
+    puts "page:#{params[:page]}"
     
     if  params[:range] == "10000000"
       @deals = Deal.filtered_url_search(
