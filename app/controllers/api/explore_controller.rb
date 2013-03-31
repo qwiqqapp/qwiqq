@@ -44,7 +44,6 @@ class Api::ExploreController < Api::ApiController
       :lat => params[:lat],
       :lon => params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
-      :age => Deal::MAX_AGE.days,
       :page => params[:page])
     else
       @deals = Deal.filtered_search(
@@ -53,7 +52,6 @@ class Api::ExploreController < Api::ApiController
       :lat => params[:lat],
       :lon => params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
-      :age => Deal::MAX_AGE.days,
       :page => params[:page])
     end
     
