@@ -85,7 +85,7 @@ class Api::ExploreController < Api::ApiController
     puts params[:page]
     
     if  params[:range] == "10000000"
-      @deals << Deal.filtered_url_search(
+      d = Deal.filtered_url_search(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
       :lat => params[:lat],
@@ -93,8 +93,9 @@ class Api::ExploreController < Api::ApiController
       :range => params[:range] || Deal::MAX_RANGE,
       :age => Deal::MAX_AGE.days,
       :page => params[:page])
+      puts "DEAL SEARCH:#{d}"
     else
-      @deals << Deal.filtered_search(
+      d = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
       :lat => params[:lat],
@@ -102,6 +103,7 @@ class Api::ExploreController < Api::ApiController
       :range => params[:range] || Deal::MAX_RANGE,
       :age => Deal::MAX_AGE.days,
       :page => params[:page])
+      puts "DEAL SEARCH:#{d}"
     end
     @deals = @deals.uniq.compact!
     puts "EXPLORE TEST DEALS:#{@deals}"
