@@ -44,6 +44,7 @@ class Api::ExploreController < Api::ApiController
       :lat => params[:lat],
       :lon => params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
+      :age => Deal::MAX_AGE.days,
       :page => params[:page])
     else
       @deals = Deal.filtered_search(
@@ -52,6 +53,7 @@ class Api::ExploreController < Api::ApiController
       :lat => params[:lat],
       :lon => params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
+      :age => Deal::MAX_AGE.days,
       :page => params[:page])
     end
     
@@ -75,12 +77,12 @@ class Api::ExploreController < Api::ApiController
     end
     
     puts "MAP TEST DEALS:#{@deals}"
-    puts params[:category]
-    puts params[:q]
-    puts params[:lat]
-    puts params[:long]
-    puts params[:range]
-    puts params[:page]
+    puts "category:#{params[:category]}"
+    puts "query:#{params[:q]}"
+    puts "lat:#{params[:lat]}"
+    puts "long:#{params[:long]}"
+    puts "range:#{params[:range]}"
+    puts "page:#{params[:page]}"
     
     if  params[:range] == "10000000"
       d = Deal.filtered_url_search(
@@ -89,7 +91,6 @@ class Api::ExploreController < Api::ApiController
       :lat => params[:lat],
       :lon => params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
-      :age => Deal::MAX_AGE.days,
       :page => params[:page])
       puts "DEAL SEARCH:#{d}"
     else
@@ -99,7 +100,6 @@ class Api::ExploreController < Api::ApiController
       :lat => params[:lat],
       :lon => params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
-      :age => Deal::MAX_AGE.days,
       :page => params[:page])
       puts "DEAL SEARCH:#{d}"
     end
