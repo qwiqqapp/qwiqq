@@ -303,7 +303,7 @@ class Deal < ActiveRecord::Base
    #Displays Global results including the url deals
   def self.filtered_url_search(options={})
   # bail early if the provided query is invalid
-     puts "filtered_url_search"
+     puts "filtered_url_search with age:#{options[:age]}"
     return [] if options[:query] and options[:query].blank?
 
     lat, lon = options[:lat], options[:lon]
