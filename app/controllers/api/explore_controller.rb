@@ -132,12 +132,12 @@ class Api::ExploreController < Api::ApiController
     #  :range => params[:range] || Deal::MAX_RANGE,
     #  :age => Deal::MAX_AGE.days,
     #  :page => params[:page])
-    end
+    #end
     
-    puts "SEARCH DEAL COUNT:#{@deals.count}"
-    options = { :minimal => true }
-    options[:current_user] = current_user if current_user
-    render :json => paginate(@deals).compact.as_json(options)
+    #puts "SEARCH DEAL COUNT:#{@deals.count}"
+    #options = { :minimal => true }
+    #options[:current_user] = current_user if current_user
+    #render :json => paginate(@deals).compact.as_json(options)
   end
   
   def popular
