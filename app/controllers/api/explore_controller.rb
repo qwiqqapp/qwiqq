@@ -113,25 +113,25 @@ class Api::ExploreController < Api::ApiController
   end  
     
   def test
-    if  params[:range] == "10000000"
-      puts "GLOBAL SEARCH"
-      @deals = Deal.filtered_test_search(
-      :category => params[:category] == "all" ? nil : params[:category],
-      :query => params[:q],
-      :lat => params[:lat],
-      :lon => params[:long],
-      :range => params[:range] || Deal::MAX_RANGE,
-      :age => Deal::MAX_AGE.days,
-      :page => params[:page])
-    else
-      @deals = Deal.filtered_search_3_0(
-      :category => params[:category] == "all" ? nil : params[:category],
-      :query => params[:q],
-      :lat => params[:lat],
-      :lon => params[:long],
-      :range => params[:range] || Deal::MAX_RANGE,
-      :age => Deal::MAX_AGE.days,
-      :page => params[:page])
+    #if  params[:range] == "10000000"
+    #  puts "GLOBAL SEARCH"
+    #  @deals = Deal.filtered_test_search(
+    #  :category => params[:category] == "all" ? nil : params[:category],
+    #  :query => params[:q],
+    #  :lat => params[:lat],
+    #  :lon => params[:long],
+    #  :range => params[:range] || Deal::MAX_RANGE,
+    #  :age => Deal::MAX_AGE.days,
+    #  :page => params[:page])
+   # else
+    #  @deals = Deal.filtered_search_3_0(
+    #  :category => params[:category] == "all" ? nil : params[:category],
+    #  :query => params[:q],
+    #  :lat => params[:lat],
+    #  :lon => params[:long],
+    #  :range => params[:range] || Deal::MAX_RANGE,
+    #  :age => Deal::MAX_AGE.days,
+    #  :page => params[:page])
     end
     
     puts "SEARCH DEAL COUNT:#{@deals.count}"

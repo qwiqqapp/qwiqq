@@ -267,6 +267,7 @@ class Deal < ActiveRecord::Base
   #
   # Returns a ThinkingSphinx collection containing all deals matching the filters.
    def self.filtered_search(options={})
+     puts "filtered_search"
   # bail early if the provided query is invalid
     return [] if options[:query] and options[:query].blank?
 
@@ -299,44 +300,10 @@ class Deal < ActiveRecord::Base
     
   end
   
-  # We need to replace the filtered search with this in the future
-  def self.filtered_search_3_0(options={})
-  # bail early if the provided query is invalid
-    return [] if options[:query] and options[:query].blank?
-
-    lat, lon = options[:lat], options[:lon]
-    raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank? && options[:category] != "url"
-    range = (options[:range] || 10_000).to_f
-    # filtering options
-    conditions = {}
-    conditions[:category] = options[:category] unless options[:category].nil?
-
-    with = {}
-    with[:created_at] = options[:age].ago..Time.now unless options[:age].nil?
-
-    search_options = {}
-
-    if options[:category] != "url"
-      with["@geodist"] = 0.0..range
-      search_options[:order] = "@geodist ASC, @relevance DESC"
-    else
-      search_options[:order] = "created_at desc"
-    end
-    
-    search_options[:geo] = geo_radians(lat, lon) unless lat.nil? && lon.nil?
-    search_options[:conditions] = conditions unless conditions.empty?
-    search_options[:with] = with unless with.empty?
-    search_options[:page] = options[:page] unless options[:page].nil?
-    search_options[:max_matches] = options[:limit] unless options[:limit].nil?
-    
-    search_query = "%" + options[:query] + "%"
-    self.search(search_query, search_options)    
-  end
-  
-  #Displays Global results including the url deals
+   #Displays Global results including the url deals
   def self.filtered_url_search(options={})
   # bail early if the provided query is invalid
-
+     puts "filtered_url_search"
     return [] if options[:query] and options[:query].blank?
 
     lat, lon = options[:lat], options[:lon]
@@ -376,6 +343,43 @@ class Deal < ActiveRecord::Base
     self.search(search_query, search_options)  
   end
   
+  
+  #Deprecated
+  # We need to replace the filtered search with this in the future
+  def self.filtered_search_3_0(options={})
+  # bail early if the provided query is invalid
+    return [] if options[:query] and options[:query].blank?
+
+    lat, lon = options[:lat], options[:lon]
+    raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank? && options[:category] != "url"
+    range = (options[:range] || 10_000).to_f
+    # filtering options
+    conditions = {}
+    conditions[:category] = options[:category] unless options[:category].nil?
+
+    with = {}
+    with[:created_at] = options[:age].ago..Time.now unless options[:age].nil?
+
+    search_options = {}
+
+    if options[:category] != "url"
+      with["@geodist"] = 0.0..range
+      search_options[:order] = "@geodist ASC, @relevance DESC"
+    else
+      search_options[:order] = "created_at desc"
+    end
+    
+    search_options[:geo] = geo_radians(lat, lon) unless lat.nil? && lon.nil?
+    search_options[:conditions] = conditions unless conditions.empty?
+    search_options[:with] = with unless with.empty?
+    search_options[:page] = options[:page] unless options[:page].nil?
+    search_options[:max_matches] = options[:limit] unless options[:limit].nil?
+    
+    search_query = "%" + options[:query] + "%"
+    self.search(search_query, search_options)    
+  end
+  
+  #Deprecated
    def self.filtered_test_search(options={})
   # bail early if the provided query is invalid
 
