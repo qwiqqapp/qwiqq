@@ -340,6 +340,8 @@ class Deal < ActiveRecord::Base
     search_options[:max_matches] = options[:limit] unless options[:limit].nil?
 
     search_query = "%" + options[:query] + "%"
+    puts "SEARCH QUERY:#{search_query}"
+    puts "SEARCH OPTIONS#{search_options}"
     self.search(search_query, search_options)  
   end
   
