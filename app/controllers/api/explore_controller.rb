@@ -104,7 +104,7 @@ class Api::ExploreController < Api::ApiController
       :lat => params[:lat],
       :lon => params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
-      :page => params[:page]).limit(2)
+      :page => params[:page])
     else
       query_deals = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
@@ -112,9 +112,9 @@ class Api::ExploreController < Api::ApiController
       :lat => params[:lat],
       :lon => params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
-      :page => params[:page]).limit(2)
+      :page => params[:page])
     end
-    @deals = [user_deals, query_deals]
+    @deals = [user_deals, query_deals[0]]
     puts "BEFORE EXPLORE TEST DEALS:#{@deals}"
     puts ""
     puts ""
