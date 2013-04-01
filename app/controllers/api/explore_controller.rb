@@ -65,6 +65,17 @@ class Api::ExploreController < Api::ApiController
     
    def deals_test
     puts "TEST EXPLORE - deals test"
+    
+    a = []
+    b =  [9,10]
+    a1 = [a,b]
+
+    puts "TEST ARRAY:#{a1}"
+    a1 = a1.flatten
+    puts "FLATTEN A1:#{a1}"
+
+
+
     @users = User.search(params[:q])
     puts "SEARCH USERS COUNT:#{@users.count}"
     user_deals = Array.new
