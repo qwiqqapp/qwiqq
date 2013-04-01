@@ -75,12 +75,8 @@ class Api::ExploreController < Api::ApiController
        user_deals.push deal
      end
     end
-    
-    u = User.find("13042")
-     u.deals.map do |deal|
-       user_deals.push deal
-     end   
-      
+
+
     query_deals = Array.new  
     puts "MAP TEST DEALS:#{@deals}"
     puts "category:#{params[:category]}"
