@@ -114,7 +114,8 @@ class Api::ExploreController < Api::ApiController
       :range => params[:range] || Deal::MAX_RANGE,
       :page => params[:page])
     end
-    @deals = [user_deals, query_deals[0]]
+    query_deals = [query_deals[0], query_deals[1]]
+    @deals = [user_deals, query_deals]
     puts "BEFORE EXPLORE TEST DEALS:#{@deals}"
     puts ""
     puts ""
