@@ -67,20 +67,21 @@ class Api::ExploreController < Api::ApiController
     puts "TEST EXPLORE - deals test"
     @users = User.search(params[:q])
     puts "SEARCH USERS COUNT:#{@users.count}"
-    @deals = Array.new
+    user_deals = Array.new
     
     @users.map do |user|
       puts "user deals:#{user.deals}"
      user.deals do |deal|
-       @deals.push deal
+       user_deals.push deal
      end
     end
     
     u = User.find("13042")
      u.deals do |deal|
-       @deals.push deal
+       user_deals.push deal
      end   
       
+    query_deals = Array.new  
     puts "MAP TEST DEALS:#{@deals}"
     puts "category:#{params[:category]}"
     puts "query:#{params[:q]}"
@@ -90,7 +91,7 @@ class Api::ExploreController < Api::ApiController
     puts "page:#{params[:page]}"
     
     if  params[:range] == "10000000"
-      @deals.push Deal.filtered_url_search(
+      query_deals = Deal.filtered_url_search(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
       :lat => params[:lat],
@@ -98,7 +99,7 @@ class Api::ExploreController < Api::ApiController
       :range => params[:range] || Deal::MAX_RANGE,
       :page => params[:page])
     else
-      @deals.push Deal.filtered_search(
+      query_deals = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
       :lat => params[:lat],
@@ -106,7 +107,7 @@ class Api::ExploreController < Api::ApiController
       :range => params[:range] || Deal::MAX_RANGE,
       :page => params[:page])
     end
-    
+    @deals = [user_deals, query_deals]
     puts "BEFORE EXPLORE TEST DEALS:#{@deals}"
     puts ""
     puts ""
