@@ -104,7 +104,7 @@ class Api::ExploreController < Api::ApiController
       :lat => params[:lat],
       :lon => params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
-      :page => params[:page])
+      :page => params[:page]).limi1(2)
     else
       query_deals = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
@@ -112,7 +112,7 @@ class Api::ExploreController < Api::ApiController
       :lat => params[:lat],
       :lon => params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
-      :page => params[:page])
+      :page => params[:page]).limit(2)
     end
     @deals = [user_deals, query_deals]
     puts "BEFORE EXPLORE TEST DEALS:#{@deals}"
@@ -125,7 +125,7 @@ class Api::ExploreController < Api::ApiController
 
     
     @deals = @deals.flatten
-    puts "FLATTEN EXPLORE TEST DEALS:#{@deals}"
+    puts "FLATTEN EXPLORE TEST DEALS:#{@deals} - This isn't working for nil user_deals"
     
     @deals = @deals.uniq.compact
     puts "EXPLORE TEST DEALS:#{@deals}"
