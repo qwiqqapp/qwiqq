@@ -71,13 +71,13 @@ class Api::ExploreController < Api::ApiController
     
     @users.map do |user|
       puts "user deals:#{user.deals}"
-     user.deals do |deal|
+     user.deals.map do |deal|
        user_deals.push deal
      end
     end
     
     u = User.find("13042")
-     u.deals do |deal|
+     u.deals.map do |deal|
        user_deals.push deal
      end   
       
