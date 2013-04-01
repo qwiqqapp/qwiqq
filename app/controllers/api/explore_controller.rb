@@ -104,7 +104,7 @@ class Api::ExploreController < Api::ApiController
       :lat => params[:lat],
       :lon => params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
-      :page => params[:page]).limi1(2)
+      :page => params[:page]).limit(2)
     else
       query_deals = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
