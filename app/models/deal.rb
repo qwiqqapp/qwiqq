@@ -2,7 +2,7 @@ class Deal < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
   include ActionView::Helpers::NumberHelper
   
-  MAX_AGE = 35
+  MAX_AGE = 365*10
   MAX_RANGE = 40234   # default search range in metres (25 miles)
   COUPON_TAG = "#coupon"
   DEFAULT_COUPON_COUNT = 100
