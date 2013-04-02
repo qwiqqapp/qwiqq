@@ -88,7 +88,6 @@ class Api::ExploreController < Api::ApiController
     end
 
 
-    query_deals = Array.new  
     puts "MAP TEST DEALS:#{@deals}"
     puts "category:#{params[:category]}"
     puts "query:#{params[:q]}"
