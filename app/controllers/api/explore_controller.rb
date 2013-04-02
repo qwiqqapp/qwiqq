@@ -114,7 +114,6 @@ class Api::ExploreController < Api::ApiController
       :range => params[:range] || Deal::MAX_RANGE,
       :page => params[:page])
     end
-    query_deals = [query_deals[0], query_deals[1]]
     @deals = [user_deals, query_deals]
     puts "BEFORE EXPLORE TEST DEALS:#{@deals}"
     puts ""
@@ -130,6 +129,15 @@ class Api::ExploreController < Api::ApiController
     
     @deals = @deals.uniq.compact
     puts "EXPLORE TEST DEALS:#{@deals}"
+    puts ""
+    puts ""
+    puts ""
+    puts ""
+    puts ""
+    puts ""
+    
+    @d = (user_deals + query_deals).uniq
+    puts "TEST PLUS WITH D:#{@d}"
 
 
     options = { :minimal => true }
