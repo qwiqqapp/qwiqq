@@ -1,7 +1,6 @@
 # notes
 # unable to use search on users and models as ActiveAdmin 
 # has poluted the app with its meta search implementation
-require 'will_paginate/array'
 class Api::ExploreController < Api::ApiController
 
   # temp remove action cache for users
@@ -123,7 +122,6 @@ class Api::ExploreController < Api::ApiController
 
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
-    #@deals.paginate(:page => params[:page], :per_page => 21)
     render :json => @deals.compact.as_json(options)
     #render :json => paginate(@deals).compact.as_json(options)
   end  
