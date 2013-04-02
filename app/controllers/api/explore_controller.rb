@@ -136,6 +136,10 @@ class Api::ExploreController < Api::ApiController
     puts ""
     puts ""
     
+    if query_deals.nil?
+      puts "QUERY DEAL IS NIL"
+    end
+    
     @d = user_deals | query_deals
     puts "TEST PLUS WITH D:#{@d}"
 
