@@ -1,7 +1,7 @@
 # notes
 # unable to use search on users and models as ActiveAdmin 
 # has poluted the app with its meta search implementation
-
+require 'will_paginate/array'
 class Api::ExploreController < Api::ApiController
 
   # temp remove action cache for users
@@ -78,7 +78,6 @@ class Api::ExploreController < Api::ApiController
     end
 
 
-    puts "MAP TEST DEALS:#{@deals}"
     puts "category:#{params[:category]}"
     puts "query:#{params[:q]}"
     puts "lat:#{params[:lat]}"
@@ -111,19 +110,8 @@ class Api::ExploreController < Api::ApiController
     query_deals.map do |deal|
       @deals.push deal
     end
-    puts "BEFORE EXPLORE TEST DEALS:#{@deals}"
-    puts ""
-    puts ""
-    puts ""
-    puts ""
-    puts ""
-    puts ""
 
-    
-    #@deals = @deals.flatten
-    #puts "FLATTEN EXPLORE TEST DEALS:#{@deals} - This isn't working for nil user_deals"
-    
-    @deals = @deals.uniq.compact
+    @deals = @deals.uniq
     puts "EXPLORE TEST DEALS:#{@deals}"
     puts ""
     puts ""
@@ -131,20 +119,13 @@ class Api::ExploreController < Api::ApiController
     puts ""
     puts ""
     puts ""
-    
-    if query_deals.nil?
-      puts "QUERY DEAL IS NIL"
-    else 
-      puts "QUERY DEAL IS NOT NIL"
-    end
-    
-    @d = [user_deals, query_deals].compact.reduce([], :|)
-    puts "TEST D:#{@d}"
 
 
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
-    render :json => paginate(@deals).compact.as_json(options)
+    #@deals.paginate(:page => params[:page], :per_page => 21)
+    render :json => @deals.compact.as_json(options)
+    #render :json => paginate(@deals).compact.as_json(options)
   end  
     
   def test
