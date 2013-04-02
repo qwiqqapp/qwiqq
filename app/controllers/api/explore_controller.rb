@@ -65,17 +65,6 @@ class Api::ExploreController < Api::ApiController
     
    def deals_test
     puts "TEST EXPLORE - deals test"
-    
-    a = []
-    b =  [9,10]
-    c = Array.new
-    a1 = [a,b,c]
-
-    puts "TEST ARRAY:#{a1}"
-    a1 = a1.flatten
-    puts "FLATTEN A1:#{a1}"
-
-
 
     @users = User.search(params[:q])
     puts "SEARCH USERS COUNT:#{@users.count}"
@@ -114,7 +103,14 @@ class Api::ExploreController < Api::ApiController
       :range => params[:range] || Deal::MAX_RANGE,
       :page => params[:page])
     end
-    @deals = [user_deals, query_deals]
+    @deals = Array.new
+    
+    user_deals.map do |deal|
+      @deals.push deal
+    end
+    query_deals.map do |deal|
+      @deals.push deal
+    end
     puts "BEFORE EXPLORE TEST DEALS:#{@deals}"
     puts ""
     puts ""
@@ -124,8 +120,8 @@ class Api::ExploreController < Api::ApiController
     puts ""
 
     
-    @deals = @deals.flatten
-    puts "FLATTEN EXPLORE TEST DEALS:#{@deals} - This isn't working for nil user_deals"
+    #@deals = @deals.flatten
+    #puts "FLATTEN EXPLORE TEST DEALS:#{@deals} - This isn't working for nil user_deals"
     
     @deals = @deals.uniq.compact
     puts "EXPLORE TEST DEALS:#{@deals}"
