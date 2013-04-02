@@ -136,7 +136,7 @@ class Api::ExploreController < Api::ApiController
     puts ""
     puts ""
     
-    @d = (user_deals + query_deals).uniq
+    @d = user_deals | query_deals
     puts "TEST PLUS WITH D:#{@d}"
 
 
