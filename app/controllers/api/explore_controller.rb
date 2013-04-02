@@ -68,7 +68,7 @@ class Api::ExploreController < Api::ApiController
     
     a = []
     b =  [9,10]
-    c = nil
+    c = Array.new
     a1 = [a,b,c]
 
     puts "TEST ARRAY:#{a1}"
