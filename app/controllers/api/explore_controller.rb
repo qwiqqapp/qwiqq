@@ -68,7 +68,8 @@ class Api::ExploreController < Api::ApiController
     
     a = []
     b =  [9,10]
-    a1 = [a,b]
+    c = nil
+    a1 = [a,b,c]
 
     puts "TEST ARRAY:#{a1}"
     a1 = a1.flatten
@@ -141,8 +142,8 @@ class Api::ExploreController < Api::ApiController
       puts "QUERY DEAL IS NOT NIL"
     end
     
-    @d = user_deals | query_deals
-    puts "TEST PLUS WITH D:#{@d}"
+    @d = [user_deals, query_deals].compact.reduce([], :|)
+    puts "TEST D:#{@d}"
 
 
     options = { :minimal => true }
