@@ -138,6 +138,8 @@ class Api::ExploreController < Api::ApiController
     
     if query_deals.nil?
       puts "QUERY DEAL IS NIL"
+    else 
+      puts "QUERY DEAL IS NOT NIL"
     end
     
     @d = user_deals | query_deals
