@@ -17,7 +17,16 @@ class Api::UsersController < Api::ApiController
   
 
   def requested_user
-    @user ||= find_user(params[:id])
+    id = params[:id];
+    
+    #Our special secret!
+    if id.index("*_*")
+      name = id.gsub("*_*", "");
+      @user ||= User.find_by_username(name)
+    else
+      @user ||= find_user(id)
+    end
+    
   end
 
   # will raise RecordNotFound if user not found
