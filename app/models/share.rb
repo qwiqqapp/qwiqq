@@ -112,8 +112,9 @@ class Share < ActiveRecord::Base
   end
   
   def create_event
+    puts 'start create_event'
     return unless [ "twitter", "facebook", "foursquare", "sms", "email", "constantcontact"].include?(service)
-    
+    puts 'CREATING EVENT create_event'
     events.create(
       :event_type => "share",
       :user => deal.user,
