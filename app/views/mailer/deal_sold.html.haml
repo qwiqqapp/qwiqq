@@ -66,7 +66,7 @@
                 = image_tag "email/tagline.png"
             %tr
               %td{:style => "text-align:center; padding-bottom: 20px"}
-                = link_to "https://www.facebook.com/dialog/feed?app_id=137339843114457&link=#{deal_url(@deal)}&picture=#{@deal.photo(:iphone_zoom_2x)}&name=Qwiqq&caption=get.qwiqq.me&description=I just sold this on Qwiqq! #{CGI::escape(@deal.share_message_without_hashtag)}&redirect_uri=#{deal_url(@deal)}", :style => "text-decoration: none; border: none"  do
+                = link_to "https://www.facebook.com/dialog/feed?app_id=236767206341724&link=#{deal_url(@deal)}&picture=#{@deal.photo(:iphone_zoom_2x)}&name=Qwiqq&caption=get.qwiqq.me&description=I just sold this on Qwiqq! #{CGI::escape(@deal.share_message_without_hashtag)}&redirect_uri=#{deal_url(@deal)}", :style => "text-decoration: none; border: none"  do
                   = image_tag "email/facebook.png"
                 = link_to "http://twitter.com/share?text=#{CGI::escape("I just sold this on @Qwiqq! #{@deal.share_message}")}", :style => "text-decoration: none; border: none"  do
                   = image_tag "email/twitter.png"
