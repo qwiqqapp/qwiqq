@@ -8,13 +8,13 @@
             %a{:href => "http://qwiqq.me/posts/#{mail_grid_deal.id}/purchase", ":data-remote" => 'true'}
               %img{:src =>image_path("buy-button.png"), :width => "170"}
               %span.dollars-large{:style => "position:absolute;top:7px;left:20px;font-size:18px;color:#6cb340;"}= mail_grid_deal.price_as_string
-            %span.quantity  
+            %span{:style => "color:#F47527; font-size:19px; margin-left:10px; margin-bottom:2px; position:absolute;"}  
               - if mail_grid_deal.num_left_for_sale > 0
                 ="#{mail_grid_deal.num_left_for_sale}"
                 %br
                 left
               - else
-                .sold 
+                .sold{:style => "color:red; margin-top:10px;"} 
                   Sold Out
         - else
           .price{:style => "padding: 2px 8px 0px 10px; background-color: #EDEDED; border: 2px solid #DEDEDE; -webkit-border-radius: 6px 6px 6px 6px; border-radius: 6px 6px 6px 6px;float: left;margin-top: 10px;"}
