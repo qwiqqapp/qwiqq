@@ -60,7 +60,7 @@ gem "postmark"
 gem "postmark-rails", "0.4.0"
 
 # admin
-gem "activeadmin"
+gem "activeadmin", "0.5.1"
 gem "jquery-rails"
 gem "sass-rails", "~> 3.2.5"
 gem "meta_search",    '>= 1.1.0.pre'
