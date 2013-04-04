@@ -83,7 +83,8 @@ class DealsController < ApplicationController
         :return_url => "http://api.qwiqq.me/posts/#{deal.id}",
         :cancel_url => "http://api.qwiqq.me/posts/#{deal.id}",
         :ipn_notification_url => "http://www.qwiqq.me/api/deals/#{deal.id}/transactions?sandbox=false",
-        :receiver_list => recipients
+        :receiver_list => recipients,
+        :fees_payer => "PRIMARYRECEIVER"
     )
     puts "RECIPIENTS:#{recipients}"
     puts "RESPONSE:#{response.map{|k,v| "#{k}=#{v}"}.join('&')}"

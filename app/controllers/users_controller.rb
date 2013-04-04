@@ -44,7 +44,8 @@ class UsersController < ApplicationController
       :return_url => "http://api.qwiqq.me/posts/#{deal.id}",
       :cancel_url => "http://api.qwiqq.me/posts/#{deal.id}",
       :ipn_notification_url => "http://api.qwiqq.me/api/deals/#{deal.id}/transactions?sandbox=false",
-      :receiver_list => recipients
+      :receiver_list => recipients,
+        :fees_payer => "PRIMARYRECEIVER"
   )
   puts "RESPONSE:#{response}"
   # For redirecting the customer to the actual paypal site to finish the payment.
