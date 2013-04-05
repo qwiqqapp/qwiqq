@@ -199,6 +199,12 @@ class Deal < ActiveRecord::Base
     end 
   end  
   
+  def after_state
+    if self.hidden_changed? && self.hidden == true
+      self.feedlets.destroy
+    end
+  end
+  
   def price_as_string
     if self.price > 0
       if self.currency
