@@ -264,7 +264,7 @@ class User < ActiveRecord::Base
         #json[:liked_deals] = options[:deals]    ? liked_deals.sorted.limit(6) : nil
         json[:comments] = options[:comments] ? comments.limit(6).to_json(:minimal=>true) : nil
         
-        json[:events] = options[:events]   ? events.limit(20).to_json(:minimal=>true) : nil
+        json[:events] = options[:events]   ? events.limit(20) : nil
         
       end
     
