@@ -115,8 +115,8 @@ class Api::UsersController < Api::ApiController
     render :json => @user.as_json(
       :current_user => current_user,
       :deals => true#, 
-      #:comments => true,
-      #:events => @user == current_user
+      :comments => true,
+      :events => @user == current_user
       )
   end
 
