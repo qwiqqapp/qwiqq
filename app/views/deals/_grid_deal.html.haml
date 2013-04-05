@@ -7,7 +7,7 @@
         %div{:style => "position:relative;width:100%;margin-top:12px;"}
           %a{:href => "http://qwiqq.me/posts/#{grid_deal.id}/purchase", ":data-remote" => 'true'}
             %img{:src =>image_path("buy-button.png"), :width => "170"}
-            %span.dollars-large{:style => "position:absolute;top:4px;left:20px;ont-size:1px;color:#6cb340;"}= grid_deal.price_as_string
+            %span.dollars-large{:style => "position:absolute;top:4px;left:20px;font-size:18px;color:#6cb340;"}= grid_deal.price_as_string
             %span.quantity{:style => "font-size:17px;"}   
               - if grid_deal.num_left_for_sale > 0
                 ="#{grid_deal.num_left_for_sale}"
