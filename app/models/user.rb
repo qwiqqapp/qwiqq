@@ -196,6 +196,7 @@ class User < ActiveRecord::Base
   end
   
   def as_json(options={})
+    puts 'USER AS JSON'
     options ||= {}
     options.reverse_merge!(:deals => false, :comments => false)
     
@@ -249,6 +250,7 @@ class User < ActiveRecord::Base
         :photo_2x              => photo.url(:iphone2x).to_s
       }
     end
+    
     unless options[:minimal]
         json[:paypal_email] = paypal_email
       
@@ -257,12 +259,13 @@ class User < ActiveRecord::Base
         json[:deal_count] = deals_count
         json[:comment_count] = comments_count
         json[:transaction_count] = transactions_count
+        json[:deals] = options[:deals]  ? deals.sorted.limit(20).to_json(:minimal=>true) : nil
+        #is this really necessary?
+        #json[:liked_deals] = options[:deals]    ? liked_deals.sorted.limit(6) : nil
+        json[:comments] = options[:comments] ? comments.limit(6).to_json(:minimal=>true) : nil
         
-        # conditional
-        json[:deals] = options[:deals]    ? deals.sorted.limit(20) : nil
-        json[:liked_deals] = options[:deals]    ? liked_deals.sorted.limit(6) : nil
-        json[:comments] = options[:comments] ? comments.limit(3) : nil
-        json[:events] = options[:events]   ? events.limit(60) : nil
+        json[:events] = options[:events]   ? events.limit(20).to_json(:minimal=>true) : nil
+        
       end
     
 
