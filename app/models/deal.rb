@@ -105,7 +105,6 @@ class Deal < ActiveRecord::Base
   }.merge(PAPERCLIP_STORAGE_OPTIONS)
 
   def as_json(options={})
-    puts 'DEAL as_json - start'
     options ||= {}
 
     json = {
@@ -164,8 +163,6 @@ class Deal < ActiveRecord::Base
       #:paypal_email           => paypal_email
     }
     
-    puts 'deal 1'
-    
     if for_sale_on_paypal?
       json[:num_left_for_sale]  = num_left_for_sale
       json[:num_for_sale]       = num_for_sale
@@ -176,8 +173,6 @@ class Deal < ActiveRecord::Base
     # add 'liked' for the current user if requested
     current_user = options[:current_user]
     json[:liked] = current_user.liked_deals.include?(self) if current_user
-
-    puts 'deal 2'
 
     # add detail if requested
     unless options[:minimal]
@@ -190,7 +185,6 @@ class Deal < ActiveRecord::Base
       json[:user]           = user.try(:as_json, {:minimal=>true})
     end
     
-    puts 'DEAL as_json - fini'
     json
   end
   

@@ -196,7 +196,6 @@ class User < ActiveRecord::Base
   end
   
   def as_json(options={})
-    puts 'USER AS JSON'
     options ||= {}
     options.reverse_merge!(:deals => false, :comments => false)
     
