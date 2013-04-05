@@ -56,7 +56,7 @@ class Api::DealsController < Api::ApiController
   # return deals for a given user
   # or return []
   def index      
-    @deals = requested_user.deals.sorted
+    @deals = requested_user.deals.sorted.public
     respond_with paginate(@deals)
   end
   
@@ -99,7 +99,7 @@ class Api::DealsController < Api::ApiController
 
   def destroy
     @deal = current_user.deals.find(params[:id])
-    @deal.destroy
+    @deal.hidden = true
     respond_with @deal
   end
 

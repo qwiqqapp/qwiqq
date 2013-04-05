@@ -8,7 +8,7 @@ class Api::SharesController < Api::ApiController
     deal = Deal.find(params[:deal_id])
     
     message = params[:message].slice(0,255)
-    
+    puts "CREATE DEAL SHARE WITH PARAMS:#{params}"
     # facebook
     # share created with current_facebook_page_id
     if params[:facebook]
@@ -42,6 +42,7 @@ class Api::SharesController < Api::ApiController
     
     # constantcontact
     if params[:constantcontact]
+      puts 'CREATED CC IN SHARE CONT'
       current_user.shares.create(:deal => deal, :service => "constantcontact", :message => message)
     end
 
