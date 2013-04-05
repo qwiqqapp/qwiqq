@@ -182,7 +182,7 @@ class Deal < ActiveRecord::Base
       #Should transactions really be here? - this crashes it
       #json[:transactions]   = transactions.limit(3)
       json[:liked_by_users] = liked_by_users.limit(6)
-      json[:user]           = user.try(:as_json)
+      json[:user]           = user.try(:as_json, {:minimal=>true})
     end
     
     json
