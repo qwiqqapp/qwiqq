@@ -72,6 +72,12 @@ html, body {
    margin-bottom: 2px;
    position:absolute;
   }
+  
+  .quantity .grid {
+    font-size:17px;
+    margin-top:5px;
+  }
+
 }
 @media screen and (min-device-width : 320px) and (max-device-width : 767px) {
 #businesses {
@@ -841,12 +847,6 @@ p.empty-deals{
   top: 4px;
   left: 1px;
 }
-
-.quantity .grid {
-  font-size:10px;
-  margin-top:5px;
-}
-
 
 .sold {
  color: red;
