@@ -114,7 +114,7 @@ class Api::UsersController < Api::ApiController
     puts 'got the requested user'
     render :json => @user.as_json(
       :current_user => current_user,
-      :deals => true#, 
+      :deals => true, 
       :comments => true,
       :events => @user == current_user
       )
