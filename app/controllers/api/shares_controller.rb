@@ -42,6 +42,7 @@ class Api::SharesController < Api::ApiController
     
     # constantcontact
     if params[:constantcontact]
+      puts 'CREATED CC IN SHARE CONT'
       current_user.shares.create(:deal => deal, :service => "constantcontact", :message => message)
     end
 
