@@ -100,6 +100,7 @@ class Api::DealsController < Api::ApiController
   def destroy
     @deal = current_user.deals.find(params[:id])
     @deal.hidden = true
+    @deal.destroy
     respond_with @deal
   end
 

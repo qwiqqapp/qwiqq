@@ -201,7 +201,7 @@ class Deal < ActiveRecord::Base
   
   def after_state
     if self.hidden_changed? && self.hidden == true
-      self.feedlets.destroy
+      #self.feedlets.destroy
     end
   end
   
