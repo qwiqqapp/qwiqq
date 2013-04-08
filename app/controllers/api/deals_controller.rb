@@ -101,7 +101,7 @@ class Api::DealsController < Api::ApiController
     @deal = current_user.deals.find(params[:id])
     @deal.hidden = true
     #@deal.destroy
-    respond_with @deal
+    render :nothing => true
   end
 
   def repost

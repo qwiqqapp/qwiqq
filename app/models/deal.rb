@@ -202,7 +202,9 @@ class Deal < ActiveRecord::Base
   
   def after_save
     if self.hidden_changed? && self.hidden == true
-      self.feedlets.destroy
+      puts "AFTER SAVE HIDDEN feedlets count:#{self.feedlets.count}"
+      self.feedlets.destroy_all
+      puts "DESTROY FEEDLETS count:#{self.feedlets.count}"
     end
   end
   
