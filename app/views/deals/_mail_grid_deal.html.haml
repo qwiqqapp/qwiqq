@@ -10,9 +10,7 @@
               %span.dollars{:style => "position:absolute;top:4px;left:20px;font-size:18px;color:#6cb340;"}= mail_grid_deal.price_as_string
             %span{:style => "color:#F47527; font-size:17px; margin-left:10px; margin-bottom:2px; position:absolute; height:28px"}  
               - if mail_grid_deal.num_left_for_sale > 0
-                ="#{mail_grid_deal.num_left_for_sale}"
-                %br
-                left
+                ="#{mail_grid_deal.num_left_for_sale} left"
               - else
                 .sold{:style => "color:red; margin-top:10px;"} 
                   Sold Out
