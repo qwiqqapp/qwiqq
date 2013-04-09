@@ -71,10 +71,19 @@ class Share < ActiveRecord::Base
   end
 
   def deliver_to_twitter
+    puts 'deliver_to_twitter'
+    
+    Twitter.configure do |config|
+      config.consumer_key = Qwiqq.twitter_consumer_key
+      config.consumer_secret = Qwiqq.twitter_consumer_secret
+      config.oauth_token = user.twitter_access_token
+      config.oauth_token_secret = user.twitter_access_secret
+    end
+    
     # post update
-    user.twitter_client.update(message)
+    Twitter.update(message)
     # update record
-    update_attribute(:shared_at, Time.now)
+    #update_attribute(:shared_at, Time.now)
   end
 
   def deliver_sms
@@ -97,7 +106,7 @@ class Share < ActiveRecord::Base
     # update record
     update_attribute(:shared_at, Time.now)
   end
-  
+
   # construct message base string, example: Hey I just shared this The best bubble tea ever! $5.99 @ Happy Teahouse http://qwiqq.me/posts/2259  
   def fb_share_message
     c = formatted_message
