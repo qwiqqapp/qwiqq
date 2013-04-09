@@ -73,9 +73,8 @@ class Share < ActiveRecord::Base
   def deliver_to_twitter
     puts 'deliver_to_twitter - start'
     
-    
     # post update
-    Thread.new{user.twitter_client.update(message)};
+    Thread.new{user.twitter_client.update(message.slice(0,140))};
     
     # update record
     update_attribute(:shared_at, Time.now)
