@@ -81,7 +81,7 @@ class Share < ActiveRecord::Base
     
     puts 'deliver_to_twitter - 1'
     
-    twitter_client.update(message);
+    #twitter_client.update(message);
     
     
     # update record
