@@ -29,6 +29,9 @@ Qwiqq::Application.routes.draw do
   match 'mailers/deal_purchased' => 'testing#deal_purchased'
   match 'mailers/deal_sold' => 'testing#deal_sold'
   
+  #twitter route?
+  match "sign-in-with-twitter", :to => "home#about", :as => :about
+  
   
   # iphone routes
   match "iphone/about",   :to => "home#about",    :as => :iphone_about

@@ -17,18 +17,24 @@ class Share < ActiveRecord::Base
   after_commit :create_event, :on => :create
 
   def deliver
+    puts 'delivering to'
     return unless shared_at.nil? # avoid double shares
     
     case service
     when "facebook"
+      puts '  facebook'
       deliver_to_facebook
     when "twitter"
+      puts '  twitter'
       deliver_to_twitter
     when "sms"
+      puts '  sms'
       deliver_sms
     when "foursquare"
+      puts '  foursquare'
       deliver_to_foursquare
     when "email"
+      puts '  email'
       deliver_to_mail
     end
   end

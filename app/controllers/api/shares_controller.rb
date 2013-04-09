@@ -5,6 +5,7 @@ class Api::SharesController < Api::ApiController
   end
 
   def create
+    puts 'Starting Share'
     deal = Deal.find(params[:deal_id])
     
     message = params[:message].slice(0,255)
