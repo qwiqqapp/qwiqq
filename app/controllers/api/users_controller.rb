@@ -121,14 +121,14 @@ class Api::UsersController < Api::ApiController
   def followers
     requested_user
     @followers = @user.followers.sorted
-    respond_with @followers.as_json(:current_user => current_user,:minimal=>true)
+    respond_with @followers.as_json(:current_user => current_user)
   end
   
   def following
     requested_user
     @following = @user.following.sorted#.take(5000) #<- this would limit the number returned if we see issues in the future
     
-    respond_with @following.as_json(:current_user => current_user,:minimal=>true)
+    respond_with @following.as_json(:current_user => current_user)
   end
 
   def following_minimal
