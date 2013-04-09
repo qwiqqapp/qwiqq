@@ -76,7 +76,7 @@ class Api::ExploreController < Api::ApiController
       @deals.push deal
     end
 
-    @deals = @deals.uniq
+    @deals = @deals.public.uniq
     puts "EXPLORE TEST DEALS:#{@deals}"
     puts ""
     puts ""
@@ -122,7 +122,7 @@ class Api::ExploreController < Api::ApiController
   end
   
   def popular
-    @deals = Deal.scoped.recent.sorted
+    @deals = Deal.scoped.recent.public.sorted
     puts @deals.count
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
