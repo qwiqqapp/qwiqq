@@ -73,25 +73,12 @@ class Share < ActiveRecord::Base
   def deliver_to_twitter
     puts 'deliver_to_twitter - start'
     
-    puts "consumer_key: #{Qwiqq.twitter_consumer_key}"
-    puts "consumer_secret: #{Qwiqq.twitter_consumer_secret}"
-    puts "twitter_access_token: #{user.twitter_access_token}"
-    puts "twitter_access_secret: #{user.twitter_access_secret}"
-    
-    Twitter.configure do |config|
-      config.consumer_key = Qwiqq.twitter_consumer_key
-      config.consumer_secret = Qwiqq.twitter_consumer_secret
-      config.oauth_token = user.twitter_access_token
-      config.oauth_token_secret = user.twitter_access_secret
-    end
-    
-    puts 'deliver_to_twitter - 1'
-    
     # post update
-    Twitter.update(message)
+    Thread.new{user.twitter_client.update(message)};
     # update record
     #update_attribute(:shared_at, Time.now)
-    puts 'deliver_to_twitter - fini'
+    
+    puts "deliver_to_twitter - fini"
   end
 
   def deliver_sms
