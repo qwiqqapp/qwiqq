@@ -74,18 +74,10 @@ class Share < ActiveRecord::Base
     puts 'deliver_to_twitter - start'
     
     # post update
-    #Thread.new{user.twitter_client.update(message)};
-    
-    
-    twitter_client = user.twitter_client
-    
-    puts 'deliver_to_twitter - 1'
-    
-    #twitter_client.update(message);
-    
+    Thread.new{user.twitter_client.update(message)};
     
     # update record
-    #update_attribute(:shared_at, Time.now)
+    update_attribute(:shared_at, Time.now)
     
     puts "deliver_to_twitter - fini"
   end
