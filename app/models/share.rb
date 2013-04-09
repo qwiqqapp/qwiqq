@@ -75,11 +75,7 @@ class Share < ActiveRecord::Base
     
     
     # post update
-    begin
-      Thread.new{user.twitter_client.update(message)};
-    rescue Twitter::Error => error
-      puts "Error: #{error.message}"
-    end
+    #Thread.new{user.twitter_client.update(message)};
     
     # update record
     update_attribute(:shared_at, Time.now)
