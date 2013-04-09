@@ -36,7 +36,7 @@ gem "whenever", "~> 0.8.2"
 # services
 gem "geokit"
 gem "koala", "1.5.0" # facebook
-gem "twitter", "~> 4.6.2"
+gem "twitter", "~> 4.5.0"
 gem "airbrake"
 gem "daemons", :require => false
 gem "skittles", "0.6.0" # foursquare, update to 0.6?
