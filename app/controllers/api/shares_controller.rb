@@ -20,7 +20,7 @@ class Api::SharesController < Api::ApiController
     
     # twitter
     if params[:twitter]
-      user.twitter_client.update(message);
+      
       current_user.shares.create(:deal => deal, :service => "twitter", :message => message)
     end
     

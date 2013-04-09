@@ -1,9 +1,7 @@
 require "open-uri"
-require 'httparty'
 
 # TODO this class should be split using STI
 class Share < ActiveRecord::Base
-  include HTTParty
   belongs_to :user
   belongs_to :deal, :counter_cache => true, :touch => true
   has_many :events, :class_name => "UserEvent"
@@ -75,44 +73,14 @@ class Share < ActiveRecord::Base
   def deliver_to_twitter
     puts 'deliver_to_twitter - start'
     
-    #curl --request 'POST' 'https://api.twitter.com/1/statuses/update.json'
-    #--data 'include_entities=true&status=Maybe+he%27ll+finally+find+his+keys.+%23peterfalk&trim_user=true'
-    #--header 'Authorization: OAuth oauth_consumer_key="MYYVJCNWkUjA1sHlNQUHcA", oauth_nonce="6328e812def421fa58ee3dac5c9154dc", oauth_signature="NMSPAHa3U18wV11iXUk7HGuJGis%3D", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1365531955", oauth_token="257618318-CCVWErnBkpe7MUUEGQmHHy0zYmL8iNe0tJ6da35n", oauth_version="1.0"' --verbose
-    
-    
-    #base_uri "http://api.twitter.com/1.1/statuses/update.json"
-    
     
     # post update
-        
-    #access_token = prepare_access_token(user.twitter_access_token, user.twitter_access_secret)
-    
-    #puts "accessToken: #{access_token}"
-    
-    #response = access_token.request(:post, {:status => "This is just a test"},  "https://api.twitter.com/1.1/statuses/update")
-    
-    #puts "response: #{response}"
-    
-    
+    Thread.new{user.twitter_client.update(message)};
     
     # update record
     update_attribute(:shared_at, Time.now)
     
     puts "deliver_to_twitter - fini"
-  end
-
-  # Exchange your oauth_token and oauth_token_secret for an AccessToken instance.
-  def prepare_access_token(oauth_token, oauth_token_secret)
-    consumer = OAuth::Consumer.new(Qwiqq.twitter_consumer_key, Qwiqq.twitter_consumer_secret,
-      { :site => "http://api.twitter.com",
-        :scheme => :header
-      })
-    # now create the access token object from passed values
-    token_hash = { :oauth_token => oauth_token,
-                   :oauth_token_secret => oauth_token_secret
-                 }
-    access_token = OAuth::AccessToken.from_hash(consumer, token_hash )
-    return access_token
   end
 
   def deliver_sms
