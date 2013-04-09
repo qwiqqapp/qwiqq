@@ -84,23 +84,14 @@ class Share < ActiveRecord::Base
     
     
     # post update
-    begin
-      user.twitter_client.update(message);
-    rescue Twitter::Error::GatewayTimeout => e
-      puts e
-    rescue Twitter::Error::TooManyRequests => e
-      puts e
-    rescue Twitter::Error::UnprocessableEntity => e
-      puts e
-    end
+        
+    #access_token = prepare_access_token(user.twitter_access_token, user.twitter_access_secret)
     
-    access_token = prepare_access_token(user.twitter_access_token, user.twitter_access_secret)
+    #puts "accessToken: #{access_token}"
     
-    puts "accessToken: #{access_token}"
+    #response = access_token.request(:post, {:status => "This is just a test"},  "https://api.twitter.com/1.1/statuses/update")
     
-    response = access_token.request(:post, {:status => "This is just a test"},  "https://api.twitter.com/1.1/statuses/update")
-    
-    puts "response: #{response}"
+    #puts "response: #{response}"
     
     
     
