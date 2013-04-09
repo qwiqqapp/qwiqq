@@ -289,9 +289,12 @@ class User < ActiveRecord::Base
   end
 
   def twitter_client
+    Twitter.configure do |config|
+      config.consumer_key = Qwiqq.twitter_consumer_key
+      config.consumer_secret = Qwiqq.twitter_consumer_secret
+    end
+    
     @twitter_client = Twitter::Client.new(
-      consumer_key: Qwiqq.twitter_consumer_key, 
-      consumer_secret: Qwiqq.twitter_consumer_secret, 
       oauth_token: twitter_access_token, 
       oauth_token_secret: twitter_access_secret)
   end
