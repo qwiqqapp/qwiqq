@@ -82,6 +82,18 @@ class Share < ActiveRecord::Base
     
     #base_uri "http://api.twitter.com/1.1/statuses/update.json"
     
+    
+    # post update
+    begin
+      user.twitter_client.update(message);
+    rescue Twitter::Error::GatewayTimeout => e
+      puts e
+    rescue Twitter::Error::TooManyRequests => e
+      puts e
+    rescue Twitter::Error::UnprocessableEntity => e
+      puts e
+    end
+    
     access_token = prepare_access_token(user.twitter_access_token, user.twitter_access_secret)
     
     puts "accessToken: #{access_token}"
@@ -90,8 +102,7 @@ class Share < ActiveRecord::Base
     
     puts "response: #{response}"
     
-    # post update
-    #Thread.new{user.twitter_client.update(message)};
+    
     
     # update record
     update_attribute(:shared_at, Time.now)
