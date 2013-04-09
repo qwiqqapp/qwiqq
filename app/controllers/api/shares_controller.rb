@@ -5,7 +5,7 @@ class Api::SharesController < Api::ApiController
   end
 
   def create
-    puts 'Starting Share'
+    puts '/shares - start'
     deal = Deal.find(params[:deal_id])
     
     message = params[:message].slice(0,255)
@@ -48,6 +48,7 @@ class Api::SharesController < Api::ApiController
 
     # return 200
     head :ok
+    puts '/shares - fini'
   end
 end
 
