@@ -47,7 +47,7 @@ class Api::SharesController < Api::ApiController
     end
 
     # return 200
-    head :ok
+    render :json => {}
     puts '/shares - fini'
   end
 end
