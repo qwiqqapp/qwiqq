@@ -286,7 +286,7 @@ class Deal < ActiveRecord::Base
     # filtering options
     conditions = {}
     conditions[:category] = options[:category] unless options[:category].nil?
-    con
+
     with = {}
     with[:created_at] = options[:age].ago..Time.now unless options[:age].nil?
 
