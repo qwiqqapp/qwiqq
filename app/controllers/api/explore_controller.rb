@@ -76,7 +76,7 @@ class Api::ExploreController < Api::ApiController
       @deals.push deal
     end
 
-    @deals = @deals.public.uniq
+    @deals = @deals.uniq
     puts "EXPLORE TEST DEALS:#{@deals}"
     puts ""
     puts ""
