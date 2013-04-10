@@ -11,7 +11,7 @@ class Deal < ActiveRecord::Base
     indexes :name
     indexes :foursquare_venue_name
     indexes category(:name), :as => :category
-    
+    has :hidden
     has "RADIANS(lat)", :as => :lat_radians, :type => :float
     has "RADIANS(lon)", :as => :lon_radians, :type => :float
     
