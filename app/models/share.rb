@@ -74,8 +74,16 @@ class Share < ActiveRecord::Base
     puts 'deliver_to_twitter - start'
     
     # post update
-    Thread.new{user.twitter_client.update(message.slice(0,140))};
-    
+    #Thread.new{user.twitter_client.update(message.slice(0,140))};
+    begin
+      user.twitter_client.update(message.slice(0,140))
+    rescue Twitter::Error::TooManyRequests => error
+      puts "too many requests: #{error}"
+    rescue Twitter::Error::GatewayTimeout => error
+      puts "gateway timeout: #{error}"
+    rescue Twitter::Error::UnprocessableEntity => error
+      puts "unprocessable entity: #{error}"
+    end
     # update record
     update_attribute(:shared_at, Time.now)
     
