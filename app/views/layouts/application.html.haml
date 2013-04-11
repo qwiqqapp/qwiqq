@@ -25,6 +25,8 @@
       %meta(name="twitter:image" content="#{@deal.photo(:iphone_zoom_2x)}")
       %meta(name="twitter:data1" content="#{@deal.price_as_string}")
       %meta(name="twitter:label1" content="Price")
+      %meta(name="twitter:data1" content="#{@deal.price_as_string}")
+      %meta(name="twitter:label1" content="Price")
       - if @deal.for_sale_on_paypal
         %meta(name="twitter:data2" content="#{@deal.num_left_for_sale}")
         %meta(name="twitter:label2" content="Quantity Remaining")
