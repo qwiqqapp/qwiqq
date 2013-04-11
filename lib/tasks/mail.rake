@@ -1,3 +1,4 @@
+require File.dirname(__FILE__) + '/../config/environment.rb'
 namespace :mail do
 
   # called everyday but checks if specific day to make it weekly updates
@@ -55,7 +56,10 @@ namespace :mail do
   end
   
   task :send_michael => :environment do
-    s = File.read(File.join(RAILS_ROOT, "app/config/sphinx.conf"))
+    puts RAILS_ROOT
+    puts Rails.root
+    puts 'start'
+    s = File.read(File.join(Rails.root, "app/config/sphinx.conf"))
     unless s.nil?
       puts "test file:#{s}"
     else 
