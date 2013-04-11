@@ -4,12 +4,12 @@ class DealsController < ApplicationController
 
   # TODO either cache action or memoize @deals 
   def index
-    @deals = Deal.premium.recent.sorted.popular.first(9)
+    @deals = Deal.premium.recent.sorted.popular.public.first(9)
     render layout: 'home'
   end
   
   def merchants
-    @deals = Deal.premium.recent.sorted.popular.first(9)
+    @deals = Deal.premium.recent.sorted.popular.public.first(9)
     render layout: 'home_merchants'
   end
   
@@ -53,7 +53,7 @@ class DealsController < ApplicationController
   
   def purchase
     deal = Deal.find(params[:id])
-    if deal.num_left_for_sale > 0
+    if deal.num_left_for_sale > 0 && deal.hidden == false
       puts "AJAX WORKED PARAMS#{deal.price}"
       gateway =  ActiveMerchant::Billing::PaypalAdaptivePayment.new( 
                     :login => "john_api1.qwiqq.me",
