@@ -23,6 +23,11 @@
       %meta(name="twitter:title" content="#{@deal.name}")
       %meta(name="twitter:description" content="#{@deal.share_message}")
       %meta(name="twitter:image" content="#{@deal.photo(:iphone_zoom_2x)}")
+      - if @deal.for_sale_on_paypal
+        %meta(name="twitter:data1" content="#{@deal.price_as_string}")
+        %meta(name="twitter:label1" content="Price")
+        %meta(name="twitter:data2" content="#{@deal.num_left_for_sale}")
+        %meta(name="twitter:label2" content="Quantity Remaining")
     - elsif @user
       %meta(property="og:type" content="profile")
       %meta(property="og:title" content="#{@user.name || @user.username} is sharing with Qwiqq.")
