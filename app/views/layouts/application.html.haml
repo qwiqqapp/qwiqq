@@ -19,7 +19,7 @@
       %meta(name="twitter:site" content="@qwiqq")
       %meta(name="twitter:creator" content="@qwiqq")
       - if @deal.for_sale_on_paypal || !@deal.location_name.blank?
-        %meta(name="twitter:card" content="product")
+        %meta(name="twitter:card" content="summary")
       - else
         %meta(name="twitter:card" content="summary")
       %meta(name="twitter:url" content="#{deal_url(@deal)}")
