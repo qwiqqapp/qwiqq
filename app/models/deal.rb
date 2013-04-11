@@ -284,7 +284,7 @@ class Deal < ActiveRecord::Base
     raise NoMethodError, "Coordinates required" if lat.blank? && lon.blank? && options[:category] != "url"
     range = (options[:range] || 10_000).to_f
     # filtering options
-    conditions = {}
+    conditions = {:hidden => false}
     conditions[:category] = options[:category] unless options[:category].nil?
 
     with = {}
@@ -324,7 +324,7 @@ class Deal < ActiveRecord::Base
     range = (options[:range] || 10_000).to_f
 
     # filtering options
-    conditions = {}
+    conditions = {:hidden => false}
     conditions[:category] = options[:category] unless options[:category].nil?
     
     with = {}
