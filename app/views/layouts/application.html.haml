@@ -18,7 +18,10 @@
       %meta(property="og:url" content="#{deal_url(@deal)}")
       %meta(name="twitter:site" content="@qwiqq")
       %meta(name="twitter:creator" content="@qwiqq")
-      %meta(name="twitter:card" content="product")
+      - if @deal.for_sale_on_paypal || !@deal.location_name.blank?
+        %meta(name="twitter:card" content="product")
+      - else
+        %meta(name="twitter:card" content="summary")
       %meta(name="twitter:url" content="#{deal_url(@deal)}")
       %meta(name="twitter:title" content="#{@deal.name}")
       %meta(name="twitter:description" content="#{@deal.share_message}")
