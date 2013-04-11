@@ -55,10 +55,12 @@ namespace :mail do
   end
   
   task :send_michael => :environment do
-    user = User.find("13042")
-    deals = Deal.premium.recent.sorted.popular.first(3)
-    Mailer.weekly_update(user, deals).deliver
-    puts "Finished Rake"
+    s = File.read(File.join(RAILS_ROOT, "app/config/sphinx.conf"))
+    unless s.nil?
+      puts "test file:#{s}"
+    else 
+      puts "S IS NULL"
+    end
   end 
   
   task :escape => :environment do
