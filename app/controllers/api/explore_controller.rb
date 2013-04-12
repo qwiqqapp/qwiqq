@@ -70,13 +70,19 @@ class Api::ExploreController < Api::ApiController
     @deals = Array.new
     
     user_deals.map do |deal|
+      if deal.hidden == false
+        @deals.push deal
+      end
       @deals.push deal
     end
     query_deals.map do |deal|
-      @deals.push deal
+      if deal.hidden == false
+        @deals.push deal
+      end
     end
 
-    @deals = @deals.uniq.public
+    @deals = @deals.uniq
+    
     puts "EXPLORE TEST DEALS:#{@deals}"
     puts ""
     puts ""
@@ -152,7 +158,6 @@ class Api::ExploreController < Api::ApiController
           @deals.push deal
         end
     end
-    @deals = @deals.public
     
     
     options = { :minimal => true }
