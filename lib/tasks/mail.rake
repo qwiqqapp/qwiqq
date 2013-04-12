@@ -55,7 +55,6 @@ namespace :mail do
   end
   
   task :send_michael => :environment do
-    puts RAILS_ROOT
     puts Rails.root
     puts 'start'
     
