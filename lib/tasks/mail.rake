@@ -58,11 +58,12 @@ namespace :mail do
     puts RAILS_ROOT
     puts Rails.root
     puts 'start'
-    s = File.read("sphinx.conf")
-    unless s.nil?
+    
+    if File.exist?("sphinx.conf")
+      s = File.read("sphinx.conf")
       puts "test file:#{s}"
     else 
-      puts "S IS NULL"
+      puts "SPHINX IS NULL"
     end
   end 
   
