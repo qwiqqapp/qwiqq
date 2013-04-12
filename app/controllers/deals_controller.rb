@@ -36,9 +36,10 @@ class DealsController < ApplicationController
       ts_deals =  Deal.filtered_search(:lat => lat, :lon => lon, :range => Deal::MAX_RANGE*2).compact.first(6)
       @deals = Array.new
       ts_deals.map do |deal|
-        @deals.push deal
+        if deal.hidden == false
+          @deals.push deal
+        end
       end
-      @deals = @deals.public
     else
       @deals = []
     end

@@ -65,9 +65,10 @@ class Api::SearchController < Api::ApiController
     
     @deals = Array.new
     ts_deals.map do |deal|
-      @deals.push deal
+      if deal.hidden == false
+        @deals.push deal
+      end
     end
-    @deals = @deals.public
     
     puts "SEARCH DEAL COUNT:#{@deals.count}"
     options = { :minimal => true }
@@ -92,9 +93,10 @@ class Api::SearchController < Api::ApiController
     
     @deals = Array.new
     ts_deals.map do |deal|
-      @deals.push deal
+      if deal.hidden == false
+        @deals.push deal
+      end
     end
-    @deals = @deals.public
     
     options = { :minimal => true }
     options[:current_user] = current_user if current_user

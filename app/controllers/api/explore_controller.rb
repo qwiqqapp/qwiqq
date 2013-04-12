@@ -148,7 +148,9 @@ class Api::ExploreController < Api::ApiController
 
     @deals = Array.new
     ts_deals.map do |deal|
-      @deals.push deal
+        if deal.hidden == false
+          @deals.push deal
+        end
     end
     @deals = @deals.public
     
