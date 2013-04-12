@@ -44,7 +44,7 @@ class Api::SearchController < Api::ApiController
 
   def deals
     if  params[:range] == "10000000"
-      @deals = Deal.filtered_url_search(
+      ts_deals = Deal.filtered_url_search(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
       :lat => params[:lat],
@@ -53,7 +53,7 @@ class Api::SearchController < Api::ApiController
       :age => Deal::MAX_AGE.days,
       :page => params[:page])
     else
-      @deals = Deal.filtered_search(
+      ts_deals = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
       :lat => params[:lat],
@@ -63,10 +63,16 @@ class Api::SearchController < Api::ApiController
       :page => params[:page])
     end
     
+    @deals = Array.new
+    ts_deals.map do |deal|
+      @deals.push deal
+    end
+    @deals = @deals.public
+    
     puts "SEARCH DEAL COUNT:#{@deals.count}"
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
-    render :json => paginate(@deals).compact.as_json(options)
+    render :json => @deals.compact.as_json(options)
   end
 
   # example: api/search/category/:name/deals
@@ -75,7 +81,7 @@ class Api::SearchController < Api::ApiController
   # optional params:
   # - params[:lat], params[:long], params[:range]
   def category
-    @deals = Deal.filtered_search(
+    ts_deals = Deal.filtered_search(
       :category => params[:name] == "all" ? nil : params[:name],
       :lat => params[:lat],
       :lon => params[:long],
@@ -84,11 +90,14 @@ class Api::SearchController < Api::ApiController
       :page => params[:page])
 
     
-    userm = User.find_by_email("mscaria@novationmobile.com")
-    #Mailer.weekly_update(userm, @deals).deliver
+    @deals = Array.new
+    ts_deals.map do |deal|
+      @deals.push deal
+    end
+    @deals = @deals.public
     
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
-    render :json => paginate(@deals).compact.as_json(options)
+    render :json => @deals.compact.as_json(options)
   end
 end
