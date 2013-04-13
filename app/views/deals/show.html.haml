@@ -49,9 +49,7 @@
                 - if @deal.for_sale_on_paypal?
                   %span.quantity  
                     - if @deal.num_left_for_sale > 0
-                      ="#{@deal.num_left_for_sale}"
-                      %br
-                      left
+                      ="#{@deal.num_left_for_sale} left"
                     - else
                       .sold 
                         Sold Out
