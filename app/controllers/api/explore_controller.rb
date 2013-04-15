@@ -70,13 +70,19 @@ class Api::ExploreController < Api::ApiController
     @deals = Array.new
     
     user_deals.map do |deal|
+      if deal.hidden == false
+        @deals.push deal
+      end
       @deals.push deal
     end
     query_deals.map do |deal|
-      @deals.push deal
+      if deal.hidden == false
+        @deals.push deal
+      end
     end
 
-    @deals = @deals.public.uniq
+    @deals = @deals.uniq
+    
     puts "EXPLORE TEST DEALS:#{@deals}"
     puts ""
     puts ""
@@ -138,7 +144,7 @@ class Api::ExploreController < Api::ApiController
   # optional params:
   # - params[:lat], params[:long], params[:range]
   def category
-    @deals = Deal.filtered_search(
+    ts_deals = Deal.filtered_search(
       :category => params[:name] == "all" ? nil : params[:name],
       :lat => params[:lat],
       :lon => params[:long],
@@ -146,12 +152,17 @@ class Api::ExploreController < Api::ApiController
       :age => Deal::MAX_AGE.days,
       :page => params[:page])
 
+    @deals = Array.new
+    ts_deals.map do |deal|
+        if deal.hidden == false
+          @deals.push deal
+        end
+    end
     
-    #userm = User.find_by_email("mscaria@novationmobile.com")
-    #Mailer.weekly_update(userm, @deals).deliver
     
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
-    render :json => paginate(@deals).compact.as_json(options)
+    #render :json => paginate(@deals).compact.as_json(options)
+    render :json => @deals.compact.as_json(options)
   end
 end

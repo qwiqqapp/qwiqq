@@ -304,6 +304,7 @@ class User < ActiveRecord::Base
   end
   
   def twitter_friend_ids
+    puts "TEST NEW TWITTER:#{twitter_client.friend_ids}"
     twitter_ids = []
     begin
       result = twitter_client.friends(:cursor => (cursor ||= -1))

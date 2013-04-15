@@ -3,7 +3,7 @@
   %head
     %meta{ :charset => "utf-8" }
     %meta{ "http-equiv" => "X-UA-Compatible", :content => "IE=edge,chrome=1" }
-    %meta{ :name => "viewport", :content => "width=device-width, initial-scale=0.6" }
+    %meta#resizeViewport{ :name => "viewport", :content => "width=device-width, initial-scale=0.6" }
     %title= content_for :title
     = stylesheet_link_tag "application"
     = javascript_include_tag "application"
@@ -18,11 +18,22 @@
       %meta(property="og:url" content="#{deal_url(@deal)}")
       %meta(name="twitter:site" content="@qwiqq")
       %meta(name="twitter:creator" content="@qwiqq")
-      %meta(name="twitter:card" content="summary")
+      - if @deal.for_sale_on_paypal || !@deal.location_name.blank?
+        %meta(name="twitter:card" content="summary")
+      - else
+        %meta(name="twitter:card" content="summary")
       %meta(name="twitter:url" content="#{deal_url(@deal)}")
       %meta(name="twitter:title" content="#{@deal.name}")
       %meta(name="twitter:description" content="#{@deal.share_message}")
       %meta(name="twitter:image" content="#{@deal.photo(:iphone_zoom_2x)}")
+      %meta(name="twitter:data1" content="#{@deal.price_as_string}")
+      %meta(name="twitter:label1" content="Price")
+      - if @deal.for_sale_on_paypal
+        %meta(name="twitter:data2" content="#{@deal.num_left_for_sale}")
+        %meta(name="twitter:label2" content="Quantity Remaining")
+      - elsif !@deal.location_name.blank?
+        %meta(name="twitter:data2" content="#{@deal.location_name}")
+        %meta(name="twitter:label2" content="Location")
     - elsif @user
       %meta(property="og:type" content="profile")
       %meta(property="og:title" content="#{@user.name || @user.username} is sharing with Qwiqq.")
@@ -32,6 +43,12 @@
       %meta(property="profile:first_name" content="#{@user.first_name}")
       %meta(property="profile:last_name" content="#{@user.last_name}")
       %meta(property="profile:username" content="#{@user.username}")
+    :javascript
+      if (screen.width < 700) {
+        var mvp = document.getElementById('resizeViewport');
+        mvp.setAttribute('content','width=450');
+        mvp.setAttribute('content','initial-scale=.45');
+      }
       
   %body{ :class => "#{controller_name} #{action_name}" }
     = render "shared/header"
