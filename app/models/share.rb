@@ -51,7 +51,7 @@ class Share < ActiveRecord::Base
       user.foursquare_client.add_checkin("public", { :shout => URI::escape(message) })
     else
       #checkin = user.foursquare_client.add_checkin("public", { :venueId => deal.foursquare_venue_id, :shout => CGI::escape(message) })
-      checkin = user.foursquare_client.add_checkin("public", { :venueId => deal.foursquare_venue_id, :shout => message })
+      checkin = user.foursquare_client.add_checkin("public", { :venueId => deal.foursquare_venue_id, :shout => URI::escape(message) })
 
       image_uri = URI.parse(deal.photo.url(:iphone_zoom_2x))
       open(image_uri) do |remote|
