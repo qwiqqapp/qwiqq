@@ -48,10 +48,10 @@ class Share < ActiveRecord::Base
   def deliver_to_foursquare
     # if a venue id is present, checkin otherwise 'shout'
     if deal.foursquare_venue_id.blank?
-      user.foursquare_client.add_checkin("public", { :shout => URI::escape(message) })
+      user.foursquare_client.add_checkin("public", { :shout => message })
     else
       #checkin = user.foursquare_client.add_checkin("public", { :venueId => deal.foursquare_venue_id, :shout => CGI::escape(message) })
-      checkin = user.foursquare_client.add_checkin("public", { :venueId => deal.foursquare_venue_id, :shout => URI::escape(message) })
+      checkin = user.foursquare_client.add_checkin("public", { :venueId => deal.foursquare_venue_id, :shout => message })
 
       image_uri = URI.parse(deal.photo.url(:iphone_zoom_2x))
       open(image_uri) do |remote|
