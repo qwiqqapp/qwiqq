@@ -48,7 +48,7 @@ class Share < ActiveRecord::Base
   def deliver_to_foursquare
     # if a venue id is present, checkin otherwise 'shout'
     if deal.foursquare_venue_id.blank?
-      user.foursquare_client.add_checkin("public", { :shout => message })
+      user.foursquare_client.add_checkin("public", { :shout => URI::escape(message) })
     else
       #checkin = user.foursquare_client.add_checkin("public", { :venueId => deal.foursquare_venue_id, :shout => CGI::escape(message) })
       checkin = user.foursquare_client.add_checkin("public", { :venueId => deal.foursquare_venue_id, :shout => message })
