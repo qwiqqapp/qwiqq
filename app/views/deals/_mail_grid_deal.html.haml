@@ -14,8 +14,8 @@
                 %br
                 left
             - else
-               %img{:src =>image_path("buy-button.png"), :width => "170"}
-               %span.dollars-large{:style => "position:absolute;top:7px;left:20px;font-size:18px;color:#6cb340;"}= mail_grid_deal.price_as_string
+              %img{:src =>image_path("buy-button.png"), :width => "170"}
+              %span.dollars-large{:style => "position:absolute;top:7px;left:20px;font-size:18px;color:#6cb340;"}= mail_grid_deal.price_as_string
               .sold{:style => "color:red; margin-top:10px;"}
                 Sold Out
         - else
