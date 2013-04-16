@@ -11,7 +11,7 @@
         - else
           .price{:style => "padding: 2px 8px 0px 10px; background-color: #EDEDED; border: 2px solid #DEDEDE; -webkit-border-radius: 6px 6px 6px 6px; border-radius: 6px 6px 6px 6px;float: left;margin-top: 10px;"}
             .hole{:style => "left: -5px;top: 5px;background-color: white;border: 2px solid #DEDEDE;border-radius: 6px 6px 6px 6px;-webkit-border-radius: 6px 6px 6px 6px;float: left;height: 5px;margin: 0;position: relative;width: 5px;"}
-            %span.dollars{:style => "color: #6CB340;font-size:14px; text-align:left; position:absolute;top:4px;left:10px;"}= mail_grid_deal.price_as_string
+            %span.dollars{:style => "position:absolute;top:4px;left:20px;font-size:18px;color:#6cb340;"}= mail_grid_deal.price_as_string
           - if mail_grid_deal.for_sale_on_paypal?
             %span{:style => "color:#F47527; font-size:17px; margin-left:10px; margin-bottom:2px; position:absolute; height:28px"}   
               - if mail_grid_deal.num_left_for_sale > 0
