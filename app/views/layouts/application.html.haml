@@ -16,7 +16,6 @@
       %meta(property="og:description" content="#{@deal.meta_content}")
       %meta(property="og:image" content="#{@deal.photo(:iphone_zoom_2x)}")
       %meta(property="og:url" content="#{deal_url(@deal)}")
-      %meta(name="twitter:card" content="summary")
       %meta(name="twitter:site" content="@qwiqq")
       %meta(name="twitter:creator" content="@qwiqq")
       %meta(name="twitter:title" content="#{@deal.name}")
@@ -29,9 +28,13 @@
       - if @deal.for_sale_on_paypal
         %meta(name="twitter:data2" content="#{@deal.num_left_for_sale}")
         %meta(name="twitter:label2" content="Quantity Remaining")
+         %meta(name="twitter:card" content="product")
       - elsif !@deal.location_name.blank?
         %meta(name="twitter:data2" content="#{@deal.location_name}")
         %meta(name="twitter:label2" content="Location")
+        %meta(name="twitter:card" content="product")
+      - else
+         %meta(name="twitter:card" content="summary")
       %meta(name="twitter:domain" content="qwiqq.me")
     - elsif @user
       %meta(property="og:type" content="profile")
