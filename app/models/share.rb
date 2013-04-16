@@ -50,7 +50,6 @@ class Share < ActiveRecord::Base
     if deal.foursquare_venue_id.blank?
       user.foursquare_client.add_checkin("public", { :shout => message })
     else
-      #checkin = user.foursquare_client.add_checkin("public", { :venueId => deal.foursquare_venue_id, :shout => CGI::escape(message) })
       checkin = user.foursquare_client.add_checkin("public", { :venueId => deal.foursquare_venue_id, :shout => message })
 
       image_uri = URI.parse(deal.photo.url(:iphone_zoom_2x))
