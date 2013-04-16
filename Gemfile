@@ -40,7 +40,7 @@ gem "koala", "1.5.0" # facebook
 gem "twitter", "~> 4.6.2"
 gem "airbrake"
 gem "daemons", :require => false
-gem "skittles", "0.6.0" # foursquare, update to 0.6?
+gem "skittles", "https://github.com/anthonator/skittles.git"
 gem "httparty"
 gem "rails_autolink"
 gem "socialyzer"
