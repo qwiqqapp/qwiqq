@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/anthonator/skittles.git
-  revision: a2b710fa2a8d579328c70681391fbce0d1ff283d
+  revision: f481b22e0b8e421aff5ffb435bcdcb263d0a5ada
   specs:
     skittles (0.6.0)
       hashie (~> 1.2.0)
@@ -187,7 +187,7 @@ GEM
     koala (1.5.0)
       faraday (~> 0.7)
       multi_json (~> 1.3)
-    launchy (2.2.0)
+    launchy (2.3.0)
       addressable (~> 2.3)
     listen (0.7.3)
     lumberjack (1.0.3)
