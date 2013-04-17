@@ -28,13 +28,13 @@
       - if @deal.for_sale_on_paypal
         %meta(name="twitter:data2" content="#{@deal.num_left_for_sale}")
         %meta(name="twitter:label2" content="Quantity Remaining")
-         %meta(name="twitter:card" content="product")
+        %meta(name="twitter:card" content="product")
       - elsif !@deal.location_name.blank?
         %meta(name="twitter:data2" content="#{@deal.location_name}")
         %meta(name="twitter:label2" content="Location")
         %meta(name="twitter:card" content="product")
       - else
-         %meta(name="twitter:card" content="summary")
+        %meta(name="twitter:card" content="summary")
       %meta(name="twitter:domain" content="qwiqq.me")
     - elsif @user
       %meta(property="og:type" content="profile")
@@ -49,7 +49,7 @@
       if (screen.width < 700) {
         var mvp = document.getElementById('resizeViewport');
         mvp.setAttribute('content','width=320');
-        mvp.setAttribute('content','initial-scale=.5');
+        mvp.setAttribute('content','initial-scale=.65');
       }
       
   %body{ :class => "#{controller_name} #{action_name}" }
