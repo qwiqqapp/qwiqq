@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/NovationMobile/skittles.git
-  revision: f481b22e0b8e421aff5ffb435bcdcb263d0a5ada
+  revision: 10fdf56163a94331350c9e53047adfdee6d0bdbb
   specs:
     skittles (0.6.0)
       hashie (~> 1.2.0)
