@@ -22,7 +22,7 @@ class Api::UsersController < Api::ApiController
     #Our special secret!
     if id.index("*_*")
       name = id.gsub("*_*", "");
-      @user ||= User.find_by_username(name.downcase)
+      @user ||= User.find(:first,:conditions=>["lower(username) = ?",name.downcase])
     else
       @user ||= find_user(id)
     end
