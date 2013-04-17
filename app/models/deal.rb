@@ -51,7 +51,8 @@ class Deal < ActiveRecord::Base
                   :num_for_sale,    
                   :currency, 
                   :paypal_email,
-                  :hidden
+                  :hidden,
+                  :located
                
   
   # TODO update to 3.0 validates method

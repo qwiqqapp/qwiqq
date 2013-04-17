@@ -7,15 +7,15 @@
           %div{:style => "position:relative;width:100%;margin-top:12px;"}
             - if mail_grid_deal.num_left_for_sale > 0
               %a{:href => "http://qwiqq.me/posts/#{mail_grid_deal.id}/purchase", ":data-remote" => 'true'}
-                %img{:src =>image_path("buy-button.png"), :width => "170", :style => "position:relative"}
-                %span{:style => "font-size:18px;color:#6cb340;position:absolute;top:5px;left:20px;"}= mail_grid_deal.price_as_string
+                %img{:src =>image_path("buy-button.png"), :width => "170"}
+                %span{:style => "position:absolute;top:5px;left:20px;font-size:18px;color:#6cb340;"}= mail_grid_deal.price_as_string
               %span{:style => "color:#F47527; font-size:17px; margin-left:10px; margin-bottom:2px; position:absolute; height:28px"}   
                 ="#{mail_grid_deal.num_left_for_sale}"
                 %br
                 left
             - else
-              %img{:src =>image_path("buy-button.png"), :width => "170", :style => "position:relative"}
-              %span{:style => "font-size:18px;color:#6cb340;position:absolute;top:5px;left:20px;"}= mail_grid_deal.price_as_string
+              %img{:src =>image_path("buy-button.png"), :width => "170"}
+              %span{:style => "position:absolute;top:5px;left:20px;font-size:18px;color:#6cb340;"}= mail_grid_deal.price_as_string
               .sold{:style => "color:red; margin-top:10px;"}
                 Sold Out
         - else
