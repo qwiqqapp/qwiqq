@@ -57,7 +57,6 @@ ActiveAdmin.register Deal do
       link_to(deal.name, [:admin, deal])
     end
     column("Category") {|deal| status_tag(deal.try(:category).try(:name)) }
-    column :located
     column('Venue (4SQ)') {|d| link_to(d.foursquare_venue_name, "http://foursquare.com/v/#{d.foursquare_venue_id}") if d.foursquare_venue_name}
 
     column("Premium", :sortable => :premium){|deal| deal.premium ? status_tag("Premium") : nil  }
