@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/anthonator/skittles.git
+  remote: https://github.com/NovationMobile/skittles.git
   revision: f481b22e0b8e421aff5ffb435bcdcb263d0a5ada
   specs:
     skittles (0.6.0)

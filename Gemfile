@@ -40,7 +40,7 @@ gem "koala", "1.5.0" # facebook
 gem "twitter", "~> 4.6.2"
 gem "airbrake"
 gem "daemons", :require => false
-gem "skittles", :git => "https://github.com/anthonator/skittles.git"
+gem "skittles", :git => "https://github.com/NovationMobile/skittles.git"
 gem "httparty"
 gem "rails_autolink"
 gem "socialyzer"
