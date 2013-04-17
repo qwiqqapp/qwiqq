@@ -65,7 +65,7 @@ namespace :deals do
      deals = Deal.where("foursquare_venue_id IS NOT NULL AND located = false AND foursquare_venue_name IS NULL")
      puts "4SQ COUNT:#{deals.count}"
      
-     deals.limit(150) do |d|
+     deals.each do |d|
        puts "name:#{d.name} - venue:#{d.foursquare_venue_id}"
        if d.foursquare_venue_id?
          d.locate! rescue nil
