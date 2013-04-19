@@ -1,6 +1,13 @@
 # added as "DealComment" to avoid conflicting with ActiveAdmin::Comment
 ActiveAdmin.register Comment, :as => "DealComment" do
-#ActiveAdmin.register Comment do
+  
+  controller do
+    def scoped_collection
+      Comment.includes(:deal)
+    end
+  end
+  
+  #ActiveAdmin.register Comment do
   menu :label => "Comments"
   scope :all, :default => true
   scope :today
@@ -15,7 +22,7 @@ ActiveAdmin.register Comment, :as => "DealComment" do
       link_to(like.user.name, [ :admin, like.user ]) if like.user
     end
     
-    column("Deal", :sortable => :name) do |like|  
+    column("Deal", :sortable => 'deals.name') do |like|  
       link_to(like.deal.name, [ :admin, like.deal ]) if like.deal
     end
 
