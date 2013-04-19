@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Deal < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
   include ActionView::Helpers::NumberHelper
@@ -213,7 +214,7 @@ class Deal < ActiveRecord::Base
     if self.price > 0
       if self.currency
         if !self.currency.empty?
-          number_to_currency(price.to_f / 100, :unit => self.currency).sub( "USD", "$" )
+          number_to_currency(price.to_f / 100, :unit => self.currency).sub( "USD", "$" ).sub( "EUR", "€" )
         else
           number_to_currency(price.to_f / 100)
         end
