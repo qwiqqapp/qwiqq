@@ -214,7 +214,15 @@ class Deal < ActiveRecord::Base
     if self.price > 0
       if self.currency
         if !self.currency.empty?
-          number_to_currency(price.to_f / 100, :unit => self.currency).sub( "USD", "$" ).sub( "EUR", "€" )
+          currencySymbol = number_to_currency(price.to_f / 100, :unit => self.currency)
+          currencySymbol.sub("AUD","AUD").sub( "BRL", "BRL" ).sub( "CAD", "CAD" )
+          currencySymbol.sub("CZK","CZK").sub( "DKK", "DKK" ).sub( "EUR", "€" )
+          currencySymbol.sub("HKD","HKD").sub( "HUF", "HUF" ).sub( "ILS", "ILS" )
+          currencySymbol.sub("JPY","JPY").sub( "MYR", "MYR" ).sub( "MXN", "MXN" )
+          currencySymbol.sub("NOK","NOK").sub( "NZD", "NZD" ).sub( "PHP", "PHP" )
+          currencySymbol.sub("PLN","PLN").sub( "GBP", "GBP" ).sub( "SGD", "SGD" )
+          currencySymbol.sub("SEK","SEK").sub( "CHF", "CHF" ).sub( "TWD", "TWD" )
+          currencySymbol.sub("THB","THB").sub( "TRY", "TRY" ).sub( "USD", "$" )
         else
           number_to_currency(price.to_f / 100)
         end
