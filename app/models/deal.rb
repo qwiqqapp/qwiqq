@@ -215,14 +215,14 @@ class Deal < ActiveRecord::Base
       if self.currency
         if !self.currency.empty?
           currencySymbol = number_to_currency(price.to_f / 100, :unit => self.currency)
-          currencySymbol.sub("AUD","AUD $").sub( "BRL", "BRL" ).sub( "CAD", "CAD $" )
+          currencySymbol.sub("AUD","AUD $").sub( "BRL", "R$" ).sub( "CAD", "CAD $" )
           currencySymbol.sub("CZK","CZK").sub( "DKK", "DKK" ).sub( "EUR", "€" )
-          currencySymbol.sub("HKD","HKD").sub( "HUF", "HUF" ).sub( "ILS", "ILS" )
-          currencySymbol.sub("JPY","JPY").sub( "MYR", "MYR" ).sub( "MXN", "MXN" )
-          currencySymbol.sub("NOK","NOK").sub( "NZD", "NZD" ).sub( "PHP", "PHP" )
-          currencySymbol.sub("PLN","PLN").sub( "GBP", "GBP" ).sub( "SGD", "SGD" )
-          currencySymbol.sub("SEK","SEK").sub( "CHF", "CHF" ).sub( "TWD", "TWD" )
-          currencySymbol.sub("THB","THB").sub( "TRY", "TRY" ).sub( "USD", "$" )
+          currencySymbol.sub("HKD","HK$").sub( "HUF", "HUF" ).sub( "ILS", "₪" )
+          currencySymbol.sub("JPY","¥").sub( "MYR", "MYR" ).sub( "MXN", "MX$" )
+          currencySymbol.sub("NOK","NOK").sub( "NZD", "NZ$" ).sub( "PHP", "Php" )
+          currencySymbol.sub("PLN","PLN").sub( "GBP", "£" ).sub( "SGD", "SGD" )
+          currencySymbol.sub("SEK","SEK").sub( "CHF", "CHF" ).sub( "TWD", "NT$" )
+          currencySymbol.sub("THB","฿").sub( "TRY", "TRY" ).sub( "USD", "$" )
         else
           number_to_currency(price.to_f / 100)
         end
