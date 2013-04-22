@@ -10,12 +10,12 @@
                 %div{:style => "background-image: url(#{image_path('buy-button-new.png')});width:170px;height:33px;"}
                   %div{:style => "text-align: center;"}
                     %span{:style => "position:relative;top:5px;padding-left:25px;padding-right:130px;font-size:18px;color:#6cb340;"}= mail_grid_deal.price_as_string
-              %span{:style => "color:#F47527; font-size:17px; margin-left:10px; margin-top:-5px; position:absolute; height:28px;"}   
-                ="#{mail_grid_deal.num_left_for_sale}"
-                %br
-                left
+                %span{:style => "color:#F47527; font-size:17px; margin-left:10px; margin-top:-5px; position:absolute; height:28px;"}   
+                  ="#{mail_grid_deal.num_left_for_sale}"
+                  %br
+                  left
             - else
-              %div{:style => " background-image: url(image_path('buy-button.png'));width:170px;height:33px;background-size: 170px 33px;"}
+              %div{:style => " background-image: url(image_path('buy-button-new.png'));width:170px;height:33px;background-size: 170px 33px;"}
                 %div{:style => "text-align: center;"}
                   %span{:style => "position:relative;top:5px;padding-left:25px;padding-right:130px;font-size:18px;color:#6cb340;"}= mail_grid_deal.price_as_string
               .sold{:style => "color:red; margin-top:10px;"}
