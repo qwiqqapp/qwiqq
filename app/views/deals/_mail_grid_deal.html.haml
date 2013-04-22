@@ -4,42 +4,42 @@
       %img.post-photo{:height => "240", :src => mail_grid_deal.photo.url(:iphone_zoom), :style => "border-radius: 6px 6px 6px 6px;-webkit-border-radius: 6px;", :width => "240"}
         .name{:style => "height: 60px;padding: 4px 0;"}= mail_grid_deal.name
         - if mail_grid_deal.for_sale_on_paypal?
-          %div{:style => "position:relative;width:100%;margin-top:12px;"}
+          %div{:style => "width:100%;margin-top:12px;"}
             - if mail_grid_deal.num_left_for_sale > 0
               %a{:href => "http://qwiqq.me/posts/#{mail_grid_deal.id}/purchase", ":data-remote" => 'true'}
                 %img{:src =>image_path("buy-button.png"), :width => "170"}
-                %span{:style => "position:absolute;top:5px;left:20px;font-size:18px;color:#6cb340;"}= mail_grid_deal.price_as_string
-              %span{:style => "color:#F47527; font-size:17px; margin-left:10px; margin-top:-5px; position:absolute; height:28px;"}
+                %span{:style => "top:5px;left:20px;font-size:18px;color:#6cb340;"}= mail_grid_deal.price_as_string
+              %span{:style => "color:#F47527; font-size:17px; margin-left:10px; margin-top:-5px; height:28px;"}
                 ="#{mail_grid_deal.num_left_for_sale}"
                 %br
                 left
             - else
               %img{:src =>image_path("buy-button.png"), :width => "170"}
-              %span{:style => "position:absolute;top:5px;left:20px;font-size:18px;color:#6cb340;"}= mail_grid_deal.price_as_string
+              %span{:style => "top:5px;left:20px;font-size:18px;color:#6cb340;"}= mail_grid_deal.price_as_string
               .sold{:style => "color:red; margin-top:10px;"}
                 Sold Out
         - else
           .price{:style => "padding: 2px 8px 0px 10px; background-color: #EDEDED; border: 2px solid #DEDEDE; -webkit-border-radius: 6px 6px 6px 6px; border-radius: 6px 6px 6px 6px;float: left;margin-top: 10px;"}
-            .hole{:style => "left: -5px;top: 5px;background-color: white;border: 2px solid #DEDEDE;border-radius: 6px 6px 6px 6px;-webkit-border-radius: 6px 6px 6px 6px;float: left;height: 5px;margin: 0;position: relative;width: 5px;"}
+            .hole{:style => "left: -5px;top: 5px;background-color: white;border: 2px solid #DEDEDE;border-radius: 6px 6px 6px 6px;-webkit-border-radius: 6px 6px 6px 6px;float: left;height: 5px;margin: 0;width: 5px;"}
             %span.dollars{:style => "color: #6CB340;font-size: 14px; text-align:left"}= mail_grid_deal.price_as_string
 
 
   %a{:href => user_url(mail_grid_deal.user), :style => "text-decoration: none;"}
     .metadata{:style => "color: #9A8C7E;font-size: 14px;font-weight: 300;padding: 10px 20px;text-align: left;"}
       %img.user-photo{:height => "48", :src => mail_grid_deal.user.photo.url(:iphone), :style => "-webkit-border-radius: 6px 6px 6px 6px; border-radius: 6px 6px 6px 6px;float: left;", :width => "48"}
-      .stats{:style => "left: 3px;position: relative;top: -3px;"}
+      .stats{:style => "left: 3px;top: -3px;"}
         %span.stat{:style => "color: #9A8C7E;font-size: 14px;font-weight: 300;text-align: left;"}
-          %img.icon{:src => image_path("love-icon.png"), :style => "margin-left: 4px;position: relative;top: 4px;"}
+          %img.icon{:src => image_path("love-icon.png"), :style => "margin-left: 4px;top: 4px;"}
             = mail_grid_deal.likes_count
         %span.stat{:style => "color: #9A8C7E;font-size: 14px;font-weight: 300;text-align: left;"}
-          %img.icon{:src => image_path("share-icon.png"), :style => "margin-left: 4px;position: relative;top: 4px;"}
+          %img.icon{:src => image_path("share-icon.png"), :style => "margin-left: 4px;top: 4px;"}
             = mail_grid_deal.shares_count
         %span.stat{:style => "color: #9A8C7E;font-size: 14px;font-weight: 300;text-align: left;"}
-          %img.icon{:src => image_path("time-icon.png"), :style => "margin-left: 4px;position: relative;top: 4px;"}
+          %img.icon{:src => image_path("time-icon.png"), :style => "margin-left: 4px;top: 4px;"}
             = short_time_ago_in_words(mail_grid_deal.created_at)
-      .location{:style => "left: 3px;position: relative;top: -7px; color: #9A8C7E;font-size: 14px;font-weight: 300;text-align: left;"}
+      .location{:style => "left: 3px;top: -7px; color: #9A8C7E;font-size: 14px;font-weight: 300;text-align: left;"}
         - if mail_grid_deal.venue_or_location_name != "" && mail_grid_deal.venue_or_location_name != nil
-          %img.icon{:src => image_path("location-icon.png"), :style => "margin-left: 4px;position: relative;top: 4px;"}
+          %img.icon{:src => image_path("location-icon.png"), :style => "margin-left: 4px;top: 4px;"}
           = truncate(mail_grid_deal.venue_or_location_name, :length => 24)
         - else
-          %img.icon{:src => image_path("no-location-icon.png"), :style => "margin-left: 4px;position: relative;top: 4px;"}
+          %img.icon{:src => image_path("no-location-icon.png"), :style => "margin-left: 4px;top: 4px;"}
