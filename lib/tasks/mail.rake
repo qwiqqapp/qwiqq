@@ -58,22 +58,19 @@ namespace :mail do
     user = User.find_by_email("michaelscaria26@gmail.com")
     deals = Deal.premium.recent.sorted.public.popular.first(3)
     Mailer.weekly_update(user, deals).deliver
-
-  end 
+  end
+  
+  task :send_brandon => :environment do
+    user = User.find_by_email("dacopenhagen@gmail.com")
+    deals = Deal.premium.recent.sorted.public.popular.first(3)
+    Mailer.weekly_update(user, deals).deliver
+  end
   
   task :escape => :environment do
     deal = Deal.find("11771")
     puts "#{ERB::Util.url_encode("I just bought this on Qwiqq! #{deal.name} BUY NOW #{deal.price_as_string}")}"
     puts "Finished Rake"
-    
   end 
-  
-  task :send_brandon => :environment do
-    user = User.find_by_email("copley.brandon@gmail.com")
-    transaction = Transaction.first
-    deal = transaction.deal
-    Mailer.deal_purchased(user, deal, transaction).deliver
-  end
   
   task :send_kyle => :environment do
     user = User.find_by_email("copley.kyle@gmail.com")
