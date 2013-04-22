@@ -4,7 +4,7 @@
       %img.post-photo{:height => "240", :src => mail_grid_deal.photo.url(:iphone_zoom), :style => "border-radius: 6px 6px 6px 6px;-webkit-border-radius: 6px;", :width => "240"}
         .name{:style => "height: 60px;padding: 4px 0;"}= mail_grid_deal.name
         .price{:style => "padding: 2px 8px 2px 10px; background-color: #EDEDED; border: 2px solid #DEDEDE; -webkit-border-radius: 6px 6px 6px 6px; border-radius: 6px 6px 6px 6px;float: left;margin-top: 10px;"}
-          .hole{:style => "background-color: white;border: 2px solid #DEDEDE;border-radius: 6px 6px 6px 6px;-webkit-border-radius: 6px 6px 6px 6px;float: left;height: 5px;margin: 6px 0px 0px 0px;width: 5px;"}
+          .hole{:style => "background-color: white;border: 2px solid #DEDEDE;border-radius: 6px 6px 6px 6px;-webkit-border-radius: 6px 6px 6px 6px;float: left;height: 5px;margin: 8px 0px 0px 0px;width: 5px;"}
           %span.dollars{:style => "color: #6CB340;font-size: 14px; text-align:left;margin-left:5px;"}= mail_grid_deal.price_as_string
           - if mail_grid_deal.for_sale_on_paypal?
             - if mail_grid_deal.num_left_for_sale > 0
