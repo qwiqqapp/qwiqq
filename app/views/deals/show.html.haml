@@ -19,8 +19,8 @@
           %span= "#{time_ago_in_words(@deal.created_at)} ago"
             
         .stat
-          .num= @deal.user.deals_count
-          = @deal.user.deals_count == 1 ? 'post' : 'posts'
+          .num= @deal.user.deals_num
+          = @deal.user.deals_num == 1 ? 'post' : 'posts'
         .stat 
           .num= @deal.user.following_count
           following

@@ -73,10 +73,10 @@ class Api::DealsController < Api::ApiController
     @deal.save
     #In 30 DAYS check to see if user has shared
     scheduler = Rufus::Scheduler.start_new
-    #original current_user.deals_count should be out of scope, so we store it
-    original_deal_count = current_user.deals_count
+    #original current_user.deals_num should be out of scope, so we store it
+    original_deal_count = current_user.deals_num
     scheduler.every '30d' do |job|
-      if @deal == current_user.deals.sorted[0] && original_deal_count >= current_user.deals_count
+      if @deal == current_user.deals.sorted[0] && original_deal_count >= current_user.deals_num
         #user hasn't shared in past 30 days, send out missed email
         #current user in 30 days, not current_user now
         if current_user.send_notifications 
@@ -99,12 +99,12 @@ class Api::DealsController < Api::ApiController
 
   def destroy
     @deal = current_user.deals.find(params[:id])
-    puts "CURRENT user deals count:#{current_user.deals_count}"
-    current_user.deals_count = current_user.deals_count - 1
+    puts "CURRENT user deals count:#{current_user.deals_num}"
+    current_user.deals_num = current_user.deals_num - 1
     @deal.hidden = true
     @deal.save!
     current_user.save!
-    puts "NEW curernt user deals count:#{current_user.deals_count}"
+    puts "NEW curernt user deals count:#{current_user.deals_num}"
     render :nothing => true
   end
 

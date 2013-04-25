@@ -63,7 +63,7 @@ class Api::UsersController < Api::ApiController
     
       #check if user has created post
       scheduler.every '1w' do |job|
-        if @user.deals_count == 0
+        if @user.deals_num == 0
           #user hasn't created a post yet, send email
           if @user.send_notification
             Mailer.create_post(@user).deliver

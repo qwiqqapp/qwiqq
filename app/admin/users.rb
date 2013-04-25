@@ -29,7 +29,7 @@ ActiveAdmin.register User do
     
     column :followers_count
     column :following_count
-    column "Posts Count", :deals_count
+    column "Posts Count", :deals_num
     column :comments_count
     column :likes_count
     

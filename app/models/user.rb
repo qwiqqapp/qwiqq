@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
                   :paypal_email,
                   :socialyzer_times,
                   :socialyzer_enabled_at,
-                  :deals_count
+                  :deals_num
 
   attr_accessor :push_token
   attr_accessor :password
@@ -256,7 +256,7 @@ class User < ActiveRecord::Base
       
         # counts
         json[:like_count] = likes_count
-        json[:deal_count] = deals_count
+        json[:deal_count] = deals_num
         json[:comment_count] = comments_count
         json[:transaction_count] = transactions_count
         json[:deals] = options[:deals]  ? deals.sorted.limit(20).as_json(:minimal=>true) : nil

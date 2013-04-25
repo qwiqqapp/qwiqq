@@ -21,7 +21,7 @@ ActiveAdmin.register Deal do
   filter :price
   filter :created_at
   filter :premium
-  filter :deals_count
+  filter :deals_num
   filter :category, :as => :check_boxes, :collection => proc { Category.all }
   
   csv do

@@ -15,8 +15,8 @@
             %a{ :href => "tel:#{@user.phone}" }
             = "Phone: #{@user.phone}"
       .stat
-        .num= @user.deals_count
-        = @user.deals_count == 1 ? 'post' : 'posts'
+        .num= @user.deals_num
+        = @user.deals_num == 1 ? 'post' : 'posts'
       .stat 
         .num= @user.following_count
         following
