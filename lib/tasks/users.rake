@@ -40,8 +40,8 @@ namespace :users do
     #  user.deals_count = Deal.where('user_id=? AND hidden=FALSE',user.id).count
     #  user.save
     #end
-    puts "Initial deal count:#{user.deals_count}"
     user = User.find_by_email("michaelscaria26@gmail.com")
+    puts "Initial deal count:#{user.deals_count}"
     user.deals_count = Deal.where('user_id=? AND hidden=FALSE',user.id).count
     user.save
     puts "Final deal count:#{user.deals_count}"
