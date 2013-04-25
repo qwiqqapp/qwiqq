@@ -33,4 +33,12 @@ namespace :users do
       user.save
     end
   end
+  
+  desc "Update every users deal_count"
+  task :update_deal_count => :environment do
+    User.find_each do |user|
+      user.deal_count = Deal.where('user_id=? AND hidden=FALSE',user.id).count
+      user.save
+    end
+  end
 end

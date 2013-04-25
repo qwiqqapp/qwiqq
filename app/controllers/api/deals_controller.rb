@@ -99,8 +99,10 @@ class Api::DealsController < Api::ApiController
 
   def destroy
     @deal = current_user.deals.find(params[:id])
+    current_user.deal_count = current_user.deal_count - 1
     @deal.hidden = true
     @deal.save!
+    current_user.save!
     #@deal.destroy
     render :nothing => true
   end
