@@ -71,7 +71,8 @@ class User < ActiveRecord::Base
                   :sent_facebook_push,
                   :paypal_email,
                   :socialyzer_times,
-                  :socialyzer_enabled_at
+                  :socialyzer_enabled_at,
+                  :deals_count
 
   attr_accessor :push_token
   attr_accessor :password
