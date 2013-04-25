@@ -99,12 +99,12 @@ class Api::DealsController < Api::ApiController
 
   def destroy
     @deal = current_user.deals.find(params[:id])
-    puts "CURRENT user deal count:#{current_user.deal_count}"
-    current_user.deal_count = current_user.deal_count - 1
+    puts "CURRENT user deals count:#{current_user.deals_count}"
+    current_user.deals_count = current_user.deals_count - 1
     @deal.hidden = true
     @deal.save!
     current_user.save!
-    puts "NEW curernt user deal count:#{current_user.deal_count}"
+    puts "NEW curernt user deals count:#{current_user.deals_count}"
     render :nothing => true
   end
 
