@@ -45,5 +45,7 @@ namespace :users do
     user.deals_count = Deal.where('user_id=? AND hidden=FALSE',user.id).count
     user.save
     puts "Final deal count:#{user.deals_count}"
+    userm = User('13042')
+    puts "New search deal count:#{userm.deals_count}"
   end
 end
