@@ -41,19 +41,19 @@ namespace :users do
     #  user.save
     #end
     user = User.find_by_email("michaelscaria26@gmail.com")
-    puts "Initial deal count:#{user.deals_count} and bio:#{user.bio}"
-    user.deals_count = Deal.where('user_id=? AND hidden=FALSE',user.id).count
+    puts "Initial deal count:#{user.deals_num} and bio:#{user.bio}"
+    user.deals_num = Deal.where('user_id=? AND hidden=FALSE',user.id).count
     user.bio = "Testing from a rake, woot woot! 2"
     user.save!
-    puts "Final deal count:#{user.deals_count}"
+    puts "Final deal count:#{user.deals_num}"
     userm = User.find('13042')
-    puts "New search deal count:#{userm.deals_count} and bio:#{userm.bio}"
+    puts "New search deal count:#{userm.deals_num} and bio:#{userm.bio}"
   end
   
   desc "Update every users deal_count"
   task :update_deal_count => :environment do
     User.find_each do |user|
-      user.deals_count = Deal.where('user_id=? AND hidden=FALSE',user.id).count
+      user.deals_num = Deal.where('user_id=? AND hidden=FALSE',user.id).count
       user.save
     end
   end
