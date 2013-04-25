@@ -74,7 +74,7 @@ class Share < ActiveRecord::Base
     
     # post update
     begin
-      user.twitter_client.update(message.slice(0,139))
+      user.twitter_client.update(message.truncate(140))
     rescue Twitter::Error::TooManyRequests => error
       puts "too many requests: #{error}"
     rescue Twitter::Error::GatewayTimeout => error
