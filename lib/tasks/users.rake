@@ -34,8 +34,8 @@ namespace :users do
     end
   end
   
-  desc "Update every users deal_count"
-  task :update_deal_count => :environment do
+  desc "Update every users deal_count FOR MICHAEL"
+  task :update_deal_michael => :environment do
     #User.find_each do |user|
     #  user.deals_count = Deal.where('user_id=? AND hidden=FALSE',user.id).count
     #  user.save
@@ -43,10 +43,18 @@ namespace :users do
     user = User.find_by_email("michaelscaria26@gmail.com")
     puts "Initial deal count:#{user.deals_count} and bio:#{user.bio}"
     user.deals_count = Deal.where('user_id=? AND hidden=FALSE',user.id).count
-    user.bio = "Testing from a rake, woot woot!"
+    user.bio = "Testing from a rake, woot woot! 2"
     user.save!
     puts "Final deal count:#{user.deals_count}"
     userm = User.find('13042')
     puts "New search deal count:#{userm.deals_count} and bio:#{userm.bio}"
+  end
+  
+  desc "Update every users deal_count"
+  task :update_deal_count => :environment do
+    User.find_each do |user|
+      user.deals_count = Deal.where('user_id=? AND hidden=FALSE',user.id).count
+      user.save
+    end
   end
 end
