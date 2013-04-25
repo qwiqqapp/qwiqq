@@ -476,9 +476,6 @@ class User < ActiveRecord::Base
     # will either create device record and register
     # or register existing device
     def update_push_token
-      if self.deals_count_changed?
-        puts "DEAL COUNT CHANGED:#{self.deals_count}"
-      end
       return if push_token.blank?
       PushDevice.create_or_update!(:token => push_token, :user_id => self.id)
       push_token = nil
