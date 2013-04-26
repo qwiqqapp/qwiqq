@@ -10,12 +10,3 @@
     = csrf_meta_tag
       
   %body{ :class => "iphone #{controller_name} #{action_name}" }
-    %h1 TEST
-    #header-small
-      .container-narrow
-        %img.logo-small{ :src => image_path("header-logo.png") }
-        
-    = yield
-    = render "shared/google_analytics"
-  
-
