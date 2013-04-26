@@ -1,8 +1,10 @@
 /* QWIQQ - Mobile */
 @media (max-width: 600px) {
   .container { 
-    width:280px;
+    //width:280px;
     margin: 0 auto;
+    background-color: #FF9900;
+    width: 150px;
   }
   
   // TODO should use above 280px width but requires new assets for location header
@@ -75,9 +77,6 @@
     margin-right: auto;
     margin-top: 0px;
     padding-top: 20px;
-    background-color: #FF9900;
-    width: 150px;
-
   }
 
   .app-store-link-small {
