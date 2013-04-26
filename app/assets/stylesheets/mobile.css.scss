@@ -1,17 +1,19 @@
 /* QWIQQ - Mobile */
 @media (max-width: 600px) {
   .container { 
-    //width:280px;
+    width:280px;
     margin: 0 auto;
-    background-color: #FF9900;
-    width: 150px;
+    
   }
   
   // TODO should use above 280px width but requires new assets for location header
   body.deals.show .container,
   body.users.show .container { 
-    width: 260px;
+    //width: 260px;
     margin: 0 auto;
+    background-color: #FF9900;
+    height: 51px;
+    width: 150px;
   }
 
   .container-narrow {
