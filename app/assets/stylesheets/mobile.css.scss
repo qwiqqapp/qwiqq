@@ -12,8 +12,14 @@
     //width: 260px;
     margin: 0 auto;
     background-color: #FF9900;
-    height: 51px;
-    width: 150px;
+
+  }
+  #header-small {
+    background-image: url("header-background.png");
+    background-repeat: repeat-x;
+    height: 132px;
+    margin-bottom: 24px;
+    width: 100%;
   }
 
   .container-narrow {
