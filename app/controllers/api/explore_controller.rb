@@ -36,7 +36,7 @@ class Api::ExploreController < Api::ApiController
     user_deals = Array.new
     
     @users.map do |user|
-      puts "user deals:#{user.deals}"
+      puts "user deals:#{user.deals.count}"
      user.deals.map do |deal|
        user_deals.push deal
      end
@@ -70,13 +70,15 @@ class Api::ExploreController < Api::ApiController
     @deals = Array.new
     
     user_deals.map do |deal|
-      if deal.hidden == false
+      unless deal.hidden == true
+        puts "Deal name:#{deal.name}"
         @deals.push deal
       end
       @deals.push deal
     end
     query_deals.map do |deal|
-      if deal.hidden == false
+      unless deal.hidden == true
+        puts "Deal name:#{deal.name}"
         @deals.push deal
       end
     end
