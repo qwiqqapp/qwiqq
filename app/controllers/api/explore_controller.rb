@@ -41,6 +41,8 @@ class Api::ExploreController < Api::ApiController
      end
     end
 
+    puts 'user_deals: '
+    puts user_deals
 
     puts "category:#{params[:category]}"
     puts "query:#{params[:q]}"
@@ -68,6 +70,7 @@ class Api::ExploreController < Api::ApiController
       :range => params[:range] || Deal::MAX_RANGE,
       :page => params[:page])
     end
+    
     @deals = Array.new
     
     user_deals.map do |deal|
