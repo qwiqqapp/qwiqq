@@ -35,6 +35,7 @@ class Api::ExploreController < Api::ApiController
     puts "SEARCH USERS COUNT:#{@users.count}"
     user_deals = Array.new
     
+    #What the heck is this doing here, this completely screws us up.
     @users.map do |user|
      user.deals.map do |deal|
        #user_deals.push deal
