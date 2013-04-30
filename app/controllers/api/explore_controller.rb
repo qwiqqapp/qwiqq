@@ -37,7 +37,7 @@ class Api::ExploreController < Api::ApiController
     
     @users.map do |user|
      user.deals.map do |deal|
-       user_deals.push deal
+       #user_deals.push deal
      end
     end
 
