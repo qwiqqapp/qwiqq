@@ -10,7 +10,10 @@
     height: 100%;
     overflow-x:hidden;
   }
-
+  html {
+    -webkit-overflow-scrolling: touch;
+  }
+ 
   
   // TODO should use above 280px width but requires new assets for location header
   body.deals.show .container,
