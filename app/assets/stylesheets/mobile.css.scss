@@ -6,6 +6,11 @@
     
   }
   
+  body.deals.show,
+  body.users.show { 
+    overflow-x:hidden
+  }
+  
   // TODO should use above 280px width but requires new assets for location header
   body.deals.show .container,
   body.users.show .container { 
