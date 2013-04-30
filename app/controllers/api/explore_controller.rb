@@ -51,6 +51,7 @@ class Api::ExploreController < Api::ApiController
     puts "page:#{params[:page]}"
     
     if  params[:range] == "10000000"
+      puts 'Range of url'
       query_deals = Deal.filtered_url_search(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
@@ -59,6 +60,7 @@ class Api::ExploreController < Api::ApiController
       :range => params[:range] || Deal::MAX_RANGE,
       :page => params[:page])
     else
+      puts 'Range of miles'
       query_deals = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
