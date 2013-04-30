@@ -6,10 +6,11 @@
     
   }
   
-  body.deals.show,
-  body.users.show { 
-    overflow-x:hidden
+  html, body {
+    height: 100%;
+    overflow-x:hidden;
   }
+
   
   // TODO should use above 280px width but requires new assets for location header
   body.deals.show .container,
