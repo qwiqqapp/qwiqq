@@ -108,7 +108,9 @@
 
   .post {
     margin-bottom: 20px;
+    width:initial;
   }
+
 
   .post .details {
     padding: 10px;
@@ -140,7 +142,7 @@
   .post .metadata .stats{
     float: left;
     margin-bottom: 10px;
-    width: 240px;
+    width: 100%;
   }
   
   .post .metadata .location span{
@@ -155,6 +157,7 @@
     top: 2px;
     
   }
+  
   
   #post #info {
     width: 100%;
