@@ -36,7 +36,6 @@ class Api::ExploreController < Api::ApiController
     user_deals = Array.new
     
     @users.map do |user|
-      puts "user deals:#{user.deals.count}"
      user.deals.map do |deal|
        user_deals.push deal
      end
@@ -73,27 +72,16 @@ class Api::ExploreController < Api::ApiController
     
     user_deals.map do |deal|
       unless deal.hidden == true
-        puts "Deal name:#{deal.name}"
         @deals.push deal
       end
     end
     query_deals.map do |deal|
       unless deal.hidden == true
-        puts "Deal name:#{deal.name}"
         @deals.push deal
       end
     end
 
     @deals = @deals.uniq
-    
-    puts "EXPLORE TEST DEALS:#{@deals}"
-    puts ""
-    puts ""
-    puts ""
-    puts ""
-    puts ""
-    puts ""
-
 
     options = { :minimal => true }
     options[:current_user] = current_user if current_user
