@@ -74,7 +74,6 @@ class Api::ExploreController < Api::ApiController
         puts "Deal name:#{deal.name}"
         @deals.push deal
       end
-      @deals.push deal
     end
     query_deals.map do |deal|
       unless deal.hidden == true
