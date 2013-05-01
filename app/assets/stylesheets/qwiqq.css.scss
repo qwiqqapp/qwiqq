@@ -846,8 +846,13 @@ p.empty-deals{
 
 .sold {
  color: red;
- margin-top: 8px;
+ font-size: 17px; 
+ margin-left: 10px;
+ margin-bottom: 2px;
+ position:relative;
+ margin-top:5px;
 }
+
 
 #slider .arrow-left {
   float: left;
