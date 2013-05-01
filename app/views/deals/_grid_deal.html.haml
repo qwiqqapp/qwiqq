@@ -14,7 +14,7 @@
         %div{:style => "position:relative;width:100%;margin-top:12px;"}
           %img{:src =>image_path("buy-button.png"), :width => "170"}
           %span.dollars-large{:style => "position:absolute;top:5px;left:20px;font-size:18px;color:#6cb340;"}= grid_deal.price_as_string
-          .sold 
+          %span.sold 
             Sold Out
       - else
         .price
