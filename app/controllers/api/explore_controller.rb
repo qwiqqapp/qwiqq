@@ -34,13 +34,6 @@ class Api::ExploreController < Api::ApiController
     @users = User.search(params[:q])
     puts "SEARCH USERS COUNT:#{@users.count}"
     user_deals = Array.new
-    
-    #What the heck is this doing here, this completely screws us up.
-    @users.map do |user|
-     user.deals.map do |deal|
-       #user_deals.push deal
-     end
-    end
 
     puts 'user_deals: '
     puts user_deals
@@ -54,6 +47,11 @@ class Api::ExploreController < Api::ApiController
     
     if  params[:range] == "10000000"
       puts 'Range of url'
+      @users.map do |user|
+        user.deals.map do |deal|
+          user_deals.push deal
+        end
+      end
       query_deals = Deal.filtered_url_search(
       :category => params[:category] == "all" ? nil : params[:category],
       :query => params[:q],
