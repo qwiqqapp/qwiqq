@@ -14,8 +14,8 @@
         %div{:style => "position:relative;width:100%;margin-top:12px;"}
           %img{:src =>image_path("buy-button.png"), :width => "170"}
           %span.dollars-large{:style => "position:absolute;top:5px;left:20px;font-size:18px;color:#6cb340;"}= grid_deal.price_as_string
-          %span.quantity{:style => "font-size:17px; margin-top:5px;"} 
-            ="#{grid_deal.num_left_for_sale} left"
+          %span.quantity{:style => "font-size:17px; margin-top:5px;color: red;"} 
+            Sold Out
       - else
         .price
           .hole
