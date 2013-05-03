@@ -26,3 +26,12 @@ $(function() {
   //    });
   //  }
 });
+
+function DetectIphone()
+{
+   var uagent = navigator.userAgent.toLowerCase();
+   if (uagent.search("iphone") > -1)
+      alert('true');
+  else
+      alert('false');
+}
