@@ -67,11 +67,12 @@ html, body {
 
 @media screen and (min-device-width : 768px){
   .quantity {
-   font-size: 19px; 
+   font-size: 18px; 
    color: #F47527;
    margin-left: 10px;
    margin-bottom: 2px;
    position:absolute;
+   top:5px;
   }
 }
 @media screen and (min-device-width : 320px) and (max-device-width : 767px) {
@@ -1791,6 +1792,14 @@ table#templateFooter {
     font-size: 14px;
     font-style: italic;
     color: #808080; } }
+
+  span.soldout {
+    position:absolute;
+    font-size:15px;
+    color: red;
+    margin-left:6px;
+    top:7px;
+  }
 
 /*
  * Header and Footer wrapper
