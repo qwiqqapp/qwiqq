@@ -51,7 +51,14 @@
         mvp.setAttribute('content','width=320');
         mvp.setAttribute('content','initial-scale=.63');
       }
-      
+      $(function(){
+        var uagent = navigator.userAgent.toLowerCase();
+        if (uagent.search("iphone") > -1)
+          alert('true');
+        else
+          alert('false');
+      }
+     
   %body{ :class => "#{controller_name} #{action_name}" }
     = render "shared/header"
     = yield
