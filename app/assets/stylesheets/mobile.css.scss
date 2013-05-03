@@ -23,6 +23,12 @@
     margin: 0 auto;
 
   }
+  
+  span.soldout {
+    font-size:15px;
+    color: red;
+    margin-left:6px;
+  }
 
   .container-narrow {
     width: 100%;
@@ -146,7 +152,7 @@
   }
   
   .post .metadata .location span{
-    width: 220px;
+    width: 130px;
     margin-left: 5px;
     float: left;
   }

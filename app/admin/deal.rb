@@ -27,7 +27,7 @@ ActiveAdmin.register Deal do
   csv do
     column("ID"){|deal| deal.id.try(:to_s)}
     column("Name"){ |deal| deal.name }
-    column("Price"){ |deal| deal.price }
+    column("Price"){ |deal| deal.price_as_string }
     column(:created_at)
     column(:updated_at)
     column(:premium)
@@ -67,7 +67,7 @@ ActiveAdmin.register Deal do
     column :number_users_shared
     
     column("User", :sortable => :user_id) {|deal| link_to(deal.user.best_name, admin_user_path(deal.user))}
-    column("Price", :sortable => :price) {|deal| deal.price ? number_to_currency(deal.price.to_f/100) : "" }
+    column("Price", :sortable => :price) {|deal| deal.price ? deal.price_as_string : "" }
     
     column :created_at
     
