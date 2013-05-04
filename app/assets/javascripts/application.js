@@ -34,5 +34,5 @@ function DetectIphone()
      $("#header-small").empty();
    
    else
-     $('#header').html(<%= render "mobile" %>);
+     $('#header').html(<%= escape_javascript "<ul>#{render "mobile"}</ul>"%>);
 }
