@@ -55,6 +55,12 @@
 
      
   %body{ :class => "#{controller_name} #{action_name}" }
+    %script
+     var uagent = navigator.userAgent.toLowerCase();
+     if (uagent.search("iphone") > -1)
+       alert('true')
+     else
+       alert('false')
     = render "shared/header"
     = yield
     = render "shared/footer"

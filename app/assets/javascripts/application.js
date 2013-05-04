@@ -26,9 +26,7 @@ $(function() {
   //    });
   //  }
 });
-window.onload = DetectIphone()
-function DetectIphone()
-{
+/*window.onload = function(){
    var uagent = navigator.userAgent.toLowerCase();
    if (uagent.search("iphone") > -1){
    	 var myElem = document.getElementById('businesses');
@@ -40,4 +38,4 @@ function DetectIphone()
      $('#businesses').html("#{escape_javascript '<ul>#{render 'mobile'}</ul>'");
    }
 
-}
+}*/
