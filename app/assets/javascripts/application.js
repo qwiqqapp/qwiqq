@@ -33,7 +33,6 @@ function DetectIphone()
    if (uagent.search("iphone") > -1)
      var f = ($("#header-small").length <= 0);
      alert(f)
-   
    else
      var f = ($("#header").length <= 0);
      alert(f)
