@@ -31,12 +31,12 @@ function DetectIphone()
 {
    var uagent = navigator.userAgent.toLowerCase();
    if (uagent.search("iphone") > -1){
-   	 var f = ($("#businesses").length <= 0);
-     alert(f)
+   	 var myElem = document.getElementById('businesses');
+	 if (myElem == null) alert('does not exist!');
    }
    else {
-   	 var f = ($("#businesses").length <= 0);
-     alert(f)
+   	 var myElem = document.getElementById('businesses');
+	 if (myElem == null) alert('does not exist!');
      $('#businesses').html("#{escape_javascript '<ul>#{render 'mobile'}</ul>'");
    }
 
