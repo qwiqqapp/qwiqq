@@ -51,20 +51,7 @@
         mvp.setAttribute('content','width=320');
         mvp.setAttribute('content','initial-scale=.63');
       }
-      window.onload = DetectIphonet()
-      function DetectIphonet()
-        {
-          var uagent = navigator.userAgent.toLowerCase();
-          if (uagent.search("iphone") > -1){
-            var f = ($("#header-small").length <= 0);
-            alert(f+ 't')
-          }
-          else {
-            var f = ($("#header").length <= 0);
-            alert(f + 't')
-            $('#header').html("#{escape_javascript '<ul>#{render 'mobile'}</ul>'");
-          }
-      }
+
 
      
   %body{ :class => "#{controller_name} #{action_name}" }

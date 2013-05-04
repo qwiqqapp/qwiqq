@@ -26,17 +26,18 @@ $(function() {
   //    });
   //  }
 });
+window.onload = DetectIphone()
 function DetectIphone()
 {
    var uagent = navigator.userAgent.toLowerCase();
    if (uagent.search("iphone") > -1){
-   	 var f = ($("#header-small").length <= 0);
+   	 var f = ($("#businesses").length <= 0);
      alert(f)
    }
    else {
-   	 var f = ($("#header").length <= 0);
+   	 var f = ($("#businesses").length <= 0);
      alert(f)
-     $('#header').html("#{escape_javascript '<ul>#{render 'mobile'}</ul>'");
+     $('#businesses').html("#{escape_javascript '<ul>#{render 'mobile'}</ul>'");
    }
 
 }
