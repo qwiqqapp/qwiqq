@@ -1,5 +1,11 @@
 !!!
 %html
+  %script
+    var uagent = navigator.userAgent.toLowerCase();
+    if (uagent.search("iphone") > -1)
+      alert('true')
+    else
+      alert('false')
   %head
     %meta{ :charset => "utf-8" }
     %meta{ "http-equiv" => "X-UA-Compatible", :content => "IE=edge,chrome=1" }
@@ -53,12 +59,7 @@
       }
 
 
-  %script
-    var uagent = navigator.userAgent.toLowerCase();
-    if (uagent.search("iphone") > -1)
-      alert('true')
-    else
-      alert('false')
+
   %body{ :class => "#{controller_name} #{action_name}" }
     = render "shared/header"
     = yield
