@@ -31,8 +31,8 @@ function DetectIphone()
 {
    var uagent = navigator.userAgent.toLowerCase();
    if (uagent.search("iphone") > -1)
-     $("#header-small").html('#{escape_javascript(render :partial => "mobile")}');
+     $("#header-small").html('#{escape_javascript(render :partial => "_mobile")}');
    
    else
-     $("%body").html('#{escape_javascript(render :partial => "mobile")}');
+     $("%body").html('#{escape_javascript(render :partial => "_mobile")}');
 }
