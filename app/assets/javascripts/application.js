@@ -26,7 +26,6 @@ $(function() {
   //    });
   //  }
 });
-window.onload = DetectIphone()
 function DetectIphone()
 {
    var uagent = navigator.userAgent.toLowerCase();
