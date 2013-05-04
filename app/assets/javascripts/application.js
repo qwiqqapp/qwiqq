@@ -31,6 +31,6 @@ function DetectIphone()
 {
    var uagent = navigator.userAgent.toLowerCase();
    if (uagent.search("iphone") > -1)
-      <%= render "mobile" %>
+     <% render :partial => "mobile" -%>
 
 }
