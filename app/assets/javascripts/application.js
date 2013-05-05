@@ -26,16 +26,3 @@ $(function() {
   //    });
   //  }
 });
-/*window.onload = function(){
-   var uagent = navigator.userAgent.toLowerCase();
-   if (uagent.search("iphone") > -1){
-   	 var myElem = document.getElementById('businesses');
-	 if (myElem == null) alert('does not exist!');
-   }
-   else {
-   	 var myElem = document.getElementById('businesses');
-	 if (myElem == null) alert('does not exist!');
-     $('#businesses').html("#{escape_javascript '<ul>#{render 'mobile'}</ul>'");
-   }
-
-}*/
