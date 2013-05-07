@@ -69,6 +69,7 @@ class Deal < ActiveRecord::Base
   after_create :populate_feed
   after_create :async_locate
   after_save :after_save
+  after_destroy :ad
   
   scope :today, lambda { where("DATE(created_at) = ?", Date.today) }
   scope :recent, lambda { where("DATE(created_at) > ?", 30.days.ago) }
@@ -208,6 +209,10 @@ class Deal < ActiveRecord::Base
       self.feedlets.destroy_all
       puts "DESTROY FEEDLETS count:#{self.feedlets.count}"
     end
+  end
+  
+  def ad 
+    puts "DESTROY:#{self.name}"
   end
   
   def price_as_string
