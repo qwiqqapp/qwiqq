@@ -48,7 +48,7 @@ class DealsController < ApplicationController
   end
   
   def find_deal
-    @deal ||= Deal.where(:id => params[:id], :hidden => false)
+    @deal ||= Deal.find(params[:id])
   end
   
   def destroy
@@ -60,7 +60,7 @@ class DealsController < ApplicationController
   def purchase
     deal = Deal.find(params[:id])
     if deal.num_left_for_sale > 0 && deal.hidden == false
-      puts "AJAX WORKED PARAMS:#{deal.price}"
+      puts "AJAX WORKED PARAMS#{deal.price}"
       gateway =  ActiveMerchant::Billing::PaypalAdaptivePayment.new( 
                     :login => "john_api1.qwiqq.me",
                     :password => "3JDZZY9VYXB6Q5TZ",
