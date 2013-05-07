@@ -48,7 +48,7 @@ class DealsController < ApplicationController
   end
   
   def find_deal
-    @deal ||= Deal.find(params[:id])
+    @deal ||= Deal.where(:id => params[:id], :hidden => false)
   end
   
   def destroy
