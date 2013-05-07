@@ -53,13 +53,8 @@ class DealsController < ApplicationController
   
   def destroy
     @deal = current_user.deals.find(params[:id])
-    puts "CURRENT user deals count:#{current_user.deals_num}"
-    current_user.deals_num = current_user.deals_num - 1
-    @deal.hidden = true
-    @deal.save!
-    current_user.save!
-    puts "NEW curernt user deals count:#{current_user.deals_num}"
-    render :nothing => true
+    @deal.destroy
+    respond_with @deal
   end
   
   def purchase
