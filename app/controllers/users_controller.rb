@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     # TODO pagination
-    @deals = @user.deals.sorted.first(20)
+    @deals = @user.deals.public.sorted.first(20)
   end
   
     def purchase
