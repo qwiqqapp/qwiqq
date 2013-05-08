@@ -213,6 +213,11 @@ class Deal < ActiveRecord::Base
   
   def ad 
     puts "DESTROY:#{self.name}"
+    puts "CURRENT user deals count:#{self.user.deals_num}"
+    self.user.deals_num = self.user.deals_num - 1
+    self.user.save!
+    puts "NEW curernt user deals count:#{self.user.deals_num}"
+    render :nothing => true
   end
   
   def price_as_string
