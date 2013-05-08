@@ -41,7 +41,7 @@ namespace :users do
     #  user.save
     #end
     user = User.find(args[:user])
-    puts "Initial deal count:#{user.deals_num} and bio:#{user.bio}"
+    puts "Initial deal count:#{user.deals_num}"
     user.deals_num = Deal.where('user_id=? AND hidden=FALSE',user.id).count
     user.save!
     puts "New search deal count:#{user.deals_num}"
