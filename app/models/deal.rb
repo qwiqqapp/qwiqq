@@ -212,7 +212,7 @@ class Deal < ActiveRecord::Base
   end
   
   def after_destroy 
-    if self.hidden == false
+    unless self.hidden
       puts "DESTROY:#{self.name}"
       puts "CURRENT user deals count:#{self.user.deals_num}"
       self.user.deals_num = self.user.deals_num - 1
