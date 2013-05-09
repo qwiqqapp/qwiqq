@@ -30,11 +30,16 @@
   }
   
   .quantity {
-   font-size: 18px; 
-   color: green;
    margin-left: 10px;
    position:absolute;
    top:5px;
+   font-size:23px;
+   margin-top:-4px;
+  }
+  .post .details .dollars-large-buy {
+    color: #6cb340;
+    font-size: 23px;
+    top:2px;
   }
   
   .sold {
