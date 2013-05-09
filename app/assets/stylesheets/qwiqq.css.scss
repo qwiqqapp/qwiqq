@@ -65,15 +65,10 @@ html, body {
   margin: 0 auto;
 }
 
-.quantity {
-  margin-top:1px;
-  color: #F47527;
-  font-size: 26px;
-}
-
 @media screen and (min-device-width : 768px){
+  //full screen, web
   .quantity {
-   font-size: 18px; 
+   font-size: 26px; 
    color: #F47527;
    margin-left: 10px;
    margin-bottom: 2px;
