@@ -16,15 +16,6 @@
     -webkit-overflow-scrolling: touch;
   }
   
-  .quantity-grid {
-   color:blue;
-   margin-left: 10px;
-   position:absolute;
-   top:2px;
-   font-size:23px;
-   margin-top:-4px;
-  }
-  
   // TODO should use above 280px width but requires new assets for location header
   body.deals.show .container,
   body.users.show .container { 

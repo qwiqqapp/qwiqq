@@ -86,14 +86,23 @@ html, body {
   }
 }
 @media screen and (min-device-width : 320px) and (max-device-width : 767px) {
-#businesses {
-  width: 100%;
-}
-#businessimage {
-  margin-left: 2%;
-  width: 95%;
-
-}
+  #businesses {
+    width: 100%;
+  }
+  
+  #businessimage {
+    margin-left: 2%;
+    width: 95%;
+  }
+  
+  .quantity-grid {
+   color:#F47527;
+   margin-left: 10px;
+   position:absolute;
+   top:2px;
+   font-size:23px;
+   margin-top:-4px;
+  }
 }
 
 
