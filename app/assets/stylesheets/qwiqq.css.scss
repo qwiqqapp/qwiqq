@@ -68,7 +68,16 @@ html, body {
 @media screen and (min-device-width : 768px){
   //full screen, web
   .quantity {
-   font-size: 26px; 
+   font-size: 23px; 
+   color: #F47527;
+   margin-left: 10px;
+   margin-bottom: 2px;
+   position:absolute;
+   top:5px;
+  }
+  
+  .quantity-grid {
+   font-size: 23px; 
    color: #F47527;
    margin-left: 10px;
    margin-bottom: 2px;
