@@ -8,7 +8,7 @@
           %a{:href => "http://qwiqq.me/posts/#{grid_deal.id}/purchase", ":data-remote" => 'true'}
             %img{:src =>image_path("buy-button.png"), :width => "170"}
             %span.dollars-large{:style => "position:absolute;top:5px;left:20px;font-size:18px;color:#6cb340;"}= grid_deal.price_as_string
-            %span.quantity
+            %span.quantity-grid
               ="#{grid_deal.num_left_for_sale} left"
       - elsif grid_deal.for_sale_on_paypal?
         .price
@@ -21,7 +21,6 @@
         .price
           .hole
           %span.dollars-large{:style=> "color:#6cb340;"}= grid_deal.price_as_string
-        
 
   %a{ :href => user_url(grid_deal.user) }
     .metadata

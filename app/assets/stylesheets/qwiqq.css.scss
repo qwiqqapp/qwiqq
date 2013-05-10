@@ -66,33 +66,43 @@ html, body {
 }
 
 @media screen and (min-device-width : 768px){
+  //full screen, web
   .quantity {
-   font-size: 18px; 
+   font-size: 23px; 
    color: #F47527;
    margin-left: 10px;
    margin-bottom: 2px;
    position:absolute;
    top:5px;
   }
+  
+  .quantity-grid {
+   font-size: 23px; 
+   color: #F47527;
+   margin-left: 10px;
+   margin-bottom: 2px;
+   position:absolute;
+   top:2px;
+  }
 }
 @media screen and (min-device-width : 320px) and (max-device-width : 767px) {
-#businesses {
-  width: 100%;
-}
-#businessimage {
-  margin-left: 2%;
-  width: 95%;
-
-}
-
-.quantity {
- font-size: 19px; 
- color: #F47527;
- margin-left: 10px;
- margin-bottom: 2px;
- position:relative;
-}
-
+  #businesses {
+    width: 100%;
+  }
+  
+  #businessimage {
+    margin-left: 2%;
+    width: 95%;
+  }
+  
+  .quantity-grid {
+   color:#F47527;
+   margin-left: 10px;
+   position:absolute;
+   top:2px;
+   font-size:23px;
+   margin-top:0px;
+  }
 }
 
 
@@ -783,6 +793,13 @@ p.empty-deals{
 .post .details .dollars-large {
   color: #6cb340;
   font-size: 18px;
+  top:7px;
+}
+
+.post .details .dollars-large-buy {
+  color: #6cb340;
+  font-size: 26px;
+  top:7px;
 }
 
 #post #slider .venue {
