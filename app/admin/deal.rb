@@ -108,7 +108,6 @@ ActiveAdmin.register Deal do
    f.buttons
   end
   
-  
   show :title => :name do
     panel "Comments (#{deal.comments.size})" do
       table_for(deal.comments) do

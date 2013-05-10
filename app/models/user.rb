@@ -127,8 +127,16 @@ class User < ActiveRecord::Base
   strip_attrs :email, :city, :country, :first_name, :last_name, :username, :bio, :phone, :website
 
   def num_for_sale_on_paypal
-    #SELECT COUNT(*) FROM deals WHERE deals.user_id = 13527 AND for_sale_on_paypal=TRUE;
-    return Deal.where('user_id=? AND for_sale_on_paypal=TRUE',self.id).count
+    #SELECT COUNT(*) FROM deals WHERE deals.user_id = 13527 AND hidden=FALSE;
+    return Deal.where('user_id=? AND for_sale_on_paypal=TRUE AND hidden=FALSE',self.id).count
+  end
+  
+  def count_posts
+    #SELECT COUNT(*) FROM deals WHERE deals.user_id = 13527 AND hidden=FALSE;
+    num_posts = Deal.where('user_id=? AND hidden=FALSE',self.id).count
+    self.deals_num = num_posts
+    self.save
+    return num_posts
   end
 
   def location
