@@ -16,7 +16,7 @@ class Api::CommentsController < Api::ApiController
 
   # auth required
   def create
-    @previous_comment = current_user.comments.previous
+    @previous_comment = current_user.comments.first
     puts "PREVIOUS COMMENT#{@previous_comment.body}"
     @deal = Deal.find(params[:deal_id])
     @comment = @deal.comments.build(params[:comment])
