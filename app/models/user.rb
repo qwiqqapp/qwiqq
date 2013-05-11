@@ -37,7 +37,6 @@ class User < ActiveRecord::Base
   has_many :events_created, :class_name => "UserEvent", :foreign_key => "created_by_id"
   
   scope :sorted, :order => 'users.username ASC'
-  scope :previous, order('created_at desc').first
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   scope :suggested, where(:suggested => true)
   
