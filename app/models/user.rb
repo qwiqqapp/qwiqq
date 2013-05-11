@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
   has_many :events_created, :class_name => "UserEvent", :foreign_key => "created_by_id"
   
   scope :sorted, :order => 'users.username ASC'
+  scope :previous, order('created_at desc').first
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
   scope :suggested, where(:suggested => true)
   
@@ -45,6 +46,7 @@ class User < ActiveRecord::Base
   scope :connected_to_foursquare, where('foursquare_access_token is NOT NULL')
   scope :socialyzer_enabled, where('socialyzer_enabled_at IS NOT NULL')
   scope :socialyzer_ready, where('socialyzer_times IS NOT NULL')
+
     
   attr_accessible :first_name, 
                   :last_name, 
