@@ -27,14 +27,21 @@ class Api::CommentsController < Api::ApiController
     puts 'previous_comment'
     puts @previous_comment
     
-    unless @previous_comment.body == params[:comment] && @previous_comment.deal.id == @deal.id
-      puts "Comment not duplicate"
+    if @previous_comment.nil?
       @comment = @deal.comments.build(params[:comment])
       @comment.user = current_user
       @comment.save!
-      respond_with(@comment, :location => false)      
+      respond_with(@comment, :location => false)  
+    else
+      unless @previous_comment.body == params[:comment] && @previous_comment.deal.id == @deal.id
+        puts "Comment not duplicate"
+        @comment = @deal.comments.build(params[:comment])
+        @comment.user = current_user
+        @comment.save!
+        respond_with(@comment, :location => false)  
+      end
     end
-    
+
     puts 'create new comment - fini'
   end
   
