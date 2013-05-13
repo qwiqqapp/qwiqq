@@ -10,7 +10,7 @@ class Comment < ActiveRecord::Base
   
   default_scope :order => 'created_at desc'
   scope :today, lambda { where('DATE(created_at) = ?', Date.today)}
-  
+
   after_commit :async_deliver_notification, :on => :create
   after_commit :create_event, :on => :create
 

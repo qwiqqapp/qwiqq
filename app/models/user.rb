@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
   scope :connected_to_foursquare, where('foursquare_access_token is NOT NULL')
   scope :socialyzer_enabled, where('socialyzer_enabled_at IS NOT NULL')
   scope :socialyzer_ready, where('socialyzer_times IS NOT NULL')
+
     
   attr_accessible :first_name, 
                   :last_name, 
