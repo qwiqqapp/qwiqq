@@ -51,7 +51,8 @@ class Api::SearchController < Api::ApiController
       :lon => params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
       :age => Deal::MAX_AGE.days,
-      :page => params[:page])
+      :page => params[:page],
+      :limit => 50)
     else
       ts_deals = Deal.filtered_search(
       :category => params[:category] == "all" ? nil : params[:category],
@@ -60,7 +61,8 @@ class Api::SearchController < Api::ApiController
       :lon => params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
       :age => Deal::MAX_AGE.days,
-      :page => params[:page])
+      :page => params[:page]),
+      :limit => 0
     end
     
     @deals = Array.new
