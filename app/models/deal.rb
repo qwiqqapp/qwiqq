@@ -315,7 +315,7 @@ class Deal < ActiveRecord::Base
 
     if options[:category] != "url"
       with["@geodist"] = 0.0..range
-      search_options[:order] = "@geodist ASC, @relevance DESC"
+      search_options[:order] = "@geodist ASC, @relevance DESC, created_at DESC"
     else
       search_options[:order] = "created_at desc"
     end
