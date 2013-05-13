@@ -16,8 +16,17 @@ class Api::CommentsController < Api::ApiController
 
   # auth required
   def create
+    puts 'create new comment - start'
+    
     @deal = Deal.find(params[:deal_id])
     @previous_comment = current_user.comments.first
+    
+    puts 'deal'
+    puts @deal
+    
+    puts 'previous_comment'
+    puts @previous_comment
+    
     unless @previous_comment.body == params[:comment] && @previous_comment.deal.id == @deal.id
       puts "Comment not duplicate"
       @comment = @deal.comments.build(params[:comment])
@@ -25,6 +34,8 @@ class Api::CommentsController < Api::ApiController
       @comment.save!
       respond_with(@comment, :location => false)      
     end
+    
+    puts 'create new comment - fini'
   end
   
   def destroy
