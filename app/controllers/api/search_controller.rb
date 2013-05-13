@@ -87,7 +87,7 @@ class Api::SearchController < Api::ApiController
       :lat => params[:lat],
       :lon => params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
-      :age => Deal::MAX_AGE.days,
+      :age => Deal::MAX_SEARCH_AGE.days,
       :page => params[:page],
       :limit => 50)
 
