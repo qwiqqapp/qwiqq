@@ -68,28 +68,41 @@ class Api::DealsController < Api::ApiController
   def create
     category = Category.find_by_name(params[:deal][:category_name])
     @deal = Deal.new(params[:deal])
-    @deal.category = category
-    @deal.user = current_user
-    @deal.save
-    current_user.deals_num = current_user.deals_num + 1
-    current_user.save!
-    #In 30 DAYS check to see if user has shared
-    scheduler = Rufus::Scheduler.start_new
-    #original current_user.deals_num should be out of scope, so we store it
-    original_deal_count = current_user.deals_num
-    scheduler.every '30d' do |job|
-      if @deal == current_user.deals.sorted[0] && original_deal_count >= current_user.deals_num
-        #user hasn't shared in past 30 days, send out missed email
-        #current user in 30 days, not current_user now
-        if current_user.send_notifications 
-          Mailer.missed_email(current_user).deliver
-        end
-      else
-        #user has shared in past 30 days
-        job.unschedule
+    @previous_deal = current_user.deals.sorted.first
+    create_deal = false
+    if @previous_deal.nil?
+      create_deal = true
+    else 
+      unless @deal.name == @previous_deal.name && @deal.foursquare_venue_id == @previous_deal.foursquare_venue_id && category == @previous_deal.category && @deal.price == @previous_deal.price
+        create_deal = true
       end
     end
-    respond_with @deal
+    if create_deal
+      @deal.category = category
+      @deal.user = current_user
+      @deal.save
+      current_user.deals_num = current_user.deals_num + 1
+      current_user.save!
+      #In 30 DAYS check to see if user has shared
+      scheduler = Rufus::Scheduler.start_new
+      #original current_user.deals_num should be out of scope, so we store it
+      original_deal_count = current_user.deals_num
+      scheduler.every '30d' do |job|
+        if @deal == current_user.deals.sorted[0] && original_deal_count >= current_user.deals_num
+          #user hasn't shared in past 30 days, send out missed email
+          #current user in 30 days, not current_user now
+          if current_user.send_notifications 
+            Mailer.missed_email(current_user).deliver
+          end
+        else
+          #user has shared in past 30 days
+          job.unschedule
+        end
+      end
+      respond_with @deal
+    else
+      respond_with @previous_deal
+    end
   end
 
   def update
