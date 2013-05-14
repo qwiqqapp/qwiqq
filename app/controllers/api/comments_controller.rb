@@ -20,31 +20,25 @@ class Api::CommentsController < Api::ApiController
     
     @deal = Deal.find(params[:deal_id])
     @previous_comment = current_user.comments.first
-    
-    puts 'deal'
-    puts @deal
-    
-    puts 'previous_comment'
-    puts @previous_comment
-    body = params[:comment]
-    body = body[:body]
+    create_comment = false 
     
     if @previous_comment.nil?
+      create_comment = true
+    else
+      unless @previous_comment.body == params[:comment][:body] && @previous_comment.deal.id == @deal.id
+        create_comment = true
+      end
+    end
+    
+    if create_comment
       @comment = @deal.comments.build(params[:comment])
       @comment.user = current_user
       @comment.save!
       respond_with(@comment, :location => false)  
     else
-      unless @previous_comment.body == body && @previous_comment.deal.id == @deal.id
-        puts "Comment not duplicate '#{@previous_comment.body}' '#{body}'"
-        @comment = @deal.comments.build(params[:comment])
-        @comment.user = current_user
-        @comment.save!
-        respond_with(@comment, :location => false)  
-      end
+      render :nothing => true
     end
-
-    puts 'create new comment - fini'
+    puts 'create new comment - fin'
   end
   
   def destroy
