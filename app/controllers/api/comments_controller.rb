@@ -36,7 +36,7 @@ class Api::CommentsController < Api::ApiController
       @comment.save!
       respond_with(@comment, :location => false)  
     else
-      render :nothing => true
+      respond_with(@previous_comment, :location => false)
     end
     puts 'create new comment - fin'
   end
