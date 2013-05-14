@@ -26,6 +26,8 @@ class Api::CommentsController < Api::ApiController
     
     puts 'previous_comment'
     puts @previous_comment
+    body = params[:comment]
+    body = body[:body]
     
     if @previous_comment.nil?
       @comment = @deal.comments.build(params[:comment])
@@ -33,8 +35,8 @@ class Api::CommentsController < Api::ApiController
       @comment.save!
       respond_with(@comment, :location => false)  
     else
-      unless @previous_comment.body == params[:comment][:body] && @previous_comment.deal.id == @deal.id
-        puts "Comment not duplicate '#{@previous_comment.body}' '#{params[:comment][:body]}'"
+      unless @previous_comment.body == body && @previous_comment.deal.id == @deal.id
+        puts "Comment not duplicate '#{@previous_comment.body}' '#{body}'"
         @comment = @deal.comments.build(params[:comment])
         @comment.user = current_user
         @comment.save!
