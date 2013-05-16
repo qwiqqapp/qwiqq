@@ -78,6 +78,7 @@ class Api::DealsController < Api::ApiController
       end
     end
     if create_deal
+      puts 'create deal'
       @deal.category = category
       @deal.user = current_user
       @deal.save
@@ -101,6 +102,7 @@ class Api::DealsController < Api::ApiController
       end
       respond_with @deal
     else
+      puts 'respond with previous deal'
       respond_with @previous_deal
     end
   end
