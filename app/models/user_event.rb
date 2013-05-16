@@ -68,9 +68,10 @@ class UserEvent < ActiveRecord::Base
     return unless push_notification_sent_at.nil?      # avoid double send
     return if self.user == self.created_by            # dont deliver if user liked own post
     return if event_type == "push" || event_type == "purchase"
+    puts 'TESTING PUSH device_tokens = self.user.push_devices.map(&:token)'
     device_tokens = self.user.push_devices.map(&:token)
     return if device_tokens.blank?
-    
+    puts 'CREATING PUSH'
     badge         = self.user.events.unread.count
     notification  = { :device_tokens => device_tokens,
                       :page => push_page,
