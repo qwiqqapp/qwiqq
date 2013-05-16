@@ -33,7 +33,9 @@ class PushDevice < ActiveRecord::Base
 
   def register
     response = Urbanairship.register_device(self.token)
+    puts 'TRYING TO REGISTER DEVICE'
     if response
+      puts 'UPDATING ATTRI'
       update_attribute(:last_registered_at, Time.now)
     else
       Rails.logger.info("[Urbanairship] PushDevice#register: Failed to register device #{self.token}")

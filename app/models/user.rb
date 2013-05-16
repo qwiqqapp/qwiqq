@@ -486,6 +486,7 @@ class User < ActiveRecord::Base
     # or register existing device
     def update_push_token
       return if push_token.blank?
+      puts 'UPDATING PUSH TOKEN'
       PushDevice.create_or_update!(:token => push_token, :user_id => self.id)
       push_token = nil
     end
