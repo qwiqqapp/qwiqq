@@ -35,16 +35,9 @@ namespace :users do
   end
   
   desc "Update every users deal_count FOR MICHAEL"
-  task :update_deal_michael, [:user] => :environment do |t, args| 
-    #User.find_each do |user|
-    #  user.deals_count = Deal.where('user_id=? AND hidden=FALSE',user.id).count
-    #  user.save
-    #end
+  task :log_devices, [:user] => :environment do |t, args| 
     user = User.find(args[:user])
-    puts "Initial deal count:#{user.deals_num}"
-    user.deals_num = Deal.where('user_id=? AND hidden=FALSE',user.id).count
-    user.save!
-    puts "New search deal count:#{user.deals_num}"
+    puts "Devices:#{user.push_devices}"
   end
   
   desc "Update every users deal_count"
