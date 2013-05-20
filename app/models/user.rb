@@ -487,7 +487,13 @@ class User < ActiveRecord::Base
     def update_push_token
       return if push_token.blank?
       puts "UPDATING PUSH TOKEN OLD T:#{self.push_devices}"
+      if PushDevice.exists?(:token => push_token)
+        @devices = PushDevice.where(:token => push_token)
+        @devices.destroy_all
+        puts 'Destroyed old devices'
+      end
       PushDevice.create_or_update!(:token => push_token, :user_id => self.id)
+      puts 'created new push device'
       push_token = nil
     end
     
