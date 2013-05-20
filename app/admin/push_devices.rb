@@ -9,5 +9,3 @@ ActiveAdmin.register PushDevice do
   
 
 end
-                                  
-

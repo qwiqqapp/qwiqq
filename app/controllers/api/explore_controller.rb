@@ -58,7 +58,8 @@ class Api::ExploreController < Api::ApiController
       :lat => params[:lat],
       :lon => params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
-      :page => params[:page])
+      :page => params[:page],
+      :limit => 30)
     else
       puts 'Range of miles'
       query_deals = Deal.filtered_search(
@@ -67,7 +68,8 @@ class Api::ExploreController < Api::ApiController
       :lat => params[:lat],
       :lon => params[:long],
       :range => params[:range] || Deal::MAX_RANGE,
-      :page => params[:page])
+      :page => params[:page],
+      :limit => 30)
     end
     
     @deals = Array.new
