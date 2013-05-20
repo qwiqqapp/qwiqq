@@ -486,6 +486,7 @@ class User < ActiveRecord::Base
     # or register existing device
     def update_push_token
       return if push_token.blank?
+      puts "Test if push device exists:#{PushDevice.where(:token => push_token)}"
       if PushDevice.exists?(:token => push_token)
         @devices = PushDevice.where(:token => push_token)
         puts "Remove these tokens:#{@devices}"
