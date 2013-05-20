@@ -486,12 +486,12 @@ class User < ActiveRecord::Base
     # or register existing device
     def update_push_token
       return if push_token.blank?
-      @devices = PushDevice.where(:token => push_token).first
-      puts "Test push token:#{push_token} if push device exists:#{@devices}"
-      unless @devices.nil?
-        puts "Remove these tokens:#{@devices}"
-        @devices.destroy_all
-        puts 'Destroyed old devices'
+      @device = PushDevice.where(:token => push_token).first
+      puts "Test push token:#{push_token} if push device exists:#{@device}"
+      unless @device.nil?
+        puts "Remove this token:#{@device}"
+        @device.destroy_all
+        puts 'Destroyed old device'
       end
       PushDevice.create_or_update!(:token => push_token, :user_id => self.id)
       puts 'created new push device'
