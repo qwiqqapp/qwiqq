@@ -168,6 +168,12 @@ class Api::UsersController < Api::ApiController
     current_user.events.unread.clear
     render :status => 200, :nothing => true
   end
+  
+  def clear_device
+    @device = PushDevice.where(:token => params[:token])
+    @device.destroy
+    render :status => 200, :nothing => true
+  end
 
   def enable_socialyzer
     requested_user
