@@ -491,7 +491,7 @@ class User < ActiveRecord::Base
       puts "Test push token:#{push_token} if push device exists:#{@device}"
       unless @device.nil?
         puts "Remove this token:#{@device}"
-        @device.destroy_all
+        @device.destroy
         puts 'Destroyed old device'
       end
       PushDevice.create_or_update!(:token => push_token, :user_id => self.id)
