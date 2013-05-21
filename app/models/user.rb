@@ -488,7 +488,8 @@ class User < ActiveRecord::Base
       return if push_token.blank?
       search = String.new(push_token)
       puts "String:#{search}"
-      search = search.upcase.strip
+      search = search.upcase
+      search = search.gsub!(/\s+/, "")
       @device = PushDevice.where(:token => search).first
       puts "Test push token:#{search} if push device exists:#{@device}"
       unless @device.nil?
