@@ -3,8 +3,6 @@ class Deal < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
   include ActionView::Helpers::NumberHelper
   
-  self.per_page = 10
-  
   MAX_AGE = 365*10
   MAX_SEARCH_AGE = 120
   MAX_RANGE = 40234   # default search range in metres (25 miles)

@@ -132,7 +132,7 @@ class Api::ExploreController < Api::ApiController
     result = @deals.page(params[:page])
     string = (@deals.count / result.default_per_page.to_f).ceil.to_s
     response.headers["X-Total-Pages"] = string
-    render :json => paginate(@deals).compact.as_json(options)
+    render :json => paginate(@deals).per(30).compact.as_json(options)
   end
 
   # example: api/search/category/:name/deals
