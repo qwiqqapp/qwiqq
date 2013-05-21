@@ -486,8 +486,10 @@ class User < ActiveRecord::Base
     # or register existing device
     def update_push_token
       return if push_token.blank?
-      @device = PushDevice.where(:token => push_token).first
-      puts "Test push token:#{push_token} if push device exists:#{@device}"
+      search = push_token.downcase
+      search = search.strip
+      @device = PushDevice.where("lower(token) = ?", search).first
+      puts "Test push token:#{search} if push device exists:#{@device}"
       unless @device.nil?
         Urbanairship.unregister_device(push_token)
         puts "Remove this token:#{@device}"
