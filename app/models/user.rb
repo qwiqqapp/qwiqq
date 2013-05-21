@@ -493,7 +493,7 @@ class User < ActiveRecord::Base
       @device = PushDevice.where(:token => search).first
       puts "Test push token:#{search} if push device exists:#{@device}"
       unless @device.nil?
-        Urbanairship.unregister_device(push_token)
+        Urbanairship.unregister_device(search)
         puts "Remove this token:#{@device}"
         @device.destroy
         puts 'Destroyed old device'
