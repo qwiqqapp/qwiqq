@@ -171,7 +171,9 @@ class Api::UsersController < Api::ApiController
   
   def clear_device
     puts "clear device with token:#{params[:token]}"
-    @device = PushDevice.where(:token => params[:token])
+    token = params[:token]
+    Urbanairship.unregister_device(token)
+    @device = PushDevice.where(:token => token)
     @device.destroy
     render :status => 200, :nothing => true
   end

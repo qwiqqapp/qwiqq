@@ -53,7 +53,7 @@ Qwiqq::Application.routes.draw do
       get "suggested",         :on => :collection
       get "events",            :on => :member
       post "clear_events",     :on => :member
-      post "clear_device",     :on => :member
+      post "clear_device",     :on => :collection
       
       post "following" => "relationships#create"
       delete "following/:target_id" => "relationships#destroy"
