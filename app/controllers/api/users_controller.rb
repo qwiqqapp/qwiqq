@@ -170,6 +170,7 @@ class Api::UsersController < Api::ApiController
   end
   
   def clear_device
+    puts "clear device with token:#{params[:token]}"
     @device = PushDevice.where(:token => params[:token])
     @device.destroy
     render :status => 200, :nothing => true
