@@ -318,13 +318,29 @@ class User < ActiveRecord::Base
     twitter_ids = []
     begin
       result = twitter_client.friends(:cursor => (cursor ||= -1))
-      puts 'Twitter friend_ids: '
-      puts result
+      #puts 'Twitter friend_ids: '
+      #puts result
       cursor = result.next_cursor
       #result.users is broken and returning a 405, I think we need to checkout out the new api and update accordingly
       twitter_ids << result.users.map {|f| f["id"].to_s } if result.users
     end while cursor != 0
     twitter_client.friend_ids
+  end
+
+  def friend_ids(*args)
+    puts 'TESTING THE TWITTER MODULE'
+    num_attempts = 0
+    begin
+      num_attempts += 1
+      cursor_from_response_with_user(:ids, nil, :get, "/1.1/friends/ids.json", args, :friend_ids)
+    rescue Twitter::Error::TooManyRequests => error
+      if num_attempts % 3 == 0
+        sleep(15*60) # minutes * 60 seconds
+        retry
+      else
+        retry
+      end
+    end
   end
 
   def socialyzer_enabled?
