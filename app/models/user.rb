@@ -317,9 +317,7 @@ class User < ActiveRecord::Base
     puts "TEST NEW TWITTER"
     twitter_ids = []
     result = twitter_client.friend_ids
-    puts "INSPECT:#{result.inspect}"
-    puts "ATTR:#{result.attrs}"
-    puts "DICT:#{result[:attrs]}"
+    puts "ATTR:#{result.attrs[:ids]}"
     n
   end
 
