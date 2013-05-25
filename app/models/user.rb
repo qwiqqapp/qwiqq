@@ -313,27 +313,12 @@ class User < ActiveRecord::Base
     @foursquare_client ||= Skittles.client(:access_token => foursquare_access_token)
   end
   
-  def twitter_friend_ids_old
-    puts "TEST NEW TWITTER:#{twitter_client.friend_ids}"
-    twitter_ids = []
-    begin
-      result = twitter_client.friends(:cursor => (cursor ||= -1))
-      puts 'Twitter friend_ids: '
-      puts result
-      cursor = result.next_cursor
-      #result.users is broken and returning a 405, I think we need to checkout out the new api and update accordingly
-      twitter_ids << result.users.map {|f| f["id"].to_s } if result.users
-    end while cursor != 0
-    puts "twitter_ids:#{twitter_ids}"
-    twitter_client.friend_ids
-  end
-  
-  
   def twitter_friend_ids
     puts "TEST NEW TWITTER"
     twitter_ids = []
     results = twitter_client.friend_ids
-    twitter_ids << results.attrs[:ids].map {|f| f.to_s } if results
+    twitter_ids = results.attrs[:ids].map {|f| f.to_s } if results
+    #twitter_ids = twitter_ids[0] if twitter_ids.count > 0 #There is an extra array
     twitter_ids
   end
 
