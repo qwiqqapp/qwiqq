@@ -325,7 +325,7 @@ class User < ActiveRecord::Base
       twitter_ids << result.users.map {|f| f["id"].to_s } if result.users
     end while cursor != 0
     n = Twitter.friend_ids
-    puts "MODULE:#{n}"
+    puts "MODULE:#{n.inspect}"
     n
   end
 
