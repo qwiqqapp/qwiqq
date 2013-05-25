@@ -48,16 +48,15 @@ class Api::FriendsController < Api::ApiController
       puts "Twitter ids - #{twitter_ids}"
       friends = User.sorted.where(:twitter_id => twitter_ids).order("first_name, last_name DESC")
       #friends = User.where("twitter_id.to_i IN (?)", twitter_ids).to_a
-      json = Array.new
-      json << friends.map do |friend|
+      json = []
+      json << friends.map.each do |friend|
         puts "Friends id:#{friend.twitter_id}"
         twitter_ids.delete(friend.twitter_id) 
-        friend.as_json(:current_user => current_user).merge({
-          :state => user.following?(friend) ? :following : :not_following })
+        friend.as_json(:current_user => current_user).merge({:state => user.following?(friend) ? :following : :not_following })
       end
-      puts "JSON:#{json}"
       json << twitter_ids
-      render :json => json
+      puts "JSON:#{json}"
+      json
     end
     
     def find_friends_on_facebook(user)
