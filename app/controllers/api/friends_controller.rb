@@ -1,4 +1,5 @@
 class Api::FriendsController < Api::ApiController
+  #NOTE THIS IS OLD, WE NEED TO REPLACE THIS WITH FIND2
   def find
     collection = 
       case params[:service]
@@ -6,6 +7,22 @@ class Api::FriendsController < Api::ApiController
           params[:emails] ? find_friends_by_email(current_user, params[:emails]) : []
         when "twitter"
           find_friends_on_twitter(current_user)
+        when "facebook"
+          find_friends_on_facebook(current_user)
+        else
+          head :not_acceptable and return
+      end
+
+    render :json => collection.as_json
+  end
+
+  def find2
+    collection = 
+      case params[:service]
+        when "email"
+          params[:emails] ? find_friends_by_email(current_user, params[:emails]) : []
+        when "twitter"
+          find_friends_on_twitter2(current_user)
         when "facebook"
           find_friends_on_facebook(current_user)
         else
@@ -41,7 +58,21 @@ class Api::FriendsController < Api::ApiController
       friends.sort_by {|f| f[:username] }
     end
 
+    #NOTE NEEDS TO BE REPLACED BY 2.0
     def find_friends_on_twitter(user)
+      # find twitter friends 
+      puts "find_friends_on_twitter called"
+      twitter_ids = user.twitter_friend_ids
+      friends = User.sorted.where(:twitter_id => twitter_ids).order("first_name, last_name DESC")
+      friends.map do |friend|
+        friend.as_json(:current_user => current_user).merge({
+          :state => user.following?(friend) ? 
+            :following : 
+            :not_following })
+      end
+    end
+
+    def find_friends_on_twitter2(user)
       # find twitter friends 
       puts "find_friends_on_twitter called"
       twitter_ids = user.twitter_friend_ids
@@ -51,15 +82,13 @@ class Api::FriendsController < Api::ApiController
         puts "Friends id:#{friend.twitter_id}"
         twitter_ids.delete(friend.twitter_id) 
         json << friend.as_json(:current_user => current_user).merge({
-          :state => user.following?(friend) ? 
-            :following : 
-            :not_following })
+          :state => user.following?(friend) ? :following : :not_following })
       end
       json << twitter_ids
       render :json => json
       
     end
-
+    
     def find_friends_on_facebook(user)
       user.facebook_friends.map do |friend|
         friend.as_json(:current_user => current_user).merge({
