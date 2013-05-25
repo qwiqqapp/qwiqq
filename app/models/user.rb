@@ -315,15 +315,6 @@ class User < ActiveRecord::Base
   
   def twitter_friend_ids
     puts "TEST NEW TWITTER"
-    twitter_ids = []
-    begin
-      result = twitter_client.friends(:cursor => (cursor ||= -1))
-      #puts 'Twitter friend_ids: '
-      #puts result
-      cursor = result.next_cursor
-      #result.users is broken and returning a 405, I think we need to checkout out the new api and update accordingly
-      twitter_ids << result.users.map {|f| f["id"].to_s } if result.users
-    end while cursor != 0
     n = Twitter.friend_ids
     puts "MODULE:#{n.inspect}"
     n
