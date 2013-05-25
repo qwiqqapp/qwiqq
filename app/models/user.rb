@@ -333,7 +333,7 @@ class User < ActiveRecord::Base
     puts "TEST NEW TWITTER"
     twitter_ids = []
     results = twitter_client.friend_ids
-    twitter_ids << results.attrs[:ids].map {|f| f.to_s } if result
+    twitter_ids << results.attrs[:ids].map {|f| f.to_s } if results
     twitter_ids
   end
 
