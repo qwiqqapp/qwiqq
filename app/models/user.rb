@@ -318,7 +318,7 @@ class User < ActiveRecord::Base
     twitter_ids = []
     result = twitter_client.friend_ids
     puts "ATTR:#{result.attrs[:ids]}"
-    n
+    result.attrs[:ids]
   end
 
   def friend_ids(*args)
