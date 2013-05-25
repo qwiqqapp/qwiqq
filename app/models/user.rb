@@ -324,7 +324,7 @@ class User < ActiveRecord::Base
       #result.users is broken and returning a 405, I think we need to checkout out the new api and update accordingly
       twitter_ids << result.users.map {|f| f["id"].to_s } if result.users
     end while cursor != 0
-    twitter_ids.flatten
+    twitter_client.friend_ids
   end
 
   def socialyzer_enabled?

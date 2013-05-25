@@ -86,7 +86,6 @@ class Api::FriendsController < Api::ApiController
       end
       json << twitter_ids
       render :json => json
-      
     end
     
     def find_friends_on_facebook(user)
