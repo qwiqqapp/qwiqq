@@ -315,8 +315,11 @@ class User < ActiveRecord::Base
   
   def twitter_friend_ids
     puts "TEST NEW TWITTER"
-    n = twitter_client.friend_ids
-    puts "MODULE:#{n.inspect}"
+    twitter_ids = []
+    result = twitter_client.friend_ids
+    puts "INSPECT:#{result.inspect}"
+    puts "ATTR:#{result.attrs}"
+    puts "DICT:#{result[:attrs]}"
     n
   end
 
