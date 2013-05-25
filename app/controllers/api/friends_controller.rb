@@ -76,7 +76,9 @@ class Api::FriendsController < Api::ApiController
       # find twitter friends 
       puts "find_friends_on_twitter called"
       twitter_ids = user.twitter_friend_ids
-      friends = User.sorted.where(:twitter_id => twitter_ids).order("first_name, last_name DESC")
+      puts "Twitter ids - #{twitter_ids}"
+      #friends = User.sorted.where(:twitter_id => twitter_ids).order("first_name, last_name DESC")
+      friends = User.select {|i| twitter_ids.include?(i.twitter_id)}
       json = Array.new
       friends.map do |friend|
         puts "Friends id:#{friend.twitter_id}"
