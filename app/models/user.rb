@@ -315,7 +315,7 @@ class User < ActiveRecord::Base
   
   def twitter_friend_ids
     puts "TEST NEW TWITTER"
-    n = Twitter.friend_ids
+    n = twitter_client.friend_ids
     puts "MODULE:#{n.inspect}"
     n
   end
