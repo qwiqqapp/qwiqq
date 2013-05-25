@@ -54,7 +54,9 @@ class Api::FriendsController < Api::ApiController
         twitter_ids.delete(friend.twitter_id) 
         json << friend.as_json(:current_user => current_user).merge({
           :state => user.following?(friend) ? :following : :not_following })
+        puts "loop JSON:#{json}"
       end
+      puts "JSON:#{json}"
       json << twitter_ids
       render :json => json
     end
