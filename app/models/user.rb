@@ -314,16 +314,13 @@ class User < ActiveRecord::Base
   end
   
   def twitter_friend_ids
-    puts "TEST NEW TWITTER"
     twitter_ids = []
     results = twitter_client.friend_ids
     twitter_ids = results.attrs[:ids].map {|f| f.to_s } if results
-    #twitter_ids = twitter_ids[0] if twitter_ids.count > 0 #There is an extra array
     twitter_ids
   end
 
   def friend_ids(*args)
-    puts 'TESTING THE TWITTER MODULE'
     num_attempts = 0
     begin
       num_attempts += 1
