@@ -313,18 +313,18 @@ class User < ActiveRecord::Base
     @foursquare_client ||= Skittles.client(:access_token => foursquare_access_token)
   end
   
-  def twitter_friend_ids
+  def twitter_follower_ids
     twitter_ids = []
-    results = twitter_client.friend_ids
+    results = twitter_client.follower_ids
     twitter_ids = results.attrs[:ids].map {|f| f.to_s } if results
     twitter_ids
   end
 
-  def friend_ids(*args)
+  def follower_ids(*args)
     num_attempts = 0
     begin
       num_attempts += 1
-      cursor_from_response_with_user(:ids, nil, :get, "/1.1/friends/ids.json", args, :friend_ids)
+      cursor_from_response_with_user(:ids, nil, :get, "/1.1/followers/ids.json", args, :friend_ids)
     rescue Twitter::Error::TooManyRequests => error
       if num_attempts % 3 == 0
         sleep(15*60) # minutes * 60 seconds

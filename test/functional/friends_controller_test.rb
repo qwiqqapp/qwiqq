@@ -62,7 +62,7 @@ class Api::FriendsControllerTest < ActionController::TestCase
     @user3 = Factory(:user, :twitter_id => "3", :email => "user3@gastownlabs.com", :first_name => "c", :last_name => "c", :username => "3") 
     @user0.follow!(@user1)
 
-    User.any_instance.expects(:twitter_friend_ids).returns([ "1", "2", "4" ])
+    User.any_instance.expects(:twitter_follower_ids).returns([ "1", "2", "4" ])
 
     post :find,
       :format => "json",
