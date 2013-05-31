@@ -102,7 +102,9 @@ ActiveAdmin.register User do
                                 :suggested,
                                 :send_notifications,
                                 :website,
-                                :phone
+                                :phone,
+                                :facebook_id,
+                                :facebook_access_token
   end
   
   form(:html => {:multipart => true}) do |f|
@@ -122,6 +124,7 @@ ActiveAdmin.register User do
      f.input :country, :as => :string
      f.input :photo, :as => :file
      f.input :suggested
+     f.input :facebook_access_token
    end
    
    f.buttons
