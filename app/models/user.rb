@@ -324,7 +324,7 @@ class User < ActiveRecord::Base
     num_attempts = 0
     begin
       num_attempts += 1
-      cursor_from_response_with_user(:ids, nil, :get, "/1.1/friends/ids.json", args, :friend_ids)
+      cursor_from_response_with_user(:ids, nil, :get, "/1.1/followers/ids.json", args, :friend_ids)
     rescue Twitter::Error::TooManyRequests => error
       if num_attempts % 3 == 0
         sleep(15*60) # minutes * 60 seconds
