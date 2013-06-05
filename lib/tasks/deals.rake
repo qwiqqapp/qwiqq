@@ -86,6 +86,7 @@ namespace :deals do
          event.hidden = true
          event.save
        end
+       deal.save
      end
   end
 end
