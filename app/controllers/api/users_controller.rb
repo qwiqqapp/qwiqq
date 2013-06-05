@@ -114,7 +114,7 @@ class Api::UsersController < Api::ApiController
       :current_user => current_user,
       :deals => true, 
       :comments => true,
-      :events => @user == current_user && @hidden == false
+      :events => @user == current_user
       )
   end
 
