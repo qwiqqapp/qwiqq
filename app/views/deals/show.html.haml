@@ -100,10 +100,10 @@
               = @deal.shares_count
               
         #events
-          - if @events.public.empty?
+          - if @events.empty?
             .empty
               The latest buzz on this post will show up here
-          - @events.public.each_with_index do |event, i|
+          - @events.each_with_index do |event, i|
             - if event.created_by && event.event_type != "sold"
               - if event.event_type == "comment" && event.mentioned_users
                 .event{ :class => ""}

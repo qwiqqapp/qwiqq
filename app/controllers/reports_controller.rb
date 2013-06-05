@@ -8,7 +8,7 @@ class ReportsController < ApplicationController
         increment_share_average = increment_share_average + deal.shares_count
       end 
       user_ids = []
-      deal.events.public.each do |event|
+      deal.events.each do |event|
         if event.event_type == "share"
           user_ids.push(event.created_by_id.hash)
         end

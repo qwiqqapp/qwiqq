@@ -423,7 +423,7 @@ class User < ActiveRecord::Base
         device_tokens = user_send.push_devices.map(&:token)
         next if device_tokens.blank?
         puts "CREATE BADGE"
-        badge         = user_send.events.public.unread.count
+        badge         = user_send.events.unread.count
         fb_name          = client.me["name"].to_s #CHECK
         notification  = { :device_tokens => device_tokens,
                       :page => "users/#{self.id}",

@@ -72,7 +72,7 @@ class UserEvent < ActiveRecord::Base
     device_tokens = self.user.push_devices.map(&:token)
     return if device_tokens.blank?
     puts 'CREATING PUSH'
-    badge         = self.user.events.public.unread.count
+    badge         = self.user.events.unread.count
     notification  = { :device_tokens => device_tokens,
                       :page => push_page,
                       :aps => { :alert  => push_alert, 
