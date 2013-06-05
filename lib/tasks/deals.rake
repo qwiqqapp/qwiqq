@@ -86,8 +86,11 @@ namespace :deals do
          event.hidden = true
          event.save
        end
+       deal.events_hidden = true
        deal.save
      end
+     puts "success!"
   end
+  
 end
 
