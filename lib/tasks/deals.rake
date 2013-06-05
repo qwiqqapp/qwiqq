@@ -60,7 +60,7 @@ namespace :deals do
    end
   end
   
-    desc "Remove deals older than age"
+  desc "Remove deals older than age"
   task :update_4SQ_deals => :environment do
      deals = Deal.where("foursquare_venue_id IS NOT NULL AND located = false AND foursquare_venue_name IS NULL AND foursquare_venue_id != ''")
      puts "4SQ COUNT:#{deals.count}"
@@ -75,6 +75,18 @@ namespace :deals do
        end
      end
      puts "success!"
+  end
+  
+  desc "Hide user events for hidden deals"
+  task :hide_events_for_deal=> :environment do
+     deals = Deal.where(:hidden => true, :events_hidden => false)
+     puts "Count of deals without hidden events:#{deals.count}"
+     deals.map.each do |deal|
+       deal.events.map.each do |event|
+         event.hidden = true
+         event.save
+       end
+     end
   end
 end
 
