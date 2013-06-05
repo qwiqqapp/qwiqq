@@ -15,7 +15,7 @@ class DealsController < ApplicationController
   
   def show
     @deal = find_deal
-    @events = @deal.events.public
+    @events = @deal.events
     
     puts 'getting ready for the show!'
     
