@@ -273,7 +273,7 @@ class User < ActiveRecord::Base
         #json[:liked_deals] = options[:deals]    ? liked_deals.sorted.limit(6) : nil
         json[:comments] = options[:comments] ? comments.limit(6).as_json(:minimal=>true) : nil
         
-        json[:events] = options[:events]   ? events.limit(20).as_json(:minimal=>true) : nil
+        json[:events] = options[:events]   ? events.public.limit(20).as_json(:minimal=>true) : nil
         
       end
     
@@ -423,7 +423,7 @@ class User < ActiveRecord::Base
         device_tokens = user_send.push_devices.map(&:token)
         next if device_tokens.blank?
         puts "CREATE BADGE"
-        badge         = user_send.events.unread.count
+        badge         = user_send.events.public.unread.count
         fb_name          = client.me["name"].to_s #CHECK
         notification  = { :device_tokens => device_tokens,
                       :page => "users/#{self.id}",

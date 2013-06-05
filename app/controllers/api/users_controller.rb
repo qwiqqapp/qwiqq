@@ -76,7 +76,7 @@ class Api::UsersController < Api::ApiController
 
       #check if user has shared
       scheduler.every '1w' do |job|
-        if @user.events.count == 0
+        if @user.events.public.count == 0
           #user hasn't shared a post yet, send email
           if @user.send_notification
             Mailer.share_post(@user).deliver
@@ -114,7 +114,7 @@ class Api::UsersController < Api::ApiController
       :current_user => current_user,
       :deals => true, 
       :comments => true,
-      :events => @user == current_user
+      :events => @user == current_user && @hidden == false
       )
   end
 
@@ -159,13 +159,13 @@ class Api::UsersController < Api::ApiController
 
   def events
     raise ActiveRecord::RecordNotFound unless params[:id] == "current"
-    @events = current_user.events
+    @events = current_user.events.public
     respond_with paginate(@events)
   end
 
   def clear_events
     raise ActiveRecord::RecordNotFound unless params[:id] == "current"
-    current_user.events.unread.clear
+    current_user.events.public.unread.clear
     render :status => 200, :nothing => true
   end
   

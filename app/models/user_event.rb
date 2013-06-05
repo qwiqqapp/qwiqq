@@ -17,6 +17,7 @@ class UserEvent < ActiveRecord::Base
   validates :user, :presence => true, :unless => :is_on_web?
   validates :created_by, :presence => true, :unless => :is_on_web?
   
+  scope :public, where(:hidden => false)
   scope :read, where(:read => true)
   scope :unread, where(:read => false) do
     def clear
@@ -71,7 +72,7 @@ class UserEvent < ActiveRecord::Base
     device_tokens = self.user.push_devices.map(&:token)
     return if device_tokens.blank?
     puts 'CREATING PUSH'
-    badge         = self.user.events.unread.count
+    badge         = self.user.events.public.unread.count
     notification  = { :device_tokens => device_tokens,
                       :page => push_page,
                       :aps => { :alert  => push_alert, 

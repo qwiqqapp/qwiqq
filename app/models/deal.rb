@@ -182,7 +182,7 @@ class Deal < ActiveRecord::Base
     # add detail if requested
     unless options[:minimal]
       json[:category]       = category.try(:name)
-      json[:events]         = events.limit(60)
+      json[:events]         = events.public.limit(60)
       json[:comments]       = comments.limit(3)
       #Should transactions really be here? - this crashes it
       #json[:transactions]   = transactions.limit(3)

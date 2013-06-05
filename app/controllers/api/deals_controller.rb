@@ -130,7 +130,7 @@ class Api::DealsController < Api::ApiController
 
   def events
     deal = Deal.find(params[:id])
-    respond_with paginate(deal.events)
+    respond_with paginate(deal.events.public)
   end
 
 end
