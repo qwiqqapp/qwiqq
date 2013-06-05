@@ -17,6 +17,7 @@ class UserEvent < ActiveRecord::Base
   validates :user, :presence => true, :unless => :is_on_web?
   validates :created_by, :presence => true, :unless => :is_on_web?
   
+  scope :public, where(:hidden => false)
   scope :read, where(:read => true)
   scope :unread, where(:read => false) do
     def clear
