@@ -14,6 +14,7 @@ ActiveAdmin.register UserEvent do
     column(:event_type)
     column :created_at
     column :updated_at
+    column :hidden
     
     
     default_actions
