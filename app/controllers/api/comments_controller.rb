@@ -26,6 +26,7 @@ class Api::CommentsController < Api::ApiController
       create_comment = true
     else
       unless @previous_comment.body == params[:comment][:body] && @previous_comment.deal.id == @deal.id
+        puts "NEW BODY:#{params[:comment][:body]}"
         create_comment = true
       end
     end
