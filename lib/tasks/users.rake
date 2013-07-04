@@ -48,11 +48,13 @@ namespace :users do
     end
   end
 
-  desc "Update every users deal_count"
-  task :updatew_deal_count => :environment do
-    User.find_each do |user|
-      user.deals_num = Deal.where('user_id=? AND hidden=FALSE',user.id).count
-      user.save
+  desc "Update users location"
+  task :update_location => :environment do
+    users = User.where("city IS NOT NULL AND country IS NOT NULL AND lon IS NULL AND lat IS NULL")
+    puts users.count
+    users.each do |user|
+      res = Geokit::Geocoders::GoogleGeocoder.geocode("#{user.city}, #{user.country}")
+      puts res
     end
   end
 
