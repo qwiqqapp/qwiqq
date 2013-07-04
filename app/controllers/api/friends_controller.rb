@@ -17,7 +17,7 @@ class Api::FriendsController < Api::ApiController
 
   def city
     puts "CITY:#{params[:city]}"
-    @users = User.find(:conditions => [ "lower(city) = ?", params[:city].downcase ])
+    @users = User.where("lower(city) = ?", params[:city].downcase)
     puts "CITY USERS:#{@users}"
     render :json => @users.as_json
   end
