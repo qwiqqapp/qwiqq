@@ -53,8 +53,10 @@ namespace :users do
     users = User.where("city IS NOT NULL AND country IS NOT NULL AND lon IS NULL AND lat IS NULL")
     puts users.count
     users.each do |user|
-      res = Geokit::Geocoders::GoogleGeocoder.geocode("#{user.city}, #{user.country}")
-      puts res
+      s = Geocoder.search("#{user.city}, #{user.country}")
+      user.lat = s[0].latitude
+      user.lon = s[0].longitude
+      user.save
     end
   end
 

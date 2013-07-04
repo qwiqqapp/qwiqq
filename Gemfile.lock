@@ -138,6 +138,7 @@ GEM
     formatador (0.2.4)
     formtastic (2.2.1)
       actionpack (>= 3.0)
+    geocoder (1.1.8)
     geokit (1.6.5)
       multi_json
     guard (1.7.0)
@@ -372,6 +373,7 @@ DEPENDENCIES
   ffaker
   figaro
   flying-sphinx (= 0.8.0)
+  geocoder
   geokit
   guard-test
   haml-rails (~> 0.3.5)
@@ -384,6 +386,7 @@ DEPENDENCIES
   meta_search (>= 1.1.0.pre)
   mocha
   newrelic_rpm
+  nokogiri
   oauth
   paperclip
   paypal (~> 2.0.0)

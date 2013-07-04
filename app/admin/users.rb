@@ -26,6 +26,8 @@ ActiveAdmin.register User do
     column :email
     column :country
     column :city
+    column :lat
+    column :lon
     
     column :followers_count
     column :following_count

@@ -44,6 +44,8 @@ gem "skittles", :git => "https://github.com/NovationMobile/skittles.git"
 gem "httparty"
 gem "rails_autolink"
 gem "socialyzer"
+gem "geocoder"
+gem "nokogiri"
 
 # PayPal
 gem "paypal", "~> 2.0.0"
