@@ -15,6 +15,11 @@ class Api::FriendsController < Api::ApiController
     render :json => collection.as_json
   end
 
+  def city
+    @users = User.where(:city => params[:city])
+    render :json => @users.as_json
+  end
+
   private
     def find_friends_by_email(user, emails)
       # make sure current user isn't in the list of emails

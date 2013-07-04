@@ -103,4 +103,7 @@ class Api::SearchController < Api::ApiController
     options[:current_user] = current_user if current_user
     render :json => @deals.compact.as_json(options)
   end
+
+
+
 end
