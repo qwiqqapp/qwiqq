@@ -23,10 +23,10 @@ class Api::FriendsController < Api::ApiController
   end
 
   def nearby_cities
-    puts "LAT:#{params[:lat]}, LON:#{params[:lon]}"
-    @users = User.all(:conditions => ["lat IN (?) AND lon IN (?)", (params[:lat] - 0.35)..(params[:lat] + 0.35)], (params[:lon] - 0.35)..(params[:lon] + 0.35)])
-    puts "LAT USERS:#{@users}"
-    render :json => @users.as_json
+    # puts "LAT:#{params[:lat]}, LON:#{params[:lon]}"
+    # @users = User.all(:conditions => ["lat IN (?) AND lon IN (?)", (params[:lat] - 0.35)..(params[:lat] + 0.35)], (params[:lon] - 0.35)..(params[:lon] + 0.35)])
+    # puts "LAT USERS:#{@users}"
+    # render :json => @users.as_json
   end
 
   private
