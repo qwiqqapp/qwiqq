@@ -68,7 +68,9 @@ Qwiqq::Application.routes.draw do
       end
       
       post "find_friends" => "friends#find"
-      post "city" => "friends#city"
+      post "city_search" => "friends#city"
+      post "nearby_cities" => "friends#nearby_cities"
+
       get "facebook_pages", :on => :member
     end
     
