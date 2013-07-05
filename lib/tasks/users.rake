@@ -49,7 +49,7 @@ namespace :users do
   end
 
   desc "Update users location"
-  task :update_location => :environment do
+  task :update_location_with_country => :environment do
     users = User.where("city IS NOT NULL AND city != '' AND country IS NOT NULL AND country != '' AND lon IS NULL AND lat IS NULL")
     puts users.count
     users.each do |user|
@@ -73,22 +73,25 @@ namespace :users do
   end
 
   desc "test users location"
-  task :update_location_test => :environment do
-    city = 'Campbell River'
-    country = 'Canada'
-    puts "'#{city}, #{country}'"
-    s = Geocoder.search("#{city}, #{country}")
-    puts 's found'
-    puts s
-    if s && s[0]
-      puts 'start'
-      puts s
-      test = s[0].latitude
-      puts test
-      test = test + 0.5
-      test = test.to_i
-      puts test
-      #puts "lat:#{(s[0].latitude +0.5).to_i} lon:#{(s[0].longitude +0.5).to_i}"
+  task :update_location_with_city => :environment do
+    users = User.where("city IS NOT NULL AND city != '' AND lon IS NULL AND lat IS NULL").where("country IS NULL OR country == ''")
+    puts users.count
+    users.each do |user|
+      if user.city.split(',').count == 2
+        s = Geocoder.search(user.city)
+        if s && s[0]
+          lat = s[0].latitude
+          lat = lat + 0.5
+          lat = lat.to_i
+          lon = s[0].longitude
+          lon = lon + 0.5
+          lon = lon.to_i
+          puts "user:#{user.id} city:#{user.city} lat:#{lat} lon:#{lon}"
+          user.lat = lat
+          user.lon = lon
+          user.save
+        end
+      end
     end
   end
 
