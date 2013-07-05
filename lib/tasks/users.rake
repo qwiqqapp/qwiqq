@@ -70,10 +70,10 @@ namespace :users do
   task :update_location_test => :environment do
     city = 'Campbell River'
     country = 'Canada'
-    puts "#{city}, #{country}"
+    puts "'#{city}, #{country}'"
     x = Geocoder.search('Campbell River, Canada')
     puts 'first'
-    s = Geocoder.search(city, country)
+    s = Geocoder.search("#{city}, #{country}")
     puts 's found'
     puts s
     if s && s[0]
