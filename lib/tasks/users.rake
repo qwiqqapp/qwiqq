@@ -52,7 +52,12 @@ namespace :users do
   task :update_location => :environment do
     users = User.where("city IS NOT NULL AND country IS NOT NULL AND lon IS NULL AND lat IS NULL")
     puts users.count
+    once = true
     users.each do |user|
+      if once
+        puts 'start'
+        once = false
+      end
       s = Geocoder.search("#{user.city}, #{user.country}")
       if s && s[0]
         puts "user:#{user.id} lat:#{(s[0].latitude +0.5).to_i} lon:#{(s[0].longitude +0.5).to_i}"
