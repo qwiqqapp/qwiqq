@@ -16,16 +16,14 @@ class Api::FriendsController < Api::ApiController
   end
 
   def city
-    puts "CITY:#{params[:city]}"
     @users = User.where("lower(city) = ?", params[:city].downcase)
-    puts "CITY USERS:#{@users}"
     render :json => @users.as_json
   end
 
   def nearby_cities
     puts "LAT:#{params[:lat]}, LON:#{params[:lon]}"
     # @users = User.all(:conditions => ["lat IN (?) AND lon IN (?)", (params[:lat] - 0.35)..(params[:lat] + 0.35)], (params[:lon] - 0.35)..(params[:lon] + 0.35)])
-    @users = User.all(:conditions => ["lat IN (?)", (params[:lat] - 0.35)..(params[:lat] + 0.35)])
+    @users = User.all(:conditions => ["lat IN (?)", (params[:lat].to_f - 0.4)..(params[:lat].to_f + 0.4)])
     puts "LAT USERS:#{@users}"
     render :json => @users.as_json
   end
