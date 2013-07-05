@@ -71,12 +71,12 @@ namespace :users do
     city = 'Campbell River'
     country = 'Canada'
     puts "'#{city}, #{country}'"
-    x = Geocoder.search('Campbell River, Canada')
-    puts 'first'
     s = Geocoder.search("#{city}, #{country}")
     puts 's found'
     puts s
     if s && s[0]
+      puts 'start'
+      puts s
       puts "lat:#{(s[0].latitude +0.5).to_i} lon:#{(s[0].longitude +0.5).to_i}"
     end
   end
