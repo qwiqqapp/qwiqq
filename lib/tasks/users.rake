@@ -58,9 +58,15 @@ namespace :users do
       puts "'#{city}', '#{country}'"
       s = Geocoder.search("#{city}, #{country}")
       if s && s[0]
-        puts "user:#{user.id} lat:#{(s[0].latitude +0.5).to_i} lon:#{(s[0].longitude +0.5).to_i}"
-        user.lat = (s[0].latitude +0.5).to_i
-        user.lon = (s[0].longitude +0.5).to_i
+        lat = s[0].latitude
+        lat = lat + 0.5
+        lat = lat.to_i
+        lon = s[0].longitude
+        lon = lon + 0.5
+        lon = lon.to_i
+        puts "user:#{user.id} lat:#{lat} lon:#{lon}"
+        user.lat = lat
+        user.lon = lon
         user.save
       end
     end
