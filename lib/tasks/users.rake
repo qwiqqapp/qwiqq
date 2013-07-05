@@ -72,6 +72,8 @@ namespace :users do
     country = 'Canada'
     puts "#{city}, #{country}"
     s = Geocoder.search(city, country)
+    puts 's found'
+    puts s
     if s && s[0]
       puts "lat:#{(s[0].latitude +0.5).to_i} lon:#{(s[0].longitude +0.5).to_i}"
     end
