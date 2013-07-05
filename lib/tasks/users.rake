@@ -74,7 +74,7 @@ namespace :users do
 
   desc "test users location"
   task :update_location_with_city => :environment do
-    users = User.where("city IS NOT NULL AND city != '' AND lon IS NULL AND lat IS NULL").where("country IS NULL OR country == ''")
+    users = User.where("city IS NOT NULL AND city != '' AND lon IS NULL AND lat IS NULL").where("country IS NULL OR country = ''")
     puts users.count
     users.each do |user|
       if user.city.split(',').count == 2
