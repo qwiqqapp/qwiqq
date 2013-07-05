@@ -54,6 +54,7 @@ namespace :users do
     puts users.count
     users.each do |user|
       s = Geocoder.search("#{user.city}, #{user.country}")
+      puts "user:#{user.id} lat:#{s[0].latitude} lon:#{s[0].longitude}"
       user.lat = s[0].latitude
       user.lon = s[0].longitude
       user.save
