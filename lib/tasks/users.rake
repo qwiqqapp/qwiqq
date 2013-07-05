@@ -66,5 +66,16 @@ namespace :users do
     end
   end
 
+  desc "test users location"
+  task :update_location_test => :environment do
+    city = 'Campbell River'
+    country = 'Canada'
+    puts "#{city}, #{country}"
+    s = Geocoder.search("#{city}, #{country}")
+    if s && s[0]
+      puts "lat:#{(s[0].latitude +0.5).to_i} lon:#{(s[0].longitude +0.5).to_i}"
+    end
+  end
+
 
 end
