@@ -77,8 +77,9 @@ namespace :users do
     if s && s[0]
       puts 'start'
       puts s
-      test = s[0].latitude +0.5
+      test = s[0].latitude
       puts test
+      test = test + 0.5
       test = test.to_i
       puts test
       #puts "lat:#{(s[0].latitude +0.5).to_i} lon:#{(s[0].longitude +0.5).to_i}"
