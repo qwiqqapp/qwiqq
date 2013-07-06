@@ -24,8 +24,7 @@ class Api::FriendsController < Api::ApiController
     lat = params[:lat].to_i
     lon = params[:lon].to_i
     puts "LAT:#{lat}, LON:#{lon}"
-    # @users = User.all(:conditions => ["lat IN (?) AND lon IN (?)", (params[:lat] - 0.35)..(params[:lat] + 0.35)], (params[:lon] - 0.35)..(params[:lon] + 0.35)])
-    @users = User.all(:conditions => ["lat IN (?) AND lon IN (?)", ((lat - 0.4)..(lat + 0.4)), ((lon - 0.4)..(lon + 0.4))])
+    @users = User.all(:conditions => ["lat = (?) AND lon = (?)", lat, lon])
     puts "LAT USERS:#{@users}"
     render :json => @users.as_json
   end
