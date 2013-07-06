@@ -5,7 +5,7 @@ class Api::RelationshipsController < Api::ApiController
       render :status => 405, :json => { :message => 'Unable to follow yourself' }
     else  
       relationship = current_user.follow!(target)
-      target_deals = target.deals.sorted.limit(3)
+      target_deals = target.deals.sorted.public.limit(3)
       if target_deals
          Feedlet.import(target_deals.map {|deal| 
            Feedlet.new(:user_id => current_user.id, 
