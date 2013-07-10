@@ -81,7 +81,8 @@ class Api::DealsController < Api::ApiController
       puts 'create deal'
       @deal.category = category
       @deal.user = current_user
-      if @deal.price < 0.511
+      puts "DEAL PRICE:#{@deal.price} WITH:#{@deal.price.to_f/100}"
+      if @deal.price.to_f/100 < 0.511
         @deal.for_sale_on_paypal = false 
         @deal.num_for_sale = 0
         @deal.num_left_for_sale = 0
