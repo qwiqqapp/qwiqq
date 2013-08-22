@@ -246,6 +246,18 @@ class Deal < ActiveRecord::Base
       "Free"
     end
   end
+
+  def reduced_left_for_sale
+    if num_left_for_sale > 1000000 #millions
+      millions = num_left_for_sale/1000000
+      "#{millions.to_i}m+"
+    elsif num_left_for_sale > 1000 #thousands
+      thousands = num_left_for_sale/1000
+      "#{thousands.to_i}k+"
+    else
+      num_left_for_sale
+    end
+  end
   
   def age_in_words
     created_at ? time_ago_in_words(created_at) : ""

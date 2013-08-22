@@ -46,7 +46,7 @@
                         %span.dollars-large-buy{:style => "position:absolute;left:20px;"}= deal.price_as_string
                       %span.quantity  
                         - if deal.num_left_for_sale > 0
-                          ="#{deal.num_left_for_sale} left"
+                          ="#{deal.reduced_left_for_sale} left"
                         - else
                           .sold
                             Sold Out
