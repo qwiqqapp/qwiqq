@@ -250,14 +250,14 @@ class Deal < ActiveRecord::Base
   def reduced_left_for_sale
     puts "reduced_left_for_sale:#{num_left_for_sale}"
     puts "ID:#{self.id}"
-    if num_left_for_sale > 1000000 #millions
+    if num_left_for_sale >= 1000000 #millions
       puts 'millions'
       millions = num_left_for_sale/1000000
-      "#{millions.to_i}m+"
-    elsif num_left_for_sale > 1000 #thousands
+      "#{millions.to_i}m"
+    elsif num_left_for_sale >= 1000 #thousands
       puts 'thousands'
       thousands = num_left_for_sale/1000
-      "#{thousands.to_i}k+"
+      "#{thousands.to_i}k"
     else
       puts 'nothing special'
       num_left_for_sale
