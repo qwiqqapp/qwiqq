@@ -84,8 +84,13 @@ html, body {
    position:absolute;
    top:6px;
   }
+  .quantity-grid.reduced {
+   margin-left: 4px;
+   width: 74px;
+  }
 }
 @media screen and (min-device-width : 320px) and (max-device-width : 767px) {
+//iphone
   #businesses {
     width: 100%;
   }
@@ -101,7 +106,11 @@ html, body {
    position:absolute;
    top:2px;
    font-size:20px;
-   margin-top:0px;
+  }
+  .quantity-grid.reduced {
+   margin-left: 4px;
+   width: 74px;
+   top:0px;
   }
 }
 
