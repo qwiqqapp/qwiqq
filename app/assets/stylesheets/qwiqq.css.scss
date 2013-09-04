@@ -102,15 +102,16 @@ html, body {
   
   .quantity-grid {
    color:#F47527;
-   margin-left: 10px;
+   margin-left: 8px;
    position:absolute;
    top:2px;
    font-size:20px;
   }
   .quantity-grid.reduced {
+   font-size:19px;
    margin-left: 4px;
    width: 84px;
-   top:0px;
+   top:1px;
   }
 }
 
