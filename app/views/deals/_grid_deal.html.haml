@@ -9,7 +9,7 @@
             %img{:src =>image_path("buy-button.png"), :width => "170"}
             %span.dollars-large{:style => "position:absolute;top:5px;left:20px;font-size:18px;color:#6cb340;"}= grid_deal.price_as_string
             - if grid_deal.num_left_for_sale >= 1000
-              %span.quantity-grid{:style => "top:6px;font-size: 17px;margin-left: 3px;text-align: center;width: 74px;"}
+              %span.quantity-grid{:style => "top:6px;margin-left: 4px;width: 74px;"}
                 ="#{grid_deal.reduced_left_for_sale} left"
             - else
               %span.quantity-grid
