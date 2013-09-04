@@ -6,7 +6,7 @@
       - if grid_deal.for_sale_on_paypal? && grid_deal.num_left_for_sale > 0
         %div{:style => "position:relative;width:100%;margin-top:12px;"}
           %a{:href => "http://qwiqq.me/posts/#{grid_deal.id}/purchase", ":data-remote" => 'true'}
-            %img{:src =>image_path("buy-button.png"), :width => "160"}
+            %img{:src =>image_path("buy-button.png"), :width => "165"}
             %span.dollars-large{:style => "position:absolute;top:5px;left:20px;font-size:18px;color:#6cb340;"}= grid_deal.price_as_string
             - if grid_deal.num_left_for_sale >= 1000
               %span.quantity-grid.reduced
