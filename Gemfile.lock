@@ -356,7 +356,7 @@ PLATFORMS
 
 DEPENDENCIES
   actionpack
-  active_paypal_adaptive_payment
+  active_paypal_adaptive_payment (~> 0.3.16)
   activeadmin (= 0.5.1)
   activerecord-import (= 0.3.0)
   airbrake

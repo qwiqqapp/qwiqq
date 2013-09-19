@@ -95,5 +95,10 @@ namespace :users do
     end
   end
 
+  desc 'test city search'
+  task :city_search, [:city] => [:environment] do |t, args|
+    puts args[:city]
+    puts User.where("lower(city) = (?)", "%#{args[:city].downcase}%")
+  end
 
 end

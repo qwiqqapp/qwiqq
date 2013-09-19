@@ -49,7 +49,7 @@ gem "nokogiri"
 
 # PayPal
 gem "paypal", "~> 2.0.0"
-gem "active_paypal_adaptive_payment"
+gem "active_paypal_adaptive_payment", "~> 0.3.16"
 
 # search
 gem "riddle", "~> 1.5.4"
