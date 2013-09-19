@@ -100,6 +100,8 @@ namespace :users do
     puts 'start'
     puts args[:city]
     puts User.where("lower(city) = (?)", "%#{args[:city].downcase}%")
+    puts 'gg'
+    puts User.where(:city => 'Dallas')
     puts 'end'
   end
 
