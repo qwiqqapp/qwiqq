@@ -99,9 +99,11 @@ namespace :users do
   task :city_search, [:city] => [:environment] do |t, args|
     puts 'start'
     puts args[:city]
-    puts User.where("lower(city) = (?)", "%#{args[:city].downcase}%")
+    n = args[:city].downcase
+    puts n
+    puts User.where("lower(city) like ?", "%#{n}%").count
     puts 'gg'
-    puts User.where(:city => 'Dallas')
+    puts User.where("lower(city) = (?)", "dallas, tx").count
     puts 'end'
   end
 
