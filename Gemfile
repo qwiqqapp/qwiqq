@@ -1,5 +1,5 @@
 source "http://rubygems.org"
-
+ruby "1.9.3"
 # hosting
 gem 'aws-sdk',"1.8.1.2"
 
