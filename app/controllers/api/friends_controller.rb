@@ -20,14 +20,12 @@ class Api::FriendsController < Api::ApiController
     @users = User.where("lower(city) like ?", "%#{city}%")
     render :json => @users.as_json(:current_user => current_user)
   end
-  end
 
   def nearby_cities
     lat = params[:lat].to_i
     lon = params[:lon].to_i
     @users = User.all(:conditions => ["lat = (?) AND lon = (?)", lat, lon])
     render :json => @users.as_json(:current_user => current_user)
-  end
   end
 
   private
