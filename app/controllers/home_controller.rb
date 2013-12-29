@@ -7,8 +7,14 @@ class HomeController < ApplicationController
 
 
   def about
-    @jacks_deals = recent_deals("jack@qwiqq.me")
-    @johns_deals = recent_deals("john@qwiqq.me")
+    puts 'about'
+    @jacks_deals = recent_deals('16')
+    @johns_deals = recent_deals('15')
+    puts '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+    puts 'Jack'
+    puts @jacks_deals
+    puts 'John'
+    puts @johns_deals
   end
 
   def terms
@@ -37,8 +43,9 @@ class HomeController < ApplicationController
     request.url =~ /iphone/i ? 'iphone' : 'application'
   end
     
-    def recent_deals(email)
-      user = User.find_by_email(email)
+    def recent_deals(user_id)
+      user = User.find(user_id)
+      puts user
       user.nil? ? [] : user.deals.sorted.limit(4)
     end
 end
