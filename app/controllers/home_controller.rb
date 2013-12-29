@@ -46,6 +46,6 @@ class HomeController < ApplicationController
     def recent_deals(user_id)
       user = User.find(user_id)
       puts user
-      user.nil? ? [] : user.deals.sorted.limit(4)
+      user.nil? ? [] : user.deals.public.sorted.limit(4)
     end
 end
