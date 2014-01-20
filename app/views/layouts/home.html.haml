@@ -23,6 +23,7 @@
         mvp.setAttribute('content','width=950');
         mvp.setAttribute('content','initial-scale=.34');
       }
+    = render "shared/google_analytics"
 
 %body{ :class => "#{controller_name} #{action_name}" }
 = render "shared/header_home"
@@ -42,5 +43,4 @@
       %img{:src => "/assets/Logo-Top-BW.png", :style => "margin-left: 2%; margin-right: 2%; width: 96%; height: auto;"}/
 
     = render "shared/footer_home"
-= render "shared/google_analytics"
 
