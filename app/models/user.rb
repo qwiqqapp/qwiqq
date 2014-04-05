@@ -93,6 +93,7 @@ class User < ActiveRecord::Base
   
   # create worker to update cached user event attributes
   # Todo fix, currently not working
+  
   # after_save :async_update_cached_user_attributes
   
   validates_confirmation_of :password
