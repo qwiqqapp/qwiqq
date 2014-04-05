@@ -1,0 +1,16 @@
+development:
+  adapter: sqlite3
+  database: db/development.sqlite3
+  pool: 5
+  timeout: 5000
+
+
+production:
+  adapter: postgresql
+  host: ec2-54-225-128-102.compute-1.amazonaws.com
+  encoding: unicode
+  database: de16huuvmk6k5a
+  pool: 5
+  port: 5432
+  username: ud7ra7isq8e3q1
+  password: pat3nsdsst4a449vf04j4cm923p
