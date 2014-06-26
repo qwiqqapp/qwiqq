@@ -41,9 +41,10 @@
                   .name= auto_link(deal.name, :html => { :target => '_blank' })
                   - if deal.for_sale_on_paypal?
                     %div{:style => "position:relative;width:100%;margin-top:12px;"}
-                      %a{:href => "#{deal.id}/purchase", ":data-remote" => 'true'}
-                        %img.buy{:src =>image_path("buy-button.png")}
-                        %span.dollars-large-buy{:style => "position:absolute;left:20px;"}= deal.price_as_string
+                      - if deal.num_left_for_sale > 0
+                        %a{:href => "#{deal.id}/purchase", ":data-remote" => 'true'}
+                          %img.buy{:src =>image_path("buy-button.png")}
+                          %span.dollars-large-buy{:style => "position:absolute;left:20px;"}= deal.price_as_string
                       %span.quantity  
                         - if deal.num_left_for_sale > 0
                           ="#{deal.num_left_for_sale} left"
