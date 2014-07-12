@@ -39,9 +39,8 @@
                 %img.post-photo{ :src => deal.photo(:iphone_zoom_2x), :width => "504", :height => "504" }
                 .clearfix
                   .name= auto_link(deal.name, :html => { :target => '_blank' })
-                  - if deal.for_sale_on_paypal?
+                  - if deal.for_sale_on_paypal? && deal.num_left_for_sale > 0
                     %div{:style => "position:relative;width:100%;margin-top:12px;"}
-                      # - if deal.num_left_for_sale > 0
                       %a{:href => "#{deal.id}/purchase", ":data-remote" => 'true'}
                         %img.buy{:src =>image_path("buy-button.png")}
                         %span.dollars-large-buy{:style => "position:absolute;left:20px;"}= deal.price_as_string
@@ -52,9 +51,19 @@
                           .sold
                             Sold Out
                   - else
-                    .price
-                      .hole
-                      %span.dollars-large{:style=> ""}= deal.price_as_string
+                    %div{:style => "position:relative;width:100%;margin-top:12px;"}
+                      .price
+                        .hole
+                        %span.dollars-large{:style=> ""}= deal.price_as_string
+                      - if deal.for_sale_on_paypal?
+                        %span.quantity  
+                          - if deal.num_left_for_sale > 0
+                            ="#{deal.num_left_for_sale}"
+                            %br
+                            left
+                          - else
+                            .sold
+                              Sold Out
 
 
               .metadata
