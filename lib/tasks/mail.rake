@@ -35,6 +35,22 @@ namespace :mail do
       end
     end
   end
+
+
+  desc "Send out a weekly update of what's up in Qwiqq to Michael"
+  task :update_michael => :environment do
+    #make sure it is a Monday that the email is sent out
+    if Date.today.wday != 1
+      next
+    else
+      user = User.find_by_email("michaelscaria26@gmail.com")
+      if user.send_notifications 
+        deals = Deal.premium.recent.sorted.popular.first(3)
+        Mailer.weekly_update(user, deals).deliver
+        puts ''
+      end
+    end
+  end
   
     # called everyday but checks if specific day to make it weekly updates
   desc "Let Qwiqq users know that there is a free 60 day Constant Contact trial available for them"
