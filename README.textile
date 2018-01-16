@@ -51,43 +51,13 @@ n = APN::Notification.create!(:device => d, :badge => 3, :sound => true, :alert 
 
 </pre></code>
 
-h2. Related Apps
-
-h3. qwiqq-resque
-
-Shares qwiqq-web REDISTOGO_URL instance
-
-* http://qwiqq-resque.heroku.com/
-* username: gastownlabs
-* password: sdf93b3nf092b3n
-
 
 h2. Services
 
-h3. Zerigo (DNS)
-
-* https://ns.zerigo.com/accounts/774730441/domains
-* email: adam|brian|eoin@gastownlabs.com 
-* pass: request reset
-
-h3. PaperTrail (logging)
-
-* https://papertrailapp.com
-* email: adam|brian|eoin@gastownlabs.com
-* pass: request reset
 
 h3. Airbrake (errors)
 
 * on heroku
 
-h3. NewRelic (performance)
-
-* on heroku
-
-h3. PostmarkApp (email send)
-
-* https://postmarkapp.com/servers/24292/overview
-* email: adam@gastownlabs.com
-* pass: mrp1ckl3s
 
 
